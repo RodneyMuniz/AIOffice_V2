@@ -47,13 +47,14 @@ Exit Criteria:
 - Audit note: externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`; see `governance/RST-011_ACCEPTANCE_AUDIT.md`
 
 ### `RST-012` Implement minimal admin-only supervised harness for substrate walk
-- Status: ready
+- Status: done
 - Order: 4
 - Milestone: `R2 Minimum Control Substrate`
 - Depends on: `RST-009`, `RST-010`, `RST-011`
 - Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
 - Durable output: committed admin-only entrypoint or script plus a minimal fixture or example packet path for exercising the substrate
 - Done when: an admin can run a narrow supervised flow that creates or loads a packet, advances it through `architect`-stage artifact handling, evaluates the `apply/promotion` gate, and records allow or block results without broad UI
+- Audit note: externally accepted at commit `4e954ff05f83cf592ccb423bd50973c78cf6f771`; see `governance/RST-012_ACCEPTANCE_AUDIT.md`
 
 ### `RST-013` Connect Git remote and publish current repo snapshot for backup/restore
 - Status: done

@@ -77,3 +77,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the accepted step proves that durable gate contracts exist, that explicit approval, bounded scope, approved artifact linkage, and reconciliation checks exist, and that blocked outcomes are durably recorded back into packet state.
 - Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
 - Consequence: the next gated step is `RST-012` Implement minimal admin-only supervised harness for substrate walk.
+
+## D-0012 RST-012 Accepted After External Audit
+- Date: 2026-04-19
+- Status: accepted
+- Decision: `RST-012` is accepted after external audit at commit `4e954ff05f83cf592ccb423bd50973c78cf6f771`.
+- Consequence: the accepted step proves that a minimal admin-only supervised harness exists, that it can create or load a packet, that it validates stage artifacts through `architect`, that it reuses the accepted packet-record substrate and bounded `apply/promotion` gate, and that it durably records allow or block results without broad UI.
+- Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
+- Consequence: the next gated step is `R2 first bounded V1 proof review`.

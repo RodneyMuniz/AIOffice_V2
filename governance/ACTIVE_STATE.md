@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-19
 
 ## Status Summary
-The repo remains in the first real implementation milestone of the clean reset. `RST-009`, `RST-010`, and `RST-011` are complete and externally accepted, but the first bounded V1 proof is not yet complete.
+The repo remains in `R2 Minimum Control Substrate`. `RST-009`, `RST-010`, `RST-011`, and `RST-012` are complete and externally accepted, the implementation stack for `R2 Minimum Control Substrate` is now complete, but the first bounded V1 proof is not yet formally claimed complete.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -14,28 +14,23 @@ The repo remains in the first real implementation milestone of the clean reset. 
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
-- The next active implementation task is `RST-012`.
+- `RST-012` is externally accepted at commit `4e954ff05f83cf592ccb423bd50973c78cf6f771`.
+- The implementation stack for `R2 Minimum Control Substrate` is now complete.
+- The next gated step is `R2 first bounded V1 proof review`.
 - The backlog is fresh, reset-only, and limited to the smallest control-substrate slice.
 
 ## Not Yet Proved
-- a live end-to-end supervised run through `architect`
 - a reviewed bounded `apply/promotion` action against real artifacts
-- the first bounded V1 proof using the implemented substrate
+- the first bounded V1 proof as a formally reviewed and claimed result
 - any later-lane workflow beyond the first proof boundary
-
-## Still Not Implemented
-- minimal supervised harness
 
 ## Active Milestone
 `R2 Minimum Control Substrate`
 
-This milestone remains active after external acceptance of `RST-011`. The accepted steps prove the stage artifact contract layer through `architect`, the persisted packet-record substrate, and the bounded `apply/promotion` gate, but they do not prove the minimal supervised harness or the first bounded V1 proof.
+This milestone remains active after external acceptance of `RST-012`. The accepted steps now cover the stage artifact contract layer through `architect`, the persisted packet-record substrate, the bounded `apply/promotion` gate, and the minimal admin-only supervised harness, but they do not yet constitute a formally reviewed bounded V1 proof claim.
 
-## Immediate Next Proof Work
-- implement a minimal admin-only supervised harness that exercises the substrate
-
-## Next Active Implementation Task
-- `RST-012` Implement minimal admin-only supervised harness for substrate walk
+## Next Gated Step
+- `R2 first bounded V1 proof review`
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
