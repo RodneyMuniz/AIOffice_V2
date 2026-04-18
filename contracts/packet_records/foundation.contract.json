@@ -1,0 +1,120 @@
+{
+  "contract_version": "v1",
+  "record_type": "packet_record",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_stages": [
+    "intake",
+    "pm",
+    "context_audit",
+    "architect"
+  ],
+  "allowed_stage_statuses": [
+    "pending",
+    "active",
+    "complete",
+    "blocked"
+  ],
+  "allowed_approval_modes": [
+    "not_required",
+    "required"
+  ],
+  "allowed_approval_statuses": [
+    "not_required",
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_artifact_ref_kinds": [
+    "stage_artifact",
+    "supporting"
+  ],
+  "allowed_artifact_ref_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_working_state_statuses": [
+    "draft",
+    "in_progress",
+    "ready_for_review",
+    "blocked"
+  ],
+  "allowed_accepted_state_statuses": [
+    "none",
+    "accepted",
+    "superseded"
+  ],
+  "allowed_reconciliation_statuses": [
+    "not_started",
+    "pending",
+    "matched",
+    "drift",
+    "blocked"
+  ],
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "packet_id",
+    "created_at",
+    "updated_at",
+    "current_stage",
+    "stage_progression",
+    "approval_state",
+    "artifact_refs",
+    "git_refs",
+    "working_state",
+    "accepted_state",
+    "reconciliation_state"
+  ],
+  "stage_progression_required_fields": [
+    "stage",
+    "status",
+    "entered_at",
+    "artifact_ref",
+    "notes"
+  ],
+  "approval_state_required_fields": [
+    "mode",
+    "status",
+    "by",
+    "at",
+    "notes"
+  ],
+  "artifact_ref_required_fields": [
+    "stage",
+    "ref",
+    "kind",
+    "view",
+    "added_at",
+    "notes"
+  ],
+  "git_ref_required_fields": [
+    "branch",
+    "head_commit",
+    "accepted_commit",
+    "accepted_tag",
+    "last_observed_at"
+  ],
+  "working_state_required_fields": [
+    "status",
+    "current_stage",
+    "artifact_refs",
+    "last_local_update_at",
+    "notes"
+  ],
+  "accepted_state_required_fields": [
+    "status",
+    "accepted_stage",
+    "artifact_refs",
+    "accepted_at",
+    "accepted_by",
+    "notes"
+  ],
+  "reconciliation_state_required_fields": [
+    "status",
+    "compared_at",
+    "working_matches_accepted",
+    "git_head_matches_accepted",
+    "notes"
+  ]
+}

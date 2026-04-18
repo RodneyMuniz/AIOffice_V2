@@ -1,0 +1,54 @@
+{
+  "contract_version": "v1",
+  "record_type": "packet_record",
+  "packet_id": "packet-rst010-invalid-002",
+  "created_at": "2026-04-19T11:00:00Z",
+  "updated_at": "2026-04-19T11:05:00Z",
+  "current_stage": "qa",
+  "stage_progression": [
+    {
+      "stage": "intake",
+      "status": "complete",
+      "entered_at": "2026-04-19T11:00:00Z",
+      "artifact_ref": "artifacts/fixtures/valid/intake.valid.json",
+      "notes": "Initial intake entry."
+    }
+  ],
+  "approval_state": {
+    "mode": "required",
+    "status": "approved",
+    "by": "operator:admin",
+    "at": "2026-04-19T11:03:00Z",
+    "notes": "Approval state is valid; stage is not."
+  },
+  "artifact_refs": [],
+  "git_refs": {
+    "branch": "main",
+    "head_commit": "c03e2c3fd83b8bdd353ebb221477a9eb0f605260",
+    "accepted_commit": "b9b3edca10992cc497349d6d35b61da90583f66e",
+    "accepted_tag": null,
+    "last_observed_at": "2026-04-19T11:04:00Z"
+  },
+  "working_state": {
+    "status": "in_progress",
+    "current_stage": "qa",
+    "artifact_refs": [],
+    "last_local_update_at": "2026-04-19T11:04:00Z",
+    "notes": "Current stage is invalid by contract."
+  },
+  "accepted_state": {
+    "status": "none",
+    "accepted_stage": null,
+    "artifact_refs": [],
+    "accepted_at": null,
+    "accepted_by": null,
+    "notes": "No accepted state."
+  },
+  "reconciliation_state": {
+    "status": "not_started",
+    "compared_at": null,
+    "working_matches_accepted": null,
+    "git_head_matches_accepted": null,
+    "notes": "Reconciliation not started."
+  }
+}
