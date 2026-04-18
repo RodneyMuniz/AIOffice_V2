@@ -1,0 +1,35 @@
+# AIOffice
+
+AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
+
+The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That proof has not yet been demonstrated in runtime. Git and persisted state remain the intended truth substrates.
+
+## Start Here
+- `governance/VISION.md`
+- `governance/PROJECT.md`
+- `governance/V1_PRD.md`
+- `governance/OPERATING_MODEL.md`
+- `governance/DECISION_LOG.md`
+- `governance/ACTIVE_STATE.md`
+- `execution/KANBAN.md`
+- `execution/PROJECT_BRAIN.md`
+
+## Current V1 Boundary
+Current V1 is intentionally narrow:
+- admin-only
+- self-build first
+- supervised
+- docs-first or API-first is acceptable
+- no broad UI requirement
+
+## Not Required In Current V1
+- broad UI or control-room proof
+- Standard or subproject pipeline work
+- later-lane live workflow proof beyond `architect`
+- legacy task or milestone migration
+
+## Repo Layout
+- `governance/`
+  Constitutional and operating truth.
+- `execution/`
+  Fresh reset backlog and working primer.
