@@ -1,0 +1,48 @@
+{
+  "contract_version": "v1",
+  "record_type": "supervised_admin_flow_request",
+  "flow_request_id": "flow-rst012-block-001",
+  "operator_id": "operator:admin",
+  "requested_at": "2026-04-19T15:05:00Z",
+  "packet": {
+    "mode": "load",
+    "packet_id": "packet-rst011-allow-001",
+    "packet_record_ref": "state/fixtures/valid/apply_promotion.packet.valid.json",
+    "stage_artifact_refs": {
+      "intake": "artifacts/fixtures/valid/intake.valid.json",
+      "pm": "artifacts/fixtures/valid/pm.valid.json",
+      "context_audit": "artifacts/fixtures/valid/context_audit.valid.json",
+      "architect": "artifacts/fixtures/valid/architect.valid.json"
+    },
+    "approval_status": "approved",
+    "reconciliation_status": "matched",
+    "notes": "Load an existing architect-ready packet into the supervised run store."
+  },
+  "gate_request": {
+    "requested_action": "promotion",
+    "approval": {
+      "status": "pending",
+      "by": null,
+      "at": null,
+      "notes": "Approval intentionally withheld so the supervised harness proves fail-closed blocking."
+    },
+    "scope": {
+      "summary": "Attempt promotion using the same bounded example paths.",
+      "allowed_paths": [
+        "tools",
+        "state/supervised_runs",
+        "state/gate_results",
+        "state/gate_requests"
+      ],
+      "prohibited_paths": [
+        "governance",
+        "execution"
+      ]
+    },
+    "approved_artifact_refs": [
+      "artifacts/fixtures/valid/architect.valid.json"
+    ],
+    "notes": "Evaluate the block path when approval is absent."
+  },
+  "notes": "Example supervised admin block flow."
+}

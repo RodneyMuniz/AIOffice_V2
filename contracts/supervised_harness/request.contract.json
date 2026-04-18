@@ -1,0 +1,17 @@
+{
+  "record_type": "supervised_admin_flow_request",
+  "operator_rules": {
+    "admin_only": true
+  },
+  "packet_rules": {
+    "create_requires_null_packet_record_ref": true,
+    "load_requires_packet_record_ref": true,
+    "stage_artifacts_must_pass_stage_validation": true,
+    "load_copies_packet_into_run_store": true
+  },
+  "gate_rules": {
+    "uses_existing_apply_promotion_gate": true,
+    "durable_gate_request_record_required": true,
+    "durable_allow_or_block_result_required": true
+  }
+}

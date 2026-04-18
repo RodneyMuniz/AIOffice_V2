@@ -1,0 +1,71 @@
+{
+  "contract_version": "v1",
+  "request_record_type": "supervised_admin_flow_request",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:admin([._-][a-z0-9]+)?$",
+  "allowed_packet_modes": [
+    "create",
+    "load"
+  ],
+  "allowed_requested_actions": [
+    "apply",
+    "promotion"
+  ],
+  "allowed_approval_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_packet_approval_statuses": [
+    "pending",
+    "approved"
+  ],
+  "allowed_reconciliation_statuses": [
+    "matched",
+    "pending"
+  ],
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "flow_request_id",
+    "operator_id",
+    "requested_at",
+    "packet",
+    "gate_request",
+    "notes"
+  ],
+  "packet_required_fields": [
+    "mode",
+    "packet_id",
+    "packet_record_ref",
+    "stage_artifact_refs",
+    "approval_status",
+    "reconciliation_status",
+    "notes"
+  ],
+  "stage_artifact_refs_required_fields": [
+    "intake",
+    "pm",
+    "context_audit",
+    "architect"
+  ],
+  "gate_request_required_fields": [
+    "requested_action",
+    "approval",
+    "scope",
+    "approved_artifact_refs",
+    "notes"
+  ],
+  "gate_request_approval_required_fields": [
+    "status",
+    "by",
+    "at",
+    "notes"
+  ],
+  "gate_request_scope_required_fields": [
+    "summary",
+    "allowed_paths",
+    "prohibited_paths"
+  ]
+}
