@@ -27,9 +27,9 @@
       "notes": "Explicit admin approval for bounded apply evaluation."
     },
     "scope": {
-      "summary": "Allow bounded changes only inside harness-owned example paths.",
+      "summary": "Allow one bounded apply outcome artifact inside the dedicated apply or promotion action path.",
       "allowed_paths": [
-        "tools",
+        "state/apply_promotion_actions",
         "state/supervised_runs",
         "state/gate_results",
         "state/gate_requests"
@@ -42,7 +42,7 @@
     "approved_artifact_refs": [
       "artifacts/fixtures/valid/architect.valid.json"
     ],
-    "notes": "Evaluate the allow path once all bounded preconditions are satisfied."
+    "notes": "Evaluate the allow path once all bounded preconditions are satisfied, then materialize one bounded apply outcome artifact."
   },
   "notes": "Example supervised admin allow flow."
 }

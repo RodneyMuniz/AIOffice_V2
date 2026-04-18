@@ -546,6 +546,27 @@ function Add-UniqueBlockReason {
     }
 }
 
+function Get-ArtifactComparisonPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ArtifactRef
+    )
+
+    $candidatePath = if ([System.IO.Path]::IsPathRooted($ArtifactRef)) {
+        $ArtifactRef
+    }
+    else {
+        Join-Path (Get-RepositoryRoot) $ArtifactRef
+    }
+
+    $fullPath = [System.IO.Path]::GetFullPath($candidatePath)
+    if (Test-Path -LiteralPath $fullPath) {
+        return ((Resolve-Path -LiteralPath $fullPath).Path.Replace("/", "\").TrimEnd("\")).ToLowerInvariant()
+    }
+
+    return ($fullPath.Replace("/", "\").TrimEnd("\")).ToLowerInvariant()
+}
+
 function Evaluate-ApprovalPreconditions {
     param(
         [Parameter(Mandatory = $true)]
@@ -627,6 +648,8 @@ function Evaluate-ArtifactLinkagePreconditions {
     $satisfied = $true
     $acceptedRefs = @($PacketRecord.accepted_state.artifact_refs)
     $acceptedViewRefs = @($PacketRecord.artifact_refs | Where-Object { $_.view -eq "accepted" } | Select-Object -ExpandProperty ref)
+    $normalizedAcceptedRefs = @($acceptedRefs | ForEach-Object { Get-ArtifactComparisonPath -ArtifactRef $_ })
+    $normalizedAcceptedViewRefs = @($acceptedViewRefs | ForEach-Object { Get-ArtifactComparisonPath -ArtifactRef $_ })
     $architectApprovedFound = $false
 
     if ($PacketRecord.accepted_state.status -ne "accepted") {
@@ -642,13 +665,14 @@ function Evaluate-ArtifactLinkagePreconditions {
 
     foreach ($artifactRef in $approvedArtifactRefs) {
         $artifactLinked = $true
-        if ($acceptedRefs -notcontains $artifactRef) {
+        $normalizedArtifactRef = Get-ArtifactComparisonPath -ArtifactRef $artifactRef
+        if ($normalizedAcceptedRefs -notcontains $normalizedArtifactRef) {
             Add-UniqueBlockReason -Reasons $Reasons -Code "artifact_linkage_missing" -Summary "Approved artifact '$artifactRef' is not present in packet accepted_state.artifact_refs."
             $artifactLinked = $false
             $satisfied = $false
         }
 
-        if ($acceptedViewRefs -notcontains $artifactRef) {
+        if ($normalizedAcceptedViewRefs -notcontains $normalizedArtifactRef) {
             Add-UniqueBlockReason -Reasons $Reasons -Code "artifact_linkage_missing" -Summary "Approved artifact '$artifactRef' is not present in packet accepted-view artifact_refs."
             $artifactLinked = $false
             $satisfied = $false

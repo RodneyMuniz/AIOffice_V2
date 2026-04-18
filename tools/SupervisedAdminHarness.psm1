@@ -4,6 +4,7 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 Import-Module (Join-Path $PSScriptRoot "StageArtifactValidation.psm1") -Force
 Import-Module (Join-Path $PSScriptRoot "PacketRecordStorage.psm1") -Force
 Import-Module (Join-Path $PSScriptRoot "ApplyPromotionGate.psm1") -Force
+Import-Module (Join-Path $PSScriptRoot "ApplyPromotionAction.psm1") -Force
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -236,6 +237,8 @@ function Get-SupervisedRunPaths {
         PacketStore     = Join-Path $RunRoot "packets"
         GateRequestStore = Join-Path $RunRoot "gate_requests"
         GateResultStore = Join-Path $RunRoot "gate_results"
+        ActionRequestStore = Join-Path $RunRoot "action_requests"
+        ActionResultStore = Join-Path $RunRoot "action_results"
     }
 }
 
@@ -580,6 +583,67 @@ function Save-HarnessGateRequest {
     return $gateRequestPath
 }
 
+function Get-HarnessActionTargetRelativePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        $FlowRequest
+    )
+
+    return ("state/apply_promotion_actions/{0}.{1}.outcome.json" -f $FlowRequest.flow_request_id, $FlowRequest.gate_request.requested_action)
+}
+
+function Save-HarnessActionRequest {
+    param(
+        [Parameter(Mandatory = $true)]
+        $FlowRequest,
+        [Parameter(Mandatory = $true)]
+        [string]$PacketPath,
+        [Parameter(Mandatory = $true)]
+        $SavedGateResult,
+        [Parameter(Mandatory = $true)]
+        $RunPaths
+    )
+
+    Ensure-Directory -Path $RunPaths.ActionRequestStore
+
+    $approvedArtifactRefs = @()
+    $architectArtifactRef = $null
+    foreach ($artifactRef in @($FlowRequest.gate_request.approved_artifact_refs)) {
+        $validatedArtifact = Test-StageArtifactContract -ArtifactPath $artifactRef
+        $approvedArtifactRefs += $validatedArtifact.ArtifactPath
+        if ($validatedArtifact.Stage -eq "architect" -and $null -eq $architectArtifactRef) {
+            $architectArtifactRef = $validatedArtifact.ArtifactPath
+        }
+    }
+
+    if ($null -eq $architectArtifactRef) {
+        throw "Supervised harness allow path requires an approved architect artifact for the bounded action request."
+    }
+
+    $actionRequest = [pscustomobject]@{
+        contract_version     = "v1"
+        record_type          = "apply_promotion_action_request"
+        action_request_id    = ("{0}.action" -f $FlowRequest.flow_request_id)
+        gate_result_ref      = $SavedGateResult.GateResultPath
+        gate_result_id       = $SavedGateResult.GateResult.gate_result_id
+        packet_id            = $FlowRequest.packet.packet_id
+        packet_record_ref    = $PacketPath
+        requested_action     = $FlowRequest.gate_request.requested_action
+        architect_artifact_ref = $architectArtifactRef
+        approved_artifact_refs = $approvedArtifactRefs
+        target_relative_path = Get-HarnessActionTargetRelativePath -FlowRequest $FlowRequest
+        requested_at         = Get-UtcTimestamp
+        requested_by         = $FlowRequest.operator_id
+        notes                = ("Execute one bounded {0} action after an allow gate decision." -f $FlowRequest.gate_request.requested_action)
+    }
+
+    $actionRequestPath = Join-Path $RunPaths.ActionRequestStore ("{0}.request.json" -f $actionRequest.action_request_id)
+    $actionRequest | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath $actionRequestPath -Encoding UTF8
+    Test-ApplyPromotionActionRequestContract -ActionRequestPath $actionRequestPath | Out-Null
+
+    return $actionRequestPath
+}
+
 function Invoke-SupervisedAdminFlow {
     [CmdletBinding()]
     param(
@@ -607,14 +671,31 @@ function Invoke-SupervisedAdminFlow {
     $gateRequestPath = Save-HarnessGateRequest -FlowRequest $flowRequest -PacketPath $packetResult.PacketPath -RunPaths $runPaths
     $gateResult = Invoke-ApplyPromotionGate -GateRequestPath $gateRequestPath
     $savedGateResult = Save-ApplyPromotionGateResult -GateResult $gateResult -StorePath $runPaths.GateResultStore
+    $finalPacketPath = $packetResult.PacketPath
+    $actionRequestPath = $null
+    $actionResultPath = $null
+    $actionOutcomePath = $null
+
+    if ($savedGateResult.GateResult.decision -eq "allow") {
+        Ensure-Directory -Path $runPaths.ActionRequestStore
+        Ensure-Directory -Path $runPaths.ActionResultStore
+        $actionRequestPath = Save-HarnessActionRequest -FlowRequest $flowRequest -PacketPath $packetResult.PacketPath -SavedGateResult $savedGateResult -RunPaths $runPaths
+        $savedActionResult = Invoke-ApplyPromotionAction -ActionRequestPath $actionRequestPath -ResultStorePath $runPaths.ActionResultStore
+        $actionResultPath = $savedActionResult.ActionResultPath
+        $actionOutcomePath = $savedActionResult.ActionOutcomePath
+        $finalPacketPath = $savedActionResult.PacketPath
+    }
 
     return [pscustomobject]@{
         FlowRequestId  = $flowRequest.flow_request_id
         OperatorId     = $flowRequest.operator_id
         PacketMode     = $flowRequest.packet.mode
-        PacketPath     = $packetResult.PacketPath
+        PacketPath     = $finalPacketPath
         GateRequestPath = $gateRequestPath
         GateResultPath = $savedGateResult.GateResultPath
+        ActionRequestPath = $actionRequestPath
+        ActionResultPath = $actionResultPath
+        ActionOutcomePath = $actionOutcomePath
         Decision       = $savedGateResult.GateResult.decision
         RunRoot        = $runPaths.RunRoot
     }

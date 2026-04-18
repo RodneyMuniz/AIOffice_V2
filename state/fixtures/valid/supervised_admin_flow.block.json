@@ -27,9 +27,9 @@
       "notes": "Approval intentionally withheld so the supervised harness proves fail-closed blocking."
     },
     "scope": {
-      "summary": "Attempt promotion using the same bounded example paths.",
+      "summary": "Attempt promotion using the same bounded action path, but without approval.",
       "allowed_paths": [
-        "tools",
+        "state/apply_promotion_actions",
         "state/supervised_runs",
         "state/gate_results",
         "state/gate_requests"
@@ -42,7 +42,7 @@
     "approved_artifact_refs": [
       "artifacts/fixtures/valid/architect.valid.json"
     ],
-    "notes": "Evaluate the block path when approval is absent."
+    "notes": "Evaluate the block path when approval is absent so no bounded action can execute."
   },
   "notes": "Example supervised admin block flow."
 }

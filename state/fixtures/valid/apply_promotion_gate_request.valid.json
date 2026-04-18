@@ -14,10 +14,10 @@
     "notes": "Explicit approval for bounded apply execution."
   },
   "scope": {
-    "summary": "Allow bounded changes only within the packet-owned tool and contract paths.",
+    "summary": "Allow one bounded outcome artifact inside the dedicated apply or promotion action path.",
     "allowed_paths": [
       "contracts/apply_promotion",
-      "tools",
+      "state/apply_promotion_actions",
       "state/gate_results"
     ],
     "prohibited_paths": [

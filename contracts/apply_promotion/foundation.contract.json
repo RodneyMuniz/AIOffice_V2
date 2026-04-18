@@ -2,11 +2,16 @@
   "contract_version": "v1",
   "request_record_type": "apply_promotion_gate_request",
   "result_record_type": "apply_promotion_gate_result",
+  "action_request_record_type": "apply_promotion_action_request",
+  "action_result_record_type": "apply_promotion_action_result",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
   "allowed_requested_actions": [
     "apply",
     "promotion"
+  ],
+  "allowed_action_statuses": [
+    "completed"
   ],
   "allowed_approval_statuses": [
     "pending",
@@ -86,5 +91,46 @@
     "packet_record_ref",
     "recorded_at",
     "notes"
+  ],
+  "action_request_required_fields": [
+    "contract_version",
+    "record_type",
+    "action_request_id",
+    "gate_result_ref",
+    "gate_result_id",
+    "packet_id",
+    "packet_record_ref",
+    "requested_action",
+    "architect_artifact_ref",
+    "approved_artifact_refs",
+    "target_relative_path",
+    "requested_at",
+    "requested_by",
+    "notes"
+  ],
+  "action_result_required_fields": [
+    "contract_version",
+    "record_type",
+    "action_result_id",
+    "action_request_id",
+    "gate_result_ref",
+    "gate_result_id",
+    "packet_id",
+    "packet_record_ref",
+    "requested_action",
+    "executed_at",
+    "status",
+    "target_relative_path",
+    "outcome_path",
+    "packet_state_recorded",
+    "post_action_packet_state",
+    "notes"
+  ],
+  "action_result_post_state_required_fields": [
+    "working_state_status",
+    "working_artifact_refs",
+    "reconciliation_status",
+    "working_matches_accepted",
+    "git_head_matches_accepted"
   ]
 }

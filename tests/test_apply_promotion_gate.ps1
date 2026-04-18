@@ -54,6 +54,7 @@ try {
 
     $allowRequest = Get-JsonFixture -Path $validRequestFixture
     $allowRequest.packet_record_ref = $savedPacketPath
+    $allowRequest.approved_artifact_refs = @((Join-Path $repoRoot "artifacts\fixtures\valid\architect.valid.json"))
     $allowRequestPath = Join-Path $tempRoot "allow.request.json"
     Save-RequestFixture -RequestObject $allowRequest -Path $allowRequestPath
 
@@ -68,6 +69,7 @@ try {
     $savedAllowResult = Save-ApplyPromotionGateResult -GateResult $allowResult -StorePath $resultStore
     $validatedAllowResult = Test-ApplyPromotionGateResultContract -GateResultPath $savedAllowResult.GateResultPath
     Write-Output ("PASS allow path: {0} -> {1}" -f $validatedAllowResult.GateResultId, $validatedAllowResult.Decision)
+    Write-Output "PASS artifact ref normalization: absolute approved artifact ref matched the packet's relative accepted artifact refs."
 
     $missingApprovalRequest = Get-JsonFixture -Path $missingApprovalFixture
     $missingApprovalRequest.packet_record_ref = $savedPacketPath

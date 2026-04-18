@@ -1,0 +1,14 @@
+{
+  "record_type": "apply_promotion_action_request",
+  "gate_rules": {
+    "allow_decision_required": true
+  },
+  "artifact_rules": {
+    "approved_architect_artifact_required": true,
+    "approved_artifacts_must_match_gate_result": true
+  },
+  "scope_rules": {
+    "target_path_must_be_relative": true,
+    "target_path_must_be_within_allowed_scope": true
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "record_type": "apply_promotion_action_result",
+  "result_rules": {
+    "completed_status_required_for_saved_results": true,
+    "outcome_path_required": true,
+    "packet_state_snapshot_required": true
+  }
+}
