@@ -1,0 +1,72 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "pm-rst009-001",
+  "packet_id": "packet-rst009-001",
+  "stage": "pm",
+  "created_at": "2026-04-19T09:15:00Z",
+  "created_by": {
+    "role": "assistant",
+    "id": "codex"
+  },
+  "scope": {
+    "summary": "Convert intake intent into a bounded planning artifact.",
+    "in_scope": [
+      "Define the work packet for stage contract implementation."
+    ],
+    "out_of_scope": [
+      "Implement persisted state substrate."
+    ]
+  },
+  "assumptions": [
+    "The implementation remains local and dependency-light."
+  ],
+  "inputs": [
+    {
+      "kind": "artifact",
+      "ref": "artifacts/fixtures/valid/intake.valid.json",
+      "summary": "Approved intake packet for RST-009."
+    }
+  ],
+  "output": {
+    "problem_statement": "The repo needs durable, machine-checkable contracts for the first four stages.",
+    "success_criteria": [
+      "Each stage has a durable contract file.",
+      "Malformed artifacts are rejected locally."
+    ],
+    "in_scope": [
+      "Contract definitions",
+      "Fixtures",
+      "Validation tooling",
+      "Focused tests"
+    ],
+    "out_of_scope": [
+      "RST-010 persisted state",
+      "RST-011 apply or promotion gate",
+      "RST-012 supervised harness"
+    ],
+    "execution_notes": "Use JSON contract documents with a PowerShell 5.1 validator path."
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "PowerShell 5.1 JSON handling requires explicit object validation helpers."
+    }
+  ],
+  "handoff": {
+    "next_stage": "context_audit",
+    "packet_out": {
+      "summary": "Planning packet ready for context audit.",
+      "artifact_refs": [
+        "artifacts/fixtures/valid/pm.valid.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "required",
+    "status": "approved",
+    "notes": "Operator approved the bounded planning scope for RST-009.",
+    "by": "operator:admin",
+    "at": "2026-04-19T09:20:00Z"
+  }
+}

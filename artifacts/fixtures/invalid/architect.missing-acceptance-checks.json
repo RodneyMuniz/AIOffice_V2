@@ -1,0 +1,62 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "architect-rst009-invalid-001",
+  "packet_id": "packet-rst009-invalid-001",
+  "stage": "architect",
+  "created_at": "2026-04-19T10:30:00Z",
+  "created_by": {
+    "role": "assistant",
+    "id": "codex"
+  },
+  "scope": {
+    "summary": "Malformed architect artifact missing acceptance checks.",
+    "in_scope": [
+      "RST-009 validation failure proof"
+    ],
+    "out_of_scope": [
+      "Valid architect output"
+    ]
+  },
+  "assumptions": [
+    "Architect artifacts must carry explicit acceptance checks."
+  ],
+  "inputs": [
+    {
+      "kind": "artifact",
+      "ref": "artifacts/fixtures/valid/context_audit.valid.json",
+      "summary": "Input artifact."
+    }
+  ],
+  "output": {
+    "change_intent": "This artifact omits acceptance checks and should fail.",
+    "affected_artifacts": [
+      "contracts/stage_artifacts/"
+    ],
+    "non_goals": [
+      "Do not permit malformed architect contracts."
+    ]
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "None."
+    }
+  ],
+  "handoff": {
+    "next_stage": "apply_promotion",
+    "packet_out": {
+      "summary": "Invalid architect packet.",
+      "artifact_refs": [
+        "artifacts/fixtures/invalid/architect.missing-acceptance-checks.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "required",
+    "status": "approved",
+    "notes": "Approval is valid; required output field is not.",
+    "by": "operator:admin",
+    "at": "2026-04-19T10:35:00Z"
+  }
+}

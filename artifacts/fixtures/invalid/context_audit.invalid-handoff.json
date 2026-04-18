@@ -1,0 +1,66 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "context-audit-rst009-invalid-001",
+  "packet_id": "packet-rst009-invalid-001",
+  "stage": "context_audit",
+  "created_at": "2026-04-19T10:20:00Z",
+  "created_by": {
+    "role": "assistant",
+    "id": "codex"
+  },
+  "scope": {
+    "summary": "Malformed context audit artifact with invalid handoff stage.",
+    "in_scope": [
+      "RST-009 validation failure proof"
+    ],
+    "out_of_scope": [
+      "Valid handoff"
+    ]
+  },
+  "assumptions": [
+    "The handoff target must be constrained by stage contract."
+  ],
+  "inputs": [
+    {
+      "kind": "artifact",
+      "ref": "artifacts/fixtures/valid/pm.valid.json",
+      "summary": "Input artifact."
+    }
+  ],
+  "output": {
+    "evidence_summary": "The artifact is malformed because handoff target is not allowed.",
+    "repository_scope": [
+      "governance/",
+      "execution/"
+    ],
+    "findings": [
+      "Validation should reject unapproved stage transitions."
+    ],
+    "open_questions": [
+      "None."
+    ]
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "None."
+    }
+  ],
+  "handoff": {
+    "next_stage": "qa",
+    "packet_out": {
+      "summary": "Invalid context audit packet.",
+      "artifact_refs": [
+        "artifacts/fixtures/invalid/context_audit.invalid-handoff.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "required",
+    "status": "approved",
+    "notes": "Approval is valid; handoff is not.",
+    "by": "operator:admin",
+    "at": "2026-04-19T10:25:00Z"
+  }
+}

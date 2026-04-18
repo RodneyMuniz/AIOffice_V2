@@ -1,0 +1,26 @@
+{
+  "stage": "architect",
+  "allowed_next_stages": [
+    "apply_promotion"
+  ],
+  "required_output_fields": [
+    "change_intent",
+    "affected_artifacts",
+    "acceptance_checks",
+    "non_goals"
+  ],
+  "output_field_types": {
+    "change_intent": "string",
+    "affected_artifacts": "string_array",
+    "acceptance_checks": "string_array",
+    "non_goals": "string_array"
+  },
+  "approval": {
+    "required_mode": "required",
+    "allowed_statuses": [
+      "pending",
+      "approved",
+      "rejected"
+    ]
+  }
+}

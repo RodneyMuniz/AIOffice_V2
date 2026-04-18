@@ -1,0 +1,81 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "allowed_stages": [
+    "intake",
+    "pm",
+    "context_audit",
+    "architect"
+  ],
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_actor_roles": [
+    "operator",
+    "control_kernel",
+    "assistant"
+  ],
+  "allowed_risk_levels": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "approval_allowed_modes": [
+    "not_required",
+    "required"
+  ],
+  "approval_allowed_statuses": [
+    "not_required",
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "common_required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "packet_id",
+    "stage",
+    "created_at",
+    "created_by",
+    "scope",
+    "assumptions",
+    "inputs",
+    "output",
+    "risks",
+    "handoff",
+    "approval"
+  ],
+  "created_by_required_fields": [
+    "role",
+    "id"
+  ],
+  "scope_required_fields": [
+    "summary",
+    "in_scope",
+    "out_of_scope"
+  ],
+  "input_required_fields": [
+    "kind",
+    "ref",
+    "summary"
+  ],
+  "risk_required_fields": [
+    "level",
+    "summary"
+  ],
+  "handoff_required_fields": [
+    "next_stage",
+    "packet_out"
+  ],
+  "packet_out_required_fields": [
+    "summary",
+    "artifact_refs"
+  ],
+  "approval_required_fields": [
+    "mode",
+    "status",
+    "notes",
+    "by",
+    "at"
+  ]
+}

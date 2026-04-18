@@ -1,0 +1,28 @@
+{
+  "stage": "pm",
+  "allowed_next_stages": [
+    "context_audit"
+  ],
+  "required_output_fields": [
+    "problem_statement",
+    "success_criteria",
+    "in_scope",
+    "out_of_scope",
+    "execution_notes"
+  ],
+  "output_field_types": {
+    "problem_statement": "string",
+    "success_criteria": "string_array",
+    "in_scope": "string_array",
+    "out_of_scope": "string_array",
+    "execution_notes": "string"
+  },
+  "approval": {
+    "required_mode": "required",
+    "allowed_statuses": [
+      "pending",
+      "approved",
+      "rejected"
+    ]
+  }
+}

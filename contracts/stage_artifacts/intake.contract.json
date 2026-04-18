@@ -1,0 +1,24 @@
+{
+  "stage": "intake",
+  "allowed_next_stages": [
+    "pm"
+  ],
+  "required_output_fields": [
+    "intent_summary",
+    "requested_outcome",
+    "constraints",
+    "operator_context"
+  ],
+  "output_field_types": {
+    "intent_summary": "string",
+    "requested_outcome": "string",
+    "constraints": "string_array",
+    "operator_context": "string"
+  },
+  "approval": {
+    "required_mode": "not_required",
+    "allowed_statuses": [
+      "not_required"
+    ]
+  }
+}

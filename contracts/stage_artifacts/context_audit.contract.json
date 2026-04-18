@@ -1,0 +1,26 @@
+{
+  "stage": "context_audit",
+  "allowed_next_stages": [
+    "architect"
+  ],
+  "required_output_fields": [
+    "evidence_summary",
+    "repository_scope",
+    "findings",
+    "open_questions"
+  ],
+  "output_field_types": {
+    "evidence_summary": "string",
+    "repository_scope": "string_array",
+    "findings": "string_array",
+    "open_questions": "string_array"
+  },
+  "approval": {
+    "required_mode": "required",
+    "allowed_statuses": [
+      "pending",
+      "approved",
+      "rejected"
+    ]
+  }
+}

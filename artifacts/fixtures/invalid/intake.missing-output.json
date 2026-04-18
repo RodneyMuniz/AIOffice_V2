@@ -1,0 +1,60 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "intake-rst009-invalid-001",
+  "packet_id": "packet-rst009-invalid-001",
+  "stage": "intake",
+  "created_at": "2026-04-19T10:10:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "admin"
+  },
+  "scope": {
+    "summary": "Malformed intake artifact missing a required output field.",
+    "in_scope": [
+      "RST-009 validation failure proof"
+    ],
+    "out_of_scope": [
+      "Valid handoff"
+    ]
+  },
+  "assumptions": [
+    "Malformed artifacts must be rejected."
+  ],
+  "inputs": [
+    {
+      "kind": "user_request",
+      "ref": "task://rst-009",
+      "summary": "Invalid intake fixture."
+    }
+  ],
+  "output": {
+    "intent_summary": "This artifact is missing requested_outcome.",
+    "constraints": [
+      "Still invalid by contract"
+    ],
+    "operator_context": "Testing missing-field rejection."
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "None."
+    }
+  ],
+  "handoff": {
+    "next_stage": "pm",
+    "packet_out": {
+      "summary": "Invalid packet out.",
+      "artifact_refs": [
+        "artifacts/fixtures/invalid/intake.missing-output.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "not_required",
+    "status": "not_required",
+    "notes": "Intake does not require approval.",
+    "by": null,
+    "at": null
+  }
+}

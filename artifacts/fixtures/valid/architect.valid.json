@@ -1,0 +1,76 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "architect-rst009-001",
+  "packet_id": "packet-rst009-001",
+  "stage": "architect",
+  "created_at": "2026-04-19T09:50:00Z",
+  "created_by": {
+    "role": "assistant",
+    "id": "codex"
+  },
+  "scope": {
+    "summary": "Define the bounded change intent for RST-009 only.",
+    "in_scope": [
+      "Stage contract definitions",
+      "Validation entrypoint",
+      "Focused pass fail tests"
+    ],
+    "out_of_scope": [
+      "Persisted state substrate",
+      "Apply or promotion gate runtime",
+      "Broad UI"
+    ]
+  },
+  "assumptions": [
+    "The first proof boundary still stops at architect plus apply or promotion control."
+  ],
+  "inputs": [
+    {
+      "kind": "artifact",
+      "ref": "artifacts/fixtures/valid/context_audit.valid.json",
+      "summary": "Context audit artifact for RST-009."
+    }
+  ],
+  "output": {
+    "change_intent": "Add JSON contract documents, valid and invalid fixtures, a PowerShell validator module and CLI, and a focused test script.",
+    "affected_artifacts": [
+      "contracts/stage_artifacts/",
+      "artifacts/fixtures/",
+      "tools/StageArtifactValidation.psm1",
+      "tools/validate_stage_artifact.ps1",
+      "tests/test_stage_artifact_contracts.ps1"
+    ],
+    "acceptance_checks": [
+      "All valid fixtures pass validation.",
+      "All invalid fixtures are rejected with explicit error messages."
+    ],
+    "non_goals": [
+      "RST-010 persisted state implementation",
+      "RST-011 apply or promotion gate implementation",
+      "RST-012 harness runtime"
+    ]
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "Contract fields may grow once later milestones add state and gate logic."
+    }
+  ],
+  "handoff": {
+    "next_stage": "apply_promotion",
+    "packet_out": {
+      "summary": "Architect-approved contract set ready for bounded apply or promotion review.",
+      "artifact_refs": [
+        "artifacts/fixtures/valid/architect.valid.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "required",
+    "status": "approved",
+    "notes": "Operator approved the bounded architect artifact for contract-only implementation.",
+    "by": "operator:admin",
+    "at": "2026-04-19T10:00:00Z"
+  }
+}

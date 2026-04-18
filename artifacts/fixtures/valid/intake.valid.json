@@ -1,0 +1,64 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "intake-rst009-001",
+  "packet_id": "packet-rst009-001",
+  "stage": "intake",
+  "created_at": "2026-04-19T09:00:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "admin"
+  },
+  "scope": {
+    "summary": "Define durable stage artifact contracts through architect.",
+    "in_scope": [
+      "Machine-checkable contracts for RST-009"
+    ],
+    "out_of_scope": [
+      "Persisted state substrate",
+      "Apply or promotion gate runtime"
+    ]
+  },
+  "assumptions": [
+    "V1 remains admin-only.",
+    "Proof stops at architect plus apply or promotion control."
+  ],
+  "inputs": [
+    {
+      "kind": "user_request",
+      "ref": "task://rst-009",
+      "summary": "Implement durable stage artifact contracts through architect."
+    }
+  ],
+  "output": {
+    "intent_summary": "Create durable contract files, fixtures, validator, and tests for the first four stages.",
+    "requested_outcome": "A locally callable validation path exists for intake, pm, context_audit, and architect artifacts.",
+    "constraints": [
+      "Implement RST-009 only.",
+      "Do not build the full runtime harness."
+    ],
+    "operator_context": "The repo contains governance baseline docs but no existing artifact contract scaffold."
+  },
+  "risks": [
+    {
+      "level": "low",
+      "summary": "Field names may need refinement once persisted state work begins."
+    }
+  ],
+  "handoff": {
+    "next_stage": "pm",
+    "packet_out": {
+      "summary": "Bounded intake packet ready for planning.",
+      "artifact_refs": [
+        "artifacts/fixtures/valid/intake.valid.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "not_required",
+    "status": "not_required",
+    "notes": "Intake capture does not require approval before it exists.",
+    "by": null,
+    "at": null
+  }
+}

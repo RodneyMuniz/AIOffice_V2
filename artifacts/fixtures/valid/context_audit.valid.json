@@ -1,0 +1,69 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "stage_artifact",
+  "artifact_id": "context-audit-rst009-001",
+  "packet_id": "packet-rst009-001",
+  "stage": "context_audit",
+  "created_at": "2026-04-19T09:30:00Z",
+  "created_by": {
+    "role": "assistant",
+    "id": "codex"
+  },
+  "scope": {
+    "summary": "Capture the evidence basis for RST-009 implementation.",
+    "in_scope": [
+      "Current repo structure",
+      "Active milestone scope"
+    ],
+    "out_of_scope": [
+      "Donor code import"
+    ]
+  },
+  "assumptions": [
+    "The repo currently contains docs only."
+  ],
+  "inputs": [
+    {
+      "kind": "artifact",
+      "ref": "artifacts/fixtures/valid/pm.valid.json",
+      "summary": "Planning artifact defining the bounded work packet."
+    }
+  ],
+  "output": {
+    "evidence_summary": "The repo contains governance and execution docs only, with no pre-existing contract scaffold.",
+    "repository_scope": [
+      "README.md",
+      "governance/",
+      "execution/"
+    ],
+    "findings": [
+      "PowerShell 5.1 is available locally.",
+      "Python is not available in PATH."
+    ],
+    "open_questions": [
+      "Persisted state representation remains deferred to RST-010."
+    ]
+  },
+  "risks": [
+    {
+      "level": "medium",
+      "summary": "Any validator must stay compatible with PowerShell 5.1."
+    }
+  ],
+  "handoff": {
+    "next_stage": "architect",
+    "packet_out": {
+      "summary": "Context-audited packet ready for architecture definition.",
+      "artifact_refs": [
+        "artifacts/fixtures/valid/context_audit.valid.json"
+      ]
+    }
+  },
+  "approval": {
+    "mode": "required",
+    "status": "approved",
+    "notes": "Operator approved the evidence basis for contract-only implementation.",
+    "by": "operator:admin",
+    "at": "2026-04-19T09:40:00Z"
+  }
+}
