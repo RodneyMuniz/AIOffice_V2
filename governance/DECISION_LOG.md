@@ -69,3 +69,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: non-blocking caution recorded for future hardening: validator integrity is still permissive in one area and the current implementation does not yet enforce stricter chronology between `accepted_state` and `current_stage` / `stage_progression`.
 - Consequence: this caution did not block acceptance because `RST-010` done criteria were still met.
 - Consequence: the next gated step is `RST-011` Implement bounded `apply/promotion` gate with fail-closed checks.
+
+## D-0011 RST-011 Accepted After External Audit
+- Date: 2026-04-19
+- Status: accepted
+- Decision: `RST-011` is accepted after external audit at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
+- Consequence: the accepted step proves that durable gate contracts exist, that explicit approval, bounded scope, approved artifact linkage, and reconciliation checks exist, and that blocked outcomes are durably recorded back into packet state.
+- Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
+- Consequence: the next gated step is `RST-012` Implement minimal admin-only supervised harness for substrate walk.

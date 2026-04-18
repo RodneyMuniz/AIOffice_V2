@@ -37,13 +37,14 @@ Exit Criteria:
 - Audit note: externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`; see `governance/RST-010_ACCEPTANCE_AUDIT.md`
 
 ### `RST-011` Implement bounded `apply/promotion` gate with fail-closed checks
-- Status: ready
+- Status: done
 - Order: 3
 - Milestone: `R2 Minimum Control Substrate`
 - Depends on: `RST-009`, `RST-010`
 - Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
 - Durable output: committed gate contract and checks for explicit approval, bounded mutation scope, linked approved artifact set, and blocked-state recording
 - Done when: the gate refuses mutation or promotion unless approval, scope, artifact linkage, and reconciliation preconditions are satisfied, and blocked outcomes are durably recorded
+- Audit note: externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`; see `governance/RST-011_ACCEPTANCE_AUDIT.md`
 
 ### `RST-012` Implement minimal admin-only supervised harness for substrate walk
 - Status: ready
