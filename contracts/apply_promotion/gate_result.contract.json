@@ -1,0 +1,11 @@
+{
+  "record_type": "apply_promotion_gate_result",
+  "decision_rules": {
+    "allow_requires_no_block_reasons": true,
+    "blocked_requires_block_reasons": true
+  },
+  "blocked_state_rules": {
+    "blocked_decision_may_be_recorded_back_into_packet_state": true,
+    "allow_decision_must_not_record_blocked_state": true
+  }
+}

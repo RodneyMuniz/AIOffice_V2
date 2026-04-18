@@ -1,0 +1,25 @@
+{
+  "record_type": "apply_promotion_gate_request",
+  "approval_rules": {
+    "explicit_approval_required": true,
+    "required_status": "approved"
+  },
+  "scope_rules": {
+    "allowed_paths_are_required_for_allow": true,
+    "relative_paths_only": true,
+    "no_parent_traversal": true,
+    "no_globs": true
+  },
+  "artifact_linkage_rules": {
+    "approved_artifacts_required_for_allow": true,
+    "approved_artifacts_must_exist_in_packet_accepted_state": true,
+    "approved_artifacts_must_exist_in_packet_accepted_view": true,
+    "approved_artifacts_must_pass_stage_validation": true,
+    "approved_architect_artifact_required": true
+  },
+  "reconciliation_rules": {
+    "required_status": "matched",
+    "require_working_matches_accepted": true,
+    "require_git_head_matches_accepted": true
+  }
+}

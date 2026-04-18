@@ -1,0 +1,90 @@
+{
+  "contract_version": "v1",
+  "request_record_type": "apply_promotion_gate_request",
+  "result_record_type": "apply_promotion_gate_result",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_requested_actions": [
+    "apply",
+    "promotion"
+  ],
+  "allowed_approval_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_decisions": [
+    "allow",
+    "blocked"
+  ],
+  "allowed_reason_codes": [
+    "approval_missing",
+    "approval_rejected",
+    "scope_missing",
+    "scope_ambiguous",
+    "scope_unbounded",
+    "artifact_linkage_missing",
+    "artifact_not_approved",
+    "architect_artifact_missing",
+    "reconciliation_unresolved",
+    "reconciliation_failed"
+  ],
+  "request_required_fields": [
+    "contract_version",
+    "record_type",
+    "gate_request_id",
+    "packet_id",
+    "packet_record_ref",
+    "requested_action",
+    "requested_at",
+    "requested_by",
+    "approval",
+    "scope",
+    "approved_artifact_refs",
+    "notes"
+  ],
+  "request_approval_required_fields": [
+    "status",
+    "by",
+    "at",
+    "notes"
+  ],
+  "request_scope_required_fields": [
+    "summary",
+    "allowed_paths",
+    "prohibited_paths"
+  ],
+  "result_required_fields": [
+    "contract_version",
+    "record_type",
+    "gate_result_id",
+    "gate_request_id",
+    "packet_id",
+    "packet_record_ref",
+    "requested_action",
+    "decided_at",
+    "decision",
+    "preconditions",
+    "scope",
+    "approved_artifact_refs",
+    "block_reasons",
+    "blocked_state_record",
+    "notes"
+  ],
+  "result_precondition_required_fields": [
+    "approval",
+    "scope",
+    "artifact_linkage",
+    "reconciliation"
+  ],
+  "block_reason_required_fields": [
+    "code",
+    "summary"
+  ],
+  "blocked_state_record_required_fields": [
+    "recorded",
+    "packet_record_ref",
+    "recorded_at",
+    "notes"
+  ]
+}

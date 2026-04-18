@@ -1,0 +1,31 @@
+{
+  "contract_version": "v1",
+  "record_type": "apply_promotion_gate_request",
+  "gate_request_id": "gate-rst011-block-approval-001",
+  "packet_id": "packet-rst011-allow-001",
+  "packet_record_ref": "state/fixtures/valid/apply_promotion.packet.valid.json",
+  "requested_action": "apply",
+  "requested_at": "2026-04-19T13:16:00Z",
+  "requested_by": "operator:admin",
+  "approval": {
+    "status": "pending",
+    "by": null,
+    "at": null,
+    "notes": "Approval has not been completed."
+  },
+  "scope": {
+    "summary": "Attempt to apply within the same bounded paths.",
+    "allowed_paths": [
+      "contracts/apply_promotion",
+      "tools"
+    ],
+    "prohibited_paths": [
+      "governance",
+      "execution"
+    ]
+  },
+  "approved_artifact_refs": [
+    "artifacts/fixtures/valid/architect.valid.json"
+  ],
+  "notes": "Gate request should block because explicit approval is missing."
+}

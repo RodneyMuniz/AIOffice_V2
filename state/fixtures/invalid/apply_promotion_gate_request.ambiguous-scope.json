@@ -1,0 +1,30 @@
+{
+  "contract_version": "v1",
+  "record_type": "apply_promotion_gate_request",
+  "gate_request_id": "gate-rst011-block-scope-001",
+  "packet_id": "packet-rst011-allow-001",
+  "packet_record_ref": "state/fixtures/valid/apply_promotion.packet.valid.json",
+  "requested_action": "apply",
+  "requested_at": "2026-04-19T13:16:00Z",
+  "requested_by": "operator:admin",
+  "approval": {
+    "status": "approved",
+    "by": "operator:admin",
+    "at": "2026-04-19T13:16:00Z",
+    "notes": "Approval exists, but scope is ambiguous."
+  },
+  "scope": {
+    "summary": "Attempt to apply using an ambiguous wildcard scope.",
+    "allowed_paths": [
+      "tools/*"
+    ],
+    "prohibited_paths": [
+      "governance",
+      "execution"
+    ]
+  },
+  "approved_artifact_refs": [
+    "artifacts/fixtures/valid/architect.valid.json"
+  ],
+  "notes": "Gate request should block because wildcard scope is ambiguous."
+}
