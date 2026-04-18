@@ -1,0 +1,1 @@
+git status --short returned no output before proof-review evidence files were created.

@@ -1,0 +1,96 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "packet_record",
+    "packet_id":  "packet-rst011-allow-001",
+    "created_at":  "2026-04-19T13:00:00Z",
+    "updated_at":  "2026-04-18T14:50:19Z",
+    "current_stage":  "architect",
+    "stage_progression":  [
+                              {
+                                  "stage":  "intake",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T13:00:00Z",
+                                  "artifact_ref":  "artifacts/fixtures/valid/intake.valid.json",
+                                  "notes":  "Initial intake recorded."
+                              },
+                              {
+                                  "stage":  "pm",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T13:04:00Z",
+                                  "artifact_ref":  "artifacts/fixtures/valid/pm.valid.json",
+                                  "notes":  "Planning recorded."
+                              },
+                              {
+                                  "stage":  "context_audit",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T13:08:00Z",
+                                  "artifact_ref":  "artifacts/fixtures/valid/context_audit.valid.json",
+                                  "notes":  "Context audit recorded."
+                              },
+                              {
+                                  "stage":  "architect",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T13:12:00Z",
+                                  "artifact_ref":  "artifacts/fixtures/valid/architect.valid.json",
+                                  "notes":  "Architect stage completed."
+                              }
+                          ],
+    "approval_state":  {
+                           "mode":  "required",
+                           "status":  "approved",
+                           "by":  "operator:admin",
+                           "at":  "2026-04-19T13:13:00Z",
+                           "notes":  "Explicit operator approval recorded for bounded apply review."
+                       },
+    "artifact_refs":  [
+                          {
+                              "stage":  "architect",
+                              "ref":  "artifacts/fixtures/valid/architect.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T13:12:00Z",
+                              "notes":  "Current working architect artifact."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "artifacts/fixtures/valid/architect.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "accepted",
+                              "added_at":  "2026-04-19T13:13:00Z",
+                              "notes":  "Accepted architect artifact."
+                          }
+                      ],
+    "git_refs":  {
+                     "branch":  "main",
+                     "head_commit":  "85586d46bbe6cfa2c5ea8e1b729d700be39ae415",
+                     "accepted_commit":  "85586d46bbe6cfa2c5ea8e1b729d700be39ae415",
+                     "accepted_tag":  null,
+                     "last_observed_at":  "2026-04-19T13:14:00Z"
+                 },
+    "working_state":  {
+                          "status":  "blocked",
+                          "current_stage":  "architect",
+                          "artifact_refs":  [
+                                                "artifacts/fixtures/valid/architect.valid.json"
+                                            ],
+                          "last_local_update_at":  "2026-04-18T14:50:19Z",
+                          "notes":  "Working state is aligned with the accepted architect artifact. | Gate blocked by flow-rst012-block-001.result; reasons: approval_missing, artifact_linkage_missing, artifact_linkage_missing; result: C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1\\runs\\block\\gate_results\\flow-rst012-block-001.result.json"
+                      },
+    "accepted_state":  {
+                           "status":  "accepted",
+                           "accepted_stage":  "architect",
+                           "artifact_refs":  [
+                                                 "artifacts/fixtures/valid/architect.valid.json"
+                                             ],
+                           "accepted_at":  "2026-04-19T13:13:00Z",
+                           "accepted_by":  "operator:admin",
+                           "notes":  "Architect artifact is the accepted truth for the bounded apply review."
+                       },
+    "reconciliation_state":  {
+                                 "status":  "matched",
+                                 "compared_at":  "2026-04-19T13:15:00Z",
+                                 "working_matches_accepted":  true,
+                                 "git_head_matches_accepted":  true,
+                                 "notes":  "Working, accepted, and Git-visible state are reconciled."
+                             }
+}

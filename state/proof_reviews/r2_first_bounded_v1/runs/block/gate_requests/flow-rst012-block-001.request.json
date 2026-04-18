@@ -1,0 +1,33 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_gate_request",
+    "gate_request_id":  "flow-rst012-block-001",
+    "packet_id":  "packet-rst011-allow-001",
+    "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1\\runs\\block\\packets\\packet-rst011-allow-001.json",
+    "requested_action":  "promotion",
+    "requested_at":  "2026-04-18T14:50:19Z",
+    "requested_by":  "operator:admin",
+    "approval":  {
+                     "status":  "pending",
+                     "by":  null,
+                     "at":  null,
+                     "notes":  "Approval intentionally withheld so the supervised harness proves fail-closed blocking."
+                 },
+    "scope":  {
+                  "summary":  "Attempt promotion using the same bounded example paths.",
+                  "allowed_paths":  [
+                                        "tools",
+                                        "state/supervised_runs",
+                                        "state/gate_results",
+                                        "state/gate_requests"
+                                    ],
+                  "prohibited_paths":  [
+                                           "governance",
+                                           "execution"
+                                       ]
+              },
+    "approved_artifact_refs":  [
+                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                               ],
+    "notes":  "Evaluate the block path when approval is absent."
+}

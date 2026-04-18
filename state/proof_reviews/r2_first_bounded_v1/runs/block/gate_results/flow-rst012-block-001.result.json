@@ -1,0 +1,54 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_gate_result",
+    "gate_result_id":  "flow-rst012-block-001.result",
+    "gate_request_id":  "flow-rst012-block-001",
+    "packet_id":  "packet-rst011-allow-001",
+    "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1\\runs\\block\\packets\\packet-rst011-allow-001.json",
+    "requested_action":  "promotion",
+    "decided_at":  "2026-04-18T14:50:19Z",
+    "decision":  "blocked",
+    "preconditions":  {
+                          "approval":  false,
+                          "scope":  true,
+                          "artifact_linkage":  false,
+                          "reconciliation":  true
+                      },
+    "scope":  {
+                  "summary":  "Attempt promotion using the same bounded example paths.",
+                  "allowed_paths":  [
+                                        "tools",
+                                        "state/supervised_runs",
+                                        "state/gate_results",
+                                        "state/gate_requests"
+                                    ],
+                  "prohibited_paths":  [
+                                           "governance",
+                                           "execution"
+                                       ]
+              },
+    "approved_artifact_refs":  [
+                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                               ],
+    "block_reasons":  [
+                          {
+                              "code":  "approval_missing",
+                              "summary":  "Gate request approval is not explicitly approved."
+                          },
+                          {
+                              "code":  "artifact_linkage_missing",
+                              "summary":  "Approved artifact \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json\u0027 is not present in packet accepted_state.artifact_refs."
+                          },
+                          {
+                              "code":  "artifact_linkage_missing",
+                              "summary":  "Approved artifact \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json\u0027 is not present in packet accepted-view artifact_refs."
+                          }
+                      ],
+    "blocked_state_record":  {
+                                 "recorded":  true,
+                                 "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1\\runs\\block\\packets\\packet-rst011-allow-001.json",
+                                 "recorded_at":  "2026-04-18T14:50:19Z",
+                                 "notes":  "Blocked gate outcome recorded back into persisted packet state."
+                             },
+    "notes":  "Apply/promotion gate blocked fail-closed."
+}

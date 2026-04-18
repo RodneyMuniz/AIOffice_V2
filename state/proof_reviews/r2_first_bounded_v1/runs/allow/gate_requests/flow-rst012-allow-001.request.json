@@ -1,0 +1,33 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_gate_request",
+    "gate_request_id":  "flow-rst012-allow-001",
+    "packet_id":  "packet-rst012-allow-001",
+    "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1\\runs\\allow\\packets\\packet-rst012-allow-001.json",
+    "requested_action":  "apply",
+    "requested_at":  "2026-04-18T14:50:19Z",
+    "requested_by":  "operator:admin",
+    "approval":  {
+                     "status":  "approved",
+                     "by":  "operator:admin",
+                     "at":  "2026-04-19T15:00:00Z",
+                     "notes":  "Explicit admin approval for bounded apply evaluation."
+                 },
+    "scope":  {
+                  "summary":  "Allow bounded changes only inside harness-owned example paths.",
+                  "allowed_paths":  [
+                                        "tools",
+                                        "state/supervised_runs",
+                                        "state/gate_results",
+                                        "state/gate_requests"
+                                    ],
+                  "prohibited_paths":  [
+                                           "governance",
+                                           "execution"
+                                       ]
+              },
+    "approved_artifact_refs":  [
+                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                               ],
+    "notes":  "Evaluate the allow path once all bounded preconditions are satisfied."
+}
