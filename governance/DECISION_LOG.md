@@ -51,3 +51,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: The current work is limited to four ordered tasks only: stage artifact contracts through `architect`, persisted state substrate, bounded `apply/promotion` gate, and a minimal admin-only supervised harness.
 - Consequence: This milestone prepares the minimum real control substrate needed for the first bounded proof while keeping live workflow proof stopped at `architect`.
 - Consequence: Broad UI, Standard or subproject pipeline work, later-lane workflow, and donor backlog import remain out of scope for the current slice.
+
+## D-0009 RST-009 Accepted After External Audit
+- Date: 2026-04-19
+- Status: accepted
+- Decision: `RST-009` is accepted after external audit at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
+- Consequence: the accepted step proves that durable stage artifact contracts exist for `intake`, `pm`, `context_audit`, and `architect`, that a validator path exists, and that malformed artifacts are rejected.
+- Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
+- Consequence: the next gated step is `RST-010` Implement persisted state substrate for packet and truth reconciliation.

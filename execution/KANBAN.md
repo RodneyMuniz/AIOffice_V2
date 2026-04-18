@@ -17,13 +17,14 @@ Exit Criteria:
 ## Tasks
 
 ### `RST-009` Implement stage artifact contracts through `architect`
-- Status: ready
+- Status: done
 - Order: 1
 - Milestone: `R2 Minimum Control Substrate`
 - Depends on: none
 - Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
 - Durable output: committed artifact templates or schemas plus validation rules for `intake`, `pm`, `context_audit`, and `architect`
 - Done when: each required stage has a durable repo-defined contract with required fields, approval-state support where needed, and a validation path that rejects malformed artifacts
+- Audit note: externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`; see `governance/RST-009_ACCEPTANCE_AUDIT.md`
 
 ### `RST-010` Implement persisted state substrate for packet and truth reconciliation
 - Status: ready
