@@ -27,13 +27,14 @@ Exit Criteria:
 - Audit note: externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`; see `governance/RST-009_ACCEPTANCE_AUDIT.md`
 
 ### `RST-010` Implement persisted state substrate for packet and truth reconciliation
-- Status: ready
+- Status: done
 - Order: 2
 - Milestone: `R2 Minimum Control Substrate`
 - Depends on: `RST-009`
 - Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/MINIMAL_DONOR_IMPORT_PLAN.md`
 - Durable output: committed state schema and storage implementation for packet identity, stage progression, approvals, artifact references, Git references, and reconciliation status
 - Done when: the repo can persist and reload packet records while keeping local working state, accepted artifact state, and reconciliation state distinct
+- Audit note: externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`; see `governance/RST-010_ACCEPTANCE_AUDIT.md`
 
 ### `RST-011` Implement bounded `apply/promotion` gate with fail-closed checks
 - Status: ready

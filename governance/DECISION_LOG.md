@@ -59,3 +59,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the accepted step proves that durable stage artifact contracts exist for `intake`, `pm`, `context_audit`, and `architect`, that a validator path exists, and that malformed artifacts are rejected.
 - Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
 - Consequence: the next gated step is `RST-010` Implement persisted state substrate for packet and truth reconciliation.
+
+## D-0010 RST-010 Accepted After External Audit
+- Date: 2026-04-19
+- Status: accepted
+- Decision: `RST-010` is accepted after external audit at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
+- Consequence: the accepted step proves that durable packet-record contracts exist, that packet records persist and reload, and that packet identity, stage progression, approvals, artifact refs, Git refs, and reconciliation state are durably represented.
+- Consequence: the accepted step proves that working state, accepted state, and reconciliation state are kept distinct.
+- Consequence: non-blocking caution recorded for future hardening: validator integrity is still permissive in one area and the current implementation does not yet enforce stricter chronology between `accepted_state` and `current_stage` / `stage_progression`.
+- Consequence: this caution did not block acceptance because `RST-010` done criteria were still met.
+- Consequence: the next gated step is `RST-011` Implement bounded `apply/promotion` gate with fail-closed checks.
