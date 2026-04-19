@@ -3,70 +3,98 @@
 This board tracks the current reset implementation milestone only.
 
 ## Active Milestone
-`R2 Minimum Control Substrate`
+`R3 Governed Work Objects and Double-Audit Foundations`
 
 Objective:
-Make the minimum real control substrate needed for the first bounded V1 proof without widening scope beyond admin-only supervised operation through `architect` plus bounded `apply/promotion` control.
+Turn the current control substrate into governed work objects, structured request-to-task flow, double-audit-ready QA artifacts, and minimal baton foundations without broad UI expansion, Standard pipeline productization, or rollback or product recovery overreach.
 
 Exit Criteria:
-- durable stage artifact contracts exist for `intake`, `pm`, `context_audit`, and `architect`
-- persisted state exists for packet identity, stage status, approvals, artifact refs, Git refs, and reconciliation state
-- an `apply/promotion` gate exists with explicit approval, bounded scope, artifact linkage, and fail-closed behavior
-- an admin-only supervised harness can exercise the substrate without broad UI
+- repo truth explicitly closes the first bounded V1 proof and opens `R3 Governed Work Objects and Double-Audit Foundations`
+- canonical Project / Milestone / Task / Bug contracts and invariants exist
+- planning-record storage and validation exist
+- Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts exist
+- a bounded Request Brief -> Task Packet planning flow exists
+- a QA gate exists with remediation tracking and external-audit packaging
+- minimal task baton or resume persistence exists
+- a replayable end-to-end R3 planning proof exists without broad UI expansion
 
 ## Tasks
 
-### `RST-009` Implement stage artifact contracts through `architect`
+### `R3-001` Close out R2 proof and open R3 in repo truth
 - Status: done
 - Order: 1
-- Milestone: `R2 Minimum Control Substrate`
-- Depends on: none
-- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed artifact templates or schemas plus validation rules for `intake`, `pm`, `context_audit`, and `architect`
-- Done when: each required stage has a durable repo-defined contract with required fields, approval-state support where needed, and a validation path that rejects malformed artifacts
-- Audit note: externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`; see `governance/RST-009_ACCEPTANCE_AUDIT.md`
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md`, `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`
+- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: updated repo-truth surfaces plus explicit closeout and milestone-brief documents
+- Done when: `README.md`, `governance/ACTIVE_STATE.md`, and `execution/KANBAN.md` explicitly close out the narrow first bounded V1 proof, `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` exists, `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md` exists, and the active milestone is advanced to R3 without broadening the claim
 
-### `RST-010` Implement persisted state substrate for packet and truth reconciliation
-- Status: done
+### `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants
+- Status: pending
 - Order: 2
-- Milestone: `R2 Minimum Control Substrate`
-- Depends on: `RST-009`
-- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/MINIMAL_DONOR_IMPORT_PLAN.md`
-- Durable output: committed state schema and storage implementation for packet identity, stage progression, approvals, artifact references, Git references, and reconciliation status
-- Done when: the repo can persist and reload packet records while keeping local working state, accepted artifact state, and reconciliation state distinct
-- Audit note: externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`; see `governance/RST-010_ACCEPTANCE_AUDIT.md`
-
-### `RST-011` Implement bounded `apply/promotion` gate with fail-closed checks
-- Status: done
-- Order: 3
-- Milestone: `R2 Minimum Control Substrate`
-- Depends on: `RST-009`, `RST-010`
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-001`
 - Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed gate contract and checks for explicit approval, bounded mutation scope, linked approved artifact set, and blocked-state recording
-- Done when: the gate refuses mutation or promotion unless approval, scope, artifact linkage, and reconciliation preconditions are satisfied, and blocked outcomes are durably recorded
-- Audit note: externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`; see `governance/RST-011_ACCEPTANCE_AUDIT.md`
+- Durable output: committed contract definitions or schemas for Project, Milestone, Task, and Bug plus explicit invariant rules
+- Done when: the repo defines canonical fields, identity rules, state boundaries, lineage expectations, and invariant checks for the four governed work objects without widening into runtime productization
 
-### `RST-012` Implement minimal admin-only supervised harness for substrate walk
-- Status: done
+### `R3-003` Implement planning-record storage and validation
+- Status: pending
+- Order: 3
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-002`
+- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
+- Durable output: committed planning-record storage shape, validation rules, and persistence path for the governed work objects
+- Done when: planning records can be durably stored, loaded, and validated while preserving distinct working, accepted, and reconciliation surfaces
+
+### `R3-004` Define Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts
+- Status: pending
 - Order: 4
-- Milestone: `R2 Minimum Control Substrate`
-- Depends on: `RST-009`, `RST-010`, `RST-011`
-- Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: committed admin-only entrypoint or script plus a minimal fixture or example packet path for exercising the substrate
-- Done when: an admin can run a narrow supervised flow that creates or loads a packet, advances it through `architect`-stage artifact handling, evaluates the `apply/promotion` gate, and records allow or block results without broad UI
-- Audit note: externally accepted at commit `4e954ff05f83cf592ccb423bd50973c78cf6f771`; see `governance/RST-012_ACCEPTANCE_AUDIT.md`
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-002`, `R3-003`
+- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
+- Durable output: committed contract definitions or schemas for Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton
+- Done when: each contract has canonical required fields, lineage rules, audit expectations, and bounded handoff intent, including a Baton contract limited to foundation-only resume support
 
-### `RST-013` Connect Git remote and publish current repo snapshot for backup/restore
-- Status: done
-- Order: support
-- Milestone: `R2 Minimum Control Substrate`
-- Depends on: none
-- Authority: user request, `governance/ACTIVE_STATE.md`
-- Durable output: committed Git history in the local repo, connected `origin`, and a pushed remote snapshot of the current project files
-- Done when: the repo is initialized, `origin` points at the requested GitHub repository, the current workspace files are committed, and the commit is pushed to the remote default branch for backup/restore use
+### `R3-005` Implement bounded Request Brief -> Task Packet planning flow
+- Status: pending
+- Order: 5
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-003`, `R3-004`
+- Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
+- Durable output: committed bounded planning flow that converts a Request Brief into a Task Packet with explicit invariants and durable records
+- Done when: the repo can run a narrow supervised planning flow from Request Brief to Task Packet without widening into a broad workflow engine
+
+### `R3-006` Implement QA gate with remediation tracking and external-audit packaging
+- Status: pending
+- Order: 6
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-004`, `R3-005`
+- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
+- Durable output: committed QA gate behavior, remediation tracking shape, and External Audit Pack packaging path
+- Done when: QA outcomes can block or advance work with durable remediation tracking and intentionally packaged external-audit artifacts suitable for an initial double-audit loop
+
+### `R3-007` Implement minimal task baton / resume persistence
+- Status: pending
+- Order: 7
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-003`, `R3-004`
+- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
+- Durable output: committed baton or resume persistence foundation for tasks
+- Done when: the repo can persist and reload a minimal baton state needed for bounded task resume foundations without claiming full recovery or rollback productization
+
+### `R3-008` Produce replayable end-to-end R3 planning proof
+- Status: pending
+- Order: 8
+- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
+- Depends on: `R3-005`, `R3-006`, `R3-007`
+- Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: committed replay record proving the bounded R3 planning slice from request through audit-ready packaging
+- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations
 
 ## Explicitly Out Of Scope For This Milestone
-- broad UI or control-room work
-- Standard or subproject pipeline work
-- later-lane workflow proof beyond `architect`
+- broad UI or control-room productization
+- Standard or subproject pipeline productization
+- later-lane workflow expansion beyond what is needed for the bounded R3 planning proof
+- rollback or product recovery productization
 - donor backlog import or historical backfill

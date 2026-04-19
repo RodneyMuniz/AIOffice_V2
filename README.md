@@ -2,7 +2,7 @@
 
 AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
 
-The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That proof has not yet been demonstrated in runtime. Git and persisted state remain the intended truth substrates.
+The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
 
 ## Start Here
 - `governance/VISION.md`
@@ -11,6 +11,8 @@ The current repo is a clean reset. Its first acceptable proof boundary is superv
 - `governance/OPERATING_MODEL.md`
 - `governance/DECISION_LOG.md`
 - `governance/ACTIVE_STATE.md`
+- `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`
+- `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md`
 - `execution/KANBAN.md`
 - `execution/PROJECT_BRAIN.md`
 
