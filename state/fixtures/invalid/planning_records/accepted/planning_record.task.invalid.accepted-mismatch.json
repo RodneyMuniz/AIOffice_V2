@@ -1,0 +1,53 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "task",
+  "object_id": "task-r3-003-storage-999",
+  "title": "Implement planning-record storage",
+  "summary": "Persist and reload governed work-object planning records without widening into flow work.",
+  "status": "ready",
+  "created_at": "2026-04-19T14:00:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": {
+    "object_type": "milestone",
+    "object_id": "milestone-r3-002-001",
+    "ref": "state/fixtures/valid/governed_work_object.milestone.valid.json"
+  },
+  "lineage": {
+    "source_kind": "milestone_plan",
+    "source_refs": [
+      "execution/KANBAN.md"
+    ],
+    "rationale": "This fixture intentionally points the accepted ref at the wrong task identity."
+  },
+  "relationships": [],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The milestone brief authorizes bounded planning-record storage work."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_planning_record_storage.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T14:10:00Z",
+    "notes": "This accepted surface exists only to prove identity-mismatch rejection."
+  },
+  "scope_summary": "Implement durable planning-record storage and validation only.",
+  "task_kind": "governance",
+  "requested_outcome": "Store, load, and validate planning records for governed work objects.",
+  "acceptance_checks": [
+    "Planning records save and reload coherently.",
+    "Working, accepted, and reconciliation surfaces stay distinct."
+  ],
+  "non_goals": [
+    "Request Brief contracts",
+    "QA runtime behavior",
+    "Baton persistence"
+  ]
+}

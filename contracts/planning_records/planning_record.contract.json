@@ -1,0 +1,22 @@
+{
+  "record_type": "planning_record",
+  "working_state_rules": {
+    "working_surface_requires_record_ref": true,
+    "working_surface_metadata_must_match_record": true
+  },
+  "accepted_state_rules": {
+    "status_none_requires_null_record_and_metadata": true,
+    "accepted_or_superseded_require_record_and_acceptance_metadata": true,
+    "accepted_surface_metadata_must_match_record": true,
+    "accepted_surface_ref_must_differ_from_working_surface_ref": true
+  },
+  "surface_coherence_rules": {
+    "top_level_identity_must_match_working_and_accepted_surfaces": true
+  },
+  "reconciliation_rules": {
+    "not_started_allows_null_comparison_fields": true,
+    "pending_or_blocked_require_comparison_time": true,
+    "matched_requires_accepted_surface_and_true_comparison": true,
+    "drift_requires_accepted_surface_and_false_comparison": true
+  }
+}

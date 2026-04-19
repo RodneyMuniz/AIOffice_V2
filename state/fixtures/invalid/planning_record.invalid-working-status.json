@@ -1,0 +1,34 @@
+{
+  "contract_version": "v1",
+  "record_type": "planning_record",
+  "planning_record_id": "planning-r3-003-task-invalid-status",
+  "object_type": "task",
+  "object_id": "task-r3-003-storage-001",
+  "created_at": "2026-04-19T14:00:00Z",
+  "updated_at": "2026-04-19T14:20:00Z",
+  "working_state": {
+    "status": "accepted",
+    "record_ref": "../valid/planning_records/working/planning_record.task.valid.working.json",
+    "object_type": "task",
+    "object_id": "task-r3-003-storage-001",
+    "object_status": "in_progress",
+    "last_local_update_at": "2026-04-19T14:15:00Z",
+    "notes": "Working state uses an invalid planning-surface status."
+  },
+  "accepted_state": {
+    "status": "accepted",
+    "record_ref": "../valid/planning_records/accepted/planning_record.task.valid.accepted.json",
+    "object_type": "task",
+    "object_id": "task-r3-003-storage-001",
+    "object_status": "ready",
+    "accepted_at": "2026-04-19T14:10:00Z",
+    "accepted_by": "operator:admin",
+    "notes": "Accepted surface remains coherent."
+  },
+  "reconciliation_state": {
+    "status": "drift",
+    "compared_at": "2026-04-19T14:20:00Z",
+    "working_matches_accepted": false,
+    "notes": "The invalid working surface status must be rejected."
+  }
+}

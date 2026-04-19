@@ -63,7 +63,7 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: the repo has durable contract definitions or schemas for the four governed work objects, including identity, lineage, status, and invariant rules
 
 ### `R3-003` Implement planning-record storage and validation
-- Status: pending
+- Status: done
 - Done when: the governed work objects can be durably stored, loaded, and validated while preserving distinct working, accepted, and reconciliation surfaces
 
 ### `R3-004` Define Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts

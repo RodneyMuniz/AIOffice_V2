@@ -1,0 +1,67 @@
+{
+  "contract_version": "v1",
+  "record_type": "planning_record",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_object_types": [
+    "project",
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_working_state_statuses": [
+    "draft",
+    "in_progress",
+    "ready_for_review",
+    "blocked"
+  ],
+  "allowed_accepted_state_statuses": [
+    "none",
+    "accepted",
+    "superseded"
+  ],
+  "allowed_reconciliation_statuses": [
+    "not_started",
+    "pending",
+    "matched",
+    "drift",
+    "blocked"
+  ],
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "planning_record_id",
+    "object_type",
+    "object_id",
+    "created_at",
+    "updated_at",
+    "working_state",
+    "accepted_state",
+    "reconciliation_state"
+  ],
+  "working_state_required_fields": [
+    "status",
+    "record_ref",
+    "object_type",
+    "object_id",
+    "object_status",
+    "last_local_update_at",
+    "notes"
+  ],
+  "accepted_state_required_fields": [
+    "status",
+    "record_ref",
+    "object_type",
+    "object_id",
+    "object_status",
+    "accepted_at",
+    "accepted_by",
+    "notes"
+  ],
+  "reconciliation_state_required_fields": [
+    "status",
+    "compared_at",
+    "working_matches_accepted",
+    "notes"
+  ]
+}

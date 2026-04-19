@@ -491,20 +491,21 @@ function Validate-StatusInvariants {
     }
 }
 
-function Test-GovernedWorkObjectContract {
-    [CmdletBinding()]
+function Test-GovernedWorkObjectDocument {
     param(
         [Parameter(Mandatory = $true)]
+        $WorkObject,
+        [Parameter(Mandatory = $true)]
+        [string]$SourceLabel,
+        [AllowNull()]
         [string]$WorkObjectPath
     )
 
     $repoRoot = Get-RepositoryRoot
-    $resolvedWorkObjectPath = Resolve-WorkObjectPath -WorkObjectPath $WorkObjectPath
     $foundationPath = Join-Path $repoRoot "contracts\governed_work_objects\foundation.contract.json"
     $foundation = Get-JsonDocument -Path $foundationPath -Label "Foundation contract"
-    $workObject = Get-JsonDocument -Path $resolvedWorkObjectPath -Label "Work object"
 
-    $objectType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $workObject -Name "object_type" -Context "WorkObject") -Context "WorkObject.object_type"
+    $objectType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $WorkObject -Name "object_type" -Context "WorkObject") -Context "WorkObject.object_type"
     $contractPath = Join-Path $repoRoot ("contracts\governed_work_objects\{0}.contract.json" -f $objectType)
     if (-not (Test-Path -LiteralPath $contractPath)) {
         throw "No governed work object contract exists for object type '$objectType'."
@@ -515,21 +516,47 @@ function Test-GovernedWorkObjectContract {
         throw "Work object contract '$contractPath' does not match object type '$objectType'."
     }
 
-    Validate-CommonFields -WorkObject $workObject -Foundation $foundation
-    Validate-ParentInvariant -WorkObject $workObject -Contract $contract -Foundation $foundation
-    Validate-SpecificFields -WorkObject $workObject -Contract $contract
-    Validate-LineageAndEvidenceInvariants -WorkObject $workObject -Contract $contract
-    Validate-RelationshipInvariants -WorkObject $workObject -Contract $contract
-    Validate-StatusInvariants -WorkObject $workObject -Contract $contract
+    Validate-CommonFields -WorkObject $WorkObject -Foundation $foundation
+    Validate-ParentInvariant -WorkObject $WorkObject -Contract $contract -Foundation $foundation
+    Validate-SpecificFields -WorkObject $WorkObject -Contract $contract
+    Validate-LineageAndEvidenceInvariants -WorkObject $WorkObject -Contract $contract
+    Validate-RelationshipInvariants -WorkObject $WorkObject -Contract $contract
+    Validate-StatusInvariants -WorkObject $WorkObject -Contract $contract
 
     return [pscustomobject]@{
-        IsValid              = $true
-        ObjectType           = $objectType
-        ObjectId             = $workObject.object_id
-        WorkObjectPath       = $resolvedWorkObjectPath
-        ContractPath         = $contractPath
+        IsValid                = $true
+        ObjectType             = $objectType
+        ObjectId               = $WorkObject.object_id
+        Status                 = $WorkObject.status
+        SourceLabel            = $SourceLabel
+        WorkObjectPath         = $WorkObjectPath
+        ContractPath           = $contractPath
         FoundationContractPath = $foundationPath
     }
 }
 
-Export-ModuleMember -Function Test-GovernedWorkObjectContract
+function Test-GovernedWorkObjectContract {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$WorkObjectPath
+    )
+
+    $resolvedWorkObjectPath = Resolve-WorkObjectPath -WorkObjectPath $WorkObjectPath
+    $workObject = Get-JsonDocument -Path $resolvedWorkObjectPath -Label "Work object"
+
+    return (Test-GovernedWorkObjectDocument -WorkObject $workObject -SourceLabel $resolvedWorkObjectPath -WorkObjectPath $resolvedWorkObjectPath)
+}
+
+function Test-GovernedWorkObjectObject {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        $WorkObject,
+        [string]$SourceLabel = "in-memory work object"
+    )
+
+    return (Test-GovernedWorkObjectDocument -WorkObject $WorkObject -SourceLabel $SourceLabel -WorkObjectPath $null)
+}
+
+Export-ModuleMember -Function Test-GovernedWorkObjectContract, Test-GovernedWorkObjectObject

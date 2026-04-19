@@ -39,7 +39,7 @@ Exit Criteria:
 - Done when: the repo defines canonical fields, identity rules, state boundaries, lineage expectations, and invariant checks for the four governed work objects without widening into runtime productization
 
 ### `R3-003` Implement planning-record storage and validation
-- Status: pending
+- Status: done
 - Order: 3
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-002`
