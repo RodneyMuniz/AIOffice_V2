@@ -67,7 +67,7 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: the governed work objects can be durably stored, loaded, and validated while preserving distinct working, accepted, and reconciliation surfaces
 
 ### `R3-004` Define Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts
-- Status: pending
+- Status: done
 - Done when: the repo has durable contract definitions or schemas for those six artifacts, with explicit audit and handoff expectations
 
 ### `R3-005` Implement bounded Request Brief -> Task Packet planning flow

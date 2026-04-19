@@ -1,0 +1,79 @@
+{
+  "artifact_type": "qa_report",
+  "allowed_created_by_roles": [
+    "control_kernel",
+    "reasoning_assistance",
+    "bounded_executor"
+  ],
+  "required_fields": [
+    "qa_summary",
+    "verdict",
+    "checks_run",
+    "findings",
+    "remediation_required"
+  ],
+  "optional_fields": [
+    "remediation_notes"
+  ],
+  "field_types": {
+    "qa_summary": "string",
+    "verdict": "string",
+    "checks_run": "string_array",
+    "findings": "string_array",
+    "remediation_required": "boolean",
+    "remediation_notes": "nullable_string"
+  },
+  "allowed_verdicts": [
+    "pass",
+    "fail",
+    "blocked"
+  ],
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "review_ready",
+      "passed",
+      "failed",
+      "blocked",
+      "superseded"
+    ],
+    "terminal_statuses": [
+      "superseded"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "execution_bundle",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 1,
+  "allowed_work_object_types": [
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "verifies",
+    "found_in"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "tracks"
+  ],
+  "required_evidence_kinds": [
+    "test_output"
+  ],
+  "status_rules": {
+    "passed_requires_remediation_false": true,
+    "failed_requires_remediation_true": true,
+    "failed_requires_remediation_notes": true,
+    "blocked_requires_blocked_verdict": true
+  },
+  "forbidden_states": [
+    "Passed QA Reports must not require remediation.",
+    "Failed QA Reports must record remediation notes.",
+    "QA Reports in R3-004 are contract-only and do not claim gate runtime behavior."
+  ]
+}

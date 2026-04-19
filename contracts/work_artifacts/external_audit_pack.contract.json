@@ -1,0 +1,69 @@
+{
+  "artifact_type": "external_audit_pack",
+  "allowed_created_by_roles": [
+    "control_kernel",
+    "reasoning_assistance"
+  ],
+  "required_fields": [
+    "pack_summary",
+    "included_artifacts",
+    "audit_questions",
+    "exclusions"
+  ],
+  "optional_fields": [
+    "reviewer_notes"
+  ],
+  "field_types": {
+    "pack_summary": "string",
+    "included_artifacts": "string_array",
+    "audit_questions": "string_array",
+    "exclusions": "string_array",
+    "reviewer_notes": "nullable_string"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "ready_for_audit",
+      "superseded",
+      "archived"
+    ],
+    "terminal_statuses": [
+      "superseded",
+      "archived"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "qa_report",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 1,
+  "allowed_work_object_types": [
+    "project",
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "audits",
+    "verifies"
+  ],
+  "allowed_planning_record_views": [
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "audits"
+  ],
+  "required_evidence_kinds": [
+    "qa_report"
+  ],
+  "status_rules": {
+    "ready_for_audit_requires_qa_report_evidence": true,
+    "ready_for_audit_requires_included_artifacts": true
+  },
+  "forbidden_states": [
+    "Ready-for-audit packs must carry QA report evidence.",
+    "Ready-for-audit packs must list the included artifacts explicitly.",
+    "External Audit Packs in R3-004 are contract-only and do not claim packaging runtime behavior."
+  ]
+}

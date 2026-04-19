@@ -48,7 +48,7 @@ Exit Criteria:
 - Done when: planning records can be durably stored, loaded, and validated while preserving distinct working, accepted, and reconciliation surfaces
 
 ### `R3-004` Define Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts
-- Status: pending
+- Status: done
 - Order: 4
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-002`, `R3-003`

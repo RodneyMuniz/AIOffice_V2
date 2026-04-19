@@ -1,0 +1,73 @@
+{
+  "artifact_type": "baton",
+  "allowed_created_by_roles": [
+    "control_kernel",
+    "reasoning_assistance",
+    "bounded_executor"
+  ],
+  "required_fields": [
+    "baton_summary",
+    "resume_objective",
+    "handoff_notes",
+    "blocked_by",
+    "next_required_artifacts"
+  ],
+  "optional_fields": [
+    "expires_at"
+  ],
+  "field_types": {
+    "baton_summary": "string",
+    "resume_objective": "string",
+    "handoff_notes": "string_array",
+    "blocked_by": "string_array",
+    "next_required_artifacts": "string_array",
+    "expires_at": "nullable_string"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "ready_for_handoff",
+      "superseded",
+      "closed"
+    ],
+    "terminal_statuses": [
+      "superseded",
+      "closed"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "execution_bundle",
+    "qa_report",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 1,
+  "allowed_work_object_types": [
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "hands_off",
+    "blocks"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "tracks",
+    "hands_off"
+  ],
+  "required_evidence_kinds": [
+    "artifact"
+  ],
+  "status_rules": {
+    "ready_for_handoff_requires_next_required_artifacts": true,
+    "closed_requires_no_next_required_artifacts": true
+  },
+  "forbidden_states": [
+    "Ready-for-handoff batons must list the next required artifacts.",
+    "Closed batons must not retain unresolved next-required artifacts.",
+    "Batons in R3-004 are contract-only and do not claim persistence or resume runtime behavior."
+  ]
+}

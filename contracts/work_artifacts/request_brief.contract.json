@@ -1,0 +1,70 @@
+{
+  "artifact_type": "request_brief",
+  "allowed_created_by_roles": [
+    "operator",
+    "control_kernel",
+    "reasoning_assistance"
+  ],
+  "required_fields": [
+    "request_intent",
+    "requested_outcome",
+    "scope_constraints",
+    "non_goals",
+    "operator_questions"
+  ],
+  "optional_fields": [
+    "requested_execution_profile",
+    "escalation_notes"
+  ],
+  "field_types": {
+    "request_intent": "string",
+    "requested_outcome": "string",
+    "scope_constraints": "string_array",
+    "non_goals": "string_array",
+    "operator_questions": "string_array",
+    "requested_execution_profile": "nullable_string",
+    "escalation_notes": "nullable_string"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "ready_for_planning",
+      "superseded",
+      "canceled"
+    ],
+    "terminal_statuses": [
+      "superseded",
+      "canceled"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "operator_request",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 0,
+  "allowed_work_object_types": [
+    "project",
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "targets"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "tracks"
+  ],
+  "required_evidence_kinds": [
+    "decision_record"
+  ],
+  "forbidden_states": [
+    "Request Briefs must not be created by bounded executors.",
+    "Request Briefs must carry at least one governed work object target.",
+    "Request Briefs do not claim task-packet or execution behavior."
+  ]
+}

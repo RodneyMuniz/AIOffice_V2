@@ -1,0 +1,71 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "artifact_type": "external_audit_pack",
+  "artifact_id": "external-audit-pack-r3-004-001",
+  "title": "R3-004 external audit pack contract sample",
+  "summary": "Describe the bounded audit-ready artifact bundle without claiming runtime packaging behavior.",
+  "status": "ready_for_audit",
+  "created_at": "2026-04-19T16:25:00Z",
+  "created_by": {
+    "role": "control_kernel",
+    "id": "control-kernel:local"
+  },
+  "lineage": {
+    "source_kind": "qa_report",
+    "source_refs": [
+      "work_artifact.qa_report.valid.json"
+    ],
+    "rationale": "The audit pack derives from the QA report and remains contract-only in R3-004."
+  },
+  "work_object_refs": [
+    {
+      "relation": "audits",
+      "object_type": "task",
+      "object_id": "task-r3-002-contracts-001",
+      "ref": "governed_work_object.task.valid.json",
+      "notes": "The audit pack is bounded to the existing task work object."
+    }
+  ],
+  "planning_record_refs": [
+    {
+      "relation": "audits",
+      "planning_record_id": "planning-r3-003-task-001",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "view": "accepted",
+      "ref": "planning_record.task.valid.json",
+      "notes": "The audit pack references the accepted planning baseline only."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "qa_report",
+      "ref": "work_artifact.qa_report.valid.json",
+      "summary": "The QA report is the direct audit-pack evidence input."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_work_artifact_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T16:27:00Z",
+    "notes": "External Audit Pack fixture reviewed against the focused contract test."
+  },
+  "pack_summary": "Package the QA and contract evidence for an external audit review without generating runtime packaging behavior.",
+  "included_artifacts": [
+    "work_artifact.task_packet.valid.json",
+    "work_artifact.execution_bundle.valid.json",
+    "work_artifact.qa_report.valid.json"
+  ],
+  "audit_questions": [
+    "Do the contract fields stay bounded and explicit?",
+    "Do malformed artifacts fail closed?"
+  ],
+  "exclusions": [
+    "Runtime planning flow",
+    "QA gate runtime behavior",
+    "Baton persistence"
+  ],
+  "reviewer_notes": null
+}

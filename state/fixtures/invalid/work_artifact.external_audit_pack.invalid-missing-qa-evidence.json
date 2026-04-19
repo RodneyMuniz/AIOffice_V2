@@ -1,0 +1,68 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "artifact_type": "external_audit_pack",
+  "artifact_id": "external-audit-pack-r3-004-invalid-evidence",
+  "title": "Invalid external audit pack without QA evidence",
+  "summary": "This fixture should fail because a ready-for-audit pack does not include QA report evidence.",
+  "status": "ready_for_audit",
+  "created_at": "2026-04-19T16:25:00Z",
+  "created_by": {
+    "role": "control_kernel",
+    "id": "control-kernel:local"
+  },
+  "lineage": {
+    "source_kind": "qa_report",
+    "source_refs": [
+      "../valid/work_artifact.qa_report.valid.json"
+    ],
+    "rationale": "The audit pack derives from the QA report and remains contract-only in R3-004."
+  },
+  "work_object_refs": [
+    {
+      "relation": "audits",
+      "object_type": "task",
+      "object_id": "task-r3-002-contracts-001",
+      "ref": "../valid/governed_work_object.task.valid.json",
+      "notes": "The audit pack is bounded to the existing task work object."
+    }
+  ],
+  "planning_record_refs": [
+    {
+      "relation": "audits",
+      "planning_record_id": "planning-r3-003-task-001",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "view": "accepted",
+      "ref": "../valid/planning_record.task.valid.json",
+      "notes": "The audit pack references the accepted planning baseline only."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The milestone brief authorizes the bounded audit-pack contract work."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_work_artifact_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T16:27:00Z",
+    "notes": "Invalid External Audit Pack fixture reviewed against the focused contract test."
+  },
+  "pack_summary": "Package the QA and contract evidence for an external audit review without generating runtime packaging behavior.",
+  "included_artifacts": [
+    "../valid/work_artifact.task_packet.valid.json",
+    "../valid/work_artifact.execution_bundle.valid.json",
+    "../valid/work_artifact.qa_report.valid.json"
+  ],
+  "audit_questions": [
+    "Do the contract fields stay bounded and explicit?"
+  ],
+  "exclusions": [
+    "Runtime planning flow"
+  ],
+  "reviewer_notes": null
+}

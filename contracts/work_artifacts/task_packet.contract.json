@@ -1,0 +1,75 @@
+{
+  "artifact_type": "task_packet",
+  "allowed_created_by_roles": [
+    "operator",
+    "control_kernel",
+    "reasoning_assistance"
+  ],
+  "required_fields": [
+    "packet_summary",
+    "requested_actions",
+    "acceptance_checks",
+    "bounded_scope",
+    "non_goals",
+    "execution_profile"
+  ],
+  "optional_fields": [
+    "handoff_notes"
+  ],
+  "field_types": {
+    "packet_summary": "string",
+    "requested_actions": "string_array",
+    "acceptance_checks": "string_array",
+    "bounded_scope": "string_array",
+    "non_goals": "string_array",
+    "execution_profile": "string",
+    "handoff_notes": "string_array"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "ready",
+      "approved",
+      "superseded",
+      "canceled"
+    ],
+    "terminal_statuses": [
+      "superseded",
+      "canceled"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "request_brief",
+    "planning_record",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 1,
+  "allowed_work_object_types": [
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "targets",
+    "implements"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "tracks",
+    "derives_from"
+  ],
+  "required_evidence_kinds": [
+    "planning_record"
+  ],
+  "status_rules": {
+    "approved_requires_accepted_planning_record": true
+  },
+  "forbidden_states": [
+    "Approved Task Packets must include an accepted planning record reference.",
+    "Task Packets are contract-only in R3-004 and do not claim runtime flow execution."
+  ]
+}

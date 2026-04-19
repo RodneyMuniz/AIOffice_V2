@@ -1,0 +1,83 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "artifact_type": "task_packet",
+  "artifact_id": "task-packet-r3-004-001",
+  "title": "R3-004 contract-only task packet",
+  "summary": "Bound the contract-definition work without claiming any request flow runtime.",
+  "status": "approved",
+  "created_at": "2026-04-19T16:10:00Z",
+  "created_by": {
+    "role": "control_kernel",
+    "id": "control-kernel:local"
+  },
+  "lineage": {
+    "source_kind": "request_brief",
+    "source_refs": [
+      "work_artifact.request_brief.valid.json"
+    ],
+    "rationale": "The task packet derives from the operator-approved request brief."
+  },
+  "work_object_refs": [
+    {
+      "relation": "implements",
+      "object_type": "task",
+      "object_id": "task-r3-002-contracts-001",
+      "ref": "governed_work_object.task.valid.json",
+      "notes": "The packet implements bounded contract work for the existing task surface."
+    }
+  ],
+  "planning_record_refs": [
+    {
+      "relation": "derives_from",
+      "planning_record_id": "planning-r3-003-task-001",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "view": "accepted",
+      "ref": "planning_record.task.valid.json",
+      "notes": "The approved packet is grounded in the accepted planning baseline."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "planning_record",
+      "ref": "planning_record.task.valid.json",
+      "summary": "The accepted planning record provides the bounded scope reference."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_work_artifact_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T16:12:00Z",
+    "notes": "Task Packet fixture reviewed against the focused contract test."
+  },
+  "packet_summary": "Define the six R3-004 artifact contracts and their invariant rules.",
+  "requested_actions": [
+    "Create artifact contracts",
+    "Create valid fixtures",
+    "Create invalid fixtures",
+    "Add focused validation test"
+  ],
+  "acceptance_checks": [
+    "Each artifact contract exists.",
+    "Malformed artifacts are rejected."
+  ],
+  "bounded_scope": [
+    "contracts/work_artifacts",
+    "state/fixtures/valid/work_artifact.*",
+    "state/fixtures/invalid/work_artifact.*",
+    "tests/test_work_artifact_contracts.ps1",
+    "tools/WorkArtifactValidation.psm1"
+  ],
+  "non_goals": [
+    "Runtime planning flow",
+    "QA gate runtime behavior",
+    "Baton persistence"
+  ],
+  "execution_profile": "contract-only",
+  "handoff_notes": [
+    "Do not implement flow behavior in R3-004.",
+    "Do not package external audit artifacts in runtime yet."
+  ]
+}

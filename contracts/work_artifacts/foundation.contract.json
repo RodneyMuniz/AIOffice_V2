@@ -1,0 +1,121 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_artifact_types": [
+    "request_brief",
+    "task_packet",
+    "execution_bundle",
+    "qa_report",
+    "external_audit_pack",
+    "baton"
+  ],
+  "allowed_actor_roles": [
+    "operator",
+    "control_kernel",
+    "reasoning_assistance",
+    "bounded_executor"
+  ],
+  "allowed_source_kinds": [
+    "operator_request",
+    "request_brief",
+    "task_packet",
+    "execution_bundle",
+    "qa_report",
+    "external_audit_pack",
+    "baton",
+    "planning_record",
+    "manual"
+  ],
+  "allowed_work_object_types": [
+    "project",
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_reference_relations": [
+    "targets",
+    "tracks",
+    "derives_from",
+    "implements",
+    "verifies",
+    "audits",
+    "hands_off",
+    "blocks",
+    "found_in"
+  ],
+  "allowed_evidence_kinds": [
+    "decision_record",
+    "planning_record",
+    "artifact",
+    "test_output",
+    "qa_report",
+    "audit_record",
+    "baton_record"
+  ],
+  "common_required_fields": [
+    "contract_version",
+    "record_type",
+    "artifact_type",
+    "artifact_id",
+    "title",
+    "summary",
+    "status",
+    "created_at",
+    "created_by",
+    "lineage",
+    "work_object_refs",
+    "planning_record_refs",
+    "evidence",
+    "audit"
+  ],
+  "created_by_required_fields": [
+    "role",
+    "id"
+  ],
+  "lineage_required_fields": [
+    "source_kind",
+    "source_refs",
+    "rationale"
+  ],
+  "work_object_ref_required_fields": [
+    "relation",
+    "object_type",
+    "object_id",
+    "ref",
+    "notes"
+  ],
+  "planning_record_ref_required_fields": [
+    "relation",
+    "planning_record_id",
+    "object_type",
+    "object_id",
+    "view",
+    "ref",
+    "notes"
+  ],
+  "evidence_required_fields": [
+    "kind",
+    "ref",
+    "summary"
+  ],
+  "audit_required_fields": [
+    "trail_refs",
+    "last_reviewed_at",
+    "notes"
+  ],
+  "invariant_domains": [
+    "identity",
+    "lineage",
+    "references",
+    "evidence",
+    "audit_trace",
+    "lifecycle",
+    "forbidden_states"
+  ]
+}

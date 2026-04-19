@@ -1,0 +1,70 @@
+{
+  "artifact_type": "execution_bundle",
+  "allowed_created_by_roles": [
+    "control_kernel",
+    "reasoning_assistance"
+  ],
+  "required_fields": [
+    "execution_summary",
+    "executor_profile",
+    "bounded_targets",
+    "expected_outputs",
+    "prohibited_operations"
+  ],
+  "optional_fields": [
+    "replay_command"
+  ],
+  "field_types": {
+    "execution_summary": "string",
+    "executor_profile": "string",
+    "bounded_targets": "string_array",
+    "expected_outputs": "string_array",
+    "prohibited_operations": "string_array",
+    "replay_command": "nullable_string"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "draft",
+      "prepared",
+      "blocked",
+      "superseded",
+      "canceled"
+    ],
+    "terminal_statuses": [
+      "superseded",
+      "canceled"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "task_packet",
+    "planning_record",
+    "manual"
+  ],
+  "minimum_work_object_refs": 1,
+  "minimum_planning_record_refs": 1,
+  "allowed_work_object_types": [
+    "task",
+    "bug"
+  ],
+  "allowed_work_object_relations": [
+    "targets",
+    "implements"
+  ],
+  "allowed_planning_record_views": [
+    "working",
+    "accepted"
+  ],
+  "allowed_planning_record_relations": [
+    "tracks"
+  ],
+  "required_evidence_kinds": [
+    "artifact"
+  ],
+  "status_rules": {
+    "prepared_requires_task_packet_lineage": true
+  },
+  "forbidden_states": [
+    "Prepared Execution Bundles must derive from a Task Packet lineage source.",
+    "Execution Bundles are contract-only in R3-004 and do not claim executor runtime behavior."
+  ]
+}
