@@ -1,0 +1,66 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "project",
+  "object_id": "project-r3-foundations-001",
+  "title": "Governed work objects foundation",
+  "summary": "Define the governed work object contract layer for R3.",
+  "status": "active",
+  "created_at": "2026-04-19T10:00:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": null,
+  "lineage": {
+    "source_kind": "operator_request",
+    "source_refs": [
+      "execution/KANBAN.md"
+    ],
+    "rationale": "Open the R3 foundation project directly from the bounded milestone plan."
+  },
+  "relationships": [
+    {
+      "relation": "relates_to",
+      "object_type": "project",
+      "object_id": "project-r2-control-substrate",
+      "ref": "governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md",
+      "notes": "The R3 foundation extends the closed-out R2 proof boundary."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The R3 milestone brief authorizes this project boundary."
+    },
+    {
+      "kind": "artifact",
+      "ref": "governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md",
+      "summary": "The closed-out proof boundary defines the starting substrate."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "governance/ACTIVE_STATE.md",
+      "execution/KANBAN.md"
+    ],
+    "last_reviewed_at": "2026-04-19T10:05:00Z",
+    "notes": "Project boundary reviewed against active milestone truth."
+  },
+  "scope_summary": "Create canonical work object contracts and invariants without starting storage or flow work.",
+  "goals": [
+    "Define durable contracts for Project, Milestone, Task, and Bug.",
+    "Keep the foundation bounded to R3-002."
+  ],
+  "acceptance_criteria": [
+    "Contracts exist for all four governed work objects.",
+    "Invariant rules are explicit and replayable."
+  ],
+  "non_goals": [
+    "Planning-record storage",
+    "Request-to-task flow",
+    "QA gate runtime behavior",
+    "Baton persistence"
+  ]
+}

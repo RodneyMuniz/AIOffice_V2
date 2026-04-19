@@ -18,12 +18,13 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `RST-012` is externally accepted at commit `4e954ff05f83cf592ccb423bd50973c78cf6f771`.
 - `R2 Minimum Control Substrate` is now closed in repo truth through the narrow proof closeout.
 - `R3-001` is complete as the repo-truth closeout and milestone-open step.
-- `R3-002` through `R3-008` remain pending and not yet started.
-- The next gated step is `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants.
+- `R3-002` is complete and defines canonical Project / Milestone / Task / Bug contracts plus explicit invariant rules.
+- `R3-003` through `R3-008` remain pending and not yet started.
+- The next gated step is `R3-003` Implement planning-record storage and validation.
 - The backlog is fresh, reset-only, and limited to the bounded R3 foundation slice.
 
 ## Not Yet Proved
-- canonical governed work objects and planning records for Project / Milestone / Task / Bug
+- planning-record storage and validation for canonical Project / Milestone / Task / Bug objects
 - a bounded Request Brief -> Task Packet planning flow
 - a QA gate with remediation tracking and external-audit packaging
 - minimal baton or resume persistence foundations for tasks
@@ -36,10 +37,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R3 Governed Work Objects and Double-Audit Foundations`
 
-This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001` is completed in this change set because repo truth now reflects that closeout explicitly, while `R3-002` through `R3-008` remain pending.
+This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001` and `R3-002` are now completed in repo truth, while `R3-003` through `R3-008` remain pending.
 
 ## Next Gated Step
-- `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants
+- `R3-003` Implement planning-record storage and validation
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

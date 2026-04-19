@@ -1,0 +1,57 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "bug",
+  "object_id": "bug-r3-002-proof-gap-001",
+  "title": "Invalid verified bug with open resolution",
+  "summary": "Verified bugs must not retain open resolutions.",
+  "status": "verified",
+  "created_at": "2026-04-19T10:30:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": {
+    "object_type": "milestone",
+    "object_id": "milestone-r3-002-001",
+    "ref": "state/fixtures/valid/governed_work_object.milestone.valid.json"
+  },
+  "lineage": {
+    "source_kind": "bug_report",
+    "source_refs": [
+      "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md"
+    ],
+    "rationale": "This fixture exists only to prove bug resolution-state validation."
+  },
+  "relationships": [],
+  "evidence": [
+    {
+      "kind": "issue_report",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The invalid fixture still carries an issue-report reference."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_governed_work_object_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T10:35:00Z",
+    "notes": "Invalid bug fixture for resolution-state invariant."
+  },
+  "scope_summary": "Invalid verified-bug resolution test.",
+  "severity": "high",
+  "observed_behavior": "A verified bug still claims to be unresolved.",
+  "expected_behavior": "Verified bugs must carry resolved fix or workaround state.",
+  "reproduction_steps": [
+    "Load the invalid bug fixture.",
+    "Validate the fixture.",
+    "Observe the rejection because the resolution is still open."
+  ],
+  "resolution": {
+    "kind": "open",
+    "summary": "No resolution was recorded even though the bug is marked verified.",
+    "evidence_refs": [
+      "tests/test_governed_work_object_contracts.ps1"
+    ]
+  }
+}

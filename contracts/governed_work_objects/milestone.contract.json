@@ -1,0 +1,71 @@
+{
+  "object_type": "milestone",
+  "parent_requirement": "required",
+  "allowed_parent_object_types": [
+    "project"
+  ],
+  "allowed_child_object_types": [
+    "task",
+    "bug"
+  ],
+  "required_fields": [
+    "scope_summary",
+    "objective",
+    "done_criteria",
+    "non_goals"
+  ],
+  "optional_fields": [
+    "completion_summary"
+  ],
+  "field_types": {
+    "scope_summary": "string",
+    "objective": "string",
+    "done_criteria": "string_array",
+    "non_goals": "string_array",
+    "completion_summary": "nullable_string"
+  },
+  "lifecycle": {
+    "allowed_statuses": [
+      "planned",
+      "active",
+      "blocked",
+      "completed",
+      "canceled"
+    ],
+    "active_statuses": [
+      "active",
+      "blocked"
+    ],
+    "terminal_statuses": [
+      "completed",
+      "canceled"
+    ]
+  },
+  "allowed_lineage_source_kinds": [
+    "project_directive",
+    "manual"
+  ],
+  "required_evidence_kinds": [
+    "decision_record"
+  ],
+  "completed_requires_evidence_kinds": [
+    "proof_record"
+  ],
+  "allowed_relationships": {
+    "depends_on": [
+      "milestone"
+    ],
+    "blocked_by": [
+      "milestone"
+    ],
+    "relates_to": [
+      "project",
+      "milestone"
+    ]
+  },
+  "forbidden_states": [
+    "Milestones must have a project parent.",
+    "Completed milestones must include a completion summary.",
+    "Completed milestones must carry proof-record evidence."
+  ]
+}

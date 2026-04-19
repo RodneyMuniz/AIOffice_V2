@@ -1,0 +1,56 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "task",
+  "object_id": "task-r3-002-contracts-001",
+  "title": "Invalid done task without completion summary",
+  "summary": "Done tasks must not omit completion evidence in human-readable form.",
+  "status": "done",
+  "created_at": "2026-04-19T10:20:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": {
+    "object_type": "milestone",
+    "object_id": "milestone-r3-002-001",
+    "ref": "state/fixtures/valid/governed_work_object.milestone.valid.json"
+  },
+  "lineage": {
+    "source_kind": "milestone_plan",
+    "source_refs": [
+      "execution/KANBAN.md"
+    ],
+    "rationale": "This fixture exists only to prove the done-task invariant."
+  },
+  "relationships": [],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The invalid fixture still carries decision evidence."
+    },
+    {
+      "kind": "test_output",
+      "ref": "tests/test_governed_work_object_contracts.ps1",
+      "summary": "The focused test catches the missing completion summary."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_governed_work_object_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T10:25:00Z",
+    "notes": "Invalid task fixture for completion-summary invariant."
+  },
+  "scope_summary": "Invalid done-task invariant test.",
+  "task_kind": "governance",
+  "requested_outcome": "Demonstrate that done tasks require a completion summary.",
+  "acceptance_checks": [
+    "Validation rejects done tasks without completion summaries."
+  ],
+  "non_goals": [
+    "Real completed task state"
+  ],
+  "completion_summary": null
+}

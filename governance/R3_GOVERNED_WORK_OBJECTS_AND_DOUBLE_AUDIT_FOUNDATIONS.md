@@ -59,7 +59,7 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: repo truth explicitly closes the narrow first bounded V1 proof, creates the R2 closeout record, creates this milestone brief, and advances the active milestone to R3 without broadening the claim
 
 ### `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants
-- Status: pending
+- Status: done
 - Done when: the repo has durable contract definitions or schemas for the four governed work objects, including identity, lineage, status, and invariant rules
 
 ### `R3-003` Implement planning-record storage and validation

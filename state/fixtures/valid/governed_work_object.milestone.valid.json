@@ -1,0 +1,53 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "milestone",
+  "object_id": "milestone-r3-002-001",
+  "title": "R3-002 governed work object contracts",
+  "summary": "Deliver the canonical contract layer for Project, Milestone, Task, and Bug.",
+  "status": "active",
+  "created_at": "2026-04-19T10:10:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": {
+    "object_type": "project",
+    "object_id": "project-r3-foundations-001",
+    "ref": "state/fixtures/valid/governed_work_object.project.valid.json"
+  },
+  "lineage": {
+    "source_kind": "project_directive",
+    "source_refs": [
+      "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md"
+    ],
+    "rationale": "The R3 milestone brief explicitly opens R3-002 as the next gated step."
+  },
+  "relationships": [],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "execution/KANBAN.md",
+      "summary": "Kanban defines the milestone objective and done criteria."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "governance/ACTIVE_STATE.md"
+    ],
+    "last_reviewed_at": "2026-04-19T10:12:00Z",
+    "notes": "Milestone boundary checked against active-state and kanban truth."
+  },
+  "scope_summary": "Define governed work object contracts and invariants only.",
+  "objective": "Make the work-object contract layer durable without starting storage or flow implementation.",
+  "done_criteria": [
+    "Project, Milestone, Task, and Bug contracts exist.",
+    "Invariant rules are explicit and validated."
+  ],
+  "non_goals": [
+    "Planning-record storage",
+    "Request Brief or Task Packet contracts",
+    "QA runtime gating",
+    "Task baton persistence"
+  ]
+}

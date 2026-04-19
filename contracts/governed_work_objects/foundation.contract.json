@@ -1,0 +1,99 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_object_types": [
+    "project",
+    "milestone",
+    "task",
+    "bug"
+  ],
+  "allowed_actor_roles": [
+    "operator",
+    "control_kernel",
+    "reasoning_assistance"
+  ],
+  "allowed_source_kinds": [
+    "operator_request",
+    "project_directive",
+    "milestone_plan",
+    "bug_report",
+    "qa_report",
+    "manual"
+  ],
+  "allowed_evidence_kinds": [
+    "decision_record",
+    "artifact",
+    "test_output",
+    "proof_record",
+    "issue_report",
+    "audit_record"
+  ],
+  "allowed_relationship_relations": [
+    "depends_on",
+    "blocks",
+    "blocked_by",
+    "duplicates",
+    "relates_to",
+    "caused_by",
+    "found_in"
+  ],
+  "common_required_fields": [
+    "contract_version",
+    "record_type",
+    "object_type",
+    "object_id",
+    "title",
+    "summary",
+    "status",
+    "created_at",
+    "created_by",
+    "parent",
+    "lineage",
+    "relationships",
+    "evidence",
+    "audit"
+  ],
+  "created_by_required_fields": [
+    "role",
+    "id"
+  ],
+  "parent_required_fields": [
+    "object_type",
+    "object_id",
+    "ref"
+  ],
+  "lineage_required_fields": [
+    "source_kind",
+    "source_refs",
+    "rationale"
+  ],
+  "relationship_required_fields": [
+    "relation",
+    "object_type",
+    "object_id",
+    "ref",
+    "notes"
+  ],
+  "evidence_required_fields": [
+    "kind",
+    "ref",
+    "summary"
+  ],
+  "audit_required_fields": [
+    "trail_refs",
+    "last_reviewed_at",
+    "notes"
+  ],
+  "invariant_domains": [
+    "identity",
+    "required_fields",
+    "relationships",
+    "lifecycle",
+    "lineage",
+    "evidence",
+    "audit_trace",
+    "forbidden_states"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "task",
+  "object_id": "task-r3-002-contracts-001",
+  "title": "Implement governed work object contracts",
+  "summary": "Add canonical contracts, fixtures, and validation for Project, Milestone, Task, and Bug.",
+  "status": "done",
+  "created_at": "2026-04-19T10:20:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "parent": {
+    "object_type": "milestone",
+    "object_id": "milestone-r3-002-001",
+    "ref": "state/fixtures/valid/governed_work_object.milestone.valid.json"
+  },
+  "lineage": {
+    "source_kind": "milestone_plan",
+    "source_refs": [
+      "execution/KANBAN.md"
+    ],
+    "rationale": "The milestone plan requires a bounded contract-only implementation for R3-002."
+  },
+  "relationships": [
+    {
+      "relation": "relates_to",
+      "object_type": "bug",
+      "object_id": "bug-r3-002-proof-gap-001",
+      "ref": "state/fixtures/valid/governed_work_object.bug.valid.json",
+      "notes": "The task includes the canonical bug contract needed by the same proof slice."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "The milestone brief authorizes the bounded contract scope."
+    },
+    {
+      "kind": "artifact",
+      "ref": "contracts/governed_work_objects/task.contract.json",
+      "summary": "The task contract itself is a durable output."
+    },
+    {
+      "kind": "test_output",
+      "ref": "tests/test_governed_work_object_contracts.ps1",
+      "summary": "The contract test proves the task output coheres with the repo pattern."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_governed_work_object_contracts.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T10:25:00Z",
+    "notes": "Task output reviewed against the focused contract test."
+  },
+  "scope_summary": "Stay inside contract definition and validation only.",
+  "task_kind": "governance",
+  "requested_outcome": "Create governed work object contracts and invariant rules with concise replayable validation.",
+  "acceptance_checks": [
+    "Each governed work object has a canonical contract.",
+    "Invalid fixtures are rejected with explicit invariant errors."
+  ],
+  "non_goals": [
+    "Planning-record storage",
+    "Request-to-task flow",
+    "QA gate runtime behavior"
+  ],
+  "completion_summary": "Canonical contract files, valid fixtures, invalid fixtures, and a focused validation test were added."
+}

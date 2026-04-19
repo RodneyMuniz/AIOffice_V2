@@ -1,0 +1,115 @@
+{
+  "object_type": "bug",
+  "parent_requirement": "required",
+  "allowed_parent_object_types": [
+    "milestone"
+  ],
+  "allowed_child_object_types": [],
+  "required_fields": [
+    "scope_summary",
+    "severity",
+    "observed_behavior",
+    "expected_behavior",
+    "reproduction_steps",
+    "resolution"
+  ],
+  "optional_fields": [],
+  "field_types": {
+    "scope_summary": "string",
+    "severity": "string",
+    "observed_behavior": "string",
+    "expected_behavior": "string",
+    "reproduction_steps": "string_array",
+    "resolution": "object"
+  },
+  "resolution_required_fields": [
+    "kind",
+    "summary",
+    "evidence_refs"
+  ],
+  "allowed_severities": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "allowed_resolution_kinds": [
+    "open",
+    "fix",
+    "workaround",
+    "rejected"
+  ],
+  "lifecycle": {
+    "allowed_statuses": [
+      "triaged",
+      "ready",
+      "in_progress",
+      "blocked",
+      "fixed",
+      "verified",
+      "closed",
+      "rejected"
+    ],
+    "active_statuses": [
+      "ready",
+      "in_progress",
+      "blocked",
+      "fixed",
+      "verified"
+    ],
+    "terminal_statuses": [
+      "closed",
+      "rejected"
+    ]
+  },
+  "statuses_requiring_open_resolution": [
+    "triaged",
+    "ready",
+    "in_progress",
+    "blocked"
+  ],
+  "statuses_requiring_resolved_resolution": [
+    "fixed",
+    "verified",
+    "closed"
+  ],
+  "statuses_requiring_rejected_resolution": [
+    "rejected"
+  ],
+  "allowed_lineage_source_kinds": [
+    "bug_report",
+    "qa_report",
+    "manual"
+  ],
+  "required_evidence_kinds": [
+    "issue_report"
+  ],
+  "allowed_relationships": {
+    "blocks": [
+      "task"
+    ],
+    "blocked_by": [
+      "task"
+    ],
+    "duplicates": [
+      "bug"
+    ],
+    "caused_by": [
+      "task",
+      "bug"
+    ],
+    "found_in": [
+      "task",
+      "milestone"
+    ],
+    "relates_to": [
+      "task",
+      "bug"
+    ]
+  },
+  "forbidden_states": [
+    "Bugs must have a milestone parent.",
+    "Verified or closed bugs must not keep resolution.kind as open.",
+    "Rejected bugs must use resolution.kind rejected."
+  ]
+}

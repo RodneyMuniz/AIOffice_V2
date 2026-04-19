@@ -30,7 +30,7 @@ Exit Criteria:
 - Done when: `README.md`, `governance/ACTIVE_STATE.md`, and `execution/KANBAN.md` explicitly close out the narrow first bounded V1 proof, `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` exists, `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md` exists, and the active milestone is advanced to R3 without broadening the claim
 
 ### `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants
-- Status: pending
+- Status: done
 - Order: 2
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-001`
