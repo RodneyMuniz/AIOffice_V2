@@ -23,6 +23,7 @@
 - Replayed one explicit block-path supervised run:
   - `powershell -ExecutionPolicy Bypass -File tools\run_supervised_admin_flow.ps1 -FlowRequestPath state\fixtures\valid\supervised_admin_flow.block.json -OutputRoot state\proof_reviews\r2_first_bounded_v1_rerun\runs\block`
 - Durable rerun outputs were saved under `state/proof_reviews/r2_first_bounded_v1_rerun/`, including raw test outputs, allow and block console outputs, persisted packet, gate request, gate result, action request, and action result files, plus rerun baseline Git metadata.
+- Evidence-integrity correction: the saved file `state/proof_reviews/r2_first_bounded_v1_rerun/meta/git_status_before.txt` was captured after the rerun folder had already been created, so it shows `?? state/proof_reviews/r2_first_bounded_v1_rerun/`. That file is therefore post-folder-creation metadata, not a true pre-folder Git-status baseline. The saved `git diff --stat` and `git diff --cached --stat` metadata remained empty, and this mismatch does not alter the replayed proof substance.
 - The allow rerun also produced a bounded outcome artifact at `state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json`, referenced from the saved action result and packet state.
 
 ## 4. What is directly proved now
@@ -59,6 +60,7 @@
 Implementation accepted is true.
 Proof exercised is true.
 Proof formally claimable is now true for the first bounded V1 proof boundary reviewed here.
+The evidence-integrity correction above does not change that decision.
 
 ## 7. Exact blockers if blocked
 - None for the first bounded V1 proof boundary on this rerun.

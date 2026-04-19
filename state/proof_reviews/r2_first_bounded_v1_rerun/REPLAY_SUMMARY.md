@@ -4,7 +4,9 @@
 - Review folder: `state/proof_reviews/r2_first_bounded_v1_rerun`
 - Repo branch at rerun start: `main`
 - Repo HEAD at rerun start: `b939683`
-- Start-of-rerun Git status: clean before rerun evidence files were created
+- Live rerun baseline before evidence creation was clean.
+- Evidence-integrity note: the saved file `meta/git_status_before.txt` was captured after the rerun folder skeleton had already been created, so it records `?? state/proof_reviews/r2_first_bounded_v1_rerun/` rather than a true pre-folder baseline status.
+- `meta/git_diff_before.txt` and `meta/git_diff_cached_before.txt` were empty, so the mismatch is a capture-order issue in saved metadata, not a replayed working-diff or staged-diff issue.
 - Baseline Git metadata saved under:
   - `meta/pwd.txt`
   - `meta/git_repo_root.txt`
@@ -70,4 +72,5 @@
 ## Rerun conclusion
 - Accepted implementation is present and replayable now.
 - Proof was exercised now.
+- The saved `meta/git_status_before.txt` file is not a true pre-folder baseline artifact and should be read as post-folder-creation metadata only.
 - The first bounded V1 proof is formally claimable from this rerun because the direct evidence now shows supervised operation through `architect`, bounded gate evaluation, executed bounded allow-path action, durable post-action artifacts and packet-state updates, a non-executing block path, and artifact-linkage behavior without replay ambiguity on the proved paths.
