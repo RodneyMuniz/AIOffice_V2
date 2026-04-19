@@ -1,0 +1,58 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "artifact_type": "request_brief",
+  "artifact_id": "request-brief-r3-005-invalid-missing-plan-001",
+  "title": "Reject Request Brief without accepted planning record grounding",
+  "summary": "This Request Brief remains contract-valid but is under-evidenced for bounded Task Packet generation.",
+  "status": "ready_for_planning",
+  "created_at": "2026-04-19T17:35:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:admin"
+  },
+  "lineage": {
+    "source_kind": "operator_request",
+    "source_refs": [
+      "execution/KANBAN.md"
+    ],
+    "rationale": "The flow must fail closed when no planning baseline is provided."
+  },
+  "work_object_refs": [
+    {
+      "relation": "targets",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "ref": "../valid/planning_records/accepted/planning_record.task.valid.accepted.json",
+      "notes": "The target work object exists, but no planning record baseline is attached."
+    }
+  ],
+  "planning_record_refs": [],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+      "summary": "R3-005 requires fail-closed handling for under-evidenced planning inputs."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_request_brief_task_packet_flow.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T17:36:00Z",
+    "notes": "This fixture is reserved for fail-closed flow testing only."
+  },
+  "request_intent": "Attempt Task Packet generation without a planning baseline.",
+  "requested_outcome": "Demonstrate that the bounded planning flow rejects under-evidenced Request Brief input.",
+  "scope_constraints": [
+    "No planning record refs"
+  ],
+  "non_goals": [
+    "Successful Task Packet generation"
+  ],
+  "operator_questions": [
+    "Does the planning flow reject Request Briefs that do not carry any planning baseline?"
+  ],
+  "requested_execution_profile": "admin-supervised-planning",
+  "escalation_notes": null
+}

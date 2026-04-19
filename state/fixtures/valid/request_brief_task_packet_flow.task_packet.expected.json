@@ -1,0 +1,89 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_artifact",
+  "artifact_type": "task_packet",
+  "artifact_id": "task-packet-r3-005-flow-001",
+  "title": "Task Packet for Plan bounded R3-005 request-to-task conversion",
+  "summary": "Approved bounded Task Packet generated from Request Brief 'request-brief-r3-005-flow-001'.",
+  "status": "approved",
+  "created_at": "2026-04-19T17:30:00Z",
+  "created_by": {
+    "role": "control_kernel",
+    "id": "control-kernel:planner"
+  },
+  "lineage": {
+    "source_kind": "request_brief",
+    "source_refs": [
+      "request_brief_task_packet_flow.request_brief.valid.json"
+    ],
+    "rationale": "Task Packet generated from a planning-ready Request Brief grounded in accepted planning records."
+  },
+  "work_object_refs": [
+    {
+      "relation": "implements",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "ref": "planning_records/accepted/planning_record.task.valid.accepted.json",
+      "notes": "Implements the targeted governed work object grounded by the accepted planning baseline."
+    }
+  ],
+  "planning_record_refs": [
+    {
+      "relation": "derives_from",
+      "planning_record_id": "planning-r3-003-task-001",
+      "object_type": "task",
+      "object_id": "task-r3-003-storage-001",
+      "view": "accepted",
+      "ref": "planning_record.task.valid.json",
+      "notes": "Derived from the accepted planning record referenced by the Request Brief."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "planning_record",
+      "ref": "planning_record.task.valid.json",
+      "summary": "The accepted planning record provides the approved baseline for this Task Packet."
+    },
+    {
+      "kind": "artifact",
+      "ref": "request_brief_task_packet_flow.request_brief.valid.json",
+      "summary": "The source Request Brief defines the bounded planning intent for this Task Packet."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "tests/test_request_brief_task_packet_flow.ps1"
+    ],
+    "last_reviewed_at": "2026-04-19T17:30:00Z",
+    "notes": "Bounded Request Brief to Task Packet flow output reviewed against the focused flow test."
+  },
+  "packet_summary": "Convert the planning-ready Request Brief into one bounded approved Task Packet.",
+  "requested_actions": [
+    "Produce one approved Task Packet that stays inside the accepted planning baseline and preserves durable linkage to the source Request Brief.",
+    "Plan the bounded R3-005 Request Brief to Task Packet conversion."
+  ],
+  "acceptance_checks": [
+    "Task Packet preserves lineage back to the Request Brief.",
+    "Task Packet remains grounded in accepted planning records only.",
+    "Planning records save and reload coherently.",
+    "Working, accepted, and reconciliation surfaces stay distinct."
+  ],
+  "bounded_scope": [
+    "One Task Packet output only",
+    "Accepted planning records only",
+    "No QA runtime behavior",
+    "No Execution Bundle runtime behavior",
+    "No Baton persistence"
+  ],
+  "non_goals": [
+    "QA gate runtime behavior",
+    "Execution Bundle runtime behavior",
+    "External Audit Pack runtime behavior",
+    "Baton persistence"
+  ],
+  "execution_profile": "admin-supervised-planning",
+  "handoff_notes": [
+    "Which accepted planning baseline should anchor the packet?",
+    "What bounded scope must remain explicit in the packet output?"
+  ]
+}

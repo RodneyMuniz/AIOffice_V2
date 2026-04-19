@@ -71,7 +71,7 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: the repo has durable contract definitions or schemas for those six artifacts, with explicit audit and handoff expectations
 
 ### `R3-005` Implement bounded Request Brief -> Task Packet planning flow
-- Status: pending
+- Status: done
 - Done when: a narrow supervised planning flow can convert a Request Brief into a Task Packet with durable evidence and bounded scope
 
 ### `R3-006` Implement QA gate with remediation tracking and external-audit packaging

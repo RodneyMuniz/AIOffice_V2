@@ -57,7 +57,7 @@ Exit Criteria:
 - Done when: each contract has canonical required fields, lineage rules, audit expectations, and bounded handoff intent, including a Baton contract limited to foundation-only resume support
 
 ### `R3-005` Implement bounded Request Brief -> Task Packet planning flow
-- Status: pending
+- Status: done
 - Order: 5
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-003`, `R3-004`
