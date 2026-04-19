@@ -64,6 +64,6 @@
   "forbidden_states": [
     "Ready-for-audit packs must carry QA report evidence.",
     "Ready-for-audit packs must list the included artifacts explicitly.",
-    "External Audit Packs in R3-004 are contract-only and do not claim packaging runtime behavior."
+    "External Audit Packs must stay bounded to explicit audit-ready artifacts and must not imply broader packaging orchestration."
   ]
 }

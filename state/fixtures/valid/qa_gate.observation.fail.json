@@ -1,0 +1,27 @@
+{
+  "record_type": "qa_gate_observation",
+  "observation_id": "qa-observation-r3-006-fail-001",
+  "execution_bundle_id": "execution-bundle-r3-006-fail-001",
+  "outcome": "fail",
+  "summary": "The prepared execution bundle failed bounded QA because the output evidence did not satisfy the declared acceptance checks.",
+  "checks_run": [
+    "Validate execution-bundle lineage",
+    "Validate planning and work-object refs",
+    "Review bounded-output evidence"
+  ],
+  "findings": [
+    "The execution bundle remained in scope, but the evidence did not satisfy the declared acceptance checks.",
+    "Remediation is required before the bundle can be reconsidered."
+  ],
+  "remediation_required": true,
+  "remediation_actions": [
+    "Repair the bounded output evidence.",
+    "Re-run the focused QA check after the evidence is updated."
+  ],
+  "blocking_reasons": [],
+  "audit_questions": [
+    "Is the failed QA verdict explicit and durable?",
+    "Does the remediation record capture the required repair actions?"
+  ],
+  "reviewer_notes": "The failure is bounded to evidence quality, not to broad workflow behavior."
+}

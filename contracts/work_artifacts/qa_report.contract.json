@@ -74,6 +74,6 @@
   "forbidden_states": [
     "Passed QA Reports must not require remediation.",
     "Failed QA Reports must record remediation notes.",
-    "QA Reports in R3-004 are contract-only and do not claim gate runtime behavior."
+    "QA Reports must stay bounded to explicit QA outcomes and remediation state."
   ]
 }

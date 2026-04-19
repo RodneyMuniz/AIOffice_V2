@@ -66,7 +66,7 @@ Exit Criteria:
 - Done when: the repo can run a narrow supervised planning flow from Request Brief to Task Packet without widening into a broad workflow engine
 
 ### `R3-006` Implement QA gate with remediation tracking and external-audit packaging
-- Status: pending
+- Status: done
 - Order: 6
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-004`, `R3-005`

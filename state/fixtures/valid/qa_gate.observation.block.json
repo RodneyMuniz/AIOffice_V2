@@ -1,0 +1,29 @@
+{
+  "record_type": "qa_gate_observation",
+  "observation_id": "qa-observation-r3-006-block-001",
+  "execution_bundle_id": "execution-bundle-r3-006-block-001",
+  "outcome": "block",
+  "summary": "The prepared execution bundle is blocked because the bounded QA prerequisite evidence is unavailable for review.",
+  "checks_run": [
+    "Validate execution-bundle lineage",
+    "Validate planning and work-object refs",
+    "Review bounded-output evidence"
+  ],
+  "findings": [
+    "The execution bundle remains bounded and coherent.",
+    "QA cannot proceed because a required prerequisite evidence review is blocked."
+  ],
+  "remediation_required": true,
+  "remediation_actions": [
+    "Resolve the blocked prerequisite evidence review.",
+    "Re-run the bounded QA gate once the prerequisite review is available."
+  ],
+  "blocking_reasons": [
+    "The prerequisite bounded evidence review is not yet available."
+  ],
+  "audit_questions": [
+    "Is the blocked QA state explicit for external reviewers?",
+    "Does the remediation record capture the unblock steps?"
+  ],
+  "reviewer_notes": "The block is procedural and bounded; it does not widen into broader orchestration."
+}

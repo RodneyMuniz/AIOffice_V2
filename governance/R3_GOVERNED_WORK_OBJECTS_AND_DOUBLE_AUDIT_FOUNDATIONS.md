@@ -75,7 +75,7 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: a narrow supervised planning flow can convert a Request Brief into a Task Packet with durable evidence and bounded scope
 
 ### `R3-006` Implement QA gate with remediation tracking and external-audit packaging
-- Status: pending
+- Status: done
 - Done when: QA outcomes can block or advance work with durable remediation tracking and an intentionally packaged External Audit Pack that supports an initial double-audit loop
 
 ### `R3-007` Implement minimal task baton / resume persistence

@@ -1,6 +1,6 @@
 # AIOffice Active State
 
-Last reconciled: 2026-04-19
+Last reconciled: 2026-04-20
 
 ## Status Summary
 The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, and repo truth now moves into `R3 Governed Work Objects and Double-Audit Foundations`.
@@ -22,12 +22,12 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R3-003` is complete and adds durable planning-record storage, load, and validation for Project / Milestone / Task / Bug objects while keeping working, accepted, and reconciliation surfaces distinct.
 - `R3-004` is complete and defines canonical Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts with bounded lineage, reference, evidence, and invalid-state rules.
 - `R3-005` is complete and adds a bounded supervised planning flow that converts a valid Request Brief into a valid Task Packet with durable lineage and fail-closed malformed-input handling.
-- `R3-006` through `R3-008` remain pending and not yet started.
-- The next gated step is `R3-006` Implement QA gate with remediation tracking and external-audit packaging.
+- `R3-006` is complete and adds a bounded QA gate that accepts a prepared Execution Bundle, emits a durable QA Report outcome, tracks remediation state durably, and assembles a bounded External Audit Pack path with fail-closed malformed-input handling.
+- `R3-007` and `R3-008` remain pending and not yet started.
+- The next gated step is `R3-007` Implement minimal task baton / resume persistence.
 - The backlog is fresh, reset-only, and limited to the bounded R3 foundation slice.
 
 ## Not Yet Proved
-- a QA gate with remediation tracking and external-audit packaging
 - minimal baton or resume persistence foundations for tasks
 - a replayable end-to-end R3 planning proof
 - any later-lane workflow beyond the first proof boundary
@@ -38,10 +38,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R3 Governed Work Objects and Double-Audit Foundations`
 
-This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, and `R3-005` are now completed in repo truth, while `R3-006` through `R3-008` remain pending.
+This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, and `R3-006` are now completed in repo truth, while `R3-007` and `R3-008` remain pending.
 
 ## Next Gated Step
-- `R3-006` Implement QA gate with remediation tracking and external-audit packaging
+- `R3-007` Implement minimal task baton / resume persistence
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
