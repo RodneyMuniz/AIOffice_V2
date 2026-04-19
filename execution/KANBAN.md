@@ -75,13 +75,13 @@ Exit Criteria:
 - Done when: QA outcomes can block or advance work with durable remediation tracking and intentionally packaged external-audit artifacts suitable for an initial double-audit loop
 
 ### `R3-007` Implement minimal task baton / resume persistence
-- Status: pending
+- Status: done
 - Order: 7
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-003`, `R3-004`
 - Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed baton or resume persistence foundation for tasks
-- Done when: the repo can persist and reload a minimal baton state needed for bounded task resume foundations without claiming full recovery or rollback productization
+- Durable output: committed baton persistence and load foundation that emits a bounded Baton from QA follow-up state and preserves it durably for manual resume preparation
+- Done when: the repo can emit, persist, validate, and reload a minimal baton state needed for bounded task resume foundations without claiming automatic resume, full recovery, or rollback productization
 
 ### `R3-008` Produce replayable end-to-end R3 planning proof
 - Status: pending

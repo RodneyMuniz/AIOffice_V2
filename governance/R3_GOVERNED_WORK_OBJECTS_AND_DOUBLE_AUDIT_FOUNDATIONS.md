@@ -79,8 +79,8 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: QA outcomes can block or advance work with durable remediation tracking and an intentionally packaged External Audit Pack that supports an initial double-audit loop
 
 ### `R3-007` Implement minimal task baton / resume persistence
-- Status: pending
-- Done when: the repo can durably persist and reload a minimal baton state needed for bounded task resume foundations; this is foundation-only, not full recovery productization
+- Status: done
+- Done when: the repo can emit a bounded Baton from QA follow-up state, durably persist and reload it, and fail closed for malformed baton inputs; this remains foundation-only, not full recovery productization
 
 ### `R3-008` Produce replayable end-to-end R3 planning proof
 - Status: pending

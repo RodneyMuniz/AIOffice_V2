@@ -23,12 +23,12 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R3-004` is complete and defines canonical Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts with bounded lineage, reference, evidence, and invalid-state rules.
 - `R3-005` is complete and adds a bounded supervised planning flow that converts a valid Request Brief into a valid Task Packet with durable lineage and fail-closed malformed-input handling.
 - `R3-006` is complete and adds a bounded QA gate that accepts a prepared Execution Bundle, emits a durable QA Report outcome, tracks remediation state durably, and assembles a bounded External Audit Pack path with fail-closed malformed-input handling.
-- `R3-007` and `R3-008` remain pending and not yet started.
-- The next gated step is `R3-007` Implement minimal task baton / resume persistence.
+- `R3-007` is complete and adds minimal baton persistence and load foundations that emit a durable Baton from bounded QA follow-up state, save and reload it, and fail closed for malformed baton inputs without claiming automatic resume or recovery behavior.
+- `R3-008` remains pending and not yet started.
+- The next gated step is `R3-008` Produce replayable end-to-end R3 planning proof.
 - The backlog is fresh, reset-only, and limited to the bounded R3 foundation slice.
 
 ## Not Yet Proved
-- minimal baton or resume persistence foundations for tasks
 - a replayable end-to-end R3 planning proof
 - any later-lane workflow beyond the first proof boundary
 - broad UI or control-room productization
@@ -38,10 +38,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R3 Governed Work Objects and Double-Audit Foundations`
 
-This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, and `R3-006` are now completed in repo truth, while `R3-007` and `R3-008` remain pending.
+This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, `R3-006`, and `R3-007` are now completed in repo truth, while `R3-008` remains pending.
 
 ## Next Gated Step
-- `R3-007` Implement minimal task baton / resume persistence
+- `R3-008` Produce replayable end-to-end R3 planning proof
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

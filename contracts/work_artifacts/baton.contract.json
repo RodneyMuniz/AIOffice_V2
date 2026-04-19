@@ -68,6 +68,6 @@
   "forbidden_states": [
     "Ready-for-handoff batons must list the next required artifacts.",
     "Closed batons must not retain unresolved next-required artifacts.",
-    "Batons in R3-004 are contract-only and do not claim persistence or resume runtime behavior."
+    "Batons must stay bounded to persistence and load foundations only and must not claim automatic resume or broader recovery behavior."
   ]
 }
