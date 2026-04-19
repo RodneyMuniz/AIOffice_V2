@@ -1,0 +1,3 @@
+b939683 Close R2 proof gap with bounded allow-path action
+8777420 Run R2 first bounded V1 proof review
+5cfc40e Record audited acceptance of RST-012

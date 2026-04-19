@@ -1,0 +1,154 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "packet_record",
+    "packet_id":  "packet-rst012-allow-001",
+    "created_at":  "2026-04-19T00:14:17Z",
+    "updated_at":  "2026-04-19T00:14:18Z",
+    "current_stage":  "architect",
+    "stage_progression":  [
+                              {
+                                  "stage":  "intake",
+                                  "status":  "active",
+                                  "entered_at":  "2026-04-19T00:14:17Z",
+                                  "artifact_ref":  null,
+                                  "notes":  "Packet record created."
+                              },
+                              {
+                                  "stage":  "intake",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T00:14:17Z",
+                                  "artifact_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\intake.valid.json",
+                                  "notes":  "Supervised harness recorded intake completion."
+                              },
+                              {
+                                  "stage":  "pm",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T00:14:17Z",
+                                  "artifact_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\pm.valid.json",
+                                  "notes":  "Supervised harness recorded planning completion."
+                              },
+                              {
+                                  "stage":  "context_audit",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T00:14:17Z",
+                                  "artifact_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\context_audit.valid.json",
+                                  "notes":  "Supervised harness recorded context audit completion."
+                              },
+                              {
+                                  "stage":  "architect",
+                                  "status":  "complete",
+                                  "entered_at":  "2026-04-19T00:14:17Z",
+                                  "artifact_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+                                  "notes":  "Supervised harness recorded architect completion."
+                              }
+                          ],
+    "approval_state":  {
+                           "mode":  "required",
+                           "status":  "approved",
+                           "by":  "operator:admin",
+                           "at":  "2026-04-19T00:14:17Z",
+                           "notes":  "Supervised harness recorded explicit admin approval."
+                       },
+    "artifact_refs":  [
+                          {
+                              "stage":  "intake",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\intake.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:17Z",
+                              "notes":  "Supervised harness intake artifact."
+                          },
+                          {
+                              "stage":  "pm",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\pm.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:17Z",
+                              "notes":  "Supervised harness planning artifact."
+                          },
+                          {
+                              "stage":  "context_audit",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\context_audit.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:17Z",
+                              "notes":  "Supervised harness context audit artifact."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:17Z",
+                              "notes":  "Supervised harness architect artifact."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+                              "kind":  "stage_artifact",
+                              "view":  "accepted",
+                              "added_at":  "2026-04-19T00:14:17Z",
+                              "notes":  "Supervised harness accepted architect artifact."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_requests\\flow-rst012-allow-001.action.request.json",
+                              "kind":  "supporting",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:18Z",
+                              "notes":  "Bounded apply/promotion action request."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json",
+                              "kind":  "supporting",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:18Z",
+                              "notes":  "Bounded apply/promotion action outcome artifact."
+                          },
+                          {
+                              "stage":  "architect",
+                              "ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_results\\flow-rst012-allow-001.action.result.json",
+                              "kind":  "supporting",
+                              "view":  "working",
+                              "added_at":  "2026-04-19T00:14:18Z",
+                              "notes":  "Bounded apply/promotion action result."
+                          }
+                      ],
+    "git_refs":  {
+                     "branch":  "main",
+                     "head_commit":  "b939683f64f62e29a63646cc746d5ed724030ff0",
+                     "accepted_commit":  "b939683f64f62e29a63646cc746d5ed724030ff0",
+                     "accepted_tag":  null,
+                     "last_observed_at":  "2026-04-19T00:14:17Z"
+                 },
+    "working_state":  {
+                          "status":  "in_progress",
+                          "current_stage":  "architect",
+                          "artifact_refs":  [
+                                                "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+                                                "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_requests\\flow-rst012-allow-001.action.request.json",
+                                                "state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json",
+                                                "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_results\\flow-rst012-allow-001.action.result.json"
+                                            ],
+                          "last_local_update_at":  "2026-04-19T00:14:18Z",
+                          "notes":  "Bounded apply action executed after allow gate decision. Outcome artifact: state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json. Action result: C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_results\\flow-rst012-allow-001.action.result.json"
+                      },
+    "accepted_state":  {
+                           "status":  "accepted",
+                           "accepted_stage":  "architect",
+                           "artifact_refs":  [
+                                                 "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                                             ],
+                           "accepted_at":  "2026-04-19T00:14:17Z",
+                           "accepted_by":  "operator:admin",
+                           "notes":  "Supervised harness accepted architect artifact as packet truth."
+                       },
+    "reconciliation_state":  {
+                                 "status":  "drift",
+                                 "compared_at":  "2026-04-19T00:14:18Z",
+                                 "working_matches_accepted":  false,
+                                 "git_head_matches_accepted":  true,
+                                 "notes":  "Bounded apply action created working output inside approved scope while accepted commit remains unchanged."
+                             }
+}

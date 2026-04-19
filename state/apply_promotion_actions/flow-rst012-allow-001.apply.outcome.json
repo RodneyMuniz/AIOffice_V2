@@ -1,0 +1,27 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_action_outcome",
+    "action_request_id":  "flow-rst012-allow-001.action",
+    "gate_result_id":  "flow-rst012-allow-001.result",
+    "packet_id":  "packet-rst012-allow-001",
+    "requested_action":  "apply",
+    "created_at":  "2026-04-19T00:14:18Z",
+    "created_by":  "operator:admin",
+    "architect_artifact_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+    "approved_artifact_refs":  [
+                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                               ],
+    "change_intent":  "Add JSON contract documents, valid and invalid fixtures, a PowerShell validator module and CLI, and a focused test script.",
+    "affected_artifacts":  [
+                               "contracts/stage_artifacts/",
+                               "artifacts/fixtures/",
+                               "tools/StageArtifactValidation.psm1",
+                               "tools/validate_stage_artifact.ps1",
+                               "tests/test_stage_artifact_contracts.ps1"
+                           ],
+    "acceptance_checks":  [
+                              "All valid fixtures pass validation.",
+                              "All invalid fixtures are rejected with explicit error messages."
+                          ],
+    "notes":  "Bounded allow-path action outcome artifact written inside approved scope."
+}

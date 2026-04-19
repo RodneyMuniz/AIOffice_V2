@@ -1,0 +1,29 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_action_result",
+    "action_result_id":  "flow-rst012-allow-001.action.result",
+    "action_request_id":  "flow-rst012-allow-001.action",
+    "gate_result_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\gate_results\\flow-rst012-allow-001.result.json",
+    "gate_result_id":  "flow-rst012-allow-001.result",
+    "packet_id":  "packet-rst012-allow-001",
+    "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\packets\\packet-rst012-allow-001.json",
+    "requested_action":  "apply",
+    "executed_at":  "2026-04-19T00:14:18Z",
+    "status":  "completed",
+    "target_relative_path":  "state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json",
+    "outcome_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\apply_promotion_actions\\flow-rst012-allow-001.apply.outcome.json",
+    "packet_state_recorded":  true,
+    "post_action_packet_state":  {
+                                     "working_state_status":  "in_progress",
+                                     "working_artifact_refs":  [
+                                                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json",
+                                                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_requests\\flow-rst012-allow-001.action.request.json",
+                                                                   "state/apply_promotion_actions/flow-rst012-allow-001.apply.outcome.json",
+                                                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\action_results\\flow-rst012-allow-001.action.result.json"
+                                                               ],
+                                     "reconciliation_status":  "drift",
+                                     "working_matches_accepted":  false,
+                                     "git_head_matches_accepted":  true
+                                 },
+    "notes":  "Bounded apply action completed and packet state was updated durably."
+}

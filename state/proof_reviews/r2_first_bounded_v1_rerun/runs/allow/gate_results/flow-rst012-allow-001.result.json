@@ -1,0 +1,43 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "apply_promotion_gate_result",
+    "gate_result_id":  "flow-rst012-allow-001.result",
+    "gate_request_id":  "flow-rst012-allow-001",
+    "packet_id":  "packet-rst012-allow-001",
+    "packet_record_ref":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r2_first_bounded_v1_rerun\\runs\\allow\\packets\\packet-rst012-allow-001.json",
+    "requested_action":  "apply",
+    "decided_at":  "2026-04-19T00:14:17Z",
+    "decision":  "allow",
+    "preconditions":  {
+                          "approval":  true,
+                          "scope":  true,
+                          "artifact_linkage":  true,
+                          "reconciliation":  true
+                      },
+    "scope":  {
+                  "summary":  "Allow one bounded apply outcome artifact inside the dedicated apply or promotion action path.",
+                  "allowed_paths":  [
+                                        "state/apply_promotion_actions",
+                                        "state/supervised_runs",
+                                        "state/gate_results",
+                                        "state/gate_requests"
+                                    ],
+                  "prohibited_paths":  [
+                                           "governance",
+                                           "execution"
+                                       ]
+              },
+    "approved_artifact_refs":  [
+                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\artifacts\\fixtures\\valid\\architect.valid.json"
+                               ],
+    "block_reasons":  [
+
+                      ],
+    "blocked_state_record":  {
+                                 "recorded":  false,
+                                 "packet_record_ref":  null,
+                                 "recorded_at":  null,
+                                 "notes":  "No blocked state recording was required for an allow decision."
+                             },
+    "notes":  "All apply/promotion gate preconditions are satisfied."
+}
