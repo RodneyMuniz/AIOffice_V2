@@ -22,6 +22,18 @@ function Get-JsonDocument {
     return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
 }
 
+function Write-JsonDocument {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+        [Parameter(Mandatory = $true)]
+        $Document
+    )
+
+    $json = $Document | ConvertTo-Json -Depth 20
+    Set-Content -LiteralPath $Path -Value $json -Encoding UTF8
+}
+
 function Resolve-ArtifactReferencePath {
     param(
         [Parameter(Mandatory = $true)]
@@ -74,6 +86,12 @@ try {
         if ($loadedBaton.Baton.lineage.source_kind -ne "qa_report") {
             $failures += ("FAIL valid baton persistence: expected lineage source kind 'qa_report' but found '{0}'." -f $loadedBaton.Baton.lineage.source_kind)
         }
+        if ([int]$loadedBaton.Baton.qa_attempt_count -ne 1 -or [int]$loadedBaton.Baton.qa_retry_ceiling -ne 4) {
+            $failures += "FAIL valid baton persistence: bounded retry metadata did not persist on the baton."
+        }
+        if ($loadedBaton.Baton.handoff_state -ne "follow_up") {
+            $failures += ("FAIL valid baton persistence: expected handoff_state 'follow_up' but found '{0}'." -f $loadedBaton.Baton.handoff_state)
+        }
         if ($loadedBaton.Baton.artifact_id -ne $batonEmission.Baton.artifact_id) {
             $failures += ("FAIL valid baton persistence: loaded artifact id '{0}' did not match emitted artifact id '{1}'." -f $loadedBaton.Baton.artifact_id, $batonEmission.Baton.artifact_id)
         }
@@ -123,6 +141,68 @@ try {
 }
 catch {
     $failures += ("FAIL valid baton persistence harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $retryTempRoot = Join-Path $env:TEMP ("aioffice-r4-004-baton-retry-exhausted-{0}" -f ([guid]::NewGuid().ToString("N")))
+    New-Item -ItemType Directory -Path $retryTempRoot -Force | Out-Null
+
+    try {
+        $retryGateResult = & $invokeExecutionBundleQaGate -ExecutionBundlePath $validExecutionBundle -OutputRoot (Join-Path $retryTempRoot "qa-output") -CreatedAt ([datetime]::Parse("2026-04-20T03:40:00Z").ToUniversalTime())
+        $retryQaReport = Get-JsonDocument -Path $retryGateResult.QaReportPath
+        $retryRemediation = Get-JsonDocument -Path $retryGateResult.RemediationRecordPath
+
+        $retryQaReport.status = "retry_exhausted"
+        $retryQaReport.qa_attempt_count = 4
+        $retryQaReport.qa_retry_ceiling = 4
+        $retryQaReport.qa_loop_state = "retry_exhausted"
+        $retryQaReport.next_handoff = "manual_review"
+        $retryQaReport.remediation_notes = "The bounded QA retry ceiling has been reached; the loop is stopped and must return for manual review."
+        Write-JsonDocument -Path $retryGateResult.QaReportPath -Document $retryQaReport
+
+        $retryRemediation.status = "retry_exhausted"
+        $retryRemediation.qa_attempt_count = 4
+        $retryRemediation.qa_retry_ceiling = 4
+        $retryRemediation.qa_loop_state = "retry_exhausted"
+        $retryRemediation.next_handoff = "manual_review"
+        $retryRemediation.notes = "The bounded QA retry ceiling has been reached; further retries must stop and return for manual review."
+        Write-JsonDocument -Path $retryGateResult.RemediationRecordPath -Document $retryRemediation
+
+        $retryBatonEmission = & $newBatonFromQaOutcome -QaReportPath $retryGateResult.QaReportPath -ExternalAuditPackPath $retryGateResult.ExternalAuditPackPath -RemediationRecordPath $retryGateResult.RemediationRecordPath -CreatedAt ([datetime]::Parse("2026-04-20T03:45:00Z").ToUniversalTime())
+        Write-Output ("PASS retry-exhausted baton emission: {0} -> handoff {1}" -f $retryQaReport.artifact_id, $retryBatonEmission.Baton.handoff_state)
+
+        if ($retryBatonEmission.Baton.handoff_state -ne "manual_review") {
+            $failures += ("FAIL retry-exhausted baton emission: expected handoff_state 'manual_review' but found '{0}'." -f $retryBatonEmission.Baton.handoff_state)
+        }
+        if ([int]$retryBatonEmission.Baton.qa_attempt_count -ne 4) {
+            $failures += ("FAIL retry-exhausted baton emission: expected qa_attempt_count 4 but found '{0}'." -f $retryBatonEmission.Baton.qa_attempt_count)
+        }
+        if (@($retryBatonEmission.Baton.handoff_notes | Where-Object { $_ -eq "Retry ceiling reached; manual review is required before any further bounded work." }).Count -eq 0) {
+            $failures += "FAIL retry-exhausted baton emission: retry ceiling manual-review note was not preserved."
+        }
+
+        $retryRemediation.next_handoff = "baton_follow_up"
+        Write-JsonDocument -Path $retryGateResult.RemediationRecordPath -Document $retryRemediation
+
+        try {
+            & $newBatonFromQaOutcome -QaReportPath $retryGateResult.QaReportPath -ExternalAuditPackPath $retryGateResult.ExternalAuditPackPath -RemediationRecordPath $retryGateResult.RemediationRecordPath -CreatedAt ([datetime]::Parse("2026-04-20T03:47:00Z").ToUniversalTime()) | Out-Null
+            $failures += "FAIL invalid baton handoff: mismatched retry-exhausted remediation handoff was accepted unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS invalid baton handoff: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $retryTempRoot) {
+            Remove-Item -LiteralPath $retryTempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL retry-exhausted baton harness: {0}" -f $_.Exception.Message)
 }
 
 try {

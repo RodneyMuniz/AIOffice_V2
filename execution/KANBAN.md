@@ -48,7 +48,7 @@ Exit Criteria:
 - Done when: bounded work, planning, and artifact surfaces represent protected scope more explicitly, contradictory scope fails closed, and nothing implies Standard runtime productization
 
 ### `R4-004` Harden the bounded workflow loop already proved
-- Status: pending
+- Status: done
 - Order: 4
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-002`, `R4-003`

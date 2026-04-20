@@ -1,12 +1,12 @@
-﻿{
+{
     "contract_version":  "v1",
     "record_type":  "governed_work_artifact",
     "artifact_type":  "execution_bundle",
-    "artifact_id":  "execution-bundle-r3-006-invalid-draft-001",
-    "title":  "R3-006 draft execution bundle",
-    "summary":  "A contract-valid execution bundle that has not reached prepared status.",
-    "status":  "draft",
-    "created_at":  "2026-04-20T01:40:00Z",
+    "artifact_id":  "execution-bundle-r4-004-invalid-retry-entry-001",
+    "title":  "R4-004 invalid retry-entry execution bundle",
+    "summary":  "Attempt to reopen the bounded QA loop without carrying the prior QA and Baton handoff refs.",
+    "status":  "prepared",
+    "created_at":  "2026-04-20T10:00:00Z",
     "created_by":  {
                        "role":  "control_kernel",
                        "id":  "control-kernel:local"
@@ -14,17 +14,17 @@
     "lineage":  {
                     "source_kind":  "task_packet",
                     "source_refs":  [
-                                        "../valid/request_brief_task_packet_flow.task_packet.expected.json"
+                                        "../valid/work_artifact.task_packet.valid.json"
                                     ],
-                    "rationale":  "The draft execution bundle still derives from the bounded approved Task Packet."
+                    "rationale":  "The invalid retry-entry execution bundle still derives from an approved Task Packet."
                 },
     "work_object_refs":  [
                              {
                                  "relation":  "implements",
                                  "object_type":  "task",
-                                 "object_id":  "task-r3-003-storage-001",
-                                 "ref":  "../valid/planning_records/accepted/planning_record.task.valid.accepted.json",
-                                 "notes":  "The bundle targets the accepted task surface that matches the planning baseline."
+                                 "object_id":  "task-r3-002-contracts-001",
+                                 "ref":  "../valid/governed_work_object.task.valid.json",
+                                 "notes":  "The bundle remains scoped to the existing task work object."
                              }
                          ],
     "planning_record_refs":  [
@@ -33,48 +33,46 @@
                                      "planning_record_id":  "planning-r3-003-task-001",
                                      "object_type":  "task",
                                      "object_id":  "task-r3-003-storage-001",
-                                     "view":  "accepted",
+                                     "view":  "working",
                                      "ref":  "../valid/planning_record.task.valid.json",
-                                     "notes":  "The bundle tracks the accepted planning baseline for the bounded QA slice."
+                                     "notes":  "The bundle tracks the current working planning record state."
                                  }
                              ],
     "evidence":  [
                      {
                          "kind":  "artifact",
-                         "ref":  "../valid/request_brief_task_packet_flow.task_packet.expected.json",
-                         "summary":  "The approved Task Packet defines the bounded execution intent."
-                     },
-                     {
-                         "kind":  "test_output",
-                         "ref":  "../valid/qa_gate.observation.pass.json",
-                         "summary":  "The QA observation is present, but the bundle is still not prepared."
+                         "ref":  "../valid/work_artifact.task_packet.valid.json",
+                         "summary":  "The task packet provides the contract-only execution boundary."
                      }
                  ],
     "audit":  {
                   "trail_refs":  [
-                                     "tests/test_execution_bundle_qa_gate.ps1"
+                                     "tests/test_work_artifact_contracts.ps1"
                                  ],
-                  "last_reviewed_at":  "2026-04-20T01:42:00Z",
-                  "notes":  "Draft bundle retained only for fail-closed QA gate validation."
+                  "last_reviewed_at":  "2026-04-20T10:02:00Z",
+                  "notes":  "Invalid retry-entry fixture reviewed against the focused work-artifact contract test."
               },
-    "execution_summary":  "Attempt the bounded QA gate before the bundle reaches prepared status.",
-    "executor_profile":  "bounded-qa-gate",
+    "execution_summary":  "Attempt the bounded retry-entry handoff without preserving prior QA and Baton refs.",
+    "executor_profile":  "bounded-qa-retry",
     "bounded_targets":  [
                             "tools/ExecutionBundleQaGate.psm1",
+                            "tools/BatonPersistence.psm1",
                             "tests/test_execution_bundle_qa_gate.ps1"
                         ],
     "expected_outputs":  [
-                             "None"
+                             "QA Report",
+                             "Remediation record",
+                             "External Audit Pack"
                          ],
     "prohibited_operations":  [
-                                  "Baton persistence",
-                                  "Replay-proof packaging",
+                                  "Automatic resume",
+                                  "Rollback productization",
                                   "Broad workflow orchestration"
                               ],
     "replay_command":  null,
-    "qa_attempt_count":  1,
+    "qa_attempt_count":  2,
     "qa_retry_ceiling":  4,
-    "qa_entry_state":  "initial_entry",
+    "qa_entry_state":  "retry_entry",
     "prior_qa_report_ref":  null,
     "prior_baton_ref":  null,
     "pipeline":  {
@@ -108,6 +106,6 @@
                                               "rollback",
                                               "broad_orchestration"
                                           ],
-                  "notes":  "The execution-bundle surface remains bounded to the already-proved internal chain only."
+                  "notes":  "This invalid retry-entry fixture should fail closed because it omits the bounded prior QA and Baton handoff refs."
               }
 }

@@ -63,6 +63,10 @@
                      "All malformed fixtures were rejected."
                  ],
     "remediation_required":  false,
+    "qa_attempt_count":  1,
+    "qa_retry_ceiling":  4,
+    "qa_loop_state":  "closed",
+    "next_handoff":  "none",
     "remediation_notes":  null,
     "pipeline":  {
                      "mode":  "admin_only_bounded",

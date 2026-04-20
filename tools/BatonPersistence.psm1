@@ -159,6 +159,25 @@ function Assert-StringArray {
     Write-Output -NoEnumerate $items
 }
 
+function Assert-IntegerValue {
+    param(
+        [AllowNull()]
+        $Value,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    if ($Value -is [int]) {
+        return $Value
+    }
+
+    if ($Value -is [long] -and $Value -ge [int]::MinValue -and $Value -le [int]::MaxValue) {
+        return [int]$Value
+    }
+
+    throw "$Context must be an integer."
+}
+
 function Get-UtcTimestamp {
     param(
         [datetime]$DateTime = (Get-Date).ToUniversalTime()
@@ -253,8 +272,8 @@ function Get-ValidatedQaReportInput {
     }
 
     $document = Get-JsonDocument -Path $validation.ArtifactPath -Label "QA Report"
-    if (@("failed", "blocked") -notcontains $document.status) {
-        throw "Baton emission is bounded to QA outcomes that still require follow-up. QA Report '$($document.artifact_id)' must be in status 'failed' or 'blocked'."
+    if (@("failed", "blocked", "retry_exhausted") -notcontains $document.status) {
+        throw "Baton emission is bounded to QA outcomes that still require follow-up. QA Report '$($document.artifact_id)' must be in status 'failed', 'blocked', or 'retry_exhausted'."
     }
 
     return [pscustomobject]@{
@@ -317,13 +336,36 @@ function Get-ValidatedRemediationRecordInput {
     }
 
     $status = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document -Name "status" -Context "Remediation record") -Context "Remediation record.status"
-    if (@("required", "blocked") -notcontains $status) {
-        throw "Remediation record status must be 'required' or 'blocked' for baton emission."
+    if (@("required", "blocked", "retry_exhausted") -notcontains $status) {
+        throw "Remediation record status must be 'required', 'blocked', or 'retry_exhausted' for baton emission."
     }
 
+    $qaAttemptCount = Assert-IntegerValue -Value (Get-RequiredProperty -Object $document -Name "qa_attempt_count" -Context "Remediation record") -Context "Remediation record.qa_attempt_count"
+    $qaRetryCeiling = Assert-IntegerValue -Value (Get-RequiredProperty -Object $document -Name "qa_retry_ceiling" -Context "Remediation record") -Context "Remediation record.qa_retry_ceiling"
+    $qaLoopState = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document -Name "qa_loop_state" -Context "Remediation record") -Context "Remediation record.qa_loop_state"
+    $nextHandoff = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document -Name "next_handoff" -Context "Remediation record") -Context "Remediation record.next_handoff"
     $actions = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $document -Name "actions" -Context "Remediation record") -Context "Remediation record.actions" -AllowEmpty)
     $blockingReasons = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $document -Name "blocking_reasons" -Context "Remediation record") -Context "Remediation record.blocking_reasons" -AllowEmpty)
     Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document -Name "notes" -Context "Remediation record") -Context "Remediation record.notes" | Out-Null
+
+    if ($qaRetryCeiling -ne 4) {
+        throw "Remediation record.qa_retry_ceiling must equal 4 for the bounded QA loop."
+    }
+    if ($qaAttemptCount -lt 1 -or $qaAttemptCount -gt $qaRetryCeiling) {
+        throw "Remediation record.qa_attempt_count must stay within the bounded QA retry ceiling."
+    }
+    if ([int]$QaReportInput.Document.qa_attempt_count -ne $qaAttemptCount) {
+        throw "Remediation record.qa_attempt_count must match the supplied QA Report."
+    }
+    if ([int]$QaReportInput.Document.qa_retry_ceiling -ne $qaRetryCeiling) {
+        throw "Remediation record.qa_retry_ceiling must match the supplied QA Report."
+    }
+    if ($QaReportInput.Document.qa_loop_state -ne $qaLoopState) {
+        throw "Remediation record.qa_loop_state must match the supplied QA Report."
+    }
+    if ($QaReportInput.Document.next_handoff -ne $nextHandoff) {
+        throw "Remediation record.next_handoff must match the supplied QA Report."
+    }
 
     if ($status -eq "required" -and $actions.Count -eq 0) {
         throw "Remediation record status 'required' must include at least one action."
@@ -331,10 +373,24 @@ function Get-ValidatedRemediationRecordInput {
     if ($status -eq "blocked" -and $blockingReasons.Count -eq 0) {
         throw "Remediation record status 'blocked' must include at least one blocking reason."
     }
+    if ($status -eq "retry_exhausted") {
+        if ($qaAttemptCount -ne $qaRetryCeiling) {
+            throw "Retry-exhausted remediation records must reflect the retry-ceiling attempt."
+        }
+        if ($qaLoopState -ne "retry_exhausted" -or $nextHandoff -ne "manual_review") {
+            throw "Retry-exhausted remediation records must stop the bounded loop and hand off to manual_review."
+        }
+    }
+    elseif ($nextHandoff -ne "baton_follow_up") {
+        throw "Open remediation records must hand off to baton_follow_up."
+    }
 
     return [pscustomobject]@{
         Path            = $resolvedPath
         Document        = $document
+        AttemptCount    = $qaAttemptCount
+        RetryCeiling    = $qaRetryCeiling
+        NextHandoff     = $nextHandoff
         Actions         = $actions
         BlockingReasons = $blockingReasons
     }
@@ -391,6 +447,9 @@ function New-BatonFromQaOutcome {
     }
     if (-not [string]::IsNullOrWhiteSpace($qaReportInput.Document.remediation_notes) -and -not $handoffNotes.Contains($qaReportInput.Document.remediation_notes)) {
         $handoffNotes.Add($qaReportInput.Document.remediation_notes) | Out-Null
+    }
+    if ($remediationRecordInput.NextHandoff -eq "manual_review" -and -not $handoffNotes.Contains("Retry ceiling reached; manual review is required before any further bounded work.")) {
+        $handoffNotes.Add("Retry ceiling reached; manual review is required before any further bounded work.") | Out-Null
     }
 
     $nextRequiredArtifacts = @(
@@ -476,6 +535,9 @@ function New-BatonFromQaOutcome {
         }
         baton_summary         = "Persist the bounded QA follow-up state for manual resume preparation."
         resume_objective      = "Reload the baton to recover the minimal follow-up context without automatically resuming execution."
+        qa_attempt_count      = $remediationRecordInput.AttemptCount
+        qa_retry_ceiling      = $remediationRecordInput.RetryCeiling
+        handoff_state         = if ($remediationRecordInput.NextHandoff -eq "manual_review") { "manual_review" } else { "follow_up" }
         handoff_notes         = @($handoffNotes)
         blocked_by            = @($blockedBy)
         next_required_artifacts = @($nextRequiredArtifacts)
@@ -553,6 +615,9 @@ function Save-BatonRecord {
         audit                 = $Baton.audit
         baton_summary         = $Baton.baton_summary
         resume_objective      = $Baton.resume_objective
+        qa_attempt_count      = $Baton.qa_attempt_count
+        qa_retry_ceiling      = $Baton.qa_retry_ceiling
+        handoff_state         = $Baton.handoff_state
         handoff_notes         = @($Baton.handoff_notes)
         blocked_by            = @($Baton.blocked_by)
         next_required_artifacts = @($Baton.next_required_artifacts | ForEach-Object { Get-NormalizedReferenceForSave -BatonDirectory $batonDirectory -Reference $_ })

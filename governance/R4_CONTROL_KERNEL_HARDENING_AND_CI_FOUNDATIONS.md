@@ -73,7 +73,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: the repo can represent and validate protected scope more explicitly than it does today, invalid scope declarations fail closed with focused tests, and nothing in repo truth implies Standard pipeline productization
 
 ### `R4-004` Harden the bounded workflow loop already proved
-- Status: pending
+- Status: done
 - Done when: the bounded chain is more rule-driven and less permissive, retry exhaustion is explicit and durable, invalid planning-to-QA-to-baton handoffs are rejected, and tests prove the intended stop behavior
 
 ### `R4-005` Add a deterministic repo-local proof runner

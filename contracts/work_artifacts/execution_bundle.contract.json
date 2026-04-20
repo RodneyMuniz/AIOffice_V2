@@ -9,10 +9,15 @@
     "executor_profile",
     "bounded_targets",
     "expected_outputs",
-    "prohibited_operations"
+    "prohibited_operations",
+    "qa_attempt_count",
+    "qa_retry_ceiling",
+    "qa_entry_state"
   ],
   "optional_fields": [
-    "replay_command"
+    "replay_command",
+    "prior_qa_report_ref",
+    "prior_baton_ref"
   ],
   "field_types": {
     "execution_summary": "string",
@@ -20,7 +25,12 @@
     "bounded_targets": "string_array",
     "expected_outputs": "string_array",
     "prohibited_operations": "string_array",
-    "replay_command": "nullable_string"
+    "replay_command": "nullable_string",
+    "qa_attempt_count": "integer",
+    "qa_retry_ceiling": "integer",
+    "qa_entry_state": "string",
+    "prior_qa_report_ref": "nullable_string",
+    "prior_baton_ref": "nullable_string"
   },
   "lifecycle": {
     "allowed_statuses": [
@@ -40,6 +50,11 @@
     "planning_record",
     "manual"
   ],
+  "allowed_qa_entry_states": [
+    "initial_entry",
+    "retry_entry"
+  ],
+  "required_qa_retry_ceiling": 4,
   "allowed_orchestration_scopes": [
     "bounded_chain_only"
   ],
@@ -85,10 +100,14 @@
     "artifact"
   ],
   "status_rules": {
-    "prepared_requires_task_packet_lineage": true
+    "prepared_requires_task_packet_lineage": true,
+    "prepared_requires_valid_qa_entry": true
   },
   "forbidden_states": [
     "Prepared Execution Bundles must derive from a Task Packet lineage source.",
+    "Retry-entry Execution Bundles must carry bounded prior QA and Baton handoff refs.",
+    "Prepared Execution Bundles must use accepted planning handoff state before bounded QA evaluation.",
+    "Prepared Execution Bundles must not exceed the bounded QA retry ceiling.",
     "Execution Bundles must remain bounded to the approved Task Packet scope and must not claim broad workflow orchestration.",
     "Execution Bundles must remain inside the admin-only bounded chain and must not imply Standard runtime."
   ]

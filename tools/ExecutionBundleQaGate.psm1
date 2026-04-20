@@ -140,6 +140,25 @@ function Assert-BooleanValue {
     return $Value
 }
 
+function Assert-IntegerValue {
+    param(
+        [AllowNull()]
+        $Value,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    if ($Value -is [int]) {
+        return $Value
+    }
+
+    if ($Value -is [long] -and $Value -ge [int]::MinValue -and $Value -le [int]::MaxValue) {
+        return [int]$Value
+    }
+
+    throw "$Context must be an integer."
+}
+
 function Assert-ObjectValue {
     param(
         [AllowNull()]
@@ -439,6 +458,9 @@ function Get-ValidatedQaPlanningRefs {
         if ($planningRecord.accepted_state.status -ne "accepted") {
             throw "Planning record '$($planningRecordValidation.PlanningRecordId)' must expose an accepted surface before QA gate audit-pack assembly."
         }
+        if ($planningRecordRef.view -ne "accepted") {
+            throw "Execution Bundle '$($ExecutionBundleInput.Document.artifact_id)' must hand off accepted planning_record_refs only before QA gate evaluation."
+        }
 
         $acceptedViewPath = Get-PlanningRecordViewPath -PlanningRecordDocument $planningRecord -PlanningRecordPath $planningRecordValidation.PlanningRecordPath -View "accepted"
 
@@ -477,6 +499,88 @@ function Get-ValidatedQaPlanningRefs {
     }
 
     return $validatedRefs
+}
+
+function Get-ValidatedQaLoopContext {
+    param(
+        [Parameter(Mandatory = $true)]
+        $ExecutionBundleInput
+    )
+
+    $document = $ExecutionBundleInput.Document
+    $qaAttemptCount = Assert-IntegerValue -Value (Get-RequiredProperty -Object $document -Name "qa_attempt_count" -Context "Execution Bundle") -Context "Execution Bundle.qa_attempt_count"
+    $qaRetryCeiling = Assert-IntegerValue -Value (Get-RequiredProperty -Object $document -Name "qa_retry_ceiling" -Context "Execution Bundle") -Context "Execution Bundle.qa_retry_ceiling"
+    if ($qaRetryCeiling -ne 4) {
+        throw "Execution Bundle '$($document.artifact_id)' must use qa_retry_ceiling 4 for the bounded QA loop."
+    }
+    if ($qaAttemptCount -lt 1 -or $qaAttemptCount -gt $qaRetryCeiling) {
+        throw "Execution Bundle '$($document.artifact_id)' must keep qa_attempt_count within the bounded retry ceiling."
+    }
+
+    $qaEntryState = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document -Name "qa_entry_state" -Context "Execution Bundle") -Context "Execution Bundle.qa_entry_state"
+    if (@("initial_entry", "retry_entry") -notcontains $qaEntryState) {
+        throw "Execution Bundle.qa_entry_state must be 'initial_entry' or 'retry_entry'."
+    }
+
+    $priorQaReportRef = if (Test-HasProperty -Object $document -Name "prior_qa_report_ref") { Assert-NullableString -Value $document.prior_qa_report_ref -Context "Execution Bundle.prior_qa_report_ref" } else { $null }
+    $priorBatonRef = if (Test-HasProperty -Object $document -Name "prior_baton_ref") { Assert-NullableString -Value $document.prior_baton_ref -Context "Execution Bundle.prior_baton_ref" } else { $null }
+
+    if ($qaEntryState -eq "initial_entry") {
+        if ($qaAttemptCount -ne 1) {
+            throw "Initial-entry Execution Bundles must start at qa_attempt_count 1."
+        }
+        if ($null -ne $priorQaReportRef -or $null -ne $priorBatonRef) {
+            throw "Initial-entry Execution Bundles must not carry prior QA or Baton refs."
+        }
+    }
+
+    if ($qaEntryState -eq "retry_entry") {
+        if ($qaAttemptCount -le 1) {
+            throw "Retry-entry Execution Bundles must use qa_attempt_count greater than 1."
+        }
+        if ($null -eq $priorQaReportRef -or $null -eq $priorBatonRef) {
+            throw "Retry-entry Execution Bundles must carry prior QA and Baton refs."
+        }
+
+        $resolvedQaReportPath = Resolve-ReferenceAgainstBase -BaseDirectory $ExecutionBundleInput.Directory -Reference $priorQaReportRef -Label "Execution Bundle prior QA Report"
+        $qaValidation = & $testWorkArtifactContract -ArtifactPath $resolvedQaReportPath
+        if ($qaValidation.ArtifactType -ne "qa_report") {
+            throw "Execution Bundle.prior_qa_report_ref must resolve to a qa_report artifact."
+        }
+
+        $priorQaReport = Get-JsonDocument -Path $qaValidation.ArtifactPath -Label "Execution Bundle prior QA Report"
+        if (@("failed", "blocked") -notcontains $priorQaReport.status) {
+            throw "Retry-entry Execution Bundles must derive from a failed or blocked QA Report."
+        }
+        if ([int]$priorQaReport.qa_attempt_count -ne ($qaAttemptCount - 1)) {
+            throw "Retry-entry Execution Bundles must advance exactly one attempt beyond the prior QA Report."
+        }
+
+        $resolvedBatonPath = Resolve-ReferenceAgainstBase -BaseDirectory $ExecutionBundleInput.Directory -Reference $priorBatonRef -Label "Execution Bundle prior Baton"
+        $batonValidation = & $testWorkArtifactContract -ArtifactPath $resolvedBatonPath
+        if ($batonValidation.ArtifactType -ne "baton") {
+            throw "Execution Bundle.prior_baton_ref must resolve to a baton artifact."
+        }
+
+        $priorBaton = Get-JsonDocument -Path $batonValidation.ArtifactPath -Label "Execution Bundle prior Baton"
+        if ($priorBaton.status -ne "ready_for_handoff") {
+            throw "Retry-entry Execution Bundles must derive from a ready_for_handoff baton."
+        }
+        if ($priorBaton.handoff_state -ne "follow_up") {
+            throw "Retry-entry Execution Bundles must derive from a follow_up baton, not a manual-review stop state."
+        }
+        if ([int]$priorBaton.qa_attempt_count -ne ($qaAttemptCount - 1)) {
+            throw "Retry-entry Execution Bundles must advance exactly one attempt beyond the prior Baton handoff."
+        }
+    }
+
+    return [pscustomobject]@{
+        AttemptCount  = $qaAttemptCount
+        RetryCeiling  = $qaRetryCeiling
+        EntryState    = $qaEntryState
+        PriorQaReport = $priorQaReportRef
+        PriorBaton    = $priorBatonRef
+    }
 }
 
 function Get-ValidatedQaObservation {
@@ -585,8 +689,14 @@ function Get-QaVerdictValue {
 function Get-QaStatusValue {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$Outcome
+        [string]$Outcome,
+        [Parameter(Mandatory = $true)]
+        $LoopContext
     )
+
+    if ($Outcome -ne "pass" -and $LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+        return "retry_exhausted"
+    }
 
     switch ($Outcome) {
         "pass" { return "passed" }
@@ -599,8 +709,14 @@ function Get-QaStatusValue {
 function Get-RemediationStatusValue {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$Outcome
+        [string]$Outcome,
+        [Parameter(Mandatory = $true)]
+        $LoopContext
     )
+
+    if ($Outcome -ne "pass" -and $LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+        return "retry_exhausted"
+    }
 
     switch ($Outcome) {
         "pass" { return "none" }
@@ -608,6 +724,48 @@ function Get-RemediationStatusValue {
         "block" { return "blocked" }
         default { throw "Unsupported QA outcome '$Outcome'." }
     }
+}
+
+function Get-QaLoopStateValue {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Outcome,
+        [Parameter(Mandatory = $true)]
+        $LoopContext
+    )
+
+    if ($Outcome -eq "pass") {
+        return "closed"
+    }
+
+    if ($LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+        return "retry_exhausted"
+    }
+
+    switch ($Outcome) {
+        "fail" { return "retry_required" }
+        "block" { return "blocked" }
+        default { throw "Unsupported QA outcome '$Outcome'." }
+    }
+}
+
+function Get-NextHandoffValue {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Outcome,
+        [Parameter(Mandatory = $true)]
+        $LoopContext
+    )
+
+    if ($Outcome -eq "pass") {
+        return "none"
+    }
+
+    if ($LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+        return "manual_review"
+    }
+
+    return "baton_follow_up"
 }
 
 function Initialize-QaGateResultRecord {
@@ -623,6 +781,8 @@ function Initialize-QaGateResultRecord {
         [Parameter(Mandatory = $true)]
         $Observation,
         [Parameter(Mandatory = $true)]
+        $LoopContext,
+        [Parameter(Mandatory = $true)]
         [datetime]$CreatedAt
     )
 
@@ -635,10 +795,14 @@ function Initialize-QaGateResultRecord {
         summary                = $Observation.Document.summary
         observed_at            = Get-UtcTimestamp -DateTime $CreatedAt
         observation_ref        = $null
+        qa_attempt_count       = $LoopContext.AttemptCount
+        qa_retry_ceiling       = $LoopContext.RetryCeiling
+        qa_loop_state          = Get-QaLoopStateValue -Outcome $Observation.Outcome -LoopContext $LoopContext
+        next_handoff           = Get-NextHandoffValue -Outcome $Observation.Outcome -LoopContext $LoopContext
         validated_work_objects = @($WorkObjectRefs | ForEach-Object { "{0}:{1}" -f $_.ObjectType, $_.ObjectId })
         validated_planning_records = @($PlanningRefs | ForEach-Object { $_.PlanningRecordId })
         remediation_required   = $Observation.RemediationRequired
-        remediation_status     = Get-RemediationStatusValue -Outcome $Observation.Outcome
+        remediation_status     = Get-RemediationStatusValue -Outcome $Observation.Outcome -LoopContext $LoopContext
         generated_artifacts    = [pscustomobject]@{
             qa_report           = $null
             remediation_record  = $null
@@ -654,6 +818,8 @@ function New-RemediationRecord {
         [Parameter(Mandatory = $true)]
         $Observation,
         [Parameter(Mandatory = $true)]
+        $LoopContext,
+        [Parameter(Mandatory = $true)]
         [string]$QaReportId,
         [Parameter(Mandatory = $true)]
         [string]$ExecutionBundlePath,
@@ -668,14 +834,32 @@ function New-RemediationRecord {
         remediation_id       = "remediation-{0}" -f $ExecutionBundleInput.Document.artifact_id
         execution_bundle_id  = $ExecutionBundleInput.Document.artifact_id
         qa_report_id         = $QaReportId
-        status               = Get-RemediationStatusValue -Outcome $Observation.Outcome
+        status               = Get-RemediationStatusValue -Outcome $Observation.Outcome -LoopContext $LoopContext
+        qa_attempt_count     = $LoopContext.AttemptCount
+        qa_retry_ceiling     = $LoopContext.RetryCeiling
+        qa_loop_state        = Get-QaLoopStateValue -Outcome $Observation.Outcome -LoopContext $LoopContext
+        next_handoff         = Get-NextHandoffValue -Outcome $Observation.Outcome -LoopContext $LoopContext
         remediation_required = $Observation.RemediationRequired
         actions              = @($Observation.RemediationActions)
         blocking_reasons     = @($Observation.BlockingReasons)
         notes                = switch ($Observation.Outcome) {
             "pass" { "No remediation is required for this QA outcome." }
-            "fail" { "Remediation is required before the bounded QA slice can be reconsidered." }
-            "block" { "The QA slice is blocked until the listed blockers are resolved." }
+            "fail" {
+                if ($LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+                    "The bounded QA retry ceiling has been reached; further retries must stop and return for manual review."
+                }
+                else {
+                    "Remediation is required before the bounded QA slice can be reconsidered."
+                }
+            }
+            "block" {
+                if ($LoopContext.AttemptCount -ge $LoopContext.RetryCeiling) {
+                    "The bounded QA retry ceiling has been reached while blocked; further retries must stop and return for manual review."
+                }
+                else {
+                    "The QA slice is blocked until the listed blockers are resolved."
+                }
+            }
         }
         created_at           = Get-UtcTimestamp -DateTime $CreatedAt
         updated_at           = Get-UtcTimestamp -DateTime $CreatedAt
@@ -703,6 +887,8 @@ function New-QaReportArtifact {
         [Parameter(Mandatory = $true)]
         $Observation,
         [Parameter(Mandatory = $true)]
+        $LoopContext,
+        [Parameter(Mandatory = $true)]
         [string]$QaGateResultPath,
         [Parameter(Mandatory = $true)]
         [string]$RemediationRecordPath,
@@ -716,8 +902,10 @@ function New-QaReportArtifact {
 
     $artifactId = "qa-report-{0}" -f $ExecutionBundleInput.Document.artifact_id
     $createdAtText = Get-UtcTimestamp -DateTime $CreatedAt
-    $qaStatus = Get-QaStatusValue -Outcome $Observation.Outcome
+    $qaStatus = Get-QaStatusValue -Outcome $Observation.Outcome -LoopContext $LoopContext
     $qaVerdict = Get-QaVerdictValue -Outcome $Observation.Outcome
+    $qaLoopState = Get-QaLoopStateValue -Outcome $Observation.Outcome -LoopContext $LoopContext
+    $nextHandoff = Get-NextHandoffValue -Outcome $Observation.Outcome -LoopContext $LoopContext
 
     $workObjectRefs = foreach ($workObjectRef in @($WorkObjectRefs)) {
         [pscustomobject]@{
@@ -800,10 +988,28 @@ function New-QaReportArtifact {
         checks_run         = @($Observation.ChecksRun)
         findings           = @($Observation.Findings)
         remediation_required = $Observation.RemediationRequired
+        qa_attempt_count   = $LoopContext.AttemptCount
+        qa_retry_ceiling   = $LoopContext.RetryCeiling
+        qa_loop_state      = $qaLoopState
+        next_handoff       = $nextHandoff
         remediation_notes  = switch ($Observation.Outcome) {
             "pass" { $null }
-            "fail" { "Remediation is required before the bundle can be reconsidered." }
-            "block" { "The QA gate is blocked until the listed blockers are cleared." }
+            "fail" {
+                if ($qaStatus -eq "retry_exhausted") {
+                    "The bounded QA retry ceiling has been reached; the loop is stopped and must return for manual review."
+                }
+                else {
+                    "Remediation is required before the bundle can be reconsidered."
+                }
+            }
+            "block" {
+                if ($qaStatus -eq "retry_exhausted") {
+                    "The bounded QA retry ceiling has been reached while blocked; the loop is stopped and must return for manual review."
+                }
+                else {
+                    "The QA gate is blocked until the listed blockers are cleared."
+                }
+            }
         }
     }
 
@@ -963,6 +1169,7 @@ function Invoke-ExecutionBundleQaGate {
     $workObjectRefs = Get-ValidatedQaWorkObjectRefs -ExecutionBundleInput $executionBundleInput
     $planningRefs = Get-ValidatedQaPlanningRefs -ExecutionBundleInput $executionBundleInput -WorkObjectRefs $workObjectRefs
     $observation = Get-ValidatedQaObservation -ExecutionBundleInput $executionBundleInput
+    $loopContext = Get-ValidatedQaLoopContext -ExecutionBundleInput $executionBundleInput
 
     $resolvedOutputRoot = Resolve-PathValue -PathValue $OutputRoot
     if (-not (Test-Path -LiteralPath $resolvedOutputRoot)) {
@@ -980,15 +1187,15 @@ function Invoke-ExecutionBundleQaGate {
         }
     }
 
-    $qaGateResult = Initialize-QaGateResultRecord -ExecutionBundleInput $executionBundleInput -TaskPacketInput $taskPacketInput -WorkObjectRefs $workObjectRefs -PlanningRefs $planningRefs -Observation $observation -CreatedAt $CreatedAt
+    $qaGateResult = Initialize-QaGateResultRecord -ExecutionBundleInput $executionBundleInput -TaskPacketInput $taskPacketInput -WorkObjectRefs $workObjectRefs -PlanningRefs $planningRefs -Observation $observation -LoopContext $loopContext -CreatedAt $CreatedAt
     $qaGateResultPath = Join-Path $qaGateDirectory ("{0}.json" -f $qaGateResult.gate_id)
     $qaGateResult.observation_ref = Get-RelativeReference -BaseDirectory $qaGateDirectory -TargetPath $observation.Path
     Write-JsonDocument -Path $qaGateResultPath -Document $qaGateResult
 
     $qaReportId = "qa-report-{0}" -f $executionBundleInput.Document.artifact_id
-    $remediationRecord = New-RemediationRecord -ExecutionBundleInput $executionBundleInput -Observation $observation -QaReportId $qaReportId -ExecutionBundlePath $executionBundleInput.Validation.ArtifactPath -RemediationDirectory $remediationDirectory -CreatedAt $CreatedAt
+    $remediationRecord = New-RemediationRecord -ExecutionBundleInput $executionBundleInput -Observation $observation -LoopContext $loopContext -QaReportId $qaReportId -ExecutionBundlePath $executionBundleInput.Validation.ArtifactPath -RemediationDirectory $remediationDirectory -CreatedAt $CreatedAt
 
-    $qaReportOutput = New-QaReportArtifact -ExecutionBundleInput $executionBundleInput -WorkObjectRefs $workObjectRefs -PlanningRefs $planningRefs -Observation $observation -QaGateResultPath $qaGateResultPath -RemediationRecordPath $remediationRecord.Path -QaReportDirectory $qaReportsDirectory -CreatedAt $CreatedAt -CreatedById $CreatedById
+    $qaReportOutput = New-QaReportArtifact -ExecutionBundleInput $executionBundleInput -WorkObjectRefs $workObjectRefs -PlanningRefs $planningRefs -Observation $observation -LoopContext $loopContext -QaGateResultPath $qaGateResultPath -RemediationRecordPath $remediationRecord.Path -QaReportDirectory $qaReportsDirectory -CreatedAt $CreatedAt -CreatedById $CreatedById
     $externalAuditPackOutput = New-ExternalAuditPackArtifact -ExecutionBundleInput $executionBundleInput -QaReportOutput $qaReportOutput -RemediationRecord $remediationRecord -TaskPacketInput $taskPacketInput -WorkObjectRefs $workObjectRefs -PlanningRefs $planningRefs -Observation $observation -QaGateResultPath $qaGateResultPath -ExternalAuditPackDirectory $externalAuditPackDirectory -CreatedAt $CreatedAt -CreatedById $CreatedById
 
     $qaGateResult.generated_artifacts.qa_report = Get-RelativeReference -BaseDirectory $qaGateDirectory -TargetPath $qaReportOutput.Path

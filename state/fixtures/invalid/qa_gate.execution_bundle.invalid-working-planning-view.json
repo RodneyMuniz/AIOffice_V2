@@ -1,12 +1,12 @@
-﻿{
+{
     "contract_version":  "v1",
     "record_type":  "governed_work_artifact",
     "artifact_type":  "execution_bundle",
-    "artifact_id":  "execution-bundle-r3-006-invalid-draft-001",
-    "title":  "R3-006 draft execution bundle",
-    "summary":  "A contract-valid execution bundle that has not reached prepared status.",
-    "status":  "draft",
-    "created_at":  "2026-04-20T01:40:00Z",
+    "artifact_id":  "execution-bundle-r3-006-fail-001",
+    "title":  "R4-004 invalid working-view QA handoff execution bundle",
+    "summary":  "Attempt the bounded QA gate from a working planning view instead of the accepted planning handoff.",
+    "status":  "prepared",
+    "created_at":  "2026-04-20T10:10:00Z",
     "created_by":  {
                        "role":  "control_kernel",
                        "id":  "control-kernel:local"
@@ -16,7 +16,7 @@
                     "source_refs":  [
                                         "../valid/request_brief_task_packet_flow.task_packet.expected.json"
                                     ],
-                    "rationale":  "The draft execution bundle still derives from the bounded approved Task Packet."
+                    "rationale":  "The prepared execution bundle derives from the bounded approved Task Packet."
                 },
     "work_object_refs":  [
                              {
@@ -33,9 +33,9 @@
                                      "planning_record_id":  "planning-r3-003-task-001",
                                      "object_type":  "task",
                                      "object_id":  "task-r3-003-storage-001",
-                                     "view":  "accepted",
+                                     "view":  "working",
                                      "ref":  "../valid/planning_record.task.valid.json",
-                                     "notes":  "The bundle tracks the accepted planning baseline for the bounded QA slice."
+                                     "notes":  "This invalid bundle incorrectly tries to enter QA from the working planning view."
                                  }
                              ],
     "evidence":  [
@@ -46,25 +46,27 @@
                      },
                      {
                          "kind":  "test_output",
-                         "ref":  "../valid/qa_gate.observation.pass.json",
-                         "summary":  "The QA observation is present, but the bundle is still not prepared."
+                         "ref":  "../valid/qa_gate.observation.fail.json",
+                         "summary":  "The QA observation captures the bounded fail outcome inputs."
                      }
                  ],
     "audit":  {
                   "trail_refs":  [
                                      "tests/test_execution_bundle_qa_gate.ps1"
                                  ],
-                  "last_reviewed_at":  "2026-04-20T01:42:00Z",
-                  "notes":  "Draft bundle retained only for fail-closed QA gate validation."
+                  "last_reviewed_at":  "2026-04-20T10:12:00Z",
+                  "notes":  "Invalid working-view QA handoff fixture reviewed against the focused QA gate test."
               },
-    "execution_summary":  "Attempt the bounded QA gate before the bundle reaches prepared status.",
+    "execution_summary":  "Attempt the bounded QA gate from a working planning view only.",
     "executor_profile":  "bounded-qa-gate",
     "bounded_targets":  [
                             "tools/ExecutionBundleQaGate.psm1",
                             "tests/test_execution_bundle_qa_gate.ps1"
                         ],
     "expected_outputs":  [
-                             "None"
+                             "QA Report",
+                             "Remediation record",
+                             "External Audit Pack"
                          ],
     "prohibited_operations":  [
                                   "Baton persistence",
@@ -108,6 +110,6 @@
                                               "rollback",
                                               "broad_orchestration"
                                           ],
-                  "notes":  "The execution-bundle surface remains bounded to the already-proved internal chain only."
+                  "notes":  "This invalid QA gate fixture should fail closed because it tries to enter QA from the working planning view."
               }
 }

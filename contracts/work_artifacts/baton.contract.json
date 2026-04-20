@@ -10,7 +10,10 @@
     "resume_objective",
     "handoff_notes",
     "blocked_by",
-    "next_required_artifacts"
+    "next_required_artifacts",
+    "qa_attempt_count",
+    "qa_retry_ceiling",
+    "handoff_state"
   ],
   "optional_fields": [
     "expires_at"
@@ -21,7 +24,10 @@
     "handoff_notes": "string_array",
     "blocked_by": "string_array",
     "next_required_artifacts": "string_array",
-    "expires_at": "nullable_string"
+    "expires_at": "nullable_string",
+    "qa_attempt_count": "integer",
+    "qa_retry_ceiling": "integer",
+    "handoff_state": "string"
   },
   "lifecycle": {
     "allowed_statuses": [
@@ -40,6 +46,11 @@
     "qa_report",
     "manual"
   ],
+  "allowed_handoff_states": [
+    "follow_up",
+    "manual_review"
+  ],
+  "required_qa_retry_ceiling": 4,
   "allowed_orchestration_scopes": [
     "qa_follow_up_only"
   ],
@@ -88,11 +99,13 @@
   ],
   "status_rules": {
     "ready_for_handoff_requires_next_required_artifacts": true,
-    "closed_requires_no_next_required_artifacts": true
+    "closed_requires_no_next_required_artifacts": true,
+    "manual_review_handoff_requires_retry_ceiling": true
   },
   "forbidden_states": [
     "Ready-for-handoff batons must list the next required artifacts.",
     "Closed batons must not retain unresolved next-required artifacts.",
+    "Manual-review batons must reflect retry-ceiling stop behavior rather than an open retry loop.",
     "Batons must stay bounded to persistence and load foundations only and must not claim automatic resume or broader recovery behavior.",
     "Batons must remain inside the admin-only bounded follow-up scope and must not imply Standard runtime."
   ]

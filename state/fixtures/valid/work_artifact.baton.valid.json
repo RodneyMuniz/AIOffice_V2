@@ -54,6 +54,9 @@
               },
     "baton_summary":  "Carry forward the next bounded contract-only steps after the execution bundle is prepared.",
     "resume_objective":  "Resume from the prepared contract surface without widening into flow or runtime behavior.",
+    "qa_attempt_count":  1,
+    "qa_retry_ceiling":  4,
+    "handoff_state":  "follow_up",
     "handoff_notes":  [
                           "Keep R3-005 separate from R3-004.",
                           "Do not add baton persistence in R3-004."

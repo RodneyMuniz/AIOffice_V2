@@ -213,6 +213,25 @@ function Assert-BooleanValue {
     return $Value
 }
 
+function Assert-IntegerValue {
+    param(
+        [AllowNull()]
+        $Value,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    if ($Value -is [int]) {
+        return $Value
+    }
+
+    if ($Value -is [long] -and $Value -ge [int]::MinValue -and $Value -le [int]::MaxValue) {
+        return [int]$Value
+    }
+
+    throw "$Context must be an integer."
+}
+
 function Get-ArtifactFoundationContract {
     $path = Join-Path (Get-RepositoryRoot) "contracts\work_artifacts\foundation.contract.json"
     return (Get-JsonDocument -Path $path -Label "Work artifact foundation contract")
@@ -624,6 +643,9 @@ function Validate-SpecificField {
         "boolean" {
             Assert-BooleanValue -Value $fieldValue -Context "$Context.$FieldName" | Out-Null
         }
+        "integer" {
+            Assert-IntegerValue -Value $fieldValue -Context "$Context.$FieldName" | Out-Null
+        }
         default {
             throw "Unsupported field type '$FieldType' in contract '$Context'."
         }
@@ -674,7 +696,9 @@ function Validate-ArtifactSpecificInvariants {
         [Parameter(Mandatory = $true)]
         [string[]]$EvidenceKinds,
         [Parameter(Mandatory = $true)]
-        $Lineage
+        $Lineage,
+        [Parameter(Mandatory = $true)]
+        [string]$BaseDirectory
     )
 
     $status = $Artifact.status
@@ -689,12 +713,87 @@ function Validate-ArtifactSpecificInvariants {
             if ($status -eq "prepared" -and $Lineage.source_kind -ne "task_packet") {
                 throw "Prepared Execution Bundles must derive from a task_packet lineage source."
             }
+
+            $qaAttemptCount = Assert-IntegerValue -Value $Artifact.qa_attempt_count -Context "Artifact.qa_attempt_count"
+            $qaRetryCeiling = Assert-IntegerValue -Value $Artifact.qa_retry_ceiling -Context "Artifact.qa_retry_ceiling"
+            if ($qaRetryCeiling -ne $Contract.required_qa_retry_ceiling) {
+                throw "Artifact.qa_retry_ceiling must equal $($Contract.required_qa_retry_ceiling) for the bounded QA loop."
+            }
+            if ($qaAttemptCount -lt 1) {
+                throw "Artifact.qa_attempt_count must be at least 1."
+            }
+            if ($qaAttemptCount -gt $qaRetryCeiling) {
+                throw "Artifact.qa_attempt_count must not exceed Artifact.qa_retry_ceiling."
+            }
+
+            $qaEntryState = Assert-NonEmptyString -Value $Artifact.qa_entry_state -Context "Artifact.qa_entry_state"
+            Assert-AllowedValue -Value $qaEntryState -AllowedValues @($Contract.allowed_qa_entry_states) -Context "Artifact.qa_entry_state"
+
+            $priorQaReportRef = if (Test-HasProperty -Object $Artifact -Name "prior_qa_report_ref") { Assert-NullableString -Value $Artifact.prior_qa_report_ref -Context "Artifact.prior_qa_report_ref" } else { $null }
+            $priorBatonRef = if (Test-HasProperty -Object $Artifact -Name "prior_baton_ref") { Assert-NullableString -Value $Artifact.prior_baton_ref -Context "Artifact.prior_baton_ref" } else { $null }
+
+            if ($qaEntryState -eq "initial_entry") {
+                if ($qaAttemptCount -ne 1) {
+                    throw "Initial-entry Execution Bundles must start at qa_attempt_count 1."
+                }
+                if ($null -ne $priorQaReportRef -or $null -ne $priorBatonRef) {
+                    throw "Initial-entry Execution Bundles must not carry prior QA or Baton refs."
+                }
+            }
+
+            if ($qaEntryState -eq "retry_entry") {
+                if ($qaAttemptCount -le 1) {
+                    throw "Retry-entry Execution Bundles must use qa_attempt_count greater than 1."
+                }
+                if ($null -eq $priorQaReportRef -or $null -eq $priorBatonRef) {
+                    throw "Retry-entry Execution Bundles must carry prior QA and Baton refs."
+                }
+
+                $resolvedQaReportPath = Resolve-ReferencePath -BaseDirectory $BaseDirectory -Reference $priorQaReportRef
+                $priorQaReport = Get-JsonDocument -Path $resolvedQaReportPath -Label "Execution Bundle prior QA Report"
+                $priorQaArtifactType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorQaReport -Name "artifact_type" -Context "Execution Bundle prior QA Report") -Context "Execution Bundle prior QA Report.artifact_type"
+                if ($priorQaArtifactType -ne "qa_report") {
+                    throw "Artifact.prior_qa_report_ref must resolve to a qa_report artifact."
+                }
+                $priorQaStatus = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorQaReport -Name "status" -Context "Execution Bundle prior QA Report") -Context "Execution Bundle prior QA Report.status"
+                if (@("failed", "blocked") -notcontains $priorQaStatus) {
+                    throw "Retry-entry Execution Bundles must derive from prior QA Report status 'failed' or 'blocked'."
+                }
+
+                $resolvedBatonPath = Resolve-ReferencePath -BaseDirectory $BaseDirectory -Reference $priorBatonRef
+                $priorBaton = Get-JsonDocument -Path $resolvedBatonPath -Label "Execution Bundle prior Baton"
+                $priorBatonArtifactType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorBaton -Name "artifact_type" -Context "Execution Bundle prior Baton") -Context "Execution Bundle prior Baton.artifact_type"
+                if ($priorBatonArtifactType -ne "baton") {
+                    throw "Artifact.prior_baton_ref must resolve to a baton artifact."
+                }
+                $priorBatonStatus = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorBaton -Name "status" -Context "Execution Bundle prior Baton") -Context "Execution Bundle prior Baton.status"
+                if ($priorBatonStatus -ne "ready_for_handoff") {
+                    throw "Retry-entry Execution Bundles must derive from a ready_for_handoff baton."
+                }
+                $priorBatonHandoffState = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorBaton -Name "handoff_state" -Context "Execution Bundle prior Baton") -Context "Execution Bundle prior Baton.handoff_state"
+                if ($priorBatonHandoffState -ne "follow_up") {
+                    throw "Retry-entry Execution Bundles must derive from a follow_up baton, not a manual-review handoff."
+                }
+            }
         }
         "qa_report" {
             $verdict = Assert-NonEmptyString -Value $Artifact.verdict -Context "Artifact.verdict"
             Assert-AllowedValue -Value $verdict -AllowedValues @($Contract.allowed_verdicts) -Context "Artifact.verdict"
             $remediationRequired = Assert-BooleanValue -Value $Artifact.remediation_required -Context "Artifact.remediation_required"
             $remediationNotes = if (Test-HasProperty -Object $Artifact -Name "remediation_notes") { $Artifact.remediation_notes } else { $null }
+            $qaAttemptCount = Assert-IntegerValue -Value $Artifact.qa_attempt_count -Context "Artifact.qa_attempt_count"
+            $qaRetryCeiling = Assert-IntegerValue -Value $Artifact.qa_retry_ceiling -Context "Artifact.qa_retry_ceiling"
+            $qaLoopState = Assert-NonEmptyString -Value $Artifact.qa_loop_state -Context "Artifact.qa_loop_state"
+            $nextHandoff = Assert-NonEmptyString -Value $Artifact.next_handoff -Context "Artifact.next_handoff"
+
+            if ($qaRetryCeiling -ne $Contract.required_qa_retry_ceiling) {
+                throw "Artifact.qa_retry_ceiling must equal $($Contract.required_qa_retry_ceiling) for the bounded QA loop."
+            }
+            if ($qaAttemptCount -lt 1 -or $qaAttemptCount -gt $qaRetryCeiling) {
+                throw "Artifact.qa_attempt_count must stay within the bounded QA retry ceiling."
+            }
+            Assert-AllowedValue -Value $qaLoopState -AllowedValues @($Contract.allowed_qa_loop_states) -Context "Artifact.qa_loop_state"
+            Assert-AllowedValue -Value $nextHandoff -AllowedValues @($Contract.allowed_next_handoffs) -Context "Artifact.next_handoff"
 
             if ($status -eq "passed") {
                 if ($verdict -ne "pass") {
@@ -702,6 +801,9 @@ function Validate-ArtifactSpecificInvariants {
                 }
                 if ($remediationRequired) {
                     throw "Passed QA Reports must not require remediation."
+                }
+                if ($qaLoopState -ne "closed" -or $nextHandoff -ne "none") {
+                    throw "Passed QA Reports must close the bounded QA loop without a follow-up handoff."
                 }
             }
             if ($status -eq "failed") {
@@ -712,9 +814,41 @@ function Validate-ArtifactSpecificInvariants {
                     throw "Failed QA Reports must require remediation."
                 }
                 Assert-NonEmptyString -Value $remediationNotes -Context "Artifact.remediation_notes" | Out-Null
+                if ($qaAttemptCount -ge $qaRetryCeiling) {
+                    throw "Failed QA Reports must not remain in status 'failed' once the bounded retry ceiling is reached."
+                }
+                if ($qaLoopState -ne "retry_required" -or $nextHandoff -ne "baton_follow_up") {
+                    throw "Failed QA Reports must hand off to baton_follow_up while the bounded retry loop remains open."
+                }
             }
             if ($status -eq "blocked" -and $verdict -ne "blocked") {
                 throw "Blocked QA Reports must use verdict 'blocked'."
+            }
+            if ($status -eq "blocked") {
+                if (-not $remediationRequired) {
+                    throw "Blocked QA Reports must require remediation."
+                }
+                if ($qaAttemptCount -ge $qaRetryCeiling) {
+                    throw "Blocked QA Reports must not remain in status 'blocked' once the bounded retry ceiling is reached."
+                }
+                if ($qaLoopState -ne "blocked" -or $nextHandoff -ne "baton_follow_up") {
+                    throw "Blocked QA Reports must hand off to baton_follow_up while the bounded retry loop remains open."
+                }
+            }
+            if ($status -eq "retry_exhausted") {
+                if (@("fail", "blocked") -notcontains $verdict) {
+                    throw "Retry-exhausted QA Reports must preserve a fail or blocked verdict."
+                }
+                if (-not $remediationRequired) {
+                    throw "Retry-exhausted QA Reports must require remediation."
+                }
+                Assert-NonEmptyString -Value $remediationNotes -Context "Artifact.remediation_notes" | Out-Null
+                if ($qaAttemptCount -ne $qaRetryCeiling) {
+                    throw "Retry-exhausted QA Reports must record the retry-ceiling attempt."
+                }
+                if ($qaLoopState -ne "retry_exhausted" -or $nextHandoff -ne "manual_review") {
+                    throw "Retry-exhausted QA Reports must stop the bounded loop and hand off to manual_review."
+                }
             }
         }
         "external_audit_pack" {
@@ -728,11 +862,29 @@ function Validate-ArtifactSpecificInvariants {
             }
         }
         "baton" {
+            $qaAttemptCount = Assert-IntegerValue -Value $Artifact.qa_attempt_count -Context "Artifact.qa_attempt_count"
+            $qaRetryCeiling = Assert-IntegerValue -Value $Artifact.qa_retry_ceiling -Context "Artifact.qa_retry_ceiling"
+            $handoffState = Assert-NonEmptyString -Value $Artifact.handoff_state -Context "Artifact.handoff_state"
+
+            if ($qaRetryCeiling -ne $Contract.required_qa_retry_ceiling) {
+                throw "Artifact.qa_retry_ceiling must equal $($Contract.required_qa_retry_ceiling) for the bounded baton handoff."
+            }
+            if ($qaAttemptCount -lt 1 -or $qaAttemptCount -gt $qaRetryCeiling) {
+                throw "Artifact.qa_attempt_count must stay within the bounded baton retry ceiling."
+            }
+            Assert-AllowedValue -Value $handoffState -AllowedValues @($Contract.allowed_handoff_states) -Context "Artifact.handoff_state"
+
             if ($status -eq "ready_for_handoff" -and @($Artifact.next_required_artifacts).Count -eq 0) {
                 throw "Ready-for-handoff batons must include at least one next_required_artifact."
             }
             if ($status -eq "closed" -and @($Artifact.next_required_artifacts).Count -gt 0) {
                 throw "Closed batons must not retain next_required_artifacts."
+            }
+            if ($handoffState -eq "manual_review" -and $qaAttemptCount -ne $qaRetryCeiling) {
+                throw "Manual-review batons must reflect the retry-ceiling attempt count."
+            }
+            if ($handoffState -eq "follow_up" -and $qaAttemptCount -ge $qaRetryCeiling) {
+                throw "Follow-up batons must not remain open once the bounded retry ceiling is reached."
             }
         }
     }
@@ -761,7 +913,7 @@ function Test-WorkArtifactContract {
     Validate-PlanningRecordRefs -Artifact $artifact -Foundation $foundation -Contract $contract -BaseDirectory $baseDirectory
     $evidenceKinds = Validate-Evidence -Artifact $artifact -Foundation $foundation -Contract $contract
     Validate-Audit -Artifact $artifact -Foundation $foundation
-    Validate-ArtifactSpecificInvariants -Artifact $artifact -Contract $contract -EvidenceKinds $evidenceKinds -Lineage $lineage
+    Validate-ArtifactSpecificInvariants -Artifact $artifact -Contract $contract -EvidenceKinds $evidenceKinds -Lineage $lineage -BaseDirectory $baseDirectory
 
     return [pscustomobject]@{
         IsValid         = $true

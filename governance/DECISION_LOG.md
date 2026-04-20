@@ -102,3 +102,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: invalid Standard-runtime claims and contradictory scope declarations now fail closed under focused tests, while repo truth continues to preserve the no-Standard-runtime boundary for current V1 and R4.
 - Consequence: the closure is backed by the focused planning-record, work-artifact, and Request Brief to Task Packet tests in `tests/test_planning_record_storage.ps1`, `tests/test_work_artifact_contracts.ps1`, and `tests/test_request_brief_task_packet_flow.ps1`.
 - Consequence: the next gated step inside R4 is `R4-004` Harden the bounded workflow loop already proved.
+
+## D-0015 R4-004 Hardened The Bounded QA Follow-Up Loop
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-004` hardens the bounded planning-to-QA-to-baton chain by requiring accepted planning handoff into QA, carrying explicit retry metadata on the bounded Execution Bundle, QA Report, Remediation Record, and Baton surfaces, and fail-closing invalid QA follow-up handoff states.
+- Consequence: the bounded QA loop now stops explicitly at the retry ceiling with durable `retry_exhausted` and `manual_review` handoff state instead of permitting indefinite remediation softness.
+- Consequence: retry-entry Execution Bundles must derive from the immediately prior failed or blocked QA Report plus a follow-up Baton, and manual-review stop state cannot be silently re-entered as another bounded retry.
+- Consequence: the closure is backed by the focused contract, QA gate, baton persistence, and replay tests in `tests/test_work_artifact_contracts.ps1`, `tests/test_execution_bundle_qa_gate.ps1`, `tests/test_baton_persistence.ps1`, and `tests/test_r3_planning_replay.ps1`.
+- Consequence: the next gated step inside R4 is `R4-005` Add a deterministic repo-local proof runner.

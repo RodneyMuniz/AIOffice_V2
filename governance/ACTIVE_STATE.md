@@ -30,6 +30,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R4-001` is complete as the repo-truth opening and backlog activation step.
 - `R4-002` is complete and closes the earlier packet chronology or integrity caution by fail-closing regressed stage progression, accepted-stage chronology ahead of current stage, and accepted-state lifecycle mismatches.
 - `R4-003` is complete and adds explicit admin-only pipeline metadata, protected-scope declarations, and fail-closed scope validation across the bounded planning-record and work-artifact surfaces without opening Standard runtime claims.
+- `R4-004` is complete and hardens the bounded planning-to-QA-to-baton loop by requiring accepted planning handoff into QA, recording bounded retry metadata durably, stopping at the retry ceiling with explicit `retry_exhausted` state, and rejecting invalid QA-to-baton handoff mismatches.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice.
 
@@ -48,7 +49,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 This milestone becomes active only after repo truth closes the post-R3 freeze posture without widening the completed bounded R3 claim. R4 is limited to control-kernel hardening, lifecycle and scope enforcement, QA-loop stop discipline, deterministic proof running, CI-backed proof discipline, and one bounded hardening proof package.
 
 ## Next Gated Step
-- `R4-004` Harden the bounded workflow loop already proved.
+- `R4-005` Add a deterministic repo-local proof runner.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

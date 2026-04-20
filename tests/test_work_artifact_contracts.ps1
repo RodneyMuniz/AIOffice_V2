@@ -18,6 +18,7 @@ $invalidCases = @(
     "state\fixtures\invalid\work_artifact.request_brief.invalid-creator-role.json",
     "state\fixtures\invalid\work_artifact.task_packet.invalid-approved-without-accepted-plan.json",
     "state\fixtures\invalid\work_artifact.task_packet.invalid-standard-runtime-scope.json",
+    "state\fixtures\invalid\work_artifact.execution_bundle.invalid-retry-entry-without-follow-up.json",
     "state\fixtures\invalid\work_artifact.execution_bundle.invalid-lineage.json",
     "state\fixtures\invalid\work_artifact.qa_report.invalid-passed-remediation.json",
     "state\fixtures\invalid\work_artifact.external_audit_pack.invalid-missing-qa-evidence.json",

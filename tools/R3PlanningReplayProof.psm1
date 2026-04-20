@@ -261,6 +261,11 @@ function New-ReplayExecutionBundleArtifact {
             "Broad workflow orchestration",
             "Broad UI productization"
         )
+        qa_attempt_count   = 1
+        qa_retry_ceiling   = 4
+        qa_entry_state     = "initial_entry"
+        prior_qa_report_ref = $null
+        prior_baton_ref    = $null
         replay_command     = "powershell -ExecutionPolicy Bypass -File tests\\test_r3_planning_replay.ps1"
     }
 
