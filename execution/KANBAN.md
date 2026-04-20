@@ -66,13 +66,13 @@ Exit Criteria:
 - Done when: one command produces a trustworthy fail-closed pass or fail result for the currently claimed bounded suite and is suitable for CI reuse
 
 ### `R4-006` Add CI/CD foundation wired to the proof runner
-- Status: pending
+- Status: done
 - Order: 6
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-005`
 - Authority: `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`
 - Durable output: source-controlled GitHub Actions workflow that runs the deterministic proof runner
-- Done when: CI exists in source control, runs the same proof entrypoint used locally, and stays bounded to the repo’s actual proof claims
+- Done when: CI exists in source control, runs the same proof entrypoint used locally, and stays bounded to the repo's actual proof claims
 
 ### `R4-007` Produce one replayable R4 hardening proof and closeout package
 - Status: pending

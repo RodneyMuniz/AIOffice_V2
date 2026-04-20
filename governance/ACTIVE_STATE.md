@@ -32,6 +32,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R4-003` is complete and adds explicit admin-only pipeline metadata, protected-scope declarations, and fail-closed scope validation across the bounded planning-record and work-artifact surfaces without opening Standard runtime claims.
 - `R4-004` is complete and hardens the bounded planning-to-QA-to-baton loop by requiring accepted planning handoff into QA, recording bounded retry metadata durably, stopping at the retry ceiling with explicit `retry_exhausted` state, and rejecting invalid QA-to-baton handoff mismatches.
 - `R4-005` is complete and adds one deterministic repo-local bounded proof runner that replays the currently claimed focused R2, R3, and R4 suite through `tools/run_bounded_proof_suite.ps1`, emits durable logs and summaries, and fails closed on unexpected suite failures or unexpected workspace mutations.
+- `R4-006` is complete and adds source-controlled CI foundation at `.github/workflows/bounded-proof-suite.yml`, which replays the same bounded proof runner on `push` and `pull_request` for `main` without broadening the repo's product claims.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice.
 
@@ -41,7 +42,6 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - automatic resume execution or broader recovery or rollback behavior
 - broad UI or control-room productization
 - Standard or subproject pipeline productization
-- source-controlled CI hardening for the bounded suite
 - unattended operation or broader product completeness
 
 ## Active Milestone
@@ -50,7 +50,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 This milestone becomes active only after repo truth closes the post-R3 freeze posture without widening the completed bounded R3 claim. R4 is limited to control-kernel hardening, lifecycle and scope enforcement, QA-loop stop discipline, deterministic proof running, CI-backed proof discipline, and one bounded hardening proof package.
 
 ## Next Gated Step
-- `R4-006` Add CI/CD foundation wired to the proof runner.
+- `R4-007` Produce one replayable R4 hardening proof and closeout package.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

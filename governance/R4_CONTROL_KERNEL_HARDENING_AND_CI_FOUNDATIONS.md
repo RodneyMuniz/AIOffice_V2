@@ -81,7 +81,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: one repo-local command produces a trustworthy fail-closed pass or fail result for the currently claimed bounded suite and is suitable for CI reuse
 
 ### `R4-006` Add CI/CD foundation wired to the proof runner
-- Status: pending
+- Status: done
 - Done when: the repo has source-controlled CI automation that runs the same deterministic proof entrypoint used locally and the truth surfaces record CI as a foundation rather than proof of broader productization
 
 ### `R4-007` Produce one replayable R4 hardening proof and closeout package
@@ -92,4 +92,5 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - R4 remains admin-only and foundation-focused.
 - R4 does not open UI work, Standard runtime, rollback productization, automatic resume, or broader orchestration claims.
 - The deterministic bounded proof entrypoint is `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`.
+- The bounded CI foundation is `.github/workflows/bounded-proof-suite.yml`, which replays the same proof entrypoint on `push` and `pull_request` for `main`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.

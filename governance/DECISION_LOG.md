@@ -121,3 +121,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the supervised harness no longer reuses the tracked global apply-outcome path during replayed allow runs, which closes a proof-hygiene softness that previously dirtied the worktree during bounded test execution.
 - Consequence: the closure is backed by `tests/test_supervised_admin_flow.ps1` and `tests/test_bounded_proof_suite.ps1`, while the full bounded proof suite itself now passes through the single repo-local runner.
 - Consequence: the next gated step inside R4 is `R4-006` Add CI/CD foundation wired to the proof runner.
+
+## D-0017 R4-006 Added Source-Controlled CI Proof Foundation
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-006` adds `.github/workflows/bounded-proof-suite.yml` so GitHub Actions replays the same deterministic bounded proof runner used locally.
+- Consequence: `push` and `pull_request` activity on `main` now exercises `tools/run_bounded_proof_suite.ps1` on `windows-latest`, which matches the current bounded PowerShell proof environment more closely than a platform-inferred workflow would.
+- Consequence: the workflow uploads the bounded proof logs as an artifact for review, but this remains CI evidence support only and does not widen the repo's product claims into UI, Standard runtime, rollback, automatic resume, or broader orchestration proof.
+- Consequence: the closure is backed by `tests/test_bounded_proof_ci_foundation.ps1` plus the same bounded proof runner that CI now invokes.
+- Consequence: the next gated step inside R4 is `R4-007` Produce one replayable R4 hardening proof and closeout package.

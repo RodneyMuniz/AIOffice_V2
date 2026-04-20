@@ -1,0 +1,28 @@
+name: Bounded Proof Suite
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  bounded-proof-suite:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run bounded proof suite
+        shell: powershell
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1 -OutputRoot "$env:RUNNER_TEMP\aioffice-bounded-proof-suite"
+
+      - name: Upload bounded proof logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bounded-proof-suite
+          path: ${{ runner.temp }}\aioffice-bounded-proof-suite

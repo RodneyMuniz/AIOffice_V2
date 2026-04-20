@@ -30,6 +30,8 @@ Replay the currently claimed bounded suite locally with:
 
 This replays the focused R2, R3, and R4 bounded tests through one fail-closed entrypoint. It does not broaden the proved boundary into UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 
+The same bounded proof entrypoint is now wired into `.github/workflows/bounded-proof-suite.yml` for `push` and `pull_request` on `main`. This CI foundation strengthens proof discipline only; it does not by itself prove broader productization.
+
 ## Not Required In Current V1
 - broad UI or control-room proof
 - Standard or subproject pipeline work
