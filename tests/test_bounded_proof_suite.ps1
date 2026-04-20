@@ -36,6 +36,39 @@ catch {
     $failures += ("FAIL proof suite definition load: {0}" -f $_.Exception.Message)
 }
 
+try {
+    $module = Get-Module BoundedProofSuite
+    if ($null -eq $module) {
+        throw "BoundedProofSuite module is not loaded."
+    }
+
+    $emptyComparison = & $module {
+        Get-UnexpectedStatusLines -BeforeStatusLines @() -AfterStatusLines @() -AllowedPrefix "state/proof_reviews/example"
+    }
+    if (@($emptyComparison).Count -ne 0) {
+        $failures += "FAIL proof suite empty-status comparison did not stay empty."
+    }
+
+    $allowedComparison = & $module {
+        Get-UnexpectedStatusLines -BeforeStatusLines @() -AfterStatusLines @("?? state/proof_reviews/example/result.txt") -AllowedPrefix "state/proof_reviews/example"
+    }
+    if (@($allowedComparison).Count -ne 0) {
+        $failures += "FAIL proof suite treated an allowed proof-output status line as unexpected."
+    }
+
+    $unexpectedComparison = & $module {
+        Get-UnexpectedStatusLines -BeforeStatusLines @() -AfterStatusLines @("?? outside-boundary.txt") -AllowedPrefix "state/proof_reviews/example"
+    }
+    if (@($unexpectedComparison).Count -ne 1 -or @($unexpectedComparison)[0] -ne "?? outside-boundary.txt") {
+        $failures += "FAIL proof suite did not preserve an unexpected workspace status line."
+    }
+
+    Write-Output "PASS proof suite empty-status and mutation comparison coverage."
+}
+catch {
+    $failures += ("FAIL proof suite comparison coverage: {0}" -f $_.Exception.Message)
+}
+
 $tempRoot = Join-Path $env:TEMP ("aioffice-proof-suite-test-" + [guid]::NewGuid().ToString("N"))
 try {
     $result = Invoke-BoundedProofSuite -OutputRoot $tempRoot -TestIds @(

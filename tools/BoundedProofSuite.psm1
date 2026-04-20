@@ -264,8 +264,10 @@ function Test-StatusPathAllowed {
 
 function Get-UnexpectedStatusLines {
     param(
+        [AllowEmptyCollection()]
         [Parameter(Mandatory = $true)]
         [string[]]$BeforeStatusLines,
+        [AllowEmptyCollection()]
         [Parameter(Mandatory = $true)]
         [string[]]$AfterStatusLines,
         [AllowNull()]
