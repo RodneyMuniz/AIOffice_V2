@@ -57,7 +57,7 @@ Exit Criteria:
 - Done when: retry exhaustion is explicit and durable, invalid handoff states are rejected, and the bounded loop stops instead of permitting indefinite softness
 
 ### `R4-005` Add a deterministic repo-local proof runner
-- Status: pending
+- Status: done
 - Order: 5
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-002`, `R4-003`, `R4-004`

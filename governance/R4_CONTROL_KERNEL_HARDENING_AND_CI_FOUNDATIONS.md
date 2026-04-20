@@ -77,7 +77,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: the bounded chain is more rule-driven and less permissive, retry exhaustion is explicit and durable, invalid planning-to-QA-to-baton handoffs are rejected, and tests prove the intended stop behavior
 
 ### `R4-005` Add a deterministic repo-local proof runner
-- Status: pending
+- Status: done
 - Done when: one repo-local command produces a trustworthy fail-closed pass or fail result for the currently claimed bounded suite and is suitable for CI reuse
 
 ### `R4-006` Add CI/CD foundation wired to the proof runner
@@ -91,4 +91,5 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 ## Milestone notes
 - R4 remains admin-only and foundation-focused.
 - R4 does not open UI work, Standard runtime, rollback productization, automatic resume, or broader orchestration claims.
+- The deterministic bounded proof entrypoint is `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.

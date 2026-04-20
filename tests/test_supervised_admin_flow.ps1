@@ -70,6 +70,10 @@ try {
     if ($allowActionResult.status -ne "completed") {
         $failures += "FAIL allow harness action result did not persist completed status."
     }
+    $expectedOutcomePrefix = Join-Path $repoRoot "state\supervised_runs\flow-rst012-allow-001\action_outcomes"
+    if (-not $allowResult.ActionOutcomePath.StartsWith($expectedOutcomePrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        $failures += "FAIL allow harness action outcome path escaped the supervised run namespace."
+    }
     if ($allowPacket.working_state.artifact_refs -notcontains $allowResult.ActionOutcomePath.Replace($repoRoot + "\", "").Replace("\", "/")) {
         $failures += "FAIL allow harness packet working_state.artifact_refs did not include the bounded action outcome artifact."
     }

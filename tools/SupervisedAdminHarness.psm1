@@ -589,7 +589,7 @@ function Get-HarnessActionTargetRelativePath {
         $FlowRequest
     )
 
-    return ("state/apply_promotion_actions/{0}.{1}.outcome.json" -f $FlowRequest.flow_request_id, $FlowRequest.gate_request.requested_action)
+    return ("state/supervised_runs/{0}/action_outcomes/{0}.{1}.outcome.json" -f $FlowRequest.flow_request_id, $FlowRequest.gate_request.requested_action)
 }
 
 function Save-HarnessActionRequest {

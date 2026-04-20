@@ -24,6 +24,12 @@ Current V1 is intentionally narrow:
 - docs-first or API-first is acceptable
 - no broad UI requirement
 
+## Bounded Proof Command
+Replay the currently claimed bounded suite locally with:
+- `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`
+
+This replays the focused R2, R3, and R4 bounded tests through one fail-closed entrypoint. It does not broaden the proved boundary into UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
+
 ## Not Required In Current V1
 - broad UI or control-room proof
 - Standard or subproject pipeline work

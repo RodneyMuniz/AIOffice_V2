@@ -111,3 +111,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: retry-entry Execution Bundles must derive from the immediately prior failed or blocked QA Report plus a follow-up Baton, and manual-review stop state cannot be silently re-entered as another bounded retry.
 - Consequence: the closure is backed by the focused contract, QA gate, baton persistence, and replay tests in `tests/test_work_artifact_contracts.ps1`, `tests/test_execution_bundle_qa_gate.ps1`, `tests/test_baton_persistence.ps1`, and `tests/test_r3_planning_replay.ps1`.
 - Consequence: the next gated step inside R4 is `R4-005` Add a deterministic repo-local proof runner.
+
+## D-0016 R4-005 Added A Deterministic Repo-Local Proof Runner
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-005` adds one authoritative repo-local proof entrypoint at `tools/run_bounded_proof_suite.ps1` backed by `tools/BoundedProofSuite.psm1`.
+- Consequence: the currently claimed bounded suite is now replayable through one fail-closed command instead of ad hoc manual test selection.
+- Consequence: the bounded proof runner captures durable logs and summaries, replays the focused R2, R3, and R4 test surfaces in deterministic order, and fails closed if the suite introduces unexpected workspace mutations outside its own allowed output root.
+- Consequence: the supervised harness no longer reuses the tracked global apply-outcome path during replayed allow runs, which closes a proof-hygiene softness that previously dirtied the worktree during bounded test execution.
+- Consequence: the closure is backed by `tests/test_supervised_admin_flow.ps1` and `tests/test_bounded_proof_suite.ps1`, while the full bounded proof suite itself now passes through the single repo-local runner.
+- Consequence: the next gated step inside R4 is `R4-006` Add CI/CD foundation wired to the proof runner.
