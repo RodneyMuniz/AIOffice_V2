@@ -2,7 +2,7 @@
 
 AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
 
-Bounded `R4 Control-Kernel Hardening and CI Foundations` is now complete in repo truth. No post-R4 implementation milestone is open yet in repo truth.
+Bounded `R4 Control-Kernel Hardening and CI Foundations` is still operationally open only for the corrective completion layer `R4-008` through `R4-011`. No post-R4 implementation milestone is open yet in repo truth.
 
 The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
 
@@ -35,6 +35,8 @@ This replays the focused R2, R3, and R4 bounded tests through one fail-closed en
 The same bounded proof entrypoint is now wired into `.github/workflows/bounded-proof-suite.yml` for `push` and `pull_request` on `main`. This CI foundation strengthens proof discipline only; it does not by itself prove broader productization.
 
 The committed bounded R4 proof package lives under `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/`.
+
+The initial `R4-005` through `R4-007` delivery required explicit corrective completion work before honest closure could be restated. That corrective layer remains bounded to proof-runner repair, CI-path re-verification, replay-package refresh, and repo-truth reconciliation only.
 
 ## Not Required In Current V1
 - broad UI or control-room proof

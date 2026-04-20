@@ -3,15 +3,16 @@
 This board tracks the current reset implementation milestone only.
 
 ## Active Milestone
-No post-R4 implementation milestone is open yet.
+`R4 Control-Kernel Hardening and CI Foundations` remains operationally open through the corrective completion layer `R4-008` through `R4-011`.
 
 Objective:
-Hold the completed bounded R4 baseline for audit review only, without opening later implementation scope by implication.
+Repair the bounded proof-runner clean-checkout path, re-stabilize the bounded CI proof path, refresh the committed replay package from a clean workspace, and reconcile repo truth without opening later implementation scope by implication.
 
 Exit Criteria:
-- bounded R4 remains complete in repo truth
+- `R4-008` through `R4-011` are complete in repo truth
+- the clean-checkout bounded proof path is locally and remotely verified
+- the committed replay package and closeout surfaces are mutually consistent
 - no post-R4 implementation milestone is opened implicitly
-- the replayable R4 proof and closeout package remain the current committed freeze surface
 
 ## Tasks
 
@@ -77,6 +78,42 @@ Exit Criteria:
 - Authority: `governance/ACTIVE_STATE.md`, `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md`
 - Durable output: replayable R4 proof package, R4 closeout, and post-R4 audit index with task-to-commit mapping and explicit non-claims
 - Done when: the proof package is replayable from repo truth and the closeout says exactly what R4 proves and exactly what it still does not prove
+
+### `R4-008` Repair bounded proof runner clean-checkout behavior
+- Status: done
+- Order: 8
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-005`
+- Authority: `governance/POST_R4_CLOSEOUT.md`, `governance/POST_R4_AUDIT_INDEX.md`
+- Durable output: repaired clean-checkout mutation-check path in the bounded proof runner plus focused empty-status regression coverage
+- Done when: the bounded proof runner handles an empty clean-workspace Git status correctly, preserves fail-closed mutation checking, succeeds from a clean workspace, and blocks regression of the empty-status bug under test
+
+### `R4-009` Re-stabilize CI foundation on the real proof path
+- Status: open
+- Order: 9
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-008`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/POST_R4_CLOSEOUT.md`
+- Durable output: verified green GitHub Actions run for `.github/workflows/bounded-proof-suite.yml` on the repaired bounded proof path
+- Done when: the source-controlled workflow runs successfully on the repaired proof runner and repo truth can honestly say the CI foundation is working for the bounded path it claims
+
+### `R4-010` Regenerate proof package and evidence inventory cleanly
+- Status: open
+- Order: 10
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-008`
+- Authority: `governance/POST_R4_CLOSEOUT.md`, `governance/POST_R4_AUDIT_INDEX.md`
+- Durable output: refreshed clean-workspace replay package plus corrected evidence inventory wording
+- Done when: the proof package is regenerated from a clean workspace, the package is stamped to the replay source head used for that clean rerun, replay artifacts and metadata agree, and the evidence inventory no longer overstates what the committed replay package contains
+
+### `R4-011` Reconcile post-R4 repo truth for honest closure readiness
+- Status: open
+- Order: 11
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-008`, `R4-009`, `R4-010`
+- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/POST_R4_CLOSEOUT.md`, `governance/POST_R4_AUDIT_INDEX.md`, `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md`
+- Durable output: aligned repo-truth surfaces that record the corrective layer explicitly and preserve exact non-claims
+- Done when: the corrected evidence state is reflected consistently across repo truth and no post-R4 implementation milestone is opened
 
 ## Explicitly Out Of Scope For This Milestone
 - operator-visible or user-facing UI work

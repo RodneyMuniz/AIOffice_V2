@@ -20,6 +20,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - CI/CD exists in source control and runs the same deterministic proof entrypoint
 - the bounded QA loop records retry ceilings, blocked states, and stop behavior more explicitly and durably
 - one replayable R4 proof package exists with task-to-commit mapping and explicit non-claims
+- if later audit finds a closure blocker in `R4-005` through `R4-007`, the corrective work is recorded as new bounded R4 tasks rather than being hidden inside prior task history
 
 ## In scope
 - state, chronology, and lifecycle hardening for the currently claimed bounded substrates
@@ -88,6 +89,26 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Status: done
 - Done when: each R4 task is commit-mapped, the proof package is replayable from repo truth, and the closeout states exactly what R4 proves and exactly what it still does not prove
 
+### `R4-008` Repair bounded proof runner clean-checkout behavior
+- Status: done
+- Revisits: `R4-005`
+- Done when: the bounded proof runner handles an empty clean-workspace Git status correctly, fail-closed mutation checking is preserved, local bounded proof execution succeeds from a clean workspace, and regression coverage exists for the empty-status case
+
+### `R4-009` Re-stabilize CI foundation on the real proof path
+- Status: open
+- Revisits: `R4-006`
+- Done when: `.github/workflows/bounded-proof-suite.yml` runs successfully on the repaired proof runner, GitHub Actions is green on the relevant current head, and repo truth can honestly say the CI foundation is working for the bounded path it claims
+
+### `R4-010` Regenerate proof package and evidence inventory cleanly
+- Status: open
+- Revisits: `R4-007`
+- Done when: the proof package is regenerated from a clean workspace, the package is stamped to the actual replay source head used for the clean rerun, replay artifacts and metadata are internally consistent, and the evidence inventory no longer overstates what the committed replay package contains
+
+### `R4-011` Reconcile post-R4 repo truth for honest closure readiness
+- Status: open
+- Revisits: `R4-005`, `R4-006`, `R4-007`
+- Done when: `README.md`, `governance/ACTIVE_STATE.md`, `governance/POST_R4_CLOSEOUT.md`, `governance/POST_R4_AUDIT_INDEX.md`, and this milestone brief align with the corrected evidence state, repo truth says exactly what R4 proves and exactly what it does not prove, and no R5 milestone is opened
+
 ## Milestone notes
 - R4 remains admin-only and foundation-focused.
 - R4 does not open UI work, Standard runtime, rollback productization, automatic resume, or broader orchestration claims.
@@ -96,3 +117,4 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - The replayable bounded R4 proof package is `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/`.
 - The post-R4 closeout surfaces are `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
+- The initial `R4-005` through `R4-007` delivery required the corrective completion layer `R4-008` through `R4-011` before honest closure could be claimed again.
