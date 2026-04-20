@@ -1,23 +1,9 @@
-﻿?? "governance/Product Vision V1 baseline/AIOffice_Audit_Report_R3_Format_Enhancements.md"
+﻿ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/git_head.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/git_status_before.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-apply-promotion-action.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-apply-promotion-gate.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-packet-record-storage.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-supervised-admin-flow.txt
+ M state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-planning-record-storage.txt
+?? "governance/Product Vision V1 baseline/AIOffice_Audit_Report_R3_Format_Enhancements.md"
 ?? "governance/Product Vision V1 baseline/AIOffice_V2_R3_Audit_and_R4_Planning_Report_v2.md"
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/git_branch.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/git_head.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/git_status_before.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/powershell_executable.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/pwd.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/meta/repo_root.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-apply-promotion-action.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-apply-promotion-gate.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-packet-record-storage.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-stage-artifact-contracts.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r2-supervised-admin-flow.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-baton-persistence.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-execution-bundle-qa-gate.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-governed-work-object-contracts.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-planning-record-storage.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-planning-replay.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-request-brief-task-packet-flow.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r3-work-artifact-contracts.txt
-?? state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/r4-ci-foundation.txt
-?? tests/test_r4_hardening_proof_review.ps1
-?? tools/new_r4_hardening_proof_review.ps1

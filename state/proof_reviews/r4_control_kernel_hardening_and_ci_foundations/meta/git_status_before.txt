@@ -1,4 +1,2 @@
 ﻿?? "governance/Product Vision V1 baseline/AIOffice_Audit_Report_R3_Format_Enhancements.md"
 ?? "governance/Product Vision V1 baseline/AIOffice_V2_R3_Audit_and_R4_Planning_Report_v2.md"
-?? tests/test_r4_hardening_proof_review.ps1
-?? tools/new_r4_hardening_proof_review.ps1

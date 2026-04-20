@@ -10,7 +10,7 @@ This index maps the completed bounded R4 state to the exact governing docs, impl
 - `R4-004` bounded QA-loop and handoff hardening: `0b98f847514847f55f66a67fe4b0d4b5e28ad5e2`
 - `R4-005` deterministic repo-local proof runner: `0441698078cf1dd50e4c5f2dd905867c3ab83b5d`
 - `R4-006` source-controlled CI proof foundation: `387a58693fc1a424b9a9e782f343b4080547492c`
-- `R4-007` replayable proof package and closeout: `PENDING_FINAL_MAPPING`
+- `R4-007` replayable proof package and closeout: `bbdd5a8ec548e9707275e8438fa6fb4b91917ed0`
 
 ## Governing Docs Supporting R4 Truth
 - `README.md`

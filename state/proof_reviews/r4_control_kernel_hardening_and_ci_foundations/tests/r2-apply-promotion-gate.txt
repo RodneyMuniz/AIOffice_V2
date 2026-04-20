@@ -5,6 +5,6 @@ PASS missing approval block: approval_missing
 PASS ambiguous scope block: scope_ambiguous
 PASS missing scope block: scope_missing
 PASS artifact linkage block: artifact_linkage_missing, artifact_linkage_missing, architect_artifact_missing
-PASS reconciliation block and recording: C:\Users\rodne\AppData\Local\Temp\aioffice-rst011-b3f4367da41d443892755e3e77832242\gate_results\gate-rst011-block-reconciliation-001.result.json
+PASS reconciliation block and recording: C:\Users\rodne\AppData\Local\Temp\aioffice-rst011-f93a50fe70bb4bb69a5b009e9c886242\gate_results\gate-rst011-block-reconciliation-001.result.json
 All apply/promotion gate tests passed.
 
