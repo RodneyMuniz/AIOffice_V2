@@ -3,98 +3,90 @@
 This board tracks the current reset implementation milestone only.
 
 ## Active Milestone
-`R3 Governed Work Objects and Double-Audit Foundations`
+`R4 Control-Kernel Hardening and CI Foundations`
 
 Objective:
-Turn the current control substrate into governed work objects, structured request-to-task flow, double-audit-ready QA artifacts, and minimal baton foundations without broad UI expansion, Standard pipeline productization, or rollback or product recovery overreach.
+Strengthen internal state integrity, lifecycle enforcement, scope enforcement, QA-loop boundaries, and CI-backed proof discipline without adding UI, without Standard pipeline runtime, without rollback productization, and without automatic resume claims.
 
 Exit Criteria:
-- repo truth explicitly closes the first bounded V1 proof and opens `R3 Governed Work Objects and Double-Audit Foundations`
-- canonical Project / Milestone / Task / Bug contracts and invariants exist
-- planning-record storage and validation exist
-- Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts exist
-- a bounded Request Brief -> Task Packet planning flow exists
-- a QA gate exists with remediation tracking and external-audit packaging
-- minimal task baton or resume persistence exists
-- a replayable end-to-end R3 planning proof exists without broad UI expansion
+- repo truth explicitly closes the post-R3 freeze posture and opens `R4 Control-Kernel Hardening and CI Foundations`
+- chronology and integrity softness from the earlier packet-record caution is genuinely addressed
+- lifecycle and transition hardening is test-backed
+- scope and pipeline validation are more explicit and fail closed
+- a deterministic repo-local proof runner exists
+- CI/CD exists in source control and runs that deterministic proof runner
+- retry-ceiling and blocked-state behavior are hardened on the bounded chain
+- a replayable R4 proof and closeout package exists without UI expansion or broader orchestration claims
 
 ## Tasks
 
-### `R3-001` Close out R2 proof and open R3 in repo truth
+### `R4-001` Open R4 in repo truth
 - Status: done
 - Order: 1
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md`, `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `governance/POST_R3_CLOSEOUT.md`, `governance/POST_R3_AUDIT_INDEX.md`
 - Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: updated repo-truth surfaces plus explicit closeout and milestone-brief documents
-- Done when: `README.md`, `governance/ACTIVE_STATE.md`, and `execution/KANBAN.md` explicitly close out the narrow first bounded V1 proof, `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` exists, `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md` exists, and the active milestone is advanced to R3 without broadening the claim
+- Durable output: updated repo-truth surfaces plus explicit R4 milestone-brief document
+- Done when: `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, and `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md` open R4 without broadening the proved boundary
 
-### `R3-002` Define canonical Project / Milestone / Task / Bug contracts and invariants
-- Status: done
+### `R4-002` Close chronology / integrity softness and harden lifecycle enforcement
+- Status: pending
 - Order: 2
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-001`
-- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed contract definitions or schemas for Project, Milestone, Task, and Bug plus explicit invariant rules
-- Done when: the repo defines canonical fields, identity rules, state boundaries, lineage expectations, and invariant checks for the four governed work objects without widening into runtime productization
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-001`
+- Authority: `governance/DECISION_LOG.md`, `governance/OPERATING_MODEL.md`
+- Durable output: hardened chronology and lifecycle validation plus focused tests that reject invalid chronology and transition states
+- Done when: the earlier chronology or integrity softness is actually closed or transparently narrowed and invalid chronology or invalid lifecycle transitions fail closed under test
 
-### `R3-003` Implement planning-record storage and validation
-- Status: done
+### `R4-003` Add explicit pipeline and scope foundation hardening
+- Status: pending
 - Order: 3
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-002`
-- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed planning-record storage shape, validation rules, and persistence path for the governed work objects
-- Done when: planning records can be durably stored, loaded, and validated while preserving distinct working, accepted, and reconciliation surfaces
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-002`
+- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: updated contracts or validators with explicit pipeline metadata, protected-scope declarations, and focused invalid-scope tests
+- Done when: bounded work, planning, and artifact surfaces represent protected scope more explicitly, contradictory scope fails closed, and nothing implies Standard runtime productization
 
-### `R3-004` Define Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton contracts
-- Status: done
+### `R4-004` Harden the bounded workflow loop already proved
+- Status: pending
 - Order: 4
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-002`, `R3-003`
-- Authority: `governance/VISION.md`, `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed contract definitions or schemas for Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton
-- Done when: each contract has canonical required fields, lineage rules, audit expectations, and bounded handoff intent, including a Baton contract limited to foundation-only resume support
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-002`, `R4-003`
+- Authority: `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: updated QA and remediation logic, hardened invalid handoff validation, and focused retry-ceiling tests
+- Done when: retry exhaustion is explicit and durable, invalid handoff states are rejected, and the bounded loop stops instead of permitting indefinite softness
 
-### `R3-005` Implement bounded Request Brief -> Task Packet planning flow
-- Status: done
+### `R4-005` Add a deterministic repo-local proof runner
+- Status: pending
 - Order: 5
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-003`, `R3-004`
-- Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed bounded planning flow that converts a Request Brief into a Task Packet with explicit invariants and durable records
-- Done when: the repo can run a narrow supervised planning flow from Request Brief to Task Packet without widening into a broad workflow engine
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-002`, `R4-003`, `R4-004`
+- Authority: `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`
+- Durable output: one authoritative repo-local proof runner entrypoint plus invocation documentation
+- Done when: one command produces a trustworthy fail-closed pass or fail result for the currently claimed bounded suite and is suitable for CI reuse
 
-### `R3-006` Implement QA gate with remediation tracking and external-audit packaging
-- Status: done
+### `R4-006` Add CI/CD foundation wired to the proof runner
+- Status: pending
 - Order: 6
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-004`, `R3-005`
-- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed QA gate behavior, remediation tracking shape, and External Audit Pack packaging path
-- Done when: QA outcomes can block or advance work with durable remediation tracking and intentionally packaged external-audit artifacts suitable for an initial double-audit loop
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-005`
+- Authority: `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`
+- Durable output: source-controlled GitHub Actions workflow that runs the deterministic proof runner
+- Done when: CI exists in source control, runs the same proof entrypoint used locally, and stays bounded to the repo’s actual proof claims
 
-### `R3-007` Implement minimal task baton / resume persistence
-- Status: done
+### `R4-007` Produce one replayable R4 hardening proof and closeout package
+- Status: pending
 - Order: 7
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-003`, `R3-004`
-- Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`
-- Durable output: committed baton persistence and load foundation that emits a bounded Baton from QA follow-up state and preserves it durably for manual resume preparation
-- Done when: the repo can emit, persist, validate, and reload a minimal baton state needed for bounded task resume foundations without claiming automatic resume, full recovery, or rollback productization
-
-### `R3-008` Produce replayable end-to-end R3 planning proof
-- Status: done
-- Order: 8
-- Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
-- Depends on: `R3-005`, `R3-006`, `R3-007`
-- Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: committed replay record proving the bounded R3 planning slice from request through audit-ready packaging
-- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations without adding automatic resume or broad orchestration behavior
+- Milestone: `R4 Control-Kernel Hardening and CI Foundations`
+- Depends on: `R4-004`, `R4-005`, `R4-006`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md`
+- Durable output: replayable R4 proof package, R4 closeout, and post-R4 audit index with task-to-commit mapping and explicit non-claims
+- Done when: the proof package is replayable from repo truth and the closeout says exactly what R4 proves and exactly what it still does not prove
 
 ## Explicitly Out Of Scope For This Milestone
-- broad UI or control-room productization
-- Standard or subproject pipeline productization
-- later-lane workflow expansion beyond what is needed for the bounded R3 planning proof
-- rollback or product recovery productization
+- operator-visible or user-facing UI work
+- Standard or subproject pipeline runtime
+- rollback or broader recovery productization
+- automatic resume behavior
+- broader orchestration beyond the currently bounded chain
 - donor backlog import or historical backfill

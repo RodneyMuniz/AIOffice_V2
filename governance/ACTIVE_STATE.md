@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-20
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, and repo truth now includes one replayable bounded R3 planning proof from Request Brief through Task Packet, QA gate, External Audit Pack, and Baton foundation.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, and the active implementation milestone is now `R4 Control-Kernel Hardening and CI Foundations`.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -11,7 +11,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The closed-out first proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control.
 - The first bounded V1 proof is now formally claimable only for that narrow boundary, as closed out in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` from the rerun evidence in `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md` and `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`.
 - Git and persisted state are the intended truth substrates.
-- The active implementation milestone is `R3 Governed Work Objects and Double-Audit Foundations`.
+- The active implementation milestone is `R4 Control-Kernel Hardening and CI Foundations`.
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
@@ -26,8 +26,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R3-007` is complete and adds minimal baton persistence and load foundations that emit a durable Baton from bounded QA follow-up state, save and reload it, and fail closed for malformed baton inputs without claiming automatic resume or recovery behavior.
 - `R3-008` is complete and adds one replayable bounded R3 planning proof that runs Request Brief input through Task Packet generation, QA gate evaluation, remediation tracking, External Audit Pack assembly, and Baton emission, save, and reload without adding automatic resume or broader orchestration behavior.
 - `R3 Governed Work Objects and Double-Audit Foundations` is now complete in repo truth.
-- No post-R3 implementation milestone is opened yet in repo truth.
-- The backlog is fresh, reset-only, and limited to the bounded R3 foundation slice.
+- The post-R3 freeze posture is now closed by opening R4 in repo truth.
+- `R4-001` is complete as the repo-truth opening and backlog activation step.
+- R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
+- The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
@@ -35,22 +37,25 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - automatic resume execution or broader recovery or rollback behavior
 - broad UI or control-room productization
 - Standard or subproject pipeline productization
+- deterministic repo-local proof discipline and source-controlled CI hardening for the bounded suite
+- closure of the earlier packet chronology or integrity caution, until R4 evidence actually lands
 - unattended operation or broader product completeness
 
 ## Active Milestone
-`R3 Governed Work Objects and Double-Audit Foundations`
+`R4 Control-Kernel Hardening and CI Foundations`
 
-This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, `R3-006`, `R3-007`, and `R3-008` are now completed in repo truth, and the bounded R3 milestone is complete.
+This milestone becomes active only after repo truth closes the post-R3 freeze posture without widening the completed bounded R3 claim. R4 is limited to control-kernel hardening, lifecycle and scope enforcement, QA-loop stop discipline, deterministic proof running, CI-backed proof discipline, and one bounded hardening proof package.
 
 ## Next Gated Step
-- No post-R3 gated step is opened yet in repo truth.
+- `R4-002` Close chronology / integrity softness and harden lifecycle enforcement.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
 - Do not overbuild UI or downstream lanes before evidence-backed need.
 - Do not treat narration as evidence.
 - Do not widen the proved boundary beyond the narrow first bounded V1 proof.
-- Do not widen scope to Standard or subproject pipeline work in current V1 or early R3.
+- Do not widen scope to Standard or subproject pipeline work in current V1 or R4.
 - Do not treat baton or resume foundations as full recovery productization.
 - Do not treat external audit packaging as proof of a broader pipeline.
+- Do not treat CI as proof of broader productization; it is only a bounded proof-discipline foundation in R4.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.
