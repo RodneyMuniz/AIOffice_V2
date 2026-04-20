@@ -1,0 +1,10 @@
+﻿PASS valid: artifacts\fixtures\valid\intake.valid.json -> intake
+PASS valid: artifacts\fixtures\valid\pm.valid.json -> pm
+PASS valid: artifacts\fixtures\valid\context_audit.valid.json -> context_audit
+PASS valid: artifacts\fixtures\valid\architect.valid.json -> architect
+PASS invalid: artifacts\fixtures\invalid\intake.missing-output.json -> Artifact.output is missing required field 'requested_outcome'.
+PASS invalid: artifacts\fixtures\invalid\pm.invalid-approval.json -> Artifact.approval.status must be one of: pending, approved, rejected.
+PASS invalid: artifacts\fixtures\invalid\context_audit.invalid-handoff.json -> Artifact.handoff.next_stage must be one of: architect.
+PASS invalid: artifacts\fixtures\invalid\architect.missing-acceptance-checks.json -> Artifact.output is missing required field 'acceptance_checks'.
+All stage artifact contract tests passed. Valid passed: 4. Invalid rejected: 4.
+

@@ -1,0 +1,6 @@
+﻿PASS harness request contract: flow-rst012-allow-001 -> create
+PASS harness request contract: flow-rst012-block-001 -> load
+PASS allow supervised flow: C:\Users\rodne\AppData\Local\Temp\aioffice-rst012-e531ed634df740188ec3b3d7739ef787\allow\gate_results\flow-rst012-allow-001.result.json
+PASS block supervised flow: C:\Users\rodne\AppData\Local\Temp\aioffice-rst012-e531ed634df740188ec3b3d7739ef787\block\gate_results\flow-rst012-block-001.result.json
+All supervised admin flow tests passed.
+

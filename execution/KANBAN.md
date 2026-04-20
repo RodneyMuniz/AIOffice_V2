@@ -3,20 +3,15 @@
 This board tracks the current reset implementation milestone only.
 
 ## Active Milestone
-`R4 Control-Kernel Hardening and CI Foundations`
+No post-R4 implementation milestone is open yet.
 
 Objective:
-Strengthen internal state integrity, lifecycle enforcement, scope enforcement, QA-loop boundaries, and CI-backed proof discipline without adding UI, without Standard pipeline runtime, without rollback productization, and without automatic resume claims.
+Hold the completed bounded R4 baseline for audit review only, without opening later implementation scope by implication.
 
 Exit Criteria:
-- repo truth explicitly closes the post-R3 freeze posture and opens `R4 Control-Kernel Hardening and CI Foundations`
-- chronology and integrity softness from the earlier packet-record caution is genuinely addressed
-- lifecycle and transition hardening is test-backed
-- scope and pipeline validation are more explicit and fail closed
-- a deterministic repo-local proof runner exists
-- CI/CD exists in source control and runs that deterministic proof runner
-- retry-ceiling and blocked-state behavior are hardened on the bounded chain
-- a replayable R4 proof and closeout package exists without UI expansion or broader orchestration claims
+- bounded R4 remains complete in repo truth
+- no post-R4 implementation milestone is opened implicitly
+- the replayable R4 proof and closeout package remain the current committed freeze surface
 
 ## Tasks
 
@@ -75,7 +70,7 @@ Exit Criteria:
 - Done when: CI exists in source control, runs the same proof entrypoint used locally, and stays bounded to the repo's actual proof claims
 
 ### `R4-007` Produce one replayable R4 hardening proof and closeout package
-- Status: pending
+- Status: done
 - Order: 7
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-004`, `R4-005`, `R4-006`

@@ -1,0 +1,9 @@
+﻿PASS valid fixture: .\state\fixtures\valid\qa_gate.execution_bundle.fail.json -> execution_bundle execution-bundle-r3-006-fail-001
+PASS valid baton persistence: qa-report-execution-bundle-r3-006-fail-001 -> baton baton-qa-report-execution-bundle-r3-006-fail-001
+PASS retry-exhausted baton emission: qa-report-execution-bundle-r3-006-fail-001 -> handoff manual_review
+PASS invalid baton handoff: Remediation record.next_handoff must match the supplied QA Report.
+PASS invalid baton: work_artifact.baton.invalid-missing-next-artifacts.json -> Artifact.next_required_artifacts must not be empty.
+PASS valid pass-source fixture: .\state\fixtures\valid\qa_gate.execution_bundle.pass.json -> execution_bundle execution-bundle-r3-006-pass-001
+PASS invalid baton emission: execution-bundle-r3-006-pass-001 -> Baton emission is bounded to QA outcomes that still require follow-up. QA Report 'qa-report-execution-bundle-r3-006-pass-001' must be in status 'failed', 'blocked', or 'retry_exhausted'.
+All baton persistence tests passed. Valid passed: 2. Invalid rejected: 3.
+

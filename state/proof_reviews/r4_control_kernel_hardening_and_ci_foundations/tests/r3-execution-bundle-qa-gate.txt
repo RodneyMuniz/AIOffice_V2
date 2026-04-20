@@ -1,0 +1,16 @@
+﻿PASS valid fixture: .\state\fixtures\valid\qa_gate.execution_bundle.pass.json -> execution_bundle execution-bundle-r3-006-pass-001
+PASS valid gate: execution-bundle-r3-006-pass-001 -> outcome pass
+PASS valid fixture: .\state\fixtures\valid\qa_gate.execution_bundle.fail.json -> execution_bundle execution-bundle-r3-006-fail-001
+PASS valid gate: execution-bundle-r3-006-fail-001 -> outcome fail
+PASS valid fixture: .\state\fixtures\valid\qa_gate.execution_bundle.block.json -> execution_bundle execution-bundle-r3-006-block-001
+PASS valid gate: execution-bundle-r3-006-block-001 -> outcome block
+PASS retry-source fixture: .\state\fixtures\valid\qa_gate.execution_bundle.fail.json -> execution_bundle execution-bundle-r3-006-fail-001
+PASS retry-exhausted gate: qa-report-execution-bundle-r4-004-retry-attempt-04 -> QA status retry_exhausted
+PASS contract-valid malformed input: .\state\fixtures\invalid\qa_gate.execution_bundle.invalid-under-evidenced.json -> execution_bundle execution-bundle-r3-006-invalid-under-evidenced-001
+PASS invalid gate: qa_gate.execution_bundle.invalid-under-evidenced.json -> Execution Bundle 'execution-bundle-r3-006-invalid-under-evidenced-001' must include at least one test_output evidence item before QA gate evaluation.
+PASS contract-valid malformed input: .\state\fixtures\invalid\qa_gate.execution_bundle.invalid-draft.json -> execution_bundle execution-bundle-r3-006-invalid-draft-001
+PASS invalid gate: qa_gate.execution_bundle.invalid-draft.json -> Execution Bundle 'execution-bundle-r3-006-invalid-draft-001' must be in status 'prepared' before QA gate evaluation.
+PASS contract-valid malformed input: .\state\fixtures\invalid\qa_gate.execution_bundle.invalid-working-planning-view.json -> execution_bundle execution-bundle-r3-006-fail-001
+PASS invalid gate: qa_gate.execution_bundle.invalid-working-planning-view.json -> Execution Bundle 'execution-bundle-r3-006-fail-001' must hand off accepted planning_record_refs only before QA gate evaluation.
+All Execution Bundle QA gate tests passed. Valid passed: 4. Invalid rejected: 3.
+

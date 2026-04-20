@@ -1,0 +1,7 @@
+﻿PASS valid replay request fixture: .\state\fixtures\valid\request_brief_task_packet_flow.request_brief.valid.json -> request_brief request-brief-r3-005-flow-001
+PASS valid replay proof: request-brief-r3-005-flow-001 -> task-packet-r3-005-flow-001 -> qa-report-execution-bundle-r3-006-fail-001 -> baton-qa-report-execution-bundle-r3-006-fail-001
+PASS contract-valid malformed replay request: .\state\fixtures\invalid\request_brief_task_packet_flow.request_brief.invalid-missing-planning-record.json -> request_brief request-brief-r3-005-invalid-missing-plan-001
+PASS invalid replay proof: request_brief_task_packet_flow.request_brief.invalid-missing-planning-record.json -> Request Brief 'request-brief-r3-005-invalid-missing-plan-001' must include at least one accepted planning_record_ref before Task Packet generation.
+PASS invalid replay proof: qa_gate.observation.missing.json -> QA observation 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\fixtures\invalid\qa_gate.observation.missing.json' does not exist.
+All R3 planning replay proof tests passed. Valid passed: 1. Invalid rejected: 2.
+

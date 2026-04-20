@@ -1,0 +1,16 @@
+﻿PASS valid: state\fixtures\valid\work_artifact.request_brief.valid.json -> request_brief request-brief-r3-004-001
+PASS valid: state\fixtures\valid\work_artifact.task_packet.valid.json -> task_packet task-packet-r3-004-001
+PASS valid: state\fixtures\valid\work_artifact.execution_bundle.valid.json -> execution_bundle execution-bundle-r3-004-001
+PASS valid: state\fixtures\valid\work_artifact.qa_report.valid.json -> qa_report qa-report-r3-004-001
+PASS valid: state\fixtures\valid\work_artifact.external_audit_pack.valid.json -> external_audit_pack external-audit-pack-r3-004-001
+PASS valid: state\fixtures\valid\work_artifact.baton.valid.json -> baton baton-r3-004-001
+PASS invalid: state\fixtures\invalid\work_artifact.request_brief.invalid-creator-role.json -> Artifact.created_by.role must be one of: operator, control_kernel, reasoning_assistance.
+PASS invalid: state\fixtures\invalid\work_artifact.task_packet.invalid-approved-without-accepted-plan.json -> Approved Task Packets must include at least one accepted planning record ref.
+PASS invalid: state\fixtures\invalid\work_artifact.task_packet.invalid-standard-runtime-scope.json -> Artifact.scope surface must be one of: admin_runtime_only, control_kernel, governed_work_objects, planning_records, request_briefs, task_packets.
+PASS invalid: state\fixtures\invalid\work_artifact.execution_bundle.invalid-retry-entry-without-follow-up.json -> Retry-entry Execution Bundles must carry prior QA and Baton refs.
+PASS invalid: state\fixtures\invalid\work_artifact.execution_bundle.invalid-lineage.json -> Prepared Execution Bundles must derive from a task_packet lineage source.
+PASS invalid: state\fixtures\invalid\work_artifact.qa_report.invalid-passed-remediation.json -> Artifact is missing required field 'qa_attempt_count'.
+PASS invalid: state\fixtures\invalid\work_artifact.external_audit_pack.invalid-missing-qa-evidence.json -> Artifact.evidence must include kind 'qa_report' for artifact type 'external_audit_pack'.
+PASS invalid: state\fixtures\invalid\work_artifact.baton.invalid-missing-next-artifacts.json -> Artifact.next_required_artifacts must not be empty.
+All work artifact contract tests passed. Valid passed: 6. Invalid rejected: 8.
+

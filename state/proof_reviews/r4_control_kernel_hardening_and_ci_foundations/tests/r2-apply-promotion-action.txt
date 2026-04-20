@@ -1,0 +1,6 @@
+﻿PASS action request contract: action-r2-allow-001 -> apply
+PASS action result contract: action-r2-allow-001.result -> apply
+PASS allow action execution: C:\Users\rodne\AppData\Local\Temp\aioffice-r2-action-9b26ed0181a64742b71872c5751a985a\action_results\action-r2-allow-001.result.json
+PASS blocked action refusal: Apply/promotion action can run only after an allow gate decision.
+All apply/promotion action tests passed.
+

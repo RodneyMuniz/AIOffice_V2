@@ -1,0 +1,9 @@
+﻿PASS valid input fixture: .\state\fixtures\valid\request_brief_task_packet_flow.request_brief.valid.json -> request_brief request-brief-r3-005-flow-001
+PASS valid output fixture: .\state\fixtures\valid\request_brief_task_packet_flow.task_packet.expected.json -> task_packet task-packet-r3-005-flow-001
+PASS valid flow: request-brief-r3-005-flow-001 -> task_packet task-packet-r3-005-flow-001
+PASS contract-valid malformed input: .\state\fixtures\invalid\request_brief_task_packet_flow.request_brief.invalid-missing-planning-record.json -> request_brief request-brief-r3-005-invalid-missing-plan-001
+PASS invalid flow: request_brief_task_packet_flow.request_brief.invalid-missing-planning-record.json -> Request Brief 'request-brief-r3-005-invalid-missing-plan-001' must include at least one accepted planning_record_ref before Task Packet generation.
+PASS contract-valid malformed input: .\state\fixtures\invalid\request_brief_task_packet_flow.request_brief.invalid-working-planning-view.json -> request_brief request-brief-r3-005-invalid-working-view-001
+PASS invalid flow: request_brief_task_packet_flow.request_brief.invalid-working-planning-view.json -> Request Brief planning_record_ref 'planning-r3-003-task-001' must use view 'accepted' for approved Task Packet generation.
+All Request Brief to Task Packet flow tests passed. Valid passed: 1. Invalid rejected: 2.
+

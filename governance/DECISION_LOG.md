@@ -130,3 +130,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the workflow uploads the bounded proof logs as an artifact for review, but this remains CI evidence support only and does not widen the repo's product claims into UI, Standard runtime, rollback, automatic resume, or broader orchestration proof.
 - Consequence: the closure is backed by `tests/test_bounded_proof_ci_foundation.ps1` plus the same bounded proof runner that CI now invokes.
 - Consequence: the next gated step inside R4 is `R4-007` Produce one replayable R4 hardening proof and closeout package.
+
+## D-0018 R4-007 Closed Out R4 With Replayable Hardening Evidence
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-007` closes bounded R4 with one replayable hardening proof package, post-R4 closeout, and post-R4 audit index surfaces.
+- Consequence: the committed proof package at `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/` now preserves the exact replay command, raw per-test logs, Git metadata, bounded-proof summary, and explicit non-claims for the completed R4 slice.
+- Consequence: post-R4 truth is now frozen through `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`, and no post-R4 implementation milestone is open yet in repo truth.
+- Consequence: bounded R4 proves stronger internal control-kernel, workflow, and CI foundations only. It still does not prove UI productization, Standard or subproject runtime, rollback, automatic resume, or broader orchestration.
+- Consequence: the closeout is backed by the committed proof package plus `tests/test_r4_hardening_proof_review.ps1`.

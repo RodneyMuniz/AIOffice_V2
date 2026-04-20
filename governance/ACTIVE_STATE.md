@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-20
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, and the active implementation milestone is now `R4 Control-Kernel Hardening and CI Foundations`.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is now complete in repo truth, and no post-R4 implementation milestone is open yet.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -11,7 +11,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The closed-out first proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control.
 - The first bounded V1 proof is now formally claimable only for that narrow boundary, as closed out in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` from the rerun evidence in `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md` and `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`.
 - Git and persisted state are the intended truth substrates.
-- The active implementation milestone is `R4 Control-Kernel Hardening and CI Foundations`.
+- No post-R4 implementation milestone is open yet in repo truth.
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
@@ -33,6 +33,9 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R4-004` is complete and hardens the bounded planning-to-QA-to-baton loop by requiring accepted planning handoff into QA, recording bounded retry metadata durably, stopping at the retry ceiling with explicit `retry_exhausted` state, and rejecting invalid QA-to-baton handoff mismatches.
 - `R4-005` is complete and adds one deterministic repo-local bounded proof runner that replays the currently claimed focused R2, R3, and R4 suite through `tools/run_bounded_proof_suite.ps1`, emits durable logs and summaries, and fails closed on unexpected suite failures or unexpected workspace mutations.
 - `R4-006` is complete and adds source-controlled CI foundation at `.github/workflows/bounded-proof-suite.yml`, which replays the same bounded proof runner on `push` and `pull_request` for `main` without broadening the repo's product claims.
+- `R4-007` is complete and adds one replayable bounded R4 hardening proof package under `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/` plus post-R4 closeout and audit-index surfaces.
+- `R4 Control-Kernel Hardening and CI Foundations` is now complete in repo truth.
+- The post-R4 freeze posture is now active; no post-R4 implementation milestone is open yet in repo truth.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice.
 
@@ -45,12 +48,12 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - unattended operation or broader product completeness
 
 ## Active Milestone
-`R4 Control-Kernel Hardening and CI Foundations`
+No post-R4 implementation milestone is open yet in repo truth.
 
-This milestone becomes active only after repo truth closes the post-R3 freeze posture without widening the completed bounded R3 claim. R4 is limited to control-kernel hardening, lifecycle and scope enforcement, QA-loop stop discipline, deterministic proof running, CI-backed proof discipline, and one bounded hardening proof package.
+This active-state surface now holds the completed bounded R4 baseline only. It does not open later implementation scope by implication.
 
 ## Next Gated Step
-- `R4-007` Produce one replayable R4 hardening proof and closeout package.
+- No post-R4 implementation milestone is open yet in repo truth.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

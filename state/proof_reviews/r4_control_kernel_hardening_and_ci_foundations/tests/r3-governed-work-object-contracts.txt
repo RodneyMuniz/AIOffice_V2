@@ -1,0 +1,10 @@
+﻿PASS valid: state\fixtures\valid\governed_work_object.project.valid.json -> project project-r3-foundations-001
+PASS valid: state\fixtures\valid\governed_work_object.milestone.valid.json -> milestone milestone-r3-002-001
+PASS valid: state\fixtures\valid\governed_work_object.task.valid.json -> task task-r3-002-contracts-001
+PASS valid: state\fixtures\valid\governed_work_object.bug.valid.json -> bug bug-r3-002-proof-gap-001
+PASS invalid: state\fixtures\invalid\governed_work_object.project.invalid-parent.json -> WorkObject.parent must be null for object type 'project'.
+PASS invalid: state\fixtures\invalid\governed_work_object.milestone.invalid-parent.json -> WorkObject.parent.object_type must be one of: project.
+PASS invalid: state\fixtures\invalid\governed_work_object.task.invalid-done-without-summary.json -> WorkObject.completion_summary must be a non-empty string.
+PASS invalid: state\fixtures\invalid\governed_work_object.bug.invalid-open-resolution.json -> Bug status 'verified' requires resolution.kind 'fix' or 'workaround'.
+All governed work object contract tests passed. Valid passed: 4. Invalid rejected: 4.
+

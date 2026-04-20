@@ -85,7 +85,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: the repo has source-controlled CI automation that runs the same deterministic proof entrypoint used locally and the truth surfaces record CI as a foundation rather than proof of broader productization
 
 ### `R4-007` Produce one replayable R4 hardening proof and closeout package
-- Status: pending
+- Status: done
 - Done when: each R4 task is commit-mapped, the proof package is replayable from repo truth, and the closeout states exactly what R4 proves and exactly what it still does not prove
 
 ## Milestone notes
@@ -93,4 +93,6 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - R4 does not open UI work, Standard runtime, rollback productization, automatic resume, or broader orchestration claims.
 - The deterministic bounded proof entrypoint is `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`.
 - The bounded CI foundation is `.github/workflows/bounded-proof-suite.yml`, which replays the same proof entrypoint on `push` and `pull_request` for `main`.
+- The replayable bounded R4 proof package is `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/`.
+- The post-R4 closeout surfaces are `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
