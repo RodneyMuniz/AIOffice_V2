@@ -3,7 +3,7 @@
 ## Review context
 - Review folder: `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations`
 - Repo branch at replay start: `main`
-- Repo HEAD at replay start: `bbdd5a8ec548e9707275e8438fa6fb4b91917ed0`
+- Repo HEAD at replay start: `47b7cf99f1720c2f191f044e95b354de1a814047`
 - Replay command: `powershell -ExecutionPolicy Bypass -File tools\new_r4_hardening_proof_review.ps1 -OutputRoot state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations`
 - Focused proof runner summary: `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/bounded-proof-suite-summary.json`
 

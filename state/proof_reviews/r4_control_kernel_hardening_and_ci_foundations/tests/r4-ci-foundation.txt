@@ -1,4 +1,4 @@
-﻿PASS workflow file exists: C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\.github\workflows\bounded-proof-suite.yml
+﻿PASS workflow file exists: C:\Users\rodne\AppData\Local\Temp\aioffice-r4-corrective-983c483b5a0147618ba062299b4f9222\.github\workflows\bounded-proof-suite.yml
 PASS workflow trigger and runner assertions.
 All bounded proof CI foundation tests passed.
 

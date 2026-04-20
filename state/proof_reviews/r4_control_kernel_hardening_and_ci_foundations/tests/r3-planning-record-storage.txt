@@ -2,9 +2,9 @@
 PASS invalid fixture: planning_record.accepted-ref-mismatch.json -> PlanningRecord.accepted_state.object_id must match the referenced work object.
 PASS invalid fixture: planning_record.invalid-working-status.json -> PlanningRecord.working_state.status must be one of: draft, in_progress, ready_for_review, blocked.
 PASS invalid fixture: planning_record.invalid-standard-runtime-claim.json -> PlanningRecord.pipeline.standard_runtime_claimed must remain false for the bounded admin-only planning surface.
-PASS round-trip: project -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-97481061c3a8441ea8dedbcf18bfc01d\planning-project-r3-foundations-001.json
-PASS round-trip: milestone -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-97481061c3a8441ea8dedbcf18bfc01d\planning-milestone-r3-002-001.json
-PASS round-trip: task -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-97481061c3a8441ea8dedbcf18bfc01d\planning-task-r3-002-contracts-001.json
-PASS round-trip: bug -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-97481061c3a8441ea8dedbcf18bfc01d\planning-bug-r3-002-proof-gap-001.json
+PASS round-trip: project -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-bfbb74a622cd459bb288e18e95560712\planning-project-r3-foundations-001.json
+PASS round-trip: milestone -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-bfbb74a622cd459bb288e18e95560712\planning-milestone-r3-002-001.json
+PASS round-trip: task -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-bfbb74a622cd459bb288e18e95560712\planning-task-r3-002-contracts-001.json
+PASS round-trip: bug -> C:\Users\rodne\AppData\Local\Temp\aioffice-r3-003-bfbb74a622cd459bb288e18e95560712\planning-bug-r3-002-proof-gap-001.json
 All planning record storage tests passed.
 
