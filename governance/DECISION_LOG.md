@@ -139,3 +139,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: post-R4 truth is now frozen through `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`, and no post-R4 implementation milestone is open yet in repo truth.
 - Consequence: bounded R4 proves stronger internal control-kernel, workflow, and CI foundations only. It still does not prove UI productization, Standard or subproject runtime, rollback, automatic resume, or broader orchestration.
 - Consequence: the closeout is backed by the committed proof package plus `tests/test_r4_hardening_proof_review.ps1`.
+
+## D-0019 R5 Opened As Bounded Structure Only
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is the next bounded milestone, but it is opened in repo truth as structure only and not as executed implementation.
+- Consequence: R4 remains the prior closed milestone, and the corrective completion layer `R4-008` through `R4-011` remains part of the honest R4 closure story instead of being rewritten away.
+- Consequence: R5 is bounded to Git-backed milestone baselines, bounded rollback and restore gate foundations, stronger baton and resume authority planning, and stronger CI/CD plus repo-enforcement planning.
+- Consequence: opening R5 does not prove rollback, automatic resume, broader recovery, broader orchestration, UI productization, or Standard or subproject runtime.
+- Consequence: the narrative report artifact for this transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`, and it remains a report artifact rather than milestone proof by itself.
