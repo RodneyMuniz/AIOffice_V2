@@ -83,8 +83,8 @@ Turn the current control substrate into governed work objects, structured reques
 - Done when: the repo can emit a bounded Baton from QA follow-up state, durably persist and reload it, and fail closed for malformed baton inputs; this remains foundation-only, not full recovery productization
 
 ### `R3-008` Produce replayable end-to-end R3 planning proof
-- Status: pending
-- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations
+- Status: done
+- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations without adding automatic resume or broad orchestration behavior
 
 ## Milestone notes
 - Baton or resume in R3 is foundation-only. It is not a claim of full recovery, rollback, or broader operational resilience productization.

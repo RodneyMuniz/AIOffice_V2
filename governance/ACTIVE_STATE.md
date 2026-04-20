@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-20
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, and repo truth now moves into `R3 Governed Work Objects and Double-Audit Foundations`.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, and repo truth now includes one replayable bounded R3 planning proof from Request Brief through Task Packet, QA gate, External Audit Pack, and Baton foundation.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -24,13 +24,15 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R3-005` is complete and adds a bounded supervised planning flow that converts a valid Request Brief into a valid Task Packet with durable lineage and fail-closed malformed-input handling.
 - `R3-006` is complete and adds a bounded QA gate that accepts a prepared Execution Bundle, emits a durable QA Report outcome, tracks remediation state durably, and assembles a bounded External Audit Pack path with fail-closed malformed-input handling.
 - `R3-007` is complete and adds minimal baton persistence and load foundations that emit a durable Baton from bounded QA follow-up state, save and reload it, and fail closed for malformed baton inputs without claiming automatic resume or recovery behavior.
-- `R3-008` remains pending and not yet started.
-- The next gated step is `R3-008` Produce replayable end-to-end R3 planning proof.
+- `R3-008` is complete and adds one replayable bounded R3 planning proof that runs Request Brief input through Task Packet generation, QA gate evaluation, remediation tracking, External Audit Pack assembly, and Baton emission, save, and reload without adding automatic resume or broader orchestration behavior.
+- `R3 Governed Work Objects and Double-Audit Foundations` is now complete in repo truth.
+- No post-R3 implementation milestone is opened yet in repo truth.
 - The backlog is fresh, reset-only, and limited to the bounded R3 foundation slice.
 
 ## Not Yet Proved
-- a replayable end-to-end R3 planning proof
 - any later-lane workflow beyond the first proof boundary
+- any broader workflow orchestration beyond the direct bounded R3 replay slice
+- automatic resume execution or broader recovery or rollback behavior
 - broad UI or control-room productization
 - Standard or subproject pipeline productization
 - unattended operation or broader product completeness
@@ -38,10 +40,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R3 Governed Work Objects and Double-Audit Foundations`
 
-This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, `R3-006`, and `R3-007` are now completed in repo truth, while `R3-008` remains pending.
+This milestone becomes active only after repo truth closes out the first bounded V1 proof without broadening the claim beyond supervised-through-`architect` plus bounded `apply/promotion` control. `R3-001`, `R3-002`, `R3-003`, `R3-004`, `R3-005`, `R3-006`, `R3-007`, and `R3-008` are now completed in repo truth, and the bounded R3 milestone is complete.
 
 ## Next Gated Step
-- `R3-008` Produce replayable end-to-end R3 planning proof
+- No post-R3 gated step is opened yet in repo truth.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

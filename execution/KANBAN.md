@@ -84,13 +84,13 @@ Exit Criteria:
 - Done when: the repo can emit, persist, validate, and reload a minimal baton state needed for bounded task resume foundations without claiming automatic resume, full recovery, or rollback productization
 
 ### `R3-008` Produce replayable end-to-end R3 planning proof
-- Status: pending
+- Status: done
 - Order: 8
 - Milestone: `R3 Governed Work Objects and Double-Audit Foundations`
 - Depends on: `R3-005`, `R3-006`, `R3-007`
 - Authority: `governance/V1_PRD.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
 - Durable output: committed replay record proving the bounded R3 planning slice from request through audit-ready packaging
-- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations
+- Done when: the repo can replay a direct end-to-end R3 planning proof with durable evidence for governed work objects, request-to-task flow, QA gating, external-audit packaging, and minimal baton foundations without adding automatic resume or broad orchestration behavior
 
 ## Explicitly Out Of Scope For This Milestone
 - broad UI or control-room productization
