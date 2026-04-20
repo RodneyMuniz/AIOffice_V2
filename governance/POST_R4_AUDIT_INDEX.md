@@ -16,7 +16,7 @@ The initial `R4-005` through `R4-007` delivery required the corrective completio
 - `R4-008` repair bounded proof runner clean-checkout behavior: `2d8b01d71b9478cc31e0863c9b8185cb3e62b15a`
 - `R4-009` re-stabilize CI foundation on the real proof path: `340a2c4f35aa02d940efef37daaeb9343833e439`
 - `R4-010` regenerate proof package and evidence inventory cleanly: `340a2c4f35aa02d940efef37daaeb9343833e439`
-- `R4-011` reconcile post-R4 repo truth for honest closure readiness: pending final mapping
+- `R4-011` reconcile post-R4 repo truth for honest closure readiness: `3c31cf06f9d9b4f77d21cf9e952ee4748070d2ec`
 
 ## Governing Docs Supporting R4 Truth
 - `README.md`
