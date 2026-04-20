@@ -39,7 +39,7 @@ Exit Criteria:
 - Done when: the earlier chronology or integrity softness is actually closed or transparently narrowed and invalid chronology or invalid lifecycle transitions fail closed under test
 
 ### `R4-003` Add explicit pipeline and scope foundation hardening
-- Status: pending
+- Status: done
 - Order: 3
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-002`

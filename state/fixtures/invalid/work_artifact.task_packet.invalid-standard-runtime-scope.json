@@ -2,7 +2,7 @@
     "contract_version":  "v1",
     "record_type":  "governed_work_artifact",
     "artifact_type":  "task_packet",
-    "artifact_id":  "task-packet-r3-004-001",
+    "artifact_id":  "task-packet-r4-003-invalid-standard-runtime-001",
     "title":  "R3-004 contract-only task packet",
     "summary":  "Bound the contract-definition work without claiming any request flow runtime.",
     "status":  "approved",
@@ -96,7 +96,8 @@
                                            "governed_work_objects",
                                            "planning_records",
                                            "request_briefs",
-                                           "task_packets"
+                                           "task_packets",
+                                           "standard_runtime"
                                        ],
                   "protected_surfaces":  [
                                              "admin_runtime_only",
@@ -111,6 +112,6 @@
                                               "rollback",
                                               "broad_orchestration"
                                           ],
-                  "notes":  "The task-packet surface remains bounded to planning-only behavior."
+                  "notes":  "This invalid task packet falsely allows Standard runtime inside an admin-only bounded surface."
               }
 }

@@ -503,6 +503,21 @@ function New-TaskPacketFromRequestBrief {
             source_refs = @($requestBriefRelativeRef)
             rationale   = "Task Packet generated from a planning-ready Request Brief grounded in accepted planning records."
         }
+        pipeline          = [pscustomobject]@{
+            mode                       = "admin_only_bounded"
+            runtime_boundary           = "admin_only"
+            standard_runtime_claimed   = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope        = "planning_only"
+            notes                      = "Task Packet generation stays inside the admin-only bounded planning flow and does not imply Standard runtime."
+        }
+        scope             = [pscustomobject]@{
+            summary            = "Task Packet scope is limited to the admin-only control kernel planning slice, accepted planning records, governed work objects, and the Task Packet artifact surface."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records", "request_briefs", "task_packets")
+            protected_surfaces = @("admin_runtime_only", "control_kernel", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The generated Task Packet preserves bounded planning scope only and does not open Standard runtime or UI behavior."
+        }
         work_object_refs  = @($taskPacketWorkObjectRefs)
         planning_record_refs = @($taskPacketPlanningRefs)
         evidence          = @($evidence)

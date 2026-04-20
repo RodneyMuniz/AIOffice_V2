@@ -40,6 +40,31 @@
     "qa_report",
     "manual"
   ],
+  "allowed_orchestration_scopes": [
+    "qa_follow_up_only"
+  ],
+  "allowed_scope_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "governed_work_objects",
+    "planning_records",
+    "qa_reports",
+    "external_audit_packs",
+    "batons"
+  ],
+  "required_protected_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "planning_records"
+  ],
+  "required_prohibited_surfaces": [
+    "ui_surfaces",
+    "standard_runtime",
+    "subproject_runtime",
+    "automatic_resume",
+    "rollback",
+    "broad_orchestration"
+  ],
   "minimum_work_object_refs": 1,
   "minimum_planning_record_refs": 1,
   "allowed_work_object_types": [
@@ -68,6 +93,7 @@
   "forbidden_states": [
     "Ready-for-handoff batons must list the next required artifacts.",
     "Closed batons must not retain unresolved next-required artifacts.",
-    "Batons must stay bounded to persistence and load foundations only and must not claim automatic resume or broader recovery behavior."
+    "Batons must stay bounded to persistence and load foundations only and must not claim automatic resume or broader recovery behavior.",
+    "Batons must remain inside the admin-only bounded follow-up scope and must not imply Standard runtime."
   ]
 }

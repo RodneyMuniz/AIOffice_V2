@@ -41,6 +41,28 @@
     "operator_request",
     "manual"
   ],
+  "allowed_orchestration_scopes": [
+    "planning_only"
+  ],
+  "allowed_scope_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "governed_work_objects",
+    "planning_records",
+    "request_briefs"
+  ],
+  "required_protected_surfaces": [
+    "admin_runtime_only",
+    "control_kernel"
+  ],
+  "required_prohibited_surfaces": [
+    "ui_surfaces",
+    "standard_runtime",
+    "subproject_runtime",
+    "automatic_resume",
+    "rollback",
+    "broad_orchestration"
+  ],
   "minimum_work_object_refs": 1,
   "minimum_planning_record_refs": 0,
   "allowed_work_object_types": [
@@ -65,6 +87,7 @@
   "forbidden_states": [
     "Request Briefs must not be created by bounded executors.",
     "Request Briefs must carry at least one governed work object target.",
-    "Request Briefs do not claim task-packet or execution behavior."
+    "Request Briefs do not claim task-packet or execution behavior.",
+    "Request Briefs must stay inside the admin-only bounded planning scope and must not imply Standard runtime."
   ]
 }

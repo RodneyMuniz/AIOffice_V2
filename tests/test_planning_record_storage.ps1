@@ -7,7 +7,8 @@ Import-Module $modulePath -Force
 $validFixture = Join-Path $repoRoot "state\fixtures\valid\planning_record.task.valid.json"
 $invalidFixtures = @(
     (Join-Path $repoRoot "state\fixtures\invalid\planning_record.accepted-ref-mismatch.json"),
-    (Join-Path $repoRoot "state\fixtures\invalid\planning_record.invalid-working-status.json")
+    (Join-Path $repoRoot "state\fixtures\invalid\planning_record.invalid-working-status.json"),
+    (Join-Path $repoRoot "state\fixtures\invalid\planning_record.invalid-standard-runtime-claim.json")
 )
 
 $governedFixtures = @(
@@ -73,6 +74,18 @@ try {
         }
         if ($reloaded.reconciliation_state.status -ne "matched") {
             $failures += ("FAIL round-trip: {0} reconciliation_state.status did not persist as matched." -f $workObject.object_type)
+        }
+        if ($reloaded.pipeline.mode -ne "admin_only_bounded") {
+            $failures += ("FAIL round-trip: {0} pipeline.mode did not persist as admin_only_bounded." -f $workObject.object_type)
+        }
+        if ([bool]$reloaded.pipeline.standard_runtime_claimed -ne $false) {
+            $failures += ("FAIL round-trip: {0} pipeline.standard_runtime_claimed did not remain false." -f $workObject.object_type)
+        }
+        if (@($reloaded.scope.protected_surfaces) -notcontains "planning_records") {
+            $failures += ("FAIL round-trip: {0} scope.protected_surfaces did not preserve the planning_records boundary." -f $workObject.object_type)
+        }
+        if (@($reloaded.scope.prohibited_surfaces) -notcontains "standard_runtime") {
+            $failures += ("FAIL round-trip: {0} scope.prohibited_surfaces did not preserve the Standard runtime exclusion." -f $workObject.object_type)
         }
         if ($reloaded.working_state.record_ref -eq $reloaded.accepted_state.record_ref) {
             $failures += ("FAIL round-trip: {0} working and accepted record refs should remain distinct." -f $workObject.object_type)

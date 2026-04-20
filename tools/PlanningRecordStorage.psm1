@@ -143,6 +143,21 @@ function Assert-AllowedValue {
     }
 }
 
+function Assert-BooleanValue {
+    param(
+        [AllowNull()]
+        $Value,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    if ($Value -isnot [bool]) {
+        throw "$Context must be a boolean."
+    }
+
+    return $Value
+}
+
 function Assert-ObjectValue {
     param(
         [AllowNull()]
@@ -156,6 +171,31 @@ function Assert-ObjectValue {
     }
 
     return $Value
+}
+
+function Assert-StringArray {
+    param(
+        [AllowNull()]
+        $Value,
+        [Parameter(Mandatory = $true)]
+        [string]$Context,
+        [switch]$AllowEmpty
+    )
+
+    if ($null -eq $Value -or $Value -is [string] -or -not ($Value -is [System.Collections.IEnumerable])) {
+        throw "$Context must be an array."
+    }
+
+    $items = @($Value)
+    if (-not $AllowEmpty -and $items.Count -eq 0) {
+        throw "$Context must not be empty."
+    }
+
+    foreach ($item in $items) {
+        Assert-NonEmptyString -Value $item -Context "$Context item" | Out-Null
+    }
+
+    Write-Output -NoEnumerate $items
 }
 
 function Assert-NullableBoolean {
@@ -289,6 +329,123 @@ function Validate-TopLevelFields {
 
     $updatedAt = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $PlanningRecord -Name "updated_at" -Context "PlanningRecord") -Context "PlanningRecord.updated_at"
     Assert-RegexMatch -Value $updatedAt -Pattern $Foundation.timestamp_pattern -Context "PlanningRecord.updated_at"
+}
+
+function Validate-PipelineMetadata {
+    param(
+        [Parameter(Mandatory = $true)]
+        $PlanningRecord,
+        [Parameter(Mandatory = $true)]
+        $Foundation,
+        [Parameter(Mandatory = $true)]
+        $Contract
+    )
+
+    $pipeline = Assert-ObjectValue -Value (Get-RequiredProperty -Object $PlanningRecord -Name "pipeline" -Context "PlanningRecord") -Context "PlanningRecord.pipeline"
+    foreach ($fieldName in $Foundation.pipeline_required_fields) {
+        Get-RequiredProperty -Object $pipeline -Name $fieldName -Context "PlanningRecord.pipeline" | Out-Null
+    }
+
+    $mode = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "mode" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.mode"
+    Assert-AllowedValue -Value $mode -AllowedValues @($Foundation.allowed_pipeline_modes) -Context "PlanningRecord.pipeline.mode"
+    if ($mode -ne $Contract.pipeline_rules.mode_must_equal) {
+        throw "PlanningRecord.pipeline.mode must equal '$($Contract.pipeline_rules.mode_must_equal)'."
+    }
+
+    $runtimeBoundary = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "runtime_boundary" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.runtime_boundary"
+    Assert-AllowedValue -Value $runtimeBoundary -AllowedValues @($Foundation.allowed_runtime_boundaries) -Context "PlanningRecord.pipeline.runtime_boundary"
+    if ($runtimeBoundary -ne $Contract.pipeline_rules.runtime_boundary_must_equal) {
+        throw "PlanningRecord.pipeline.runtime_boundary must equal '$($Contract.pipeline_rules.runtime_boundary_must_equal)'."
+    }
+
+    $standardRuntimeClaimed = Assert-BooleanValue -Value (Get-RequiredProperty -Object $pipeline -Name "standard_runtime_claimed" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.standard_runtime_claimed"
+    if ($Contract.pipeline_rules.standard_runtime_claim_must_be_false -and $standardRuntimeClaimed) {
+        throw "PlanningRecord.pipeline.standard_runtime_claimed must remain false for the bounded admin-only planning surface."
+    }
+
+    $subprojectRuntimeClaimed = Assert-BooleanValue -Value (Get-RequiredProperty -Object $pipeline -Name "subproject_runtime_claimed" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.subproject_runtime_claimed"
+    if ($Contract.pipeline_rules.subproject_runtime_claim_must_be_false -and $subprojectRuntimeClaimed) {
+        throw "PlanningRecord.pipeline.subproject_runtime_claimed must remain false for the bounded admin-only planning surface."
+    }
+
+    $orchestrationScope = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "orchestration_scope" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.orchestration_scope"
+    Assert-AllowedValue -Value $orchestrationScope -AllowedValues @($Foundation.allowed_orchestration_scopes) -Context "PlanningRecord.pipeline.orchestration_scope"
+    if ($orchestrationScope -ne $Contract.pipeline_rules.orchestration_scope_must_equal) {
+        throw "PlanningRecord.pipeline.orchestration_scope must equal '$($Contract.pipeline_rules.orchestration_scope_must_equal)'."
+    }
+
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "notes" -Context "PlanningRecord.pipeline") -Context "PlanningRecord.pipeline.notes" | Out-Null
+
+    return [pscustomobject]@{
+        RuntimeBoundary = $runtimeBoundary
+    }
+}
+
+function Validate-ScopeDeclaration {
+    param(
+        [Parameter(Mandatory = $true)]
+        $PlanningRecord,
+        [Parameter(Mandatory = $true)]
+        $Foundation,
+        [Parameter(Mandatory = $true)]
+        $Contract,
+        [Parameter(Mandatory = $true)]
+        $Pipeline
+    )
+
+    $scope = Assert-ObjectValue -Value (Get-RequiredProperty -Object $PlanningRecord -Name "scope" -Context "PlanningRecord") -Context "PlanningRecord.scope"
+    foreach ($fieldName in $Foundation.scope_required_fields) {
+        Get-RequiredProperty -Object $scope -Name $fieldName -Context "PlanningRecord.scope" | Out-Null
+    }
+
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $scope -Name "summary" -Context "PlanningRecord.scope") -Context "PlanningRecord.scope.summary" | Out-Null
+    $allowedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "allowed_surfaces" -Context "PlanningRecord.scope") -Context "PlanningRecord.scope.allowed_surfaces")
+    $protectedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "protected_surfaces" -Context "PlanningRecord.scope") -Context "PlanningRecord.scope.protected_surfaces")
+    $prohibitedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "prohibited_surfaces" -Context "PlanningRecord.scope") -Context "PlanningRecord.scope.prohibited_surfaces" -AllowEmpty)
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $scope -Name "notes" -Context "PlanningRecord.scope") -Context "PlanningRecord.scope.notes" | Out-Null
+
+    foreach ($surface in @($allowedSurfaces + $protectedSurfaces + $prohibitedSurfaces)) {
+        Assert-AllowedValue -Value $surface -AllowedValues @($Foundation.allowed_scope_surfaces) -Context "PlanningRecord.scope surface"
+    }
+
+    foreach ($surface in @($allowedSurfaces + $protectedSurfaces)) {
+        Assert-AllowedValue -Value $surface -AllowedValues @($Contract.scope_rules.allowed_surfaces) -Context "PlanningRecord.scope surface"
+    }
+
+    foreach ($protectedSurface in @($protectedSurfaces)) {
+        if ($allowedSurfaces -notcontains $protectedSurface) {
+            throw "PlanningRecord.scope.protected_surfaces must be a subset of PlanningRecord.scope.allowed_surfaces."
+        }
+    }
+
+    foreach ($requiredProtectedSurface in @($Contract.scope_rules.required_protected_surfaces)) {
+        if ($protectedSurfaces -notcontains $requiredProtectedSurface) {
+            throw "PlanningRecord.scope.protected_surfaces must include '$requiredProtectedSurface'."
+        }
+    }
+
+    foreach ($requiredProhibitedSurface in @($Contract.scope_rules.required_prohibited_surfaces)) {
+        if ($prohibitedSurfaces -notcontains $requiredProhibitedSurface) {
+            throw "PlanningRecord.scope.prohibited_surfaces must include '$requiredProhibitedSurface'."
+        }
+    }
+
+    foreach ($prohibitedSurface in @($prohibitedSurfaces)) {
+        if ($allowedSurfaces -contains $prohibitedSurface) {
+            throw "PlanningRecord.scope.allowed_surfaces must not include prohibited surface '$prohibitedSurface'."
+        }
+        if ($protectedSurfaces -contains $prohibitedSurface) {
+            throw "PlanningRecord.scope.protected_surfaces must not include prohibited surface '$prohibitedSurface'."
+        }
+    }
+
+    if ($Pipeline.RuntimeBoundary -eq "admin_only") {
+        foreach ($forbiddenSurface in @("standard_runtime", "subproject_runtime")) {
+            if ($allowedSurfaces -contains $forbiddenSurface -or $protectedSurfaces -contains $forbiddenSurface) {
+                throw "PlanningRecord.scope must not include '$forbiddenSurface' when PlanningRecord.pipeline.runtime_boundary is 'admin_only'."
+            }
+        }
+    }
 }
 
 function Validate-WorkingState {
@@ -503,6 +660,8 @@ function Test-PlanningRecordContract {
     }
 
     Validate-TopLevelFields -PlanningRecord $planningRecord -Foundation $foundation
+    $pipeline = Validate-PipelineMetadata -PlanningRecord $planningRecord -Foundation $foundation -Contract $contract
+    Validate-ScopeDeclaration -PlanningRecord $planningRecord -Foundation $foundation -Contract $contract -Pipeline $pipeline
     $baseDirectory = Split-Path -Parent $resolvedPlanningRecordPath
     $workingStateResult = Validate-WorkingState -PlanningRecord $planningRecord -Foundation $foundation -BaseDirectory $baseDirectory
     $acceptedStateResult = Validate-AcceptedState -PlanningRecord $planningRecord -Foundation $foundation -BaseDirectory $baseDirectory -WorkingStateResult $workingStateResult
@@ -549,6 +708,21 @@ function New-PlanningRecord {
         object_id = $validatedWorkingRecord.ObjectId
         created_at = $createdAtText
         updated_at = $createdAtText
+        pipeline = [pscustomobject]@{
+            mode                      = "admin_only_bounded"
+            runtime_boundary          = "admin_only"
+            standard_runtime_claimed  = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope       = "planning_only"
+            notes                     = "Planning records remain bounded to the admin-only planning substrate and do not imply Standard runtime."
+        }
+        scope = [pscustomobject]@{
+            summary            = "Planning record scope is limited to the admin-only control kernel, governed work objects, and planning record surfaces."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records")
+            protected_surfaces = @("admin_runtime_only", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The planning record substrate stays inside the bounded admin-only planning scope."
+        }
         working_state = [pscustomobject]@{
             status = $InitialWorkingStatus
             record_ref = $null
@@ -729,6 +903,8 @@ function Convert-ToPersistedPlanningRecord {
         object_id = $PlanningRecord.object_id
         created_at = $PlanningRecord.created_at
         updated_at = $PlanningRecord.updated_at
+        pipeline = $PlanningRecord.pipeline
+        scope = $PlanningRecord.scope
         working_state = [pscustomobject]@{
             status = $PlanningRecord.working_state.status
             record_ref = $WorkingRecordRef

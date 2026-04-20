@@ -95,6 +95,24 @@ try {
             $failures += "FAIL valid flow: non_goals did not match the Request Brief non-goals."
         }
 
+        foreach ($fieldName in @("mode", "runtime_boundary", "orchestration_scope")) {
+            if ($generated.pipeline.$fieldName -ne $expected.pipeline.$fieldName) {
+                $failures += ("FAIL valid flow: pipeline.{0} expected '{1}' but found '{2}'." -f $fieldName, $expected.pipeline.$fieldName, $generated.pipeline.$fieldName)
+            }
+        }
+        if ([bool]$generated.pipeline.standard_runtime_claimed -ne [bool]$expected.pipeline.standard_runtime_claimed) {
+            $failures += "FAIL valid flow: pipeline.standard_runtime_claimed did not match the expected bounded planning value."
+        }
+        if (($generated.scope.allowed_surfaces -join "|") -ne ($expected.scope.allowed_surfaces -join "|")) {
+            $failures += "FAIL valid flow: scope.allowed_surfaces did not preserve the bounded planning scope."
+        }
+        if (($generated.scope.protected_surfaces -join "|") -ne ($expected.scope.protected_surfaces -join "|")) {
+            $failures += "FAIL valid flow: scope.protected_surfaces did not preserve the protected planning scope."
+        }
+        if (($generated.scope.prohibited_surfaces -join "|") -ne ($expected.scope.prohibited_surfaces -join "|")) {
+            $failures += "FAIL valid flow: scope.prohibited_surfaces did not preserve the bounded non-claims."
+        }
+
         if (($generated.handoff_notes -join "|") -ne ($expected.handoff_notes -join "|")) {
             $failures += "FAIL valid flow: handoff_notes did not preserve the Request Brief operator questions."
         }

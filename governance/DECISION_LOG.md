@@ -93,3 +93,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: packet-record validation now fails closed when `stage_progression` regresses, when `accepted_state.accepted_stage` is ahead of `current_stage`, when accepted-state chronology precedes the accepted-stage progression entry, or when accepted packet state exists without approved approval state.
 - Consequence: the closure is backed by focused packet-record validation and transition tests in `tests/test_packet_record_storage.ps1`.
 - Consequence: the next gated step inside R4 is `R4-003` Add explicit pipeline and scope foundation hardening.
+
+## D-0014 R4-003 Added Explicit Pipeline And Scope Foundation Hardening
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-003` adds explicit admin-only pipeline metadata, protected-scope declarations, and fail-closed scope validation across the bounded planning-record and governed work-artifact surfaces.
+- Consequence: planning records, Request Briefs, Task Packets, Execution Bundles, QA Reports, External Audit Packs, and Batons now carry explicit bounded pipeline and scope declarations instead of relying on narration or implied posture alone.
+- Consequence: invalid Standard-runtime claims and contradictory scope declarations now fail closed under focused tests, while repo truth continues to preserve the no-Standard-runtime boundary for current V1 and R4.
+- Consequence: the closure is backed by the focused planning-record, work-artifact, and Request Brief to Task Packet tests in `tests/test_planning_record_storage.ps1`, `tests/test_work_artifact_contracts.ps1`, and `tests/test_request_brief_task_packet_flow.ps1`.
+- Consequence: the next gated step inside R4 is `R4-004` Harden the bounded workflow loop already proved.

@@ -206,6 +206,21 @@ function New-ReplayExecutionBundleArtifact {
             )
             rationale   = "The replay execution bundle is derived directly from the approved Task Packet emitted by the bounded Request Brief flow."
         }
+        pipeline           = [pscustomobject]@{
+            mode                       = "admin_only_bounded"
+            runtime_boundary           = "admin_only"
+            standard_runtime_claimed   = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope        = "bounded_chain_only"
+            notes                      = "The replay execution bundle remains inside the admin-only bounded chain and does not imply Standard runtime."
+        }
+        scope              = [pscustomobject]@{
+            summary            = "Replay execution bundle scope is limited to the admin-only control kernel, planning records, governed work objects, task packets, and execution bundle surfaces needed for the bounded replay proof."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records", "task_packets", "execution_bundles")
+            protected_surfaces = @("admin_runtime_only", "control_kernel", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The replay execution bundle exists only to prove the already-bounded internal chain."
+        }
         work_object_refs   = @($workObjectRefs)
         planning_record_refs = @($planningRecordRefs)
         evidence           = @(

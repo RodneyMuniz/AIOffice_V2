@@ -1,74 +1,105 @@
-{
-  "contract_version": "v1",
-  "record_type": "governed_work_artifact",
-  "artifact_type": "request_brief",
-  "artifact_id": "request-brief-r3-004-001",
-  "title": "Define bounded R3-004 artifact contracts",
-  "summary": "Capture the bounded request for the six contract-only R3-004 artifacts.",
-  "status": "ready_for_planning",
-  "created_at": "2026-04-19T16:00:00Z",
-  "created_by": {
-    "role": "operator",
-    "id": "operator:admin"
-  },
-  "lineage": {
-    "source_kind": "operator_request",
-    "source_refs": [
-      "execution/KANBAN.md"
-    ],
-    "rationale": "The operator opened R3-004 as a contract-only milestone step."
-  },
-  "work_object_refs": [
-    {
-      "relation": "targets",
-      "object_type": "task",
-      "object_id": "task-r3-002-contracts-001",
-      "ref": "governed_work_object.task.valid.json",
-      "notes": "The request focuses on the bounded task surface already defined in R3-002."
-    }
-  ],
-  "planning_record_refs": [
-    {
-      "relation": "tracks",
-      "planning_record_id": "planning-r3-003-task-001",
-      "object_type": "task",
-      "object_id": "task-r3-003-storage-001",
-      "view": "accepted",
-      "ref": "planning_record.task.valid.json",
-      "notes": "The request is grounded in the accepted planning record from R3-003."
-    }
-  ],
-  "evidence": [
-    {
-      "kind": "decision_record",
-      "ref": "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
-      "summary": "The milestone brief authorizes R3-004 as a contract-only step."
-    }
-  ],
-  "audit": {
-    "trail_refs": [
-      "tests/test_work_artifact_contracts.ps1"
-    ],
-    "last_reviewed_at": "2026-04-19T16:05:00Z",
-    "notes": "Request Brief fixture reviewed against the focused contract test."
-  },
-  "request_intent": "Define durable contracts for Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton.",
-  "requested_outcome": "Add the six artifact contracts, valid and invalid fixtures, and focused validation coverage only.",
-  "scope_constraints": [
-    "Contracts only",
-    "No planning flow",
-    "No runtime QA behavior",
-    "No baton persistence"
-  ],
-  "non_goals": [
-    "Request Brief to Task Packet flow",
-    "QA gate runtime behavior",
-    "External audit pack generation behavior"
-  ],
-  "operator_questions": [
-    "Which artifact fields are required to preserve lineage and auditability?",
-    "Which invalid states must fail closed at contract validation time?"
-  ],
-  "requested_execution_profile": "admin-supervised-contract-only",
-  "escalation_notes": null
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "governed_work_artifact",
+    "artifact_type":  "request_brief",
+    "artifact_id":  "request-brief-r3-004-001",
+    "title":  "Define bounded R3-004 artifact contracts",
+    "summary":  "Capture the bounded request for the six contract-only R3-004 artifacts.",
+    "status":  "ready_for_planning",
+    "created_at":  "2026-04-19T16:00:00Z",
+    "created_by":  {
+                       "role":  "operator",
+                       "id":  "operator:admin"
+                   },
+    "lineage":  {
+                    "source_kind":  "operator_request",
+                    "source_refs":  [
+                                        "execution/KANBAN.md"
+                                    ],
+                    "rationale":  "The operator opened R3-004 as a contract-only milestone step."
+                },
+    "work_object_refs":  [
+                             {
+                                 "relation":  "targets",
+                                 "object_type":  "task",
+                                 "object_id":  "task-r3-002-contracts-001",
+                                 "ref":  "governed_work_object.task.valid.json",
+                                 "notes":  "The request focuses on the bounded task surface already defined in R3-002."
+                             }
+                         ],
+    "planning_record_refs":  [
+                                 {
+                                     "relation":  "tracks",
+                                     "planning_record_id":  "planning-r3-003-task-001",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r3-003-storage-001",
+                                     "view":  "accepted",
+                                     "ref":  "planning_record.task.valid.json",
+                                     "notes":  "The request is grounded in the accepted planning record from R3-003."
+                                 }
+                             ],
+    "evidence":  [
+                     {
+                         "kind":  "decision_record",
+                         "ref":  "governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md",
+                         "summary":  "The milestone brief authorizes R3-004 as a contract-only step."
+                     }
+                 ],
+    "audit":  {
+                  "trail_refs":  [
+                                     "tests/test_work_artifact_contracts.ps1"
+                                 ],
+                  "last_reviewed_at":  "2026-04-19T16:05:00Z",
+                  "notes":  "Request Brief fixture reviewed against the focused contract test."
+              },
+    "request_intent":  "Define durable contracts for Request Brief, Task Packet, Execution Bundle, QA Report, External Audit Pack, and Baton.",
+    "requested_outcome":  "Add the six artifact contracts, valid and invalid fixtures, and focused validation coverage only.",
+    "scope_constraints":  [
+                              "Contracts only",
+                              "No planning flow",
+                              "No runtime QA behavior",
+                              "No baton persistence"
+                          ],
+    "non_goals":  [
+                      "Request Brief to Task Packet flow",
+                      "QA gate runtime behavior",
+                      "External audit pack generation behavior"
+                  ],
+    "operator_questions":  [
+                               "Which artifact fields are required to preserve lineage and auditability?",
+                               "Which invalid states must fail closed at contract validation time?"
+                           ],
+    "requested_execution_profile":  "admin-supervised-contract-only",
+    "escalation_notes":  null,
+    "pipeline":  {
+                     "mode":  "admin_only_bounded",
+                     "runtime_boundary":  "admin_only",
+                     "standard_runtime_claimed":  false,
+                     "subproject_runtime_claimed":  false,
+                     "orchestration_scope":  "planning_only",
+                     "notes":  "Request Brief remains bounded to the admin-only planning substrate and does not imply Standard runtime."
+                 },
+    "scope":  {
+                  "summary":  "Request Brief scope is limited to the admin-only control kernel, governed work objects, planning records, and request-brief surfaces.",
+                  "allowed_surfaces":  [
+                                           "admin_runtime_only",
+                                           "control_kernel",
+                                           "governed_work_objects",
+                                           "planning_records",
+                                           "request_briefs"
+                                       ],
+                  "protected_surfaces":  [
+                                             "admin_runtime_only",
+                                             "control_kernel"
+                                         ],
+                  "prohibited_surfaces":  [
+                                              "ui_surfaces",
+                                              "standard_runtime",
+                                              "subproject_runtime",
+                                              "automatic_resume",
+                                              "rollback",
+                                              "broad_orchestration"
+                                          ],
+                  "notes":  "The request surface remains planning-only and does not open UI or Standard runtime claims."
+              }
 }

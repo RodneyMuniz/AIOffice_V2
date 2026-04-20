@@ -1,34 +1,64 @@
-{
-  "contract_version": "v1",
-  "record_type": "planning_record",
-  "planning_record_id": "planning-r3-003-task-invalid-status",
-  "object_type": "task",
-  "object_id": "task-r3-003-storage-001",
-  "created_at": "2026-04-19T14:00:00Z",
-  "updated_at": "2026-04-19T14:20:00Z",
-  "working_state": {
-    "status": "accepted",
-    "record_ref": "../valid/planning_records/working/planning_record.task.valid.working.json",
-    "object_type": "task",
-    "object_id": "task-r3-003-storage-001",
-    "object_status": "in_progress",
-    "last_local_update_at": "2026-04-19T14:15:00Z",
-    "notes": "Working state uses an invalid planning-surface status."
-  },
-  "accepted_state": {
-    "status": "accepted",
-    "record_ref": "../valid/planning_records/accepted/planning_record.task.valid.accepted.json",
-    "object_type": "task",
-    "object_id": "task-r3-003-storage-001",
-    "object_status": "ready",
-    "accepted_at": "2026-04-19T14:10:00Z",
-    "accepted_by": "operator:admin",
-    "notes": "Accepted surface remains coherent."
-  },
-  "reconciliation_state": {
-    "status": "drift",
-    "compared_at": "2026-04-19T14:20:00Z",
-    "working_matches_accepted": false,
-    "notes": "The invalid working surface status must be rejected."
-  }
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "planning_record",
+    "planning_record_id":  "planning-r3-003-task-invalid-status",
+    "object_type":  "task",
+    "object_id":  "task-r3-003-storage-001",
+    "created_at":  "2026-04-19T14:00:00Z",
+    "updated_at":  "2026-04-19T14:20:00Z",
+    "working_state":  {
+                          "status":  "accepted",
+                          "record_ref":  "../valid/planning_records/working/planning_record.task.valid.working.json",
+                          "object_type":  "task",
+                          "object_id":  "task-r3-003-storage-001",
+                          "object_status":  "in_progress",
+                          "last_local_update_at":  "2026-04-19T14:15:00Z",
+                          "notes":  "Working state uses an invalid planning-surface status."
+                      },
+    "accepted_state":  {
+                           "status":  "accepted",
+                           "record_ref":  "../valid/planning_records/accepted/planning_record.task.valid.accepted.json",
+                           "object_type":  "task",
+                           "object_id":  "task-r3-003-storage-001",
+                           "object_status":  "ready",
+                           "accepted_at":  "2026-04-19T14:10:00Z",
+                           "accepted_by":  "operator:admin",
+                           "notes":  "Accepted surface remains coherent."
+                       },
+    "reconciliation_state":  {
+                                 "status":  "drift",
+                                 "compared_at":  "2026-04-19T14:20:00Z",
+                                 "working_matches_accepted":  false,
+                                 "notes":  "The invalid working surface status must be rejected."
+                             },
+    "pipeline":  {
+                     "mode":  "admin_only_bounded",
+                     "runtime_boundary":  "admin_only",
+                     "standard_runtime_claimed":  false,
+                     "subproject_runtime_claimed":  false,
+                     "orchestration_scope":  "planning_only",
+                     "notes":  "Planning Record remains bounded to the admin-only planning substrate and does not imply Standard runtime."
+                 },
+    "scope":  {
+                  "summary":  "Planning Record scope is limited to the admin-only control kernel, governed work objects, and planning-record surfaces.",
+                  "allowed_surfaces":  [
+                                           "admin_runtime_only",
+                                           "control_kernel",
+                                           "governed_work_objects",
+                                           "planning_records"
+                                       ],
+                  "protected_surfaces":  [
+                                             "admin_runtime_only",
+                                             "planning_records"
+                                         ],
+                  "prohibited_surfaces":  [
+                                              "ui_surfaces",
+                                              "standard_runtime",
+                                              "subproject_runtime",
+                                              "automatic_resume",
+                                              "rollback",
+                                              "broad_orchestration"
+                                          ],
+                  "notes":  "The planning-record substrate remains bounded to the internal admin-only planning surface."
+              }
 }

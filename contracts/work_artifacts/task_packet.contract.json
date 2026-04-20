@@ -43,6 +43,30 @@
     "planning_record",
     "manual"
   ],
+  "allowed_orchestration_scopes": [
+    "planning_only"
+  ],
+  "allowed_scope_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "governed_work_objects",
+    "planning_records",
+    "request_briefs",
+    "task_packets"
+  ],
+  "required_protected_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "planning_records"
+  ],
+  "required_prohibited_surfaces": [
+    "ui_surfaces",
+    "standard_runtime",
+    "subproject_runtime",
+    "automatic_resume",
+    "rollback",
+    "broad_orchestration"
+  ],
   "minimum_work_object_refs": 1,
   "minimum_planning_record_refs": 1,
   "allowed_work_object_types": [
@@ -70,6 +94,7 @@
   },
   "forbidden_states": [
     "Approved Task Packets must include an accepted planning record reference.",
-    "Task Packets are contract-only in R3-004 and do not claim runtime flow execution."
+    "Task Packets are contract-only in R3-004 and do not claim runtime flow execution.",
+    "Task Packets must remain inside the admin-only bounded planning scope and must not imply Standard runtime."
   ]
 }

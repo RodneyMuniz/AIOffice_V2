@@ -40,6 +40,30 @@
     "planning_record",
     "manual"
   ],
+  "allowed_orchestration_scopes": [
+    "bounded_chain_only"
+  ],
+  "allowed_scope_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "governed_work_objects",
+    "planning_records",
+    "task_packets",
+    "execution_bundles"
+  ],
+  "required_protected_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "planning_records"
+  ],
+  "required_prohibited_surfaces": [
+    "ui_surfaces",
+    "standard_runtime",
+    "subproject_runtime",
+    "automatic_resume",
+    "rollback",
+    "broad_orchestration"
+  ],
   "minimum_work_object_refs": 1,
   "minimum_planning_record_refs": 1,
   "allowed_work_object_types": [
@@ -65,6 +89,7 @@
   },
   "forbidden_states": [
     "Prepared Execution Bundles must derive from a Task Packet lineage source.",
-    "Execution Bundles must remain bounded to the approved Task Packet scope and must not claim broad workflow orchestration."
+    "Execution Bundles must remain bounded to the approved Task Packet scope and must not claim broad workflow orchestration.",
+    "Execution Bundles must remain inside the admin-only bounded chain and must not imply Standard runtime."
   ]
 }

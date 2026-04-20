@@ -69,7 +69,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: the earlier chronology or integrity softness is actually closed or transparently narrowed, invalid chronology and invalid transition states fail closed, and repo truth says exactly what was hardened
 
 ### `R4-003` Add explicit pipeline and scope foundation hardening
-- Status: pending
+- Status: done
 - Done when: the repo can represent and validate protected scope more explicitly than it does today, invalid scope declarations fail closed with focused tests, and nothing in repo truth implies Standard pipeline productization
 
 ### `R4-004` Harden the bounded workflow loop already proved

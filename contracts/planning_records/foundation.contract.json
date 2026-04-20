@@ -35,9 +35,55 @@
     "object_id",
     "created_at",
     "updated_at",
+    "pipeline",
+    "scope",
     "working_state",
     "accepted_state",
     "reconciliation_state"
+  ],
+  "allowed_pipeline_modes": [
+    "admin_only_bounded"
+  ],
+  "allowed_runtime_boundaries": [
+    "admin_only"
+  ],
+  "allowed_orchestration_scopes": [
+    "planning_only"
+  ],
+  "allowed_scope_surfaces": [
+    "admin_runtime_only",
+    "control_kernel",
+    "governed_work_objects",
+    "planning_records",
+    "request_briefs",
+    "task_packets",
+    "execution_bundles",
+    "qa_reports",
+    "external_audit_packs",
+    "batons",
+    "repo_local_proof",
+    "ci_foundation",
+    "ui_surfaces",
+    "standard_runtime",
+    "subproject_runtime",
+    "automatic_resume",
+    "rollback",
+    "broad_orchestration"
+  ],
+  "pipeline_required_fields": [
+    "mode",
+    "runtime_boundary",
+    "standard_runtime_claimed",
+    "subproject_runtime_claimed",
+    "orchestration_scope",
+    "notes"
+  ],
+  "scope_required_fields": [
+    "summary",
+    "allowed_surfaces",
+    "protected_surfaces",
+    "prohibited_surfaces",
+    "notes"
   ],
   "working_state_required_fields": [
     "status",

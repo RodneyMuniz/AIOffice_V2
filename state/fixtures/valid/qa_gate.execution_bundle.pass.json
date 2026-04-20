@@ -1,77 +1,110 @@
-{
-  "contract_version": "v1",
-  "record_type": "governed_work_artifact",
-  "artifact_type": "execution_bundle",
-  "artifact_id": "execution-bundle-r3-006-pass-001",
-  "title": "R3-006 pass execution bundle",
-  "summary": "Prepare the bounded QA gate pass path from an approved Task Packet and accepted planning baseline.",
-  "status": "prepared",
-  "created_at": "2026-04-20T01:00:00Z",
-  "created_by": {
-    "role": "control_kernel",
-    "id": "control-kernel:local"
-  },
-  "lineage": {
-    "source_kind": "task_packet",
-    "source_refs": [
-      "request_brief_task_packet_flow.task_packet.expected.json"
-    ],
-    "rationale": "The prepared execution bundle derives from the bounded approved Task Packet."
-  },
-  "work_object_refs": [
-    {
-      "relation": "implements",
-      "object_type": "task",
-      "object_id": "task-r3-003-storage-001",
-      "ref": "planning_records/accepted/planning_record.task.valid.accepted.json",
-      "notes": "The bundle targets the accepted task surface that matches the planning baseline."
-    }
-  ],
-  "planning_record_refs": [
-    {
-      "relation": "tracks",
-      "planning_record_id": "planning-r3-003-task-001",
-      "object_type": "task",
-      "object_id": "task-r3-003-storage-001",
-      "view": "accepted",
-      "ref": "planning_record.task.valid.json",
-      "notes": "The bundle tracks the accepted planning baseline for the bounded QA slice."
-    }
-  ],
-  "evidence": [
-    {
-      "kind": "artifact",
-      "ref": "request_brief_task_packet_flow.task_packet.expected.json",
-      "summary": "The approved Task Packet defines the bounded execution intent."
-    },
-    {
-      "kind": "test_output",
-      "ref": "qa_gate.observation.pass.json",
-      "summary": "The QA observation captures the bounded pass outcome inputs."
-    }
-  ],
-  "audit": {
-    "trail_refs": [
-      "tests/test_execution_bundle_qa_gate.ps1"
-    ],
-    "last_reviewed_at": "2026-04-20T01:05:00Z",
-    "notes": "Execution Bundle pass fixture reviewed against the focused QA gate test."
-  },
-  "execution_summary": "Run the bounded QA gate pass path only.",
-  "executor_profile": "bounded-qa-gate",
-  "bounded_targets": [
-    "tools/ExecutionBundleQaGate.psm1",
-    "tests/test_execution_bundle_qa_gate.ps1"
-  ],
-  "expected_outputs": [
-    "QA Report",
-    "Remediation record",
-    "External Audit Pack"
-  ],
-  "prohibited_operations": [
-    "Baton persistence",
-    "Replay-proof packaging",
-    "Broad workflow orchestration"
-  ],
-  "replay_command": null
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "governed_work_artifact",
+    "artifact_type":  "execution_bundle",
+    "artifact_id":  "execution-bundle-r3-006-pass-001",
+    "title":  "R3-006 pass execution bundle",
+    "summary":  "Prepare the bounded QA gate pass path from an approved Task Packet and accepted planning baseline.",
+    "status":  "prepared",
+    "created_at":  "2026-04-20T01:00:00Z",
+    "created_by":  {
+                       "role":  "control_kernel",
+                       "id":  "control-kernel:local"
+                   },
+    "lineage":  {
+                    "source_kind":  "task_packet",
+                    "source_refs":  [
+                                        "request_brief_task_packet_flow.task_packet.expected.json"
+                                    ],
+                    "rationale":  "The prepared execution bundle derives from the bounded approved Task Packet."
+                },
+    "work_object_refs":  [
+                             {
+                                 "relation":  "implements",
+                                 "object_type":  "task",
+                                 "object_id":  "task-r3-003-storage-001",
+                                 "ref":  "planning_records/accepted/planning_record.task.valid.accepted.json",
+                                 "notes":  "The bundle targets the accepted task surface that matches the planning baseline."
+                             }
+                         ],
+    "planning_record_refs":  [
+                                 {
+                                     "relation":  "tracks",
+                                     "planning_record_id":  "planning-r3-003-task-001",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r3-003-storage-001",
+                                     "view":  "accepted",
+                                     "ref":  "planning_record.task.valid.json",
+                                     "notes":  "The bundle tracks the accepted planning baseline for the bounded QA slice."
+                                 }
+                             ],
+    "evidence":  [
+                     {
+                         "kind":  "artifact",
+                         "ref":  "request_brief_task_packet_flow.task_packet.expected.json",
+                         "summary":  "The approved Task Packet defines the bounded execution intent."
+                     },
+                     {
+                         "kind":  "test_output",
+                         "ref":  "qa_gate.observation.pass.json",
+                         "summary":  "The QA observation captures the bounded pass outcome inputs."
+                     }
+                 ],
+    "audit":  {
+                  "trail_refs":  [
+                                     "tests/test_execution_bundle_qa_gate.ps1"
+                                 ],
+                  "last_reviewed_at":  "2026-04-20T01:05:00Z",
+                  "notes":  "Execution Bundle pass fixture reviewed against the focused QA gate test."
+              },
+    "execution_summary":  "Run the bounded QA gate pass path only.",
+    "executor_profile":  "bounded-qa-gate",
+    "bounded_targets":  [
+                            "tools/ExecutionBundleQaGate.psm1",
+                            "tests/test_execution_bundle_qa_gate.ps1"
+                        ],
+    "expected_outputs":  [
+                             "QA Report",
+                             "Remediation record",
+                             "External Audit Pack"
+                         ],
+    "prohibited_operations":  [
+                                  "Baton persistence",
+                                  "Replay-proof packaging",
+                                  "Broad workflow orchestration"
+                              ],
+    "replay_command":  null,
+    "pipeline":  {
+                     "mode":  "admin_only_bounded",
+                     "runtime_boundary":  "admin_only",
+                     "standard_runtime_claimed":  false,
+                     "subproject_runtime_claimed":  false,
+                     "orchestration_scope":  "bounded_chain_only",
+                     "notes":  "Execution Bundle remains bounded to the admin-only internal chain and does not imply Standard runtime."
+                 },
+    "scope":  {
+                  "summary":  "Execution Bundle scope is limited to the admin-only control kernel, governed work objects, planning records, task packets, and execution-bundle surfaces.",
+                  "allowed_surfaces":  [
+                                           "admin_runtime_only",
+                                           "control_kernel",
+                                           "governed_work_objects",
+                                           "planning_records",
+                                           "task_packets",
+                                           "execution_bundles"
+                                       ],
+                  "protected_surfaces":  [
+                                             "admin_runtime_only",
+                                             "control_kernel",
+                                             "planning_records"
+                                         ],
+                  "prohibited_surfaces":  [
+                                              "ui_surfaces",
+                                              "standard_runtime",
+                                              "subproject_runtime",
+                                              "automatic_resume",
+                                              "rollback",
+                                              "broad_orchestration"
+                                          ],
+                  "notes":  "The execution-bundle surface remains bounded to the already-proved internal chain only."
+              }
 }

@@ -1,65 +1,101 @@
-{
-  "contract_version": "v1",
-  "record_type": "governed_work_artifact",
-  "artifact_type": "baton",
-  "artifact_id": "baton-r3-004-invalid-next-artifacts",
-  "title": "Invalid baton without next required artifacts",
-  "summary": "This fixture should fail because a ready-for-handoff baton omits the next required artifacts.",
-  "status": "ready_for_handoff",
-  "created_at": "2026-04-19T16:30:00Z",
-  "created_by": {
-    "role": "reasoning_assistance",
-    "id": "assistant:codex"
-  },
-  "lineage": {
-    "source_kind": "execution_bundle",
-    "source_refs": [
-      "../valid/work_artifact.execution_bundle.valid.json"
-    ],
-    "rationale": "The baton captures the bounded handoff expectations from the prepared execution bundle."
-  },
-  "work_object_refs": [
-    {
-      "relation": "hands_off",
-      "object_type": "task",
-      "object_id": "task-r3-002-contracts-001",
-      "ref": "../valid/governed_work_object.task.valid.json",
-      "notes": "The baton stays tied to the same bounded task."
-    }
-  ],
-  "planning_record_refs": [
-    {
-      "relation": "hands_off",
-      "planning_record_id": "planning-r3-003-task-001",
-      "object_type": "task",
-      "object_id": "task-r3-003-storage-001",
-      "view": "working",
-      "ref": "../valid/planning_record.task.valid.json",
-      "notes": "The baton hands off the current working planning record state."
-    }
-  ],
-  "evidence": [
-    {
-      "kind": "artifact",
-      "ref": "../valid/work_artifact.execution_bundle.valid.json",
-      "summary": "The execution bundle is the direct baton evidence source."
-    }
-  ],
-  "audit": {
-    "trail_refs": [
-      "tests/test_work_artifact_contracts.ps1"
-    ],
-    "last_reviewed_at": "2026-04-19T16:32:00Z",
-    "notes": "Invalid Baton fixture reviewed against the focused contract test."
-  },
-  "baton_summary": "Carry forward the next bounded contract-only steps after the execution bundle is prepared.",
-  "resume_objective": "Resume from the prepared contract surface without widening into flow or runtime behavior.",
-  "handoff_notes": [
-    "Keep R3-005 separate from R3-004."
-  ],
-  "blocked_by": [
-    "R3-005 runtime flow is not yet implemented."
-  ],
-  "next_required_artifacts": [],
-  "expires_at": null
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "governed_work_artifact",
+    "artifact_type":  "baton",
+    "artifact_id":  "baton-r3-004-invalid-next-artifacts",
+    "title":  "Invalid baton without next required artifacts",
+    "summary":  "This fixture should fail because a ready-for-handoff baton omits the next required artifacts.",
+    "status":  "ready_for_handoff",
+    "created_at":  "2026-04-19T16:30:00Z",
+    "created_by":  {
+                       "role":  "reasoning_assistance",
+                       "id":  "assistant:codex"
+                   },
+    "lineage":  {
+                    "source_kind":  "execution_bundle",
+                    "source_refs":  [
+                                        "../valid/work_artifact.execution_bundle.valid.json"
+                                    ],
+                    "rationale":  "The baton captures the bounded handoff expectations from the prepared execution bundle."
+                },
+    "work_object_refs":  [
+                             {
+                                 "relation":  "hands_off",
+                                 "object_type":  "task",
+                                 "object_id":  "task-r3-002-contracts-001",
+                                 "ref":  "../valid/governed_work_object.task.valid.json",
+                                 "notes":  "The baton stays tied to the same bounded task."
+                             }
+                         ],
+    "planning_record_refs":  [
+                                 {
+                                     "relation":  "hands_off",
+                                     "planning_record_id":  "planning-r3-003-task-001",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r3-003-storage-001",
+                                     "view":  "working",
+                                     "ref":  "../valid/planning_record.task.valid.json",
+                                     "notes":  "The baton hands off the current working planning record state."
+                                 }
+                             ],
+    "evidence":  [
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../valid/work_artifact.execution_bundle.valid.json",
+                         "summary":  "The execution bundle is the direct baton evidence source."
+                     }
+                 ],
+    "audit":  {
+                  "trail_refs":  [
+                                     "tests/test_work_artifact_contracts.ps1"
+                                 ],
+                  "last_reviewed_at":  "2026-04-19T16:32:00Z",
+                  "notes":  "Invalid Baton fixture reviewed against the focused contract test."
+              },
+    "baton_summary":  "Carry forward the next bounded contract-only steps after the execution bundle is prepared.",
+    "resume_objective":  "Resume from the prepared contract surface without widening into flow or runtime behavior.",
+    "handoff_notes":  [
+                          "Keep R3-005 separate from R3-004."
+                      ],
+    "blocked_by":  [
+                       "R3-005 runtime flow is not yet implemented."
+                   ],
+    "next_required_artifacts":  [
+
+                                ],
+    "expires_at":  null,
+    "pipeline":  {
+                     "mode":  "admin_only_bounded",
+                     "runtime_boundary":  "admin_only",
+                     "standard_runtime_claimed":  false,
+                     "subproject_runtime_claimed":  false,
+                     "orchestration_scope":  "qa_follow_up_only",
+                     "notes":  "Baton remains bounded to the admin-only follow-up foundation and does not imply Standard runtime."
+                 },
+    "scope":  {
+                  "summary":  "Baton scope is limited to the admin-only control kernel, governed work objects, planning records, QA reports, external audit packs, and baton surfaces.",
+                  "allowed_surfaces":  [
+                                           "admin_runtime_only",
+                                           "control_kernel",
+                                           "governed_work_objects",
+                                           "planning_records",
+                                           "qa_reports",
+                                           "external_audit_packs",
+                                           "batons"
+                                       ],
+                  "protected_surfaces":  [
+                                             "admin_runtime_only",
+                                             "control_kernel",
+                                             "planning_records"
+                                         ],
+                  "prohibited_surfaces":  [
+                                              "ui_surfaces",
+                                              "standard_runtime",
+                                              "subproject_runtime",
+                                              "automatic_resume",
+                                              "rollback",
+                                              "broad_orchestration"
+                                          ],
+                  "notes":  "The baton surface remains bounded to persistence and manual follow-up foundations only."
+              }
 }

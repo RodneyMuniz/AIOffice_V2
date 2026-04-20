@@ -331,6 +331,117 @@ function Validate-Lineage {
     return $lineage
 }
 
+function Validate-Pipeline {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Artifact,
+        [Parameter(Mandatory = $true)]
+        $Foundation,
+        [Parameter(Mandatory = $true)]
+        $Contract
+    )
+
+    $pipeline = Assert-ObjectValue -Value (Get-RequiredProperty -Object $Artifact -Name "pipeline" -Context "Artifact") -Context "Artifact.pipeline"
+    foreach ($fieldName in $Foundation.pipeline_required_fields) {
+        Get-RequiredProperty -Object $pipeline -Name $fieldName -Context "Artifact.pipeline" | Out-Null
+    }
+
+    $mode = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "mode" -Context "Artifact.pipeline") -Context "Artifact.pipeline.mode"
+    Assert-AllowedValue -Value $mode -AllowedValues @($Foundation.allowed_pipeline_modes) -Context "Artifact.pipeline.mode"
+
+    $runtimeBoundary = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "runtime_boundary" -Context "Artifact.pipeline") -Context "Artifact.pipeline.runtime_boundary"
+    Assert-AllowedValue -Value $runtimeBoundary -AllowedValues @($Foundation.allowed_runtime_boundaries) -Context "Artifact.pipeline.runtime_boundary"
+
+    $standardRuntimeClaimed = Assert-BooleanValue -Value (Get-RequiredProperty -Object $pipeline -Name "standard_runtime_claimed" -Context "Artifact.pipeline") -Context "Artifact.pipeline.standard_runtime_claimed"
+    if ($standardRuntimeClaimed) {
+        throw "Artifact.pipeline.standard_runtime_claimed must remain false for the bounded admin-only repo surface."
+    }
+
+    $subprojectRuntimeClaimed = Assert-BooleanValue -Value (Get-RequiredProperty -Object $pipeline -Name "subproject_runtime_claimed" -Context "Artifact.pipeline") -Context "Artifact.pipeline.subproject_runtime_claimed"
+    if ($subprojectRuntimeClaimed) {
+        throw "Artifact.pipeline.subproject_runtime_claimed must remain false for the bounded admin-only repo surface."
+    }
+
+    $orchestrationScope = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "orchestration_scope" -Context "Artifact.pipeline") -Context "Artifact.pipeline.orchestration_scope"
+    Assert-AllowedValue -Value $orchestrationScope -AllowedValues @($Foundation.allowed_orchestration_scopes) -Context "Artifact.pipeline.orchestration_scope"
+    Assert-AllowedValue -Value $orchestrationScope -AllowedValues @($Contract.allowed_orchestration_scopes) -Context "Artifact.pipeline.orchestration_scope"
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $pipeline -Name "notes" -Context "Artifact.pipeline") -Context "Artifact.pipeline.notes" | Out-Null
+
+    return [pscustomobject]@{
+        Mode               = $mode
+        RuntimeBoundary    = $runtimeBoundary
+        OrchestrationScope = $orchestrationScope
+    }
+}
+
+function Validate-Scope {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Artifact,
+        [Parameter(Mandatory = $true)]
+        $Foundation,
+        [Parameter(Mandatory = $true)]
+        $Contract,
+        [Parameter(Mandatory = $true)]
+        $Pipeline
+    )
+
+    $scope = Assert-ObjectValue -Value (Get-RequiredProperty -Object $Artifact -Name "scope" -Context "Artifact") -Context "Artifact.scope"
+    foreach ($fieldName in $Foundation.scope_required_fields) {
+        Get-RequiredProperty -Object $scope -Name $fieldName -Context "Artifact.scope" | Out-Null
+    }
+
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $scope -Name "summary" -Context "Artifact.scope") -Context "Artifact.scope.summary" | Out-Null
+    $allowedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "allowed_surfaces" -Context "Artifact.scope") -Context "Artifact.scope.allowed_surfaces")
+    $protectedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "protected_surfaces" -Context "Artifact.scope") -Context "Artifact.scope.protected_surfaces")
+    $prohibitedSurfaces = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $scope -Name "prohibited_surfaces" -Context "Artifact.scope") -Context "Artifact.scope.prohibited_surfaces" -AllowEmpty)
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $scope -Name "notes" -Context "Artifact.scope") -Context "Artifact.scope.notes" | Out-Null
+
+    foreach ($surface in @($allowedSurfaces + $protectedSurfaces + $prohibitedSurfaces)) {
+        Assert-AllowedValue -Value $surface -AllowedValues @($Foundation.allowed_scope_surfaces) -Context "Artifact.scope surface"
+    }
+    foreach ($surface in @($allowedSurfaces + $protectedSurfaces)) {
+        Assert-AllowedValue -Value $surface -AllowedValues @($Contract.allowed_scope_surfaces) -Context "Artifact.scope surface"
+    }
+
+    foreach ($protectedSurface in @($protectedSurfaces)) {
+        if ($allowedSurfaces -notcontains $protectedSurface) {
+            throw "Artifact.scope.protected_surfaces must be a subset of Artifact.scope.allowed_surfaces."
+        }
+    }
+
+    foreach ($requiredProtectedSurface in @($Contract.required_protected_surfaces)) {
+        if ($protectedSurfaces -notcontains $requiredProtectedSurface) {
+            throw "Artifact.scope.protected_surfaces must include '$requiredProtectedSurface' for artifact type '$($Contract.artifact_type)'."
+        }
+    }
+
+    foreach ($requiredProhibitedSurface in @($Contract.required_prohibited_surfaces)) {
+        if ($prohibitedSurfaces -notcontains $requiredProhibitedSurface) {
+            throw "Artifact.scope.prohibited_surfaces must include '$requiredProhibitedSurface' for artifact type '$($Contract.artifact_type)'."
+        }
+    }
+
+    foreach ($prohibitedSurface in @($prohibitedSurfaces)) {
+        if ($allowedSurfaces -contains $prohibitedSurface) {
+            throw "Artifact.scope.allowed_surfaces must not include prohibited surface '$prohibitedSurface'."
+        }
+        if ($protectedSurfaces -contains $prohibitedSurface) {
+            throw "Artifact.scope.protected_surfaces must not include prohibited surface '$prohibitedSurface'."
+        }
+    }
+
+    if ($Pipeline.RuntimeBoundary -eq "admin_only") {
+        foreach ($forbiddenSurface in @("standard_runtime", "subproject_runtime")) {
+            if ($allowedSurfaces -contains $forbiddenSurface -or $protectedSurfaces -contains $forbiddenSurface) {
+                throw "Artifact.scope must not include '$forbiddenSurface' when Artifact.pipeline.runtime_boundary is 'admin_only'."
+            }
+        }
+    }
+
+    return $scope
+}
+
 function Validate-WorkObjectRefs {
     param(
         [Parameter(Mandatory = $true)]
@@ -643,6 +754,8 @@ function Test-WorkArtifactContract {
 
     Validate-CommonFields -Artifact $artifact -Foundation $foundation -Contract $contract
     $lineage = Validate-Lineage -Artifact $artifact -Foundation $foundation -Contract $contract
+    $pipeline = Validate-Pipeline -Artifact $artifact -Foundation $foundation -Contract $contract
+    Validate-Scope -Artifact $artifact -Foundation $foundation -Contract $contract -Pipeline $pipeline | Out-Null
     Validate-SpecificFields -Artifact $artifact -Contract $contract
     Validate-WorkObjectRefs -Artifact $artifact -Foundation $foundation -Contract $contract -BaseDirectory $baseDirectory
     Validate-PlanningRecordRefs -Artifact $artifact -Foundation $foundation -Contract $contract -BaseDirectory $baseDirectory

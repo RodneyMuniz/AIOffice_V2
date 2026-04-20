@@ -761,6 +761,21 @@ function New-QaReportArtifact {
             )
             rationale   = "The QA report is produced directly from the bounded QA gate evaluation of the prepared Execution Bundle."
         }
+        pipeline           = [pscustomobject]@{
+            mode                       = "admin_only_bounded"
+            runtime_boundary           = "admin_only"
+            standard_runtime_claimed   = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope        = "bounded_chain_only"
+            notes                      = "The QA report remains inside the admin-only bounded QA chain and does not imply Standard runtime."
+        }
+        scope              = [pscustomobject]@{
+            summary            = "QA report scope is limited to the admin-only control kernel, planning records, governed work objects, execution bundles, and QA report surfaces in the bounded chain."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records", "execution_bundles", "qa_reports")
+            protected_surfaces = @("admin_runtime_only", "control_kernel", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The QA report stays bounded to the already-proved internal QA chain only."
+        }
         work_object_refs   = @($workObjectRefs)
         planning_record_refs = @($planningRecordRefs)
         evidence           = @(
@@ -880,6 +895,21 @@ function New-ExternalAuditPackArtifact {
                 (Get-RelativeReference -BaseDirectory $ExternalAuditPackDirectory -TargetPath $QaReportOutput.Path)
             )
             rationale   = "The audit pack is assembled directly from the bounded QA report outcome."
+        }
+        pipeline            = [pscustomobject]@{
+            mode                       = "admin_only_bounded"
+            runtime_boundary           = "admin_only"
+            standard_runtime_claimed   = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope        = "bounded_chain_only"
+            notes                      = "The external audit pack remains inside the admin-only bounded QA chain and does not imply Standard runtime."
+        }
+        scope               = [pscustomobject]@{
+            summary            = "External audit pack scope is limited to the admin-only control kernel, planning records, governed work objects, execution bundles, QA reports, and external audit pack surfaces in the bounded chain."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records", "execution_bundles", "qa_reports", "external_audit_packs")
+            protected_surfaces = @("admin_runtime_only", "control_kernel", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The audit pack preserves bounded audit-ready packaging only and does not imply broader packaging orchestration."
         }
         work_object_refs    = @($workObjectRefs)
         planning_record_refs = @($planningRecordRefs)

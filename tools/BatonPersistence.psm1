@@ -417,6 +417,21 @@ function New-BatonFromQaOutcome {
             source_refs = @($qaReportInput.Validation.ArtifactPath)
             rationale   = "The baton captures the minimal follow-up state produced by a bounded QA outcome."
         }
+        pipeline              = [pscustomobject]@{
+            mode                       = "admin_only_bounded"
+            runtime_boundary           = "admin_only"
+            standard_runtime_claimed   = $false
+            subproject_runtime_claimed = $false
+            orchestration_scope        = "qa_follow_up_only"
+            notes                      = "The baton remains inside the admin-only bounded follow-up foundation and does not imply Standard runtime."
+        }
+        scope                 = [pscustomobject]@{
+            summary            = "Baton scope is limited to the admin-only control kernel, planning records, governed work objects, QA reports, external audit packs, and baton surfaces needed for bounded manual follow-up preparation."
+            allowed_surfaces   = @("admin_runtime_only", "control_kernel", "governed_work_objects", "planning_records", "qa_reports", "external_audit_packs", "batons")
+            protected_surfaces = @("admin_runtime_only", "control_kernel", "planning_records")
+            prohibited_surfaces = @("ui_surfaces", "standard_runtime", "subproject_runtime", "automatic_resume", "rollback", "broad_orchestration")
+            notes              = "The baton is persistence and load foundation only and does not open automatic resume, rollback, or broader orchestration."
+        }
         work_object_refs      = @($qaReportInput.Document.work_object_refs | ForEach-Object {
                 [pscustomobject]@{
                     relation    = if ($qaReportInput.Document.status -eq "blocked") { "blocks" } else { "hands_off" }
@@ -506,6 +521,8 @@ function Save-BatonRecord {
             source_refs = @($Baton.lineage.source_refs | ForEach-Object { Get-NormalizedReferenceForSave -BatonDirectory $batonDirectory -Reference $_ })
             rationale   = $Baton.lineage.rationale
         }
+        pipeline              = $Baton.pipeline
+        scope                 = $Baton.scope
         work_object_refs      = @($Baton.work_object_refs | ForEach-Object {
                 [pscustomobject]@{
                     relation    = $_.relation
