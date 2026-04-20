@@ -1,0 +1,98 @@
+{
+  "contract_version": "v1",
+  "record_type": "packet_record",
+  "packet_id": "packet-rst010-invalid-accepted-before-stage-entry-001",
+  "created_at": "2026-04-19T11:00:00Z",
+  "updated_at": "2026-04-19T11:25:00Z",
+  "current_stage": "architect",
+  "stage_progression": [
+    {
+      "stage": "intake",
+      "status": "complete",
+      "entered_at": "2026-04-19T11:00:00Z",
+      "artifact_ref": "artifacts/fixtures/valid/intake.valid.json",
+      "notes": "Initial intake state recorded."
+    },
+    {
+      "stage": "pm",
+      "status": "complete",
+      "entered_at": "2026-04-19T11:10:00Z",
+      "artifact_ref": "artifacts/fixtures/valid/pm.valid.json",
+      "notes": "Planning stage completed."
+    },
+    {
+      "stage": "architect",
+      "status": "active",
+      "entered_at": "2026-04-19T11:20:00Z",
+      "artifact_ref": "artifacts/fixtures/valid/architect.valid.json",
+      "notes": "Architect stage is active."
+    }
+  ],
+  "approval_state": {
+    "mode": "required",
+    "status": "approved",
+    "by": "operator:admin",
+    "at": "2026-04-19T11:15:00Z",
+    "notes": "Approval state is valid; accepted chronology is not."
+  },
+  "artifact_refs": [
+    {
+      "stage": "intake",
+      "ref": "artifacts/fixtures/valid/intake.valid.json",
+      "kind": "stage_artifact",
+      "view": "working",
+      "added_at": "2026-04-19T11:00:00Z",
+      "notes": "Current working intake artifact."
+    },
+    {
+      "stage": "pm",
+      "ref": "artifacts/fixtures/valid/pm.valid.json",
+      "kind": "stage_artifact",
+      "view": "working",
+      "added_at": "2026-04-19T11:10:00Z",
+      "notes": "Current working planning artifact."
+    },
+    {
+      "stage": "architect",
+      "ref": "artifacts/fixtures/valid/architect.valid.json",
+      "kind": "stage_artifact",
+      "view": "accepted",
+      "added_at": "2026-04-19T11:20:00Z",
+      "notes": "Accepted architect artifact."
+    }
+  ],
+  "git_refs": {
+    "branch": "main",
+    "head_commit": "c03e2c3fd83b8bdd353ebb221477a9eb0f605260",
+    "accepted_commit": "b9b3edca10992cc497349d6d35b61da90583f66e",
+    "accepted_tag": null,
+    "last_observed_at": "2026-04-19T11:22:00Z"
+  },
+  "working_state": {
+    "status": "ready_for_review",
+    "current_stage": "architect",
+    "artifact_refs": [
+      "artifacts/fixtures/valid/intake.valid.json",
+      "artifacts/fixtures/valid/pm.valid.json"
+    ],
+    "last_local_update_at": "2026-04-19T11:23:00Z",
+    "notes": "Working state is ahead of accepted state."
+  },
+  "accepted_state": {
+    "status": "accepted",
+    "accepted_stage": "architect",
+    "artifact_refs": [
+      "artifacts/fixtures/valid/architect.valid.json"
+    ],
+    "accepted_at": "2026-04-19T11:19:00Z",
+    "accepted_by": "operator:admin",
+    "notes": "Accepted timestamp incorrectly predates the architect stage entry."
+  },
+  "reconciliation_state": {
+    "status": "drift",
+    "compared_at": "2026-04-19T11:25:00Z",
+    "working_matches_accepted": false,
+    "git_head_matches_accepted": false,
+    "notes": "Working state is ahead of accepted state."
+  }
+}

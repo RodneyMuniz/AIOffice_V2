@@ -28,6 +28,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R3 Governed Work Objects and Double-Audit Foundations` is now complete in repo truth.
 - The post-R3 freeze posture is now closed by opening R4 in repo truth.
 - `R4-001` is complete as the repo-truth opening and backlog activation step.
+- `R4-002` is complete and closes the earlier packet chronology or integrity caution by fail-closing regressed stage progression, accepted-stage chronology ahead of current stage, and accepted-state lifecycle mismatches.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice.
 
@@ -38,7 +39,6 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - broad UI or control-room productization
 - Standard or subproject pipeline productization
 - deterministic repo-local proof discipline and source-controlled CI hardening for the bounded suite
-- closure of the earlier packet chronology or integrity caution, until R4 evidence actually lands
 - unattended operation or broader product completeness
 
 ## Active Milestone
@@ -47,7 +47,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 This milestone becomes active only after repo truth closes the post-R3 freeze posture without widening the completed bounded R3 claim. R4 is limited to control-kernel hardening, lifecycle and scope enforcement, QA-loop stop discipline, deterministic proof running, CI-backed proof discipline, and one bounded hardening proof package.
 
 ## Next Gated Step
-- `R4-002` Close chronology / integrity softness and harden lifecycle enforcement.
+- `R4-003` Add explicit pipeline and scope foundation hardening.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

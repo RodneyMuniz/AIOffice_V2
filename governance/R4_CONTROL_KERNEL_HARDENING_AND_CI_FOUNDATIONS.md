@@ -65,7 +65,7 @@ Strengthen internal state integrity, lifecycle enforcement, scope enforcement, Q
 - Done when: repo truth explicitly closes the post-R3 freeze posture, creates this milestone brief, updates `governance/ACTIVE_STATE.md`, updates `execution/KANBAN.md`, and opens R4 without broadening the currently proved boundary
 
 ### `R4-002` Close chronology / integrity softness and harden lifecycle enforcement
-- Status: pending
+- Status: done
 - Done when: the earlier chronology or integrity softness is actually closed or transparently narrowed, invalid chronology and invalid transition states fail closed, and repo truth says exactly what was hardened
 
 ### `R4-003` Add explicit pipeline and scope foundation hardening

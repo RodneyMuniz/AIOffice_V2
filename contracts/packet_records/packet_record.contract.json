@@ -2,16 +2,23 @@
   "record_type": "packet_record",
   "required_progression_rules": {
     "current_stage_matches_last_progression_stage": true,
-    "stage_progression_must_not_be_empty": true
+    "stage_progression_must_not_be_empty": true,
+    "stage_progression_must_not_regress": true,
+    "stage_progression_timestamps_must_not_regress": true
   },
   "approval_rules": {
     "mode_not_required_requires_status_not_required": true,
     "approved_or_rejected_require_by_and_at": true,
-    "pending_requires_null_by_and_at": true
+    "pending_requires_null_by_and_at": true,
+    "accepted_state_requires_approved_approval": true
   },
   "accepted_state_rules": {
     "status_none_requires_null_stage_and_empty_refs": true,
-    "accepted_or_superseded_require_stage_refs_and_acceptance_metadata": true
+    "accepted_or_superseded_require_stage_refs_and_acceptance_metadata": true,
+    "accepted_stage_must_exist_in_stage_progression": true,
+    "accepted_stage_must_not_be_ahead_of_current_stage": true,
+    "accepted_at_must_not_precede_accepted_stage_entry": true,
+    "accepted_artifact_refs_must_match_accepted_view_at_accepted_stage": true
   },
   "reconciliation_rules": {
     "not_started_allows_null_comparison_fields": true,

@@ -85,3 +85,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the accepted step proves that a minimal admin-only supervised harness exists, that it can create or load a packet, that it validates stage artifacts through `architect`, that it reuses the accepted packet-record substrate and bounded `apply/promotion` gate, and that it durably records allow or block results without broad UI.
 - Consequence: acceptance is based on the committed implementation plus reported run results; the external auditor did not independently replay PowerShell execution in-thread.
 - Consequence: the next gated step is `R2 first bounded V1 proof review`.
+
+## D-0013 R4-002 Closed Packet Chronology And Lifecycle Caution
+- Date: 2026-04-20
+- Status: accepted
+- Decision: `R4-002` closes the non-blocking chronology and integrity caution carried forward from `RST-010`.
+- Consequence: packet-record validation now fails closed when `stage_progression` regresses, when `accepted_state.accepted_stage` is ahead of `current_stage`, when accepted-state chronology precedes the accepted-stage progression entry, or when accepted packet state exists without approved approval state.
+- Consequence: the closure is backed by focused packet-record validation and transition tests in `tests/test_packet_record_storage.ps1`.
+- Consequence: the next gated step inside R4 is `R4-003` Add explicit pipeline and scope foundation hardening.

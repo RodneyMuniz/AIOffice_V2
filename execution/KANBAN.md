@@ -30,7 +30,7 @@ Exit Criteria:
 - Done when: `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, and `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md` open R4 without broadening the proved boundary
 
 ### `R4-002` Close chronology / integrity softness and harden lifecycle enforcement
-- Status: pending
+- Status: done
 - Order: 2
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-001`

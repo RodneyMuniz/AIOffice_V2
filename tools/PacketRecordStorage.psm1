@@ -243,6 +243,39 @@ function Convert-BlankStringToNull {
     return $Value
 }
 
+function Get-StageIndex {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Stage,
+        [Parameter(Mandatory = $true)]
+        $Foundation
+    )
+
+    $allowedStages = [string[]]@($Foundation.allowed_stages)
+    $stageIndex = [array]::IndexOf($allowedStages, $Stage)
+    if ($stageIndex -lt 0) {
+        throw "Stage '$Stage' is not allowed by the packet record foundation contract."
+    }
+
+    return $stageIndex
+}
+
+function Convert-ToUtcDateTime {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Timestamp,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    try {
+        return ([datetime]::Parse($Timestamp)).ToUniversalTime()
+    }
+    catch {
+        throw "$Context must be a valid UTC timestamp."
+    }
+}
+
 function Get-PacketStorePath {
     param(
         [string]$StorePath
@@ -273,6 +306,11 @@ function Validate-StageProgression {
         $Foundation
     )
 
+    $validatedEntries = [System.Collections.ArrayList]::new()
+    $previousStage = $null
+    $previousStageIndex = -1
+    $previousEnteredAt = $null
+
     foreach ($entry in $StageProgression) {
         foreach ($fieldName in $Foundation.stage_progression_required_fields) {
             Get-RequiredProperty -Object $entry -Name $fieldName -Context "Packet.stage_progression item" | Out-Null
@@ -286,11 +324,34 @@ function Validate-StageProgression {
 
         $enteredAt = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $entry -Name "entered_at" -Context "Packet.stage_progression item") -Context "Packet.stage_progression item.entered_at"
         Assert-RegexMatch -Value $enteredAt -Pattern $Foundation.timestamp_pattern -Context "Packet.stage_progression item.entered_at"
+        $stageIndex = Get-StageIndex -Stage $stage -Foundation $Foundation
+        $enteredAtValue = Convert-ToUtcDateTime -Timestamp $enteredAt -Context "Packet.stage_progression item.entered_at"
 
         $artifactRef = Get-RequiredProperty -Object $entry -Name "artifact_ref" -Context "Packet.stage_progression item"
         Assert-NullableString -Value $artifactRef -Context "Packet.stage_progression item.artifact_ref" | Out-Null
         Assert-NonEmptyString -Value (Get-RequiredProperty -Object $entry -Name "notes" -Context "Packet.stage_progression item") -Context "Packet.stage_progression item.notes" | Out-Null
+
+        if ($stageIndex -lt $previousStageIndex) {
+            throw "Packet.stage_progression must not regress from stage '$previousStage' to '$stage'."
+        }
+        if ($null -ne $previousEnteredAt -and $enteredAtValue -lt $previousEnteredAt) {
+            throw "Packet.stage_progression entered_at timestamps must not regress."
+        }
+
+        [void]$validatedEntries.Add([pscustomobject]@{
+            Stage       = $stage
+            StageIndex  = $stageIndex
+            Status      = $status
+            EnteredAt   = $enteredAtValue
+            ArtifactRef = $artifactRef
+        })
+
+        $previousStage = $stage
+        $previousStageIndex = $stageIndex
+        $previousEnteredAt = $enteredAtValue
     }
+
+    return @($validatedEntries)
 }
 
 function Validate-ApprovalState {
@@ -332,6 +393,13 @@ function Validate-ApprovalState {
         Assert-NonEmptyString -Value $by -Context "Packet.approval_state.by" | Out-Null
         $atValue = Assert-NonEmptyString -Value $at -Context "Packet.approval_state.at"
         Assert-RegexMatch -Value $atValue -Pattern $Foundation.timestamp_pattern -Context "Packet.approval_state.at"
+    }
+
+    return [pscustomobject]@{
+        Mode   = $mode
+        Status = $status
+        By     = $by
+        At     = if ($null -eq $at) { $null } else { $at }
     }
 }
 
@@ -444,6 +512,8 @@ function Validate-AcceptedState {
     $acceptedByValue = Assert-NullableString -Value $acceptedBy -Context "Packet.accepted_state.accepted_by"
     Assert-NonEmptyString -Value (Get-RequiredProperty -Object $AcceptedState -Name "notes" -Context "Packet.accepted_state") -Context "Packet.accepted_state.notes" | Out-Null
 
+    $acceptedAtDateTime = if ($null -eq $acceptedAtValue) { $null } else { Convert-ToUtcDateTime -Timestamp $acceptedAtValue -Context "Packet.accepted_state.accepted_at" }
+
     if ($status -eq "none") {
         if ($null -ne $acceptedStageValue -or $artifactRefs.Count -ne 0 -or $null -ne $acceptedAtValue -or $null -ne $acceptedByValue) {
             throw "Packet.accepted_state with status 'none' must have null stage and acceptance metadata, and an empty artifact_refs array."
@@ -453,6 +523,16 @@ function Validate-AcceptedState {
         if ($null -eq $acceptedStageValue -or $artifactRefs.Count -eq 0 -or $null -eq $acceptedAtValue -or $null -eq $acceptedByValue) {
             throw "Packet.accepted_state with status '$status' requires accepted_stage, artifact_refs, accepted_at, and accepted_by."
         }
+    }
+
+    return [pscustomobject]@{
+        Status              = $status
+        AcceptedStage       = $acceptedStageValue
+        AcceptedStageIndex  = if ($null -eq $acceptedStageValue) { $null } else { Get-StageIndex -Stage $acceptedStageValue -Foundation $Foundation }
+        ArtifactRefs        = @($artifactRefs)
+        AcceptedAt          = $acceptedAtValue
+        AcceptedAtDateTime  = $acceptedAtDateTime
+        AcceptedBy          = $acceptedByValue
     }
 }
 
@@ -526,21 +606,27 @@ function Validate-PacketRecordFields {
 
     $createdAt = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $PacketRecord -Name "created_at" -Context "Packet") -Context "Packet.created_at"
     Assert-RegexMatch -Value $createdAt -Pattern $foundation.timestamp_pattern -Context "Packet.created_at"
+    $createdAtValue = Convert-ToUtcDateTime -Timestamp $createdAt -Context "Packet.created_at"
     $updatedAt = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $PacketRecord -Name "updated_at" -Context "Packet") -Context "Packet.updated_at"
     Assert-RegexMatch -Value $updatedAt -Pattern $foundation.timestamp_pattern -Context "Packet.updated_at"
+    $updatedAtValue = Convert-ToUtcDateTime -Timestamp $updatedAt -Context "Packet.updated_at"
+    if ($updatedAtValue -lt $createdAtValue) {
+        throw "Packet.updated_at must not be earlier than Packet.created_at."
+    }
 
     $currentStage = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $PacketRecord -Name "current_stage" -Context "Packet") -Context "Packet.current_stage"
     Assert-AllowedValue -Value $currentStage -AllowedValues @($foundation.allowed_stages) -Context "Packet.current_stage"
 
     $stageProgression = Assert-ObjectArray -Value (Get-RequiredProperty -Object $PacketRecord -Name "stage_progression" -Context "Packet") -Context "Packet.stage_progression"
-    Validate-StageProgression -StageProgression $stageProgression -Foundation $foundation
-    $lastProgressionStage = $stageProgression[-1].stage
+    $stageProgressionEntries = @(Validate-StageProgression -StageProgression $stageProgression -Foundation $foundation)
+    $lastProgressionStage = $stageProgressionEntries[-1].Stage
+    $currentStageIndex = Get-StageIndex -Stage $currentStage -Foundation $foundation
     if ($currentStage -ne $lastProgressionStage) {
         throw "Packet.current_stage must match the stage of the last Packet.stage_progression entry."
     }
 
     $approvalState = Assert-ObjectValue -Value (Get-RequiredProperty -Object $PacketRecord -Name "approval_state" -Context "Packet") -Context "Packet.approval_state"
-    Validate-ApprovalState -ApprovalState $approvalState -Foundation $foundation
+    $approvalStateInfo = Validate-ApprovalState -ApprovalState $approvalState -Foundation $foundation
 
     $artifactRefs = Assert-ObjectArray -Value (Get-RequiredProperty -Object $PacketRecord -Name "artifact_refs" -Context "Packet") -Context "Packet.artifact_refs" -AllowEmpty
     Validate-ArtifactRefs -ArtifactRefs $artifactRefs -Foundation $foundation
@@ -552,7 +638,7 @@ function Validate-PacketRecordFields {
     Validate-WorkingState -WorkingState $workingState -Foundation $foundation
 
     $acceptedState = Assert-ObjectValue -Value (Get-RequiredProperty -Object $PacketRecord -Name "accepted_state" -Context "Packet") -Context "Packet.accepted_state"
-    Validate-AcceptedState -AcceptedState $acceptedState -Foundation $foundation
+    $acceptedStateInfo = Validate-AcceptedState -AcceptedState $acceptedState -Foundation $foundation
 
     $reconciliationState = Assert-ObjectValue -Value (Get-RequiredProperty -Object $PacketRecord -Name "reconciliation_state" -Context "Packet") -Context "Packet.reconciliation_state"
     Validate-ReconciliationState -ReconciliationState $reconciliationState -Foundation $foundation
@@ -571,6 +657,34 @@ function Validate-PacketRecordFields {
     foreach ($artifactRef in (Get-RequiredProperty -Object $acceptedState -Name "artifact_refs" -Context "Packet.accepted_state")) {
         if (@($PacketRecord.artifact_refs.ref) -notcontains $artifactRef) {
             throw "Packet.accepted_state.artifact_refs contains '$artifactRef' which is not present in Packet.artifact_refs."
+        }
+    }
+
+    if ($acceptedStateInfo.Status -ne "none") {
+        if ($approvalStateInfo.Status -ne "approved") {
+            throw "Packet.accepted_state with status '$($acceptedStateInfo.Status)' requires Packet.approval_state.status 'approved'."
+        }
+
+        $matchingAcceptedStageEntries = @($stageProgressionEntries | Where-Object { $_.Stage -eq $acceptedStateInfo.AcceptedStage })
+        if ($matchingAcceptedStageEntries.Count -eq 0) {
+            throw "Packet.accepted_state.accepted_stage must exist in Packet.stage_progression."
+        }
+
+        if ($acceptedStateInfo.AcceptedStageIndex -gt $currentStageIndex) {
+            throw "Packet.accepted_state.accepted_stage must not be ahead of Packet.current_stage."
+        }
+
+        if ($acceptedStateInfo.AcceptedAtDateTime -lt $matchingAcceptedStageEntries[0].EnteredAt) {
+            throw "Packet.accepted_state.accepted_at must not be earlier than the Packet.stage_progression entry for Packet.accepted_state.accepted_stage."
+        }
+
+        $acceptedViewArtifactRefs = @($PacketRecord.artifact_refs | Where-Object {
+                $_.view -eq "accepted" -and $_.stage -eq $acceptedStateInfo.AcceptedStage
+            } | ForEach-Object { $_.ref })
+        foreach ($acceptedArtifactRef in @($acceptedStateInfo.ArtifactRefs)) {
+            if ($acceptedViewArtifactRefs -notcontains $acceptedArtifactRef) {
+                throw "Packet.accepted_state.artifact_refs must resolve to accepted-view Packet.artifact_refs recorded at Packet.accepted_state.accepted_stage."
+            }
         }
     }
 
