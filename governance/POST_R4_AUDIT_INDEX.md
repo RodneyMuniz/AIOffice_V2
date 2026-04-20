@@ -14,9 +14,9 @@ The initial `R4-005` through `R4-007` delivery required the corrective completio
 - `R4-006` source-controlled CI proof foundation: `387a58693fc1a424b9a9e782f343b4080547492c`
 - `R4-007` replayable proof package and closeout: `bbdd5a8ec548e9707275e8438fa6fb4b91917ed0`
 - `R4-008` repair bounded proof runner clean-checkout behavior: `2d8b01d71b9478cc31e0863c9b8185cb3e62b15a`
-- `R4-009` re-stabilize CI foundation on the real proof path: pending corrective completion
-- `R4-010` regenerate proof package and evidence inventory cleanly: pending corrective completion
-- `R4-011` reconcile post-R4 repo truth for honest closure readiness: pending corrective completion
+- `R4-009` re-stabilize CI foundation on the real proof path: `340a2c4f35aa02d940efef37daaeb9343833e439`
+- `R4-010` regenerate proof package and evidence inventory cleanly: `340a2c4f35aa02d940efef37daaeb9343833e439`
+- `R4-011` reconcile post-R4 repo truth for honest closure readiness: pending final mapping
 
 ## Governing Docs Supporting R4 Truth
 - `README.md`
@@ -95,6 +95,7 @@ The direct replay proof surface is:
 - proof-review summary: `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/REPLAY_SUMMARY.md`
 - proof-runner summary: `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/bounded-proof-suite-summary.json`
 - per-test raw logs: `state/proof_reviews/r4_control_kernel_hardening_and_ci_foundations/tests/`
+- replay source head recorded inside the committed package: `47b7cf99f1720c2f191f044e95b354de1a814047`
 
 ## Limits And Exclusions The Auditor Must Preserve
 - Preserve the bounded claim only. R4 strengthens control-kernel, workflow, and CI foundations; it does not prove broad product completion.

@@ -3,10 +3,10 @@
 This board tracks the current reset implementation milestone only.
 
 ## Active Milestone
-`R4 Control-Kernel Hardening and CI Foundations` remains operationally open through the corrective completion layer `R4-008` through `R4-011`.
+No post-R4 implementation milestone is open yet.
 
 Objective:
-Repair the bounded proof-runner clean-checkout path, re-stabilize the bounded CI proof path, refresh the committed replay package from a clean workspace, and reconcile repo truth without opening later implementation scope by implication.
+Hold the completed bounded R4 baseline, including the corrective completion layer `R4-008` through `R4-011`, for audit review only, without opening later implementation scope by implication.
 
 Exit Criteria:
 - `R4-008` through `R4-011` are complete in repo truth
@@ -89,7 +89,7 @@ Exit Criteria:
 - Done when: the bounded proof runner handles an empty clean-workspace Git status correctly, preserves fail-closed mutation checking, succeeds from a clean workspace, and blocks regression of the empty-status bug under test
 
 ### `R4-009` Re-stabilize CI foundation on the real proof path
-- Status: open
+- Status: done
 - Order: 9
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-008`
@@ -98,7 +98,7 @@ Exit Criteria:
 - Done when: the source-controlled workflow runs successfully on the repaired proof runner and repo truth can honestly say the CI foundation is working for the bounded path it claims
 
 ### `R4-010` Regenerate proof package and evidence inventory cleanly
-- Status: open
+- Status: done
 - Order: 10
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-008`
@@ -107,7 +107,7 @@ Exit Criteria:
 - Done when: the proof package is regenerated from a clean workspace, the package is stamped to the replay source head used for that clean rerun, replay artifacts and metadata agree, and the evidence inventory no longer overstates what the committed replay package contains
 
 ### `R4-011` Reconcile post-R4 repo truth for honest closure readiness
-- Status: open
+- Status: done
 - Order: 11
 - Milestone: `R4 Control-Kernel Hardening and CI Foundations`
 - Depends on: `R4-008`, `R4-009`, `R4-010`

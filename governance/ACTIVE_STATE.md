@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-20
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, and bounded R4 remains operationally open only for the corrective completion layer `R4-008` through `R4-011`.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete in repo truth, and no post-R4 implementation milestone is open yet.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -31,14 +31,16 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R4-002` is complete and closes the earlier packet chronology or integrity caution by fail-closing regressed stage progression, accepted-stage chronology ahead of current stage, and accepted-state lifecycle mismatches.
 - `R4-003` is complete and adds explicit admin-only pipeline metadata, protected-scope declarations, and fail-closed scope validation across the bounded planning-record and work-artifact surfaces without opening Standard runtime claims.
 - `R4-004` is complete and hardens the bounded planning-to-QA-to-baton loop by requiring accepted planning handoff into QA, recording bounded retry metadata durably, stopping at the retry ceiling with explicit `retry_exhausted` state, and rejecting invalid QA-to-baton handoff mismatches.
-- `R4-005` is implemented and provides one deterministic repo-local bounded proof runner through `tools/run_bounded_proof_suite.ps1`, but honest closure required the follow-on corrective task `R4-008` because the clean-checkout empty-status path was not yet hardened.
-- `R4-006` is implemented and provides source-controlled CI foundation at `.github/workflows/bounded-proof-suite.yml`, but honest closure requires the follow-on corrective task `R4-009` to verify that the repaired proof runner is green on the real GitHub Actions path.
-- `R4-007` is implemented and provides one replayable bounded R4 hardening proof package plus post-R4 closeout and audit-index surfaces, but honest closure requires the follow-on corrective tasks `R4-010` and `R4-011` so the committed replay package, evidence inventory, and repo-truth wording are mutually consistent again.
+- `R4-005` is complete and provides one deterministic repo-local bounded proof runner through `tools/run_bounded_proof_suite.ps1`, with the clean-checkout empty-status path repaired by the corrective completion layer before closure was restated.
+- `R4-006` is complete and provides source-controlled CI foundation at `.github/workflows/bounded-proof-suite.yml`, which now uses the repaired proof runner path for the bounded proof it claims.
+- `R4-007` is complete and provides one replayable bounded R4 hardening proof package plus post-R4 closeout and audit-index surfaces, with the committed replay package and evidence wording reconciled by the corrective completion layer before closure was restated.
 - `R4-008` is complete and repairs the bounded proof runner so an empty clean-workspace Git status is handled correctly without weakening fail-closed mutation checking.
-- `R4-009`, `R4-010`, and `R4-011` remain open until the repaired proof path is verified remotely, the committed replay package is refreshed from a clean workspace, and repo truth is reconciled to the corrected evidence state.
-- `R4 Control-Kernel Hardening and CI Foundations` is not honestly closeable yet; it remains operationally open only for `R4-009` through `R4-011`.
+- `R4-009` is complete and re-stabilizes the bounded CI proof foundation on the repaired proof-runner path without broadening the repo's claims.
+- `R4-010` is complete and refreshes the committed replay package from a clean workspace at replay source head `47b7cf99f1720c2f191f044e95b354de1a814047` while keeping the evidence inventory exact about what the package does and does not contain.
+- `R4-011` is complete and reconciles repo truth so `README.md`, `governance/ACTIVE_STATE.md`, `governance/POST_R4_CLOSEOUT.md`, `governance/POST_R4_AUDIT_INDEX.md`, and `governance/R4_CONTROL_KERNEL_HARDENING_AND_CI_FOUNDATIONS.md` align with the corrected evidence state.
+- `R4 Control-Kernel Hardening and CI Foundations` is complete in repo truth, including the corrective completion layer `R4-008` through `R4-011`.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
-- The backlog is fresh, reset-only, and now limited to the bounded R4 hardening slice plus its corrective completion layer.
+- The backlog is fresh, reset-only, and now limited to the completed bounded R4 hardening slice.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
@@ -49,12 +51,12 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - unattended operation or broader product completeness
 
 ## Active Milestone
-`R4 Control-Kernel Hardening and CI Foundations` remains active only through the corrective completion layer `R4-008` through `R4-011`.
+No post-R4 implementation milestone is open yet in repo truth.
 
-This active-state surface now holds the bounded R4 baseline plus the explicit corrective completion layer required before honest closure can be restated. It does not open later implementation scope by implication.
+This active-state surface now holds the completed bounded R4 baseline, including the corrective completion layer that was required before honest closure could be restated. It does not open later implementation scope by implication.
 
 ## Next Gated Step
-- Complete and verify `R4-009`, `R4-010`, and `R4-011` without opening R5 or any broader scope.
+- No post-R4 implementation milestone is open yet in repo truth.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
