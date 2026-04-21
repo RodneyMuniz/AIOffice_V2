@@ -6,15 +6,15 @@
 ## Why this milestone exists now
 R4 closed a bounded hardening milestone for internal control-kernel, workflow, and CI foundations. The first R4 closeout posture was not clean enough, and the corrective completion layer `R4-008` through `R4-011` was required before honest closure could be restated.
 
-The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The first corrected Git-backed milestone-baseline slice is now complete again as `R5-002`, while later restore, resume, and repo-enforcement foundations remain gated and unproved.
+The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The corrected Git-backed milestone-baseline slice is now complete again as `R5-002`, and the bounded rollback / restore gate foundation slice is now complete as `R5-003`, while later resume and repo-enforcement foundations remain gated and unproved.
 
 ## Objective
-Strengthen the next bounded foundation layer after R4 by correcting and hardening Git-backed milestone baselines first, then gating later bounded rollback and restore foundations, stronger baton continuity and resume authority semantics, and stronger CI/CD automation plus repo-enforcement expectations without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
+Strengthen the next bounded foundation layer after R4 by correcting and hardening Git-backed milestone baselines first, then implementing bounded rollback and restore gate foundations before later baton continuity and resume authority semantics, and stronger CI/CD automation plus repo-enforcement expectations without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
 
 ## Exit criteria
 - repo truth records `R5-002` as complete again after corrected hardening through `R5-002A` through `R5-002G`
 - the corrective task layer under `R5-002` is completed and remains bounded to the milestone-baseline slice only
-- bounded rollback and restore gate expectations are explicit without claiming rollback as already implemented
+- bounded rollback and restore gate foundations are implemented and focused-proofed without claiming rollback execution
 - strengthened baton continuity and resume authority expectations are explicit without claiming automatic resume
 - bounded resume re-entry expectations are explicit and operator-controlled
 - the planned next CI/CD automation layer is explicit and remains aligned to the actual proof scope
@@ -98,8 +98,8 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 - Done when: repo truth no longer overstates what the focused baseline test proves, `R5-002` can be honestly restated as complete, and `R5-003` remains the next gated step
 
 ### `R5-003` Define bounded rollback / restore gate foundations
-- Status: open
-- Done when: R5 planning clearly defines restore target rules, authority checks, and bounded rollback gate expectations, and the scope stays foundation-only unless later implementation proves more
+- Status: done
+- Done when: restore-gate contracts, explicit restore-target rules, explicit operator authority checks, repository-binding and workspace-safety refusal rules, durable gate results, and focused restore-gate proof exist without claiming rollback execution or proof-suite expansion
 
 ### `R5-004` Define strengthened baton continuity and resume authority model
 - Status: open
@@ -122,8 +122,9 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 - `R5-002` is complete again after the bounded corrective layer `R5-002A` through `R5-002G` closed from a clean worktree with the focused milestone-baseline suite.
 - The current `R5-002` candidate surface remains limited to milestone-baseline contracts, `tools/MilestoneBaseline.psm1`, and `tests/test_milestone_baseline.ps1`.
 - `R5-002A` through `R5-002G` are the completed corrective hardening layer that re-closed `R5-002` honestly.
-- `R5-003` through `R5-007` remain open and planned only.
-- `R5-002` does not claim rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, or proof-suite expansion.
+- `R5-003` is complete as a bounded restore-gate foundation slice through `contracts/restore_gate/`, `tools/RestoreGate.psm1`, and `tests/test_restore_gate.ps1`.
+- `R5-004` through `R5-007` remain open and planned only.
+- `R5-002` and `R5-003` do not claim rollback execution, resume behavior, repo-enforcement behavior, or proof-suite expansion.
 - R4 remains the prior closed milestone, and its historical closeout authority remains in `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.
 - The final narrative bridge artifact for the R4 to R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.

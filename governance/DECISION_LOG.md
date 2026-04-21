@@ -175,3 +175,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the focused acceptance proof remains `powershell -ExecutionPolicy Bypass -File tests\test_milestone_baseline.ps1` from a clean worktree; the current bounded proof suite still remains the R2 through R4 suite and is not broadened by this decision.
 - Consequence: `R5-003` through `R5-007` remain open and planned only, with `R5-003` as the next gated step.
 - Consequence: re-closing `R5-002` does not prove restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI productization, Standard runtime, rollback execution, or broader orchestration.
+
+## D-0023 R5-003 Accepted As Bounded Restore-Gate Foundations
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5-003` is accepted in repo truth as the bounded rollback / restore gate foundation slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves restore-gate contracts, explicit restore-target identity and repository-binding checks against milestone baselines, explicit operator approval requirements, attached-head and clean-worktree refusal rules, durable gate results, and focused proof through `powershell -ExecutionPolicy Bypass -File tests\test_restore_gate.ps1`.
+- Consequence: this acceptance validates restore-target and rollback-gate authority only. It does not execute rollback, it does not broaden the current bounded proof suite, and it does not prove resume behavior, repo-enforcement behavior, UI productization, Standard runtime, or broader orchestration.
+- Consequence: `R5-004` through `R5-007` remain open and planned only.
+- Consequence: the next gated step inside R5 is `R5-004` Define strengthened baton continuity and resume authority model.

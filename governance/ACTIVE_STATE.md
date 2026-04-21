@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-21
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now active with `R5-002` re-closed as the corrected Git-backed milestone baseline slice.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now active with `R5-002` re-closed as the corrected Git-backed milestone baseline slice plus `R5-003` complete as the bounded rollback / restore gate foundation slice.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -12,6 +12,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The first bounded V1 proof is now formally claimable only for that narrow boundary, as closed out in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` from the rerun evidence in `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md` and `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`.
 - Git and persisted state are the intended truth substrates.
 - `R5-002` is now complete again after corrected hardening for repository congruence, persisted Git identity validation, focused test honesty, explicit path and save semantics, stronger evidence and anchor reconciliation, and explicit runtime and dependency fail-closed handling.
+- `R5-003` is complete as a bounded rollback / restore gate foundation slice with explicit restore-target validation, explicit operator approval requirements, repository-binding checks, clean-worktree and attached-head refusal rules, durable gate results, and focused proof through `tests/test_restore_gate.ps1`.
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
@@ -43,15 +44,15 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - `R5-001` is complete as the repo-truth open step for `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
 - `R5-002` is complete again through `R5-002A` through `R5-002G`.
-- `R5-003` through `R5-007` are planned only and are not yet implemented.
-- R5 remains admin-only and foundation-focused. Completed `R5-002` does not prove rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion beyond the current R4 foundation, UI productization, Standard runtime, or broader orchestration.
+- `R5-004` through `R5-007` are planned only and are not yet implemented.
+- R5 remains admin-only and foundation-focused. Completed `R5-002` and `R5-003` do not prove rollback execution, resume behavior, repo-enforcement behavior, proof-suite expansion beyond the current R4 foundation, UI productization, Standard runtime, or broader orchestration.
 - The backlog is fresh, reset-only, and now limited to the planned bounded R5 structure.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
 - any broader workflow orchestration beyond the direct bounded R3 replay slice
 - automatic resume execution or broader recovery or rollback behavior
-- bounded rollback gate or restore flow as implemented behavior
+- rollback execution or broader recovery productization beyond bounded restore-gate validation
 - bounded resume re-entry from persisted baton state as implemented behavior
 - stronger CI/CD automation and repo enforcement beyond the current R4 proof foundation
 - broad UI or control-room productization
@@ -61,10 +62,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is the active milestone in repo truth.
 
-This active-state surface now holds the completed bounded R4 baseline plus the corrected `R5-002` milestone-baseline slice. `R5-002` is complete again after the bounded corrective layer `R5-002A` through `R5-002G` closed from a clean worktree with the focused milestone-baseline suite. It does not imply that `R5-003` through `R5-007` are already complete, and it does not claim restore-gate, resume, repo-enforcement, or proof-suite expansion behavior.
+This active-state surface now holds the completed bounded R4 baseline plus the corrected `R5-002` milestone-baseline slice and the bounded `R5-003` restore-gate slice. `R5-002` is complete again after the bounded corrective layer `R5-002A` through `R5-002G` closed from a clean worktree with the focused milestone-baseline suite, and `R5-003` is complete with focused restore-target and rollback-gate validation through `tests/test_restore_gate.ps1`. These slices do not imply rollback execution, resume, repo-enforcement, or proof-suite expansion behavior.
 
 ## Next Gated Step
-- `R5-003` Define bounded rollback / restore gate foundations.
+- `R5-004` Define strengthened baton continuity and resume authority model.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
