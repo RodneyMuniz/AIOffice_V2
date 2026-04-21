@@ -6,15 +6,16 @@ This board tracks the current reset milestone structure only.
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 
 Objective:
-Advance bounded R5 foundations after R4 one gated slice at a time, with `R5-002` now re-closed as the corrected Git-backed milestone baseline slice, `R5-003` now complete as the bounded rollback / restore gate foundation slice, and `R5-004` as the next gated step, while continuing to avoid rollback execution, resume behavior, repo-enforcement behavior, proof-review expansion, UI, Standard runtime, unattended automatic resume, or broader orchestration claims.
+Advance bounded R5 foundations after R4 one gated slice at a time, with `R5-002` now re-closed as the corrected Git-backed milestone baseline slice, `R5-003` now complete as the bounded rollback / restore gate foundation slice, `R5-004` now complete as the baton continuity and resume authority foundation slice, and `R5-005` as the next gated step, while continuing to avoid rollback execution, bounded resume re-entry execution, repo-enforcement behavior, proof-review expansion, UI, Standard runtime, unattended automatic resume, or broader orchestration claims.
 
 Exit Criteria:
 - `R5-001` through `R5-007` are recorded in repo truth
 - `R5-001` is complete as the repo-truth open step
 - `R5-002` is complete again after corrected hardening through `R5-002A` through `R5-002G`
 - `R5-003` is complete at the bounded restore-gate foundation level with focused proof
-- `R5-004` through `R5-007` remain explicitly planned until later implementation work is opened and proved
-- completed `R5-002` and `R5-003` still do not claim rollback execution, resume behavior, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, or broader orchestration
+- `R5-004` is complete at the bounded baton continuity and resume-authority foundation level with focused proof
+- `R5-005` through `R5-007` remain explicitly planned until later implementation work is opened and proved
+- completed `R5-002`, `R5-003`, and `R5-004` still do not claim rollback execution, bounded resume re-entry execution, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, or broader orchestration
 
 ## Tasks
 
@@ -109,13 +110,13 @@ Exit Criteria:
 - Done when: restore targets are validated against milestone baselines, unauthorized or invalid rollback-gate states fail closed, focused proof passes through `tests/test_restore_gate.ps1`, and the slice remains foundation-only without claiming rollback execution or proof-suite expansion
 
 ### `R5-004` Define strengthened baton continuity and resume authority model
-- Status: open
+- Status: done
 - Order: 4
 - Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 - Depends on: `R5-002`
 - Authority: `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: planned baton-evolution and resume-authority model
-- Done when: R5 planning clearly defines the baton evolution needed for real pause and resume continuity, captures explicit operator authority and re-entry constraints, and makes no automatic resume claim
+- Durable output: strengthened baton contract and persistence rules, explicit operator-controlled resume-authority metadata, bounded re-entry context capture, fail-closed continuity validation, and focused baton proof
+- Done when: batons carry explicit resume_authority and resume_context fields, invalid or unauthorized continuity states fail closed, focused proof passes through `tests/test_baton_persistence.ps1` and `tests/test_work_artifact_contracts.ps1`, and the slice remains foundation-only without claiming resume execution or proof-suite expansion
 
 ### `R5-005` Define bounded resume re-entry path
 - Status: open

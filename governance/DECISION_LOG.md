@@ -184,3 +184,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance validates restore-target and rollback-gate authority only. It does not execute rollback, it does not broaden the current bounded proof suite, and it does not prove resume behavior, repo-enforcement behavior, UI productization, Standard runtime, or broader orchestration.
 - Consequence: `R5-004` through `R5-007` remain open and planned only.
 - Consequence: the next gated step inside R5 is `R5-004` Define strengthened baton continuity and resume authority model.
+
+## D-0024 R5-004 Accepted As Bounded Baton Continuity Foundations
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5-004` is accepted in repo truth as the bounded baton continuity and resume-authority foundation slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves explicit operator-controlled `resume_authority`, bounded `resume_context`, fail-closed validation for follow-up versus manual-review baton states, and focused proof through `powershell -ExecutionPolicy Bypass -File tests\test_baton_persistence.ps1` plus `powershell -ExecutionPolicy Bypass -File tests\test_work_artifact_contracts.ps1`.
+- Consequence: this acceptance strengthens pause and continuity semantics only. It does not execute resume, it does not broaden the current bounded proof suite, and it does not prove repo-enforcement behavior, UI productization, Standard runtime, or broader orchestration.
+- Consequence: `R5-005` through `R5-007` remain open and planned only.
+- Consequence: the next gated step inside R5 is `R5-005` Define bounded resume re-entry path.

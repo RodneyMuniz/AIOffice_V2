@@ -2,7 +2,7 @@
 
 AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
 
-Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed in repo truth, including the corrective completion layer `R4-008` through `R4-011`. `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now the active milestone in repo truth, `R5-002 Git-backed milestone baseline model` is complete again after corrected hardening through `R5-002A` through `R5-002G`, and `R5-003 bounded rollback / restore gate foundations` is complete at the bounded foundation level. `R5-004` through `R5-007` remain planned only. These completed R5 slices stay admin-only and foundation-focused, and they do not open rollback execution, resume behavior, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, or broader orchestration claims.
+Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed in repo truth, including the corrective completion layer `R4-008` through `R4-011`. `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now the active milestone in repo truth, `R5-002 Git-backed milestone baseline model` is complete again after corrected hardening through `R5-002A` through `R5-002G`, `R5-003 bounded rollback / restore gate foundations` is complete at the bounded foundation level, and `R5-004 strengthened baton continuity and resume authority model` is complete at the bounded foundation level. `R5-005` through `R5-007` remain planned only. These completed R5 slices stay admin-only and foundation-focused, and they do not open rollback execution, bounded resume re-entry execution, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, or broader orchestration claims.
 
 The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
 
@@ -45,6 +45,12 @@ The current bounded proof surface still remains the R2 through R4 slice only unt
 - `powershell -ExecutionPolicy Bypass -File tests\test_restore_gate.ps1`
 
 The bounded `R5-003` slice now proves explicit restore-target validation, explicit operator approval, repository-binding checks, and clean-worktree or attached-head refusal behavior only. It does not execute rollback, and it does not broaden the current bounded proof suite beyond the R2 through R4 runner.
+
+`R5-004` is currently backed by focused baton-continuity entrypoints:
+- `powershell -ExecutionPolicy Bypass -File tests\test_baton_persistence.ps1`
+- `powershell -ExecutionPolicy Bypass -File tests\test_work_artifact_contracts.ps1`
+
+The bounded `R5-004` slice now proves explicit operator-controlled baton resume authority, bounded re-entry context capture, and fail-closed follow-up versus manual-review continuity rules only. It does not execute resume, and it does not broaden the current bounded proof suite beyond the R2 through R4 runner.
 
 The same bounded proof entrypoint is now wired into `.github/workflows/bounded-proof-suite.yml` for `push` and `pull_request` on `main`. This CI foundation strengthens proof discipline only; it does not by itself prove broader productization.
 
