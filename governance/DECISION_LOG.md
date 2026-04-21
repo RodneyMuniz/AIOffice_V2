@@ -193,3 +193,22 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance strengthens pause and continuity semantics only. It does not execute resume, it does not broaden the current bounded proof suite, and it does not prove repo-enforcement behavior, UI productization, Standard runtime, or broader orchestration.
 - Consequence: `R5-005` through `R5-007` remain open and planned only.
 - Consequence: the next gated step inside R5 is `R5-005` Define bounded resume re-entry path.
+
+## D-0025 R5-005 Accepted As Bounded Resume Re-Entry Foundations
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R5-005` is accepted in repo truth as the bounded resume re-entry foundation slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves explicit operator-controlled re-entry checks from persisted Baton state, restore-gate-required refusal, invalid-state refusal, retry-ceiling refusal, dirty-worktree refusal, and one prepared retry-entry Execution Bundle through `powershell -ExecutionPolicy Bypass -File tests\test_resume_reentry.ps1`.
+- Consequence: this acceptance prepares bounded re-entry only. It does not execute rollback, it does not execute unattended automatic resume, it does not broaden repo-enforcement behavior, and it does not prove UI productization, Standard runtime, or broader orchestration.
+- Consequence: `R5-006` and `R5-007` remain open and planned only.
+- Consequence: the next gated step inside R5 is `R5-006` Define CI/CD automation expansion for bounded proof and recovery foundations.
+
+## D-0026 R5-006 Accepted As Bounded Proof And CI Expansion
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R5-006` is accepted in repo truth as the bounded CI/CD automation expansion slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves that the existing bounded proof runner and existing `.github/workflows/bounded-proof-suite.yml` workflow now replay the implemented R5 foundation ids `r5-milestone-baseline`, `r5-restore-gate`, `r5-baton-continuity`, and `r5-resume-reentry` in addition to the prior R2 through R4 ids.
+- Consequence: the acceptance is backed by `powershell -ExecutionPolicy Bypass -File tests\test_bounded_proof_suite.ps1`, `powershell -ExecutionPolicy Bypass -File tests\test_bounded_proof_ci_foundation.ps1`, and a clean-worktree bounded proof replay of the R5 subset through `Invoke-BoundedProofSuite`.
+- Consequence: this acceptance expands bounded proof discipline only. It does not add repo-enforcement or closeout automation, and it does not prove rollback productization, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
+- Consequence: `R5-007` remains open and planned only.
+- Consequence: the next gated step inside R5 is `R5-007` Define repo enforcement and R5 proof / closeout structure.
