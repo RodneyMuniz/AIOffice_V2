@@ -6,13 +6,14 @@ This board tracks the current reset milestone structure only.
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 
 Objective:
-Define the next bounded milestone after R4 for Git-backed recovery, resume, and repo-enforcement foundations without executing R5 implementation yet.
+Advance bounded R5 foundations after R4 one gated slice at a time, starting with Git-backed milestone baselines, without widening into restore-gate, resume, repo-enforcement, proof-review expansion, UI, Standard runtime, rollback execution, unattended automatic resume, or broader orchestration.
 
 Exit Criteria:
 - `R5-001` through `R5-007` are recorded in repo truth
 - `R5-001` is complete as the repo-truth open step
-- `R5-002` through `R5-007` remain explicitly planned until later implementation work is opened and proved
-- no R5 code, contracts, tests, workflows, or proof packages are created by this planning step
+- `R5-002` is complete as the bounded Git-backed milestone baseline slice
+- `R5-003` through `R5-007` remain explicitly planned until later implementation work is opened and proved
+- `R5-002` does not by itself claim restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, rollback execution, or broader orchestration
 
 ## Tasks
 
@@ -26,13 +27,13 @@ Exit Criteria:
 - Done when: repo truth closes the post-R4 freeze posture, the new R5 milestone brief exists, and `governance/ACTIVE_STATE.md` plus `execution/KANBAN.md` open R5 without widening claims prematurely
 
 ### `R5-002` Define Git-backed milestone baseline model
-- Status: open
+- Status: done
 - Order: 2
 - Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 - Depends on: `R5-001`
 - Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: planned milestone-baseline model, authority rules, and intended durable outputs
-- Done when: repo truth defines what a milestone baseline is in bounded R5 terms, the planned durable outputs and authority rules are explicit, and no rollback is claimed as already implemented
+- Durable output: milestone-baseline contracts, baseline capture and storage module, and focused baseline tests
+- Done when: the repo captures Git-backed milestone baselines with explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and focused tests without claiming rollback execution
 
 ### `R5-003` Define bounded rollback / restore gate foundations
 - Status: open

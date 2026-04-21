@@ -148,3 +148,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R5 is bounded to Git-backed milestone baselines, bounded rollback and restore gate foundations, stronger baton and resume authority planning, and stronger CI/CD plus repo-enforcement planning.
 - Consequence: opening R5 does not prove rollback, automatic resume, broader recovery, broader orchestration, UI productization, or Standard or subproject runtime.
 - Consequence: the narrative report artifact for this transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`, and it remains a report artifact rather than milestone proof by itself.
+
+## D-0020 R5-002 Recorded As The First Implemented R5 Slice
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5-002` is accepted in repo truth as the bounded Git-backed milestone baseline slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves milestone baseline contracts, explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and focused baseline tests through `tests/test_milestone_baseline.ps1`.
+- Consequence: this acceptance does not prove rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI productization, Standard or subproject runtime, or broader orchestration.
+- Consequence: `R5-003` through `R5-007` remain open and planned only.
+- Consequence: the next gated step inside R5 is `R5-003` Define bounded rollback / restore gate foundations.

@@ -6,14 +6,14 @@
 ## Why this milestone exists now
 R4 closed a bounded hardening milestone for internal control-kernel, workflow, and CI foundations. The first R4 closeout posture was not clean enough, and the corrective completion layer `R4-008` through `R4-011` was required before honest closure could be restated.
 
-The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The next bounded step is to define and later implement the Git-backed recovery, resume, and repo-enforcement foundations that the repo still does not prove today.
+The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The first implemented step inside R5 is the bounded Git-backed milestone baseline slice, while later restore, resume, and repo-enforcement foundations remain gated and unproved.
 
 ## Objective
-Strengthen the next bounded foundation layer after R4 by defining and later implementing Git-backed milestone baselines, bounded rollback and restore gate foundations, stronger baton continuity and resume authority semantics, and stronger CI/CD automation plus repo-enforcement expectations without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
+Strengthen the next bounded foundation layer after R4 by implementing Git-backed milestone baselines first, then gating later bounded rollback and restore foundations, stronger baton continuity and resume authority semantics, and stronger CI/CD automation plus repo-enforcement expectations without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
 
 ## Exit criteria
-- repo truth opens R5 without widening the currently proved boundary beyond R2 through R4
-- Git-backed milestone baseline intent, authority, and durable output expectations are explicit in bounded R5 terms
+- repo truth records `R5-002` as the first implemented R5 slice without widening the currently proved boundary beyond what the branch actually contains
+- Git-backed milestone baseline foundations are explicit in bounded R5 terms through contracts, capture and storage code, and focused tests
 - bounded rollback and restore gate expectations are explicit without claiming rollback as already implemented
 - strengthened baton continuity and resume authority expectations are explicit without claiming automatic resume
 - bounded resume re-entry expectations are explicit and operator-controlled
@@ -22,7 +22,7 @@ Strengthen the next bounded foundation layer after R4 by defining and later impl
 - the expected R5 proof and closeout structure is defined in advance
 
 ## In scope
-- Git-backed milestone baseline capture model
+- Git-backed milestone baseline capture foundations
 - restore target and rollback gate authority model
 - stronger baton continuity semantics for pause and resume re-entry
 - bounded resume path expectations with explicit operator control
@@ -66,8 +66,8 @@ Strengthen the next bounded foundation layer after R4 by defining and later impl
 - Done when: repo truth closes the post-R4 freeze posture, the new R5 milestone brief exists, and `governance/ACTIVE_STATE.md` plus `execution/KANBAN.md` open R5 without widening claims prematurely
 
 ### `R5-002` Define Git-backed milestone baseline model
-- Status: open
-- Done when: repo truth defines what a milestone baseline is in bounded R5 terms, the planned durable outputs and authority rules are explicit, and no rollback is claimed as already implemented
+- Status: done
+- Done when: the repo captures Git-backed milestone baselines with explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and focused tests without claiming rollback execution
 
 ### `R5-003` Define bounded rollback / restore gate foundations
 - Status: open
@@ -90,8 +90,11 @@ Strengthen the next bounded foundation layer after R4 by defining and later impl
 - Done when: R5 planning defines the repo-enforcement expectations for clean worktrees, governed evidence, and bounded proof discipline, plans the expected R5 proof and closeout surfaces in advance, and does not execute implementation yet
 
 ## Milestone notes
-- R5 is opened in this change as structure only.
-- No R5 code, contracts, tests, workflows, or proof packages are created by the `R5-001` open step.
+- `R5-001` opened R5 in repo truth as structure only.
+- `R5-002` is now complete as the Git-backed milestone baseline slice only.
+- The implemented `R5-002` surface is limited to milestone-baseline contracts, `tools/MilestoneBaseline.psm1`, and `tests/test_milestone_baseline.ps1`.
+- `R5-003` through `R5-007` remain open and planned only.
+- `R5-002` does not claim rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, or proof-suite expansion.
 - R4 remains the prior closed milestone, and its historical closeout authority remains in `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.
 - The final narrative bridge artifact for the R4 to R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
