@@ -1,0 +1,16 @@
+{
+  "record_type": "repo_enforcement_result",
+  "decision_rules": {
+    "allow_requires_no_block_reasons": true,
+    "blocked_requires_block_reasons": true
+  },
+  "checks_rules": {
+    "all_true_required_for_allow": true,
+    "blocked_requires_failed_check": true
+  },
+  "non_claims_preserved": [
+    "Allow decisions validate proof discipline only.",
+    "No rollback execution, automatic resume, or broader orchestration is executed by repo enforcement.",
+    "No full R5 closeout is claimed by this result contract alone."
+  ]
+}

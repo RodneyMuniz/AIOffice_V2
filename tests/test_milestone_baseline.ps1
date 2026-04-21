@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\MilestoneBaseline.psm1"
-Import-Module $modulePath -Force
+$milestoneBaselineModule = Import-Module $modulePath -Force -PassThru
 
 $validMilestone = Join-Path $repoRoot "state\fixtures\valid\governed_work_object.milestone.valid.json"
 $validProject = Join-Path $repoRoot "state\fixtures\valid\governed_work_object.project.valid.json"
@@ -97,6 +97,27 @@ function Get-RelativePathFromModuleRepoRoot {
     $baseUri = [System.Uri]("{0}{1}" -f $resolvedRepoRoot.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
     $targetUri = [System.Uri]$normalizedTargetPath
     return ($baseUri.MakeRelativeUri($targetUri).OriginalString).Replace("\", "/")
+}
+
+function Get-MilestoneBaselineModuleState {
+    return [pscustomobject]@{
+        PlanningRecordStorageModulePath         = $milestoneBaselineModule.SessionState.PSVariable.GetValue("planningRecordStorageModulePath")
+        GovernedWorkObjectValidationModulePath  = $milestoneBaselineModule.SessionState.PSVariable.GetValue("governedWorkObjectValidationModulePath")
+        TestPlanningRecordContract              = $milestoneBaselineModule.SessionState.PSVariable.GetValue("testPlanningRecordContract")
+        TestGovernedWorkObjectContract          = $milestoneBaselineModule.SessionState.PSVariable.GetValue("testGovernedWorkObjectContract")
+    }
+}
+
+function Restore-MilestoneBaselineModuleState {
+    param(
+        [Parameter(Mandatory = $true)]
+        $State
+    )
+
+    $milestoneBaselineModule.SessionState.PSVariable.Set("planningRecordStorageModulePath", $State.PlanningRecordStorageModulePath)
+    $milestoneBaselineModule.SessionState.PSVariable.Set("governedWorkObjectValidationModulePath", $State.GovernedWorkObjectValidationModulePath)
+    $milestoneBaselineModule.SessionState.PSVariable.Set("testPlanningRecordContract", $State.TestPlanningRecordContract)
+    $milestoneBaselineModule.SessionState.PSVariable.Set("testGovernedWorkObjectContract", $State.TestGovernedWorkObjectContract)
 }
 
 function New-PersistedBaselineHarness {
@@ -736,6 +757,88 @@ catch {
     $failures += ("FAIL missing Git CLI prerequisite refusal harness: {0}" -f $_.Exception.Message)
 }
 
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-missing-planning-validator-module-" + [guid]::NewGuid().ToString("N"))
+    $originalModuleState = Get-MilestoneBaselineModuleState
+
+    try {
+        $harness = New-PersistedBaselineHarness -Root $tempRoot -BaselineId "baseline-r5-missing-planning-validator-module"
+        $missingModulePath = Join-Path $tempRoot "missing\PlanningRecordStorage.psm1"
+
+        $milestoneBaselineModule.SessionState.PSVariable.Set("planningRecordStorageModulePath", $missingModulePath)
+        $milestoneBaselineModule.SessionState.PSVariable.Set("testPlanningRecordContract", $null)
+
+        try {
+            Test-MilestoneBaselineRecordContract -BaselinePath $harness.SavedPath | Out-Null
+            $failures += "FAIL missing planning-record validator module refusal: baseline validated unexpectedly."
+        }
+        catch {
+            if ($_.Exception.Message -notmatch "Milestone baseline requires dependency module 'PlanningRecordStorage'") {
+                $failures += ("FAIL missing planning-record validator module refusal: unexpected message '{0}'." -f $_.Exception.Message)
+            }
+            else {
+                Write-Output ("PASS missing planning-record validator module refusal: {0}" -f $_.Exception.Message)
+                $invalidRejected += 1
+            }
+        }
+    }
+    finally {
+        Restore-MilestoneBaselineModuleState -State $originalModuleState
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL missing planning-record validator module refusal harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-missing-governed-validator-command-" + [guid]::NewGuid().ToString("N"))
+    $fakeModulePath = Join-Path $env:TEMP ("aioffice-r5-baseline-fake-governed-validator-" + [guid]::NewGuid().ToString("N") + ".psm1")
+    $originalModuleState = Get-MilestoneBaselineModuleState
+
+    try {
+        @"
+function Get-PlaceholderCommand {
+    return 'placeholder'
+}
+
+Export-ModuleMember -Function Get-PlaceholderCommand
+"@ | Set-Content -LiteralPath $fakeModulePath -Encoding UTF8
+
+        $harness = New-PersistedBaselineHarness -Root $tempRoot -BaselineId "baseline-r5-missing-governed-validator-command"
+        $milestoneBaselineModule.SessionState.PSVariable.Set("governedWorkObjectValidationModulePath", $fakeModulePath)
+        $milestoneBaselineModule.SessionState.PSVariable.Set("testGovernedWorkObjectContract", $null)
+
+        try {
+            Test-MilestoneBaselineRecordContract -BaselinePath $harness.SavedPath | Out-Null
+            $failures += "FAIL missing governed-work-object validator command refusal: baseline validated unexpectedly."
+        }
+        catch {
+            if ($_.Exception.Message -notmatch "Milestone baseline requires dependency command 'Test-GovernedWorkObjectContract'") {
+                $failures += ("FAIL missing governed-work-object validator command refusal: unexpected message '{0}'." -f $_.Exception.Message)
+            }
+            else {
+                Write-Output ("PASS missing governed-work-object validator command refusal: {0}" -f $_.Exception.Message)
+                $invalidRejected += 1
+            }
+        }
+    }
+    finally {
+        Restore-MilestoneBaselineModuleState -State $originalModuleState
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+        if (Test-Path -LiteralPath $fakeModulePath) {
+            Remove-Item -LiteralPath $fakeModulePath -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL missing governed-work-object validator command refusal harness: {0}" -f $_.Exception.Message)
+}
+
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored repository_root" -Tamper {
     param($PersistedBaseline, $Harness)
 
@@ -772,6 +875,14 @@ Invoke-TamperedBaselineRefusalTest -Label "invalid stored head_commit" -Tamper {
     param($PersistedBaseline, $Harness)
 
     $PersistedBaseline.git.head_commit = "12345"
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "stored head_commit/tree_id mismatch" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    Set-Content -LiteralPath (Join-Path $Harness.Root "alternate-tree.txt") -Value "alternate tree" -Encoding UTF8
+    Invoke-GitCommitAll -Root $Harness.Root -Message "add alternate tree for mismatch refusal"
+    $PersistedBaseline.git.tree_id = (& git -C $Harness.Root rev-parse "HEAD^{tree}").Trim()
 }
 
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored tree_id" -Tamper {

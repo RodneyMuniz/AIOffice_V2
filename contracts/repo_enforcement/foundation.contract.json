@@ -1,0 +1,60 @@
+{
+  "contract_version": "v1",
+  "result_record_type": "repo_enforcement_result",
+  "identifier_pattern": "^repo-enforcement-[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "git_hash_pattern": "^[0-9a-f]{40}$",
+  "allowed_decisions": [
+    "allow",
+    "blocked"
+  ],
+  "allowed_reason_codes": [
+    "workspace_dirty",
+    "governed_output_root_required",
+    "proof_summary_missing",
+    "proof_summary_invalid",
+    "replay_summary_missing",
+    "replayed_command_missing",
+    "required_selection_missing",
+    "selection_scope_mismatch",
+    "proof_failed",
+    "workspace_mutation_detected",
+    "test_log_missing",
+    "replay_source_head_mismatch"
+  ],
+  "result_required_fields": [
+    "contract_version",
+    "record_type",
+    "enforcement_result_id",
+    "evaluated_at",
+    "repository_root",
+    "repo_branch",
+    "repo_head",
+    "output_root",
+    "proof_summary_path",
+    "replay_summary_path",
+    "replayed_command_path",
+    "required_selection_ids",
+    "actual_selection_ids",
+    "checks",
+    "decision",
+    "block_reasons",
+    "notes"
+  ],
+  "checks_required_fields": [
+    "clean_worktree_before_replay",
+    "governed_output_root",
+    "proof_summary",
+    "replay_summary",
+    "replay_command",
+    "selection_scope",
+    "proof_passed",
+    "workspace_mutation",
+    "test_logs",
+    "replay_source_head"
+  ],
+  "block_reason_required_fields": [
+    "code",
+    "summary"
+  ]
+}
