@@ -18,7 +18,11 @@ $expectedIds = @(
     "r3-execution-bundle-qa-gate",
     "r3-baton-persistence",
     "r3-planning-replay",
-    "r4-ci-foundation"
+    "r4-ci-foundation",
+    "r5-milestone-baseline",
+    "r5-restore-gate",
+    "r5-baton-continuity",
+    "r5-resume-reentry"
 )
 
 try {
@@ -72,13 +76,14 @@ catch {
 $tempRoot = Join-Path $env:TEMP ("aioffice-proof-suite-test-" + [guid]::NewGuid().ToString("N"))
 try {
     $result = Invoke-BoundedProofSuite -OutputRoot $tempRoot -TestIds @(
-        "r2-stage-artifact-contracts",
-        "r2-packet-record-storage",
-        "r4-ci-foundation"
+        "r5-milestone-baseline",
+        "r5-restore-gate",
+        "r5-baton-continuity",
+        "r5-resume-reentry"
     )
 
-    if ($result.PassedCount -ne 3) {
-        $failures += ("FAIL proof suite subset pass count was {0}, expected 3." -f $result.PassedCount)
+    if ($result.PassedCount -ne 4) {
+        $failures += ("FAIL proof suite subset pass count was {0}, expected 4." -f $result.PassedCount)
     }
     if ($result.FailedCount -ne 0) {
         $failures += ("FAIL proof suite subset fail count was {0}, expected 0." -f $result.FailedCount)
@@ -107,6 +112,14 @@ try {
         if (-not (Test-Path -LiteralPath $logPath)) {
             $failures += ("FAIL proof suite subset log missing: {0}" -f $suiteResult.log_path)
         }
+    }
+
+    if (@($summary.selection_ids).Count -ne 4) {
+        $failures += ("FAIL proof suite subset summary recorded {0} selection ids, expected 4." -f @($summary.selection_ids).Count)
+    }
+
+    if (@($summary.proof_scope | Where-Object { $_ -like "R5 *" }).Count -ne 1) {
+        $failures += "FAIL proof suite summary did not record the bounded R5 proof scope."
     }
 
     Write-Output ("PASS proof suite subset execution: {0}" -f $result.SummaryPath)

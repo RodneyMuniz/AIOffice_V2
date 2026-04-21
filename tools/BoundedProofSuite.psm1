@@ -216,6 +216,34 @@ function Get-BoundedProofSuiteDefinition {
             Purpose      = "Validate that the source-controlled CI workflow is wired to the bounded proof runner."
             Command      = "powershell -ExecutionPolicy Bypass -File tests\test_bounded_proof_ci_foundation.ps1"
         }
+        [pscustomobject]@{
+            Id           = "r5-milestone-baseline"
+            Name         = "R5 milestone baseline"
+            RelativePath = "tests/test_milestone_baseline.ps1"
+            Purpose      = "Validate bounded Git-backed milestone baseline foundations without implying restore execution."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_milestone_baseline.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-restore-gate"
+            Name         = "R5 restore gate"
+            RelativePath = "tests/test_restore_gate.ps1"
+            Purpose      = "Validate bounded restore-target and rollback-gate foundation checks without executing rollback."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_restore_gate.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-baton-continuity"
+            Name         = "R5 baton continuity"
+            RelativePath = "tests/test_baton_persistence.ps1"
+            Purpose      = "Validate bounded Baton continuity and resume authority foundations without proving resume execution."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_baton_persistence.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-resume-reentry"
+            Name         = "R5 resume re-entry"
+            RelativePath = "tests/test_resume_reentry.ps1"
+            Purpose      = "Validate bounded operator-controlled resume re-entry preparation without automatic resume."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_resume_reentry.ps1"
+        }
     )
 
     return $definitions
@@ -360,7 +388,16 @@ function Invoke-BoundedProofSuite {
 
         $logPath = Join-Path $testLogRoot ("{0}.txt" -f $definition.Id)
         $startedAt = Get-Date
-        $commandOutput = @(& $powershellExecutable -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $absolutePath 2>&1 | ForEach-Object { $_.ToString() })
+        $previousErrorActionPreference = $ErrorActionPreference
+        try {
+            # Capture nested test stderr into the proof log without letting caller-level Stop semantics
+            # short-circuit replay before the child process exit code is evaluated.
+            $ErrorActionPreference = "Continue"
+            $commandOutput = @(& $powershellExecutable -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $absolutePath 2>&1 | ForEach-Object { $_.ToString() })
+        }
+        finally {
+            $ErrorActionPreference = $previousErrorActionPreference
+        }
         $exitCode = $LASTEXITCODE
         $endedAt = Get-Date
         $durationSeconds = [math]::Round(($endedAt - $startedAt).TotalSeconds, 3)
@@ -419,7 +456,8 @@ function Invoke-BoundedProofSuite {
         proof_scope               = @(
             "R2 supervised workflow through architect plus bounded apply or promotion control",
             "R3 governed work object, planning record, work artifact, QA, Baton, and replay foundations",
-            "R4 lifecycle, scope, retry-ceiling, and CI foundation hardening"
+            "R4 lifecycle, scope, retry-ceiling, and CI foundation hardening",
+            "R5 Git-backed milestone baseline, restore gate, Baton continuity, and bounded resume re-entry foundations"
         )
         non_claims_preserved      = @(
             "No UI or control-room productization is proved here.",
