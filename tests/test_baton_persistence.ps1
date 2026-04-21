@@ -53,6 +53,7 @@ function Resolve-ArtifactReferencePath {
 $validExecutionBundle = Join-Path $repoRoot "state\fixtures\valid\qa_gate.execution_bundle.fail.json"
 $passExecutionBundle = Join-Path $repoRoot "state\fixtures\valid\qa_gate.execution_bundle.pass.json"
 $invalidBatonFixture = Join-Path $repoRoot "state\fixtures\invalid\work_artifact.baton.invalid-missing-next-artifacts.json"
+$invalidManualReviewResumeFixture = Join-Path $repoRoot "state\fixtures\invalid\work_artifact.baton.invalid-manual-review-resume-allowed.json"
 
 $failures = @()
 $validPassed = 0
@@ -101,6 +102,27 @@ try {
         if (@($loadedBaton.Baton.handoff_notes | Where-Object { $_ -eq "Do not auto-resume; this baton is persistence-only foundation state." }).Count -eq 0) {
             $failures += "FAIL valid baton persistence: handoff notes did not preserve the persistence-only foundation warning."
         }
+        if ($loadedBaton.Baton.resume_authority.authority_kind -ne "operator_controlled") {
+            $failures += "FAIL valid baton persistence: resume_authority.authority_kind did not persist as operator_controlled."
+        }
+        if ($loadedBaton.Baton.resume_authority.required_role -ne "operator") {
+            $failures += "FAIL valid baton persistence: resume_authority.required_role did not persist as operator."
+        }
+        if ($loadedBaton.Baton.resume_authority.checkpoint -ne "qa_follow_up_ready") {
+            $failures += ("FAIL valid baton persistence: expected resume checkpoint 'qa_follow_up_ready' but found '{0}'." -f $loadedBaton.Baton.resume_authority.checkpoint)
+        }
+        if (-not [bool]$loadedBaton.Baton.resume_authority.resume_allowed) {
+            $failures += "FAIL valid baton persistence: follow-up baton did not keep resume_authority.resume_allowed true."
+        }
+        if ([bool]$loadedBaton.Baton.resume_authority.restore_gate_required) {
+            $failures += "FAIL valid baton persistence: follow-up baton unexpectedly required a restore gate."
+        }
+        if ($loadedBaton.Baton.resume_context.reentry_kind -ne "retry_entry") {
+            $failures += ("FAIL valid baton persistence: expected resume reentry kind 'retry_entry' but found '{0}'." -f $loadedBaton.Baton.resume_context.reentry_kind)
+        }
+        if ($null -ne $loadedBaton.Baton.resume_context.baseline_ref) {
+            $failures += "FAIL valid baton persistence: emitted baton unexpectedly carried a baseline_ref."
+        }
 
         $resolvedNextArtifacts = @($loadedBaton.Baton.next_required_artifacts | ForEach-Object {
                 Resolve-ArtifactReferencePath -ArtifactPath $savedBatonPath -Reference $_
@@ -129,6 +151,16 @@ try {
         }
         if ($resolvedEvidencePaths -notcontains $gateResult.RemediationRecordPath) {
             $failures += "FAIL valid baton persistence: evidence did not preserve the remediation record path."
+        }
+
+        $resolvedPriorExecutionBundlePath = Resolve-ArtifactReferencePath -ArtifactPath $savedBatonPath -Reference $loadedBaton.Baton.resume_context.prior_execution_bundle_ref
+        if ($resolvedPriorExecutionBundlePath -ne $validExecutionBundle) {
+            $failures += "FAIL valid baton persistence: resume_context.prior_execution_bundle_ref did not preserve the source execution bundle path."
+        }
+
+        $resolvedPriorQaReportPath = Resolve-ArtifactReferencePath -ArtifactPath $savedBatonPath -Reference $loadedBaton.Baton.resume_context.prior_qa_report_ref
+        if ($resolvedPriorQaReportPath -ne $gateResult.QaReportPath) {
+            $failures += "FAIL valid baton persistence: resume_context.prior_qa_report_ref did not preserve the source QA report path."
         }
 
         $validPassed += 1
@@ -180,6 +212,15 @@ try {
         if (@($retryBatonEmission.Baton.handoff_notes | Where-Object { $_ -eq "Retry ceiling reached; manual review is required before any further bounded work." }).Count -eq 0) {
             $failures += "FAIL retry-exhausted baton emission: retry ceiling manual-review note was not preserved."
         }
+        if ([bool]$retryBatonEmission.Baton.resume_authority.resume_allowed) {
+            $failures += "FAIL retry-exhausted baton emission: manual-review baton unexpectedly kept resume_authority.resume_allowed true."
+        }
+        if ($retryBatonEmission.Baton.resume_authority.checkpoint -ne "manual_review_required") {
+            $failures += ("FAIL retry-exhausted baton emission: expected resume checkpoint 'manual_review_required' but found '{0}'." -f $retryBatonEmission.Baton.resume_authority.checkpoint)
+        }
+        if ($retryBatonEmission.Baton.resume_context.reentry_kind -ne "retry_entry") {
+            $failures += ("FAIL retry-exhausted baton emission: expected resume reentry kind 'retry_entry' but found '{0}'." -f $retryBatonEmission.Baton.resume_context.reentry_kind)
+        }
 
         $retryRemediation.next_handoff = "baton_follow_up"
         Write-JsonDocument -Path $retryGateResult.RemediationRecordPath -Document $retryRemediation
@@ -211,6 +252,15 @@ try {
 }
 catch {
     Write-Output ("PASS invalid baton: {0} -> {1}" -f (Split-Path -Leaf $invalidBatonFixture), $_.Exception.Message)
+    $invalidRejected += 1
+}
+
+try {
+    & $testBatonRecordContract -BatonPath $invalidManualReviewResumeFixture | Out-Null
+    $failures += ("FAIL invalid baton: {0} was accepted unexpectedly." -f (Split-Path -Leaf $invalidManualReviewResumeFixture))
+}
+catch {
+    Write-Output ("PASS invalid baton: {0} -> {1}" -f (Split-Path -Leaf $invalidManualReviewResumeFixture), $_.Exception.Message)
     $invalidRejected += 1
 }
 

@@ -54,6 +54,21 @@
               },
     "baton_summary":  "Carry forward the next bounded contract-only steps after the execution bundle is prepared.",
     "resume_objective":  "Resume from the prepared contract surface without widening into flow or runtime behavior.",
+    "resume_authority":  {
+                             "authority_kind":  "operator_controlled",
+                             "required_role":  "operator",
+                             "checkpoint":  "qa_follow_up_ready",
+                             "resume_allowed":  true,
+                             "restore_gate_required":  false,
+                             "notes":  "Only an operator-controlled retry-entry re-entry path is allowed from this baton state."
+                         },
+    "resume_context":  {
+                           "prior_execution_bundle_ref":  "work_artifact.execution_bundle.valid.json",
+                           "prior_qa_report_ref":  "work_artifact.qa_report.valid.json",
+                           "baseline_ref":  null,
+                           "reentry_kind":  "retry_entry",
+                           "notes":  "This baton records the bounded retry-entry lineage needed for a later operator-controlled resume."
+                       },
     "qa_attempt_count":  1,
     "qa_retry_ceiling":  4,
     "handoff_state":  "follow_up",
