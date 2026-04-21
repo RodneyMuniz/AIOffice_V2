@@ -1,0 +1,78 @@
+{
+  "contract_version": "v1",
+  "record_type": "milestone_baseline",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
+  "allowed_actor_roles": [
+    "operator",
+    "control_kernel"
+  ],
+  "allowed_milestone_statuses": [
+    "active",
+    "completed"
+  ],
+  "allowed_baseline_kinds": [
+    "milestone_checkpoint"
+  ],
+  "allowed_planning_record_views": [
+    "accepted"
+  ],
+  "allowed_evidence_kinds": [
+    "planning_record",
+    "decision_record",
+    "proof_record",
+    "artifact"
+  ],
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "baseline_id",
+    "baseline_kind",
+    "milestone",
+    "captured_at",
+    "captured_by",
+    "authority",
+    "git",
+    "planning_record_refs",
+    "evidence",
+    "notes"
+  ],
+  "captured_by_required_fields": [
+    "role",
+    "id"
+  ],
+  "milestone_required_fields": [
+    "object_id",
+    "ref",
+    "status"
+  ],
+  "authority_required_fields": [
+    "operator_id",
+    "approved_at",
+    "reason"
+  ],
+  "git_required_fields": [
+    "repository_root",
+    "branch",
+    "head_commit",
+    "tree_id",
+    "status_lines",
+    "working_tree_clean",
+    "captured_from_clean_worktree"
+  ],
+  "planning_record_ref_required_fields": [
+    "planning_record_id",
+    "object_type",
+    "object_id",
+    "view",
+    "ref",
+    "accepted_record_ref",
+    "notes"
+  ],
+  "evidence_required_fields": [
+    "kind",
+    "ref",
+    "summary"
+  ]
+}

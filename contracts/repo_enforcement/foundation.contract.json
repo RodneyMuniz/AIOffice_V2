@@ -1,0 +1,47 @@
+{
+  "contract_version": "v1",
+  "record_type": "repo_enforcement_result",
+  "identifier_pattern": "^repo-enforcement-[a-z0-9][a-z0-9-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "actor_pattern": "^(operator|control-kernel):[a-z0-9][a-z0-9._-]*$",
+  "allowed_decisions": [
+    "allow",
+    "blocked"
+  ],
+  "allowed_reason_codes": [
+    "worktree_dirty",
+    "proof_summary_missing",
+    "proof_failures_present",
+    "proof_test_missing",
+    "closeout_plan_missing",
+    "replay_summary_missing"
+  ],
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "enforcement_result_id",
+    "milestone_id",
+    "requested_by",
+    "reviewed_at",
+    "repository_root",
+    "proof_summary_ref",
+    "replay_summary_ref",
+    "closeout_plan_ref",
+    "expected_test_ids",
+    "worktree_clean_required",
+    "decision",
+    "current_git_state",
+    "block_reasons",
+    "notes"
+  ],
+  "current_git_state_required_fields": [
+    "branch",
+    "head_commit",
+    "working_tree_clean",
+    "status_lines"
+  ],
+  "block_reason_required_fields": [
+    "code",
+    "summary"
+  ]
+}

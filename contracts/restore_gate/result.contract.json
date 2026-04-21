@@ -1,0 +1,7 @@
+{
+  "record_type": "restore_gate_result",
+  "decision_rules": {
+    "allow_requires_no_block_reasons": true,
+    "blocked_requires_block_reasons": true
+  }
+}

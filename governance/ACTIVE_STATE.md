@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-21
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now open in repo truth as structure only.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and bounded R5 implementation is now in place for Git-backed baseline, restore-gate, stronger baton, bounded resume re-entry, proof-review, and repo-enforcement foundations.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -11,7 +11,6 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The closed-out first proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control.
 - The first bounded V1 proof is now formally claimable only for that narrow boundary, as closed out in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` from the rerun evidence in `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md` and `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`.
 - Git and persisted state are the intended truth substrates.
-- No R5 implementation is complete yet beyond the repo-truth opening step `R5-001`.
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
@@ -42,18 +41,22 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The final narrative report artifact for the R4 closure and R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`. It is a report artifact, not milestone proof by itself.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - `R5-001` is complete as the repo-truth open step for `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
-- `R5-002` through `R5-007` are planned only and are not yet implemented.
-- R5 remains admin-only and foundation-focused. Opening R5 does not prove Git-backed rollback, resume, broader recovery, stronger CI/CD automation beyond the current R4 foundation, or broader orchestration.
-- The backlog is fresh, reset-only, and now limited to the planned bounded R5 structure.
+- `R5-002` is complete and adds Git-backed milestone baseline contracts, storage, authority checks, and clean-worktree capture rules without claiming rollback execution.
+- `R5-003` is complete and adds bounded restore-gate contracts plus fail-closed allow and block decisions without executing restore actions.
+- `R5-004` is complete and strengthens baton continuity with explicit operator-controlled resume authority, retry-entry lineage, and manual-review stop semantics.
+- `R5-005` is complete and adds a bounded resume re-entry path that prepares one retry-entry execution bundle only when baton state, lineage, retry capacity, and repo state are valid.
+- `R5-006` is complete and expands the source-controlled bounded proof runner plus the R5 proof-review entrypoint to cover the new bounded R5 foundations.
+- `R5-007` is complete and adds repo-enforcement checks plus the bounded R5 proof-and-closeout planning surface needed for later honest milestone closure.
+- R5 remains admin-only and foundation-focused. Completed R5 tasks do not prove restore execution, unattended automatic resume, broader recovery productization, UI productization, Standard or subproject runtime, or broader orchestration.
+- The active backlog remains reset-only, bounded, and aligned to later closeout or future milestone work not yet opened in repo truth.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
 - any broader workflow orchestration beyond the direct bounded R3 replay slice
-- automatic resume execution or broader recovery or rollback behavior
-- Git-backed milestone baseline capture and restore-target handling as implemented behavior
-- bounded rollback gate or restore flow as implemented behavior
-- bounded resume re-entry from persisted baton state as implemented behavior
-- stronger CI/CD automation and repo enforcement beyond the current R4 proof foundation
+- restore execution or broader recovery or rollback productization
+- unattended automatic resume execution
+- any broader CI/CD or repo-enforcement maturity beyond bounded proof-discipline foundations
+- milestone closure for R5 from a dedicated clean-worktree closeout replay
 - broad UI or control-room productization
 - Standard or subproject pipeline productization
 - unattended operation or broader product completeness
@@ -61,10 +64,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is the active milestone in repo truth.
 
-This active-state surface now holds the completed bounded R4 baseline plus the bounded R5 milestone structure. R5 is opened here as structure only. It does not imply that any R5 implementation beyond `R5-001` is already complete.
+This active-state surface now holds the completed bounded R4 baseline plus the implemented bounded R5 foundation tasks. R5 remains active because closeout is not yet claimed; the next step is a later clean-worktree closeout replay and truth-reconciliation pass rather than more scope widening.
 
 ## Next Gated Step
-- `R5-002` Define Git-backed milestone baseline model.
+- R5 clean-worktree closeout replay and milestone closure review only if evidence and repo truth remain aligned.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -75,6 +78,5 @@ This active-state surface now holds the completed bounded R4 baseline plus the b
 - Do not treat baton or resume foundations as full recovery productization.
 - Do not treat external audit packaging as proof of a broader pipeline.
 - Do not treat CI as proof of broader productization; it is only a bounded proof-discipline foundation in R4.
-- Do not treat opening R5 as R5 implementation.
 - Do not widen R5 into UI, Standard runtime, rollback productization, automatic resume, or broader orchestration without real implementation and proof.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.

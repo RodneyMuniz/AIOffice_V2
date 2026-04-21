@@ -1,0 +1,20 @@
+{
+  "record_type": "milestone_baseline",
+  "authority_rules": {
+    "explicit_operator_required": true,
+    "active_or_completed_milestone_required": true
+  },
+  "git_rules": {
+    "clean_worktree_required": true,
+    "branch_required": true,
+    "head_commit_required": true,
+    "tree_id_required": true
+  },
+  "planning_rules": {
+    "accepted_planning_records_required": true,
+    "planning_records_must_belong_to_same_milestone": true
+  },
+  "evidence_rules": {
+    "planning_record_evidence_required": true
+  }
+}

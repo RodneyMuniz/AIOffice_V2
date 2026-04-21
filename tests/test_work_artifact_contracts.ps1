@@ -22,7 +22,8 @@ $invalidCases = @(
     "state\fixtures\invalid\work_artifact.execution_bundle.invalid-lineage.json",
     "state\fixtures\invalid\work_artifact.qa_report.invalid-passed-remediation.json",
     "state\fixtures\invalid\work_artifact.external_audit_pack.invalid-missing-qa-evidence.json",
-    "state\fixtures\invalid\work_artifact.baton.invalid-missing-next-artifacts.json"
+    "state\fixtures\invalid\work_artifact.baton.invalid-missing-next-artifacts.json",
+    "state\fixtures\invalid\work_artifact.baton.invalid-manual-review-resume-allowed.json"
 )
 
 $validPassed = 0

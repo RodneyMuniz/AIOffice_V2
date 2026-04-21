@@ -8,6 +8,8 @@
   "required_fields": [
     "baton_summary",
     "resume_objective",
+    "resume_authority",
+    "resume_context",
     "handoff_notes",
     "blocked_by",
     "next_required_artifacts",
@@ -21,6 +23,8 @@
   "field_types": {
     "baton_summary": "string",
     "resume_objective": "string",
+    "resume_authority": "object",
+    "resume_context": "object",
     "handoff_notes": "string_array",
     "blocked_by": "string_array",
     "next_required_artifacts": "string_array",
@@ -49,6 +53,34 @@
   "allowed_handoff_states": [
     "follow_up",
     "manual_review"
+  ],
+  "resume_authority_required_fields": [
+    "authority_kind",
+    "required_role",
+    "checkpoint",
+    "resume_allowed",
+    "restore_gate_required",
+    "notes"
+  ],
+  "resume_context_required_fields": [
+    "prior_execution_bundle_ref",
+    "prior_qa_report_ref",
+    "baseline_ref",
+    "reentry_kind",
+    "notes"
+  ],
+  "allowed_resume_authority_kinds": [
+    "operator_controlled"
+  ],
+  "allowed_resume_roles": [
+    "operator"
+  ],
+  "allowed_resume_checkpoints": [
+    "qa_follow_up_ready",
+    "manual_review_required"
+  ],
+  "allowed_resume_reentry_kinds": [
+    "retry_entry"
   ],
   "required_qa_retry_ceiling": 4,
   "allowed_orchestration_scopes": [
@@ -106,6 +138,7 @@
     "Ready-for-handoff batons must list the next required artifacts.",
     "Closed batons must not retain unresolved next-required artifacts.",
     "Manual-review batons must reflect retry-ceiling stop behavior rather than an open retry loop.",
+    "Batons must capture operator-controlled resume authority and bounded re-entry context before any resume claim is made.",
     "Batons must stay bounded to persistence and load foundations only and must not claim automatic resume or broader recovery behavior.",
     "Batons must remain inside the admin-only bounded follow-up scope and must not imply Standard runtime."
   ]

@@ -1,0 +1,11 @@
+{
+  "record_type": "restore_gate_request",
+  "approval_rules": {
+    "explicit_approval_required": true,
+    "required_status": "approved"
+  },
+  "target_rules": {
+    "baseline_ref_required": true,
+    "target_fields_must_match_baseline": true
+  }
+}

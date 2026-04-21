@@ -1,0 +1,88 @@
+{
+  "contract_version": "v1",
+  "request_record_type": "restore_gate_request",
+  "result_record_type": "restore_gate_result",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
+  "allowed_approval_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_decisions": [
+    "allow",
+    "blocked"
+  ],
+  "allowed_reason_codes": [
+    "approval_missing",
+    "approval_rejected",
+    "baseline_invalid",
+    "baseline_repository_mismatch",
+    "target_mismatch",
+    "branch_mismatch",
+    "worktree_dirty",
+    "target_commit_missing",
+    "restore_not_required"
+  ],
+  "request_required_fields": [
+    "contract_version",
+    "record_type",
+    "restore_request_id",
+    "baseline_ref",
+    "target_branch",
+    "target_commit",
+    "target_tree_id",
+    "requested_at",
+    "requested_by",
+    "approval",
+    "notes"
+  ],
+  "approval_required_fields": [
+    "status",
+    "by",
+    "at",
+    "notes"
+  ],
+  "result_required_fields": [
+    "contract_version",
+    "record_type",
+    "restore_result_id",
+    "restore_request_id",
+    "baseline_ref",
+    "baseline_id",
+    "target",
+    "requested_by",
+    "decided_at",
+    "decision",
+    "preconditions",
+    "current_git_state",
+    "block_reasons",
+    "notes"
+  ],
+  "target_required_fields": [
+    "branch",
+    "commit",
+    "tree_id"
+  ],
+  "precondition_required_fields": [
+    "approval",
+    "baseline",
+    "repository_match",
+    "branch",
+    "clean_worktree",
+    "target_commit",
+    "restore_required"
+  ],
+  "current_git_state_required_fields": [
+    "repository_root",
+    "branch",
+    "head_commit",
+    "working_tree_clean",
+    "status_lines"
+  ],
+  "block_reason_required_fields": [
+    "code",
+    "summary"
+  ]
+}

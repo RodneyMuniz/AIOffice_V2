@@ -1,0 +1,12 @@
+{
+  "record_type": "repo_enforcement_result",
+  "decision_rules": {
+    "allow_requires_no_block_reasons": true,
+    "blocked_requires_block_reasons": true
+  },
+  "non_claims_preserved": [
+    "Allow decisions confirm bounded proof discipline only.",
+    "Repo enforcement results do not close the milestone by themselves.",
+    "Repo enforcement results do not prove UI, Standard runtime, automatic resume, rollback execution, or broader orchestration."
+  ]
+}

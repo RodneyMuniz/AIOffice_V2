@@ -1,0 +1,14 @@
+{
+  "record_type": "resume_reentry_result",
+  "decision_rules": {
+    "allow_requires_generated_execution_bundle_ref": true,
+    "allow_requires_no_block_reasons": true,
+    "blocked_requires_block_reasons": true,
+    "blocked_forbids_generated_execution_bundle_ref": true
+  },
+  "non_claims_preserved": [
+    "Allow decisions prepare a retry-entry execution bundle only.",
+    "No automatic resume execution is proved by this result contract.",
+    "No restore action or broader orchestration is executed by this result contract."
+  ]
+}

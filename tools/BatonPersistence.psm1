@@ -245,6 +245,22 @@ function Get-NormalizedReferenceForSave {
     return $Reference.Replace("\", "/")
 }
 
+function Get-NormalizedNullableReferenceForSave {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BatonDirectory,
+        [AllowNull()]
+        [AllowEmptyString()]
+        [string]$Reference
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Reference)) {
+        return $null
+    }
+
+    return (Get-NormalizedReferenceForSave -BatonDirectory $BatonDirectory -Reference $Reference)
+}
+
 function Test-BatonRecordContract {
     [CmdletBinding()]
     param(
@@ -276,10 +292,27 @@ function Get-ValidatedQaReportInput {
         throw "Baton emission is bounded to QA outcomes that still require follow-up. QA Report '$($document.artifact_id)' must be in status 'failed', 'blocked', or 'retry_exhausted'."
     }
 
+    $sourceKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $document.lineage -Name "source_kind" -Context "QA Report.lineage") -Context "QA Report.lineage.source_kind"
+    if ($sourceKind -ne "execution_bundle") {
+        throw "Baton emission requires a QA Report that derives directly from an execution_bundle lineage source."
+    }
+
+    $sourceRefs = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $document.lineage -Name "source_refs" -Context "QA Report.lineage") -Context "QA Report.lineage.source_refs")
+    if ($sourceRefs.Count -eq 0) {
+        throw "QA Report '$($document.artifact_id)' must include at least one execution_bundle lineage source ref for baton emission."
+    }
+
+    $priorExecutionBundlePath = Resolve-ReferenceAgainstBase -BaseDirectory (Split-Path -Parent $validation.ArtifactPath) -Reference $sourceRefs[0] -Label "QA Report lineage"
+    $priorExecutionBundleValidation = & $testWorkArtifactContract -ArtifactPath $priorExecutionBundlePath
+    if ($priorExecutionBundleValidation.ArtifactType -ne "execution_bundle") {
+        throw "QA Report lineage for baton emission must resolve to an execution_bundle artifact."
+    }
+
     return [pscustomobject]@{
-        Validation = $validation
-        Document   = $document
-        Directory  = (Split-Path -Parent $validation.ArtifactPath)
+        Validation               = $validation
+        Document                 = $document
+        Directory                = (Split-Path -Parent $validation.ArtifactPath)
+        PriorExecutionBundlePath = $priorExecutionBundleValidation.ArtifactPath
     }
 }
 
@@ -457,6 +490,14 @@ function New-BatonFromQaOutcome {
         $externalAuditPackInput.Validation.ArtifactPath,
         $remediationRecordInput.Path
     )
+    $resumeAllowed = ($remediationRecordInput.NextHandoff -ne "manual_review")
+    $resumeCheckpoint = if ($resumeAllowed) { "qa_follow_up_ready" } else { "manual_review_required" }
+    $resumeAuthorityNotes = if ($resumeAllowed) {
+        "Operator-controlled retry-entry may be requested from this baton once the bounded follow-up state is reviewed."
+    }
+    else {
+        "Manual review must explicitly reopen authority before any later bounded retry-entry can be prepared."
+    }
 
     $baton = [pscustomobject]@{
         contract_version      = "v1"
@@ -535,6 +576,21 @@ function New-BatonFromQaOutcome {
         }
         baton_summary         = "Persist the bounded QA follow-up state for manual resume preparation."
         resume_objective      = "Reload the baton to recover the minimal follow-up context without automatically resuming execution."
+        resume_authority      = [pscustomobject]@{
+            authority_kind       = "operator_controlled"
+            required_role        = "operator"
+            checkpoint           = $resumeCheckpoint
+            resume_allowed       = $resumeAllowed
+            restore_gate_required = $false
+            notes                = $resumeAuthorityNotes
+        }
+        resume_context        = [pscustomobject]@{
+            prior_execution_bundle_ref = $qaReportInput.PriorExecutionBundlePath
+            prior_qa_report_ref        = $qaReportInput.Validation.ArtifactPath
+            baseline_ref               = $null
+            reentry_kind               = "retry_entry"
+            notes                      = "Resume context captures bounded lineage only. No automatic resume or restore action is opened by this baton."
+        }
         qa_attempt_count      = $remediationRecordInput.AttemptCount
         qa_retry_ceiling      = $remediationRecordInput.RetryCeiling
         handoff_state         = if ($remediationRecordInput.NextHandoff -eq "manual_review") { "manual_review" } else { "follow_up" }
@@ -615,6 +671,14 @@ function Save-BatonRecord {
         audit                 = $Baton.audit
         baton_summary         = $Baton.baton_summary
         resume_objective      = $Baton.resume_objective
+        resume_authority      = $Baton.resume_authority
+        resume_context        = [pscustomobject]@{
+            prior_execution_bundle_ref = (Get-NormalizedReferenceForSave -BatonDirectory $batonDirectory -Reference $Baton.resume_context.prior_execution_bundle_ref)
+            prior_qa_report_ref        = (Get-NormalizedReferenceForSave -BatonDirectory $batonDirectory -Reference $Baton.resume_context.prior_qa_report_ref)
+            baseline_ref               = (Get-NormalizedNullableReferenceForSave -BatonDirectory $batonDirectory -Reference $Baton.resume_context.baseline_ref)
+            reentry_kind               = $Baton.resume_context.reentry_kind
+            notes                      = $Baton.resume_context.notes
+        }
         qa_attempt_count      = $Baton.qa_attempt_count
         qa_retry_ceiling      = $Baton.qa_retry_ceiling
         handoff_state         = $Baton.handoff_state

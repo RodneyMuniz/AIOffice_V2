@@ -216,6 +216,41 @@ function Get-BoundedProofSuiteDefinition {
             Purpose      = "Validate that the source-controlled CI workflow is wired to the bounded proof runner."
             Command      = "powershell -ExecutionPolicy Bypass -File tests\test_bounded_proof_ci_foundation.ps1"
         }
+        [pscustomobject]@{
+            Id           = "r5-milestone-baseline"
+            Name         = "R5 milestone baseline"
+            RelativePath = "tests/test_milestone_baseline.ps1"
+            Purpose      = "Validate Git-backed milestone baseline capture, storage, and clean-worktree refusal behavior."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_milestone_baseline.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-restore-gate"
+            Name         = "R5 restore gate"
+            RelativePath = "tests/test_restore_gate.ps1"
+            Purpose      = "Validate bounded restore-gate allow and refusal behavior without executing restore actions."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_restore_gate.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-resume-reentry"
+            Name         = "R5 resume re-entry"
+            RelativePath = "tests/test_resume_reentry.ps1"
+            Purpose      = "Validate operator-controlled retry-entry resume preparation and invalid-state refusal behavior."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_resume_reentry.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-repo-enforcement"
+            Name         = "R5 repo enforcement"
+            RelativePath = "tests/test_repo_enforcement.ps1"
+            Purpose      = "Validate bounded repo-enforcement allow and blocked decisions around proof coverage and worktree discipline."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_repo_enforcement.ps1"
+        }
+        [pscustomobject]@{
+            Id           = "r5-proof-review"
+            Name         = "R5 proof review"
+            RelativePath = "tests/test_r5_recovery_resume_proof_review.ps1"
+            Purpose      = "Validate the R5 proof-review entrypoint and bounded replay package assembly."
+            Command      = "powershell -ExecutionPolicy Bypass -File tests\test_r5_recovery_resume_proof_review.ps1"
+        }
     )
 
     return $definitions
@@ -419,12 +454,13 @@ function Invoke-BoundedProofSuite {
         proof_scope               = @(
             "R2 supervised workflow through architect plus bounded apply or promotion control",
             "R3 governed work object, planning record, work artifact, QA, Baton, and replay foundations",
-            "R4 lifecycle, scope, retry-ceiling, and CI foundation hardening"
+            "R4 lifecycle, scope, retry-ceiling, and CI foundation hardening",
+            "R5 Git-backed baseline, restore gate, bounded resume re-entry, repo enforcement, and proof-review foundations"
         )
         non_claims_preserved      = @(
             "No UI or control-room productization is proved here.",
             "No Standard or subproject runtime productization is proved here.",
-            "No rollback or automatic resume behavior is proved here.",
+            "No rollback execution or automatic resume behavior is proved here.",
             "No broader orchestration beyond the bounded chain is proved here."
         )
     }

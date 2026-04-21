@@ -18,7 +18,12 @@ $expectedIds = @(
     "r3-execution-bundle-qa-gate",
     "r3-baton-persistence",
     "r3-planning-replay",
-    "r4-ci-foundation"
+    "r4-ci-foundation",
+    "r5-milestone-baseline",
+    "r5-restore-gate",
+    "r5-resume-reentry",
+    "r5-repo-enforcement",
+    "r5-proof-review"
 )
 
 try {
@@ -74,11 +79,12 @@ try {
     $result = Invoke-BoundedProofSuite -OutputRoot $tempRoot -TestIds @(
         "r2-stage-artifact-contracts",
         "r2-packet-record-storage",
-        "r4-ci-foundation"
+        "r4-ci-foundation",
+        "r5-milestone-baseline"
     )
 
-    if ($result.PassedCount -ne 3) {
-        $failures += ("FAIL proof suite subset pass count was {0}, expected 3." -f $result.PassedCount)
+    if ($result.PassedCount -ne 4) {
+        $failures += ("FAIL proof suite subset pass count was {0}, expected 4." -f $result.PassedCount)
     }
     if ($result.FailedCount -ne 0) {
         $failures += ("FAIL proof suite subset fail count was {0}, expected 0." -f $result.FailedCount)

@@ -148,3 +148,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R5 is bounded to Git-backed milestone baselines, bounded rollback and restore gate foundations, stronger baton and resume authority planning, and stronger CI/CD plus repo-enforcement planning.
 - Consequence: opening R5 does not prove rollback, automatic resume, broader recovery, broader orchestration, UI productization, or Standard or subproject runtime.
 - Consequence: the narrative report artifact for this transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`, and it remains a report artifact rather than milestone proof by itself.
+
+## D-0020 R5 Implemented Bounded Recovery, Resume, And Repo-Enforcement Foundations
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5-002` through `R5-007` are accepted as implemented bounded internal foundations for Git-backed milestone baselines, restore-gate authorization, stronger baton continuity, bounded resume re-entry, proof-review expansion, and repo-enforcement structure.
+- Consequence: the repo now contains durable contracts, storage or gate modules, focused negative tests, expanded bounded-proof-suite coverage, the focused R5 proof-review command at `tools/new_r5_recovery_resume_proof_review.ps1`, and the closeout scaffold at `governance/R5_PROOF_AND_CLOSEOUT_PLAN.md`.
+- Consequence: Git-backed baseline capture and restore-gate results are now real bounded capabilities, but restore execution itself is still not proved.
+- Consequence: baton continuity and bounded resume re-entry are now real bounded capabilities, but unattended automatic resume and broader orchestration are still not proved.
+- Consequence: repo enforcement and proof review are now real bounded disciplines for R5, but milestone closure still requires a later clean-worktree replay and truth-reconciliation pass.

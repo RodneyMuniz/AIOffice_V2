@@ -646,6 +646,9 @@ function Validate-SpecificField {
         "integer" {
             Assert-IntegerValue -Value $fieldValue -Context "$Context.$FieldName" | Out-Null
         }
+        "object" {
+            Assert-ObjectValue -Value $fieldValue -Context "$Context.$FieldName" | Out-Null
+        }
         default {
             throw "Unsupported field type '$FieldType' in contract '$Context'."
         }
@@ -865,6 +868,32 @@ function Validate-ArtifactSpecificInvariants {
             $qaAttemptCount = Assert-IntegerValue -Value $Artifact.qa_attempt_count -Context "Artifact.qa_attempt_count"
             $qaRetryCeiling = Assert-IntegerValue -Value $Artifact.qa_retry_ceiling -Context "Artifact.qa_retry_ceiling"
             $handoffState = Assert-NonEmptyString -Value $Artifact.handoff_state -Context "Artifact.handoff_state"
+            $resumeAuthority = Assert-ObjectValue -Value $Artifact.resume_authority -Context "Artifact.resume_authority"
+            $resumeContext = Assert-ObjectValue -Value $Artifact.resume_context -Context "Artifact.resume_context"
+
+            foreach ($fieldName in @($Contract.resume_authority_required_fields)) {
+                Get-RequiredProperty -Object $resumeAuthority -Name $fieldName -Context "Artifact.resume_authority" | Out-Null
+            }
+            foreach ($fieldName in @($Contract.resume_context_required_fields)) {
+                Get-RequiredProperty -Object $resumeContext -Name $fieldName -Context "Artifact.resume_context" | Out-Null
+            }
+
+            $authorityKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeAuthority -Name "authority_kind" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.authority_kind"
+            Assert-AllowedValue -Value $authorityKind -AllowedValues @($Contract.allowed_resume_authority_kinds) -Context "Artifact.resume_authority.authority_kind"
+            $requiredRole = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeAuthority -Name "required_role" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.required_role"
+            Assert-AllowedValue -Value $requiredRole -AllowedValues @($Contract.allowed_resume_roles) -Context "Artifact.resume_authority.required_role"
+            $resumeCheckpoint = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeAuthority -Name "checkpoint" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.checkpoint"
+            Assert-AllowedValue -Value $resumeCheckpoint -AllowedValues @($Contract.allowed_resume_checkpoints) -Context "Artifact.resume_authority.checkpoint"
+            $resumeAllowed = Assert-BooleanValue -Value (Get-RequiredProperty -Object $resumeAuthority -Name "resume_allowed" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.resume_allowed"
+            $restoreGateRequired = Assert-BooleanValue -Value (Get-RequiredProperty -Object $resumeAuthority -Name "restore_gate_required" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.restore_gate_required"
+            Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeAuthority -Name "notes" -Context "Artifact.resume_authority") -Context "Artifact.resume_authority.notes" | Out-Null
+
+            $priorExecutionBundleRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeContext -Name "prior_execution_bundle_ref" -Context "Artifact.resume_context") -Context "Artifact.resume_context.prior_execution_bundle_ref"
+            $priorQaReportRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeContext -Name "prior_qa_report_ref" -Context "Artifact.resume_context") -Context "Artifact.resume_context.prior_qa_report_ref"
+            $baselineRef = Assert-NullableString -Value (Get-RequiredProperty -Object $resumeContext -Name "baseline_ref" -Context "Artifact.resume_context") -Context "Artifact.resume_context.baseline_ref"
+            $reentryKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeContext -Name "reentry_kind" -Context "Artifact.resume_context") -Context "Artifact.resume_context.reentry_kind"
+            Assert-AllowedValue -Value $reentryKind -AllowedValues @($Contract.allowed_resume_reentry_kinds) -Context "Artifact.resume_context.reentry_kind"
+            Assert-NonEmptyString -Value (Get-RequiredProperty -Object $resumeContext -Name "notes" -Context "Artifact.resume_context") -Context "Artifact.resume_context.notes" | Out-Null
 
             if ($qaRetryCeiling -ne $Contract.required_qa_retry_ceiling) {
                 throw "Artifact.qa_retry_ceiling must equal $($Contract.required_qa_retry_ceiling) for the bounded baton handoff."
@@ -885,6 +914,57 @@ function Validate-ArtifactSpecificInvariants {
             }
             if ($handoffState -eq "follow_up" -and $qaAttemptCount -ge $qaRetryCeiling) {
                 throw "Follow-up batons must not remain open once the bounded retry ceiling is reached."
+            }
+
+            $resolvedPriorExecutionBundlePath = Resolve-ReferencePath -BaseDirectory $BaseDirectory -Reference $priorExecutionBundleRef
+            $priorExecutionBundle = Get-JsonDocument -Path $resolvedPriorExecutionBundlePath -Label "Baton prior Execution Bundle"
+            $priorExecutionBundleArtifactType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorExecutionBundle -Name "artifact_type" -Context "Baton prior Execution Bundle") -Context "Baton prior Execution Bundle.artifact_type"
+            if ($priorExecutionBundleArtifactType -ne "execution_bundle") {
+                throw "Artifact.resume_context.prior_execution_bundle_ref must resolve to an execution_bundle artifact."
+            }
+
+            $resolvedPriorQaReportPath = Resolve-ReferencePath -BaseDirectory $BaseDirectory -Reference $priorQaReportRef
+            $priorQaReport = Get-JsonDocument -Path $resolvedPriorQaReportPath -Label "Baton prior QA Report"
+            $priorQaReportArtifactType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $priorQaReport -Name "artifact_type" -Context "Baton prior QA Report") -Context "Baton prior QA Report.artifact_type"
+            if ($priorQaReportArtifactType -ne "qa_report") {
+                throw "Artifact.resume_context.prior_qa_report_ref must resolve to a qa_report artifact."
+            }
+
+            $priorQaSourceRefs = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $priorQaReport.lineage -Name "source_refs" -Context "Baton prior QA Report.lineage") -Context "Baton prior QA Report.lineage.source_refs")
+            $matchingPriorExecutionBundle = $false
+            foreach ($sourceRef in @($priorQaSourceRefs)) {
+                $resolvedSourceRefPath = Resolve-ReferencePath -BaseDirectory (Split-Path -Parent $resolvedPriorQaReportPath) -Reference $sourceRef
+                if ($resolvedSourceRefPath -eq $resolvedPriorExecutionBundlePath) {
+                    $matchingPriorExecutionBundle = $true
+                    break
+                }
+            }
+            if (-not $matchingPriorExecutionBundle) {
+                throw "Artifact.resume_context prior QA Report must trace back to Artifact.resume_context.prior_execution_bundle_ref."
+            }
+
+            if ($null -ne $baselineRef) {
+                Resolve-ReferencePath -BaseDirectory $BaseDirectory -Reference $baselineRef | Out-Null
+            }
+            if ($restoreGateRequired -and $null -eq $baselineRef) {
+                throw "Artifact.resume_context.baseline_ref is required when Artifact.resume_authority.restore_gate_required is true."
+            }
+
+            if ($handoffState -eq "follow_up") {
+                if (-not $resumeAllowed) {
+                    throw "Follow-up batons must keep resume_authority.resume_allowed true for bounded operator-controlled re-entry."
+                }
+                if ($resumeCheckpoint -ne "qa_follow_up_ready") {
+                    throw "Follow-up batons must use resume_authority.checkpoint 'qa_follow_up_ready'."
+                }
+            }
+            if ($handoffState -eq "manual_review") {
+                if ($resumeAllowed) {
+                    throw "Manual-review batons must not keep resume_authority.resume_allowed true."
+                }
+                if ($resumeCheckpoint -ne "manual_review_required") {
+                    throw "Manual-review batons must use resume_authority.checkpoint 'manual_review_required'."
+                }
             }
         }
     }
