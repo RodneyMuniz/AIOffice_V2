@@ -72,6 +72,64 @@ function New-BaselineFixtureSet {
     }
 }
 
+function New-PersistedBaselineHarness {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Root,
+        [Parameter(Mandatory = $true)]
+        [string]$BaselineId
+    )
+
+    New-TempGitRepository -Root $Root
+    $fixtureSet = New-BaselineFixtureSet -Root $Root
+    $baseline = New-MilestoneBaselineRecord -BaselineId $BaselineId -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "Persist a bounded Git-backed milestone baseline for focused validation hardening." -RepositoryRoot $Root -CapturedAt ([datetime]::Parse("2026-04-21T10:00:00Z").ToUniversalTime())
+    $storePath = Join-Path $Root "store"
+    $savedPath = Save-MilestoneBaselineRecord -Baseline $baseline -StorePath $storePath
+
+    return [pscustomobject]@{
+        Root      = $Root
+        FixtureSet = $fixtureSet
+        StorePath = $storePath
+        SavedPath = $savedPath
+        Baseline  = $baseline
+    }
+}
+
+function Invoke-TamperedBaselineRefusalTest {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Label,
+        [Parameter(Mandatory = $true)]
+        [scriptblock]$Tamper
+    )
+
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-tamper-" + [guid]::NewGuid().ToString("N"))
+
+    try {
+        $harness = New-PersistedBaselineHarness -Root $tempRoot -BaselineId ("baseline-r5-tamper-" + [guid]::NewGuid().ToString("N"))
+        $persistedBaseline = Get-Content -LiteralPath $harness.SavedPath -Raw | ConvertFrom-Json
+        & $Tamper $persistedBaseline $harness
+        $persistedBaseline | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $harness.SavedPath -Encoding UTF8
+
+        try {
+            Test-MilestoneBaselineRecordContract -BaselinePath $harness.SavedPath | Out-Null
+            $script:failures += ("FAIL {0}: tampered baseline validated unexpectedly." -f $Label)
+        }
+        catch {
+            Write-Output ("PASS {0} refusal: {1}" -f $Label, $_.Exception.Message)
+            $script:invalidRejected += 1
+        }
+    }
+    catch {
+        $script:failures += ("FAIL {0} harness: {1}" -f $Label, $_.Exception.Message)
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+
 $failures = @()
 $validPassed = 0
 $invalidRejected = 0
@@ -263,6 +321,30 @@ try {
 }
 catch {
     $failures += ("FAIL cross-repo accepted planning ref harness: {0}" -f $_.Exception.Message)
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "invalid stored repository_root" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $PersistedBaseline.git.repository_root = (Join-Path $Harness.Root "missing-repository-root")
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "invalid stored branch" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $PersistedBaseline.git.branch = "invalid branch name"
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "invalid stored head_commit" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $PersistedBaseline.git.head_commit = "12345"
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "invalid stored tree_id" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $PersistedBaseline.git.tree_id = "not-a-tree-id"
 }
 
 if ($failures.Count -gt 0) {

@@ -391,6 +391,63 @@ function Get-GitValue {
     return $value
 }
 
+function Assert-GitBranchIdentity {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$Branch,
+        [Parameter(Mandatory = $true)]
+        $Foundation
+    )
+
+    $normalizedBranch = Assert-NonEmptyString -Value $Branch -Context "Milestone baseline.git.branch"
+    if ($Foundation.git_branch_validation_mode -eq "git_check_ref_format_branch") {
+        $null = (& git -C $RepositoryRoot check-ref-format --branch $normalizedBranch 2>&1)
+        if ($LASTEXITCODE -ne 0) {
+            throw "Milestone baseline.git.branch must be a structurally valid Git branch name."
+        }
+    }
+
+    if ($Foundation.git_branch_must_exist_in_repository) {
+        & git -C $RepositoryRoot show-ref --verify --quiet ("refs/heads/{0}" -f $normalizedBranch) 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw "Milestone baseline.git.branch must resolve to a local branch in the referenced repository."
+        }
+    }
+
+    return $normalizedBranch
+}
+
+function Assert-GitObjectIdentity {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$ObjectId,
+        [Parameter(Mandatory = $true)]
+        [string]$Pattern,
+        [Parameter(Mandatory = $true)]
+        [string]$ObjectSpec,
+        [Parameter(Mandatory = $true)]
+        [bool]$MustExistInRepository,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $normalizedObjectId = Assert-NonEmptyString -Value $ObjectId -Context $Context
+    Assert-RegexMatch -Value $normalizedObjectId -Pattern $Pattern -Context $Context
+
+    if ($MustExistInRepository) {
+        & git -C $RepositoryRoot cat-file -e $ObjectSpec 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw "$Context must resolve to an existing Git object in the referenced repository."
+        }
+    }
+
+    return $normalizedObjectId
+}
+
 function Get-GitBranchName {
     param(
         [Parameter(Mandatory = $true)]
@@ -574,15 +631,29 @@ function Validate-BaselineFields {
     }
 
     $baselineRepositoryRoot = Resolve-ExistingPath -PathValue (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "repository_root" -Context "Milestone baseline.git") -Context "Milestone baseline.git.repository_root") -Label "Milestone baseline.git.repository_root"
-    $baselineRepositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $baselineRepositoryRoot -Label "Milestone baseline.git.repository_root"
-    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "branch" -Context "Milestone baseline.git") -Context "Milestone baseline.git.branch" | Out-Null
-    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "head_commit" -Context "Milestone baseline.git") -Context "Milestone baseline.git.head_commit" | Out-Null
-    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "tree_id" -Context "Milestone baseline.git") -Context "Milestone baseline.git.tree_id" | Out-Null
+    if ($foundation.git_repository_root_must_be_worktree) {
+        $baselineRepositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $baselineRepositoryRoot -Label "Milestone baseline.git.repository_root"
+    }
+    else {
+        $baselineRepositoryWorktreeRoot = $baselineRepositoryRoot
+    }
+    $branch = Assert-GitBranchIdentity -RepositoryRoot $baselineRepositoryRoot -Branch (Get-RequiredProperty -Object $git -Name "branch" -Context "Milestone baseline.git") -Foundation $foundation
+    $storedHeadCommit = Get-RequiredProperty -Object $git -Name "head_commit" -Context "Milestone baseline.git"
+    $storedTreeId = Get-RequiredProperty -Object $git -Name "tree_id" -Context "Milestone baseline.git"
+    $headCommit = Assert-GitObjectIdentity -RepositoryRoot $baselineRepositoryRoot -ObjectId $storedHeadCommit -Pattern $foundation.git_commit_hash_pattern -ObjectSpec ("{0}^{{commit}}" -f $storedHeadCommit) -MustExistInRepository $foundation.git_head_commit_must_exist_in_repository -Context "Milestone baseline.git.head_commit"
+    $treeId = Assert-GitObjectIdentity -RepositoryRoot $baselineRepositoryRoot -ObjectId $storedTreeId -Pattern $foundation.git_tree_hash_pattern -ObjectSpec ("{0}^{{tree}}" -f $storedTreeId) -MustExistInRepository $foundation.git_tree_id_must_exist_in_repository -Context "Milestone baseline.git.tree_id"
     $statusLines = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $git -Name "status_lines" -Context "Milestone baseline.git") -Context "Milestone baseline.git.status_lines" -AllowEmpty)
     $workingTreeClean = Assert-BooleanValue -Value (Get-RequiredProperty -Object $git -Name "working_tree_clean" -Context "Milestone baseline.git") -Context "Milestone baseline.git.working_tree_clean"
     $capturedFromCleanWorktree = Assert-BooleanValue -Value (Get-RequiredProperty -Object $git -Name "captured_from_clean_worktree" -Context "Milestone baseline.git") -Context "Milestone baseline.git.captured_from_clean_worktree"
     if ($contract.git_rules.clean_worktree_required -and (-not $workingTreeClean -or -not $capturedFromCleanWorktree -or $statusLines.Count -ne 0)) {
         throw "Milestone baseline records must capture a clean Git worktree with no status lines."
+    }
+
+    if ($foundation.git_tree_id_must_match_head_commit_tree) {
+        $expectedTreeId = (Get-GitValue -RepositoryRoot $baselineRepositoryRoot -Arguments @("rev-parse", ("{0}^{{tree}}" -f $headCommit)) -Label "Git tree id for stored head commit").Trim()
+        if ($expectedTreeId -ne $treeId) {
+            throw "Milestone baseline.git.tree_id must match the stored head_commit tree in the referenced repository."
+        }
     }
 
     Assert-ResolvedPathInsideRepository -ResolvedPath $milestoneValidation.WorkObjectPath -RepositoryRoot $baselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone baseline milestone" | Out-Null

@@ -24,6 +24,14 @@
     "proof_record",
     "artifact"
   ],
+  "git_repository_root_must_be_worktree": true,
+  "git_branch_validation_mode": "git_check_ref_format_branch",
+  "git_branch_must_exist_in_repository": true,
+  "git_commit_hash_pattern": "^[0-9a-f]{40}$",
+  "git_head_commit_must_exist_in_repository": true,
+  "git_tree_hash_pattern": "^[0-9a-f]{40}$",
+  "git_tree_id_must_exist_in_repository": true,
+  "git_tree_id_must_match_head_commit_tree": true,
   "required_fields": [
     "contract_version",
     "record_type",
