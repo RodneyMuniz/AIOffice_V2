@@ -1,0 +1,22 @@
+{
+  "record_type": "restore_gate_request",
+  "authority_rules": {
+    "explicit_operator_approval_required": true,
+    "required_status": "approved"
+  },
+  "restore_target_rules": {
+    "baseline_contract_validation_required": true,
+    "baseline_kind_must_equal": "milestone_checkpoint",
+    "baseline_identity_match_required": true,
+    "milestone_object_id_match_required": true,
+    "branch_match_required": true,
+    "head_commit_match_required": true,
+    "tree_id_match_required": true
+  },
+  "repository_rules": {
+    "target_repository_root_required": true,
+    "baseline_repository_root_must_match_target_repository_root": true,
+    "attached_head_required_for_allow": true,
+    "clean_worktree_required_for_allow": true
+  }
+}

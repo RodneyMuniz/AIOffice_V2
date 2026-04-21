@@ -1,0 +1,97 @@
+{
+  "contract_version": "v1",
+  "request_record_type": "restore_gate_request",
+  "result_record_type": "restore_gate_result",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
+  "git_hash_pattern": "^[0-9a-f]{40}$",
+  "allowed_authority_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_decisions": [
+    "allow",
+    "blocked"
+  ],
+  "allowed_reason_codes": [
+    "authority_missing",
+    "authority_rejected",
+    "restore_target_missing",
+    "restore_target_invalid",
+    "restore_target_identity_mismatch",
+    "repository_binding_mismatch",
+    "workspace_dirty",
+    "detached_head"
+  ],
+  "request_required_fields": [
+    "contract_version",
+    "record_type",
+    "gate_request_id",
+    "target_repository_root",
+    "restore_target",
+    "requested_at",
+    "requested_by",
+    "authority",
+    "notes"
+  ],
+  "request_restore_target_required_fields": [
+    "baseline_id",
+    "baseline_ref",
+    "milestone_object_id",
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "request_authority_required_fields": [
+    "status",
+    "operator_id",
+    "approved_by",
+    "approved_at",
+    "reason"
+  ],
+  "result_required_fields": [
+    "contract_version",
+    "record_type",
+    "gate_result_id",
+    "gate_request_id",
+    "target_repository_root",
+    "decided_at",
+    "decision",
+    "restore_target",
+    "preconditions",
+    "current_repository_state",
+    "block_reasons",
+    "notes"
+  ],
+  "result_restore_target_required_fields": [
+    "baseline_id",
+    "baseline_ref",
+    "milestone_object_id",
+    "branch",
+    "head_commit",
+    "tree_id",
+    "baseline_kind",
+    "repository_root",
+    "captured_at"
+  ],
+  "result_precondition_required_fields": [
+    "authority",
+    "restore_target",
+    "repository_binding",
+    "workspace_safety"
+  ],
+  "current_repository_state_required_fields": [
+    "repository_root",
+    "branch",
+    "head_commit",
+    "status_lines",
+    "working_tree_clean",
+    "attached_head"
+  ],
+  "block_reason_required_fields": [
+    "code",
+    "summary"
+  ]
+}
