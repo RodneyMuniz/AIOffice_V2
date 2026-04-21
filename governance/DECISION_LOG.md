@@ -212,3 +212,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance expands bounded proof discipline only. It does not add repo-enforcement or closeout automation, and it does not prove rollback productization, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
 - Consequence: `R5-007` remains open and planned only.
 - Consequence: the next gated step inside R5 is `R5-007` Define repo enforcement and R5 proof / closeout structure.
+
+## D-0027 R5-007 Accepted As Bounded Repo Enforcement And Proof Review Structure
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R5-007` is accepted in repo truth as the bounded repo-enforcement and R5 proof / closeout structure slice inside `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- Consequence: the accepted slice proves repo-enforcement contracts plus fail-closed enforcement for clean pre-replay worktrees, governed in-repo proof output under `state/proof_reviews/`, replay-summary and replay-command evidence, exact proof-id selection scope, raw replay-log presence, replay-source-head consistency, and a bounded R5 proof-review generator through `tools/RepoEnforcement.psm1`, `tools/new_r5_recovery_resume_proof_review.ps1`, `tests/test_repo_enforcement.ps1`, and `tests/test_r5_recovery_resume_proof_review.ps1`.
+- Consequence: focused milestone-baseline proof depth now explicitly closes the missing validator module or command refusal caution and the valid-but-inconsistent stored `head_commit` or `tree_id` caution through `tests/test_milestone_baseline.ps1`.
+- Consequence: this acceptance adds closeout discipline only. It does not close the full R5 milestone, and it does not prove rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
+- Consequence: the next gated step inside R5 is full milestone closeout review and recommendation.
