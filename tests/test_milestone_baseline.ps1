@@ -22,6 +22,9 @@ function New-TempGitRepository {
         throw "Failed to initialize temp Git repository."
     }
 
+    # Keep temp-repo fixture commits stable under runner replay without changing repo-wide Git policy.
+    & git -C $Root config core.autocrlf false | Out-Null
+    & git -C $Root config core.safecrlf false | Out-Null
     & git -C $Root config user.email "codex@example.com" | Out-Null
     & git -C $Root config user.name "Codex" | Out-Null
     Set-Content -LiteralPath (Join-Path $Root "baseline.txt") -Value "baseline" -Encoding UTF8
