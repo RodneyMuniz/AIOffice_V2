@@ -1,0 +1,43 @@
+﻿warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS restore gate allow path: C:\Users\rodne\AppData\Local\Temp\aioffice-r5-003-allow-6034c9f6b02a48d4a91b42605379580a\gate-results\restore-gate-r5-003-valid-001.result.json
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS pending authority refusal: authority_missing
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS cross-repo repository binding refusal: repository_binding_mismatch
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS dirty workspace refusal: workspace_dirty
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+HEAD is now at 9a8af4e add restore gate fixtures
+PASS detached head refusal: detached_head
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS restore target identity mismatch refusal: restore_target_identity_mismatch
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS missing baseline refusal: restore_target_missing
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.milestone.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/governed_work_object.project.valid.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/accepted/planning_record.task.valid.accepted.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'state/fixtures/valid/planning_records/working/planning_record.task.valid.working.json', LF will be replaced by CRLF the next time Git touches it
+PASS invalid baseline refusal: restore_target_invalid
+All restore gate tests passed. Valid passed: 1. Invalid rejected: 7.
+

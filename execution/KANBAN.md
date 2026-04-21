@@ -3,22 +3,22 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+`No post-R5 implementation milestone is open in repo truth.`
 
 Objective:
-Advance bounded R5 foundations after R4 one gated slice at a time, with `R5-002` now re-closed as the corrected Git-backed milestone baseline slice, `R5-003` now complete as the bounded rollback / restore gate foundation slice, `R5-004` now complete as the baton continuity and resume authority foundation slice, `R5-005` now complete as the bounded resume re-entry foundation slice, `R5-006` now complete as the bounded CI/CD proof expansion slice, and `R5-007` now complete as the bounded repo-enforcement and proof / closeout structure slice, while continuing to avoid rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration claims. Full R5 milestone closeout remains a separate review step.
+Preserve formal R5 closeout truth and bounded evidence without implicitly opening any later milestone or widening rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration claims.
 
 Exit Criteria:
-- `R5-001` through `R5-007` are recorded in repo truth
-- `R5-001` is complete as the repo-truth open step
-- `R5-002` is complete again after corrected hardening through `R5-002A` through `R5-002G`
-- `R5-003` is complete at the bounded restore-gate foundation level with focused proof
-- `R5-004` is complete at the bounded baton continuity and resume-authority foundation level with focused proof
-- `R5-005` is complete at the bounded resume re-entry preparation level with focused proof
-- `R5-006` is complete at the bounded CI/CD proof expansion level with focused proof
-- `R5-007` is complete at the bounded repo-enforcement and proof / closeout structure level with focused proof
-- completed `R5-002` through `R5-007` still do not claim rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration
-- full R5 milestone closeout remains separate from `R5-007` and is not yet recorded in repo truth
+- `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md` record bounded R5 closure and audit mapping explicitly
+- committed closeout evidence names `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/` plus the focused R5 proof surfaces actually used for closure
+- no post-R5 implementation milestone is opened implicitly by closeout wording
+- the preserved non-claims remain explicit: no rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration
+
+## Most Recently Closed Milestone
+`R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+
+Closeout summary:
+`R5-001` through `R5-007` are complete and formally closed in repo truth. The closeout authority is `governance/POST_R5_CLOSEOUT.md`, the audit mapping authority is `governance/POST_R5_AUDIT_INDEX.md`, and the committed bounded proof-review basis is `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/` at replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c`. This closeout remains bounded and does not add rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration claims.
 
 ## Tasks
 
@@ -146,7 +146,7 @@ Exit Criteria:
 - Depends on: `R5-002`, `R5-003`, `R5-004`, `R5-005`, `R5-006`
 - Authority: `governance/ACTIVE_STATE.md`, `governance/R5_GIT_BACKED_RECOVERY_RESUME_AND_REPO_ENFORCEMENT_FOUNDATIONS.md`
 - Durable output: repo-enforcement contracts and fail-closed evaluation, bounded R5 proof-review generation, focused repo-enforcement and proof-review tests, and explicit closeout-discipline structure without milestone overclaim
-- Done when: clean-worktree pre-replay discipline, governed proof output roots, replay-summary and replay-command evidence, exact proof-id selection scope, raw log presence, replay-source-head consistency, and explicit refusal behavior are implemented and proved, while full R5 milestone closeout remains separate
+- Done when: clean-worktree pre-replay discipline, governed proof output roots, replay-summary and replay-command evidence, exact proof-id selection scope, raw log presence, replay-source-head consistency, and explicit refusal behavior are implemented and proved, while full R5 milestone closeout remains separate from this task and is recorded later through `governance/POST_R5_CLOSEOUT.md`
 
 ## Explicitly Out Of Scope For This Milestone
 - operator-visible or user-facing UI work

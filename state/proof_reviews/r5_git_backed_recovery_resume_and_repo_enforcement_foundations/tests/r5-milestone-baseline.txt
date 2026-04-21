@@ -1,0 +1,30 @@
+﻿PASS valid milestone baseline: C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-valid-e0843db01ad64ea3a628aa82f5c25753\store\milestone_baselines\baseline-r5-valid-001.json
+PASS relative repository input resolution: RepositoryRoot-relative capture paths resolve against the captured repository instead of the caller working directory.
+PASS dirty milestone baseline refusal: Milestone baseline capture requires a clean Git worktree.
+PASS project baseline anchor refusal: Milestone baseline capture requires a milestone governed work object.
+PASS cross-repo milestone anchor refusal: Milestone 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-milestone-donor-47fa666aad4b4ff4a5102e6a37f3f1fe\state\fixtures\valid\governed_work_object.milestone.valid.json' must resolve inside repository root 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-milestone-3c2ef595221e491c8a2286e965868eb4'.
+PASS cross-repo planning record refusal: Planning record 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-planning-donor-fe6ce3eba2744544acb16d58d0ad1709\state\fixtures\valid\planning_record.task.valid.json' must resolve inside repository root 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-planning-052e531bc12247119e2655fb1eef4d50'.
+PASS cross-repo accepted planning ref refusal: Planning record accepted surface 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-accepted-donor-e07eedf4488c4839a1cbe01eca4ef06f\state\fixtures\valid\planning_records\accepted\planning_record.task.valid.accepted.json' must resolve inside repository root 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-cross-repo-accepted-649e26e65d1448d7905ef94d35e84fc0'.
+HEAD is now at cd9aa03 add governed baseline fixtures
+PASS detached HEAD refusal: Milestone baseline capture requires an attached Git branch; detached HEAD is not allowed.
+PASS untracked dirty-state refusal: Milestone baseline capture requires a clean Git worktree.
+PASS ignored-file cleanliness characterization: ignored files do not block baseline capture under the current status policy.
+PASS malformed accepted-state status refusal: PlanningRecord.accepted_state.status must be one of: none, accepted, superseded.
+PASS malformed accepted-state record_ref refusal: PlanningRecord.accepted_state.record_ref must be a non-empty string.
+PASS cross-milestone mismatch refusal: Planning record 'planning-r3-003-task-001' does not belong to milestone 'milestone-r5-002c-other'.
+PASS accepted planning parent ref mismatch refusal: Accepted planning record milestone parent ref must match the anchored milestone work object path.
+PASS repeated baseline_id characterization: current save behavior overwrites an existing baseline record with the same baseline_id.
+PASS relative store and baseline path resolution: relative StorePath and BaselinePath inputs resolve from the module repository root deterministically.
+PASS missing Git CLI prerequisite refusal: Milestone baseline requires Git CLI to be installed and callable.
+PASS missing planning-record validator module refusal: Milestone baseline requires dependency module 'PlanningRecordStorage' at 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-missing-planning-validator-module-8436eaf9adde479c8d2a2848a8daa2a7\missing\PlanningRecordStorage.psm1'.
+PASS missing governed-work-object validator command refusal: Milestone baseline requires dependency command 'Test-GovernedWorkObjectContract' from dependency module 'GovernedWorkObjectValidation'.
+PASS invalid stored repository_root refusal: Milestone baseline.git.repository_root 'C:\Users\rodne\AppData\Local\Temp\aioffice-r5-baseline-tamper-3578ba5116b34325ae15f98544ebcb10\missing-repository-root' does not exist.
+PASS relative stored repository_root refusal: Milestone baseline.git.repository_root must be stored as an absolute machine-local path.
+PASS planning_record evidence mismatch refusal: Milestone baseline planning_record evidence refs must match planning_record_refs item.ref values.
+PASS accepted planning artifact evidence missing refusal: Milestone baseline records must include accepted planning artifact evidence for each planning_record_refs item.
+PASS invalid stored branch refusal: fatal: 'invalid branch name' is not a valid branch name
+PASS invalid stored head_commit refusal: Milestone baseline.git.head_commit does not match the required pattern.
+PASS stored head_commit/tree_id mismatch refusal: Milestone baseline.git.tree_id must match the stored head_commit tree in the referenced repository.
+PASS invalid stored tree_id refusal: Milestone baseline.git.tree_id does not match the required pattern.
+All milestone baseline tests passed. Valid passed: 5. Invalid rejected: 22.
+

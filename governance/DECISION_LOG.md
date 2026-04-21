@@ -220,4 +220,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the accepted slice proves repo-enforcement contracts plus fail-closed enforcement for clean pre-replay worktrees, governed in-repo proof output under `state/proof_reviews/`, replay-summary and replay-command evidence, exact proof-id selection scope, raw replay-log presence, replay-source-head consistency, and a bounded R5 proof-review generator through `tools/RepoEnforcement.psm1`, `tools/new_r5_recovery_resume_proof_review.ps1`, `tests/test_repo_enforcement.ps1`, and `tests/test_r5_recovery_resume_proof_review.ps1`.
 - Consequence: focused milestone-baseline proof depth now explicitly closes the missing validator module or command refusal caution and the valid-but-inconsistent stored `head_commit` or `tree_id` caution through `tests/test_milestone_baseline.ps1`.
 - Consequence: this acceptance adds closeout discipline only. It does not close the full R5 milestone, and it does not prove rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
-- Consequence: the next gated step inside R5 is full milestone closeout review and recommendation.
+- Consequence: at slice acceptance time, the next gated step inside R5 was full milestone closeout review and recommendation. That milestone closeout is now recorded in `D-0028`.
+
+## D-0028 R5 Formally Closed In Repo Truth
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is complete and formally closed in repo truth.
+- Consequence: the closeout authority is `governance/POST_R5_CLOSEOUT.md`, and the audit mapping authority is `governance/POST_R5_AUDIT_INDEX.md`.
+- Consequence: the closeout evidence basis is the committed proof-review package under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/`, especially `REPLAY_SUMMARY.md`, `bounded-proof-suite-summary.json`, and `repo-enforcement-result.json`, together with the focused proof surfaces `tests/test_milestone_baseline.ps1`, `tests/test_restore_gate.ps1`, `tests/test_baton_persistence.ps1`, `tests/test_work_artifact_contracts.ps1`, `tests/test_resume_reentry.ps1`, `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, and `tests/test_r5_recovery_resume_proof_review.ps1`.
+- Consequence: the committed proof-review package records replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c` for the bounded R5 subset used in closeout.
+- Consequence: no post-R5 implementation milestone is open yet in repo truth.
+- Consequence: this closeout preserves the bounded non-claims. It does not prove rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.

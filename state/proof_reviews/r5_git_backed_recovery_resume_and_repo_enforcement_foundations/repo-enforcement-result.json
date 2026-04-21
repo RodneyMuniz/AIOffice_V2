@@ -1,0 +1,42 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "repo_enforcement_result",
+    "enforcement_result_id":  "repo-enforcement-20260421t135439z",
+    "evaluated_at":  "2026-04-21T13:54:39Z",
+    "repository_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2",
+    "repo_branch":  "feature/r5-closeout-remaining-foundations",
+    "repo_head":  "1a97ff0cef9675c88030d3b618ef928093ee080c",
+    "output_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations",
+    "proof_summary_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\bounded-proof-suite-summary.json",
+    "replay_summary_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\REPLAY_SUMMARY.md",
+    "replayed_command_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\meta\\replayed_command.txt",
+    "required_selection_ids":  [
+                                   "r5-milestone-baseline",
+                                   "r5-restore-gate",
+                                   "r5-baton-continuity",
+                                   "r5-resume-reentry"
+                               ],
+    "actual_selection_ids":  [
+                                 "r5-milestone-baseline",
+                                 "r5-restore-gate",
+                                 "r5-baton-continuity",
+                                 "r5-resume-reentry"
+                             ],
+    "checks":  {
+                   "clean_worktree_before_replay":  true,
+                   "governed_output_root":  true,
+                   "proof_summary":  true,
+                   "replay_summary":  true,
+                   "replay_command":  true,
+                   "selection_scope":  true,
+                   "proof_passed":  true,
+                   "workspace_mutation":  true,
+                   "test_logs":  true,
+                   "replay_source_head":  true
+               },
+    "decision":  "allow",
+    "block_reasons":  [
+
+                      ],
+    "notes":  "Repo enforcement validates clean pre-replay state, governed evidence paths, exact proof scope, and proof replay integrity only. No full R5 closeout is claimed here."
+}

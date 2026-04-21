@@ -6,10 +6,17 @@
 ## Why this milestone exists now
 R4 closed a bounded hardening milestone for internal control-kernel, workflow, and CI foundations. The first R4 closeout posture was not clean enough, and the corrective completion layer `R4-008` through `R4-011` was required before honest closure could be restated.
 
-The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The corrected Git-backed milestone-baseline slice is now complete again as `R5-002`, the bounded rollback / restore gate foundation slice is now complete as `R5-003`, the baton continuity and resume-authority foundation slice is now complete as `R5-004`, the bounded resume re-entry foundation slice is now complete as `R5-005`, the bounded CI/proof expansion slice is now complete as `R5-006`, and the bounded repo-enforcement plus proof / closeout structure slice is now complete as `R5-007`. Full R5 milestone closeout remains separate and unrecorded.
+The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The corrected Git-backed milestone-baseline slice is now complete again as `R5-002`, the bounded rollback / restore gate foundation slice is now complete as `R5-003`, the baton continuity and resume-authority foundation slice is now complete as `R5-004`, the bounded resume re-entry foundation slice is now complete as `R5-005`, the bounded CI/proof expansion slice is now complete as `R5-006`, and the bounded repo-enforcement plus proof / closeout structure slice is now complete as `R5-007`. Full R5 milestone closeout is now recorded explicitly in `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`.
 
 ## Objective
 Strengthen the next bounded foundation layer after R4 by correcting and hardening Git-backed milestone baselines first, then implementing bounded rollback and restore gate foundations, baton continuity and resume authority foundations, bounded resume re-entry foundations, bounded CI/CD proof expansion, and bounded repo-enforcement plus proof / closeout structure without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
+
+## Formal closeout status
+`R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is complete and formally closed in repo truth.
+
+The closeout authority is `governance/POST_R5_CLOSEOUT.md`. The audit mapping authority is `governance/POST_R5_AUDIT_INDEX.md`. The committed bounded proof-review basis is `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/` at replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c`.
+
+This closeout remains bounded. It does not add rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration claims.
 
 ## Exit criteria
 - repo truth records `R5-002` as complete again after corrected hardening through `R5-002A` through `R5-002G`
@@ -20,7 +27,7 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 - the bounded CI/CD automation layer is implemented and remains aligned to the actual proof scope
 - repo-enforcement expectations for clean worktrees, governed evidence, and bounded proof discipline are implemented and focused-proofed at the bounded level
 - the expected R5 proof and closeout structure is implemented as bounded generator and enforcement surfaces
-- full R5 milestone closeout remains a separate evidence-backed review step
+- full R5 milestone closeout is recorded explicitly in `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`
 
 ## In scope
 - Git-backed milestone baseline capture foundations
@@ -116,7 +123,7 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 
 ### `R5-007` Define repo enforcement and R5 proof / closeout structure
 - Status: done
-- Done when: repo-enforcement contracts and fail-closed evaluation exist for clean pre-replay worktrees, governed proof-output roots, replay-summary and replay-command evidence, exact proof-id selection scope, raw replay-log presence, and replay-source-head consistency; bounded R5 proof-review generation exists; focused proof passes; and full R5 milestone closeout remains separate
+- Done when: repo-enforcement contracts and fail-closed evaluation exist for clean pre-replay worktrees, governed proof-output roots, replay-summary and replay-command evidence, exact proof-id selection scope, raw replay-log presence, and replay-source-head consistency; bounded R5 proof-review generation exists; focused proof passes; and full R5 milestone closeout remains separate from this task and is recorded later through `governance/POST_R5_CLOSEOUT.md`
 
 ## Milestone notes
 - `R5-001` opened R5 in repo truth as structure only.
@@ -128,7 +135,7 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 - `R5-005` is complete as a bounded resume re-entry slice through `contracts/resume_reentry/`, `tools/ResumeReentry.psm1`, and `tests/test_resume_reentry.ps1`.
 - `R5-006` is complete as a bounded proof and CI expansion slice through `tools/BoundedProofSuite.psm1`, `tests/test_bounded_proof_suite.ps1`, and the existing `.github/workflows/bounded-proof-suite.yml` entrypoint.
 - `R5-007` is complete as a bounded repo-enforcement and proof / closeout structure slice through `contracts/repo_enforcement/`, `tools/RepoEnforcement.psm1`, `tools/new_r5_recovery_resume_proof_review.ps1`, `tests/test_repo_enforcement.ps1`, and `tests/test_r5_recovery_resume_proof_review.ps1`.
-- `R5-002` through `R5-007` do not claim rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration, and `R5-007` does not by itself close the R5 milestone.
+- `R5-002` through `R5-007` do not claim rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration. Formal milestone closeout is now recorded separately in `governance/POST_R5_CLOSEOUT.md` and does not widen those boundaries.
 - Focused milestone-baseline proof depth now explicitly covers missing validator module or command refusal plus valid-but-inconsistent stored `head_commit` or `tree_id` refusal through `tests/test_milestone_baseline.ps1`.
 - R4 remains the prior closed milestone, and its historical closeout authority remains in `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.
 - The final narrative bridge artifact for the R4 to R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`.

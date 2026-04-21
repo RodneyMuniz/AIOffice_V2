@@ -1,0 +1,10 @@
+﻿?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/git_branch.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/git_head.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/git_status_before.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/powershell_executable.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/pwd.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/repo_root.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-baton-continuity.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-milestone-baseline.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-restore-gate.txt
+?? state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-resume-reentry.txt

@@ -1,0 +1,95 @@
+﻿{
+    "suite_id":  "aioffice-bounded-proof-suite",
+    "created_at":  "2026-04-21T13:54:39Z",
+    "repo_branch":  "feature/r5-closeout-remaining-foundations",
+    "repo_head":  "1a97ff0cef9675c88030d3b618ef928093ee080c",
+    "output_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations",
+    "output_root_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations",
+    "powershell_executable":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "selection_ids":  [
+                          "r5-milestone-baseline",
+                          "r5-restore-gate",
+                          "r5-baton-continuity",
+                          "r5-resume-reentry"
+                      ],
+    "results":  [
+                    {
+                        "id":  "r5-milestone-baseline",
+                        "name":  "R5 milestone baseline",
+                        "relative_path":  "tests/test_milestone_baseline.ps1",
+                        "purpose":  "Validate bounded Git-backed milestone baseline foundations without implying restore execution.",
+                        "command":  "powershell -ExecutionPolicy Bypass -File tests\\test_milestone_baseline.ps1",
+                        "started_at":  "2026-04-21T13:53:13Z",
+                        "ended_at":  "2026-04-21T13:54:03Z",
+                        "duration_seconds":  49.553,
+                        "status":  "passed",
+                        "exit_code":  0,
+                        "log_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\tests\\r5-milestone-baseline.txt",
+                        "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-milestone-baseline.txt"
+                    },
+                    {
+                        "id":  "r5-restore-gate",
+                        "name":  "R5 restore gate",
+                        "relative_path":  "tests/test_restore_gate.ps1",
+                        "purpose":  "Validate bounded restore-target and rollback-gate foundation checks without executing rollback.",
+                        "command":  "powershell -ExecutionPolicy Bypass -File tests\\test_restore_gate.ps1",
+                        "started_at":  "2026-04-21T13:54:03Z",
+                        "ended_at":  "2026-04-21T13:54:26Z",
+                        "duration_seconds":  22.988,
+                        "status":  "passed",
+                        "exit_code":  0,
+                        "log_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\tests\\r5-restore-gate.txt",
+                        "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-restore-gate.txt"
+                    },
+                    {
+                        "id":  "r5-baton-continuity",
+                        "name":  "R5 baton continuity",
+                        "relative_path":  "tests/test_baton_persistence.ps1",
+                        "purpose":  "Validate bounded Baton continuity and resume authority foundations without proving resume execution.",
+                        "command":  "powershell -ExecutionPolicy Bypass -File tests\\test_baton_persistence.ps1",
+                        "started_at":  "2026-04-21T13:54:26Z",
+                        "ended_at":  "2026-04-21T13:54:29Z",
+                        "duration_seconds":  2.993,
+                        "status":  "passed",
+                        "exit_code":  0,
+                        "log_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\tests\\r5-baton-continuity.txt",
+                        "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-baton-continuity.txt"
+                    },
+                    {
+                        "id":  "r5-resume-reentry",
+                        "name":  "R5 resume re-entry",
+                        "relative_path":  "tests/test_resume_reentry.ps1",
+                        "purpose":  "Validate bounded operator-controlled resume re-entry preparation without automatic resume.",
+                        "command":  "powershell -ExecutionPolicy Bypass -File tests\\test_resume_reentry.ps1",
+                        "started_at":  "2026-04-21T13:54:29Z",
+                        "ended_at":  "2026-04-21T13:54:39Z",
+                        "duration_seconds":  10.61,
+                        "status":  "passed",
+                        "exit_code":  0,
+                        "log_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r5_git_backed_recovery_resume_and_repo_enforcement_foundations\\tests\\r5-resume-reentry.txt",
+                        "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/r5-resume-reentry.txt"
+                    }
+                ],
+    "passed_count":  4,
+    "failed_count":  0,
+    "workspace_mutation_check":  {
+                                     "enabled":  true,
+                                     "allowed_output_prefix":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations",
+                                     "passed":  true,
+                                     "unexpected_status":  [
+
+                                                           ]
+                                 },
+    "proof_scope":  [
+                        "R2 supervised workflow through architect plus bounded apply or promotion control",
+                        "R3 governed work object, planning record, work artifact, QA, Baton, and replay foundations",
+                        "R4 lifecycle, scope, retry-ceiling, and CI foundation hardening",
+                        "R5 Git-backed milestone baseline, restore gate, Baton continuity, and bounded resume re-entry foundations"
+                    ],
+    "non_claims_preserved":  [
+                                 "No UI or control-room productization is proved here.",
+                                 "No Standard or subproject runtime productization is proved here.",
+                                 "No rollback or automatic resume behavior is proved here.",
+                                 "No broader orchestration beyond the bounded chain is proved here."
+                             ]
+}

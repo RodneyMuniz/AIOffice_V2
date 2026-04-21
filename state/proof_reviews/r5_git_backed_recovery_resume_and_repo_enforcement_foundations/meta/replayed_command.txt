@@ -1,0 +1,1 @@
+﻿powershell -ExecutionPolicy Bypass -File tools\new_r5_recovery_resume_proof_review.ps1 -OutputRoot state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations -TestIds r5-milestone-baseline,r5-restore-gate,r5-baton-continuity,r5-resume-reentry

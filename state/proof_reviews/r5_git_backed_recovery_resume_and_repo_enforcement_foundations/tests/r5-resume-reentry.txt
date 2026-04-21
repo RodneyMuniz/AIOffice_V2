@@ -1,0 +1,6 @@
+﻿PASS valid resume re-entry: resume-reentry-valid-001 -> execution-bundle-resume-reentry-valid-001
+PASS blocked manual-review resume re-entry: resume-reentry-manual-review-001 -> blocked
+PASS blocked dirty-worktree resume re-entry: resume-reentry-dirty-repo-001 -> blocked
+PASS blocked missing restore gate resume re-entry: resume-reentry-missing-restore-gate-001 -> blocked
+All resume re-entry tests passed. Valid passed: 1. Invalid rejected: 3.
+
