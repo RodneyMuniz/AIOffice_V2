@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-21
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now active with `R5-002` complete as the first bounded implementation slice.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now active with `R5-002` reopened as `open (under corrective hardening)`.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -11,7 +11,7 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The closed-out first proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control.
 - The first bounded V1 proof is now formally claimable only for that narrow boundary, as closed out in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md` from the rerun evidence in `governance/R2_FIRST_BOUNDED_V1_PROOF_REVIEW_RERUN.md` and `state/proof_reviews/r2_first_bounded_v1_rerun/REPLAY_SUMMARY.md`.
 - Git and persisted state are the intended truth substrates.
-- `R5-002` is complete and adds Git-backed milestone baseline foundations with explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and focused tests in `tests/test_milestone_baseline.ps1`.
+- PRO audit found the current `R5-002` slice cleanly bounded but not yet acceptable. Blocking flaws remain in repository congruence for baseline capture and persisted Git identity validation, and a corrective task layer is now required before `R5-002` can be honestly restated as done.
 - `RST-009` is externally accepted at commit `b9b3edca10992cc497349d6d35b61da90583f66e`.
 - `RST-010` is externally accepted at commit `d78fcaec9eda7c99ffade6be846e7f715fa3f235`.
 - `RST-011` is externally accepted at commit `f7afa5c42367386fae04e7d2511941de4ff58f7f`.
@@ -42,13 +42,15 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The final narrative report artifact for the R4 closure and R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`. It is a report artifact, not milestone proof by itself.
 - R4 remains admin-only and does not open UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 - `R5-001` is complete as the repo-truth open step for `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`.
+- `R5-002` is open under corrective hardening through `R5-002A` through `R5-002G`.
 - `R5-003` through `R5-007` are planned only and are not yet implemented.
-- R5 remains admin-only and foundation-focused. Completing `R5-002` does not prove rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion beyond the current R4 foundation, or broader orchestration.
+- R5 remains admin-only and foundation-focused. Reopening `R5-002` does not prove rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion beyond the current R4 foundation, or broader orchestration.
 - The backlog is fresh, reset-only, and now limited to the planned bounded R5 structure.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
 - any broader workflow orchestration beyond the direct bounded R3 replay slice
+- accepted `R5-002` milestone-baseline behavior; corrective hardening remains open for repository congruence, persisted Git identity validation, focused test honesty, path and save semantics, evidence and anchor reconciliation, and explicit runtime prerequisites
 - automatic resume execution or broader recovery or rollback behavior
 - bounded rollback gate or restore flow as implemented behavior
 - bounded resume re-entry from persisted baton state as implemented behavior
@@ -60,10 +62,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 ## Active Milestone
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is the active milestone in repo truth.
 
-This active-state surface now holds the completed bounded R4 baseline plus the first completed R5 slice. `R5-002` is complete as the Git-backed milestone baseline foundation only. It does not imply that `R5-003` through `R5-007` are already complete, and it does not claim restore-gate, resume, repo-enforcement, or proof-suite expansion behavior.
+This active-state surface now holds the completed bounded R4 baseline plus the corrective task layer under `R5-002`. `R5-002` is reopened as `open (under corrective hardening)` after PRO audit found the current candidate cleanly bounded but not yet acceptable. It does not imply that `R5-003` through `R5-007` are already complete, and it does not claim restore-gate, resume, repo-enforcement, or proof-suite expansion behavior.
 
 ## Next Gated Step
-- `R5-003` Define bounded rollback / restore gate foundations.
+- `R5-002A` Enforce repository congruence for milestone baseline capture.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -75,5 +77,6 @@ This active-state surface now holds the completed bounded R4 baseline plus the f
 - Do not treat external audit packaging as proof of a broader pipeline.
 - Do not treat CI as proof of broader productization; it is only a bounded proof-discipline foundation in R4.
 - Do not treat opening R5 as R5 implementation.
+- Do not treat a cleanly bounded candidate branch as accepted milestone truth before blocking flaws and corrective hardening are closed.
 - Do not widen R5 into UI, Standard runtime, rollback productization, automatic resume, or broader orchestration without real implementation and proof.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.

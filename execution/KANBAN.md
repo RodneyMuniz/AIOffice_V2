@@ -6,14 +6,14 @@ This board tracks the current reset milestone structure only.
 `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 
 Objective:
-Advance bounded R5 foundations after R4 one gated slice at a time, starting with Git-backed milestone baselines, without widening into restore-gate, resume, repo-enforcement, proof-review expansion, UI, Standard runtime, rollback execution, unattended automatic resume, or broader orchestration.
+Advance bounded R5 foundations after R4 one gated slice at a time, while keeping the current gated work on `R5-002` corrective hardening until Git-backed milestone baseline foundations are honestly acceptable without widening into restore-gate, resume, repo-enforcement, proof-review expansion, UI, Standard runtime, rollback execution, unattended automatic resume, or broader orchestration.
 
 Exit Criteria:
 - `R5-001` through `R5-007` are recorded in repo truth
 - `R5-001` is complete as the repo-truth open step
-- `R5-002` is complete as the bounded Git-backed milestone baseline slice
+- `R5-002` is reopened as `open (under corrective hardening)` until the PRO-audit blockers are corrected and re-proved
 - `R5-003` through `R5-007` remain explicitly planned until later implementation work is opened and proved
-- `R5-002` does not by itself claim restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, rollback execution, or broader orchestration
+- this corrective layer does not claim restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI, Standard runtime, rollback execution, or broader orchestration
 
 ## Tasks
 
@@ -27,13 +27,76 @@ Exit Criteria:
 - Done when: repo truth closes the post-R4 freeze posture, the new R5 milestone brief exists, and `governance/ACTIVE_STATE.md` plus `execution/KANBAN.md` open R5 without widening claims prematurely
 
 ### `R5-002` Define Git-backed milestone baseline model
-- Status: done
+- Status: open (under corrective hardening)
 - Order: 2
 - Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
 - Depends on: `R5-001`
 - Authority: `governance/VISION.md`, `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
-- Durable output: milestone-baseline contracts, baseline capture and storage module, and focused baseline tests
-- Done when: the repo captures Git-backed milestone baselines with explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and focused tests without claiming rollback execution
+- Durable output: corrective hardening task layer for repository congruence, persisted Git identity validation, focused test honesty, path and save semantics, evidence and anchor reconciliation, explicit runtime prerequisites, and later truth restatement
+- Done when: `R5-002A` through `R5-002F` are complete, `R5-002G` restates repo truth honestly, and the slice can be re-accepted without claiming rollback execution or any later R5 capability
+
+### `R5-002A` Enforce repository congruence for milestone baseline capture
+- Status: open
+- Order: 2A
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002`
+- Authority: `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: strengthened same-repository validation rules for milestone baseline capture plus explicit refusal behavior for cross-repo inputs
+- Done when: code prevents cross-repo baseline capture, happy-path capture uses governed artifacts inside the captured repository, and focused tests explicitly reject cross-repo capture
+
+### `R5-002B` Harden persisted Git identity validation
+- Status: open
+- Order: 2B
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002A`
+- Authority: `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: stronger validation for `repository_root`, `branch`, `head_commit`, and `tree_id` plus repository-linkage checks where appropriate
+- Done when: malformed or tampered stored Git identity fails validation, and contract plus implementation meaningfully enforce Git identity instead of presence checks only
+
+### `R5-002C` Repair misleading happy path and expand focused tests
+- Status: open
+- Order: 2C
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002A`, `R5-002B`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/OPERATING_MODEL.md`
+- Durable output: corrected happy-path baseline test, refusal tests for cross-repo inputs, and focused coverage for detached HEAD, dirty-state policy, malformed accepted-planning state, cross-milestone mismatch, corrupted stored Git fields, and repeated `baseline_id` behavior
+- Done when: the current core defect is caught by tests, the focused suite no longer normalizes broken behavior, and the test claim level is honest for bounded `R5-002`
+
+### `R5-002D` Harden path handling, portability, and save semantics
+- Status: open
+- Order: 2D
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002C`
+- Authority: `governance/OPERATING_MODEL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: explicit path resolution policy for `RepositoryRoot`, `StorePath`, and `BaselinePath`, explicit portability stance for persisted `git.repository_root`, and explicit overwrite versus immutability policy for repeated `baseline_id`
+- Done when: caller working directory does not silently change semantics without governance, save and load portability stance is explicit, and duplicate-id behavior is explicit and tested
+
+### `R5-002E` Harden evidence model and anchor reconciliation
+- Status: open
+- Order: 2E
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002C`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/OPERATING_MODEL.md`
+- Durable output: explicit evidence-ref validation, stronger reconciliation between planning-record parent identity and milestone anchor refs or paths, and reduced duplication or explicit justification where evidence repeats top-level refs
+- Done when: evidence is useful and minimally sufficient, anchor semantics are enforced instead of narrated, and same-milestone validation is stronger than loose object-id coincidence alone if needed
+
+### `R5-002F` Make runtime and dependency assumptions explicit and fail-closed
+- Status: open
+- Order: 2F
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002A`, `R5-002B`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/OPERATING_MODEL.md`
+- Durable output: explicit Git CLI prerequisite handling, explicit statement of dependency on earlier R3 validators, and explicit failure messaging when those dependencies are absent or invalid
+- Done when: runtime prerequisites are not implicit, dependency assumptions are documented where necessary, and failure mode is explicit and bounded
+
+### `R5-002G` Restate repo truth and re-close `R5-002` only after corrected proof
+- Status: open
+- Order: 2G
+- Milestone: `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+- Depends on: `R5-002A`, `R5-002B`, `R5-002C`, `R5-002D`, `R5-002E`, `R5-002F`
+- Authority: `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R5_GIT_BACKED_RECOVERY_RESUME_AND_REPO_ENFORCEMENT_FOUNDATIONS.md`
+- Durable output: corrected `README.md`, `execution/KANBAN.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, and `governance/R5_GIT_BACKED_RECOVERY_RESUME_AND_REPO_ENFORCEMENT_FOUNDATIONS.md` wording aligned to corrected code and focused test coverage
+- Done when: repo truth no longer overstates what the focused baseline test proves, `R5-002` can be honestly restated as complete, and `R5-003` remains the next gated step
 
 ### `R5-003` Define bounded rollback / restore gate foundations
 - Status: open

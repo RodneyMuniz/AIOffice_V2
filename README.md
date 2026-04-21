@@ -2,7 +2,7 @@
 
 AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
 
-Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed in repo truth, including the corrective completion layer `R4-008` through `R4-011`. `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now the active milestone in repo truth, and `R5-002 Git-backed milestone baseline model` is complete as the first bounded implementation slice. `R5-003` through `R5-007` remain planned only, and no restore-gate, resume, repo-enforcement, proof-suite expansion, UI, Standard runtime, or broader orchestration claim is opened by the `R5-002` slice.
+Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed in repo truth, including the corrective completion layer `R4-008` through `R4-011`. `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now the active milestone in repo truth, and `R5-002 Git-backed milestone baseline model` is reopened as `open (under corrective hardening)` on this correction branch. PRO audit found the current `R5-002` slice cleanly bounded but not yet acceptable, while `R5-003` through `R5-007` remain planned only. No restore-gate, resume, repo-enforcement, proof-suite expansion, UI, Standard runtime, or broader orchestration claim is opened by this correction branch.
 
 The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
 
@@ -34,12 +34,12 @@ Replay the currently claimed bounded suite locally with:
 
 This replays the focused R2, R3, and R4 bounded tests through one fail-closed entrypoint. It does not broaden the proved boundary into UI, Standard runtime, rollback, automatic resume, or broader orchestration claims.
 
-`R5-002` is currently backed by the focused baseline test:
+`R5-002` currently has one focused baseline test entrypoint:
 - `powershell -ExecutionPolicy Bypass -File tests\test_milestone_baseline.ps1`
 
-This `R5-002` test proves Git-backed milestone baseline foundations only: explicit operator authority, clean-worktree capture rules, Git branch / head / tree identity, milestone anchoring, accepted planning record capture, durable storage, and fail-closed invalid-state handling. It does not claim rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, or proof-suite expansion.
+PRO audit found that the current `R5-002` candidate overstates what this focused test proves. Corrective hardening is now required for repository congruence, persisted Git identity validation, focused test coverage, path and save semantics, evidence and anchor reconciliation, and explicit runtime prerequisites before `R5-002` can be honestly restated as done.
 
-The current bounded proof surface remains the R2 through R4 slice only until later R5 proof expansion is actually implemented and proved.
+The current bounded proof surface remains the R2 through R4 slice only until later R5 proof expansion is actually implemented and proved. This correction branch does not claim proof-suite expansion.
 
 The same bounded proof entrypoint is now wired into `.github/workflows/bounded-proof-suite.yml` for `push` and `pull_request` on `main`. This CI foundation strengthens proof discipline only; it does not by itself prove broader productization.
 

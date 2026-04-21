@@ -157,3 +157,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI productization, Standard or subproject runtime, or broader orchestration.
 - Consequence: `R5-003` through `R5-007` remain open and planned only.
 - Consequence: the next gated step inside R5 is `R5-003` Define bounded rollback / restore gate foundations.
+
+## D-0021 PRO Audit Reopened R5-002 Under Corrective Hardening
+- Date: 2026-04-21
+- Status: accepted
+- Decision: PRO audit found the current `R5-002` branch cleanly bounded but not yet acceptable. The prior acceptance wording in `D-0020` is superseded on this correction branch pending corrective hardening.
+- Consequence: `R5-002` is reopened as `open (under corrective hardening)` until repository congruence, persisted Git identity validation, focused test honesty, path and save semantics, evidence and anchor reconciliation, and explicit runtime prerequisite handling are corrected and re-proved.
+- Consequence: corrective tasks `R5-002A` through `R5-002G` are now the next gated work under the existing R5 milestone.
+- Consequence: `R5-003` through `R5-007` remain open and planned only.
+- Consequence: no restore-gate, resume, repo-enforcement, proof-suite expansion, UI, Standard runtime, or broader orchestration claim is opened by this correction branch.
