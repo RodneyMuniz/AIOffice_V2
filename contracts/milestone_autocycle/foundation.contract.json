@@ -1,0 +1,169 @@
+{
+  "contract_version": "v1",
+  "cycle_record_type": "milestone_autocycle",
+  "freeze_record_type": "milestone_autocycle_freeze",
+  "dispatch_record_type": "milestone_autocycle_dispatch",
+  "run_ledger_record_type": "milestone_autocycle_run_ledger",
+  "execution_evidence_record_type": "milestone_autocycle_execution_evidence",
+  "qa_observation_record_type": "milestone_autocycle_qa_observation",
+  "summary_record_type": "milestone_autocycle_summary",
+  "decision_packet_record_type": "milestone_autocycle_decision_packet",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
+  "allowed_cycle_statuses": [
+    "proposal_pending",
+    "proposal_ready",
+    "approved_frozen",
+    "baseline_captured",
+    "dispatch_ready",
+    "dispatch_in_progress",
+    "evidence_ready",
+    "qa_blocked",
+    "qa_passed",
+    "operator_review",
+    "accepted",
+    "rework_required",
+    "stopped"
+  ],
+  "allowed_approval_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ],
+  "allowed_dispatch_statuses": [
+    "not_started",
+    "in_progress",
+    "completed",
+    "refused",
+    "failed"
+  ],
+  "allowed_qa_statuses": [
+    "not_started",
+    "observed",
+    "passed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_summary_recommendations": [
+    "accept",
+    "rework",
+    "stop"
+  ],
+  "allowed_stop_reason_codes": [
+    "plan_not_frozen",
+    "baseline_capture_failed",
+    "repo_state_drift",
+    "executor_evidence_incomplete",
+    "qa_evidence_incomplete",
+    "qa_failed",
+    "audit_inputs_incomplete",
+    "retry_ceiling_exceeded",
+    "proof_integrity_inconsistent"
+  ],
+  "allowed_executor_types": [
+    "codex"
+  ],
+  "cycle_required_fields": [
+    "contract_version",
+    "record_type",
+    "cycle_id",
+    "status",
+    "milestone",
+    "repository",
+    "proposal",
+    "approval",
+    "baseline",
+    "dispatch_policy",
+    "qa_policy",
+    "summary_policy",
+    "decision_policy",
+    "non_claims",
+    "notes"
+  ],
+  "freeze_required_fields": [
+    "contract_version",
+    "record_type",
+    "freeze_id",
+    "cycle_id",
+    "proposal_id",
+    "approved_at",
+    "approved_by",
+    "frozen_task_set",
+    "operator_authority",
+    "notes"
+  ],
+  "dispatch_required_fields": [
+    "contract_version",
+    "record_type",
+    "dispatch_id",
+    "cycle_id",
+    "task_id",
+    "executor_type",
+    "baseline_ref",
+    "allowed_scope",
+    "target_branch",
+    "expected_outputs",
+    "refusal_conditions",
+    "status",
+    "notes"
+  ],
+  "run_ledger_required_fields": [
+    "contract_version",
+    "record_type",
+    "ledger_id",
+    "cycle_id",
+    "dispatch_id",
+    "status",
+    "started_at",
+    "completed_at",
+    "result_summary",
+    "notes"
+  ],
+  "execution_evidence_required_fields": [
+    "contract_version",
+    "record_type",
+    "evidence_bundle_id",
+    "cycle_id",
+    "dispatch_id",
+    "changed_files",
+    "produced_artifacts",
+    "test_outputs",
+    "evidence_refs",
+    "notes"
+  ],
+  "qa_observation_required_fields": [
+    "contract_version",
+    "record_type",
+    "qa_observation_id",
+    "cycle_id",
+    "dispatch_id",
+    "status",
+    "findings",
+    "evidence_refs",
+    "notes"
+  ],
+  "summary_required_fields": [
+    "contract_version",
+    "record_type",
+    "summary_id",
+    "cycle_id",
+    "scope_summary",
+    "diff_summary",
+    "test_summary",
+    "blocker_summary",
+    "evidence_quality_summary",
+    "non_claims",
+    "recommendation",
+    "notes"
+  ],
+  "decision_packet_required_fields": [
+    "contract_version",
+    "record_type",
+    "decision_packet_id",
+    "cycle_id",
+    "summary_ref",
+    "options",
+    "notes"
+  ]
+}

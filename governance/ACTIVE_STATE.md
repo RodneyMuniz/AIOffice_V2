@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-22
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, and `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is now complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, and `R6 Supervised Milestone Autocycle Pilot` is now open in repo truth through `R6-001` as bounded structure only.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -51,7 +51,11 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - Focused milestone-baseline proof depth now explicitly covers missing validator module or command refusal plus valid-but-inconsistent stored `head_commit` or `tree_id` refusal through `tests/test_milestone_baseline.ps1`.
 - The committed R5 closeout authority is `governance/POST_R5_CLOSEOUT.md`, the committed audit mapping authority is `governance/POST_R5_AUDIT_INDEX.md`, and the committed bounded proof-review basis is `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/` at replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c`.
 - R5 remains admin-only and foundation-focused. Closed `R5-002` through `R5-007` do not prove rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
-- No post-R5 implementation milestone is open in repo truth.
+- `R6-001` is complete as the repo-truth open step for `R6 Supervised Milestone Autocycle Pilot`.
+- R6 is bounded to one repository, one active milestone cycle at a time, one operator-approved frozen milestone plan of roughly 5 to 10 tasks, one executor type, sequential dispatch only, one Git-backed baseline anchor per frozen milestone, one QA observation path, one PRO-style milestone summary path, one final operator decision packet, and one replayable end-to-end pilot proof.
+- `R5-C1` and `R5-C2` are the immediate cleanup tasks recorded inside R6 before later pilot tasks depend operationally on final-head closeout support evidence or baton path behavior.
+- Opening R6 through `R6-001` does not yet prove milestone proposal generation, operator freeze enforcement, Git-backed baseline binding for dispatch, Codex dispatch governance, execution evidence assembly, milestone QA aggregation, PRO-style review summary generation, operator decision packet generation, or end-to-end pilot replay.
+- The operator-facing bridge artifact for the R5-to-R6 transition is `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
@@ -61,15 +65,16 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - any broad UI or control-room productization
 - any Standard or subproject pipeline productization
 - any unattended operation or broader product completeness
-- any post-R5 implementation milestone
+- any R6 pilot implementation beyond the repo-truth opening step
 
 ## Active Milestone
-No post-R5 implementation milestone is open in repo truth.
+`R6 Supervised Milestone Autocycle Pilot` is the active milestone in repo truth.
 
-`R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations` is the most recently closed milestone in repo truth. This active-state surface now holds the completed bounded R4 baseline plus the corrected `R5-002` milestone-baseline slice, the bounded `R5-003` restore-gate slice, the bounded `R5-004` baton continuity slice, the bounded `R5-005` resume re-entry slice, the bounded `R5-006` CI/proof expansion slice, and the bounded `R5-007` repo-enforcement and proof / closeout structure slice. `R5-002` is complete again after the bounded corrective layer `R5-002A` through `R5-002G` closed from a clean worktree with the focused milestone-baseline suite, `R5-003` is complete with focused restore-target and rollback-gate validation through `tests/test_restore_gate.ps1`, `R5-004` is complete with focused baton continuity and contract validation through `tests/test_baton_persistence.ps1` plus `tests/test_work_artifact_contracts.ps1`, `R5-005` is complete with focused resume re-entry validation through `tests/test_resume_reentry.ps1`, `R5-006` is complete with bounded proof-runner and workflow verification through `tests/test_bounded_proof_suite.ps1` plus `tests/test_bounded_proof_ci_foundation.ps1`, and `R5-007` is complete with bounded repo-enforcement and proof-review verification through `tests/test_repo_enforcement.ps1` plus `tests/test_r5_recovery_resume_proof_review.ps1`. Formal milestone closeout is now recorded in `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, and it does not widen the repo into rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration.
+`R6 Supervised Milestone Autocycle Pilot` is open through `R6-001` only. The active repo-truth posture for R6 is still structure-first: the milestone brief exists at `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the initial contract foundation exists under `contracts/milestone_autocycle/`, the exact pilot boundary is frozen in repo truth, and the immediate recorded cleanup tasks are `R5-C1` and `R5-C2`. R6 is bounded to one supervised pilot in `AIOffice_V2` only, with one active milestone cycle at a time, one operator-approved frozen plan of roughly 5 to 10 tasks, one executor type, sequential dispatch only, one Git-backed baseline anchor per frozen milestone, one QA observation path, one PRO-style summary path, one final operator decision packet, and one replayable end-to-end pilot proof. Opening R6 does not yet prove milestone proposal generation, milestone freeze enforcement, baseline binding for dispatch, governed Codex dispatch, execution evidence bundling, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay. The most recently closed milestone remains `R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`, formally closed in `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, and that closeout still does not widen the repo into rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration.
 
 ## Next Gated Step
-- No post-R5 implementation milestone is open. Any later milestone requires a separate evidence-backed repo-truth opening.
+- `R5-C1` and `R5-C2` are the next gated work inside the newly opened R6 boundary.
+- Later R6 pilot implementation remains gated behind those cleanup items and subsequent evidence-backed task completion.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -84,4 +89,7 @@ No post-R5 implementation milestone is open in repo truth.
 - Do not treat a cleanly bounded candidate branch as accepted milestone truth before blocking flaws and corrective hardening are closed.
 - Do not widen R5 into UI, Standard runtime, rollback productization, automatic resume, or broader orchestration without real implementation and proof.
 - Do not treat formal R5 closeout as proof of rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
+- Do not treat opening R6 as R6 implementation.
+- Do not widen R6 into broad autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration without real implementation and proof.
+- Do not treat Product Vision baseline reports as milestone proof.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.

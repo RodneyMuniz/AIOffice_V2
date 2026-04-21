@@ -1,0 +1,58 @@
+{
+  "record_type": "milestone_autocycle",
+  "boundary_rules": {
+    "repository_scope": "single_repository_only",
+    "repository_name": "AIOffice_V2",
+    "single_active_cycle_only": true,
+    "frozen_task_count_min": 5,
+    "frozen_task_count_max": 10,
+    "executor_type_count_max": 1,
+    "allowed_executor_types": [
+      "codex"
+    ],
+    "sequential_dispatch_only": true,
+    "baseline_anchor_count_per_frozen_milestone": 1,
+    "qa_observation_paths_per_cycle": 1,
+    "summary_paths_per_cycle": 1,
+    "decision_packets_per_cycle": 1,
+    "replayable_end_to_end_proof_required_for_closeout": true
+  },
+  "approval_rules": {
+    "structured_intake_required": true,
+    "explicit_operator_approval_required": true,
+    "freeze_required_before_dispatch": true,
+    "freeze_must_record_exact_task_set": true,
+    "freeze_must_record_operator_authority": true,
+    "unfrozen_or_rejected_cycle_must_not_dispatch": true
+  },
+  "baseline_rules": {
+    "git_backed_milestone_baseline_required_before_dispatch": true,
+    "baseline_must_link_frozen_milestone_to_branch_head_tree_and_repository": true,
+    "dirty_worktree_blocks_dispatch": true,
+    "repository_mismatch_blocks_dispatch": true
+  },
+  "stop_rules": {
+    "stop_on_plan_not_frozen": true,
+    "stop_on_baseline_capture_failure": true,
+    "stop_on_repository_state_drift": true,
+    "stop_on_incomplete_executor_evidence": true,
+    "stop_on_incomplete_qa_evidence": true,
+    "stop_on_failed_qa": true,
+    "stop_on_incomplete_audit_inputs": true,
+    "stop_on_retry_ceiling_exceeded": true,
+    "stop_on_proof_selection_or_replay_integrity_mismatch": true
+  },
+  "pre_r6_cleanup_required": [
+    "R5-C1",
+    "R5-C2"
+  ],
+  "non_claims_preserved": [
+    "No broad autonomy or general orchestrator productization is opened by this contract.",
+    "No rollback execution is opened by this contract.",
+    "No unattended automatic resume is opened by this contract.",
+    "No UI or control-room productization is opened by this contract.",
+    "No Standard runtime or subproject runtime is opened by this contract.",
+    "No multi-repo behavior or executor swarms are opened by this contract.",
+    "No broader orchestration beyond the exact supervised pilot is opened by this contract."
+  ]
+}

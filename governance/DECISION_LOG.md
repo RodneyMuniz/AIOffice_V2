@@ -231,3 +231,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed proof-review package records replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c` for the bounded R5 subset used in closeout.
 - Consequence: no post-R5 implementation milestone is open yet in repo truth.
 - Consequence: this closeout preserves the bounded non-claims. It does not prove rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
+
+## D-0029 R6 Opened As A Bounded Supervised Milestone Pilot
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6 Supervised Milestone Autocycle Pilot` is the next bounded milestone and is opened in repo truth through `R6-001` as structure only.
+- Consequence: the exact pilot boundary is now frozen in repo truth as one repository, one active milestone cycle at a time, one operator-approved frozen plan of roughly 5 to 10 tasks, one executor type, sequential dispatch only, one Git-backed baseline anchor per frozen milestone, one QA observation path, one PRO-style summary path, one final operator decision packet, and one replayable end-to-end pilot proof.
+- Consequence: immediate cleanup items `R5-C1` and `R5-C2` are now recorded inside R6 before later pilot tasks rely on final-head closeout support evidence or baton-related path behavior.
+- Consequence: opening R6 does not yet prove milestone proposal generation, operator freeze enforcement, Git-backed baseline binding for dispatch, governed Codex dispatch, governed execution evidence assembly, milestone QA aggregation, PRO-style review summary generation, operator decision packet generation, or end-to-end pilot replay.
+- Consequence: opening R6 does not prove broad autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration.
+- Consequence: the operator-facing bridge artifact for the R5-to-R6 transition is `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`, and it remains a narrative report artifact rather than milestone proof by itself.
