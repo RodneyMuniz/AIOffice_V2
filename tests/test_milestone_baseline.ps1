@@ -72,6 +72,17 @@ function New-BaselineFixtureSet {
     }
 }
 
+function Set-JsonFixtureDocument {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+        [Parameter(Mandatory = $true)]
+        $Document
+    )
+
+    $Document | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $Path -Encoding UTF8
+}
+
 function New-PersistedBaselineHarness {
     param(
         [Parameter(Mandatory = $true)]
@@ -321,6 +332,225 @@ try {
 }
 catch {
     $failures += ("FAIL cross-repo accepted planning ref harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-detached-head-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        & git -C $tempRoot checkout --detach HEAD | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to detach HEAD in temp Git repository."
+        }
+
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-detached-head" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because the repository is in detached HEAD state." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL detached HEAD refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS detached HEAD refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL detached HEAD harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-untracked-dirty-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        Set-Content -LiteralPath (Join-Path $tempRoot "untracked.txt") -Value "untracked" -Encoding UTF8
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-untracked" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because an untracked file makes the worktree dirty." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL untracked dirty-state refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS untracked dirty-state refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL untracked dirty-state harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-ignored-characterization-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        Set-Content -LiteralPath (Join-Path $tempRoot ".gitignore") -Value "ignored.tmp" -Encoding UTF8
+        Invoke-GitCommitAll -Root $tempRoot -Message "add ignored file rule"
+        Set-Content -LiteralPath (Join-Path $tempRoot "ignored.tmp") -Value "ignored" -Encoding UTF8
+
+        $baseline = New-MilestoneBaselineRecord -BaselineId "baseline-r5-ignored-characterization" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "Characterize current ignored-file cleanliness behavior without changing policy." -RepositoryRoot $tempRoot
+        if ($baseline.git.working_tree_clean -ne $true) {
+            $failures += "FAIL ignored-file cleanliness characterization: working_tree_clean was not true."
+        }
+        if (@($baseline.git.status_lines).Count -ne 0) {
+            $failures += "FAIL ignored-file cleanliness characterization: ignored file appeared in captured status lines unexpectedly."
+        }
+
+        Write-Output "PASS ignored-file cleanliness characterization: ignored files do not block baseline capture under the current status policy."
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL ignored-file cleanliness characterization harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-accepted-status-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $planningRecord = Get-Content -LiteralPath $fixtureSet.PlanningRecordPath -Raw | ConvertFrom-Json
+        $planningRecord.accepted_state.status = "working"
+        Set-JsonFixtureDocument -Path $fixtureSet.PlanningRecordPath -Document $planningRecord
+        Invoke-GitCommitAll -Root $tempRoot -Message "set accepted state to working"
+
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-accepted-status" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because the planning record is not in accepted state." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL malformed accepted-state status refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS malformed accepted-state status refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL malformed accepted-state status harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-accepted-record-ref-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $planningRecord = Get-Content -LiteralPath $fixtureSet.PlanningRecordPath -Raw | ConvertFrom-Json
+        $planningRecord.accepted_state.record_ref = ""
+        Set-JsonFixtureDocument -Path $fixtureSet.PlanningRecordPath -Document $planningRecord
+        Invoke-GitCommitAll -Root $tempRoot -Message "blank accepted record ref"
+
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-accepted-record-ref" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because the accepted record ref is blank." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL malformed accepted-state record_ref refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS malformed accepted-state record_ref refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL malformed accepted-state record_ref harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-cross-milestone-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $alternateMilestonePath = Join-Path (Split-Path -Parent $fixtureSet.MilestonePath) "governed_work_object.milestone.other.valid.json"
+        $alternateMilestone = Get-Content -LiteralPath $fixtureSet.MilestonePath -Raw | ConvertFrom-Json
+        $alternateMilestone.object_id = "milestone-r5-002c-other"
+        $alternateMilestone.title = "Alternate milestone for mismatch refusal"
+        Set-JsonFixtureDocument -Path $alternateMilestonePath -Document $alternateMilestone
+        Invoke-GitCommitAll -Root $tempRoot -Message "add alternate milestone anchor"
+
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-cross-milestone" -MilestonePath $alternateMilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because the planning record does not belong to the anchored milestone." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL cross-milestone mismatch refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS cross-milestone mismatch refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL cross-milestone mismatch harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-repeat-id-" + [guid]::NewGuid().ToString("N"))
+    $storePath = Join-Path $env:TEMP ("aioffice-r5-baseline-repeat-store-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $firstBaseline = New-MilestoneBaselineRecord -BaselineId "baseline-r5-repeat-id" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "First save" -RepositoryRoot $tempRoot -CapturedAt ([datetime]::Parse("2026-04-21T10:00:00Z").ToUniversalTime())
+        $firstPath = Save-MilestoneBaselineRecord -Baseline $firstBaseline -StorePath $storePath
+
+        $secondBaseline = New-MilestoneBaselineRecord -BaselineId "baseline-r5-repeat-id" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "Second save" -RepositoryRoot $tempRoot -CapturedAt ([datetime]::Parse("2026-04-21T11:00:00Z").ToUniversalTime())
+        $secondPath = Save-MilestoneBaselineRecord -Baseline $secondBaseline -StorePath $storePath
+        $loadedBaseline = Get-MilestoneBaselineRecord -BaselineId "baseline-r5-repeat-id" -StorePath $storePath
+
+        if ($firstPath -ne $secondPath) {
+            $failures += "FAIL repeated baseline_id characterization: repeated save wrote to a different path unexpectedly."
+        }
+        if ($loadedBaseline.Baseline.authority.reason -ne "Second save") {
+            $failures += "FAIL repeated baseline_id characterization: saved baseline did not reflect the second write."
+        }
+        if ($loadedBaseline.Baseline.captured_at -ne "2026-04-21T11:00:00Z") {
+            $failures += "FAIL repeated baseline_id characterization: captured_at did not reflect overwrite behavior."
+        }
+
+        Write-Output "PASS repeated baseline_id characterization: current save behavior overwrites an existing baseline record with the same baseline_id."
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+        if (Test-Path -LiteralPath $storePath) {
+            Remove-Item -LiteralPath $storePath -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL repeated baseline_id characterization harness: {0}" -f $_.Exception.Message)
 }
 
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored repository_root" -Tamper {
