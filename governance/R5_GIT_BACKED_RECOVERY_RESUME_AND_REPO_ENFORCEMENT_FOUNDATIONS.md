@@ -6,14 +6,14 @@
 ## Why this milestone exists now
 R4 closed a bounded hardening milestone for internal control-kernel, workflow, and CI foundations. The first R4 closeout posture was not clean enough, and the corrective completion layer `R4-008` through `R4-011` was required before honest closure could be restated.
 
-The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. A cleanly bounded Git-backed milestone baseline candidate now exists, but PRO audit found it not yet acceptable. Corrective hardening inside `R5-002` is required before the milestone-baseline slice can be honestly restated as done, while later restore, resume, and repo-enforcement foundations remain gated and unproved.
+The next defensible step is still not UI expansion, not Standard or subproject runtime, and not broad orchestrator productization. The first corrected Git-backed milestone-baseline slice is now complete again as `R5-002`, while later restore, resume, and repo-enforcement foundations remain gated and unproved.
 
 ## Objective
 Strengthen the next bounded foundation layer after R4 by correcting and hardening Git-backed milestone baselines first, then gating later bounded rollback and restore foundations, stronger baton continuity and resume authority semantics, and stronger CI/CD automation plus repo-enforcement expectations without adding UI, without opening Standard runtime claims, without claiming automatic resume, and without claiming broader orchestration.
 
 ## Exit criteria
-- repo truth records `R5-002` as `open (under corrective hardening)` until the PRO-audit blockers are corrected and re-proved
-- the corrective task layer under `R5-002` is explicit and bounded to the milestone-baseline slice only
+- repo truth records `R5-002` as complete again after corrected hardening through `R5-002A` through `R5-002G`
+- the corrective task layer under `R5-002` is completed and remains bounded to the milestone-baseline slice only
 - bounded rollback and restore gate expectations are explicit without claiming rollback as already implemented
 - strengthened baton continuity and resume authority expectations are explicit without claiming automatic resume
 - bounded resume re-entry expectations are explicit and operator-controlled
@@ -66,35 +66,35 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 - Done when: repo truth closes the post-R4 freeze posture, the new R5 milestone brief exists, and `governance/ACTIVE_STATE.md` plus `execution/KANBAN.md` open R5 without widening claims prematurely
 
 ### `R5-002` Define Git-backed milestone baseline model
-- Status: open (under corrective hardening)
-- Done when: `R5-002A` through `R5-002F` are complete, `R5-002G` restates repo truth honestly, and the slice can be re-accepted without claiming rollback execution or any later R5 capability
+- Status: done
+- Done when: `R5-002A` through `R5-002G` are complete, the focused milestone-baseline suite passes from a clean worktree, and the slice can be honestly restated as complete without claiming rollback execution or any later R5 capability
 
 ### `R5-002A` Enforce repository congruence for milestone baseline capture
-- Status: open
+- Status: done
 - Done when: milestone file, planning-record files, and accepted planning refs must resolve inside the same Git worktree as `RepositoryRoot`, cross-repo capture fails closed, and focused tests explicitly reject cross-repo capture
 
 ### `R5-002B` Harden persisted Git identity validation
-- Status: open
+- Status: done
 - Done when: malformed or tampered stored Git identity fails validation, and `repository_root`, `branch`, `head_commit`, and `tree_id` are meaningfully enforced instead of presence-checked only
 
 ### `R5-002C` Repair misleading happy path and expand focused tests
-- Status: open
+- Status: done
 - Done when: the current misleading happy path is replaced, focused tests catch the core defect surface, and the suite covers detached HEAD, dirty-state policy, malformed accepted-planning state, cross-milestone mismatch, corrupted stored Git fields, and repeated `baseline_id` behavior honestly
 
 ### `R5-002D` Harden path handling, portability, and save semantics
-- Status: open
+- Status: done
 - Done when: caller working directory does not silently change semantics without governance, save and load portability stance is explicit, and duplicate-id behavior is explicit and tested
 
 ### `R5-002E` Harden evidence model and anchor reconciliation
-- Status: open
+- Status: done
 - Done when: evidence refs are validated as appropriate, planning-record parent identity reconciles cleanly with milestone anchor refs or paths, and evidence duplication is reduced or explicitly justified
 
 ### `R5-002F` Make runtime and dependency assumptions explicit and fail-closed
-- Status: open
+- Status: done
 - Done when: Git CLI prerequisite handling, dependency on earlier R3 validators, and bounded failure messaging are explicit instead of implicit
 
 ### `R5-002G` Restate repo truth and re-close `R5-002` only after corrected proof
-- Status: open
+- Status: done
 - Done when: repo truth no longer overstates what the focused baseline test proves, `R5-002` can be honestly restated as complete, and `R5-003` remains the next gated step
 
 ### `R5-003` Define bounded rollback / restore gate foundations
@@ -119,9 +119,9 @@ Strengthen the next bounded foundation layer after R4 by correcting and hardenin
 
 ## Milestone notes
 - `R5-001` opened R5 in repo truth as structure only.
-- PRO audit found the current `R5-002` candidate cleanly bounded but not yet acceptable, so `R5-002` is reopened as `open (under corrective hardening)` on this correction branch.
+- `R5-002` is complete again after the bounded corrective layer `R5-002A` through `R5-002G` closed from a clean worktree with the focused milestone-baseline suite.
 - The current `R5-002` candidate surface remains limited to milestone-baseline contracts, `tools/MilestoneBaseline.psm1`, and `tests/test_milestone_baseline.ps1`.
-- `R5-002A` through `R5-002G` are the corrective hardening layer that must close before `R5-002` can be honestly restated as done.
+- `R5-002A` through `R5-002G` are the completed corrective hardening layer that re-closed `R5-002` honestly.
 - `R5-003` through `R5-007` remain open and planned only.
 - `R5-002` does not claim rollback execution, restore-gate behavior, resume behavior, repo-enforcement behavior, or proof-suite expansion.
 - R4 remains the prior closed milestone, and its historical closeout authority remains in `governance/POST_R4_CLOSEOUT.md` and `governance/POST_R4_AUDIT_INDEX.md`.

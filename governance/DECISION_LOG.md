@@ -166,3 +166,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: corrective tasks `R5-002A` through `R5-002G` are now the next gated work under the existing R5 milestone.
 - Consequence: `R5-003` through `R5-007` remain open and planned only.
 - Consequence: no restore-gate, resume, repo-enforcement, proof-suite expansion, UI, Standard runtime, or broader orchestration claim is opened by this correction branch.
+
+## D-0022 R5-002 Re-Closed After Corrected Hardening And Focused Proof
+- Date: 2026-04-21
+- Status: accepted
+- Decision: `R5-002` is complete again after bounded corrective hardening through `R5-002A` through `R5-002G`, and `D-0021` is superseded as the active posture for the milestone-baseline slice.
+- Consequence: the corrected slice now proves repository congruence enforcement, persisted Git identity hardening, honest focused test coverage, explicit path and save semantics, stronger evidence and anchor reconciliation, and explicit runtime and dependency fail-closed handling for Git-backed milestone baselines only.
+- Consequence: the focused acceptance proof remains `powershell -ExecutionPolicy Bypass -File tests\test_milestone_baseline.ps1` from a clean worktree; the current bounded proof suite still remains the R2 through R4 suite and is not broadened by this decision.
+- Consequence: `R5-003` through `R5-007` remain open and planned only, with `R5-003` as the next gated step.
+- Consequence: re-closing `R5-002` does not prove restore-gate behavior, resume behavior, repo-enforcement behavior, proof-suite expansion, UI productization, Standard runtime, rollback execution, or broader orchestration.
