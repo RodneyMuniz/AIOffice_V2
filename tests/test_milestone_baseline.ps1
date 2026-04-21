@@ -686,6 +686,53 @@ catch {
     $failures += ("FAIL relative store and baseline path resolution harness: {0}" -f $_.Exception.Message)
 }
 
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-missing-git-" + [guid]::NewGuid().ToString("N"))
+    $scriptPath = Join-Path $env:TEMP ("aioffice-r5-baseline-missing-git-" + [guid]::NewGuid().ToString("N") + ".ps1")
+
+    try {
+        $harness = New-PersistedBaselineHarness -Root $tempRoot -BaselineId "baseline-r5-missing-git"
+        $runnerPath = (Get-Command powershell).Source
+        @"
+`$ErrorActionPreference = 'Stop'
+`$env:PATH = ''
+Import-Module '$modulePath' -Force
+try {
+    Test-MilestoneBaselineRecordContract -BaselinePath '$($harness.SavedPath)' | Out-Null
+    Write-Output 'UNEXPECTED-SUCCESS'
+    exit 1
+}
+catch {
+    Write-Output `$_.Exception.Message
+    exit 0
+}
+"@ | Set-Content -LiteralPath $scriptPath -Encoding UTF8
+
+        $subprocessOutput = & $runnerPath -NoProfile -ExecutionPolicy Bypass -File $scriptPath 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $failures += "FAIL missing Git CLI prerequisite refusal: subprocess exited unexpectedly."
+        }
+        elseif (($subprocessOutput -join [Environment]::NewLine) -notmatch "Milestone baseline requires Git CLI to be installed and callable\.") {
+            $failures += "FAIL missing Git CLI prerequisite refusal: subprocess did not emit the explicit Git prerequisite message."
+        }
+        else {
+            Write-Output "PASS missing Git CLI prerequisite refusal: Milestone baseline requires Git CLI to be installed and callable."
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+        if (Test-Path -LiteralPath $scriptPath) {
+            Remove-Item -LiteralPath $scriptPath -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL missing Git CLI prerequisite refusal harness: {0}" -f $_.Exception.Message)
+}
+
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored repository_root" -Tamper {
     param($PersistedBaseline, $Harness)
 

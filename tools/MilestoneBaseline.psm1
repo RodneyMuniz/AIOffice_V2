@@ -1,11 +1,10 @@
 Set-StrictMode -Version Latest
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$planningRecordStorageModule = Import-Module (Join-Path $PSScriptRoot "PlanningRecordStorage.psm1") -Force -PassThru
-$governedWorkObjectValidationModule = Import-Module (Join-Path $PSScriptRoot "GovernedWorkObjectValidation.psm1") -Force -PassThru
-
-$testPlanningRecordContract = $planningRecordStorageModule.ExportedCommands["Test-PlanningRecordContract"]
-$testGovernedWorkObjectContract = $governedWorkObjectValidationModule.ExportedCommands["Test-GovernedWorkObjectContract"]
+$planningRecordStorageModulePath = Join-Path $PSScriptRoot "PlanningRecordStorage.psm1"
+$governedWorkObjectValidationModulePath = Join-Path $PSScriptRoot "GovernedWorkObjectValidation.psm1"
+$script:testPlanningRecordContract = $null
+$script:testGovernedWorkObjectContract = $null
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -83,6 +82,7 @@ function Get-GitWorktreeRoot {
 
     $resolvedPath = Resolve-ExistingPath -PathValue $PathValue -Label $Label
     $gitLocation = if (Test-Path -LiteralPath $resolvedPath -PathType Container) { $resolvedPath } else { Split-Path -Parent $resolvedPath }
+    Assert-GitCliAvailable | Out-Null
     $worktreeRoot = (& git -C $gitLocation rev-parse --show-toplevel 2>$null)
     if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($worktreeRoot)) {
         throw "$Label '$PathValue' must resolve inside a Git worktree."
@@ -388,6 +388,75 @@ function Get-BaselineContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_baselines\milestone_baseline.contract.json") -Label "Milestone baseline contract"
 }
 
+function Assert-GitCliAvailable {
+    $contract = Get-BaselineContract
+    if (-not $contract.runtime_rules.git_cli_required) {
+        return $null
+    }
+
+    $gitCommand = Get-Command git -ErrorAction SilentlyContinue
+    if ($null -eq $gitCommand) {
+        throw "Milestone baseline requires Git CLI to be installed and callable."
+    }
+
+    return $gitCommand
+}
+
+function Get-RequiredDependencyCommand {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ModulePath,
+        [Parameter(Mandatory = $true)]
+        [string]$DependencyLabel,
+        [Parameter(Mandatory = $true)]
+        [string]$CommandName
+    )
+
+    if (-not (Test-Path -LiteralPath $ModulePath)) {
+        throw "Milestone baseline requires dependency module '$DependencyLabel' at '$ModulePath'."
+    }
+
+    try {
+        $module = Import-Module $ModulePath -Force -PassThru -ErrorAction Stop
+    }
+    catch {
+        throw "Milestone baseline requires dependency module '$DependencyLabel' to load successfully. $($_.Exception.Message)"
+    }
+
+    $command = $module.ExportedCommands[$CommandName]
+    if ($null -eq $command) {
+        throw "Milestone baseline requires dependency command '$CommandName' from dependency module '$DependencyLabel'."
+    }
+
+    return $command
+}
+
+function Get-PlanningRecordValidatorCommand {
+    $contract = Get-BaselineContract
+    if (-not $contract.runtime_rules.planning_record_validator_required) {
+        throw "Milestone baseline contract requires planning_record_validator_required to remain true."
+    }
+
+    if ($null -eq $script:testPlanningRecordContract) {
+        $script:testPlanningRecordContract = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "Test-PlanningRecordContract"
+    }
+
+    return $script:testPlanningRecordContract
+}
+
+function Get-GovernedWorkObjectValidatorCommand {
+    $contract = Get-BaselineContract
+    if (-not $contract.runtime_rules.governed_work_object_validator_required) {
+        throw "Milestone baseline contract requires governed_work_object_validator_required to remain true."
+    }
+
+    if ($null -eq $script:testGovernedWorkObjectContract) {
+        $script:testGovernedWorkObjectContract = Get-RequiredDependencyCommand -ModulePath $governedWorkObjectValidationModulePath -DependencyLabel "GovernedWorkObjectValidation" -CommandName "Test-GovernedWorkObjectContract"
+    }
+
+    return $script:testGovernedWorkObjectContract
+}
+
 function Assert-AbsolutePathValue {
     param(
         [Parameter(Mandatory = $true)]
@@ -414,6 +483,7 @@ function Get-GitValue {
         [string]$Label
     )
 
+    Assert-GitCliAvailable | Out-Null
     $value = (& git -C $RepositoryRoot @Arguments 2>$null)
     if ($LASTEXITCODE -ne 0) {
         throw "Unable to resolve $Label for milestone baseline capture."
@@ -432,16 +502,17 @@ function Assert-GitBranchIdentity {
         $Foundation
     )
 
+    Assert-GitCliAvailable | Out-Null
     $normalizedBranch = Assert-NonEmptyString -Value $Branch -Context "Milestone baseline.git.branch"
     if ($Foundation.git_branch_validation_mode -eq "git_check_ref_format_branch") {
-        $null = (& git -C $RepositoryRoot check-ref-format --branch $normalizedBranch 2>&1)
+        & git -C $RepositoryRoot check-ref-format --branch $normalizedBranch *> $null
         if ($LASTEXITCODE -ne 0) {
             throw "Milestone baseline.git.branch must be a structurally valid Git branch name."
         }
     }
 
     if ($Foundation.git_branch_must_exist_in_repository) {
-        & git -C $RepositoryRoot show-ref --verify --quiet ("refs/heads/{0}" -f $normalizedBranch) 2>$null
+        & git -C $RepositoryRoot show-ref --verify --quiet ("refs/heads/{0}" -f $normalizedBranch) *> $null
         if ($LASTEXITCODE -ne 0) {
             throw "Milestone baseline.git.branch must resolve to a local branch in the referenced repository."
         }
@@ -466,11 +537,12 @@ function Assert-GitObjectIdentity {
         [string]$Context
     )
 
+    Assert-GitCliAvailable | Out-Null
     $normalizedObjectId = Assert-NonEmptyString -Value $ObjectId -Context $Context
     Assert-RegexMatch -Value $normalizedObjectId -Pattern $Pattern -Context $Context
 
     if ($MustExistInRepository) {
-        & git -C $RepositoryRoot cat-file -e $ObjectSpec 2>$null
+        & git -C $RepositoryRoot cat-file -e $ObjectSpec *> $null
         if ($LASTEXITCODE -ne 0) {
             throw "$Context must resolve to an existing Git object in the referenced repository."
         }
@@ -485,9 +557,10 @@ function Get-GitBranchName {
         [string]$RepositoryRoot
     )
 
-    $branch = (Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("branch", "--show-current") -Label "Git branch").Trim()
+    $branchValue = Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("branch", "--show-current") -Label "Git branch"
+    $branch = if ($null -eq $branchValue) { "" } else { ([string]$branchValue).Trim() }
     if ([string]::IsNullOrWhiteSpace($branch)) {
-        throw "Milestone baseline capture requires a non-empty Git branch."
+        throw "Milestone baseline capture requires an attached Git branch; detached HEAD is not allowed."
     }
 
     return $branch
@@ -499,7 +572,8 @@ function Get-GitHeadCommit {
         [string]$RepositoryRoot
     )
 
-    $head = (Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("rev-parse", "HEAD") -Label "Git HEAD commit").Trim()
+    $headValue = Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("rev-parse", "HEAD") -Label "Git HEAD commit"
+    $head = if ($null -eq $headValue) { "" } else { ([string]$headValue).Trim() }
     if ([string]::IsNullOrWhiteSpace($head)) {
         throw "Milestone baseline capture requires a non-empty Git HEAD commit."
     }
@@ -513,7 +587,8 @@ function Get-GitTreeId {
         [string]$RepositoryRoot
     )
 
-    $treeId = (Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("rev-parse", "HEAD^{tree}") -Label "Git tree id").Trim()
+    $treeValue = Get-GitValue -RepositoryRoot $RepositoryRoot -Arguments @("rev-parse", "HEAD^{tree}") -Label "Git tree id"
+    $treeId = if ($null -eq $treeValue) { "" } else { ([string]$treeValue).Trim() }
     if ([string]::IsNullOrWhiteSpace($treeId)) {
         throw "Milestone baseline capture requires a non-empty Git tree id."
     }
@@ -527,6 +602,7 @@ function Get-GitStatusLines {
         [string]$RepositoryRoot
     )
 
+    Assert-GitCliAvailable | Out-Null
     $statusOutput = & git -C $RepositoryRoot status --short --untracked-files=all 2>$null
     if ($LASTEXITCODE -ne 0) {
         throw "Unable to resolve Git status for milestone baseline capture."
@@ -550,7 +626,7 @@ function Resolve-PlanningRecordBaselineInput {
     )
 
     $resolvedPlanningRecordPath = Resolve-PathInsideRepository -PathValue $PlanningRecordPath -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label "Planning record"
-    $validation = & $testPlanningRecordContract -PlanningRecordPath $resolvedPlanningRecordPath
+    $validation = & (Get-PlanningRecordValidatorCommand) -PlanningRecordPath $resolvedPlanningRecordPath
     $planningRecord = Get-JsonDocument -Path $validation.PlanningRecordPath -Label "Planning record"
     if ($planningRecord.accepted_state.status -ne "accepted") {
         throw "Milestone baseline capture requires accepted planning records only."
@@ -559,7 +635,7 @@ function Resolve-PlanningRecordBaselineInput {
     $acceptedRecordRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecord.accepted_state -Name "record_ref" -Context "PlanningRecord.accepted_state") -Context "PlanningRecord.accepted_state.record_ref"
     $acceptedRecordPath = Resolve-ReferenceAgainstBase -BaseDirectory (Split-Path -Parent $validation.PlanningRecordPath) -Reference $acceptedRecordRef -Label "Planning record accepted surface"
     $acceptedRecordPath = Assert-ResolvedPathInsideRepository -ResolvedPath $acceptedRecordPath -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label "Planning record accepted surface"
-    $acceptedRecordValidation = & $testGovernedWorkObjectContract -WorkObjectPath $acceptedRecordPath
+    $acceptedRecordValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $acceptedRecordPath
     $acceptedRecord = Get-JsonDocument -Path $acceptedRecordValidation.WorkObjectPath -Label "Accepted planning record work object"
 
     $parent = Assert-ObjectValue -Value (Get-RequiredProperty -Object $acceptedRecord -Name "parent" -Context "Accepted planning record work object") -Context "Accepted planning record work object.parent"
@@ -575,7 +651,7 @@ function Resolve-PlanningRecordBaselineInput {
 
     $parentRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $parent -Name "ref" -Context "Accepted planning record work object.parent") -Context "Accepted planning record work object.parent.ref"
     $acceptedParentPath = Resolve-PathInsideRepository -PathValue $parentRef -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label "Accepted planning record milestone parent"
-    $acceptedParentValidation = & $testGovernedWorkObjectContract -WorkObjectPath $acceptedParentPath
+    $acceptedParentValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $acceptedParentPath
     if ($acceptedParentValidation.ObjectType -ne "milestone") {
         throw "Accepted planning record milestone parent refs must resolve to governed milestone work objects."
     }
@@ -658,7 +734,7 @@ function Validate-BaselineFields {
 
     $milestoneObjectId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $milestone -Name "object_id" -Context "Milestone baseline.milestone") -Context "Milestone baseline.milestone.object_id"
     $milestonePath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $milestone -Name "ref" -Context "Milestone baseline.milestone") -Context "Milestone baseline.milestone.ref") -Label "Milestone baseline milestone"
-    $milestoneValidation = & $testGovernedWorkObjectContract -WorkObjectPath $milestonePath
+    $milestoneValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $milestonePath
     if ($milestoneValidation.ObjectType -ne "milestone") {
         throw "Milestone baseline records must reference governed work object milestones."
     }
@@ -849,7 +925,7 @@ function New-MilestoneBaselineRecord {
     $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
     $repositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $resolvedRepositoryRoot -Label "Repository root"
     $resolvedMilestonePath = Resolve-PathInsideRepository -PathValue $MilestonePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone"
-    $milestoneValidation = & $testGovernedWorkObjectContract -WorkObjectPath $resolvedMilestonePath
+    $milestoneValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $resolvedMilestonePath
     if ($milestoneValidation.ObjectType -ne "milestone") {
         throw "Milestone baseline capture requires a milestone governed work object."
     }

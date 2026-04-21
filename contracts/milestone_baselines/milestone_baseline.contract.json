@@ -32,5 +32,10 @@
     "accepted_planning_artifact_evidence_required": true,
     "milestone_anchor_artifact_evidence_required": true,
     "evidence_refs_must_resolve": true
+  },
+  "runtime_rules": {
+    "git_cli_required": true,
+    "planning_record_validator_required": true,
+    "governed_work_object_validator_required": true
   }
 }
