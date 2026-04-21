@@ -83,6 +83,19 @@ function Set-JsonFixtureDocument {
     $Document | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $Path -Encoding UTF8
 }
 
+function Get-RelativePathFromModuleRepoRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TargetPath
+    )
+
+    $resolvedRepoRoot = (Resolve-Path -LiteralPath $repoRoot).Path
+    $normalizedTargetPath = [System.IO.Path]::GetFullPath($TargetPath)
+    $baseUri = [System.Uri]("{0}{1}" -f $resolvedRepoRoot.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
+    $targetUri = [System.Uri]$normalizedTargetPath
+    return ($baseUri.MakeRelativeUri($targetUri).OriginalString).Replace("\", "/")
+}
+
 function New-PersistedBaselineHarness {
     param(
         [Parameter(Mandatory = $true)]
@@ -171,6 +184,9 @@ try {
         if (@($loadedBaseline.Baseline.evidence | Where-Object { $_.kind -eq "planning_record" }).Count -eq 0) {
             $failures += "FAIL valid milestone baseline: planning_record evidence was not preserved."
         }
+        if (-not [System.IO.Path]::IsPathRooted($loadedBaseline.Baseline.git.repository_root)) {
+            $failures += "FAIL valid milestone baseline: git.repository_root was not persisted as an absolute path."
+        }
 
         Write-Output ("PASS valid milestone baseline: {0}" -f $savedPath)
         $validPassed += 1
@@ -183,6 +199,38 @@ try {
 }
 catch {
     $failures += ("FAIL valid milestone baseline harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-relative-repository-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+    $relativeRepositoryRoot = Get-RelativePathFromModuleRepoRoot -TargetPath $tempRoot
+
+    try {
+        Push-Location -LiteralPath $env:TEMP
+        try {
+            $baseline = New-MilestoneBaselineRecord -BaselineId "baseline-r5-relative-repository-root" -MilestonePath "state/fixtures/valid/governed_work_object.milestone.valid.json" -PlanningRecordPaths @("state/fixtures/valid/planning_record.task.valid.json") -OperatorId "operator:admin" -AuthorityReason "Capture should resolve repository-scoped relative paths deterministically." -RepositoryRoot $relativeRepositoryRoot
+
+            if ($baseline.git.repository_root -ne [System.IO.Path]::GetFullPath($tempRoot)) {
+                $failures += "FAIL relative repository input resolution: repository_root did not resolve to the expected absolute path."
+            }
+
+            Write-Output "PASS relative repository input resolution: RepositoryRoot-relative capture paths resolve against the captured repository instead of the caller working directory."
+            $validPassed += 1
+        }
+        finally {
+            Pop-Location
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL relative repository input resolution harness: {0}" -f $_.Exception.Message)
 }
 
 try {
@@ -553,10 +601,60 @@ catch {
     $failures += ("FAIL repeated baseline_id characterization harness: {0}" -f $_.Exception.Message)
 }
 
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-relative-store-" + [guid]::NewGuid().ToString("N"))
+    $storePath = Join-Path $env:TEMP ("aioffice-r5-baseline-relative-store-root-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $baseline = New-MilestoneBaselineRecord -BaselineId "baseline-r5-relative-store-paths" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "Characterize deterministic relative store and baseline path handling." -RepositoryRoot $tempRoot
+        $relativeStorePath = Get-RelativePathFromModuleRepoRoot -TargetPath $storePath
+
+        Push-Location -LiteralPath $env:TEMP
+        try {
+            $savedPath = Save-MilestoneBaselineRecord -Baseline $baseline -StorePath $relativeStorePath
+            $relativeBaselinePath = Get-RelativePathFromModuleRepoRoot -TargetPath $savedPath
+            $validation = Test-MilestoneBaselineRecordContract -BaselinePath $relativeBaselinePath
+            $loadedBaseline = Get-MilestoneBaselineRecord -BaselineId $baseline.baseline_id -StorePath $relativeStorePath
+
+            if ($validation.BaselinePath -ne $savedPath) {
+                $failures += "FAIL relative store and baseline path resolution: validation did not resolve the saved baseline path deterministically."
+            }
+            if ($loadedBaseline.Validation.BaselinePath -ne $savedPath) {
+                $failures += "FAIL relative store and baseline path resolution: baseline load did not resolve the saved baseline path deterministically."
+            }
+
+            Write-Output "PASS relative store and baseline path resolution: relative StorePath and BaselinePath inputs resolve from the module repository root deterministically."
+            $validPassed += 1
+        }
+        finally {
+            Pop-Location
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+        if (Test-Path -LiteralPath $storePath) {
+            Remove-Item -LiteralPath $storePath -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL relative store and baseline path resolution harness: {0}" -f $_.Exception.Message)
+}
+
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored repository_root" -Tamper {
     param($PersistedBaseline, $Harness)
 
     $PersistedBaseline.git.repository_root = (Join-Path $Harness.Root "missing-repository-root")
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "relative stored repository_root" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $PersistedBaseline.git.repository_root = "relative/repository-root"
 }
 
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored branch" -Tamper {

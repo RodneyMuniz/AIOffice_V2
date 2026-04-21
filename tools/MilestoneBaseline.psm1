@@ -11,17 +11,31 @@ function Get-RepositoryRoot {
     return $repoRoot
 }
 
+function Get-ModuleRepositoryRootPath {
+    return (Resolve-Path -LiteralPath (Get-RepositoryRoot)).Path
+}
+
 function Resolve-PathValue {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$PathValue
+        [string]$PathValue,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
+    Assert-NonEmptyString -Value $PathValue -Context "Path value" | Out-Null
+
     if ([System.IO.Path]::IsPathRooted($PathValue)) {
-        return $PathValue
+        return [System.IO.Path]::GetFullPath($PathValue)
     }
 
-    return Join-Path (Get-Location) $PathValue
+    $resolvedAnchorPath = if (Test-Path -LiteralPath $AnchorPath) {
+        (Resolve-Path -LiteralPath $AnchorPath).Path
+    }
+    else {
+        [System.IO.Path]::GetFullPath($AnchorPath)
+    }
+
+    return [System.IO.Path]::GetFullPath((Join-Path $resolvedAnchorPath $PathValue))
 }
 
 function Resolve-ExistingPath {
@@ -29,10 +43,11 @@ function Resolve-ExistingPath {
         [Parameter(Mandatory = $true)]
         [string]$PathValue,
         [Parameter(Mandatory = $true)]
-        [string]$Label
+        [string]$Label,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
-    $resolvedPath = Resolve-PathValue -PathValue $PathValue
+    $resolvedPath = Resolve-PathValue -PathValue $PathValue -AnchorPath $AnchorPath
     if (-not (Test-Path -LiteralPath $resolvedPath)) {
         throw "$Label '$PathValue' does not exist."
     }
@@ -113,7 +128,7 @@ function Resolve-PathInsideRepository {
         [string]$Label
     )
 
-    $resolvedPath = Resolve-ExistingPath -PathValue $PathValue -Label $Label
+    $resolvedPath = Resolve-ExistingPath -PathValue $PathValue -Label $Label -AnchorPath $RepositoryRoot
     return Assert-ResolvedPathInsideRepository -ResolvedPath $resolvedPath -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label $Label
 }
 
@@ -373,6 +388,22 @@ function Get-BaselineContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_baselines\milestone_baseline.contract.json") -Label "Milestone baseline contract"
 }
 
+function Assert-AbsolutePathValue {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PathValue,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $normalizedPath = Assert-NonEmptyString -Value $PathValue -Context $Context
+    if (-not [System.IO.Path]::IsPathRooted($normalizedPath)) {
+        throw "$Context must be stored as an absolute machine-local path."
+    }
+
+    return [System.IO.Path]::GetFullPath($normalizedPath)
+}
+
 function Get-GitValue {
     param(
         [Parameter(Mandatory = $true)]
@@ -630,7 +661,12 @@ function Validate-BaselineFields {
         Get-RequiredProperty -Object $git -Name $fieldName -Context "Milestone baseline.git" | Out-Null
     }
 
-    $baselineRepositoryRoot = Resolve-ExistingPath -PathValue (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "repository_root" -Context "Milestone baseline.git") -Context "Milestone baseline.git.repository_root") -Label "Milestone baseline.git.repository_root"
+    $storedRepositoryRoot = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $git -Name "repository_root" -Context "Milestone baseline.git") -Context "Milestone baseline.git.repository_root"
+    if ($foundation.git_repository_root_must_be_absolute -or $contract.git_rules.repository_root_persistence -eq "absolute_machine_local") {
+        $storedRepositoryRoot = Assert-AbsolutePathValue -PathValue $storedRepositoryRoot -Context "Milestone baseline.git.repository_root"
+    }
+
+    $baselineRepositoryRoot = Resolve-ExistingPath -PathValue $storedRepositoryRoot -Label "Milestone baseline.git.repository_root"
     if ($foundation.git_repository_root_must_be_worktree) {
         $baselineRepositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $baselineRepositoryRoot -Label "Milestone baseline.git.repository_root"
     }
@@ -719,7 +755,7 @@ function Test-MilestoneBaselineRecordContract {
         [string]$BaselinePath
     )
 
-    $resolvedBaselinePath = Resolve-ExistingPath -PathValue $BaselinePath -Label "Milestone baseline"
+    $resolvedBaselinePath = Resolve-ExistingPath -PathValue $BaselinePath -Label "Milestone baseline" -AnchorPath (Get-ModuleRepositoryRootPath)
     $baseline = Get-JsonDocument -Path $resolvedBaselinePath -Label "Milestone baseline"
     Validate-BaselineFields -Baseline $baseline -BaseDirectory (Split-Path -Parent $resolvedBaselinePath)
 
@@ -841,7 +877,7 @@ function New-MilestoneBaselineRecord {
         notes            = "Git-backed milestone baseline captured from a clean worktree. This is a restore target substrate only and does not claim rollback execution."
     }
 
-    Validate-BaselineFields -Baseline $baseline -BaseDirectory (Get-Location).Path
+    Validate-BaselineFields -Baseline $baseline -BaseDirectory (Get-ModuleRepositoryRootPath)
     return $baseline
 }
 
@@ -854,7 +890,9 @@ function Save-MilestoneBaselineRecord {
         [string]$StorePath
     )
 
-    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath
+    Validate-BaselineFields -Baseline $Baseline -BaseDirectory (Get-ModuleRepositoryRootPath)
+
+    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath -AnchorPath (Get-ModuleRepositoryRootPath)
     if (-not (Test-Path -LiteralPath $resolvedStorePath)) {
         New-Item -ItemType Directory -Path $resolvedStorePath -Force | Out-Null
     }
@@ -899,7 +937,14 @@ function Save-MilestoneBaselineRecord {
         notes            = $Baseline.notes
     }
 
+    $contract = Get-BaselineContract
     $baselinePath = Join-Path $baselineDirectory ("{0}.json" -f $persistedBaseline.baseline_id)
+    if (Test-Path -LiteralPath $baselinePath) {
+        if ($contract.save_rules.baseline_id_collision_policy -ne "overwrite_existing") {
+            throw "Milestone baseline save does not permit reusing baseline_id '$($persistedBaseline.baseline_id)'."
+        }
+    }
+
     Write-JsonDocument -Path $baselinePath -Document $persistedBaseline
     Test-MilestoneBaselineRecordContract -BaselinePath $baselinePath | Out-Null
 
@@ -915,7 +960,7 @@ function Get-MilestoneBaselineRecord {
         [string]$StorePath
     )
 
-    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath
+    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath -AnchorPath (Get-ModuleRepositoryRootPath)
     $baselinePath = Join-Path (Join-Path $resolvedStorePath "milestone_baselines") ("{0}.json" -f $BaselineId)
     $validation = Test-MilestoneBaselineRecordContract -BaselinePath $baselinePath
     $baseline = Get-JsonDocument -Path $validation.BaselinePath -Label "Milestone baseline"

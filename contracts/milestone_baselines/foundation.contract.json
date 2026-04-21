@@ -24,6 +24,7 @@
     "proof_record",
     "artifact"
   ],
+  "git_repository_root_must_be_absolute": true,
   "git_repository_root_must_be_worktree": true,
   "git_branch_validation_mode": "git_check_ref_format_branch",
   "git_branch_must_exist_in_repository": true,

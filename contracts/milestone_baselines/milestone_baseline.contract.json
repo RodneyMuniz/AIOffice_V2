@@ -8,11 +8,22 @@
     "clean_worktree_required": true,
     "branch_required": true,
     "head_commit_required": true,
-    "tree_id_required": true
+    "tree_id_required": true,
+    "repository_root_persistence": "absolute_machine_local"
+  },
+  "path_rules": {
+    "repository_root_relative_base": "module_repository_root",
+    "store_path_relative_base": "module_repository_root",
+    "baseline_path_relative_base": "module_repository_root",
+    "captured_repository_member_relative_base": "repository_root",
+    "persisted_ref_relative_base": "baseline_directory"
   },
   "planning_rules": {
     "accepted_planning_records_required": true,
     "planning_records_must_belong_to_same_milestone": true
+  },
+  "save_rules": {
+    "baseline_id_collision_policy": "overwrite_existing"
   },
   "evidence_rules": {
     "planning_record_evidence_required": true
