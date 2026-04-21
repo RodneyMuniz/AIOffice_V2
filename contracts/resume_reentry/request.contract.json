@@ -1,0 +1,18 @@
+{
+  "record_type": "resume_reentry_request",
+  "field_types": {
+    "resume_request_id": "string",
+    "baton_ref": "string",
+    "operator_id": "string",
+    "requested_at": "string",
+    "reentry_kind": "string",
+    "baseline_ref": "nullable_string",
+    "restore_result_ref": "nullable_string",
+    "notes": "string"
+  },
+  "non_claims_preserved": [
+    "Resume re-entry remains operator-controlled and bounded to retry_entry only.",
+    "Resume re-entry requests do not imply unattended automatic resume.",
+    "Resume re-entry requests do not imply rollback or broader orchestration behavior."
+  ]
+}
