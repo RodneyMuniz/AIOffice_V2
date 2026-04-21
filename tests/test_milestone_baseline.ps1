@@ -184,6 +184,12 @@ try {
         if (@($loadedBaseline.Baseline.evidence | Where-Object { $_.kind -eq "planning_record" }).Count -eq 0) {
             $failures += "FAIL valid milestone baseline: planning_record evidence was not preserved."
         }
+        if (@($loadedBaseline.Baseline.evidence | Where-Object { $_.kind -eq "artifact" -and $_.ref -eq $loadedBaseline.Baseline.milestone.ref }).Count -eq 0) {
+            $failures += "FAIL valid milestone baseline: milestone anchor artifact evidence was not preserved."
+        }
+        if (@($loadedBaseline.Baseline.evidence | Where-Object { $_.kind -eq "artifact" -and $_.ref -eq $loadedBaseline.Baseline.planning_record_refs[0].accepted_record_ref }).Count -eq 0) {
+            $failures += "FAIL valid milestone baseline: accepted planning artifact evidence was not preserved."
+        }
         if (-not [System.IO.Path]::IsPathRooted($loadedBaseline.Baseline.git.repository_root)) {
             $failures += "FAIL valid milestone baseline: git.repository_root was not persisted as an absolute path."
         }
@@ -562,6 +568,41 @@ catch {
 }
 
 try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-parent-ref-mismatch-" + [guid]::NewGuid().ToString("N"))
+    New-TempGitRepository -Root $tempRoot
+    $fixtureSet = New-BaselineFixtureSet -Root $tempRoot
+
+    try {
+        $alternateMilestonePath = Join-Path (Split-Path -Parent $fixtureSet.MilestonePath) "governed_work_object.milestone.same-id.alt.json"
+        $alternateMilestone = Get-Content -LiteralPath $fixtureSet.MilestonePath -Raw | ConvertFrom-Json
+        $alternateMilestone.title = "Alternate milestone path with the same identity"
+        Set-JsonFixtureDocument -Path $alternateMilestonePath -Document $alternateMilestone
+
+        $acceptedRecord = Get-Content -LiteralPath $fixtureSet.AcceptedRecordPath -Raw | ConvertFrom-Json
+        $acceptedRecord.parent.ref = $alternateMilestonePath
+        Set-JsonFixtureDocument -Path $fixtureSet.AcceptedRecordPath -Document $acceptedRecord
+        Invoke-GitCommitAll -Root $tempRoot -Message "redirect accepted parent ref to alternate milestone path"
+
+        try {
+            New-MilestoneBaselineRecord -BaselineId "baseline-r5-invalid-parent-ref-mismatch" -MilestonePath $fixtureSet.MilestonePath -PlanningRecordPaths @($fixtureSet.PlanningRecordPath) -OperatorId "operator:admin" -AuthorityReason "This should fail because the accepted planning parent ref does not match the anchored milestone path." -RepositoryRoot $tempRoot | Out-Null
+            $failures += "FAIL accepted planning parent ref mismatch refusal: capture succeeded unexpectedly."
+        }
+        catch {
+            Write-Output ("PASS accepted planning parent ref mismatch refusal: {0}" -f $_.Exception.Message)
+            $invalidRejected += 1
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL accepted planning parent ref mismatch harness: {0}" -f $_.Exception.Message)
+}
+
+try {
     $tempRoot = Join-Path $env:TEMP ("aioffice-r5-baseline-repeat-id-" + [guid]::NewGuid().ToString("N"))
     $storePath = Join-Path $env:TEMP ("aioffice-r5-baseline-repeat-store-" + [guid]::NewGuid().ToString("N"))
     New-TempGitRepository -Root $tempRoot
@@ -655,6 +696,20 @@ Invoke-TamperedBaselineRefusalTest -Label "relative stored repository_root" -Tam
     param($PersistedBaseline, $Harness)
 
     $PersistedBaseline.git.repository_root = "relative/repository-root"
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "planning_record evidence mismatch" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $planningRecordEvidence = @($PersistedBaseline.evidence | Where-Object { $_.kind -eq "planning_record" })[0]
+    $planningRecordEvidence.ref = $PersistedBaseline.milestone.ref
+}
+
+Invoke-TamperedBaselineRefusalTest -Label "accepted planning artifact evidence missing" -Tamper {
+    param($PersistedBaseline, $Harness)
+
+    $acceptedRef = $PersistedBaseline.planning_record_refs[0].accepted_record_ref
+    $PersistedBaseline.evidence = @($PersistedBaseline.evidence | Where-Object { -not ($_.kind -eq "artifact" -and $_.ref -eq $acceptedRef) })
 }
 
 Invoke-TamperedBaselineRefusalTest -Label "invalid stored branch" -Tamper {

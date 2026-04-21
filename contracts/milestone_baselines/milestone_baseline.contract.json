@@ -20,12 +20,17 @@
   },
   "planning_rules": {
     "accepted_planning_records_required": true,
-    "planning_records_must_belong_to_same_milestone": true
+    "planning_records_must_belong_to_same_milestone": true,
+    "accepted_parent_ref_must_match_milestone_ref": true
   },
   "save_rules": {
     "baseline_id_collision_policy": "overwrite_existing"
   },
   "evidence_rules": {
-    "planning_record_evidence_required": true
+    "planning_record_evidence_required": true,
+    "planning_record_evidence_must_match_refs": true,
+    "accepted_planning_artifact_evidence_required": true,
+    "milestone_anchor_artifact_evidence_required": true,
+    "evidence_refs_must_resolve": true
   }
 }

@@ -542,6 +542,8 @@ function Resolve-PlanningRecordBaselineInput {
         [Parameter(Mandatory = $true)]
         $MilestoneDocument,
         [Parameter(Mandatory = $true)]
+        [string]$MilestonePath,
+        [Parameter(Mandatory = $true)]
         [string]$RepositoryRoot,
         [Parameter(Mandatory = $true)]
         [string]$RepositoryWorktreeRoot
@@ -571,11 +573,27 @@ function Resolve-PlanningRecordBaselineInput {
         throw "Planning record '$($validation.PlanningRecordId)' does not belong to milestone '$($MilestoneDocument.object_id)'."
     }
 
+    $parentRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $parent -Name "ref" -Context "Accepted planning record work object.parent") -Context "Accepted planning record work object.parent.ref"
+    $acceptedParentPath = Resolve-PathInsideRepository -PathValue $parentRef -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label "Accepted planning record milestone parent"
+    $acceptedParentValidation = & $testGovernedWorkObjectContract -WorkObjectPath $acceptedParentPath
+    if ($acceptedParentValidation.ObjectType -ne "milestone") {
+        throw "Accepted planning record milestone parent refs must resolve to governed milestone work objects."
+    }
+
+    $acceptedParentDocument = Get-JsonDocument -Path $acceptedParentValidation.WorkObjectPath -Label "Accepted planning record milestone parent"
+    if ($acceptedParentDocument.object_id -ne $MilestoneDocument.object_id) {
+        throw "Accepted planning record milestone parent refs must resolve to the anchored milestone identity."
+    }
+    if ($acceptedParentValidation.WorkObjectPath -ine $MilestonePath) {
+        throw "Accepted planning record milestone parent ref must match the anchored milestone work object path."
+    }
+
     return [pscustomobject]@{
-        Validation         = $validation
-        PlanningRecord     = $planningRecord
-        AcceptedRecordPath = $acceptedRecordPath
-        AcceptedRecord     = $acceptedRecord
+        Validation          = $validation
+        PlanningRecord      = $planningRecord
+        AcceptedRecordPath  = $acceptedRecordPath
+        AcceptedRecord      = $acceptedRecord
+        AcceptedParentPath  = $acceptedParentValidation.WorkObjectPath
     }
 }
 
@@ -699,6 +717,8 @@ function Validate-BaselineFields {
         throw "Milestone baseline records must include at least one accepted planning record ref."
     }
 
+    $expectedPlanningRecordEvidenceRefs = @()
+    $expectedAcceptedArtifactEvidenceRefs = @()
     foreach ($planningRecordRef in $planningRecordRefs) {
         foreach ($fieldName in $foundation.planning_record_ref_required_fields) {
             Get-RequiredProperty -Object $planningRecordRef -Name $fieldName -Context "Milestone baseline.planning_record_refs item" | Out-Null
@@ -708,7 +728,7 @@ function Validate-BaselineFields {
         Assert-AllowedValue -Value $planningView -AllowedValues @($foundation.allowed_planning_record_views) -Context "Milestone baseline.planning_record_refs item.view"
 
         $planningRecordPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "ref" -Context "Milestone baseline.planning_record_refs item") -Context "Milestone baseline.planning_record_refs item.ref") -Label "Milestone baseline planning record"
-        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $milestoneDocument -RepositoryRoot $baselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot
+        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $milestoneDocument -MilestonePath $milestoneValidation.WorkObjectPath -RepositoryRoot $baselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot
 
         if ($planningRecordInput.Validation.PlanningRecordId -ne $planningRecordRef.planning_record_id) {
             throw "Milestone baseline planning_record_refs item.planning_record_id must match the referenced planning record."
@@ -722,11 +742,16 @@ function Validate-BaselineFields {
             throw "Milestone baseline planning_record_refs item.accepted_record_ref must match the referenced planning record accepted surface."
         }
 
+        $expectedPlanningRecordEvidenceRefs += $planningRecordInput.Validation.PlanningRecordPath
+        $expectedAcceptedArtifactEvidenceRefs += $planningRecordInput.AcceptedRecordPath
         Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "notes" -Context "Milestone baseline.planning_record_refs item") -Context "Milestone baseline.planning_record_refs item.notes" | Out-Null
     }
 
     $evidence = [object[]](Assert-ObjectArray -Value (Get-RequiredProperty -Object $Baseline -Name "evidence" -Context "Milestone baseline") -Context "Milestone baseline.evidence")
     $planningRecordEvidenceFound = $false
+    $matchedPlanningRecordEvidenceRefs = @()
+    $matchedAcceptedArtifactEvidenceRefs = @()
+    $milestoneAnchorArtifactEvidenceFound = $false
     foreach ($evidenceItem in $evidence) {
         foreach ($fieldName in $foundation.evidence_required_fields) {
             Get-RequiredProperty -Object $evidenceItem -Name $fieldName -Context "Milestone baseline.evidence item" | Out-Null
@@ -734,15 +759,44 @@ function Validate-BaselineFields {
 
         $evidenceKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $evidenceItem -Name "kind" -Context "Milestone baseline.evidence item") -Context "Milestone baseline.evidence item.kind"
         Assert-AllowedValue -Value $evidenceKind -AllowedValues @($foundation.allowed_evidence_kinds) -Context "Milestone baseline.evidence item.kind"
-        Assert-NonEmptyString -Value (Get-RequiredProperty -Object $evidenceItem -Name "ref" -Context "Milestone baseline.evidence item") -Context "Milestone baseline.evidence item.ref" | Out-Null
+        $evidenceRef = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $evidenceItem -Name "ref" -Context "Milestone baseline.evidence item") -Context "Milestone baseline.evidence item.ref"
+        if ($contract.evidence_rules.evidence_refs_must_resolve) {
+            $resolvedEvidenceRef = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $evidenceRef -Label "Milestone baseline evidence"
+        }
+        else {
+            $resolvedEvidenceRef = $evidenceRef
+        }
         Assert-NonEmptyString -Value (Get-RequiredProperty -Object $evidenceItem -Name "summary" -Context "Milestone baseline.evidence item") -Context "Milestone baseline.evidence item.summary" | Out-Null
         if ($evidenceKind -eq "planning_record") {
             $planningRecordEvidenceFound = $true
+            if ($contract.evidence_rules.planning_record_evidence_must_match_refs -and $expectedPlanningRecordEvidenceRefs -notcontains $resolvedEvidenceRef) {
+                throw "Milestone baseline planning_record evidence refs must match planning_record_refs item.ref values."
+            }
+            if ($matchedPlanningRecordEvidenceRefs -notcontains $resolvedEvidenceRef) {
+                $matchedPlanningRecordEvidenceRefs += $resolvedEvidenceRef
+            }
+        }
+        elseif ($evidenceKind -eq "artifact") {
+            if ($resolvedEvidenceRef -ieq $milestoneValidation.WorkObjectPath) {
+                $milestoneAnchorArtifactEvidenceFound = $true
+            }
+            elseif ($expectedAcceptedArtifactEvidenceRefs -contains $resolvedEvidenceRef -and $matchedAcceptedArtifactEvidenceRefs -notcontains $resolvedEvidenceRef) {
+                $matchedAcceptedArtifactEvidenceRefs += $resolvedEvidenceRef
+            }
         }
     }
 
     if ($contract.evidence_rules.planning_record_evidence_required -and -not $planningRecordEvidenceFound) {
         throw "Milestone baseline records must include planning_record evidence."
+    }
+    if ($contract.evidence_rules.planning_record_evidence_must_match_refs -and $matchedPlanningRecordEvidenceRefs.Count -ne $expectedPlanningRecordEvidenceRefs.Count) {
+        throw "Milestone baseline records must include planning_record evidence for each planning_record_refs item."
+    }
+    if ($contract.evidence_rules.accepted_planning_artifact_evidence_required -and $matchedAcceptedArtifactEvidenceRefs.Count -ne $expectedAcceptedArtifactEvidenceRefs.Count) {
+        throw "Milestone baseline records must include accepted planning artifact evidence for each planning_record_refs item."
+    }
+    if ($contract.evidence_rules.milestone_anchor_artifact_evidence_required -and -not $milestoneAnchorArtifactEvidenceFound) {
+        throw "Milestone baseline records must include milestone anchor artifact evidence."
     }
 
     Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Baseline -Name "notes" -Context "Milestone baseline") -Context "Milestone baseline.notes" | Out-Null
@@ -818,7 +872,7 @@ function New-MilestoneBaselineRecord {
     $planningRecordRefs = @()
     $evidence = @()
     foreach ($planningRecordPath in @($PlanningRecordPaths)) {
-        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $milestoneDocument -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot
+        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $milestoneDocument -MilestonePath $milestoneValidation.WorkObjectPath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot
 
         $planningRecordRefs += [pscustomobject]@{
             planning_record_id  = $planningRecordInput.Validation.PlanningRecordId
@@ -834,6 +888,12 @@ function New-MilestoneBaselineRecord {
             kind    = "planning_record"
             ref     = $planningRecordInput.Validation.PlanningRecordPath
             summary = "Accepted planning record '$($planningRecordInput.Validation.PlanningRecordId)' is included in the milestone baseline."
+        }
+
+        $evidence += [pscustomobject]@{
+            kind    = "artifact"
+            ref     = $planningRecordInput.AcceptedRecordPath
+            summary = "Accepted planning surface '$($planningRecordInput.AcceptedRecord.object_id)' is captured as milestone-baseline evidence."
         }
     }
 
