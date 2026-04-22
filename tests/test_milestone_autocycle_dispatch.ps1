@@ -48,6 +48,7 @@ function New-TempGitRepository {
     & git -C $Root config core.safecrlf false | Out-Null
     & git -C $Root config user.email "codex@example.com" | Out-Null
     & git -C $Root config user.name "Codex" | Out-Null
+    Add-Content -LiteralPath (Join-Path $Root ".git\info\exclude") -Value "state/autocycle/"
     Set-Content -LiteralPath (Join-Path $Root "README.md") -Value "# Temp repo" -Encoding UTF8
     & git -C $Root add README.md | Out-Null
     & git -C $Root commit -m "initial temp commit" | Out-Null
@@ -85,6 +86,40 @@ function Get-CurrentBranch {
     return $branch
 }
 
+function Invoke-EmptyGitCommit {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Root,
+        [Parameter(Mandatory = $true)]
+        [string]$Message
+    )
+
+    & git -C $Root commit --allow-empty -m $Message | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to create empty commit '$Message' in temp Git repository."
+    }
+}
+
+function Invoke-TrackedContentCommit {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Root,
+        [Parameter(Mandatory = $true)]
+        [string]$RelativePath,
+        [Parameter(Mandatory = $true)]
+        [string]$AppendLine,
+        [Parameter(Mandatory = $true)]
+        [string]$Message
+    )
+
+    Add-Content -LiteralPath (Join-Path $Root $RelativePath) -Value $AppendLine
+    & git -C $Root add -- $RelativePath | Out-Null
+    & git -C $Root commit -m $Message | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to create tracked-content commit '$Message' in temp Git repository."
+    }
+}
+
 function Initialize-DispatchHarness {
     param(
         [Parameter(Mandatory = $true)]
@@ -102,11 +137,9 @@ function Initialize-DispatchHarness {
     $freezeOutputRoot = Join-Path $Root "state\autocycle\cycle"
     New-Item -ItemType Directory -Path $freezeOutputRoot -Force | Out-Null
     $approvalFlow = & $invokeMilestoneAutocycleApprovalFlow -ProposalPath $proposalPath -DecisionStatus approved -OperatorId "operator:rodney" -CycleId "cycle-r6-005-dispatch-001" -OutputRoot $freezeOutputRoot -DecisionId "decision-r6-005-approved-001" -FreezeId "freeze-r6-005-approved-001" -DecidedAt ([datetime]::Parse("2026-04-22T06:00:00Z").ToUniversalTime()) -Notes "Approve the bounded milestone proposal and freeze it before governed dispatch creation."
-    Invoke-GitCommitAll -Root $Root -Message "commit approved freeze artifacts"
 
     $bindingOutputRoot = Join-Path $Root "state\autocycle\baseline_binding"
     $bindingFlow = & $invokeMilestoneFreezeBaselineBindingFlow -FreezePath $approvalFlow.FreezePath -RepositoryRoot $Root -OutputRoot $bindingOutputRoot -BindingId "baseline-binding-r6-005-valid-001" -BaselineId "baseline-r6-005-valid-001" -BoundAt ([datetime]::Parse("2026-04-22T06:15:00Z").ToUniversalTime())
-    Invoke-GitCommitAll -Root $Root -Message "commit baseline binding artifacts"
 
     $freeze = Get-JsonDocument -Path $approvalFlow.FreezePath
     $tasksById = @{}
@@ -192,6 +225,41 @@ function Invoke-ExpectedRefusal {
     }
 }
 
+function Invoke-ExpectedRefusalWithMessage {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Label,
+        [Parameter(Mandatory = $true)]
+        [string[]]$RequiredFragments,
+        [string[]]$ForbiddenFragments = @(),
+        [Parameter(Mandatory = $true)]
+        [scriptblock]$Action
+    )
+
+    try {
+        & $Action
+        $script:failures += ("FAIL {0}: operation succeeded unexpectedly." -f $Label)
+    }
+    catch {
+        $message = $_.Exception.Message
+        $missingFragments = @($RequiredFragments | Where-Object { $message -notlike ("*{0}*" -f $_) })
+        $presentForbiddenFragments = @($ForbiddenFragments | Where-Object { $message -like ("*{0}*" -f $_) })
+
+        if ($missingFragments.Count -gt 0) {
+            $script:failures += ("FAIL {0}: refusal message did not include expected fragments: {1}. Actual: {2}" -f $Label, ($missingFragments -join ", "), $message)
+            return
+        }
+
+        if ($presentForbiddenFragments.Count -gt 0) {
+            $script:failures += ("FAIL {0}: refusal message included forbidden fragments: {1}. Actual: {2}" -f $Label, ($presentForbiddenFragments -join ", "), $message)
+            return
+        }
+
+        Write-Output ("PASS {0}: {1}" -f $Label, $message)
+        $script:invalidRejected += 1
+    }
+}
+
 $failures = @()
 $validPassed = 0
 $invalidRejected = 0
@@ -253,13 +321,62 @@ catch {
 }
 
 try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r6-005-dispatch-head-drift-" + [guid]::NewGuid().ToString("N"))
+
+    try {
+        $harness = Initialize-DispatchHarness -Root $tempRoot
+        Invoke-EmptyGitCommit -Root $harness.Root -Message "empty commit after baseline binding to drift HEAD only"
+
+        Invoke-ExpectedRefusalWithMessage -Label "head-commit drift refusal" -RequiredFragments @(
+            "Milestone dispatch live repository state drifted from pinned baseline",
+            "head_commit expected"
+        ) -ForbiddenFragments @(
+            "tree_id expected"
+        ) -Action {
+            & $invokeMilestoneAutocycleDispatchFlow -BindingPath $harness.BindingPath -TaskId "task-r6-pilot-004" -AllowedScope (New-AllowedScope -ScopeSummary $harness.TasksById["task-r6-pilot-004"].scope_summary) -TargetBranch $harness.Branch -ExpectedOutputs (New-ExpectedOutputs) -RefusalConditions (New-RefusalConditions) -OutputRoot $harness.DispatchOutputRoot | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL head-commit drift refusal harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $tempRoot = Join-Path $env:TEMP ("aioffice-r6-005-dispatch-tree-drift-" + [guid]::NewGuid().ToString("N"))
+
+    try {
+        $harness = Initialize-DispatchHarness -Root $tempRoot
+        Invoke-TrackedContentCommit -Root $harness.Root -RelativePath "README.md" -AppendLine "tracked tree drift" -Message "tracked content commit after baseline binding to drift HEAD tree"
+
+        Invoke-ExpectedRefusalWithMessage -Label "head-tree drift refusal" -RequiredFragments @(
+            "Milestone dispatch live repository state drifted from pinned baseline",
+            "tree_id expected"
+        ) -Action {
+            & $invokeMilestoneAutocycleDispatchFlow -BindingPath $harness.BindingPath -TaskId "task-r6-pilot-004" -AllowedScope (New-AllowedScope -ScopeSummary $harness.TasksById["task-r6-pilot-004"].scope_summary) -TargetBranch $harness.Branch -ExpectedOutputs (New-ExpectedOutputs) -RefusalConditions (New-RefusalConditions) -OutputRoot $harness.DispatchOutputRoot | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $tempRoot) {
+            Remove-Item -LiteralPath $tempRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL head-tree drift refusal harness: {0}" -f $_.Exception.Message)
+}
+
+try {
     $tempRoot = Join-Path $env:TEMP ("aioffice-r6-005-dispatch-active-" + [guid]::NewGuid().ToString("N"))
 
     try {
         $harness = Initialize-DispatchHarness -Root $tempRoot
         $firstTaskId = "task-r6-pilot-004"
         & $invokeMilestoneAutocycleDispatchFlow -BindingPath $harness.BindingPath -TaskId $firstTaskId -AllowedScope (New-AllowedScope -ScopeSummary $harness.TasksById[$firstTaskId].scope_summary) -TargetBranch $harness.Branch -ExpectedOutputs (New-ExpectedOutputs) -RefusalConditions (New-RefusalConditions) -OutputRoot $harness.DispatchOutputRoot -DispatchId "dispatch-r6-005-active-001" -LedgerId "run-ledger-r6-005-active-001" | Out-Null
-        Invoke-GitCommitAll -Root $harness.Root -Message "commit active dispatch artifacts"
 
         Invoke-ExpectedRefusal -Label "active-dispatch exclusivity refusal" -Action {
             & $invokeMilestoneAutocycleDispatchFlow -BindingPath $harness.BindingPath -TaskId "task-r6-pilot-005" -AllowedScope (New-AllowedScope -ScopeSummary $harness.TasksById["task-r6-pilot-005"].scope_summary) -TargetBranch $harness.Branch -ExpectedOutputs (New-ExpectedOutputs) -RefusalConditions (New-RefusalConditions) -OutputRoot $harness.DispatchOutputRoot -DispatchId "dispatch-r6-005-active-002" -LedgerId "run-ledger-r6-005-active-002" | Out-Null

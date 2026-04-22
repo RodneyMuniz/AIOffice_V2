@@ -520,6 +520,8 @@ function Resolve-BaselineBindingDispatchInput {
     Assert-ResolvedPathInsideRepository -ResolvedPath $bindingValidation.FreezePath -RepositoryRoot $repositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone dispatch freeze" | Out-Null
 
     $branch = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $baseline -Name "branch" -Context "Milestone dispatch baseline binding.baseline") -Context "Milestone dispatch baseline binding.baseline.branch"
+    $headCommit = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $baseline -Name "head_commit" -Context "Milestone dispatch baseline binding.baseline") -Context "Milestone dispatch baseline binding.baseline.head_commit"
+    $treeId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $baseline -Name "tree_id" -Context "Milestone dispatch baseline binding.baseline") -Context "Milestone dispatch baseline binding.baseline.tree_id"
     $freeze = Get-JsonDocument -Path $bindingValidation.FreezePath -Label "Milestone dispatch freeze"
     $freezeTasksById = @{}
     foreach ($freezeTask in @($freeze.frozen_task_set)) {
@@ -535,6 +537,8 @@ function Resolve-BaselineBindingDispatchInput {
         RepositoryWorktreeRoot = $repositoryWorktreeRoot
         BaselineId             = $baselineId
         Branch                 = $branch
+        HeadCommit             = $headCommit
+        TreeId                 = $treeId
     }
 }
 
@@ -925,6 +929,67 @@ function Get-CurrentGitBranch {
     return $branch.Trim()
 }
 
+function Get-GitRevisionValue {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$Revision,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    Assert-GitCliAvailable | Out-Null
+    $value = (& git -C $RepositoryRoot rev-parse $Revision 2>$null)
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($value)) {
+        throw "Milestone dispatch requires $Context to resolve before dispatch."
+    }
+
+    return $value.Trim()
+}
+
+function Get-CurrentGitRepositoryState {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot
+    )
+
+    return [pscustomobject]@{
+        Branch     = Get-CurrentGitBranch -RepositoryRoot $RepositoryRoot
+        HeadCommit = Get-GitRevisionValue -RepositoryRoot $RepositoryRoot -Revision "HEAD" -Context "live HEAD commit"
+        TreeId     = Get-GitRevisionValue -RepositoryRoot $RepositoryRoot -Revision "HEAD^{tree}" -Context "live HEAD tree"
+    }
+}
+
+function Assert-LiveRepositoryMatchesPinnedBaseline {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [pscustomobject]$PinnedBaseline
+    )
+
+    $currentState = Get-CurrentGitRepositoryState -RepositoryRoot $RepositoryRoot
+    $driftReasons = @()
+
+    if ($currentState.Branch -ne $PinnedBaseline.Branch) {
+        $driftReasons += ("branch expected '{0}' but found '{1}'" -f $PinnedBaseline.Branch, $currentState.Branch)
+    }
+    if ($currentState.HeadCommit -ne $PinnedBaseline.HeadCommit) {
+        $driftReasons += ("head_commit expected '{0}' but found '{1}'" -f $PinnedBaseline.HeadCommit, $currentState.HeadCommit)
+    }
+    if ($currentState.TreeId -ne $PinnedBaseline.TreeId) {
+        $driftReasons += ("tree_id expected '{0}' but found '{1}'" -f $PinnedBaseline.TreeId, $currentState.TreeId)
+    }
+
+    if ($driftReasons.Count -gt 0) {
+        throw "Milestone dispatch live repository state drifted from pinned baseline: $($driftReasons -join '; ')."
+    }
+
+    Assert-CleanGitWorktree -RepositoryRoot $RepositoryRoot
+    return $currentState
+}
+
 function Assert-NoActiveDispatchForCycle {
     param(
         [Parameter(Mandatory = $true)]
@@ -989,11 +1054,6 @@ function Invoke-MilestoneAutocycleDispatchFlow {
 
     $foundation = Get-MilestoneAutocycleFoundationContract
     $bindingInput = Resolve-BaselineBindingDispatchInput -BindingPath $BindingPath
-    Assert-CleanGitWorktree -RepositoryRoot $bindingInput.RepositoryRoot
-    $currentBranch = Get-CurrentGitBranch -RepositoryRoot $bindingInput.RepositoryRoot
-    if ($currentBranch -ne $bindingInput.Branch) {
-        throw "Milestone dispatch requires the live Git branch to match the bound baseline branch before dispatch."
-    }
 
     $taskId = Assert-NonEmptyString -Value $TaskId -Context "TaskId"
     Assert-RegexMatch -Value $taskId -Pattern $foundation.identifier_pattern -Context "TaskId"
@@ -1009,8 +1069,8 @@ function Invoke-MilestoneAutocycleDispatchFlow {
 
     $targetBranch = Assert-NonEmptyString -Value $TargetBranch -Context "TargetBranch"
     Assert-RegexMatch -Value $targetBranch -Pattern (Get-MilestoneAutocycleDispatchContract).target_branch_pattern -Context "TargetBranch"
-    if ($targetBranch -ne $bindingInput.Branch -or $targetBranch -ne $currentBranch) {
-        throw "Milestone dispatch target branch must match the bound baseline branch and the current live Git branch exactly."
+    if ($targetBranch -ne $bindingInput.Branch) {
+        throw "Milestone dispatch target branch must match the bound baseline branch exactly."
     }
 
     Assert-NonEmptyString -Value $Notes -Context "Notes" | Out-Null
@@ -1021,9 +1081,14 @@ function Invoke-MilestoneAutocycleDispatchFlow {
 
     $dispatchDirectory = Join-Path $resolvedOutputRoot "dispatches"
     $ledgerDirectory = Join-Path $resolvedOutputRoot "run_ledgers"
+    Assert-NoActiveDispatchForCycle -DispatchDirectory $dispatchDirectory -CycleId $bindingInput.BindingValidation.CycleId
+    $currentState = Assert-LiveRepositoryMatchesPinnedBaseline -RepositoryRoot $bindingInput.RepositoryRoot -PinnedBaseline ([pscustomobject]@{
+            Branch     = $bindingInput.Branch
+            HeadCommit = $bindingInput.HeadCommit
+            TreeId     = $bindingInput.TreeId
+        })
     New-Item -ItemType Directory -Path $dispatchDirectory -Force | Out-Null
     New-Item -ItemType Directory -Path $ledgerDirectory -Force | Out-Null
-    Assert-NoActiveDispatchForCycle -DispatchDirectory $dispatchDirectory -CycleId $bindingInput.BindingValidation.CycleId
 
     if ([string]::IsNullOrWhiteSpace($DispatchId)) {
         $DispatchId = "dispatch-{0}-{1}" -f $bindingInput.BindingValidation.CycleId, $taskId
