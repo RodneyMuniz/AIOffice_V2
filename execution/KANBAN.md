@@ -96,7 +96,7 @@ Closeout summary:
 - Done when: completed dispatches can be converted into one governed execution evidence bundle capturing changed files, produced artifacts, test outputs, and evidence refs, and missing required evidence blocks bundle creation
 
 ### `R6-007` Add automated QA observation and milestone aggregation
-- Status: open
+- Status: done
 - Order: 7
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-006`

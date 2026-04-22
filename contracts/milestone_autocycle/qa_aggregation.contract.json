@@ -1,0 +1,30 @@
+{
+  "record_type": "milestone_autocycle_qa_aggregation",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "aggregation_id",
+    "cycle_id",
+    "milestone_status",
+    "progression_state",
+    "stop_reason_code",
+    "task_results",
+    "notes"
+  ],
+  "task_result_required_fields": [
+    "task_id",
+    "dispatch_id",
+    "qa_observation_id",
+    "qa_observation_ref",
+    "status"
+  ],
+  "allowed_milestone_statuses": [
+    "passed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_progression_states": [
+    "continue",
+    "stop"
+  ]
+}

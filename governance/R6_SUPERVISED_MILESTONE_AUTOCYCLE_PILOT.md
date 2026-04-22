@@ -14,9 +14,9 @@ The next defensible step is still not UI expansion, not Standard or subproject r
 Prove one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, unattended automatic resume, rollback execution, UI productization, Standard runtime, or broader orchestration.
 
 ## Current open status
-`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-006`.
+`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-007`.
 
-The milestone remains bounded and pre-QA. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, freeze-to-baseline binding, governed dispatch plus run-ledger control, and governed execution-evidence assembly are now complete, while later QA, summary, and decision-packet work remains open.
+The milestone remains bounded and pre-summary. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, freeze-to-baseline binding, governed dispatch plus run-ledger control, governed execution-evidence assembly, and bounded QA observation plus milestone aggregation are now complete, while later summary and decision-packet work remains open.
 
 ## Exact pilot boundary
 This milestone is bounded to:
@@ -142,7 +142,7 @@ R6 does not currently prove and must not casually widen into:
 - Done when: completed dispatches can be converted into one governed execution evidence bundle capturing changed files, produced artifacts, test outputs, and evidence refs, and missing required evidence blocks bundle creation
 
 ### `R6-007` Add automated QA observation and milestone aggregation
-- Status: open
+- Status: done
 - Done when: execution evidence can trigger bounded QA observation, each task receives a milestone-visible QA outcome, milestone status rolls up task states into one milestone-level view, and blocked or failed tasks stop progression unless explicitly overridden by the operator
 
 ### `R6-008` Add bounded PRO-style summary and operator decision packet
@@ -162,3 +162,4 @@ R6 does not currently prove and must not casually widen into:
 - `R6-004` is now complete through a thin freeze-to-baseline bridge in `tools/MilestoneBaseline.psm1` that materializes accepted planning-record surfaces from the committed freeze, reuses the existing R5 milestone-baseline substrate, emits one durable baseline-binding artifact under `contracts/milestone_autocycle/baseline_binding.contract.json`, and stays explicitly pre-dispatch.
 - `R6-005` is now complete through `tools/MilestoneAutocycleDispatch.psm1`, which reuses the accepted R6-004 baseline-binding artifact as authoritative pre-dispatch input, emits one governed Codex dispatch plus one matching run ledger, enforces one active dispatch at a time, and stays explicitly pre-execution-grade without adding executor invocation, evidence bundling, QA aggregation, summaries, or decision packets.
 - `R6-006` is now complete through `tools/MilestoneAutocycleExecutionEvidence.psm1`, which reuses the completed governed dispatch plus completed run ledger as authoritative input, emits one `milestone_autocycle_execution_evidence` bundle with changed files, produced artifacts, test outputs, and evidence refs, and stays explicitly pre-QA without adding QA aggregation, summaries, decision packets, replay logic, or broader orchestration.
+- `R6-007` is now complete through `tools/MilestoneAutocycleQA.psm1`, which reuses the governed execution-evidence bundle as authoritative input, emits one `milestone_autocycle_qa_observation` plus one `milestone_autocycle_qa_aggregation`, reflects blocked or failed QA as milestone stop state, and stays explicitly pre-summary without adding summary generation, recommendation logic, operator decision packets, replay logic, or broader orchestration.

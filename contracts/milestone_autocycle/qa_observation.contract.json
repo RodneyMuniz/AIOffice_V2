@@ -1,0 +1,35 @@
+{
+  "record_type": "milestone_autocycle_qa_observation",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "qa_observation_id",
+    "cycle_id",
+    "dispatch_id",
+    "execution_evidence_ref",
+    "evidence_bundle_id",
+    "task_id",
+    "executor_type",
+    "baseline_binding_ref",
+    "baseline_id",
+    "status",
+    "findings",
+    "evidence_refs",
+    "notes"
+  ],
+  "finding_required_fields": [
+    "finding_id",
+    "summary",
+    "notes"
+  ],
+  "evidence_ref_required_fields": [
+    "kind",
+    "ref",
+    "notes"
+  ],
+  "allowed_statuses": [
+    "passed",
+    "blocked",
+    "failed"
+  ]
+}

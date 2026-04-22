@@ -305,3 +305,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed surfaces now include `contracts/milestone_autocycle/execution_evidence.contract.json`, the expanded execution-evidence required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_execution_evidence.ps1`.
 - Consequence: this slice adds governed evidence assembly only. It does not yet prove milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
 - Consequence: the next gated step inside R6 is `R6-007` Add automated QA observation and milestone aggregation.
+
+## D-0037 R6-007 Added Automated QA Observation And Milestone Aggregation
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-007` is complete through one bounded QA observation and milestone-aggregation flow in `tools/MilestoneAutocycleQA.psm1`.
+- Consequence: one governed execution-evidence bundle can now emit one contract-valid `milestone_autocycle_qa_observation` plus one matching `milestone_autocycle_qa_aggregation` that preserve authoritative `cycle_id`, `dispatch_id`, `task_id`, `executor_type`, `baseline_binding_ref`, and pinned `baseline_id` while recording durable findings and evidence refs.
+- Consequence: the QA flow reuses the accepted R6-006 execution-evidence bundle as authoritative input, refuses missing or malformed execution-evidence state, refuses missing required evidence refs, refuses malformed findings, refuses malformed QA observation or aggregation state, and forces blocked or failed task QA outcomes to roll the milestone-visible aggregation into `stop` progression state.
+- Consequence: the committed surfaces now include `contracts/milestone_autocycle/qa_observation.contract.json`, `contracts/milestone_autocycle/qa_aggregation.contract.json`, the expanded QA-required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_qa_observation.ps1`.
+- Consequence: this slice adds bounded QA observation and milestone aggregation only. It does not yet prove milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+- Consequence: the next gated step inside R6 is `R6-008` Add bounded PRO-style summary and operator decision packet.
