@@ -118,8 +118,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: one final-head closeout-support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/` archives the omitted support-test logs and records the final inventory clearly for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
 ### `R6-P2` Baton path determinism precondition
-- Status: open
-- Done when: baton-related path resolution no longer depends on caller shell location and later `R6` work can depend on baton continuity without shell-location-sensitive behavior
+- Status: done
+- Done when: baton-related path resolution no longer depends on caller shell location, repo-root-relative baton store and resume request or output paths resolve deterministically, request-relative `baton_ref` values resolve from the resume request artifact directory, and later `R6` work can depend on baton continuity without shell-location-sensitive behavior
 
 ### `R6-002` Add milestone task-set proposal from one structured intake
 - Status: open

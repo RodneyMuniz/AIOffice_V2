@@ -55,6 +55,40 @@ function Resolve-ArtifactReferencePath {
     return (Resolve-Path -LiteralPath (Join-Path $baseDirectory ($Reference -replace "[/\\]", [System.IO.Path]::DirectorySeparatorChar))).Path
 }
 
+function Get-PathRelativeToRepositoryRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    $resolvedRepositoryRoot = (Resolve-Path -LiteralPath $repoRoot).Path
+    $resolvedPath = if (Test-Path -LiteralPath $Path) {
+        (Resolve-Path -LiteralPath $Path).Path
+    }
+    else {
+        [System.IO.Path]::GetFullPath($Path)
+    }
+
+    $repositoryUri = [System.Uri]("{0}{1}" -f $resolvedRepositoryRoot.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
+    $pathUri = [System.Uri]$resolvedPath
+    return $repositoryUri.MakeRelativeUri($pathUri).OriginalString
+}
+
+function Get-PathRelativeToBaseDirectory {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BaseDirectory,
+        [Parameter(Mandatory = $true)]
+        [string]$TargetPath
+    )
+
+    $resolvedBaseDirectory = (Resolve-Path -LiteralPath $BaseDirectory).Path
+    $resolvedTargetPath = (Resolve-Path -LiteralPath $TargetPath).Path
+    $baseUri = [System.Uri]("{0}{1}" -f $resolvedBaseDirectory.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
+    $targetUri = [System.Uri]$resolvedTargetPath
+    return $baseUri.MakeRelativeUri($targetUri).OriginalString
+}
+
 function Initialize-TemporaryGitRepository {
     param(
         [Parameter(Mandatory = $true)]
@@ -349,6 +383,98 @@ try {
 }
 catch {
     $failures += ("FAIL blocked dirty-worktree resume re-entry harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $pathInvariantRoot = Join-Path $repoRoot ("state\temp\aioffice-r6-p2-resume-{0}" -f ([guid]::NewGuid().ToString("N")))
+    New-Item -ItemType Directory -Path (Join-Path $pathInvariantRoot "requests") -Force | Out-Null
+
+    try {
+        $resumeRepoRoot = Join-Path $env:TEMP ("aioffice-r6-p2-resume-repo-{0}" -f ([guid]::NewGuid().ToString("N")))
+        $resumeRepo = Initialize-TemporaryGitRepository -Path $resumeRepoRoot
+        $qaOutputRoot = Join-Path $pathInvariantRoot "qa-output"
+        $gateResult = & $invokeExecutionBundleQaGate -ExecutionBundlePath $validExecutionBundle -OutputRoot $qaOutputRoot -CreatedAt ([datetime]::Parse("2026-04-22T02:00:00Z").ToUniversalTime())
+        $batonEmission = & $newBatonFromQaOutcome -QaReportPath $gateResult.QaReportPath -ExternalAuditPackPath $gateResult.ExternalAuditPackPath -RemediationRecordPath $gateResult.RemediationRecordPath -CreatedAt ([datetime]::Parse("2026-04-22T02:05:00Z").ToUniversalTime())
+        $savedBatonPath = & $saveBatonRecord -Baton $batonEmission.Baton -StorePath (Join-Path $pathInvariantRoot "baton-store")
+        $requestDirectory = Join-Path $pathInvariantRoot "requests"
+        $resumeRequestPath = Join-Path $requestDirectory "resume-request.relative.json"
+        $relativeBatonRefFromRequest = Get-PathRelativeToBaseDirectory -BaseDirectory $requestDirectory -TargetPath $savedBatonPath
+        $relativeRequestPath = Get-PathRelativeToRepositoryRoot -Path $resumeRequestPath
+        $relativeOutputRoot = Get-PathRelativeToRepositoryRoot -Path (Join-Path $pathInvariantRoot "resume-output")
+        $outsideRoot = Join-Path $env:TEMP ("aioffice-r6-p2-resume-cwd-{0}" -f ([guid]::NewGuid().ToString("N")))
+        New-Item -ItemType Directory -Path $outsideRoot -Force | Out-Null
+
+        Write-JsonDocument -Path $resumeRequestPath -Document ([pscustomobject]@{
+                contract_version   = "v1"
+                record_type        = "resume_reentry_request"
+                resume_request_id  = "resume-reentry-relative-baton-001"
+                baton_ref          = $relativeBatonRefFromRequest
+                operator_id        = "operator:rodney"
+                requested_at       = "2026-04-22T02:10:00Z"
+                reentry_kind       = "retry_entry"
+                baseline_ref       = $null
+                restore_result_ref = $null
+                notes              = "Prepare one bounded retry-entry execution bundle from a request whose baton_ref is relative to the request artifact."
+            })
+
+        try {
+            Push-Location $outsideRoot
+            $relativeResumeResult = & $invokeResumeReentry -ResumeRequestPath $relativeRequestPath -OutputRoot $relativeOutputRoot -RepositoryRoot $resumeRepo -CreatedAt ([datetime]::Parse("2026-04-22T02:12:00Z").ToUniversalTime())
+            $relativeResumeResultDocument = Get-JsonDocument -Path $relativeResumeResult.ResumeResultPath
+
+            $invalidResumeRequestPath = Join-Path $requestDirectory "resume-request.missing-baton.json"
+            Write-JsonDocument -Path $invalidResumeRequestPath -Document ([pscustomobject]@{
+                    contract_version   = "v1"
+                    record_type        = "resume_reentry_request"
+                    resume_request_id  = "resume-reentry-relative-baton-missing-001"
+                    baton_ref          = "../baton-store/batons/missing.json"
+                    operator_id        = "operator:rodney"
+                    requested_at       = "2026-04-22T02:14:00Z"
+                    reentry_kind       = "retry_entry"
+                    baseline_ref       = $null
+                    restore_result_ref = $null
+                    notes              = "Attempt to resume from a missing request-relative baton path; this should fail closed."
+                })
+
+            try {
+                & $invokeResumeReentry -ResumeRequestPath (Get-PathRelativeToRepositoryRoot -Path $invalidResumeRequestPath) -OutputRoot $relativeOutputRoot -RepositoryRoot $resumeRepo -CreatedAt ([datetime]::Parse("2026-04-22T02:15:00Z").ToUniversalTime()) | Out-Null
+                $failures += "FAIL caller-location-invariant resume re-entry: missing request-relative baton path was accepted unexpectedly."
+            }
+            catch {
+                Write-Output ("PASS invalid request-relative baton path: {0}" -f $_.Exception.Message)
+                $invalidRejected += 1
+            }
+        }
+        finally {
+            Pop-Location
+            if (Test-Path -LiteralPath $outsideRoot) {
+                Remove-Item -LiteralPath $outsideRoot -Recurse -Force
+            }
+        }
+
+        $expectedResumeOutputRoot = Join-Path $pathInvariantRoot "resume-output"
+        Write-Output ("PASS caller-location-invariant resume re-entry: {0} -> {1}" -f $relativeResumeResultDocument.resume_request_id, $relativeResumeResultDocument.decision)
+
+        if ($relativeResumeResultDocument.decision -ne "allow") {
+            $failures += ("FAIL caller-location-invariant resume re-entry: expected decision 'allow' but found '{0}'." -f $relativeResumeResultDocument.decision)
+        }
+        if ((Split-Path -Parent $relativeResumeResult.ResumeResultPath) -notlike "$expectedResumeOutputRoot*") {
+            $failures += "FAIL caller-location-invariant resume re-entry: output root did not stay anchored to the repository root."
+        }
+
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $resumeRepoRoot) {
+            Remove-Item -LiteralPath $resumeRepoRoot -Recurse -Force
+        }
+        if (Test-Path -LiteralPath $pathInvariantRoot) {
+            Remove-Item -LiteralPath $pathInvariantRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL caller-location-invariant resume re-entry harness: {0}" -f $_.Exception.Message)
 }
 
 try {

@@ -15,17 +15,31 @@ function Get-RepositoryRoot {
     return $repoRoot
 }
 
+function Get-ModuleRepositoryRootPath {
+    return (Resolve-Path -LiteralPath (Get-RepositoryRoot)).Path
+}
+
 function Resolve-PathValue {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$PathValue
+        [string]$PathValue,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
+    Assert-NonEmptyString -Value $PathValue -Context "Path value" | Out-Null
+
     if ([System.IO.Path]::IsPathRooted($PathValue)) {
-        return $PathValue
+        return [System.IO.Path]::GetFullPath($PathValue)
     }
 
-    return Join-Path (Get-Location) $PathValue
+    $resolvedAnchorPath = if (Test-Path -LiteralPath $AnchorPath) {
+        (Resolve-Path -LiteralPath $AnchorPath).Path
+    }
+    else {
+        [System.IO.Path]::GetFullPath($AnchorPath)
+    }
+
+    return [System.IO.Path]::GetFullPath((Join-Path $resolvedAnchorPath $PathValue))
 }
 
 function Resolve-ExistingPath {
@@ -33,10 +47,11 @@ function Resolve-ExistingPath {
         [Parameter(Mandatory = $true)]
         [string]$PathValue,
         [Parameter(Mandatory = $true)]
-        [string]$Label
+        [string]$Label,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
-    $resolvedPath = Resolve-PathValue -PathValue $PathValue
+    $resolvedPath = Resolve-PathValue -PathValue $PathValue -AnchorPath $AnchorPath
     if (-not (Test-Path -LiteralPath $resolvedPath)) {
         throw "$Label '$PathValue' does not exist."
     }
@@ -654,10 +669,19 @@ function Test-ResumeReentryResultContract {
 function Get-ValidatedBatonInput {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$BatonPath
+        [string]$BatonPath,
+        [AllowNull()]
+        [string]$BaseDirectory
     )
 
-    $batonValidation = & $testBatonRecordContract -BatonPath $BatonPath
+    $resolvedBatonPath = if ([System.IO.Path]::IsPathRooted($BatonPath) -or [string]::IsNullOrWhiteSpace($BaseDirectory)) {
+        Resolve-ExistingPath -PathValue $BatonPath -Label "Resume re-entry baton"
+    }
+    else {
+        Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $BatonPath -Label "Resume re-entry baton"
+    }
+
+    $batonValidation = & $testBatonRecordContract -BatonPath $resolvedBatonPath
     $baton = Get-JsonDocument -Path $batonValidation.ArtifactPath -Label "Baton"
     $batonDirectory = Split-Path -Parent $batonValidation.ArtifactPath
 
@@ -756,7 +780,7 @@ function Save-GeneratedExecutionBundle {
         [string]$OutputRoot
     )
 
-    $resolvedOutputRoot = Resolve-PathValue -PathValue $OutputRoot
+    $resolvedOutputRoot = Resolve-PathValue -PathValue $OutputRoot -AnchorPath (Get-ModuleRepositoryRootPath)
     if (-not (Test-Path -LiteralPath $resolvedOutputRoot)) {
         New-Item -ItemType Directory -Path $resolvedOutputRoot -Force | Out-Null
     }
@@ -843,7 +867,7 @@ function Save-ResumeReentryResult {
         [string]$OutputRoot
     )
 
-    $resolvedOutputRoot = Resolve-PathValue -PathValue $OutputRoot
+    $resolvedOutputRoot = Resolve-PathValue -PathValue $OutputRoot -AnchorPath (Get-ModuleRepositoryRootPath)
     if (-not (Test-Path -LiteralPath $resolvedOutputRoot)) {
         New-Item -ItemType Directory -Path $resolvedOutputRoot -Force | Out-Null
     }
@@ -913,7 +937,7 @@ function Invoke-ResumeReentry {
     }
 
     $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Resume re-entry repository root"
-    $batonInput = Get-ValidatedBatonInput -BatonPath $request.baton_ref
+    $batonInput = Get-ValidatedBatonInput -BatonPath $request.baton_ref -BaseDirectory (Split-Path -Parent $requestValidation.ResumeRequestPath)
     $currentBranch = Get-GitBranchName -RepositoryRoot $resolvedRepositoryRoot
     $currentHeadCommit = Get-GitHeadCommit -RepositoryRoot $resolvedRepositoryRoot
     $statusLines = @(Get-GitStatusLines -RepositoryRoot $resolvedRepositoryRoot)

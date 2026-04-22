@@ -42,12 +42,12 @@ Closeout summary:
 - Done when: final-head support evidence exists for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
 ### `R6-P2` Baton path determinism precondition
-- Status: open
+- Status: done
 - Order: P2
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-001`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
-- Durable output: deterministic baton-related path resolution that does not depend on caller shell location
+- Durable output: deterministic baton-related path resolution that anchors top-level baton store plus resume request or output paths to repo roots and anchors request-relative `baton_ref` values to the request artifact directory
 - Done when: baton continuity no longer carries shell-location-sensitive path behavior into later R6 work
 
 ### `R6-002` Add milestone task-set proposal from one structured intake

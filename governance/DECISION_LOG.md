@@ -249,3 +249,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed support packet archives exact final-head logs for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1` from the actual formal closeout head `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`.
 - Consequence: the formal R5 replay subset used for closeout remains unchanged at `r5-milestone-baseline`, `r5-restore-gate`, `r5-baton-continuity`, and `r5-resume-reentry`.
 - Consequence: this support packet thickens audit evidence only. It does not reopen R5 and does not widen rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration claims.
+
+## D-0031 R6-P2 Removed Caller-CWD Softness From Baton-Related Paths
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-P2` is complete through deterministic baton-related path resolution in `tools/BatonPersistence.psm1` and `tools/ResumeReentry.psm1`.
+- Consequence: top-level baton store paths plus resume request and output paths now anchor to deterministic repo roots rather than the caller shell location.
+- Consequence: request-relative `baton_ref` values now resolve against the resume request artifact directory instead of the caller shell location.
+- Consequence: focused proof now covers caller-location-invariant baton persistence and resume re-entry behavior plus fail-closed missing relative baton-path refusal through `tests/test_baton_persistence.ps1` and `tests/test_resume_reentry.ps1`.
+- Consequence: this hardening removes shell-location-sensitive baton-path behavior only. It does not yet add milestone proposal generation, freeze enforcement, Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.

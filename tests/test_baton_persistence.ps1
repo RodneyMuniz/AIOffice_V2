@@ -50,6 +50,25 @@ function Resolve-ArtifactReferencePath {
     return (Resolve-Path -LiteralPath (Join-Path $baseDirectory ($Reference -replace "[/\\]", [System.IO.Path]::DirectorySeparatorChar))).Path
 }
 
+function Get-PathRelativeToRepositoryRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    $resolvedRepositoryRoot = (Resolve-Path -LiteralPath $repoRoot).Path
+    $resolvedPath = if (Test-Path -LiteralPath $Path) {
+        (Resolve-Path -LiteralPath $Path).Path
+    }
+    else {
+        [System.IO.Path]::GetFullPath($Path)
+    }
+
+    $repositoryUri = [System.Uri]("{0}{1}" -f $resolvedRepositoryRoot.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
+    $pathUri = [System.Uri]$resolvedPath
+    return $repositoryUri.MakeRelativeUri($pathUri).OriginalString
+}
+
 $validExecutionBundle = Join-Path $repoRoot "state\fixtures\valid\qa_gate.execution_bundle.fail.json"
 $passExecutionBundle = Join-Path $repoRoot "state\fixtures\valid\qa_gate.execution_bundle.pass.json"
 $invalidBatonFixture = Join-Path $repoRoot "state\fixtures\invalid\work_artifact.baton.invalid-missing-next-artifacts.json"
@@ -244,6 +263,70 @@ try {
 }
 catch {
     $failures += ("FAIL retry-exhausted baton harness: {0}" -f $_.Exception.Message)
+}
+
+try {
+    $pathInvariantRoot = Join-Path $repoRoot ("state\temp\aioffice-r6-p2-baton-{0}" -f ([guid]::NewGuid().ToString("N")))
+    New-Item -ItemType Directory -Path $pathInvariantRoot -Force | Out-Null
+
+    try {
+        $qaOutputRoot = Join-Path $pathInvariantRoot "qa-output"
+        $gateResult = & $invokeExecutionBundleQaGate -ExecutionBundlePath $validExecutionBundle -OutputRoot $qaOutputRoot -CreatedAt ([datetime]::Parse("2026-04-22T01:00:00Z").ToUniversalTime())
+        $batonStorePath = Join-Path $pathInvariantRoot "baton-store"
+        $relativeQaReportPath = Get-PathRelativeToRepositoryRoot -Path $gateResult.QaReportPath
+        $relativeExternalAuditPackPath = Get-PathRelativeToRepositoryRoot -Path $gateResult.ExternalAuditPackPath
+        $relativeRemediationRecordPath = Get-PathRelativeToRepositoryRoot -Path $gateResult.RemediationRecordPath
+        $relativeStorePath = Get-PathRelativeToRepositoryRoot -Path $batonStorePath
+        $outsideRoot = Join-Path $env:TEMP ("aioffice-r6-p2-baton-cwd-{0}" -f ([guid]::NewGuid().ToString("N")))
+        New-Item -ItemType Directory -Path $outsideRoot -Force | Out-Null
+
+        try {
+            Push-Location $outsideRoot
+            $relativeBatonEmission = & $newBatonFromQaOutcome -QaReportPath $relativeQaReportPath -ExternalAuditPackPath $relativeExternalAuditPackPath -RemediationRecordPath $relativeRemediationRecordPath -CreatedAt ([datetime]::Parse("2026-04-22T01:05:00Z").ToUniversalTime())
+            $relativeSavedBatonPath = & $saveBatonRecord -Baton $relativeBatonEmission.Baton -StorePath $relativeStorePath
+            $relativeLoadedBaton = & $getBatonRecord -BatonId $relativeBatonEmission.Baton.artifact_id -StorePath $relativeStorePath
+
+            try {
+                & $getBatonRecord -BatonId $relativeBatonEmission.Baton.artifact_id -StorePath "state/temp/does-not-exist" | Out-Null
+                $failures += "FAIL caller-location-invariant baton paths: missing repo-root-relative store path was accepted unexpectedly."
+            }
+            catch {
+                Write-Output ("PASS invalid repo-root-relative baton store path: {0}" -f $_.Exception.Message)
+                $invalidRejected += 1
+            }
+        }
+        finally {
+            Pop-Location
+            if (Test-Path -LiteralPath $outsideRoot) {
+                Remove-Item -LiteralPath $outsideRoot -Recurse -Force
+            }
+        }
+
+        $expectedSavedBatonPath = Join-Path (Join-Path $batonStorePath "batons") ("{0}.json" -f $relativeBatonEmission.Baton.artifact_id)
+        Write-Output ("PASS caller-location-invariant baton paths: {0} -> {1}" -f $relativeBatonEmission.Baton.artifact_id, $relativeSavedBatonPath)
+
+        if ($relativeSavedBatonPath -ne $expectedSavedBatonPath) {
+            $failures += ("FAIL caller-location-invariant baton paths: expected saved baton path '{0}' but found '{1}'." -f $expectedSavedBatonPath, $relativeSavedBatonPath)
+        }
+        if ($relativeLoadedBaton.Validation.ArtifactPath -ne $expectedSavedBatonPath) {
+            $failures += ("FAIL caller-location-invariant baton paths: expected loaded baton path '{0}' but found '{1}'." -f $expectedSavedBatonPath, $relativeLoadedBaton.Validation.ArtifactPath)
+        }
+
+        $relativeResolvedPriorQaReportPath = Resolve-ArtifactReferencePath -ArtifactPath $relativeSavedBatonPath -Reference $relativeLoadedBaton.Baton.resume_context.prior_qa_report_ref
+        if ($relativeResolvedPriorQaReportPath -ne $gateResult.QaReportPath) {
+            $failures += "FAIL caller-location-invariant baton paths: prior QA report reference did not stay stable outside the caller CWD."
+        }
+
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $pathInvariantRoot) {
+            Remove-Item -LiteralPath $pathInvariantRoot -Recurse -Force
+        }
+    }
+}
+catch {
+    $failures += ("FAIL caller-location-invariant baton path harness: {0}" -f $_.Exception.Message)
 }
 
 try {

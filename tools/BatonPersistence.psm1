@@ -4,17 +4,35 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $workArtifactValidationModule = Import-Module (Join-Path $PSScriptRoot "WorkArtifactValidation.psm1") -Force -PassThru
 $testWorkArtifactContract = $workArtifactValidationModule.ExportedCommands["Test-WorkArtifactContract"]
 
+function Get-RepositoryRoot {
+    return $repoRoot
+}
+
+function Get-ModuleRepositoryRootPath {
+    return (Resolve-Path -LiteralPath (Get-RepositoryRoot)).Path
+}
+
 function Resolve-PathValue {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$PathValue
+        [string]$PathValue,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
+    Assert-NonEmptyString -Value $PathValue -Context "Path value" | Out-Null
+
     if ([System.IO.Path]::IsPathRooted($PathValue)) {
-        return $PathValue
+        return [System.IO.Path]::GetFullPath($PathValue)
     }
 
-    return Join-Path (Get-Location) $PathValue
+    $resolvedAnchorPath = if (Test-Path -LiteralPath $AnchorPath) {
+        (Resolve-Path -LiteralPath $AnchorPath).Path
+    }
+    else {
+        [System.IO.Path]::GetFullPath($AnchorPath)
+    }
+
+    return [System.IO.Path]::GetFullPath((Join-Path $resolvedAnchorPath $PathValue))
 }
 
 function Resolve-ExistingPath {
@@ -22,10 +40,11 @@ function Resolve-ExistingPath {
         [Parameter(Mandatory = $true)]
         [string]$PathValue,
         [Parameter(Mandatory = $true)]
-        [string]$Label
+        [string]$Label,
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
     )
 
-    $resolvedPath = Resolve-PathValue -PathValue $PathValue
+    $resolvedPath = Resolve-PathValue -PathValue $PathValue -AnchorPath $AnchorPath
     if (-not (Test-Path -LiteralPath $resolvedPath)) {
         throw "$Label '$PathValue' does not exist."
     }
@@ -268,7 +287,8 @@ function Test-BatonRecordContract {
         [string]$BatonPath
     )
 
-    $validation = & $testWorkArtifactContract -ArtifactPath $BatonPath
+    $resolvedBatonPath = Resolve-ExistingPath -PathValue $BatonPath -Label "Baton"
+    $validation = & $testWorkArtifactContract -ArtifactPath $resolvedBatonPath
     if ($validation.ArtifactType -ne "baton") {
         throw "Baton persistence requires a baton artifact, but '$BatonPath' resolved to artifact type '$($validation.ArtifactType)'."
     }
@@ -282,7 +302,8 @@ function Get-ValidatedQaReportInput {
         [string]$QaReportPath
     )
 
-    $validation = & $testWorkArtifactContract -ArtifactPath $QaReportPath
+    $resolvedQaReportPath = Resolve-ExistingPath -PathValue $QaReportPath -Label "QA Report"
+    $validation = & $testWorkArtifactContract -ArtifactPath $resolvedQaReportPath
     if ($validation.ArtifactType -ne "qa_report") {
         throw "Baton emission requires a QA Report artifact, but '$QaReportPath' resolved to artifact type '$($validation.ArtifactType)'."
     }
@@ -324,7 +345,8 @@ function Get-ValidatedExternalAuditPackInput {
         $QaReportInput
     )
 
-    $validation = & $testWorkArtifactContract -ArtifactPath $ExternalAuditPackPath
+    $resolvedExternalAuditPackPath = Resolve-ExistingPath -PathValue $ExternalAuditPackPath -Label "External Audit Pack"
+    $validation = & $testWorkArtifactContract -ArtifactPath $resolvedExternalAuditPackPath
     if ($validation.ArtifactType -ne "external_audit_pack") {
         throw "Baton emission requires an External Audit Pack artifact, but '$ExternalAuditPackPath' resolved to artifact type '$($validation.ArtifactType)'."
     }
@@ -614,7 +636,7 @@ function Save-BatonRecord {
         [string]$StorePath
     )
 
-    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath
+    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath -AnchorPath (Get-ModuleRepositoryRootPath)
     if (-not (Test-Path -LiteralPath $resolvedStorePath)) {
         New-Item -ItemType Directory -Path $resolvedStorePath -Force | Out-Null
     }
@@ -704,7 +726,7 @@ function Get-BatonRecord {
         [string]$StorePath
     )
 
-    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath
+    $resolvedStorePath = Resolve-PathValue -PathValue $StorePath -AnchorPath (Get-ModuleRepositoryRootPath)
     $batonPath = Join-Path (Join-Path $resolvedStorePath "batons") ("{0}.json" -f $BatonId)
     $validation = Test-BatonRecordContract -BatonPath $batonPath
     $baton = Get-JsonDocument -Path $validation.ArtifactPath -Label "Baton"
