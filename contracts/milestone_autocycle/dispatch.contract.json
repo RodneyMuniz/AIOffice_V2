@@ -1,0 +1,40 @@
+{
+  "record_type": "milestone_autocycle_dispatch",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "dispatch_id",
+    "cycle_id",
+    "task_id",
+    "executor_type",
+    "baseline_binding_ref",
+    "baseline_id",
+    "allowed_scope",
+    "target_branch",
+    "expected_outputs",
+    "refusal_conditions",
+    "status",
+    "notes"
+  ],
+  "allowed_scope_required_fields": [
+    "scope_kind",
+    "scope_summary",
+    "allowed_paths",
+    "blocked_paths"
+  ],
+  "expected_output_required_fields": [
+    "kind",
+    "path",
+    "notes"
+  ],
+  "refusal_condition_required_fields": [
+    "code",
+    "description"
+  ],
+  "allowed_scope_kind": "frozen_task_dispatch",
+  "target_branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "active_statuses": [
+    "not_started",
+    "in_progress"
+  ]
+}

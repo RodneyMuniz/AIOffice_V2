@@ -78,13 +78,13 @@ Closeout summary:
 - Done when: a frozen milestone records a valid baseline id, the frozen task set can materialize accepted planning-record bridge surfaces for the reused milestone-baseline substrate, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch or malformed bridge states fail closed
 
 ### `R6-005` Add Codex dispatch contract and run ledger
-- Status: open
+- Status: done
 - Order: 5
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-004`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
 - Durable output: governed Codex dispatch surface plus one durable run ledger with one active dispatch at a time
-- Done when: each task dispatch records input refs, baseline ref, allowed scope, target branch, expected outputs, and refusal conditions; dispatch state changes are durable; and the pilot enforces one active dispatch at a time
+- Done when: each task dispatch records input refs, baseline binding ref, pinned baseline id, allowed scope, target branch, expected outputs, and refusal conditions; dispatch state changes are durable; and the pilot enforces one active dispatch at a time
 
 ### `R6-006` Assemble governed execution evidence from executor outputs
 - Status: open

@@ -285,3 +285,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed bridge surface now includes `contracts/milestone_autocycle/baseline_binding.contract.json` and focused proof through `tests/test_milestone_autocycle_baseline_binding.ps1`, including happy-path binding plus missing-freeze, dirty-worktree, repository-mismatch, malformed-bridge, and malformed-baseline-ref refusals.
 - Consequence: this slice adds freeze-to-baseline binding only. It does not yet prove governed Codex dispatch, run ledgers, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
 - Consequence: the next gated step inside R6 is `R6-005` Add Codex dispatch contract and run ledger.
+
+## D-0035 R6-005 Added Governed Codex Dispatch And One Matching Run Ledger
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-005` is complete through one governed dispatch and run-ledger flow in `tools/MilestoneAutocycleDispatch.psm1`.
+- Consequence: one valid frozen task with one valid baseline binding can now create one contract-valid `milestone_autocycle_dispatch` record plus one matching `milestone_autocycle_run_ledger`, with `baseline_binding_ref`, pinned `baseline_id`, explicit allowed scope, target branch, expected outputs, refusal conditions, status, and notes all recorded durably.
+- Consequence: the dispatch flow reuses the accepted R6-004 baseline-binding artifact as authoritative pre-dispatch input, refuses missing or malformed binding state, refuses task ids outside the frozen task set, keeps executor type limited to `codex`, and enforces one active dispatch at a time per cycle.
+- Consequence: the committed surfaces now include `contracts/milestone_autocycle/dispatch.contract.json`, `contracts/milestone_autocycle/run_ledger.contract.json`, and focused proof through `tests/test_milestone_autocycle_dispatch.ps1`, including happy-path dispatch creation, run-ledger state updates, active-dispatch exclusivity refusal, malformed-input refusals, and invalid ledger-transition refusal.
+- Consequence: this slice adds governed pre-execution dispatch control only. It does not yet prove execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+- Consequence: the next gated step inside R6 is `R6-006` Assemble governed execution evidence from executor outputs.

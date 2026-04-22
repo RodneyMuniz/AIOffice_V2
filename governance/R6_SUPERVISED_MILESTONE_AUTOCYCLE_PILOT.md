@@ -14,9 +14,9 @@ The next defensible step is still not UI expansion, not Standard or subproject r
 Prove one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, unattended automatic resume, rollback execution, UI productization, Standard runtime, or broader orchestration.
 
 ## Current open status
-`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-004`.
+`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-005`.
 
-The milestone remains bounded and pre-dispatch. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, and freeze-to-baseline binding are now complete, while later dispatch, evidence, QA, summary, and decision-packet work remains open.
+The milestone remains bounded and pre-execution-grade. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, freeze-to-baseline binding, and governed dispatch plus run-ledger control are now complete, while later execution-evidence, QA, summary, and decision-packet work remains open.
 
 ## Exact pilot boundary
 This milestone is bounded to:
@@ -134,8 +134,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: a frozen milestone records a valid baseline id, the exact frozen task set can materialize accepted planning-record bridge surfaces for the reused milestone-baseline substrate, baseline capture remains required before dispatch, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch or malformed bridge states fail closed
 
 ### `R6-005` Add Codex dispatch contract and run ledger
-- Status: open
-- Done when: each task dispatch records input refs, baseline ref, allowed scope, target branch, expected outputs, and refusal conditions; dispatch state changes are durable; and the pilot enforces one active dispatch at a time
+- Status: done
+- Done when: each task dispatch records input refs, baseline binding ref, pinned baseline id, allowed scope, target branch, expected outputs, and refusal conditions; dispatch state changes are durable; and the pilot enforces one active dispatch at a time
 
 ### `R6-006` Assemble governed execution evidence from executor outputs
 - Status: open
@@ -160,3 +160,4 @@ R6 does not currently prove and must not casually widen into:
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 - `R6-004` is now complete through a thin freeze-to-baseline bridge in `tools/MilestoneBaseline.psm1` that materializes accepted planning-record surfaces from the committed freeze, reuses the existing R5 milestone-baseline substrate, emits one durable baseline-binding artifact under `contracts/milestone_autocycle/baseline_binding.contract.json`, and stays explicitly pre-dispatch.
+- `R6-005` is now complete through `tools/MilestoneAutocycleDispatch.psm1`, which reuses the accepted R6-004 baseline-binding artifact as authoritative pre-dispatch input, emits one governed Codex dispatch plus one matching run ledger, enforces one active dispatch at a time, and stays explicitly pre-execution-grade without adding executor invocation, evidence bundling, QA aggregation, summaries, or decision packets.
