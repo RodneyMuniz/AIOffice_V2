@@ -1,0 +1,61 @@
+{
+  "record_type": "milestone_autocycle_replay_proof",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "replay_proof_id",
+    "cycle_id",
+    "summary_ref",
+    "summary_id",
+    "decision_packet_ref",
+    "decision_packet_id",
+    "recommendation",
+    "operator_decision_state",
+    "proof_refs",
+    "replay_scope",
+    "replay_source",
+    "boundary_statement",
+    "non_claims",
+    "notes"
+  ],
+  "proof_refs_required_fields": [
+    "proposal_ref",
+    "approval_ref",
+    "freeze_ref",
+    "baseline_binding_ref",
+    "dispatch_refs",
+    "run_ledger_refs",
+    "execution_evidence_refs",
+    "qa_observation_refs",
+    "qa_aggregation_ref"
+  ],
+  "replay_source_required_fields": [
+    "repository_root",
+    "branch",
+    "head_commit"
+  ],
+  "required_non_claim_fragments": [
+    "operator decision",
+    "autonomy",
+    "rollback",
+    "unattended automatic resume",
+    "ui",
+    "standard runtime",
+    "multi-repo",
+    "swarms",
+    "broader orchestration"
+  ],
+  "prohibited_claim_fragments": [
+    "operator accepted",
+    "operator chose",
+    "operator decision executed",
+    "proves broader autonomy",
+    "proves rollback execution",
+    "proves unattended automatic resume",
+    "proves ui",
+    "proves standard runtime",
+    "proves multi-repo",
+    "proves swarms",
+    "proves broader orchestration"
+  ]
+}

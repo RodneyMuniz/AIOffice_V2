@@ -1,0 +1,46 @@
+{
+  "record_type": "milestone_autocycle_closeout_packet",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "closeout_packet_id",
+    "cycle_id",
+    "replay_proof_ref",
+    "replay_proof_id",
+    "summary_ref",
+    "summary_id",
+    "decision_packet_ref",
+    "decision_packet_id",
+    "operator_decision_state",
+    "closeout_scope",
+    "proved_scope",
+    "unproved_scope",
+    "out_of_scope",
+    "non_claims",
+    "notes"
+  ],
+  "required_non_claim_fragments": [
+    "operator decision",
+    "autonomy",
+    "rollback",
+    "unattended automatic resume",
+    "ui",
+    "standard runtime",
+    "multi-repo",
+    "swarms",
+    "broader orchestration"
+  ],
+  "prohibited_claim_fragments": [
+    "operator accepted",
+    "operator chose",
+    "operator decision executed",
+    "proves broader autonomy",
+    "proves rollback execution",
+    "proves unattended automatic resume",
+    "proves ui",
+    "proves standard runtime",
+    "proves multi-repo",
+    "proves swarms",
+    "proves broader orchestration"
+  ]
+}

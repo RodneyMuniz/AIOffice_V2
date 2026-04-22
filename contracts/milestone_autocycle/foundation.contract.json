@@ -13,6 +13,8 @@
   "qa_aggregation_record_type": "milestone_autocycle_qa_aggregation",
   "summary_record_type": "milestone_autocycle_summary",
   "decision_packet_record_type": "milestone_autocycle_decision_packet",
+  "replay_proof_record_type": "milestone_autocycle_replay_proof",
+  "closeout_packet_record_type": "milestone_autocycle_closeout_packet",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
   "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
@@ -54,6 +56,9 @@
     "accept",
     "rework",
     "stop"
+  ],
+  "allowed_operator_decision_states": [
+    "advisory_only_not_executed"
   ],
   "allowed_stop_reason_codes": [
     "plan_not_frozen",
@@ -235,6 +240,43 @@
     "recommendation",
     "recommendation_is_advisory",
     "options",
+    "notes"
+  ],
+  "replay_proof_required_fields": [
+    "contract_version",
+    "record_type",
+    "replay_proof_id",
+    "cycle_id",
+    "summary_ref",
+    "summary_id",
+    "decision_packet_ref",
+    "decision_packet_id",
+    "recommendation",
+    "operator_decision_state",
+    "proof_refs",
+    "replay_scope",
+    "replay_source",
+    "boundary_statement",
+    "non_claims",
+    "notes"
+  ],
+  "closeout_packet_required_fields": [
+    "contract_version",
+    "record_type",
+    "closeout_packet_id",
+    "cycle_id",
+    "replay_proof_ref",
+    "replay_proof_id",
+    "summary_ref",
+    "summary_id",
+    "decision_packet_ref",
+    "decision_packet_id",
+    "operator_decision_state",
+    "closeout_scope",
+    "proved_scope",
+    "unproved_scope",
+    "out_of_scope",
+    "non_claims",
     "notes"
   ]
 }

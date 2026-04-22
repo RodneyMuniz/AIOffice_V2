@@ -13,10 +13,10 @@ The next defensible step is still not UI expansion, not Standard or subproject r
 ## Objective
 Prove one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, unattended automatic resume, rollback execution, UI productization, Standard runtime, or broader orchestration.
 
-## Current open status
-`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-008`.
+## Current milestone status
+`R6 Supervised Milestone Autocycle Pilot` is complete and formally closed in repo truth through `R6-009`.
 
-The milestone remains bounded and pre-replay. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, freeze-to-baseline binding, governed dispatch plus run-ledger control, governed execution-evidence assembly, bounded QA observation plus milestone aggregation, and bounded summary plus operator decision packet are now complete, while replay and closeout work remain open.
+The milestone remains bounded and closed to the supervised pilot boundary only. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, freeze-to-baseline binding, governed dispatch plus run-ledger control, governed execution-evidence assembly, bounded QA observation plus milestone aggregation, bounded summary plus operator decision packet, and bounded replay-proof plus closeout-packet assembly are now complete. The bounded closeout remains advisory-only at the operator decision surface and does not claim broader autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 
 ## Exact pilot boundary
 This milestone is bounded to:
@@ -150,13 +150,13 @@ R6 does not currently prove and must not casually widen into:
 - Done when: one milestone-level summary can cover scope, diffs, tests, blockers, evidence quality, and non-claims, recommendation stays advisory only, and the operator receives one decision packet with `accept`, `rework`, or `stop`
 
 ### `R6-009` Produce one replayable supervised pilot proof and closeout packet
-- Status: open
-- Done when: one exact pilot scenario replays from intake to operator decision, raw logs plus summary artifacts plus selection scope plus replay-source metadata are committed, closeout wording matches exact replay scope, and non-claims remain explicit
+- Status: done
+- Done when: one exact supervised pilot scenario can assemble one replay proof plus one bounded closeout packet from authoritative summary and decision surfaces with explicit governed proof refs, replay-source metadata, honest boundary statements, and explicit non-claims
 
 ## Milestone notes
 - `R6-001` opens R6 in repo truth as bounded structure only. It does not claim that the supervised pilot is implemented yet.
 - `R6-P1` is now complete through the committed final-head support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/`, sourced from formal closeout head `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`. That packet remains outside the formal R5 replay subset used for closeout and does not widen the bounded R5 claim.
-- The current authoritative bounded proof entrypoint remains `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`. No new `R6` proof id is claimable yet.
+- The current authoritative bounded proof entrypoint remains `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`, but the bounded R6 closeout proof currently comes from the focused replay-proof and closeout flow in `tests/test_milestone_autocycle_closeout.ps1`. No broader bounded-proof-suite R6 proof id is claimed here.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 - `R6-004` is now complete through a thin freeze-to-baseline bridge in `tools/MilestoneBaseline.psm1` that materializes accepted planning-record surfaces from the committed freeze, reuses the existing R5 milestone-baseline substrate, emits one durable baseline-binding artifact under `contracts/milestone_autocycle/baseline_binding.contract.json`, and stays explicitly pre-dispatch.
@@ -164,3 +164,4 @@ R6 does not currently prove and must not casually widen into:
 - `R6-006` is now complete through `tools/MilestoneAutocycleExecutionEvidence.psm1`, which reuses the completed governed dispatch plus completed run ledger as authoritative input, emits one `milestone_autocycle_execution_evidence` bundle with changed files, produced artifacts, test outputs, and evidence refs, and stays explicitly pre-QA without adding QA aggregation, summaries, decision packets, replay logic, or broader orchestration.
 - `R6-007` is now complete through `tools/MilestoneAutocycleQA.psm1`, which reuses the governed execution-evidence bundle as authoritative input, emits one `milestone_autocycle_qa_observation` plus one `milestone_autocycle_qa_aggregation`, reflects blocked or failed QA as milestone stop state, and stays explicitly pre-summary without adding summary generation, recommendation logic, operator decision packets, replay logic, or broader orchestration.
 - `R6-008` is now complete through `tools/MilestoneAutocycleSummary.psm1`, which reuses the authoritative `milestone_autocycle_qa_aggregation` plus linked governed QA observations and execution evidence, emits one bounded `milestone_autocycle_summary` plus one bounded `milestone_autocycle_decision_packet`, keeps recommendation advisory only, and stays explicitly pre-replay without adding replay proof, closeout, operator auto-advance, or broader orchestration.
+- `R6-009` is now complete through `tools/MilestoneAutocycleCloseout.psm1`, which reuses the authoritative `milestone_autocycle_summary` plus matching advisory-only `milestone_autocycle_decision_packet`, requires explicit governed proof refs across proposal through QA, emits one bounded `milestone_autocycle_replay_proof` plus one bounded `milestone_autocycle_closeout_packet`, preserves replay-source metadata and explicit non-claims, and refuses overclaims or any representation that advisory operator choice was executed.

@@ -325,3 +325,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed surfaces now include `contracts/milestone_autocycle/summary.contract.json`, `contracts/milestone_autocycle/decision_packet.contract.json`, the expanded summary and decision-packet required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_summary.ps1`.
 - Consequence: this slice adds bounded summary and operator decision packet surfaces only. It does not yet prove end-to-end pilot replay or closeout.
 - Consequence: the next gated step inside R6 is `R6-009` Produce one replayable supervised pilot proof and closeout packet.
+
+## D-0039 R6-009 Closed The Bounded Supervised Pilot
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-009` is complete through one bounded replay-proof and closeout-packet flow in `tools/MilestoneAutocycleCloseout.psm1`.
+- Consequence: one authoritative `milestone_autocycle_summary` plus one matching advisory-only `milestone_autocycle_decision_packet` can now emit one contract-valid `milestone_autocycle_replay_proof` plus one matching `milestone_autocycle_closeout_packet` that preserve cycle identity, require explicit governed proof refs across proposal through QA, record replay-source metadata plus explicit non-claims, and refuse missing summary or decision artifacts, cycle mismatches, missing proof refs, malformed replay or closeout state, overclaiming closeout language, and misrepresented executed operator choice.
+- Consequence: the committed surfaces now include `contracts/milestone_autocycle/replay_proof.contract.json`, `contracts/milestone_autocycle/closeout_packet.contract.json`, the expanded replay-proof and closeout required fields in `contracts/milestone_autocycle/foundation.contract.json`, `tools/MilestoneAutocycleCloseout.psm1`, and focused proof through `tests/test_milestone_autocycle_closeout.ps1`.
+- Consequence: this closes `R6 Supervised Milestone Autocycle Pilot` in repo truth as a bounded supervised pilot only. It does not prove executed operator acceptance, broader autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: no later implementation milestone is open yet in repo truth.
