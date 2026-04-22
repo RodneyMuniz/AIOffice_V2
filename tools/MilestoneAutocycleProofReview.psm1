@@ -379,6 +379,10 @@ function Get-MilestoneAutocycleFoundationContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\foundation.contract.json") -Label "Milestone autocycle foundation contract"
 }
 
+function Get-MilestoneAutocycleDispatchContract {
+    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\dispatch.contract.json") -Label "Milestone autocycle dispatch contract"
+}
+
 function Get-RequiredDependencyCommand {
     param(
         [Parameter(Mandatory = $true)]
@@ -1100,6 +1104,7 @@ function Validate-ReplaySourceDocument {
 
     $replaySource = Get-JsonDocument -Path $ReplaySourcePath -Label "Proof review replay source metadata"
     $foundation = Get-MilestoneAutocycleFoundationContract
+    $dispatchContract = Get-MilestoneAutocycleDispatchContract
     foreach ($fieldName in @(Get-ReplaySourceRequiredFields)) {
         Get-RequiredProperty -Object $replaySource -Name $fieldName -Context "Proof review replay source metadata" | Out-Null
     }
@@ -1115,7 +1120,7 @@ function Validate-ReplaySourceDocument {
 
     Assert-RegexMatch -Value $scenarioId -Pattern $foundation.identifier_pattern -Context "Proof review replay source metadata.scenario_id"
     Assert-RegexMatch -Value $cycleId -Pattern $foundation.identifier_pattern -Context "Proof review replay source metadata.cycle_id"
-    Assert-RegexMatch -Value $branch -Pattern $foundation.identifier_pattern -Context "Proof review replay source metadata.branch"
+    Assert-RegexMatch -Value $branch -Pattern $dispatchContract.target_branch_pattern -Context "Proof review replay source metadata.branch"
     Assert-RegexMatch -Value $sourceHeadCommit -Pattern "^[0-9a-f]{40}$" -Context "Proof review replay source metadata.source_head_commit"
     Assert-RegexMatch -Value $sourceTreeId -Pattern "^[0-9a-f]{40}$" -Context "Proof review replay source metadata.source_tree_id"
     Assert-RegexMatch -Value $generatedAtUtc -Pattern $foundation.timestamp_pattern -Context "Proof review replay source metadata.generated_at_utc"
