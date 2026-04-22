@@ -258,3 +258,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: request-relative `baton_ref` values now resolve against the resume request artifact directory instead of the caller shell location.
 - Consequence: focused proof now covers caller-location-invariant baton persistence and resume re-entry behavior plus fail-closed missing relative baton-path refusal through `tests/test_baton_persistence.ps1` and `tests/test_resume_reentry.ps1`.
 - Consequence: this hardening removes shell-location-sensitive baton-path behavior only. It does not yet add milestone proposal generation, freeze enforcement, Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+
+## D-0032 R6-002 Added Structured Milestone Proposal Generation
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-002` is complete through one structured milestone proposal flow in `tools/MilestoneAutocycleProposal.psm1`.
+- Consequence: one structured proposal intake can now generate one contract-valid milestone proposal with durable `request_brief` and milestone lineage, a bounded 5 to 10 proposed task set, and fail-closed malformed-input handling.
+- Consequence: the committed proposal surfaces now include `contracts/milestone_autocycle/proposal_intake.contract.json`, `contracts/milestone_autocycle/proposal.contract.json`, and focused fixture coverage under `state/fixtures/valid/milestone_autocycle/`.
+- Consequence: focused proof now covers the happy path, missing request lineage refusal, too-few-task refusal, and too-many-task refusal through `tests/test_milestone_autocycle_proposal.ps1`.
+- Consequence: this slice adds proposal generation only. It does not yet prove operator freeze enforcement, Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.

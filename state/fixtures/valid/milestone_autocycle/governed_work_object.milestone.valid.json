@@ -1,0 +1,53 @@
+{
+  "contract_version": "v1",
+  "record_type": "governed_work_object",
+  "object_type": "milestone",
+  "object_id": "milestone-r6-autocycle-pilot-001",
+  "title": "R6 supervised milestone autocycle pilot",
+  "summary": "Run one bounded supervised milestone pilot from structured intake to operator decision.",
+  "status": "active",
+  "created_at": "2026-04-22T03:00:00Z",
+  "created_by": {
+    "role": "operator",
+    "id": "operator:rodney"
+  },
+  "parent": {
+    "object_type": "project",
+    "object_id": "project-r3-foundations-001",
+    "ref": "../governed_work_object.project.valid.json"
+  },
+  "lineage": {
+    "source_kind": "manual",
+    "source_refs": [
+      "governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md"
+    ],
+    "rationale": "The R6 milestone brief opens the supervised milestone autocycle pilot boundary."
+  },
+  "relationships": [],
+  "evidence": [
+    {
+      "kind": "decision_record",
+      "ref": "governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md",
+      "summary": "The R6 milestone brief defines the supervised pilot boundary and non-claims."
+    }
+  ],
+  "audit": {
+    "trail_refs": [
+      "governance/ACTIVE_STATE.md"
+    ],
+    "last_reviewed_at": "2026-04-22T03:05:00Z",
+    "notes": "Fixture milestone reviewed against active R6 repo truth."
+  },
+  "scope_summary": "Run one bounded supervised milestone pilot inside AIOffice_V2 only.",
+  "objective": "Propose and later freeze one operator-controlled milestone task set without opening dispatch or automation claims early.",
+  "done_criteria": [
+    "One milestone proposal can be generated from one structured intake.",
+    "Later R6 tasks can freeze, baseline-bind, and audit the exact same milestone plan."
+  ],
+  "non_goals": [
+    "Executor dispatch",
+    "Automatic resume",
+    "Rollback execution",
+    "Broad orchestration"
+  ]
+}

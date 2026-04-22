@@ -1,0 +1,33 @@
+{
+  "record_type": "milestone_autocycle_proposal_intake",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "intake_id",
+    "request_brief_ref",
+    "milestone_ref",
+    "proposed_tasks",
+    "scope_notes",
+    "assumptions",
+    "status",
+    "notes"
+  ],
+  "allowed_statuses": [
+    "ready_for_proposal",
+    "superseded",
+    "canceled"
+  ],
+  "required_task_fields": [
+    "task_id",
+    "title",
+    "task_kind",
+    "scope_summary",
+    "requested_outcome",
+    "acceptance_checks",
+    "non_goals"
+  ],
+  "optional_task_fields": [
+    "depends_on_ids",
+    "notes"
+  ]
+}

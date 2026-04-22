@@ -122,8 +122,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: baton-related path resolution no longer depends on caller shell location, repo-root-relative baton store and resume request or output paths resolve deterministically, request-relative `baton_ref` values resolve from the resume request artifact directory, and later `R6` work can depend on baton continuity without shell-location-sensitive behavior
 
 ### `R6-002` Add milestone task-set proposal from one structured intake
-- Status: open
-- Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request is durable, and malformed or incomplete input fails closed
+- Status: done
+- Done when: one structured intake can generate one milestone proposal with a bounded 5 to 10 proposed task set, proposal lineage back to the request and milestone target is durable, malformed or incomplete input fails closed, and proposal generation does not yet imply freeze or dispatch behavior
 
 ### `R6-003` Add explicit operator approval and milestone freeze
 - Status: open

@@ -1,5 +1,7 @@
 {
   "contract_version": "v1",
+  "proposal_intake_record_type": "milestone_autocycle_proposal_intake",
+  "proposal_record_type": "milestone_autocycle_proposal",
   "cycle_record_type": "milestone_autocycle",
   "freeze_record_type": "milestone_autocycle_freeze",
   "dispatch_record_type": "milestone_autocycle_dispatch",

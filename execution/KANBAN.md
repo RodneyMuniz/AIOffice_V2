@@ -51,13 +51,13 @@ Closeout summary:
 - Done when: baton continuity no longer carries shell-location-sensitive path behavior into later R6 work
 
 ### `R6-002` Add milestone task-set proposal from one structured intake
-- Status: open
+- Status: done
 - Order: 2
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-P1`, `R6-P2`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
-- Durable output: one milestone proposal surface that derives a 5 to 10 task set from one structured intake with durable lineage
-- Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request is durable, and malformed or incomplete input fails closed
+- Durable output: one milestone proposal surface that derives a bounded 5 to 10 task set from one structured intake with durable request and milestone lineage
+- Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request and milestone target is durable, and malformed or incomplete input fails closed
 
 ### `R6-003` Add explicit operator approval and milestone freeze
 - Status: open
