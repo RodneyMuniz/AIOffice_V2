@@ -656,8 +656,8 @@ Do **not** reopen `R5`. Do **not** turn cleanup into another mini-milestone.
 
 Do one short bounded cleanup before substantive `R6` implementation.
 
-### Required cleanup item
-#### `R5-C1` Evidence-thickness cleanup from final closeout head
+### Required precondition
+#### `R6-P1` Final-head evidence-thickness precondition
 Generate and commit one final-head closeout-support packet from the actual closeout state that archives the currently omitted support-test logs and records the exact inventory clearly.
 
 At minimum, include or explicitly regenerate support evidence for:
@@ -670,8 +670,8 @@ At minimum, include or explicitly regenerate support evidence for:
 **Why this should happen before `R6`:**  
 The next milestone is supposed to increase operator trust in supervised automation. Starting that milestone from a thinner-than-ideal closeout packet is unnecessary self-sabotage.
 
-### Strongly recommended early cleanup
-#### `R5-C2` Remove caller-CWD path softness from baton-related path resolution
+### Strongly recommended early precondition
+#### `R6-P2` Baton path determinism precondition
 Before `R6` depends on baton continuity as part of a supervised milestone cycle, clean up relative-path resolution that still depends on shell location.
 
 **Why this matters:**  

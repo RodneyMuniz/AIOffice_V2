@@ -42,10 +42,6 @@
     "stop_on_retry_ceiling_exceeded": true,
     "stop_on_proof_selection_or_replay_integrity_mismatch": true
   },
-  "pre_r6_cleanup_required": [
-    "R5-C1",
-    "R5-C2"
-  ],
   "non_claims_preserved": [
     "No broad autonomy or general orchestrator productization is opened by this contract.",
     "No rollback execution is opened by this contract.",

@@ -20,7 +20,7 @@ The current repo is a clean reset. Its first acceptable proof boundary is superv
 - `governance/POST_R5_CLOSEOUT.md`
 - `governance/POST_R5_AUDIT_INDEX.md`
 - `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`
-- `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`
+- `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`
 - `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`
 - `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md`
 - `execution/KANBAN.md`
@@ -87,7 +87,9 @@ The initial `R4-005` through `R4-007` delivery required explicit corrective comp
 
 The final narrative bridge artifact for the R4-to-R5 transition is `governance/reports/AIOffice_V2_R4_Audit_and_R5_Planning_Report_v1.md`. It is a report artifact only, not milestone proof by itself.
 
-The operator-facing bridge artifact for the R5-to-R6 transition is `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
+The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
+
+The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 
 ## Not Required In Current V1
 - broad UI or control-room proof

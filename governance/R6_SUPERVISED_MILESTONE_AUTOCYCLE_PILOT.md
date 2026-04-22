@@ -75,7 +75,7 @@ R6 does not currently prove and must not casually widen into:
 - bounded QA observation and milestone-level aggregation
 - one bounded PRO-style summary and operator decision packet
 - one replayable end-to-end pilot proof plus honest closeout packaging
-- the immediate pre-R6 cleanup needed to support those later steps honestly
+- the immediate R6 preconditions needed to support those later steps honestly
 
 ## Explicitly out of scope
 - any operator-visible or user-facing UI work
@@ -98,7 +98,7 @@ R6 does not currently prove and must not casually widen into:
 - `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md` remain the closeout authority for bounded R5
 - Git and persisted state remain the authoritative truth substrates
 - admin-only posture remains in force unless later repo truth explicitly proves more
-- `R5-C1` and `R5-C2` are required cleanup items before later `R6` tasks depend operationally on final-head closeout support evidence or baton path behavior
+- `R6-P1` and `R6-P2` are required preconditions before later `R6` tasks depend operationally on final-head closeout support evidence or baton path behavior
 
 ## Key risks
 - spending R6 on governance hygiene instead of real supervised operator value
@@ -113,11 +113,11 @@ R6 does not currently prove and must not casually widen into:
 - Status: done
 - Done when: `R6` is opened in repo truth, the exact pilot boundary is written, stop conditions are explicit and fail-closed, initial milestone-autocycle contract surfaces exist, and no broader autonomy is implied
 
-### `R5-C1` Evidence-thickness cleanup from final closeout head
+### `R6-P1` Final-head evidence-thickness precondition
 - Status: open
 - Done when: one final-head closeout-support packet archives the omitted support-test logs and records the final inventory clearly for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
-### `R5-C2` Remove caller-CWD path softness from baton-related path resolution
+### `R6-P2` Baton path determinism precondition
 - Status: open
 - Done when: baton-related path resolution no longer depends on caller shell location and later `R6` work can depend on baton continuity without shell-location-sensitive behavior
 
@@ -156,5 +156,5 @@ R6 does not currently prove and must not casually widen into:
 ## Milestone notes
 - `R6-001` opens R6 in repo truth as bounded structure only. It does not claim that the supervised pilot is implemented yet.
 - The current authoritative bounded proof entrypoint remains `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`. No new `R6` proof id is claimable yet.
-- The operator-facing bridge artifact for the R5-to-R6 transition is `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
+- The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.

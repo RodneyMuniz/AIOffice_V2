@@ -9,7 +9,7 @@ Objective:
 Open and implement one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration.
 
 Exit Criteria:
-- `R5-C1` and `R5-C2` are complete
+- `R6-P1` and `R6-P2` are complete
 - one milestone proposal can be produced from one structured intake and frozen only by explicit operator approval
 - one frozen milestone binds to one Git-backed baseline before dispatch
 - Codex dispatch, run ledger, governed execution evidence, QA observation, milestone aggregation, PRO-style summary, and operator decision packet exist for the exact pilot
@@ -28,22 +28,22 @@ Closeout summary:
 - Order: 1
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `governance/POST_R5_CLOSEOUT.md`, `governance/POST_R5_AUDIT_INDEX.md`
-- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/Product Vision V1 baseline/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`
+- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`
 - Durable output: updated repo-truth surfaces plus initial milestone-autocycle contract foundation under `contracts/milestone_autocycle/`
 - Done when: R6 is opened in repo truth, the exact pilot boundary is written, stop conditions are explicit and fail-closed, and no broader autonomy is implied
 
-### `R5-C1` Evidence-thickness cleanup from final closeout head
+### `R6-P1` Final-head evidence-thickness precondition
 - Status: open
-- Order: C1
+- Order: P1
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-001`
 - Authority: `governance/POST_R5_CLOSEOUT.md`, `governance/POST_R5_AUDIT_INDEX.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`
 - Durable output: one final-head closeout-support packet archiving omitted support-test logs and recording the final inventory clearly
 - Done when: final-head support evidence exists for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
-### `R5-C2` Remove caller-CWD path softness from baton-related path resolution
+### `R6-P2` Baton path determinism precondition
 - Status: open
-- Order: C2
+- Order: P2
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-001`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
@@ -54,7 +54,7 @@ Closeout summary:
 - Status: open
 - Order: 2
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R5-C1`, `R5-C2`
+- Depends on: `R6-P1`, `R6-P2`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
 - Durable output: one milestone proposal surface that derives a 5 to 10 task set from one structured intake with durable lineage
 - Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request is durable, and malformed or incomplete input fails closed
