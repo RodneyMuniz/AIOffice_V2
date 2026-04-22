@@ -295,3 +295,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed surfaces now include `contracts/milestone_autocycle/dispatch.contract.json`, `contracts/milestone_autocycle/run_ledger.contract.json`, and focused proof through `tests/test_milestone_autocycle_dispatch.ps1`, including happy-path dispatch creation, run-ledger state updates, active-dispatch exclusivity refusal, malformed-input refusals, and invalid ledger-transition refusal.
 - Consequence: this slice adds governed pre-execution dispatch control only. It does not yet prove execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
 - Consequence: the next gated step inside R6 is `R6-006` Assemble governed execution evidence from executor outputs.
+
+## D-0036 R6-006 Added Governed Execution Evidence Assembly
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-006` is complete through one governed execution-evidence flow in `tools/MilestoneAutocycleExecutionEvidence.psm1`.
+- Consequence: one completed governed dispatch plus one completed governed run ledger can now emit one contract-valid `milestone_autocycle_execution_evidence` bundle that preserves the authoritative `dispatch_id`, `run_ledger_id`, `task_id`, `baseline_binding_ref`, and pinned `baseline_id` while recording changed files, produced artifacts, test outputs, and evidence refs durably.
+- Consequence: the evidence flow reuses the accepted R6-005 dispatch and run-ledger surfaces as authoritative input, refuses missing dispatch or ledger artifacts, refuses dispatch or ledger identity mismatch, refuses non-completed dispatch or ledger states, refuses missing evidence categories, and refuses malformed execution-evidence bundle state.
+- Consequence: the committed surfaces now include `contracts/milestone_autocycle/execution_evidence.contract.json`, the expanded execution-evidence required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_execution_evidence.ps1`.
+- Consequence: this slice adds governed evidence assembly only. It does not yet prove milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+- Consequence: the next gated step inside R6 is `R6-007` Add automated QA observation and milestone aggregation.

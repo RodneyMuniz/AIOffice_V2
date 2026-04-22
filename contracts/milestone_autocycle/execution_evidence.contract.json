@@ -1,0 +1,48 @@
+{
+  "record_type": "milestone_autocycle_execution_evidence",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "evidence_bundle_id",
+    "cycle_id",
+    "dispatch_id",
+    "dispatch_ref",
+    "run_ledger_id",
+    "run_ledger_ref",
+    "task_id",
+    "executor_type",
+    "baseline_binding_ref",
+    "baseline_id",
+    "changed_files",
+    "produced_artifacts",
+    "test_outputs",
+    "evidence_refs",
+    "notes"
+  ],
+  "changed_file_required_fields": [
+    "path",
+    "change_kind",
+    "notes"
+  ],
+  "produced_artifact_required_fields": [
+    "kind",
+    "path",
+    "notes"
+  ],
+  "test_output_required_fields": [
+    "kind",
+    "ref",
+    "notes"
+  ],
+  "evidence_ref_required_fields": [
+    "kind",
+    "ref",
+    "notes"
+  ],
+  "terminal_dispatch_statuses": [
+    "completed"
+  ],
+  "terminal_ledger_statuses": [
+    "completed"
+  ]
+}
