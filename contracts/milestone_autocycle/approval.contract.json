@@ -1,0 +1,22 @@
+{
+  "record_type": "milestone_autocycle_approval",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "decision_id",
+    "cycle_id",
+    "proposal_id",
+    "proposal_ref",
+    "status",
+    "decided_at",
+    "decided_by",
+    "operator_authority",
+    "rejection_reasons",
+    "notes"
+  ],
+  "allowed_statuses": [
+    "pending",
+    "approved",
+    "rejected"
+  ]
+}

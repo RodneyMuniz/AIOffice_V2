@@ -60,13 +60,13 @@ Closeout summary:
 - Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request and milestone target is durable, and malformed or incomplete input fails closed
 
 ### `R6-003` Add explicit operator approval and milestone freeze
-- Status: open
+- Status: done
 - Order: 3
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-002`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
-- Durable output: explicit approval and freeze artifact blocking dispatch until the milestone is frozen
-- Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state, freeze records exact task set and operator authority, and unfrozen milestones cannot dispatch work
+- Durable output: one explicit approval record surface plus one durable freeze artifact that records the exact approved task set and operator authority
+- Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state, freeze records exact task set and operator authority, rejected proposals do not emit freeze artifacts, and unfrozen milestones cannot dispatch work
 
 ### `R6-004` Bind milestone freeze to Git-backed baseline capture
 - Status: open

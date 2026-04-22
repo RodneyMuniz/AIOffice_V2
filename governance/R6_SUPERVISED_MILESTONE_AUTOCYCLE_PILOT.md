@@ -126,8 +126,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: one structured intake can generate one milestone proposal with a bounded 5 to 10 proposed task set, proposal lineage back to the request and milestone target is durable, malformed or incomplete input fails closed, and proposal generation does not yet imply freeze or dispatch behavior
 
 ### `R6-003` Add explicit operator approval and milestone freeze
-- Status: open
-- Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state, freeze records exact task set and operator authority, and unfrozen milestones cannot dispatch work
+- Status: done
+- Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state with one exact freeze artifact, freeze records exact task set and operator authority, rejected proposals do not emit freeze artifacts, and unfrozen milestones still do not imply dispatch behavior
 
 ### `R6-004` Bind milestone freeze to Git-backed baseline capture
 - Status: open

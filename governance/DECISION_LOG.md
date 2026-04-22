@@ -267,3 +267,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed proposal surfaces now include `contracts/milestone_autocycle/proposal_intake.contract.json`, `contracts/milestone_autocycle/proposal.contract.json`, and focused fixture coverage under `state/fixtures/valid/milestone_autocycle/`.
 - Consequence: focused proof now covers the happy path, missing request lineage refusal, too-few-task refusal, and too-many-task refusal through `tests/test_milestone_autocycle_proposal.ps1`.
 - Consequence: this slice adds proposal generation only. It does not yet prove operator freeze enforcement, Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+
+## D-0033 R6-003 Added Explicit Operator Approval And Freeze
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-003` is complete through one explicit milestone approval and freeze flow in `tools/MilestoneAutocycleFreeze.psm1`.
+- Consequence: contract-valid milestone proposals can now be explicitly approved or rejected, approved proposals emit one durable freeze artifact with the exact frozen task set and operator authority, and rejected proposals do not emit freeze artifacts.
+- Consequence: the committed approval and freeze surfaces now include `contracts/milestone_autocycle/approval.contract.json` and `contracts/milestone_autocycle/freeze.contract.json`.
+- Consequence: focused proof now covers the approved flow, rejected flow, malformed freeze-state refusal, task-set mismatch refusal, invalid approved-decision refusal, and invalid rejected-decision refusal through `tests/test_milestone_autocycle_freeze.ps1`.
+- Consequence: this slice adds explicit approval and freeze only. It does not yet prove Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.

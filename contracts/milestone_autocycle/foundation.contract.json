@@ -2,6 +2,7 @@
   "contract_version": "v1",
   "proposal_intake_record_type": "milestone_autocycle_proposal_intake",
   "proposal_record_type": "milestone_autocycle_proposal",
+  "approval_record_type": "milestone_autocycle_approval",
   "cycle_record_type": "milestone_autocycle",
   "freeze_record_type": "milestone_autocycle_freeze",
   "dispatch_record_type": "milestone_autocycle_dispatch",
@@ -83,14 +84,30 @@
     "non_claims",
     "notes"
   ],
+  "approval_required_fields": [
+    "contract_version",
+    "record_type",
+    "decision_id",
+    "cycle_id",
+    "proposal_id",
+    "proposal_ref",
+    "status",
+    "decided_at",
+    "decided_by",
+    "operator_authority",
+    "rejection_reasons",
+    "notes"
+  ],
   "freeze_required_fields": [
     "contract_version",
     "record_type",
     "freeze_id",
     "cycle_id",
     "proposal_id",
+    "proposal_ref",
     "approved_at",
     "approved_by",
+    "approval_status",
     "frozen_task_set",
     "operator_authority",
     "notes"

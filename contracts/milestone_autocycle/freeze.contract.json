@@ -1,0 +1,34 @@
+{
+  "record_type": "milestone_autocycle_freeze",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "freeze_id",
+    "cycle_id",
+    "proposal_id",
+    "proposal_ref",
+    "approved_at",
+    "approved_by",
+    "approval_status",
+    "frozen_task_set",
+    "operator_authority",
+    "notes"
+  ],
+  "allowed_approval_statuses": [
+    "approved"
+  ],
+  "required_task_fields": [
+    "sequence",
+    "task_id",
+    "title",
+    "status",
+    "parent",
+    "task_kind",
+    "scope_summary",
+    "requested_outcome",
+    "acceptance_checks",
+    "non_goals",
+    "depends_on_ids",
+    "notes"
+  ]
+}
