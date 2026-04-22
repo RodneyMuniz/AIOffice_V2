@@ -1,0 +1,8 @@
+﻿PASS valid repo enforcement allow path: C:\Users\rodne\AppData\Local\Temp\aioffice-r5-repo-enforcement-1fcee3162f6146e0baddb67f0012fbe8\repo-enforcement-result.json
+PASS dirty-worktree refusal: repo enforcement requires a clean Git worktree before replay.
+PASS missing replay summary refusal: replay summary Markdown is required.
+PASS governed output root refusal: proof output inside the repository must stay under state/proof_reviews/.
+PASS selection mismatch refusal: proof review selection must match the required id set exactly.
+PASS replay source head mismatch refusal: stale proof reviews fail closeout discipline.
+All repo enforcement tests passed.
+

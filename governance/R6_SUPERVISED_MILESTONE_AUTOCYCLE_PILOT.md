@@ -114,8 +114,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: `R6` is opened in repo truth, the exact pilot boundary is written, stop conditions are explicit and fail-closed, initial milestone-autocycle contract surfaces exist, and no broader autonomy is implied
 
 ### `R6-P1` Final-head evidence-thickness precondition
-- Status: open
-- Done when: one final-head closeout-support packet archives the omitted support-test logs and records the final inventory clearly for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
+- Status: done
+- Done when: one final-head closeout-support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/` archives the omitted support-test logs and records the final inventory clearly for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
 ### `R6-P2` Baton path determinism precondition
 - Status: open
@@ -155,6 +155,7 @@ R6 does not currently prove and must not casually widen into:
 
 ## Milestone notes
 - `R6-001` opens R6 in repo truth as bounded structure only. It does not claim that the supervised pilot is implemented yet.
+- `R6-P1` is now complete through the committed final-head support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/`, sourced from formal closeout head `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`. That packet remains outside the formal R5 replay subset used for closeout and does not widen the bounded R5 claim.
 - The current authoritative bounded proof entrypoint remains `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`. No new `R6` proof id is claimable yet.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.

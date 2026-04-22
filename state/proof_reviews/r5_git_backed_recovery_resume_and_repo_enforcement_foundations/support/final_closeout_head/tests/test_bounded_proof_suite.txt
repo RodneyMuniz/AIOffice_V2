@@ -1,0 +1,6 @@
+﻿PASS proof suite definition count: 17
+PASS proof suite empty-status and mutation comparison coverage.
+PASS proof suite subset execution: C:\Users\rodne\AppData\Local\Temp\aioffice-proof-suite-test-c25658f9820749aca30da620a7762138\bounded-proof-suite-summary.json
+PASS proof suite unknown selection refusal: Unknown bounded proof suite test id(s): not-a-real-proof-case.
+All bounded proof suite tests passed.
+

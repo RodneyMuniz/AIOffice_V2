@@ -90,7 +90,17 @@ The committed R5 proof-review package currently consists of:
 - `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/meta/`
 - `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/`
 
-The committed proof-review package does not include self-replay logs for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, or `tests/test_work_artifact_contracts.ps1`. Those remain support regression tests outside the replay package.
+The committed proof-review package used for formal closeout does not include self-replay logs for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, or `tests/test_work_artifact_contracts.ps1`.
+
+## Committed Final-Head Support Packet Contents
+The committed final-head support packet currently consists of:
+- `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/SUPPORT_SUMMARY.md`
+- `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/support-test-inventory.json`
+- `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/meta/`
+- `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/`
+
+The committed final-head support packet archives exact logs for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1` from the actual formal closeout head `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`.
+The committed final-head support packet is outside the formal replay subset and does not widen the bounded R5 closeout claim.
 
 ## Replay Proof Surface
 The direct replay proof surface is:
@@ -102,6 +112,8 @@ The direct replay proof surface is:
 - repo-enforcement result: `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/repo-enforcement-result.json`
 - per-test raw logs: `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/tests/`
 - replay source head recorded inside the committed package: `1a97ff0cef9675c88030d3b618ef928093ee080c`
+- final-head support packet root outside the formal replay subset: `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/`
+- final-head support packet source head: `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`
 
 ## Limits And Exclusions The Auditor Must Preserve
 - Preserve the bounded claim only. R5 closes bounded Git-backed recovery, resume, proof-discipline, and repo-enforcement foundations; it does not prove broad product completion.

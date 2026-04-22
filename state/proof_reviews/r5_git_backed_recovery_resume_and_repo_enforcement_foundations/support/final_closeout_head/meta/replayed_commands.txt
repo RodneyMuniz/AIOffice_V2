@@ -1,0 +1,5 @@
+﻿powershell -ExecutionPolicy Bypass -File tests\\test_bounded_proof_suite.ps1
+powershell -ExecutionPolicy Bypass -File tests\\test_bounded_proof_ci_foundation.ps1
+powershell -ExecutionPolicy Bypass -File tests\\test_repo_enforcement.ps1
+powershell -ExecutionPolicy Bypass -File tests\\test_r5_recovery_resume_proof_review.ps1
+powershell -ExecutionPolicy Bypass -File tests\\test_work_artifact_contracts.ps1

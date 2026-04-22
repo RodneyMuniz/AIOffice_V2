@@ -241,3 +241,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: opening R6 does not yet prove milestone proposal generation, operator freeze enforcement, Git-backed baseline binding for dispatch, governed Codex dispatch, governed execution evidence assembly, milestone QA aggregation, PRO-style review summary generation, operator decision packet generation, or end-to-end pilot replay.
 - Consequence: opening R6 does not prove broad autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration.
 - Consequence: the operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`, and it remains a narrative report artifact rather than milestone proof by itself.
+
+## D-0030 R6-P1 Archived Final-Head Support Evidence Without Widening R5
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-P1` is complete through one committed final-head support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/`.
+- Consequence: the committed support packet archives exact final-head logs for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1` from the actual formal closeout head `03e86c3fc22d359b4caf2b8d08883baf8f94dcda`.
+- Consequence: the formal R5 replay subset used for closeout remains unchanged at `r5-milestone-baseline`, `r5-restore-gate`, `r5-baton-continuity`, and `r5-resume-reentry`.
+- Consequence: this support packet thickens audit evidence only. It does not reopen R5 and does not widen rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration claims.

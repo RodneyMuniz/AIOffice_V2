@@ -33,12 +33,12 @@ Closeout summary:
 - Done when: R6 is opened in repo truth, the exact pilot boundary is written, stop conditions are explicit and fail-closed, and no broader autonomy is implied
 
 ### `R6-P1` Final-head evidence-thickness precondition
-- Status: open
+- Status: done
 - Order: P1
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-001`
 - Authority: `governance/POST_R5_CLOSEOUT.md`, `governance/POST_R5_AUDIT_INDEX.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`
-- Durable output: one final-head closeout-support packet archiving omitted support-test logs and recording the final inventory clearly
+- Durable output: one final-head closeout-support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/` archiving omitted support-test logs and recording the final inventory clearly
 - Done when: final-head support evidence exists for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
 
 ### `R6-P2` Baton path determinism precondition

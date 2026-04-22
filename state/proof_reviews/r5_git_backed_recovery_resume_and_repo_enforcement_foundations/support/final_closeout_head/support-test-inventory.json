@@ -1,0 +1,59 @@
+﻿{
+    "packet_type":  "r5_closeout_support_evidence",
+    "packet_scope":  "final_closeout_head_support_tests_only",
+    "replay_source_head":  "03e86c3fc22d359b4caf2b8d08883baf8f94dcda",
+    "replay_source_branch":  "feature/r5-closeout-remaining-foundations",
+    "temporary_execution_branch":  "tmp-r5-closeout-support-40deeb6d56914b93906f30497ddc34c0",
+    "replay_source_relative_to_formal_closeout":  "support_evidence_outside_formal_replay_subset",
+    "formal_closeout_replay_subset":  [
+                                          "r5-milestone-baseline",
+                                          "r5-restore-gate",
+                                          "r5-baton-continuity",
+                                          "r5-resume-reentry"
+                                      ],
+    "support_tests":  [
+                          {
+                              "relative_path":  "tests/test_bounded_proof_suite.ps1",
+                              "command":  "powershell -ExecutionPolicy Bypass -File tests\\\\test_bounded_proof_suite.ps1",
+                              "status":  "passed",
+                              "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/test_bounded_proof_suite.txt",
+                              "classification":  "support_evidence_outside_formal_replay_subset"
+                          },
+                          {
+                              "relative_path":  "tests/test_bounded_proof_ci_foundation.ps1",
+                              "command":  "powershell -ExecutionPolicy Bypass -File tests\\\\test_bounded_proof_ci_foundation.ps1",
+                              "status":  "passed",
+                              "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/test_bounded_proof_ci_foundation.txt",
+                              "classification":  "support_evidence_outside_formal_replay_subset"
+                          },
+                          {
+                              "relative_path":  "tests/test_repo_enforcement.ps1",
+                              "command":  "powershell -ExecutionPolicy Bypass -File tests\\\\test_repo_enforcement.ps1",
+                              "status":  "passed",
+                              "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/test_repo_enforcement.txt",
+                              "classification":  "support_evidence_outside_formal_replay_subset"
+                          },
+                          {
+                              "relative_path":  "tests/test_r5_recovery_resume_proof_review.ps1",
+                              "command":  "powershell -ExecutionPolicy Bypass -File tests\\\\test_r5_recovery_resume_proof_review.ps1",
+                              "status":  "passed",
+                              "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/test_r5_recovery_resume_proof_review.txt",
+                              "classification":  "support_evidence_outside_formal_replay_subset"
+                          },
+                          {
+                              "relative_path":  "tests/test_work_artifact_contracts.ps1",
+                              "command":  "powershell -ExecutionPolicy Bypass -File tests\\\\test_work_artifact_contracts.ps1",
+                              "status":  "passed",
+                              "log_path_repo_relative":  "state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/tests/test_work_artifact_contracts.txt",
+                              "classification":  "support_evidence_outside_formal_replay_subset"
+                          }
+                      ],
+    "non_claims_preserved":  [
+                                 "This support packet does not widen the formal R5 replay subset used for closeout.",
+                                 "This support packet does not prove rollback execution.",
+                                 "This support packet does not prove unattended automatic resume.",
+                                 "This support packet does not prove UI or control-room productization.",
+                                 "This support packet does not prove Standard or subproject runtime.",
+                                 "This support packet does not prove broader orchestration beyond the bounded chain."
+                             ]
+}
