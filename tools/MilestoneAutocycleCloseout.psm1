@@ -19,6 +19,8 @@ $script:testMilestoneAutocycleQAObservationContract = $null
 $script:testMilestoneAutocycleQAAggregationContract = $null
 $script:testMilestoneAutocycleSummaryContract = $null
 $script:testMilestoneAutocycleDecisionPacketContract = $null
+$script:replayProofValidationCache = @{}
+$script:closeoutPacketValidationCache = @{}
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -66,6 +68,17 @@ function Resolve-ExistingPath {
     }
 
     return (Resolve-Path -LiteralPath $resolvedPath).Path
+}
+
+function Get-ValidationCacheKey {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Prefix,
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    return "{0}|{1}" -f $Prefix, ([System.IO.Path]::GetFullPath($Path).ToLowerInvariant())
 }
 
 function Test-PathWithinRoot {
@@ -683,12 +696,6 @@ function Validate-ReplayProofRefs {
     $proposalValidator = Get-MilestoneAutocycleProposalValidatorCommand
     $freezeValidator = Get-MilestoneAutocycleFreezeValidatorCommand
     $bindingValidator = Get-MilestoneAutocycleBaselineBindingValidatorCommand
-    $dispatchValidator = Get-MilestoneAutocycleDispatchValidatorCommand
-    $runLedgerValidator = Get-MilestoneAutocycleRunLedgerValidatorCommand
-    $executionEvidenceValidator = Get-MilestoneAutocycleExecutionEvidenceValidatorCommand
-    $qaObservationValidator = Get-MilestoneAutocycleQAObservationValidatorCommand
-    $qaAggregationValidator = Get-MilestoneAutocycleQAAggregationValidatorCommand
-
     $proofRefsObject = Assert-ObjectValue -Value $ProofRefs -Context "Milestone replay proof.proof_refs"
     foreach ($fieldName in @($contract.proof_refs_required_fields)) {
         Get-RequiredProperty -Object $proofRefsObject -Name $fieldName -Context "Milestone replay proof.proof_refs" | Out-Null
@@ -728,7 +735,6 @@ function Validate-ReplayProofRefs {
     $resolvedDispatchPaths = @()
     foreach ($dispatchRef in $dispatchRefs) {
         $dispatchPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $dispatchRef -Label "Milestone replay proof dispatch"
-        (& $dispatchValidator -DispatchPath $dispatchPath) | Out-Null
         $resolvedDispatchPaths += $dispatchPath
     }
     Assert-PathSetMatches -ActualPaths $resolvedDispatchPaths -ExpectedPaths @($SummaryPilotInputs.TaskInputs | ForEach-Object { $_.DispatchValidation.DispatchPath }) -Context "Milestone replay proof.proof_refs.dispatch_refs"
@@ -737,7 +743,6 @@ function Validate-ReplayProofRefs {
     $resolvedRunLedgerPaths = @()
     foreach ($runLedgerRef in $runLedgerRefs) {
         $runLedgerPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $runLedgerRef -Label "Milestone replay proof run ledger"
-        (& $runLedgerValidator -LedgerPath $runLedgerPath) | Out-Null
         $resolvedRunLedgerPaths += $runLedgerPath
     }
     Assert-PathSetMatches -ActualPaths $resolvedRunLedgerPaths -ExpectedPaths @($SummaryPilotInputs.TaskInputs | ForEach-Object { $_.RunLedgerValidation.LedgerPath }) -Context "Milestone replay proof.proof_refs.run_ledger_refs"
@@ -746,7 +751,6 @@ function Validate-ReplayProofRefs {
     $resolvedExecutionEvidencePaths = @()
     foreach ($executionEvidenceRef in $executionEvidenceRefs) {
         $executionEvidencePath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $executionEvidenceRef -Label "Milestone replay proof execution evidence"
-        (& $executionEvidenceValidator -EvidenceBundlePath $executionEvidencePath) | Out-Null
         $resolvedExecutionEvidencePaths += $executionEvidencePath
     }
     Assert-PathSetMatches -ActualPaths $resolvedExecutionEvidencePaths -ExpectedPaths @($SummaryPilotInputs.TaskInputs | ForEach-Object { $_.ExecutionEvidenceValidation.EvidenceBundlePath }) -Context "Milestone replay proof.proof_refs.execution_evidence_refs"
@@ -755,13 +759,11 @@ function Validate-ReplayProofRefs {
     $resolvedQAObservationPaths = @()
     foreach ($qaObservationRef in $qaObservationRefs) {
         $qaObservationPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference $qaObservationRef -Label "Milestone replay proof QA observation"
-        (& $qaObservationValidator -QAObservationPath $qaObservationPath) | Out-Null
         $resolvedQAObservationPaths += $qaObservationPath
     }
     Assert-PathSetMatches -ActualPaths $resolvedQAObservationPaths -ExpectedPaths @($SummaryPilotInputs.TaskInputs | ForEach-Object { $_.QAObservationValidation.QAObservationPath }) -Context "Milestone replay proof.proof_refs.qa_observation_refs"
 
     $qaAggregationPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $proofRefsObject -Name "qa_aggregation_ref" -Context "Milestone replay proof.proof_refs") -Context "Milestone replay proof.proof_refs.qa_aggregation_ref") -Label "Milestone replay proof QA aggregation"
-    (& $qaAggregationValidator -QAAggregationPath $qaAggregationPath) | Out-Null
     if ($qaAggregationPath -ne $SummaryPilotInputs.QAAggregationValidation.QAAggregationPath) {
         throw "Milestone replay proof.proof_refs.qa_aggregation_ref must match the authoritative QA aggregation from the summary path."
     }
@@ -922,10 +924,15 @@ function Test-MilestoneAutocycleReplayProofContract {
     )
 
     $resolvedReplayProofPath = Resolve-ExistingPath -PathValue $ReplayProofPath -Label "Milestone replay proof"
+    $cacheKey = Get-ValidationCacheKey -Prefix "replay_proof" -Path $resolvedReplayProofPath
+    if ($script:replayProofValidationCache.ContainsKey($cacheKey)) {
+        return $script:replayProofValidationCache[$cacheKey]
+    }
+
     $replayProof = Get-JsonDocument -Path $resolvedReplayProofPath -Label "Milestone replay proof"
     $result = Validate-MilestoneReplayProofFields -ReplayProof $replayProof -BaseDirectory (Split-Path -Parent $resolvedReplayProofPath)
 
-    return [pscustomobject]@{
+    $validation = [pscustomobject]@{
         IsValid = $true
         ReplayProofId = $result.ReplayProofId
         CycleId = $result.CycleId
@@ -937,6 +944,9 @@ function Test-MilestoneAutocycleReplayProofContract {
         SummaryPath = $result.SummaryPath
         DecisionPacketPath = $result.DecisionPacketPath
     }
+
+    $script:replayProofValidationCache[$cacheKey] = $validation
+    return $validation
 }
 
 function Validate-MilestoneCloseoutPacketFields {
@@ -1038,10 +1048,15 @@ function Test-MilestoneAutocycleCloseoutPacketContract {
     )
 
     $resolvedCloseoutPacketPath = Resolve-ExistingPath -PathValue $CloseoutPacketPath -Label "Milestone closeout packet"
+    $cacheKey = Get-ValidationCacheKey -Prefix "closeout_packet" -Path $resolvedCloseoutPacketPath
+    if ($script:closeoutPacketValidationCache.ContainsKey($cacheKey)) {
+        return $script:closeoutPacketValidationCache[$cacheKey]
+    }
+
     $closeoutPacket = Get-JsonDocument -Path $resolvedCloseoutPacketPath -Label "Milestone closeout packet"
     $result = Validate-MilestoneCloseoutPacketFields -CloseoutPacket $closeoutPacket -BaseDirectory (Split-Path -Parent $resolvedCloseoutPacketPath)
 
-    return [pscustomobject]@{
+    $validation = [pscustomobject]@{
         IsValid = $true
         CloseoutPacketId = $result.CloseoutPacketId
         CycleId = $result.CycleId
@@ -1054,6 +1069,9 @@ function Test-MilestoneAutocycleCloseoutPacketContract {
         DecisionPacketPath = $result.DecisionPacketPath
         CloseoutPacketPath = $resolvedCloseoutPacketPath
     }
+
+    $script:closeoutPacketValidationCache[$cacheKey] = $validation
+    return $validation
 }
 
 function Invoke-MilestoneAutocycleCloseoutFlow {
@@ -1070,12 +1088,20 @@ function Invoke-MilestoneAutocycleCloseoutFlow {
         [string]$ReplayProofId,
         [string]$CloseoutPacketId,
         [string[]]$NonClaims,
+        [string]$ReplayScope,
+        [string]$BoundaryStatement,
+        [string]$CloseoutScope,
+        [string]$ProvedScope,
+        [string]$UnprovedScope,
+        [string]$OutOfScope,
         [string]$Notes = "Bounded replay proof assembled from authoritative summary, decision packet, and governed proof refs only.",
-        [string]$CloseoutNotes = "Bounded closeout packet assembled from authoritative replay proof, summary, and decision packet only."
+        [string]$CloseoutNotes = "Bounded closeout packet assembled from authoritative replay proof, summary, and decision packet only.",
+        [switch]$SkipValidation
     )
 
     $foundation = Get-MilestoneAutocycleFoundationContract
     $replayProofContract = Get-MilestoneAutocycleReplayProofContract
+    $closeoutPacketContract = Get-MilestoneAutocycleCloseoutPacketContract
     $summaryPilotInputs = Resolve-SummaryPilotInputs -SummaryPath $SummaryPath -DecisionPacketPath $DecisionPacketPath
 
     if ([string]::IsNullOrWhiteSpace($ReplayProofId)) {
@@ -1112,6 +1138,43 @@ function Invoke-MilestoneAutocycleCloseoutFlow {
         $normalizedNonClaims = [object[]](Get-DefaultCloseoutNonClaims)
     }
 
+    $normalizedReplayScope = if ($PSBoundParameters.ContainsKey("ReplayScope")) {
+        Assert-NoForbiddenClaims -Value $ReplayScope -Context "ReplayScope" -Fragments @($replayProofContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultReplayScope
+    }
+    $normalizedBoundaryStatement = if ($PSBoundParameters.ContainsKey("BoundaryStatement")) {
+        Assert-NoForbiddenClaims -Value $BoundaryStatement -Context "BoundaryStatement" -Fragments @($replayProofContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultReplayBoundaryStatement
+    }
+    $normalizedCloseoutScope = if ($PSBoundParameters.ContainsKey("CloseoutScope")) {
+        Assert-NoForbiddenClaims -Value $CloseoutScope -Context "CloseoutScope" -Fragments @($closeoutPacketContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultCloseoutScope
+    }
+    $normalizedProvedScope = if ($PSBoundParameters.ContainsKey("ProvedScope")) {
+        Assert-NoForbiddenClaims -Value $ProvedScope -Context "ProvedScope" -Fragments @($closeoutPacketContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultProvedScope
+    }
+    $normalizedUnprovedScope = if ($PSBoundParameters.ContainsKey("UnprovedScope")) {
+        Assert-NoForbiddenClaims -Value $UnprovedScope -Context "UnprovedScope" -Fragments @($closeoutPacketContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultUnprovedScope
+    }
+    $normalizedOutOfScope = if ($PSBoundParameters.ContainsKey("OutOfScope")) {
+        Assert-NoForbiddenClaims -Value $OutOfScope -Context "OutOfScope" -Fragments @($closeoutPacketContract.prohibited_claim_fragments)
+    }
+    else {
+        Get-DefaultOutOfScope
+    }
+
     $validatedProofRefs = Validate-ReplayProofRefs -ProofRefs $ProofRefs -SummaryPilotInputs $summaryPilotInputs -BaseDirectory $replayProofDirectory
     $replayProof = [pscustomobject]@{
         contract_version = $foundation.contract_version
@@ -1135,13 +1198,13 @@ function Invoke-MilestoneAutocycleCloseoutFlow {
             qa_observation_refs = @($validatedProofRefs.QAObservationPaths | ForEach-Object { Get-RelativeReference -BaseDirectory $replayProofDirectory -TargetPath $_ })
             qa_aggregation_ref = Get-RelativeReference -BaseDirectory $replayProofDirectory -TargetPath $validatedProofRefs.QAAggregationPath
         }
-        replay_scope = Get-DefaultReplayScope
+        replay_scope = $normalizedReplayScope
         replay_source = [pscustomobject]@{
             repository_root = $repositoryRoot
             branch = Get-GitBranchName -RepositoryRoot $repositoryRoot
             head_commit = Get-GitHeadCommit -RepositoryRoot $repositoryRoot
         }
-        boundary_statement = Get-DefaultReplayBoundaryStatement
+        boundary_statement = $normalizedBoundaryStatement
         non_claims = @($normalizedNonClaims)
         notes = $Notes
     }
@@ -1161,15 +1224,26 @@ function Invoke-MilestoneAutocycleCloseoutFlow {
         decision_packet_ref = Get-RelativeReference -BaseDirectory $closeoutPacketDirectory -TargetPath $replayProofValidation.DecisionPacketPath
         decision_packet_id = $replayProofValidation.DecisionPacketId
         operator_decision_state = $replayProofValidation.OperatorDecisionState
-        closeout_scope = Get-DefaultCloseoutScope
-        proved_scope = Get-DefaultProvedScope
-        unproved_scope = Get-DefaultUnprovedScope
-        out_of_scope = Get-DefaultOutOfScope
+        closeout_scope = $normalizedCloseoutScope
+        proved_scope = $normalizedProvedScope
+        unproved_scope = $normalizedUnprovedScope
+        out_of_scope = $normalizedOutOfScope
         non_claims = @($normalizedNonClaims)
         notes = $CloseoutNotes
     }
 
     Write-JsonDocument -Path $closeoutPacketPath -Document $closeoutPacket
+
+    if ($SkipValidation) {
+        return [pscustomobject]@{
+            ReplayProofPath = $replayProofPath
+            CloseoutPacketPath = $closeoutPacketPath
+            ReplayProofId = $ReplayProofId
+            CloseoutPacketId = $CloseoutPacketId
+            CycleId = $summaryPilotInputs.SummaryValidation.CycleId
+        }
+    }
+
     $closeoutPacketValidation = Test-MilestoneAutocycleCloseoutPacketContract -CloseoutPacketPath $closeoutPacketPath
 
     return [pscustomobject]@{
