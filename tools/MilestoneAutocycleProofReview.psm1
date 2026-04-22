@@ -1686,6 +1686,7 @@ function Invoke-MilestoneAutocycleProofReviewFlow {
             (Get-RelativePathFromRoot -Root $repositoryRoot -Path $packagePaths.StepLogPath)
             (Get-RelativePathFromRoot -Root $repositoryRoot -Path $packagePaths.EventLogPath)
         )
+        $nonClaimLines = @($nonClaims | ForEach-Object { "- $_" })
 
         $replaySummaryLines = @(
             "# R6 Supervised Milestone Autocycle Pilot Replay Summary",
@@ -1714,11 +1715,11 @@ function Invoke-MilestoneAutocycleProofReviewFlow {
             ("- {0}" -f $rawLogRelativePaths[0]),
             ("- {0}" -f $rawLogRelativePaths[1]),
             "",
-            "## Explicit Non-Claims",
-            @($nonClaims | ForEach-Object { "- $_" }),
+            "## Explicit Non-Claims"
+        ) + $nonClaimLines + @(
             "",
             "## Advisory Operator Decision State",
-            "- The operator can choose `accept`, `rework`, or `stop`, but no operator choice was executed in this replay."
+            '- The operator can choose `accept`, `rework`, or `stop`, but no operator choice was executed in this replay.'
         )
         Write-Utf8File -Path $packagePaths.ReplaySummaryPath -Value ($replaySummaryLines -join [Environment]::NewLine)
 
@@ -1740,9 +1741,8 @@ function Invoke-MilestoneAutocycleProofReviewFlow {
             "## Advisory Operator Decision State",
             "- The advisory-only operator decision packet remains unexecuted in this replay.",
             "",
-            "## Explicit Non-Claims",
-            @($nonClaims | ForEach-Object { "- $_" })
-        )
+            "## Explicit Non-Claims"
+        ) + $nonClaimLines
         Write-Utf8File -Path $packagePaths.CloseoutReviewPath -Value ($closeoutReviewLines -join [Environment]::NewLine)
 
         $manifest = [pscustomobject]@{
