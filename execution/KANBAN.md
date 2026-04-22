@@ -69,13 +69,13 @@ Closeout summary:
 - Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state, freeze records exact task set and operator authority, rejected proposals do not emit freeze artifacts, and unfrozen milestones cannot dispatch work
 
 ### `R6-004` Bind milestone freeze to Git-backed baseline capture
-- Status: open
+- Status: done
 - Order: 4
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-003`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`, `contracts/milestone_baselines/`
-- Durable output: a frozen milestone linked durably to one Git-backed baseline anchor before dispatch
-- Done when: a frozen milestone records a valid baseline id, baseline capture is required before dispatch, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch conditions fail closed
+- Durable output: a frozen milestone linked durably to one Git-backed baseline anchor before dispatch through one accepted-planning-record bridge plus one baseline-binding artifact
+- Done when: a frozen milestone records a valid baseline id, the frozen task set can materialize accepted planning-record bridge surfaces for the reused milestone-baseline substrate, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch or malformed bridge states fail closed
 
 ### `R6-005` Add Codex dispatch contract and run ledger
 - Status: open

@@ -276,3 +276,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed approval and freeze surfaces now include `contracts/milestone_autocycle/approval.contract.json` and `contracts/milestone_autocycle/freeze.contract.json`.
 - Consequence: focused proof now covers the approved flow, rejected flow, malformed freeze-state refusal, task-set mismatch refusal, invalid approved-decision refusal, and invalid rejected-decision refusal through `tests/test_milestone_autocycle_freeze.ps1`.
 - Consequence: this slice adds explicit approval and freeze only. It does not yet prove Git-backed baseline binding for dispatch, governed dispatch, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+
+## D-0034 R6-004 Bound Committed Freezes To One Reused Git Baseline
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-004` is complete through one thin freeze-to-baseline binding flow in `tools/MilestoneBaseline.psm1`.
+- Consequence: a committed freeze can now materialize accepted planning-record bridge surfaces from the exact frozen task set, reuse the existing R5 milestone-baseline substrate without inventing a second baseline system, and emit one durable baseline-binding artifact that records repository, branch, head commit, and tree identity through one valid baseline id.
+- Consequence: the committed bridge surface now includes `contracts/milestone_autocycle/baseline_binding.contract.json` and focused proof through `tests/test_milestone_autocycle_baseline_binding.ps1`, including happy-path binding plus missing-freeze, dirty-worktree, repository-mismatch, malformed-bridge, and malformed-baseline-ref refusals.
+- Consequence: this slice adds freeze-to-baseline binding only. It does not yet prove governed Codex dispatch, run ledgers, execution evidence assembly, milestone QA aggregation, milestone review summary generation, operator decision packets, or end-to-end pilot replay.
+- Consequence: the next gated step inside R6 is `R6-005` Add Codex dispatch contract and run ledger.

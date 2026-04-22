@@ -14,9 +14,9 @@ The next defensible step is still not UI expansion, not Standard or subproject r
 Prove one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, unattended automatic resume, rollback execution, UI productization, Standard runtime, or broader orchestration.
 
 ## Current open status
-`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-001` only.
+`R6 Supervised Milestone Autocycle Pilot` is open in repo truth through `R6-004`.
 
-This opening step defines the exact pilot boundary, stop conditions, initial contract foundation, and preserved non-claims. No later `R6` implementation task is complete yet.
+The milestone remains bounded and pre-dispatch. The exact pilot boundary, stop conditions, initial contract foundation, proposal generation, explicit freeze control, and freeze-to-baseline binding are now complete, while later dispatch, evidence, QA, summary, and decision-packet work remains open.
 
 ## Exact pilot boundary
 This milestone is bounded to:
@@ -130,8 +130,8 @@ R6 does not currently prove and must not casually widen into:
 - Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state with one exact freeze artifact, freeze records exact task set and operator authority, rejected proposals do not emit freeze artifacts, and unfrozen milestones still do not imply dispatch behavior
 
 ### `R6-004` Bind milestone freeze to Git-backed baseline capture
-- Status: open
-- Done when: a frozen milestone records a valid baseline id, baseline capture is required before dispatch, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch conditions fail closed
+- Status: done
+- Done when: a frozen milestone records a valid baseline id, the exact frozen task set can materialize accepted planning-record bridge surfaces for the reused milestone-baseline substrate, baseline capture remains required before dispatch, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch or malformed bridge states fail closed
 
 ### `R6-005` Add Codex dispatch contract and run ledger
 - Status: open
@@ -159,3 +159,4 @@ R6 does not currently prove and must not casually widen into:
 - The current authoritative bounded proof entrypoint remains `powershell -ExecutionPolicy Bypass -File tools\run_bounded_proof_suite.ps1`. No new `R6` proof id is claimable yet.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
+- `R6-004` is now complete through a thin freeze-to-baseline bridge in `tools/MilestoneBaseline.psm1` that materializes accepted planning-record surfaces from the committed freeze, reuses the existing R5 milestone-baseline substrate, emits one durable baseline-binding artifact under `contracts/milestone_autocycle/baseline_binding.contract.json`, and stays explicitly pre-dispatch.

@@ -5,6 +5,7 @@
   "approval_record_type": "milestone_autocycle_approval",
   "cycle_record_type": "milestone_autocycle",
   "freeze_record_type": "milestone_autocycle_freeze",
+  "baseline_binding_record_type": "milestone_autocycle_baseline_binding",
   "dispatch_record_type": "milestone_autocycle_dispatch",
   "run_ledger_record_type": "milestone_autocycle_run_ledger",
   "execution_evidence_record_type": "milestone_autocycle_execution_evidence",
@@ -110,6 +111,19 @@
     "approval_status",
     "frozen_task_set",
     "operator_authority",
+    "notes"
+  ],
+  "baseline_binding_required_fields": [
+    "contract_version",
+    "record_type",
+    "binding_id",
+    "cycle_id",
+    "freeze_id",
+    "freeze_ref",
+    "milestone",
+    "bound_at",
+    "planning_record_refs",
+    "baseline",
     "notes"
   ],
   "dispatch_required_fields": [

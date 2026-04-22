@@ -3,8 +3,15 @@ Set-StrictMode -Version Latest
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $planningRecordStorageModulePath = Join-Path $PSScriptRoot "PlanningRecordStorage.psm1"
 $governedWorkObjectValidationModulePath = Join-Path $PSScriptRoot "GovernedWorkObjectValidation.psm1"
+$milestoneAutocycleFreezeModulePath = Join-Path $PSScriptRoot "MilestoneAutocycleFreeze.psm1"
 $script:testPlanningRecordContract = $null
 $script:testGovernedWorkObjectContract = $null
+$script:testMilestoneAutocycleFreezeContract = $null
+$script:newPlanningRecordCommand = $null
+$script:setPlanningRecordWorkingStateCommand = $null
+$script:setPlanningRecordAcceptedStateCommand = $null
+$script:setPlanningRecordReconciliationStateCommand = $null
+$script:savePlanningRecordCommand = $null
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -130,6 +137,43 @@ function Resolve-PathInsideRepository {
 
     $resolvedPath = Resolve-ExistingPath -PathValue $PathValue -Label $Label -AnchorPath $RepositoryRoot
     return Assert-ResolvedPathInsideRepository -ResolvedPath $resolvedPath -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label $Label
+}
+
+function Resolve-PathForCreationInsideRepository {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PathValue,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryWorktreeRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    $resolvedPath = Resolve-PathValue -PathValue $PathValue -AnchorPath $RepositoryRoot
+    $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
+    if (-not (Test-PathWithinRoot -Path $resolvedPath -Root $resolvedRepositoryRoot)) {
+        throw "$Label '$resolvedPath' must resolve inside repository root '$resolvedRepositoryRoot'."
+    }
+
+    $existingAnchorPath = $resolvedPath
+    while (-not (Test-Path -LiteralPath $existingAnchorPath)) {
+        $parentPath = Split-Path -Parent $existingAnchorPath
+        if ([string]::IsNullOrWhiteSpace($parentPath) -or $parentPath -eq $existingAnchorPath) {
+            $existingAnchorPath = $resolvedRepositoryRoot
+            break
+        }
+
+        $existingAnchorPath = $parentPath
+    }
+
+    $pathWorktreeRoot = Get-GitWorktreeRoot -PathValue $existingAnchorPath -Label "$Label parent"
+    if ($pathWorktreeRoot -ne $RepositoryWorktreeRoot) {
+        throw "$Label '$resolvedPath' must resolve inside the same Git worktree as repository root '$resolvedRepositoryRoot'."
+    }
+
+    return $resolvedPath
 }
 
 function Get-JsonDocument {
@@ -360,6 +404,21 @@ function Get-RelativeReference {
     return ($baseUri.MakeRelativeUri($targetUri).OriginalString).Replace("\", "/")
 }
 
+function Get-RelativeReferencePathValue {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BaseDirectory,
+        [Parameter(Mandatory = $true)]
+        [string]$TargetPath
+    )
+
+    $resolvedBaseDirectory = Resolve-ExistingPath -PathValue $BaseDirectory -Label "Base directory"
+    $normalizedTargetPath = [System.IO.Path]::GetFullPath($TargetPath)
+    $baseUri = [System.Uri]("{0}{1}" -f $resolvedBaseDirectory.TrimEnd("\/"), [System.IO.Path]::DirectorySeparatorChar)
+    $targetUri = [System.Uri]$normalizedTargetPath
+    return ($baseUri.MakeRelativeUri($targetUri).OriginalString).Replace("\", "/")
+}
+
 function Get-NormalizedReferenceForSave {
     param(
         [Parameter(Mandatory = $true)]
@@ -386,6 +445,14 @@ function Get-BaselineFoundationContract {
 
 function Get-BaselineContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_baselines\milestone_baseline.contract.json") -Label "Milestone baseline contract"
+}
+
+function Get-MilestoneAutocycleFoundationContract {
+    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\foundation.contract.json") -Label "Milestone autocycle foundation contract"
+}
+
+function Get-MilestoneAutocycleBaselineBindingContract {
+    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\baseline_binding.contract.json") -Label "Milestone autocycle baseline binding contract"
 }
 
 function Assert-GitCliAvailable {
@@ -455,6 +522,54 @@ function Get-GovernedWorkObjectValidatorCommand {
     }
 
     return $script:testGovernedWorkObjectContract
+}
+
+function Get-MilestoneFreezeValidatorCommand {
+    if ($null -eq $script:testMilestoneAutocycleFreezeContract) {
+        $script:testMilestoneAutocycleFreezeContract = Get-RequiredDependencyCommand -ModulePath $milestoneAutocycleFreezeModulePath -DependencyLabel "MilestoneAutocycleFreeze" -CommandName "Test-MilestoneAutocycleFreezeContract"
+    }
+
+    return $script:testMilestoneAutocycleFreezeContract
+}
+
+function Get-NewPlanningRecordCommand {
+    if ($null -eq $script:newPlanningRecordCommand) {
+        $script:newPlanningRecordCommand = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "New-PlanningRecord"
+    }
+
+    return $script:newPlanningRecordCommand
+}
+
+function Get-SetPlanningRecordWorkingStateCommand {
+    if ($null -eq $script:setPlanningRecordWorkingStateCommand) {
+        $script:setPlanningRecordWorkingStateCommand = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "Set-PlanningRecordWorkingState"
+    }
+
+    return $script:setPlanningRecordWorkingStateCommand
+}
+
+function Get-SetPlanningRecordAcceptedStateCommand {
+    if ($null -eq $script:setPlanningRecordAcceptedStateCommand) {
+        $script:setPlanningRecordAcceptedStateCommand = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "Set-PlanningRecordAcceptedState"
+    }
+
+    return $script:setPlanningRecordAcceptedStateCommand
+}
+
+function Get-SetPlanningRecordReconciliationStateCommand {
+    if ($null -eq $script:setPlanningRecordReconciliationStateCommand) {
+        $script:setPlanningRecordReconciliationStateCommand = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "Set-PlanningRecordReconciliationState"
+    }
+
+    return $script:setPlanningRecordReconciliationStateCommand
+}
+
+function Get-SavePlanningRecordCommand {
+    if ($null -eq $script:savePlanningRecordCommand) {
+        $script:savePlanningRecordCommand = Get-RequiredDependencyCommand -ModulePath $planningRecordStorageModulePath -DependencyLabel "PlanningRecordStorage" -CommandName "Save-PlanningRecord"
+    }
+
+    return $script:savePlanningRecordCommand
 }
 
 function Assert-AbsolutePathValue {
@@ -609,6 +724,116 @@ function Get-GitStatusLines {
     }
 
     return @($statusOutput | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+}
+
+function Resolve-ValidatedMilestoneBaselineMilestoneInput {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$MilestonePath,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryWorktreeRoot
+    )
+
+    $foundation = Get-BaselineFoundationContract
+    $resolvedMilestonePath = Resolve-PathInsideRepository -PathValue $MilestonePath -RepositoryRoot $RepositoryRoot -RepositoryWorktreeRoot $RepositoryWorktreeRoot -Label "Milestone"
+    $milestoneValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $resolvedMilestonePath
+    if ($milestoneValidation.ObjectType -ne "milestone") {
+        throw "Milestone baseline capture requires a milestone governed work object."
+    }
+
+    $milestoneDocument = Get-JsonDocument -Path $milestoneValidation.WorkObjectPath -Label "Milestone"
+    if (@($foundation.allowed_milestone_statuses) -notcontains $milestoneDocument.status) {
+        throw "Milestone baseline capture requires milestone status 'active' or 'completed'."
+    }
+
+    return [pscustomobject]@{
+        Validation = $milestoneValidation
+        Document   = $milestoneDocument
+    }
+}
+
+function Get-CleanGitBaselineCapture {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot
+    )
+
+    $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
+    $statusLines = @(Get-GitStatusLines -RepositoryRoot $resolvedRepositoryRoot)
+    if ($statusLines.Count -ne 0) {
+        throw "Milestone baseline capture requires a clean Git worktree."
+    }
+
+    return [pscustomobject]@{
+        repository_root              = $resolvedRepositoryRoot
+        branch                       = Get-GitBranchName -RepositoryRoot $resolvedRepositoryRoot
+        head_commit                  = Get-GitHeadCommit -RepositoryRoot $resolvedRepositoryRoot
+        tree_id                      = Get-GitTreeId -RepositoryRoot $resolvedRepositoryRoot
+        status_lines                 = @()
+        working_tree_clean           = $true
+        captured_from_clean_worktree = $true
+    }
+}
+
+function Assert-UsableCapturedGitState {
+    param(
+        [Parameter(Mandatory = $true)]
+        $GitCapture,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot
+    )
+
+    $foundation = Get-BaselineFoundationContract
+    $contract = Get-BaselineContract
+    $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
+    $gitCaptureObject = Assert-ObjectValue -Value $GitCapture -Context "GitCapture"
+
+    foreach ($fieldName in $foundation.git_required_fields) {
+        Get-RequiredProperty -Object $gitCaptureObject -Name $fieldName -Context "GitCapture" | Out-Null
+    }
+
+    $capturedRepositoryRoot = Assert-AbsolutePathValue -PathValue (Get-RequiredProperty -Object $gitCaptureObject -Name "repository_root" -Context "GitCapture") -Context "GitCapture.repository_root"
+    $resolvedCaptureRepositoryRoot = Resolve-ExistingPath -PathValue $capturedRepositoryRoot -Label "GitCapture.repository_root"
+    if ($resolvedCaptureRepositoryRoot -ne $resolvedRepositoryRoot) {
+        throw "GitCapture.repository_root must match RepositoryRoot."
+    }
+
+    $branch = Assert-GitBranchIdentity -RepositoryRoot $resolvedRepositoryRoot -Branch (Get-RequiredProperty -Object $gitCaptureObject -Name "branch" -Context "GitCapture") -Foundation $foundation
+    $headCommit = Assert-GitObjectIdentity -RepositoryRoot $resolvedRepositoryRoot -ObjectId (Get-RequiredProperty -Object $gitCaptureObject -Name "head_commit" -Context "GitCapture") -Pattern $foundation.git_commit_hash_pattern -ObjectSpec ("{0}^{{commit}}" -f $gitCaptureObject.head_commit) -MustExistInRepository $foundation.git_head_commit_must_exist_in_repository -Context "GitCapture.head_commit"
+    $treeId = Assert-GitObjectIdentity -RepositoryRoot $resolvedRepositoryRoot -ObjectId (Get-RequiredProperty -Object $gitCaptureObject -Name "tree_id" -Context "GitCapture") -Pattern $foundation.git_tree_hash_pattern -ObjectSpec ("{0}^{{tree}}" -f $gitCaptureObject.tree_id) -MustExistInRepository $foundation.git_tree_id_must_exist_in_repository -Context "GitCapture.tree_id"
+    $statusLines = [string[]](Assert-StringArray -Value (Get-RequiredProperty -Object $gitCaptureObject -Name "status_lines" -Context "GitCapture") -Context "GitCapture.status_lines" -AllowEmpty)
+    $workingTreeClean = Assert-BooleanValue -Value (Get-RequiredProperty -Object $gitCaptureObject -Name "working_tree_clean" -Context "GitCapture") -Context "GitCapture.working_tree_clean"
+    $capturedFromCleanWorktree = Assert-BooleanValue -Value (Get-RequiredProperty -Object $gitCaptureObject -Name "captured_from_clean_worktree" -Context "GitCapture") -Context "GitCapture.captured_from_clean_worktree"
+    if ($contract.git_rules.clean_worktree_required -and (-not $workingTreeClean -or -not $capturedFromCleanWorktree -or $statusLines.Count -ne 0)) {
+        throw "GitCapture must preserve a clean-worktree capture with no status lines."
+    }
+
+    $currentBranch = Get-GitBranchName -RepositoryRoot $resolvedRepositoryRoot
+    if ($currentBranch -ne $branch) {
+        throw "GitCapture.branch no longer matches the repository branch."
+    }
+
+    $currentHeadCommit = Get-GitHeadCommit -RepositoryRoot $resolvedRepositoryRoot
+    if ($currentHeadCommit -ne $headCommit) {
+        throw "GitCapture.head_commit no longer matches the repository HEAD."
+    }
+
+    $currentTreeId = Get-GitTreeId -RepositoryRoot $resolvedRepositoryRoot
+    if ($currentTreeId -ne $treeId) {
+        throw "GitCapture.tree_id no longer matches the repository HEAD tree."
+    }
+
+    return [pscustomobject]@{
+        repository_root              = $resolvedRepositoryRoot
+        branch                       = $branch
+        head_commit                  = $headCommit
+        tree_id                      = $treeId
+        status_lines                 = @($statusLines)
+        working_tree_clean           = $workingTreeClean
+        captured_from_clean_worktree = $capturedFromCleanWorktree
+    }
 }
 
 function Resolve-PlanningRecordBaselineInput {
@@ -896,6 +1121,103 @@ function Test-MilestoneBaselineRecordContract {
     }
 }
 
+function Build-MilestoneBaselineRecord {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BaselineId,
+        [Parameter(Mandatory = $true)]
+        $MilestoneInput,
+        [Parameter(Mandatory = $true)]
+        [string[]]$PlanningRecordPaths,
+        [Parameter(Mandatory = $true)]
+        [string]$OperatorId,
+        [Parameter(Mandatory = $true)]
+        [string]$AuthorityReason,
+        [Parameter(Mandatory = $true)]
+        $GitCapture,
+        [Parameter(Mandatory = $true)]
+        [datetime]$CapturedAt,
+        [Parameter(Mandatory = $true)]
+        [string]$CapturedById,
+        [Parameter(Mandatory = $true)]
+        [string]$BaselineKind
+    )
+
+    $foundation = Get-BaselineFoundationContract
+    $resolvedGitCapture = Assert-UsableCapturedGitState -GitCapture $GitCapture -RepositoryRoot $GitCapture.repository_root
+    $createdAtText = Get-UtcTimestamp -DateTime $CapturedAt
+    $planningRecordRefs = @()
+    $evidence = @()
+    foreach ($planningRecordPath in @($PlanningRecordPaths)) {
+        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $MilestoneInput.Document -MilestonePath $MilestoneInput.Validation.WorkObjectPath -RepositoryRoot $resolvedGitCapture.repository_root -RepositoryWorktreeRoot (Get-GitWorktreeRoot -PathValue $resolvedGitCapture.repository_root -Label "Repository root")
+
+        $planningRecordRefs += [pscustomobject]@{
+            planning_record_id  = $planningRecordInput.Validation.PlanningRecordId
+            object_type         = $planningRecordInput.Validation.ObjectType
+            object_id           = $planningRecordInput.Validation.ObjectId
+            view                = "accepted"
+            ref                 = $planningRecordInput.Validation.PlanningRecordPath
+            accepted_record_ref = $planningRecordInput.AcceptedRecordPath
+            notes               = "Accepted planning record captured into the milestone Git baseline."
+        }
+
+        $evidence += [pscustomobject]@{
+            kind    = "planning_record"
+            ref     = $planningRecordInput.Validation.PlanningRecordPath
+            summary = "Accepted planning record '$($planningRecordInput.Validation.PlanningRecordId)' is included in the milestone baseline."
+        }
+
+        $evidence += [pscustomobject]@{
+            kind    = "artifact"
+            ref     = $planningRecordInput.AcceptedRecordPath
+            summary = "Accepted planning surface '$($planningRecordInput.AcceptedRecord.object_id)' is captured as milestone-baseline evidence."
+        }
+    }
+
+    $evidence += [pscustomobject]@{
+        kind    = "artifact"
+        ref     = $MilestoneInput.Validation.WorkObjectPath
+        summary = "Milestone work object captured as the baseline scope anchor."
+    }
+
+    $baseline = [pscustomobject]@{
+        contract_version = $foundation.contract_version
+        record_type      = $foundation.record_type
+        baseline_id      = $BaselineId
+        baseline_kind    = $BaselineKind
+        milestone        = [pscustomobject]@{
+            object_id = $MilestoneInput.Document.object_id
+            ref       = $MilestoneInput.Validation.WorkObjectPath
+            status    = $MilestoneInput.Document.status
+        }
+        captured_at      = $createdAtText
+        captured_by      = [pscustomobject]@{
+            role = "control_kernel"
+            id   = $CapturedById
+        }
+        authority        = [pscustomobject]@{
+            operator_id = $OperatorId
+            approved_at = $createdAtText
+            reason      = $AuthorityReason
+        }
+        git              = [pscustomobject]@{
+            repository_root              = $resolvedGitCapture.repository_root
+            branch                       = $resolvedGitCapture.branch
+            head_commit                  = $resolvedGitCapture.head_commit
+            tree_id                      = $resolvedGitCapture.tree_id
+            status_lines                 = @($resolvedGitCapture.status_lines)
+            working_tree_clean           = $resolvedGitCapture.working_tree_clean
+            captured_from_clean_worktree = $resolvedGitCapture.captured_from_clean_worktree
+        }
+        planning_record_refs = @($planningRecordRefs)
+        evidence         = @($evidence)
+        notes            = "Git-backed milestone baseline captured from a clean worktree. This is a restore target substrate only and does not claim rollback execution."
+    }
+
+    Validate-BaselineFields -Baseline $baseline -BaseDirectory (Get-ModuleRepositoryRootPath)
+    return $baseline
+}
+
 function New-MilestoneBaselineRecord {
     [CmdletBinding()]
     param(
@@ -924,97 +1246,499 @@ function New-MilestoneBaselineRecord {
 
     $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
     $repositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $resolvedRepositoryRoot -Label "Repository root"
-    $resolvedMilestonePath = Resolve-PathInsideRepository -PathValue $MilestonePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone"
-    $milestoneValidation = & (Get-GovernedWorkObjectValidatorCommand) -WorkObjectPath $resolvedMilestonePath
-    if ($milestoneValidation.ObjectType -ne "milestone") {
-        throw "Milestone baseline capture requires a milestone governed work object."
-    }
+    $milestoneInput = Resolve-ValidatedMilestoneBaselineMilestoneInput -MilestonePath $MilestonePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot
+    $gitCapture = Get-CleanGitBaselineCapture -RepositoryRoot $resolvedRepositoryRoot
 
-    $milestoneDocument = Get-JsonDocument -Path $milestoneValidation.WorkObjectPath -Label "Milestone"
-    if (@($foundation.allowed_milestone_statuses) -notcontains $milestoneDocument.status) {
-        throw "Milestone baseline capture requires milestone status 'active' or 'completed'."
-    }
+    return (Build-MilestoneBaselineRecord -BaselineId $BaselineId -MilestoneInput $milestoneInput -PlanningRecordPaths $PlanningRecordPaths -OperatorId $OperatorId -AuthorityReason $AuthorityReason -GitCapture $gitCapture -CapturedAt $CapturedAt -CapturedById $CapturedById -BaselineKind $BaselineKind)
+}
 
-    $statusLines = @(Get-GitStatusLines -RepositoryRoot $resolvedRepositoryRoot)
-    if ($statusLines.Count -ne 0) {
-        throw "Milestone baseline capture requires a clean Git worktree."
-    }
+function Get-FreezeBaselineBindingInput {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FreezePath,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot
+    )
 
-    $createdAtText = Get-UtcTimestamp -DateTime $CapturedAt
-    $branch = Get-GitBranchName -RepositoryRoot $resolvedRepositoryRoot
-    $headCommit = Get-GitHeadCommit -RepositoryRoot $resolvedRepositoryRoot
-    $treeId = Get-GitTreeId -RepositoryRoot $resolvedRepositoryRoot
+    $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
+    $repositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $resolvedRepositoryRoot -Label "Repository root"
+    $resolvedFreezePath = Resolve-PathInsideRepository -PathValue $FreezePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone freeze"
+    $freezeValidation = & (Get-MilestoneFreezeValidatorCommand) -FreezePath $resolvedFreezePath
+    $freeze = Get-JsonDocument -Path $freezeValidation.FreezePath -Label "Milestone freeze"
 
-    $planningRecordRefs = @()
-    $evidence = @()
-    foreach ($planningRecordPath in @($PlanningRecordPaths)) {
-        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $planningRecordPath -MilestoneDocument $milestoneDocument -MilestonePath $milestoneValidation.WorkObjectPath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot
+    $resolvedProposalPath = Assert-ResolvedPathInsideRepository -ResolvedPath $freezeValidation.ProposalPath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone freeze proposal"
+    $proposal = Get-JsonDocument -Path $resolvedProposalPath -Label "Milestone proposal"
+    $proposalDirectory = Split-Path -Parent $resolvedProposalPath
+    $milestonePath = Resolve-ReferenceAgainstBase -BaseDirectory $proposalDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $proposal -Name "milestone_ref" -Context "Milestone proposal") -Context "Milestone proposal.milestone_ref") -Label "Milestone proposal milestone"
+    $milestonePath = Assert-ResolvedPathInsideRepository -ResolvedPath $milestonePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone proposal milestone"
+    $milestoneInput = Resolve-ValidatedMilestoneBaselineMilestoneInput -MilestonePath $milestonePath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot
+    $freezeDirectory = Split-Path -Parent $freezeValidation.FreezePath
 
-        $planningRecordRefs += [pscustomobject]@{
-            planning_record_id  = $planningRecordInput.Validation.PlanningRecordId
-            object_type         = $planningRecordInput.Validation.ObjectType
-            object_id           = $planningRecordInput.Validation.ObjectId
-            view                = "accepted"
-            ref                 = $planningRecordInput.Validation.PlanningRecordPath
-            accepted_record_ref = $planningRecordInput.AcceptedRecordPath
-            notes               = "Accepted planning record captured into the milestone Git baseline."
-        }
-
-        $evidence += [pscustomobject]@{
-            kind    = "planning_record"
-            ref     = $planningRecordInput.Validation.PlanningRecordPath
-            summary = "Accepted planning record '$($planningRecordInput.Validation.PlanningRecordId)' is included in the milestone baseline."
-        }
-
-        $evidence += [pscustomobject]@{
-            kind    = "artifact"
-            ref     = $planningRecordInput.AcceptedRecordPath
-            summary = "Accepted planning surface '$($planningRecordInput.AcceptedRecord.object_id)' is captured as milestone-baseline evidence."
+    foreach ($task in @($freeze.frozen_task_set)) {
+        $taskParent = Assert-ObjectValue -Value (Get-RequiredProperty -Object $task -Name "parent" -Context "Milestone freeze task") -Context "Milestone freeze task.parent"
+        $resolvedTaskParentPath = Resolve-ReferenceAgainstBase -BaseDirectory $freezeDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $taskParent -Name "ref" -Context "Milestone freeze task.parent") -Context "Milestone freeze task.parent.ref") -Label "Milestone freeze task parent"
+        $resolvedTaskParentPath = Assert-ResolvedPathInsideRepository -ResolvedPath $resolvedTaskParentPath -RepositoryRoot $resolvedRepositoryRoot -RepositoryWorktreeRoot $repositoryWorktreeRoot -Label "Milestone freeze task parent"
+        if ($resolvedTaskParentPath -ine $milestoneInput.Validation.WorkObjectPath) {
+            throw "Frozen task parent refs must resolve to the anchored milestone for baseline binding."
         }
     }
 
-    $evidence += [pscustomobject]@{
-        kind    = "artifact"
-        ref     = $milestoneValidation.WorkObjectPath
-        summary = "Milestone work object captured as the baseline scope anchor."
+    return [pscustomobject]@{
+        RepositoryRoot         = $resolvedRepositoryRoot
+        RepositoryWorktreeRoot = $repositoryWorktreeRoot
+        FreezeValidation       = $freezeValidation
+        Freeze                 = $freeze
+        ProposalPath           = $resolvedProposalPath
+        Proposal               = $proposal
+        MilestoneInput         = $milestoneInput
+    }
+}
+
+function Get-FreezeTaskPlanningRecordId {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FreezeId,
+        [Parameter(Mandatory = $true)]
+        [string]$TaskId
+    )
+
+    return ("planning-{0}-{1}" -f $FreezeId, $TaskId)
+}
+
+function Get-FreezeTaskAcceptedRecordPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PlanningStorePath,
+        [Parameter(Mandatory = $true)]
+        [string]$PlanningRecordId
+    )
+
+    return (Join-Path (Join-Path $PlanningStorePath "accepted") ("{0}.task.json" -f $PlanningRecordId))
+}
+
+function New-FreezeTaskAcceptedWorkObject {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Task,
+        [Parameter(Mandatory = $true)]
+        $Freeze,
+        [Parameter(Mandatory = $true)]
+        [string]$FreezePath,
+        [Parameter(Mandatory = $true)]
+        [string]$ProposalPath,
+        [Parameter(Mandatory = $true)]
+        [string]$MilestonePath,
+        [Parameter(Mandatory = $true)]
+        [string]$PlanningStorePath,
+        [Parameter(Mandatory = $true)]
+        [hashtable]$PlanningRecordIdMap,
+        [Parameter(Mandatory = $true)]
+        [string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)]
+        [datetime]$BoundAt
+    )
+
+    $boundAtText = Get-UtcTimestamp -DateTime $BoundAt
+    $freezeRef = Get-RelativeReference -BaseDirectory $RepositoryRoot -TargetPath $FreezePath
+    $proposalRef = Get-RelativeReference -BaseDirectory $RepositoryRoot -TargetPath $ProposalPath
+    $milestoneRef = Get-RelativeReference -BaseDirectory $RepositoryRoot -TargetPath $MilestonePath
+
+    $relationships = @()
+    foreach ($dependencyTaskId in @($Task.depends_on_ids)) {
+        if (-not $PlanningRecordIdMap.ContainsKey($dependencyTaskId)) {
+            throw "Frozen task '$($Task.task_id)' depends on unknown task id '$dependencyTaskId'."
+        }
+
+        $dependencyPlanningRecordId = [string]$PlanningRecordIdMap[$dependencyTaskId]
+        $dependencyAcceptedPath = Get-FreezeTaskAcceptedRecordPath -PlanningStorePath $PlanningStorePath -PlanningRecordId $dependencyPlanningRecordId
+        $relationships += [pscustomobject]@{
+            relation    = "depends_on"
+            object_type = "task"
+            object_id   = $dependencyTaskId
+            ref         = Get-RelativeReferencePathValue -BaseDirectory $RepositoryRoot -TargetPath $dependencyAcceptedPath
+            notes       = "Dependency preserved from the frozen milestone task set for baseline binding."
+        }
     }
 
-    $baseline = [pscustomobject]@{
-        contract_version = $foundation.contract_version
-        record_type      = $foundation.record_type
-        baseline_id      = $BaselineId
-        baseline_kind    = $BaselineKind
-        milestone        = [pscustomobject]@{
-            object_id = $milestoneDocument.object_id
-            ref       = $milestoneValidation.WorkObjectPath
-            status    = $milestoneDocument.status
-        }
-        captured_at      = $createdAtText
-        captured_by      = [pscustomobject]@{
+    return [pscustomobject]@{
+        contract_version   = "v1"
+        record_type        = "governed_work_object"
+        object_type        = "task"
+        object_id          = $Task.task_id
+        title              = $Task.title
+        summary            = $Task.scope_summary
+        status             = "ready"
+        created_at         = $boundAtText
+        created_by         = [pscustomobject]@{
             role = "control_kernel"
-            id   = $CapturedById
+            id   = "control-kernel:milestone-autocycle-baseline-binding"
         }
-        authority        = [pscustomobject]@{
-            operator_id = $OperatorId
-            approved_at = $createdAtText
-            reason      = $AuthorityReason
+        parent             = [pscustomobject]@{
+            object_type = $Task.parent.object_type
+            object_id   = $Task.parent.object_id
+            ref         = $milestoneRef
         }
-        git              = [pscustomobject]@{
-            repository_root             = $resolvedRepositoryRoot
-            branch                      = $branch
-            head_commit                 = $headCommit
-            tree_id                     = $treeId
-            status_lines                = @($statusLines)
-            working_tree_clean          = $true
-            captured_from_clean_worktree = $true
+        lineage            = [pscustomobject]@{
+            source_kind = "milestone_plan"
+            source_refs = @($freezeRef, $proposalRef)
+            rationale   = "Accepted planning surface materialized from the approved frozen milestone task set for Git-backed baseline binding only."
         }
-        planning_record_refs = @($planningRecordRefs)
-        evidence         = @($evidence)
-        notes            = "Git-backed milestone baseline captured from a clean worktree. This is a restore target substrate only and does not claim rollback execution."
+        relationships      = @($relationships)
+        evidence           = @(
+            [pscustomobject]@{
+                kind    = "decision_record"
+                ref     = $freezeRef
+                summary = "The approved freeze authorizes this accepted planning surface for baseline binding."
+            }
+        )
+        audit              = [pscustomobject]@{
+            trail_refs       = @($freezeRef, $proposalRef)
+            last_reviewed_at = $boundAtText
+            notes            = "Accepted planning surface materialized from the committed freeze before dispatch."
+        }
+        scope_summary      = $Task.scope_summary
+        task_kind          = $Task.task_kind
+        requested_outcome  = $Task.requested_outcome
+        acceptance_checks  = @($Task.acceptance_checks)
+        non_goals          = @($Task.non_goals)
+    }
+}
+
+function Materialize-FreezePlanningRecordBridge {
+    param(
+        [Parameter(Mandatory = $true)]
+        $BindingInput,
+        [Parameter(Mandatory = $true)]
+        [string]$OutputRoot,
+        [Parameter(Mandatory = $true)]
+        [datetime]$BoundAt
+    )
+
+    $planningStorePath = Join-Path (Join-Path $OutputRoot "planning_records") $BindingInput.Freeze.freeze_id
+    New-Item -ItemType Directory -Path $planningStorePath -Force | Out-Null
+
+    $planningRecordIdMap = @{}
+    foreach ($task in @($BindingInput.Freeze.frozen_task_set)) {
+        $planningRecordIdMap[$task.task_id] = Get-FreezeTaskPlanningRecordId -FreezeId $BindingInput.Freeze.freeze_id -TaskId $task.task_id
     }
 
-    Validate-BaselineFields -Baseline $baseline -BaseDirectory (Get-ModuleRepositoryRootPath)
-    return $baseline
+    $materializedPlanningRecords = @()
+    foreach ($task in @($BindingInput.Freeze.frozen_task_set)) {
+        $planningRecordId = [string]$planningRecordIdMap[$task.task_id]
+        $acceptedWorkObject = New-FreezeTaskAcceptedWorkObject -Task $task -Freeze $BindingInput.Freeze -FreezePath $BindingInput.FreezeValidation.FreezePath -ProposalPath $BindingInput.ProposalPath -MilestonePath $BindingInput.MilestoneInput.Validation.WorkObjectPath -PlanningStorePath $planningStorePath -PlanningRecordIdMap $planningRecordIdMap -RepositoryRoot $BindingInput.RepositoryRoot -BoundAt $BoundAt
+        $workingWorkObject = ConvertFrom-Json ($acceptedWorkObject | ConvertTo-Json -Depth 20)
+
+        $planningRecord = & (Get-NewPlanningRecordCommand) -PlanningRecordId $planningRecordId -WorkingRecord $workingWorkObject -CreatedAt $BoundAt -InitialWorkingStatus "ready_for_review"
+        $planningRecord = & (Get-SetPlanningRecordWorkingStateCommand) -PlanningRecord $planningRecord -Status "ready_for_review" -WorkObjectRecord $workingWorkObject -UpdatedAt $BoundAt -Notes "Working planning surface mirrors the frozen approved task set at baseline-binding time."
+        $planningRecord = & (Get-SetPlanningRecordAcceptedStateCommand) -PlanningRecord $planningRecord -Status "accepted" -WorkObjectRecord $acceptedWorkObject -AcceptedAt $BoundAt -AcceptedBy $BindingInput.Freeze.approved_by -Notes "Accepted planning surface materialized from the approved freeze for baseline binding."
+        $planningRecord = & (Get-SetPlanningRecordReconciliationStateCommand) -PlanningRecord $planningRecord -Status "matched" -ComparedAt $BoundAt -WorkingMatchesAccepted $true -Notes "Working and accepted planning surfaces intentionally match when a frozen milestone is baseline-bound."
+        $planningRecordPath = & (Get-SavePlanningRecordCommand) -PlanningRecord $planningRecord -StorePath $planningStorePath
+        $planningRecordValidation = & (Get-PlanningRecordValidatorCommand) -PlanningRecordPath $planningRecordPath
+
+        $materializedPlanningRecords += [pscustomobject]@{
+            TaskId                = $task.task_id
+            PlanningRecordId      = $planningRecordValidation.PlanningRecordId
+            PlanningRecordPath    = $planningRecordValidation.PlanningRecordPath
+            AcceptedRecordPath    = $planningRecordValidation.AcceptedRecordPath
+            PlanningRecordValidation = $planningRecordValidation
+        }
+    }
+
+    return [pscustomobject]@{
+        PlanningStorePath          = $planningStorePath
+        MaterializedPlanningRecords = @($materializedPlanningRecords)
+    }
+}
+
+function Validate-BaselineBindingFields {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Binding,
+        [Parameter(Mandatory = $true)]
+        [string]$BaseDirectory
+    )
+
+    $foundation = Get-MilestoneAutocycleFoundationContract
+    $contract = Get-MilestoneAutocycleBaselineBindingContract
+
+    foreach ($fieldName in @($contract.required_fields)) {
+        Get-RequiredProperty -Object $Binding -Name $fieldName -Context "Milestone baseline binding" | Out-Null
+    }
+
+    $contractVersion = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "contract_version" -Context "Milestone baseline binding") -Context "Milestone baseline binding.contract_version"
+    if ($contractVersion -ne $foundation.contract_version) {
+        throw "Milestone baseline binding.contract_version must equal '$($foundation.contract_version)'."
+    }
+
+    $recordType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "record_type" -Context "Milestone baseline binding") -Context "Milestone baseline binding.record_type"
+    if ($recordType -ne $foundation.baseline_binding_record_type -or $recordType -ne $contract.record_type) {
+        throw "Milestone baseline binding.record_type must equal '$($foundation.baseline_binding_record_type)'."
+    }
+
+    $bindingId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "binding_id" -Context "Milestone baseline binding") -Context "Milestone baseline binding.binding_id"
+    Assert-RegexMatch -Value $bindingId -Pattern $foundation.identifier_pattern -Context "Milestone baseline binding.binding_id"
+    $cycleId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "cycle_id" -Context "Milestone baseline binding") -Context "Milestone baseline binding.cycle_id"
+    Assert-RegexMatch -Value $cycleId -Pattern $foundation.identifier_pattern -Context "Milestone baseline binding.cycle_id"
+    $freezeId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "freeze_id" -Context "Milestone baseline binding") -Context "Milestone baseline binding.freeze_id"
+    Assert-RegexMatch -Value $freezeId -Pattern $foundation.identifier_pattern -Context "Milestone baseline binding.freeze_id"
+    $boundAt = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "bound_at" -Context "Milestone baseline binding") -Context "Milestone baseline binding.bound_at"
+    Assert-RegexMatch -Value $boundAt -Pattern $foundation.timestamp_pattern -Context "Milestone baseline binding.bound_at"
+
+    $baselineBinding = Assert-ObjectValue -Value (Get-RequiredProperty -Object $Binding -Name "baseline" -Context "Milestone baseline binding") -Context "Milestone baseline binding.baseline"
+    foreach ($fieldName in @($contract.baseline_required_fields)) {
+        Get-RequiredProperty -Object $baselineBinding -Name $fieldName -Context "Milestone baseline binding.baseline" | Out-Null
+    }
+
+    $baselineRepositoryRoot = Assert-AbsolutePathValue -PathValue (Get-RequiredProperty -Object $baselineBinding -Name "repository_root" -Context "Milestone baseline binding.baseline") -Context "Milestone baseline binding.baseline.repository_root"
+    $resolvedBaselineRepositoryRoot = Resolve-ExistingPath -PathValue $baselineRepositoryRoot -Label "Milestone baseline binding.baseline.repository_root"
+    $baselineRepositoryWorktreeRoot = Get-GitWorktreeRoot -PathValue $resolvedBaselineRepositoryRoot -Label "Milestone baseline binding.baseline.repository_root"
+
+    $baselineFoundation = Get-BaselineFoundationContract
+    $baselineSummaryId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $baselineBinding -Name "baseline_id" -Context "Milestone baseline binding.baseline") -Context "Milestone baseline binding.baseline.baseline_id"
+    Assert-RegexMatch -Value $baselineSummaryId -Pattern $foundation.identifier_pattern -Context "Milestone baseline binding.baseline.baseline_id"
+    $baselineBranch = Assert-GitBranchIdentity -RepositoryRoot $resolvedBaselineRepositoryRoot -Branch (Get-RequiredProperty -Object $baselineBinding -Name "branch" -Context "Milestone baseline binding.baseline") -Foundation $baselineFoundation
+    $baselineHeadCommit = Assert-GitObjectIdentity -RepositoryRoot $resolvedBaselineRepositoryRoot -ObjectId (Get-RequiredProperty -Object $baselineBinding -Name "head_commit" -Context "Milestone baseline binding.baseline") -Pattern $baselineFoundation.git_commit_hash_pattern -ObjectSpec ("{0}^{{commit}}" -f $baselineBinding.head_commit) -MustExistInRepository $baselineFoundation.git_head_commit_must_exist_in_repository -Context "Milestone baseline binding.baseline.head_commit"
+    $baselineTreeId = Assert-GitObjectIdentity -RepositoryRoot $resolvedBaselineRepositoryRoot -ObjectId (Get-RequiredProperty -Object $baselineBinding -Name "tree_id" -Context "Milestone baseline binding.baseline") -Pattern $baselineFoundation.git_tree_hash_pattern -ObjectSpec ("{0}^{{tree}}" -f $baselineBinding.tree_id) -MustExistInRepository $baselineFoundation.git_tree_id_must_exist_in_repository -Context "Milestone baseline binding.baseline.tree_id"
+
+    $baselinePath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $baselineBinding -Name "baseline_ref" -Context "Milestone baseline binding.baseline") -Context "Milestone baseline binding.baseline.baseline_ref") -Label "Milestone baseline binding baseline"
+    $baselinePath = Assert-ResolvedPathInsideRepository -ResolvedPath $baselinePath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone baseline binding baseline"
+    $baselineValidation = Test-MilestoneBaselineRecordContract -BaselinePath $baselinePath
+    $baselineDocument = Get-JsonDocument -Path $baselineValidation.BaselinePath -Label "Milestone baseline binding baseline"
+    if ($baselineDocument.baseline_id -ne $baselineSummaryId) {
+        throw "Milestone baseline binding.baseline.baseline_id must match the referenced milestone baseline."
+    }
+    if ($baselineDocument.git.repository_root -ne $resolvedBaselineRepositoryRoot -or $baselineDocument.git.branch -ne $baselineBranch -or $baselineDocument.git.head_commit -ne $baselineHeadCommit -or $baselineDocument.git.tree_id -ne $baselineTreeId) {
+        throw "Milestone baseline binding.baseline must match the referenced baseline Git identity exactly."
+    }
+
+    $freezePath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "freeze_ref" -Context "Milestone baseline binding") -Context "Milestone baseline binding.freeze_ref") -Label "Milestone baseline binding freeze"
+    $freezePath = Assert-ResolvedPathInsideRepository -ResolvedPath $freezePath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone baseline binding freeze"
+    $freezeValidation = & (Get-MilestoneFreezeValidatorCommand) -FreezePath $freezePath
+    $freeze = Get-JsonDocument -Path $freezeValidation.FreezePath -Label "Milestone freeze"
+    if ($freezeValidation.FreezeId -ne $freezeId) {
+        throw "Milestone baseline binding.freeze_id must match the referenced freeze."
+    }
+    if ($freezeValidation.CycleId -ne $cycleId) {
+        throw "Milestone baseline binding.cycle_id must match the referenced freeze."
+    }
+
+    $resolvedProposalPath = Assert-ResolvedPathInsideRepository -ResolvedPath $freezeValidation.ProposalPath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone freeze proposal"
+    $proposal = Get-JsonDocument -Path $resolvedProposalPath -Label "Milestone proposal"
+    $proposalDirectory = Split-Path -Parent $resolvedProposalPath
+    $milestonePath = Resolve-ReferenceAgainstBase -BaseDirectory $proposalDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $proposal -Name "milestone_ref" -Context "Milestone proposal") -Context "Milestone proposal.milestone_ref") -Label "Milestone proposal milestone"
+    $milestonePath = Assert-ResolvedPathInsideRepository -ResolvedPath $milestonePath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone proposal milestone"
+    $milestoneInput = Resolve-ValidatedMilestoneBaselineMilestoneInput -MilestonePath $milestonePath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot
+
+    $milestone = Assert-ObjectValue -Value (Get-RequiredProperty -Object $Binding -Name "milestone" -Context "Milestone baseline binding") -Context "Milestone baseline binding.milestone"
+    foreach ($fieldName in @($contract.milestone_required_fields)) {
+        Get-RequiredProperty -Object $milestone -Name $fieldName -Context "Milestone baseline binding.milestone" | Out-Null
+    }
+
+    if ((Assert-NonEmptyString -Value (Get-RequiredProperty -Object $milestone -Name "object_type" -Context "Milestone baseline binding.milestone") -Context "Milestone baseline binding.milestone.object_type") -ne "milestone") {
+        throw "Milestone baseline binding.milestone.object_type must equal 'milestone'."
+    }
+
+    $resolvedBindingMilestonePath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $milestone -Name "ref" -Context "Milestone baseline binding.milestone") -Context "Milestone baseline binding.milestone.ref") -Label "Milestone baseline binding milestone"
+    $resolvedBindingMilestonePath = Assert-ResolvedPathInsideRepository -ResolvedPath $resolvedBindingMilestonePath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone baseline binding milestone"
+    if ($resolvedBindingMilestonePath -ine $milestoneInput.Validation.WorkObjectPath) {
+        throw "Milestone baseline binding.milestone.ref must resolve to the freeze milestone."
+    }
+    if ($milestone.object_id -ne $milestoneInput.Document.object_id -or $milestone.status -ne $milestoneInput.Document.status) {
+        throw "Milestone baseline binding.milestone must match the freeze milestone identity and status."
+    }
+    if ($baselineDocument.milestone.object_id -ne $milestone.object_id -or (Resolve-ReferenceAgainstBase -BaseDirectory (Split-Path -Parent $baselineValidation.BaselinePath) -Reference $baselineDocument.milestone.ref -Label "Milestone baseline binding baseline milestone") -ine $resolvedBindingMilestonePath) {
+        throw "Milestone baseline binding baseline milestone must match the bound milestone."
+    }
+
+    $planningRecordRefs = [object[]](Assert-ObjectArray -Value (Get-RequiredProperty -Object $Binding -Name "planning_record_refs" -Context "Milestone baseline binding") -Context "Milestone baseline binding.planning_record_refs")
+    if ($planningRecordRefs.Count -ne @($freeze.frozen_task_set).Count) {
+        throw "Milestone baseline binding.planning_record_refs must match the frozen task count exactly."
+    }
+
+    $freezeTasksById = @{}
+    foreach ($freezeTask in @($freeze.frozen_task_set)) {
+        $freezeTasksById[$freezeTask.task_id] = $freezeTask
+    }
+
+    $resolvedBindingPlanningRefs = @()
+    $resolvedBindingAcceptedRefs = @()
+    foreach ($planningRecordRef in $planningRecordRefs) {
+        foreach ($fieldName in @($contract.planning_record_ref_required_fields)) {
+            Get-RequiredProperty -Object $planningRecordRef -Name $fieldName -Context "Milestone baseline binding.planning_record_refs item" | Out-Null
+        }
+
+        $planningView = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "view" -Context "Milestone baseline binding.planning_record_refs item") -Context "Milestone baseline binding.planning_record_refs item.view"
+        if ($planningView -ne "accepted") {
+            throw "Milestone baseline binding.planning_record_refs item.view must equal 'accepted'."
+        }
+
+        $taskId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "object_id" -Context "Milestone baseline binding.planning_record_refs item") -Context "Milestone baseline binding.planning_record_refs item.object_id"
+        if (-not $freezeTasksById.ContainsKey($taskId)) {
+            throw "Milestone baseline binding.planning_record_refs item.object_id must resolve to a frozen task id."
+        }
+
+        $resolvedPlanningRecordPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "ref" -Context "Milestone baseline binding.planning_record_refs item") -Context "Milestone baseline binding.planning_record_refs item.ref") -Label "Milestone baseline binding planning record"
+        $resolvedPlanningRecordPath = Assert-ResolvedPathInsideRepository -ResolvedPath $resolvedPlanningRecordPath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot -Label "Milestone baseline binding planning record"
+        $planningRecordInput = Resolve-PlanningRecordBaselineInput -PlanningRecordPath $resolvedPlanningRecordPath -MilestoneDocument $milestoneInput.Document -MilestonePath $milestoneInput.Validation.WorkObjectPath -RepositoryRoot $resolvedBaselineRepositoryRoot -RepositoryWorktreeRoot $baselineRepositoryWorktreeRoot
+        $resolvedAcceptedRecordPath = Resolve-ReferenceAgainstBase -BaseDirectory $BaseDirectory -Reference (Assert-NonEmptyString -Value (Get-RequiredProperty -Object $planningRecordRef -Name "accepted_record_ref" -Context "Milestone baseline binding.planning_record_refs item") -Context "Milestone baseline binding.planning_record_refs item.accepted_record_ref") -Label "Milestone baseline binding accepted planning record"
+        if ($resolvedAcceptedRecordPath -ne $planningRecordInput.AcceptedRecordPath) {
+            throw "Milestone baseline binding.planning_record_refs item.accepted_record_ref must match the referenced planning record accepted surface."
+        }
+
+        if ($planningRecordInput.Validation.PlanningRecordId -ne $planningRecordRef.planning_record_id -or $planningRecordInput.Validation.ObjectType -ne $planningRecordRef.object_type -or $planningRecordInput.Validation.ObjectId -ne $planningRecordRef.object_id) {
+            throw "Milestone baseline binding.planning_record_refs item identity must match the referenced planning record."
+        }
+
+        $freezeTask = $freezeTasksById[$taskId]
+        if ($planningRecordInput.AcceptedRecord.title -ne $freezeTask.title -or $planningRecordInput.AcceptedRecord.task_kind -ne $freezeTask.task_kind -or $planningRecordInput.AcceptedRecord.scope_summary -ne $freezeTask.scope_summary -or $planningRecordInput.AcceptedRecord.requested_outcome -ne $freezeTask.requested_outcome) {
+            throw "Materialized accepted planning records must preserve the frozen task content exactly."
+        }
+        if (($planningRecordInput.AcceptedRecord.acceptance_checks -join "|") -ne (@($freezeTask.acceptance_checks) -join "|") -or ($planningRecordInput.AcceptedRecord.non_goals -join "|") -ne (@($freezeTask.non_goals) -join "|")) {
+            throw "Materialized accepted planning records must preserve the frozen task acceptance and non-goal lists exactly."
+        }
+        if ($planningRecordInput.AcceptedRecord.status -ne "ready") {
+            throw "Materialized accepted planning records must normalize frozen tasks into ready task surfaces."
+        }
+
+        $relationshipTaskIds = @($planningRecordInput.AcceptedRecord.relationships | Where-Object { $_.relation -eq "depends_on" } | ForEach-Object { $_.object_id })
+        if (($relationshipTaskIds -join "|") -ne (@($freezeTask.depends_on_ids) -join "|")) {
+            throw "Materialized accepted planning records must preserve frozen task dependency ids exactly."
+        }
+
+        $resolvedBindingPlanningRefs += $planningRecordInput.Validation.PlanningRecordPath
+        $resolvedBindingAcceptedRefs += $planningRecordInput.AcceptedRecordPath
+    }
+
+    $baselinePlanningRefs = @()
+    $baselineAcceptedRefs = @()
+    foreach ($baselinePlanningRecordRef in @($baselineDocument.planning_record_refs)) {
+        $baselinePlanningRefs += Resolve-ReferenceAgainstBase -BaseDirectory (Split-Path -Parent $baselineValidation.BaselinePath) -Reference $baselinePlanningRecordRef.ref -Label "Milestone baseline binding baseline planning record"
+        $baselineAcceptedRefs += Resolve-ReferenceAgainstBase -BaseDirectory (Split-Path -Parent $baselineValidation.BaselinePath) -Reference $baselinePlanningRecordRef.accepted_record_ref -Label "Milestone baseline binding baseline accepted planning record"
+    }
+
+    if (($baselinePlanningRefs -join "|") -ne ($resolvedBindingPlanningRefs -join "|") -or ($baselineAcceptedRefs -join "|") -ne ($resolvedBindingAcceptedRefs -join "|")) {
+        throw "Milestone baseline binding planning_record_refs must match the referenced baseline planning refs exactly."
+    }
+
+    Assert-NonEmptyString -Value (Get-RequiredProperty -Object $Binding -Name "notes" -Context "Milestone baseline binding") -Context "Milestone baseline binding.notes" | Out-Null
+
+    return [pscustomobject]@{
+        BindingId   = $bindingId
+        CycleId     = $cycleId
+        FreezePath  = $freezeValidation.FreezePath
+        BaselineId  = $baselineSummaryId
+        BaselinePath = $baselineValidation.BaselinePath
+    }
+}
+
+function Test-MilestoneAutocycleBaselineBindingContract {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BindingPath
+    )
+
+    $resolvedBindingPath = Resolve-ExistingPath -PathValue $BindingPath -Label "Milestone baseline binding" -AnchorPath (Get-ModuleRepositoryRootPath)
+    $binding = Get-JsonDocument -Path $resolvedBindingPath -Label "Milestone baseline binding"
+    $result = Validate-BaselineBindingFields -Binding $binding -BaseDirectory (Split-Path -Parent $resolvedBindingPath)
+
+    return [pscustomobject]@{
+        IsValid      = $true
+        BindingId    = $result.BindingId
+        CycleId      = $result.CycleId
+        FreezePath   = $result.FreezePath
+        BaselineId   = $result.BaselineId
+        BaselinePath = $result.BaselinePath
+        BindingPath  = $resolvedBindingPath
+    }
+}
+
+function Invoke-MilestoneFreezeBaselineBindingFlow {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FreezePath,
+        [Parameter(Mandatory = $true)]
+        [string]$OutputRoot,
+        [string]$RepositoryRoot = (Get-RepositoryRoot),
+        [string]$BindingId,
+        [string]$BaselineId,
+        [datetime]$BoundAt = (Get-Date).ToUniversalTime()
+    )
+
+    $foundation = Get-MilestoneAutocycleFoundationContract
+    $bindingInput = Get-FreezeBaselineBindingInput -FreezePath $FreezePath -RepositoryRoot $RepositoryRoot
+    $resolvedOutputRoot = Resolve-PathForCreationInsideRepository -PathValue $OutputRoot -RepositoryRoot $bindingInput.RepositoryRoot -RepositoryWorktreeRoot $bindingInput.RepositoryWorktreeRoot -Label "Milestone baseline binding output root"
+    New-Item -ItemType Directory -Path $resolvedOutputRoot -Force | Out-Null
+
+    if ([string]::IsNullOrWhiteSpace($BindingId)) {
+        $BindingId = "baseline-binding-{0}" -f $bindingInput.Freeze.freeze_id
+    }
+    if ([string]::IsNullOrWhiteSpace($BaselineId)) {
+        $BaselineId = "baseline-{0}" -f $bindingInput.Freeze.freeze_id
+    }
+
+    Assert-RegexMatch -Value $BindingId -Pattern $foundation.identifier_pattern -Context "BindingId"
+    Assert-RegexMatch -Value $BaselineId -Pattern $foundation.identifier_pattern -Context "BaselineId"
+
+    $gitCapture = Get-CleanGitBaselineCapture -RepositoryRoot $bindingInput.RepositoryRoot
+    $materializedPlanning = Materialize-FreezePlanningRecordBridge -BindingInput $bindingInput -OutputRoot $resolvedOutputRoot -BoundAt $BoundAt
+    $baseline = Build-MilestoneBaselineRecord -BaselineId $BaselineId -MilestoneInput $bindingInput.MilestoneInput -PlanningRecordPaths @($materializedPlanning.MaterializedPlanningRecords.PlanningRecordPath) -OperatorId $bindingInput.Freeze.approved_by -AuthorityReason ("Bind frozen milestone '{0}' to one Git-backed baseline anchor before dispatch." -f $bindingInput.Freeze.freeze_id) -GitCapture $gitCapture -CapturedAt $BoundAt -CapturedById "control-kernel:milestone-autocycle-baseline-binding" -BaselineKind "milestone_checkpoint"
+
+    $baselineStorePath = Join-Path $resolvedOutputRoot "baseline_store"
+    $baselinePath = Save-MilestoneBaselineRecord -Baseline $baseline -StorePath $baselineStorePath
+    $loadedBaseline = Get-MilestoneBaselineRecord -BaselineId $baseline.baseline_id -StorePath $baselineStorePath
+
+    $bindingDirectory = Join-Path $resolvedOutputRoot "baseline_bindings"
+    New-Item -ItemType Directory -Path $bindingDirectory -Force | Out-Null
+    $binding = [pscustomobject]@{
+        contract_version = $foundation.contract_version
+        record_type      = $foundation.baseline_binding_record_type
+        binding_id       = $BindingId
+        cycle_id         = $bindingInput.Freeze.cycle_id
+        freeze_id        = $bindingInput.Freeze.freeze_id
+        freeze_ref       = Get-RelativeReference -BaseDirectory $bindingDirectory -TargetPath $bindingInput.FreezeValidation.FreezePath
+        milestone        = [pscustomobject]@{
+            object_type = "milestone"
+            object_id   = $bindingInput.MilestoneInput.Document.object_id
+            ref         = Get-RelativeReference -BaseDirectory $bindingDirectory -TargetPath $bindingInput.MilestoneInput.Validation.WorkObjectPath
+            status      = $bindingInput.MilestoneInput.Document.status
+        }
+        bound_at         = Get-UtcTimestamp -DateTime $BoundAt
+        planning_record_refs = @($materializedPlanning.MaterializedPlanningRecords | ForEach-Object {
+                [pscustomobject]@{
+                    planning_record_id  = $_.PlanningRecordValidation.PlanningRecordId
+                    object_type         = $_.PlanningRecordValidation.ObjectType
+                    object_id           = $_.PlanningRecordValidation.ObjectId
+                    view                = "accepted"
+                    ref                 = Get-RelativeReference -BaseDirectory $bindingDirectory -TargetPath $_.PlanningRecordValidation.PlanningRecordPath
+                    accepted_record_ref = Get-RelativeReference -BaseDirectory $bindingDirectory -TargetPath $_.PlanningRecordValidation.AcceptedRecordPath
+                    notes               = "Accepted planning record materialized from the approved frozen task set for baseline capture."
+                }
+            })
+        baseline         = [pscustomobject]@{
+            baseline_id     = $loadedBaseline.Baseline.baseline_id
+            baseline_ref    = Get-RelativeReference -BaseDirectory $bindingDirectory -TargetPath $baselinePath
+            repository_root = $loadedBaseline.Baseline.git.repository_root
+            branch          = $loadedBaseline.Baseline.git.branch
+            head_commit     = $loadedBaseline.Baseline.git.head_commit
+            tree_id         = $loadedBaseline.Baseline.git.tree_id
+        }
+        notes            = "Frozen milestone bound to one Git-backed baseline by materializing accepted planning-record bridge surfaces and reusing the existing milestone baseline substrate only."
+    }
+
+    $bindingPath = Join-Path $bindingDirectory ("{0}.json" -f $BindingId)
+    Write-JsonDocument -Path $bindingPath -Document $binding
+    $bindingValidation = Test-MilestoneAutocycleBaselineBindingContract -BindingPath $bindingPath
+
+    return [pscustomobject]@{
+        BindingValidation  = $bindingValidation
+        BindingPath        = $bindingValidation.BindingPath
+        BaselinePath       = $baselinePath
+        BaselineId         = $loadedBaseline.Baseline.baseline_id
+        FreezePath         = $bindingInput.FreezeValidation.FreezePath
+        PlanningRecordPaths = @($materializedPlanning.MaterializedPlanningRecords.PlanningRecordPath)
+    }
 }
 
 function Save-MilestoneBaselineRecord {
@@ -1107,4 +1831,4 @@ function Get-MilestoneBaselineRecord {
     }
 }
 
-Export-ModuleMember -Function Test-MilestoneBaselineRecordContract, New-MilestoneBaselineRecord, Save-MilestoneBaselineRecord, Get-MilestoneBaselineRecord
+Export-ModuleMember -Function Test-MilestoneBaselineRecordContract, New-MilestoneBaselineRecord, Save-MilestoneBaselineRecord, Get-MilestoneBaselineRecord, Test-MilestoneAutocycleBaselineBindingContract, Invoke-MilestoneFreezeBaselineBindingFlow

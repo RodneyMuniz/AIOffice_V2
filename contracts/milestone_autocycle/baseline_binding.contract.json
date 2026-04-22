@@ -1,0 +1,39 @@
+{
+  "record_type": "milestone_autocycle_baseline_binding",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "binding_id",
+    "cycle_id",
+    "freeze_id",
+    "freeze_ref",
+    "milestone",
+    "bound_at",
+    "planning_record_refs",
+    "baseline",
+    "notes"
+  ],
+  "milestone_required_fields": [
+    "object_type",
+    "object_id",
+    "ref",
+    "status"
+  ],
+  "planning_record_ref_required_fields": [
+    "planning_record_id",
+    "object_type",
+    "object_id",
+    "view",
+    "ref",
+    "accepted_record_ref",
+    "notes"
+  ],
+  "baseline_required_fields": [
+    "baseline_id",
+    "baseline_ref",
+    "repository_root",
+    "branch",
+    "head_commit",
+    "tree_id"
+  ]
+}
