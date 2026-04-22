@@ -381,6 +381,10 @@ function Get-MilestoneAutocycleFoundationContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\foundation.contract.json") -Label "Milestone autocycle foundation contract"
 }
 
+function Get-MilestoneAutocycleDispatchContract {
+    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\dispatch.contract.json") -Label "Milestone autocycle dispatch contract"
+}
+
 function Get-MilestoneAutocycleReplayProofContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\milestone_autocycle\replay_proof.contract.json") -Label "Milestone replay proof contract"
 }
@@ -791,6 +795,7 @@ function Validate-ReplaySource {
 
     $contract = Get-MilestoneAutocycleReplayProofContract
     $foundation = Get-MilestoneAutocycleFoundationContract
+    $dispatchContract = Get-MilestoneAutocycleDispatchContract
     $sourceObject = Assert-ObjectValue -Value $ReplaySource -Context $Context
     foreach ($fieldName in @($contract.replay_source_required_fields)) {
         Get-RequiredProperty -Object $sourceObject -Name $fieldName -Context $Context | Out-Null
@@ -800,7 +805,7 @@ function Validate-ReplaySource {
     $branch = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $sourceObject -Name "branch" -Context $Context) -Context "$Context.branch"
     $headCommit = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $sourceObject -Name "head_commit" -Context $Context) -Context "$Context.head_commit"
     Assert-RegexMatch -Value $headCommit -Pattern "^[0-9a-f]{40}$" -Context "$Context.head_commit"
-    Assert-RegexMatch -Value $branch -Pattern $foundation.identifier_pattern -Context "$Context.branch"
+    Assert-RegexMatch -Value $branch -Pattern $dispatchContract.target_branch_pattern -Context "$Context.branch"
 
     return [pscustomobject]@{
         repository_root = $repositoryRoot
