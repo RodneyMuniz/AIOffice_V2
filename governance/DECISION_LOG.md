@@ -315,3 +315,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed surfaces now include `contracts/milestone_autocycle/qa_observation.contract.json`, `contracts/milestone_autocycle/qa_aggregation.contract.json`, the expanded QA-required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_qa_observation.ps1`.
 - Consequence: this slice adds bounded QA observation and milestone aggregation only. It does not yet prove milestone review summary generation, operator decision packets, or end-to-end pilot replay.
 - Consequence: the next gated step inside R6 is `R6-008` Add bounded PRO-style summary and operator decision packet.
+
+## D-0038 R6-008 Added Bounded Summary And Operator Decision Packet
+- Date: 2026-04-22
+- Status: accepted
+- Decision: `R6-008` is complete through one bounded summary and operator-decision-packet flow in `tools/MilestoneAutocycleSummary.psm1`.
+- Consequence: one authoritative `milestone_autocycle_qa_aggregation` can now emit one contract-valid `milestone_autocycle_summary` plus one matching `milestone_autocycle_decision_packet` that preserve authoritative cycle and aggregation identity while summarizing governed scope or diffs or tests or blockers or evidence quality plus explicit non-claims.
+- Consequence: the summary flow reuses the accepted R6-007 QA aggregation as the authoritative milestone QA state, validates linked QA observations and governed execution evidence where needed, keeps recommendation strictly advisory only, exposes only the bounded operator options `accept`, `rework`, and `stop`, and refuses missing or malformed QA aggregation state, missing non-claims, malformed summary or decision-packet state, invalid recommendation values, invalid decision options, and summary overclaims.
+- Consequence: the committed surfaces now include `contracts/milestone_autocycle/summary.contract.json`, `contracts/milestone_autocycle/decision_packet.contract.json`, the expanded summary and decision-packet required fields in `contracts/milestone_autocycle/foundation.contract.json`, and focused proof through `tests/test_milestone_autocycle_summary.ps1`.
+- Consequence: this slice adds bounded summary and operator decision packet surfaces only. It does not yet prove end-to-end pilot replay or closeout.
+- Consequence: the next gated step inside R6 is `R6-009` Produce one replayable supervised pilot proof and closeout packet.

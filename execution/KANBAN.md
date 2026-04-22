@@ -105,7 +105,7 @@ Closeout summary:
 - Done when: execution evidence can trigger bounded QA observation, each task receives a milestone-visible QA outcome, milestone status rolls up task states into one milestone-level view, and blocked or failed tasks stop progression unless explicitly overridden by the operator
 
 ### `R6-008` Add bounded PRO-style summary and operator decision packet
-- Status: open
+- Status: done
 - Order: 8
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-007`

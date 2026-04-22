@@ -1,0 +1,20 @@
+{
+  "record_type": "milestone_autocycle_decision_packet",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "decision_packet_id",
+    "cycle_id",
+    "summary_ref",
+    "summary_id",
+    "recommendation",
+    "recommendation_is_advisory",
+    "options",
+    "notes"
+  ],
+  "allowed_options": [
+    "accept",
+    "rework",
+    "stop"
+  ]
+}

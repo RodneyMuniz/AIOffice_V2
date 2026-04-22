@@ -1,0 +1,37 @@
+{
+  "record_type": "milestone_autocycle_summary",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "summary_id",
+    "cycle_id",
+    "qa_aggregation_ref",
+    "aggregation_id",
+    "task_coverage",
+    "scope_summary",
+    "diff_summary",
+    "test_summary",
+    "blocker_summary",
+    "evidence_quality_summary",
+    "non_claims",
+    "recommendation",
+    "recommendation_is_advisory",
+    "notes"
+  ],
+  "task_coverage_required_fields": [
+    "task_id",
+    "dispatch_id",
+    "qa_observation_id",
+    "status"
+  ],
+  "required_non_claim_fragments": [
+    "replay",
+    "closeout",
+    "autonomy"
+  ],
+  "prohibited_claim_fragments": [
+    "replay proof complete",
+    "final closeout",
+    "broader autonomy"
+  ]
+}

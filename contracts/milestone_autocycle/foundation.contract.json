@@ -212,6 +212,9 @@
     "record_type",
     "summary_id",
     "cycle_id",
+    "qa_aggregation_ref",
+    "aggregation_id",
+    "task_coverage",
     "scope_summary",
     "diff_summary",
     "test_summary",
@@ -219,6 +222,7 @@
     "evidence_quality_summary",
     "non_claims",
     "recommendation",
+    "recommendation_is_advisory",
     "notes"
   ],
   "decision_packet_required_fields": [
@@ -227,6 +231,9 @@
     "decision_packet_id",
     "cycle_id",
     "summary_ref",
+    "summary_id",
+    "recommendation",
+    "recommendation_is_advisory",
     "options",
     "notes"
   ]
