@@ -334,3 +334,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed surfaces now include `contracts/milestone_autocycle/replay_proof.contract.json`, `contracts/milestone_autocycle/closeout_packet.contract.json`, the expanded replay-proof and closeout required fields in `contracts/milestone_autocycle/foundation.contract.json`, `tools/MilestoneAutocycleCloseout.psm1`, and focused proof through `tests/test_milestone_autocycle_closeout.ps1`.
 - Consequence: this closes `R6 Supervised Milestone Autocycle Pilot` in repo truth as a bounded supervised pilot only. It does not prove executed operator acceptance, broader autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: no later implementation milestone is open yet in repo truth.
+
+## D-0040 PRO Audit Reopened R6-009 On The Original Replay Bar
+- Date: 2026-04-22
+- Status: accepted
+- Decision: a dedicated PRO audit found that `D-0039` closed `R6-009` on a softened acceptance bar. `D-0039` is superseded as closure authority, `R6-009` is reopened, and `R6 Supervised Milestone Autocycle Pilot` remains active in repo truth.
+- Consequence: the committed closeout assembler surfaces remain real implementation results. `contracts/milestone_autocycle/replay_proof.contract.json`, `contracts/milestone_autocycle/closeout_packet.contract.json`, `tools/MilestoneAutocycleCloseout.psm1`, and `tests/test_milestone_autocycle_closeout.ps1` prove bounded replay-proof / closeout-packet assembly from authoritative summary and advisory decision-packet inputs only.
+- Consequence: that narrower implementation result is insufficient for formal `R6` closure because the original `R6-009` bar still requires one exact pilot replay from intake to operator decision with committed raw logs, committed summary artifacts, committed selection scope, committed replay-source metadata, honest closeout wording matched to replay scope, and explicit non-claims.
+- Consequence: no authoritative surface should claim `R6` formally closed or claim that no implementation milestone is open until the original `R6-009` bar is actually met.
+- Consequence: the next gated step inside active `R6` remains `R6-009` Produce one replayable supervised pilot proof and closeout packet.

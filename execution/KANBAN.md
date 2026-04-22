@@ -3,21 +3,23 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`No open implementation milestone in repo truth`
-
-Objective:
-The board below records the now-closed bounded `R6 Supervised Milestone Autocycle Pilot`. No later implementation milestone is open yet in repo truth.
-
-Exit Criteria:
-- `R6-P1` through `R6-009` are complete in repo truth
-- one bounded replay proof plus one bounded closeout packet can be assembled from authoritative pilot artifacts with explicit non-claims
-- no later implementation milestone is open yet in repo truth
-
-## Most Recently Closed Milestone
 `R6 Supervised Milestone Autocycle Pilot`
 
+Objective:
+Open and implement one operator-controlled, fail-closed, evidence-first milestone autocycle pilot for `AIOffice_V2` only, from structured intake to final operator decision, without widening into broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration.
+
+Exit Criteria:
+- `R6-P1` and `R6-P2` are complete
+- one milestone proposal can be produced from one structured intake and frozen only by explicit operator approval
+- one frozen milestone binds to one Git-backed baseline before dispatch
+- Codex dispatch, run ledger, governed execution evidence, QA observation, milestone aggregation, PRO-style summary, and operator decision packet exist for the exact pilot
+- one replayable end-to-end pilot proof exists with honest closeout wording and preserved non-claims
+
+## Most Recently Closed Milestone
+`R5 Git-Backed Recovery, Resume, and Repo Enforcement Foundations`
+
 Closeout summary:
-`R6-001` through `R6-009` are complete and `R6 Supervised Milestone Autocycle Pilot` is now formally closed in repo truth as a bounded supervised pilot only. The closeout is backed by the milestone-autocycle contracts under `contracts/milestone_autocycle/`, replay-proof and closeout flow validation in `tools/MilestoneAutocycleCloseout.psm1`, and focused proof through `tests/test_milestone_autocycle_closeout.ps1`. This closeout proves authoritative replay-proof and closeout-packet assembly from governed proposal, approval, freeze, baseline binding, dispatch, run-ledger, execution-evidence, QA, summary, and advisory decision-packet surfaces only. It does not prove executed operator choice, broader autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+`R5-001` through `R5-007` are complete and formally closed in repo truth. The closeout authority is `governance/POST_R5_CLOSEOUT.md`, the audit mapping authority is `governance/POST_R5_AUDIT_INDEX.md`, and the committed bounded proof-review basis is `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/` at replay source head `1a97ff0cef9675c88030d3b618ef928093ee080c`. This closeout remains bounded and does not add rollback execution, unattended automatic resume, UI, Standard runtime, or broader orchestration claims.
 
 ## Tasks
 
@@ -112,13 +114,14 @@ Closeout summary:
 - Done when: one milestone-level summary can cover scope, diffs, tests, blockers, evidence quality, and non-claims, recommendation stays advisory only, and the operator receives one decision packet with `accept`, `rework`, or `stop`
 
 ### `R6-009` Produce one replayable supervised pilot proof and closeout packet
-- Status: done
+- Status: open
 - Order: 9
 - Milestone: `R6 Supervised Milestone Autocycle Pilot`
 - Depends on: `R6-008`
 - Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/DECISION_LOG.md`, `contracts/milestone_autocycle/`
 - Durable output: one replayable end-to-end pilot proof plus honest closeout package
-- Done when: one exact supervised pilot scenario can assemble one replay proof plus one bounded closeout packet from authoritative summary and decision surfaces with explicit governed proof refs, replay-source metadata, honest boundary statements, and explicit non-claims
+- Done when: one exact pilot scenario replays from intake to operator decision, raw logs plus summary artifacts plus selection scope plus replay-source metadata are committed, closeout wording matches exact replay scope, and non-claims remain explicit
+- Current partial capability: `tools/MilestoneAutocycleCloseout.psm1` plus `contracts/milestone_autocycle/replay_proof.contract.json`, `contracts/milestone_autocycle/closeout_packet.contract.json`, and `tests/test_milestone_autocycle_closeout.ps1` prove bounded replay-proof / closeout-packet assembly only. That is real implementation, but it does not yet satisfy the full end-to-end replay closeout bar.
 
 ## Explicitly Out Of Scope For This Milestone
 - operator-visible or user-facing UI work
