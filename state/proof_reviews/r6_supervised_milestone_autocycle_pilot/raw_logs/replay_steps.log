@@ -1,0 +1,13 @@
+﻿[2026-04-22T15:44:25Z] Starting exact R6 supervised milestone autocycle proof review replay.
+[2026-04-22T15:44:25Z] Proposal generated at state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json
+[2026-04-22T15:44:26Z] Approval and freeze recorded at state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/cycle/approvals/approval-r6-supervised-milestone-autocycle-pilot-proof-001.json and state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json
+[2026-04-22T15:44:45Z] Baseline binding recorded at state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json
+[2026-04-22T15:44:45Z] Preparing governed dispatch for frozen task task-r6-pilot-001
+[2026-04-22T15:46:28Z] Preparing governed dispatch for frozen task task-r6-pilot-002
+[2026-04-22T15:48:27Z] Preparing governed dispatch for frozen task task-r6-pilot-003
+[2026-04-22T15:50:42Z] Preparing governed dispatch for frozen task task-r6-pilot-004
+[2026-04-22T15:53:13Z] Preparing governed dispatch for frozen task task-r6-pilot-005
+[2026-04-22T15:56:06Z] Preparing governed dispatch for frozen task task-r6-pilot-006
+[2026-04-22T16:02:01Z] Summary and decision packet recorded at state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/summary/summaries/summary-r6-supervised-milestone-autocycle-pilot-proof-001.json and state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/summary/decision_packets/decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json
+[2026-04-22T16:02:01Z] Replay proof and closeout packet recorded at state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/closeout/replay_proofs/replay-proof-r6-supervised-milestone-autocycle-pilot-proof-001.json and state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/closeout/closeout_packets/closeout-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json
+[2026-04-22T16:14:20Z] Proof review package validated successfully.

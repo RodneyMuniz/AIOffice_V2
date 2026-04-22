@@ -343,3 +343,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: that narrower implementation result is insufficient for formal `R6` closure because the original `R6-009` bar still requires one exact pilot replay from intake to operator decision with committed raw logs, committed summary artifacts, committed selection scope, committed replay-source metadata, honest closeout wording matched to replay scope, and explicit non-claims.
 - Consequence: no authoritative surface should claim `R6` formally closed or claim that no implementation milestone is open until the original `R6-009` bar is actually met.
 - Consequence: the next gated step inside active `R6` remains `R6-009` Produce one replayable supervised pilot proof and closeout packet.
+
+## D-0041 R6-009 Closed On The Original Replay Bar
+- Date: 2026-04-23
+- Status: accepted
+- Decision: the committed proof-review package under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743` satisfies the original `R6-009` replay-closeout bar, so `R6-009` is complete and `R6 Supervised Milestone Autocycle Pilot` is formally closed in repo truth.
+- Consequence: the package commits raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, explicit non-claims, and advisory-only operator decision state for the exact pilot replay from structured intake through operator decision.
+- Consequence: this decision, not superseded `D-0039`, is the closure authority because it meets the original replay-closeout acceptance bar without softening the scope or claiming executed operator choice.
+- Consequence: this closes `R6 Supervised Milestone Autocycle Pilot` in repo truth as one bounded supervised pilot only. It does not prove executed operator acceptance, broader autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: no later implementation milestone is open yet in repo truth.

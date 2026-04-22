@@ -1,0 +1,53 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_execution_evidence",
+    "evidence_bundle_id":  "execution-evidence-task-r6-pilot-003",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "dispatch_id":  "dispatch-task-r6-pilot-003",
+    "dispatch_ref":  "../../dispatch/dispatches/dispatch-task-r6-pilot-003.json",
+    "run_ledger_id":  "run-ledger-task-r6-pilot-003",
+    "run_ledger_ref":  "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-003.json",
+    "task_id":  "task-r6-pilot-003",
+    "executor_type":  "codex",
+    "baseline_binding_ref":  "../../baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "changed_files":  [
+                          {
+                              "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/artifact.txt",
+                              "change_kind":  "added",
+                              "notes":  "Replay artifact generated for the task."
+                          },
+                          {
+                              "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/test-output.log",
+                              "change_kind":  "added",
+                              "notes":  "Replay test output generated for the task."
+                          },
+                          {
+                              "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/evidence-ref.md",
+                              "change_kind":  "added",
+                              "notes":  "Replay evidence reference generated for the task."
+                          }
+                      ],
+    "produced_artifacts":  [
+                               {
+                                   "kind":  "executor_artifact",
+                                   "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/artifact.txt",
+                                   "notes":  "Durable replay artifact for the task."
+                               }
+                           ],
+    "test_outputs":  [
+                         {
+                             "kind":  "powershell_log",
+                             "ref":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/test-output.log",
+                             "notes":  "Durable replay test output for the task."
+                         }
+                     ],
+    "evidence_refs":  [
+                          {
+                              "kind":  "executor_note",
+                              "ref":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/evidence-ref.md",
+                              "notes":  "Durable replay evidence reference for the task."
+                          }
+                      ],
+    "notes":  "Replay execution evidence bundle for frozen task task-r6-pilot-003."
+}

@@ -1,0 +1,62 @@
+{
+    "contract_version":  "v1",
+    "record_type":  "governed_work_object",
+    "object_type":  "task",
+    "object_id":  "task-r6-pilot-002",
+    "title":  "Freeze approved milestone task set",
+    "summary":  "Turn an operator-approved proposal into one frozen milestone state with the exact proposed task set.",
+    "status":  "ready",
+    "created_at":  "2026-04-22T15:44:26Z",
+    "created_by":  {
+                       "role":  "control_kernel",
+                       "id":  "control-kernel:milestone-autocycle-baseline-binding"
+                   },
+    "parent":  {
+                   "object_type":  "milestone",
+                   "object_id":  "milestone-r6-autocycle-pilot-001",
+                   "ref":  "state/fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+               },
+    "lineage":  {
+                    "source_kind":  "milestone_plan",
+                    "source_refs":  [
+                                        "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                                        "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+                                    ],
+                    "rationale":  "Accepted planning surface materialized from the approved frozen milestone task set for Git-backed baseline binding only."
+                },
+    "relationships":  [
+                          {
+                              "relation":  "depends_on",
+                              "object_type":  "task",
+                              "object_id":  "task-r6-pilot-001",
+                              "ref":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/baseline_binding/planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001.task.json",
+                              "notes":  "Dependency preserved from the frozen milestone task set for baseline binding."
+                          }
+                      ],
+    "evidence":  [
+                     {
+                         "kind":  "decision_record",
+                         "ref":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                         "summary":  "The approved freeze authorizes this accepted planning surface for baseline binding."
+                     }
+                 ],
+    "audit":  {
+                  "trail_refs":  [
+                                     "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                                     "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+                                 ],
+                  "last_reviewed_at":  "2026-04-22T15:44:26Z",
+                  "notes":  "Accepted planning surface materialized from the committed freeze before dispatch."
+              },
+    "scope_summary":  "Turn an operator-approved proposal into one frozen milestone state with the exact proposed task set.",
+    "task_kind":  "governance",
+    "requested_outcome":  "Persist one durable freeze artifact that records operator authority and the exact frozen task set.",
+    "acceptance_checks":  [
+                              "Unapproved proposals do not freeze.",
+                              "Frozen task set matches the approved proposal exactly."
+                          ],
+    "non_goals":  [
+                      "Executor dispatch",
+                      "Automatic approval"
+                  ]
+}

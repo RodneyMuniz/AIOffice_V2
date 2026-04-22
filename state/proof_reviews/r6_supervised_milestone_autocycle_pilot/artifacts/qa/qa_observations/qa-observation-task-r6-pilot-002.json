@@ -1,0 +1,29 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_qa_observation",
+    "qa_observation_id":  "qa-observation-task-r6-pilot-002",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "dispatch_id":  "dispatch-task-r6-pilot-002",
+    "execution_evidence_ref":  "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-002.json",
+    "evidence_bundle_id":  "execution-evidence-task-r6-pilot-002",
+    "task_id":  "task-r6-pilot-002",
+    "executor_type":  "codex",
+    "baseline_binding_ref":  "../../baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "status":  "passed",
+    "findings":  [
+                     {
+                         "finding_id":  "finding-task-r6-pilot-002",
+                         "summary":  "QA passed for replayed task task-r6-pilot-002.",
+                         "notes":  "Replay QA finding for the exact pilot scope."
+                     }
+                 ],
+    "evidence_refs":  [
+                          {
+                              "kind":  "qa_note",
+                              "ref":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/qa_inputs/task-r6-pilot-002-qa.md",
+                              "notes":  "Durable replay QA evidence reference for the task."
+                          }
+                      ],
+    "notes":  "Replay QA observation for frozen task task-r6-pilot-002."
+}

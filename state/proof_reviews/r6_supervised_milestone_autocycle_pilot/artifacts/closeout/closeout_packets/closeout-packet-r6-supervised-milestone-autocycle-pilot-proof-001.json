@@ -1,0 +1,26 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_closeout_packet",
+    "closeout_packet_id":  "closeout-packet-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "replay_proof_ref":  "../replay_proofs/replay-proof-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "replay_proof_id":  "replay-proof-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "summary_ref":  "../../summary/summaries/summary-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "summary_id":  "summary-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "decision_packet_ref":  "../../summary/decision_packets/decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "decision_packet_id":  "decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "operator_decision_state":  "advisory_only_not_executed",
+    "closeout_scope":  "Exact closeout scope: close out only cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 from structured intake state/fixtures/valid/milestone_autocycle/proposal_intake.valid.json through advisory-only operator decision across frozen tasks task-r6-pilot-001, task-r6-pilot-002, task-r6-pilot-003, task-r6-pilot-004, task-r6-pilot-005, task-r6-pilot-006.",
+    "proved_scope":  "Proved scope: cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 replays one exact supervised pilot path from intake, proposal, approval, freeze, one Git-backed baseline binding, 6 sequential governed dispatches with matching run ledgers, 6 execution evidence bundles, 6 QA observations rolled into one milestone QA aggregation, one bounded summary, one advisory-only operator decision packet, one replay proof, and one closeout packet.",
+    "unproved_scope":  "Unproved scope: no explicit operator acceptance artifact is referenced for cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001, so this replay does not prove an executed operator choice beyond advisory review surfaces.",
+    "out_of_scope":  "Out of scope: broader autonomy, unattended automatic resume, rollback execution, UI, Standard runtime, multi-repo behavior, swarms, and broader orchestration.",
+    "non_claims":  [
+                       "No operator decision was executed; the operator decision remains advisory only.",
+                       "This replay does not prove broader autonomy.",
+                       "This replay does not prove rollback execution.",
+                       "This replay does not prove unattended automatic resume.",
+                       "This replay does not prove UI or Standard runtime productization.",
+                       "This replay does not prove multi-repo behavior, swarms, or broader orchestration."
+                   ],
+    "notes":  "Closeout packet assembled from the exact R6 supervised pilot replay only."
+}

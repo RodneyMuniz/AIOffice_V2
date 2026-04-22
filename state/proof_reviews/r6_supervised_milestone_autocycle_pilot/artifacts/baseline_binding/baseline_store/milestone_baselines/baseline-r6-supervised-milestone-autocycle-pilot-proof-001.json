@@ -1,0 +1,156 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_baseline",
+    "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "baseline_kind":  "milestone_checkpoint",
+    "milestone":  {
+                      "object_id":  "milestone-r6-autocycle-pilot-001",
+                      "ref":  "../../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json",
+                      "status":  "active"
+                  },
+    "captured_at":  "2026-04-22T15:44:26Z",
+    "captured_by":  {
+                        "role":  "control_kernel",
+                        "id":  "control-kernel:milestone-autocycle-baseline-binding"
+                    },
+    "authority":  {
+                      "operator_id":  "operator:rodney",
+                      "approved_at":  "2026-04-22T15:44:26Z",
+                      "reason":  "Bind frozen milestone \u0027freeze-r6-supervised-milestone-autocycle-pilot-proof-001\u0027 to one Git-backed baseline anchor before dispatch."
+                  },
+    "git":  {
+                "repository_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2",
+                "branch":  "feature/r5-closeout-remaining-foundations",
+                "head_commit":  "9069b29ace87d787515b4c4fb5e9c94e6fa40743",
+                "tree_id":  "cd4dad7891ebdafd8b641f5957c0422f33937ca4",
+                "status_lines":  [
+
+                                 ],
+                "working_tree_clean":  true,
+                "captured_from_clean_worktree":  true
+            },
+    "planning_record_refs":  [
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-001",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 },
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-002",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 },
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-003",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 },
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-004",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 },
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-005",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 },
+                                 {
+                                     "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006",
+                                     "object_type":  "task",
+                                     "object_id":  "task-r6-pilot-006",
+                                     "view":  "accepted",
+                                     "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006.json",
+                                     "accepted_record_ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006.task.json",
+                                     "notes":  "Accepted planning record captured into the milestone Git baseline."
+                                 }
+                             ],
+    "evidence":  [
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-001.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-001\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-002.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-002\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-003.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-003\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-004\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-005.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-005\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "planning_record",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006.json",
+                         "summary":  "Accepted planning record \u0027planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006\u0027 is included in the milestone baseline."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../planning_records/freeze-r6-supervised-milestone-autocycle-pilot-proof-001/accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-006.task.json",
+                         "summary":  "Accepted planning surface \u0027task-r6-pilot-006\u0027 is captured as milestone-baseline evidence."
+                     },
+                     {
+                         "kind":  "artifact",
+                         "ref":  "../../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json",
+                         "summary":  "Milestone work object captured as the baseline scope anchor."
+                     }
+                 ],
+    "notes":  "Git-backed milestone baseline captured from a clean worktree. This is a restore target substrate only and does not claim rollback execution."
+}

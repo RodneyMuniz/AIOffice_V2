@@ -1,0 +1,67 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_replay_proof",
+    "replay_proof_id":  "replay-proof-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "summary_ref":  "../../summary/summaries/summary-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "summary_id":  "summary-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "decision_packet_ref":  "../../summary/decision_packets/decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "decision_packet_id":  "decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "recommendation":  "accept",
+    "operator_decision_state":  "advisory_only_not_executed",
+    "proof_refs":  {
+                       "proposal_ref":  "../../proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                       "approval_ref":  "../../cycle/approvals/approval-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                       "freeze_ref":  "../../cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                       "baseline_binding_ref":  "../../baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+                       "dispatch_refs":  [
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-001.json",
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-002.json",
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-003.json",
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-004.json",
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-005.json",
+                                             "../../dispatch/dispatches/dispatch-task-r6-pilot-006.json"
+                                         ],
+                       "run_ledger_refs":  [
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-001.json",
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-002.json",
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-003.json",
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-004.json",
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-005.json",
+                                               "../../dispatch/run_ledgers/run-ledger-task-r6-pilot-006.json"
+                                           ],
+                       "execution_evidence_refs":  [
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-001.json",
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-002.json",
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-003.json",
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-004.json",
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-005.json",
+                                                       "../../evidence/execution_evidence/execution-evidence-task-r6-pilot-006.json"
+                                                   ],
+                       "qa_observation_refs":  [
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-001.json",
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-002.json",
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-003.json",
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-004.json",
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-005.json",
+                                                   "../../qa/qa_observations/qa-observation-task-r6-pilot-006.json"
+                                               ],
+                       "qa_aggregation_ref":  "../../qa/qa_aggregations/qa-aggregation-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+                   },
+    "replay_scope":  "Exact replay scope: cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 replays from structured intake state/fixtures/valid/milestone_autocycle/proposal_intake.valid.json through advisory-only operator decision across frozen tasks task-r6-pilot-001, task-r6-pilot-002, task-r6-pilot-003, task-r6-pilot-004, task-r6-pilot-005, task-r6-pilot-006.",
+    "replay_source":  {
+                          "repository_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2",
+                          "branch":  "feature/r5-closeout-remaining-foundations",
+                          "head_commit":  "9069b29ace87d787515b4c4fb5e9c94e6fa40743"
+                      },
+    "boundary_statement":  "This replay remains bounded to cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 for AIOffice_V2 only and preserves advisory-only operator decision state.",
+    "non_claims":  [
+                       "No operator decision was executed; the operator decision remains advisory only.",
+                       "This replay does not prove broader autonomy.",
+                       "This replay does not prove rollback execution.",
+                       "This replay does not prove unattended automatic resume.",
+                       "This replay does not prove UI or Standard runtime productization.",
+                       "This replay does not prove multi-repo behavior, swarms, or broader orchestration."
+                   ],
+    "notes":  "Replay proof assembled from the exact R6 supervised pilot scenario only."
+}

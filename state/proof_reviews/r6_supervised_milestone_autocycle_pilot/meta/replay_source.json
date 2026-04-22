@@ -1,0 +1,10 @@
+﻿{
+    "scenario_id":  "r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "repository_root_relative":  ".",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "source_head_commit":  "9069b29ace87d787515b4c4fb5e9c94e6fa40743",
+    "source_tree_id":  "cd4dad7891ebdafd8b641f5957c0422f33937ca4",
+    "generated_by_script":  "tools/new_r6_supervised_milestone_autocycle_proof_review.ps1",
+    "generated_at_utc":  "2026-04-22T15:44:24Z"
+}

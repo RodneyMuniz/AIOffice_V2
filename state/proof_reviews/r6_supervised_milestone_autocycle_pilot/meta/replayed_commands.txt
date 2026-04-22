@@ -1,0 +1,2 @@
+﻿powershell -ExecutionPolicy Bypass -File tools\new_r6_supervised_milestone_autocycle_proof_review.ps1 -OutputRoot state/proof_reviews/r6_supervised_milestone_autocycle_pilot
+powershell -ExecutionPolicy Bypass -File tests\test_r6_supervised_milestone_autocycle_proof_review.ps1

@@ -1,0 +1,178 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_freeze",
+    "freeze_id":  "freeze-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "proposal_id":  "proposal-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "proposal_ref":  "../../proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "approved_at":  "2026-04-22T15:44:25Z",
+    "approved_by":  "operator:rodney",
+    "approval_status":  "approved",
+    "frozen_task_set":  [
+                            {
+                                "sequence":  1,
+                                "task_id":  "task-r6-pilot-001",
+                                "title":  "Validate proposal intake and milestone lineage",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "governance",
+                                "scope_summary":  "Validate the structured intake, the request brief lineage, and the anchored milestone target.",
+                                "requested_outcome":  "Produce one contract-valid milestone proposal only when the intake, request brief, and milestone target align.",
+                                "acceptance_checks":  [
+                                                          "Malformed proposal intake is rejected.",
+                                                          "Request lineage resolves to the supplied request brief.",
+                                                          "The intake milestone target resolves to the intended milestone."
+                                                      ],
+                                "non_goals":  [
+                                                  "Operator approval",
+                                                  "Dispatch execution"
+                                              ],
+                                "depends_on_ids":  [
+
+                                                   ],
+                                "notes":  "This task anchors proposal generation to explicit structured inputs only."
+                            },
+                            {
+                                "sequence":  2,
+                                "task_id":  "task-r6-pilot-002",
+                                "title":  "Freeze approved milestone task set",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "governance",
+                                "scope_summary":  "Turn an operator-approved proposal into one frozen milestone state with the exact proposed task set.",
+                                "requested_outcome":  "Persist one durable freeze artifact that records operator authority and the exact frozen task set.",
+                                "acceptance_checks":  [
+                                                          "Unapproved proposals do not freeze.",
+                                                          "Frozen task set matches the approved proposal exactly."
+                                                      ],
+                                "non_goals":  [
+                                                  "Executor dispatch",
+                                                  "Automatic approval"
+                                              ],
+                                "depends_on_ids":  [
+                                                       "task-r6-pilot-001"
+                                                   ],
+                                "notes":  "Freeze remains explicit and operator-controlled."
+                            },
+                            {
+                                "sequence":  3,
+                                "task_id":  "task-r6-pilot-003",
+                                "title":  "Bind frozen milestone to one Git baseline",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "maintenance",
+                                "scope_summary":  "Capture or validate one Git-backed milestone baseline before later dispatch work.",
+                                "requested_outcome":  "Record one durable baseline linkage with repository, branch, head commit, and tree identity.",
+                                "acceptance_checks":  [
+                                                          "Dirty worktrees block baseline binding.",
+                                                          "Repository mismatch blocks baseline binding."
+                                                      ],
+                                "non_goals":  [
+                                                  "Rollback execution",
+                                                  "Executor dispatch"
+                                              ],
+                                "depends_on_ids":  [
+                                                       "task-r6-pilot-002"
+                                                   ],
+                                "notes":  "This task reuses the existing milestone baseline substrate rather than duplicating it."
+                            },
+                            {
+                                "sequence":  4,
+                                "task_id":  "task-r6-pilot-004",
+                                "title":  "Record one governed Codex dispatch",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "feature",
+                                "scope_summary":  "Create the bounded dispatch contract and run ledger for one sequential executor path.",
+                                "requested_outcome":  "Record one dispatchable task contract with explicit scope, expected outputs, and refusal conditions.",
+                                "acceptance_checks":  [
+                                                          "Only one active dispatch is allowed.",
+                                                          "Dispatch records input refs, baseline ref, and refusal conditions."
+                                                      ],
+                                "non_goals":  [
+                                                  "Executor swarms",
+                                                  "Automatic merge or promotion"
+                                              ],
+                                "depends_on_ids":  [
+                                                       "task-r6-pilot-003"
+                                                   ],
+                                "notes":  "Dispatch remains bounded to one executor type and one active run at a time."
+                            },
+                            {
+                                "sequence":  5,
+                                "task_id":  "task-r6-pilot-005",
+                                "title":  "Assemble execution evidence and milestone QA observation",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "feature",
+                                "scope_summary":  "Roll one completed dispatch into a governed evidence bundle and one milestone-visible QA observation.",
+                                "requested_outcome":  "Persist changed files, produced artifacts, test outputs, and one QA outcome per task.",
+                                "acceptance_checks":  [
+                                                          "Missing required evidence blocks bundle assembly.",
+                                                          "Blocked or failed QA stops later progression unless the operator overrides it."
+                                                      ],
+                                "non_goals":  [
+                                                  "Broad QA orchestration",
+                                                  "UI productization"
+                                              ],
+                                "depends_on_ids":  [
+                                                       "task-r6-pilot-004"
+                                                   ],
+                                "notes":  "QA remains bounded to one observation path and one milestone-visible roll-up."
+                            },
+                            {
+                                "sequence":  6,
+                                "task_id":  "task-r6-pilot-006",
+                                "title":  "Generate milestone summary and operator decision packet",
+                                "status":  "proposed",
+                                "parent":  {
+                                               "object_type":  "milestone",
+                                               "object_id":  "milestone-r6-autocycle-pilot-001",
+                                               "ref":  "../../../../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                                           },
+                                "task_kind":  "feature",
+                                "scope_summary":  "Summarize the supervised pilot outcome for operator review without taking an automatic decision.",
+                                "requested_outcome":  "Produce one milestone-level recommendation plus one accept or rework or stop decision packet.",
+                                "acceptance_checks":  [
+                                                          "Summary covers scope, diffs, tests, blockers, and evidence quality.",
+                                                          "Operator receives accept, rework, and stop options only."
+                                                      ],
+                                "non_goals":  [
+                                                  "Automatic acceptance",
+                                                  "Broad orchestration"
+                                              ],
+                                "depends_on_ids":  [
+                                                       "task-r6-pilot-005"
+                                                   ],
+                                "notes":  "The milestone closes only through explicit operator review."
+                            }
+                        ],
+    "operator_authority":  {
+                               "authority_kind":  "operator_controlled",
+                               "operator_id":  "operator:rodney",
+                               "approval_basis":  "explicit_operator_decision",
+                               "status":  "approved",
+                               "notes":  "Operator explicitly approved the milestone proposal freeze."
+                           },
+    "notes":  "Milestone proposal frozen under explicit operator approval only."
+}

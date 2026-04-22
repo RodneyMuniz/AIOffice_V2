@@ -1,0 +1,22 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_approval",
+    "decision_id":  "approval-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "proposal_id":  "proposal-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "proposal_ref":  "../../proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "status":  "approved",
+    "decided_at":  "2026-04-22T15:44:25Z",
+    "decided_by":  "operator:rodney",
+    "operator_authority":  {
+                               "authority_kind":  "operator_controlled",
+                               "operator_id":  "operator:rodney",
+                               "approval_basis":  "explicit_operator_decision",
+                               "status":  "approved",
+                               "notes":  "Operator explicitly approved the milestone proposal freeze."
+                           },
+    "rejection_reasons":  [
+
+                          ],
+    "notes":  "Approve the exact R6 supervised pilot scenario under explicit operator control only."
+}

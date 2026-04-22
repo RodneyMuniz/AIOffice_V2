@@ -1,0 +1,44 @@
+﻿{
+    "scenario_id":  "r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "scope_statement":  "Exact replay scope: cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 replays from structured intake state/fixtures/valid/milestone_autocycle/proposal_intake.valid.json through advisory-only operator decision across frozen tasks task-r6-pilot-001, task-r6-pilot-002, task-r6-pilot-003, task-r6-pilot-004, task-r6-pilot-005, task-r6-pilot-006.",
+    "closeout_scope_statement":  "Exact closeout scope: close out only cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 from structured intake state/fixtures/valid/milestone_autocycle/proposal_intake.valid.json through advisory-only operator decision across frozen tasks task-r6-pilot-001, task-r6-pilot-002, task-r6-pilot-003, task-r6-pilot-004, task-r6-pilot-005, task-r6-pilot-006.",
+    "input_refs":  {
+                       "proposal_intake_ref":  "../../fixtures/valid/milestone_autocycle/proposal_intake.valid.json",
+                       "request_brief_ref":  "../../fixtures/valid/milestone_autocycle/request_brief.valid.json",
+                       "milestone_ref":  "../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json"
+                   },
+    "frozen_task_ids":  [
+                            "task-r6-pilot-001",
+                            "task-r6-pilot-002",
+                            "task-r6-pilot-003",
+                            "task-r6-pilot-004",
+                            "task-r6-pilot-005",
+                            "task-r6-pilot-006"
+                        ],
+    "dispatched_task_ids":  [
+                                "task-r6-pilot-001",
+                                "task-r6-pilot-002",
+                                "task-r6-pilot-003",
+                                "task-r6-pilot-004",
+                                "task-r6-pilot-005",
+                                "task-r6-pilot-006"
+                            ],
+    "replay_chain":  [
+                         "proposal_intake",
+                         "proposal",
+                         "approval",
+                         "freeze",
+                         "baseline_binding",
+                         "dispatch",
+                         "run_ledger",
+                         "execution_evidence",
+                         "qa_observation",
+                         "qa_aggregation",
+                         "summary",
+                         "decision_packet",
+                         "replay_proof",
+                         "closeout_packet"
+                     ],
+    "notes":  "Selection scope records the exact replayed R6 pilot cycle and preserves advisory-only operator decision state."
+}

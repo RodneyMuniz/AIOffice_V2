@@ -1,0 +1,60 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_summary",
+    "summary_id":  "summary-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "qa_aggregation_ref":  "../../qa/qa_aggregations/qa-aggregation-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "aggregation_id":  "qa-aggregation-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "task_coverage":  [
+                          {
+                              "task_id":  "task-r6-pilot-001",
+                              "dispatch_id":  "dispatch-task-r6-pilot-001",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-001",
+                              "status":  "passed"
+                          },
+                          {
+                              "task_id":  "task-r6-pilot-002",
+                              "dispatch_id":  "dispatch-task-r6-pilot-002",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-002",
+                              "status":  "passed"
+                          },
+                          {
+                              "task_id":  "task-r6-pilot-003",
+                              "dispatch_id":  "dispatch-task-r6-pilot-003",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-003",
+                              "status":  "passed"
+                          },
+                          {
+                              "task_id":  "task-r6-pilot-004",
+                              "dispatch_id":  "dispatch-task-r6-pilot-004",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-004",
+                              "status":  "passed"
+                          },
+                          {
+                              "task_id":  "task-r6-pilot-005",
+                              "dispatch_id":  "dispatch-task-r6-pilot-005",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-005",
+                              "status":  "passed"
+                          },
+                          {
+                              "task_id":  "task-r6-pilot-006",
+                              "dispatch_id":  "dispatch-task-r6-pilot-006",
+                              "qa_observation_id":  "qa-observation-task-r6-pilot-006",
+                              "status":  "passed"
+                          }
+                      ],
+    "scope_summary":  "The authoritative QA aggregation covers 6 governed task results for cycle cycle-r6-supervised-milestone-autocycle-pilot-proof-001 across dispatches dispatch-task-r6-pilot-001, dispatch-task-r6-pilot-002, dispatch-task-r6-pilot-003, dispatch-task-r6-pilot-004, dispatch-task-r6-pilot-005, dispatch-task-r6-pilot-006, frozen tasks task-r6-pilot-001, task-r6-pilot-002, task-r6-pilot-003, task-r6-pilot-004, task-r6-pilot-005, task-r6-pilot-006, executor types codex, and pinned baselines baseline-r6-supervised-milestone-autocycle-pilot-proof-001.",
+    "diff_summary":  "Governed execution evidence records 18 changed-file entries across 6 execution bundles. Changed paths: state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-001/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-001/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-001/test-output.log (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-002/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-002/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-002/test-output.log (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/test-output.log (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-004/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-004/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-004/test-output.log (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-005/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-005/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-005/test-output.log (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-006/artifact.txt (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-006/evidence-ref.md (added), state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-006/test-output.log (added).",
+    "test_summary":  "Governed execution evidence records 6 durable test-output refs across test kinds powershell_log. Test refs: state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-001/test-output.log, state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-002/test-output.log, state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-003/test-output.log, state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-004/test-output.log, state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-005/test-output.log, state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-006/test-output.log.",
+    "blocker_summary":  "The authoritative milestone QA state is passed with progression continue. No blocked or failed QA task results are present in the governed aggregation.",
+    "evidence_quality_summary":  "Evidence quality is bounded and traceable through 6 governed execution bundles, 6 QA observations, 6 produced artifacts, 6 execution evidence refs, 6 QA evidence refs, and 6 QA findings. It supports bounded operator review only and remains thinner than replay-grade or closeout-grade evidence.",
+    "non_claims":  [
+                       "This summary is not replay proof.",
+                       "This summary is not final closeout.",
+                       "This summary does not prove broader autonomy.",
+                       "This summary does not prove rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, or swarms."
+                   ],
+    "recommendation":  "accept",
+    "recommendation_is_advisory":  true,
+    "notes":  "Replay milestone summary from the exact governed QA aggregation only."
+}

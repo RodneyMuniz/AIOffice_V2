@@ -1,0 +1,8 @@
+﻿[
+    "No operator decision was executed; the operator decision remains advisory only.",
+    "This replay does not prove broader autonomy.",
+    "This replay does not prove rollback execution.",
+    "This replay does not prove unattended automatic resume.",
+    "This replay does not prove UI or Standard runtime productization.",
+    "This replay does not prove multi-repo behavior, swarms, or broader orchestration."
+]

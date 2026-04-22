@@ -1,0 +1,17 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_run_ledger",
+    "ledger_id":  "run-ledger-task-r6-pilot-006",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "dispatch_id":  "dispatch-task-r6-pilot-006",
+    "dispatch_ref":  "../dispatches/dispatch-task-r6-pilot-006.json",
+    "task_id":  "task-r6-pilot-006",
+    "executor_type":  "codex",
+    "baseline_binding_ref":  "../../baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "status":  "completed",
+    "started_at":  "2026-04-22T15:56:53Z",
+    "completed_at":  "2026-04-22T15:57:19Z",
+    "result_summary":  "Replay dispatch for task task-r6-pilot-006 completed with governed outputs.",
+    "notes":  "Replay executor completed for frozen task task-r6-pilot-006."
+}

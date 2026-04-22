@@ -1,0 +1,64 @@
+{
+    "contract_version":  "v1",
+    "record_type":  "planning_record",
+    "planning_record_id":  "planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004",
+    "object_type":  "task",
+    "object_id":  "task-r6-pilot-004",
+    "created_at":  "2026-04-22T15:44:26Z",
+    "updated_at":  "2026-04-22T15:44:26Z",
+    "pipeline":  {
+                     "mode":  "admin_only_bounded",
+                     "runtime_boundary":  "admin_only",
+                     "standard_runtime_claimed":  false,
+                     "subproject_runtime_claimed":  false,
+                     "orchestration_scope":  "planning_only",
+                     "notes":  "Planning records remain bounded to the admin-only planning substrate and do not imply Standard runtime."
+                 },
+    "scope":  {
+                  "summary":  "Planning record scope is limited to the admin-only control kernel, governed work objects, and planning record surfaces.",
+                  "allowed_surfaces":  [
+                                           "admin_runtime_only",
+                                           "control_kernel",
+                                           "governed_work_objects",
+                                           "planning_records"
+                                       ],
+                  "protected_surfaces":  [
+                                             "admin_runtime_only",
+                                             "planning_records"
+                                         ],
+                  "prohibited_surfaces":  [
+                                              "ui_surfaces",
+                                              "standard_runtime",
+                                              "subproject_runtime",
+                                              "automatic_resume",
+                                              "rollback",
+                                              "broad_orchestration"
+                                          ],
+                  "notes":  "The planning record substrate stays inside the bounded admin-only planning scope."
+              },
+    "working_state":  {
+                          "status":  "ready_for_review",
+                          "record_ref":  "working/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.task.json",
+                          "object_type":  "task",
+                          "object_id":  "task-r6-pilot-004",
+                          "object_status":  "ready",
+                          "last_local_update_at":  "2026-04-22T15:44:26Z",
+                          "notes":  "Working planning surface mirrors the frozen approved task set at baseline-binding time."
+                      },
+    "accepted_state":  {
+                           "status":  "accepted",
+                           "record_ref":  "accepted/planning-freeze-r6-supervised-milestone-autocycle-pilot-proof-001-task-r6-pilot-004.task.json",
+                           "object_type":  "task",
+                           "object_id":  "task-r6-pilot-004",
+                           "object_status":  "ready",
+                           "accepted_at":  "2026-04-22T15:44:26Z",
+                           "accepted_by":  "operator:rodney",
+                           "notes":  "Accepted planning surface materialized from the approved freeze for baseline binding."
+                       },
+    "reconciliation_state":  {
+                                 "status":  "matched",
+                                 "compared_at":  "2026-04-22T15:44:26Z",
+                                 "working_matches_accepted":  true,
+                                 "notes":  "Working and accepted planning surfaces intentionally match when a frozen milestone is baseline-bound."
+                             }
+}

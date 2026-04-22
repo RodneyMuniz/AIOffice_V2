@@ -1,0 +1,46 @@
+﻿{
+    "proposal_intake_ref":  "../../fixtures/valid/milestone_autocycle/proposal_intake.valid.json",
+    "request_brief_ref":  "../../fixtures/valid/milestone_autocycle/request_brief.valid.json",
+    "milestone_ref":  "../../fixtures/valid/milestone_autocycle/governed_work_object.milestone.valid.json",
+    "proposal_ref":  "artifacts/proposal/proposals/proposal-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "approval_ref":  "artifacts/cycle/approvals/approval-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "freeze_ref":  "artifacts/cycle/freezes/freeze-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "baseline_binding_ref":  "artifacts/baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "dispatch_refs":  [
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-001.json",
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-002.json",
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-003.json",
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-004.json",
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-005.json",
+                          "artifacts/dispatch/dispatches/dispatch-task-r6-pilot-006.json"
+                      ],
+    "run_ledger_refs":  [
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-001.json",
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-002.json",
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-003.json",
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-004.json",
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-005.json",
+                            "artifacts/dispatch/run_ledgers/run-ledger-task-r6-pilot-006.json"
+                        ],
+    "execution_evidence_refs":  [
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-001.json",
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-002.json",
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-003.json",
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-004.json",
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-005.json",
+                                    "artifacts/evidence/execution_evidence/execution-evidence-task-r6-pilot-006.json"
+                                ],
+    "qa_observation_refs":  [
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-001.json",
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-002.json",
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-003.json",
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-004.json",
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-005.json",
+                                "artifacts/qa/qa_observations/qa-observation-task-r6-pilot-006.json"
+                            ],
+    "qa_aggregation_ref":  "artifacts/qa/qa_aggregations/qa-aggregation-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "summary_ref":  "artifacts/summary/summaries/summary-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "decision_packet_ref":  "artifacts/summary/decision_packets/decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "replay_proof_ref":  "artifacts/closeout/replay_proofs/replay-proof-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "closeout_packet_ref":  "artifacts/closeout/closeout_packets/closeout-packet-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+}

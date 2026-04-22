@@ -1,0 +1,16 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_decision_packet",
+    "decision_packet_id":  "decision-packet-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "summary_ref":  "../summaries/summary-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "summary_id":  "summary-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "recommendation":  "accept",
+    "recommendation_is_advisory":  true,
+    "options":  [
+                    "accept",
+                    "rework",
+                    "stop"
+                ],
+    "notes":  "Replay operator decision packet remains advisory only."
+}

@@ -1,0 +1,54 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_qa_aggregation",
+    "aggregation_id":  "qa-aggregation-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "milestone_status":  "passed",
+    "progression_state":  "continue",
+    "stop_reason_code":  null,
+    "task_results":  [
+                         {
+                             "task_id":  "task-r6-pilot-001",
+                             "dispatch_id":  "dispatch-task-r6-pilot-001",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-001",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-001.json",
+                             "status":  "passed"
+                         },
+                         {
+                             "task_id":  "task-r6-pilot-002",
+                             "dispatch_id":  "dispatch-task-r6-pilot-002",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-002",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-002.json",
+                             "status":  "passed"
+                         },
+                         {
+                             "task_id":  "task-r6-pilot-003",
+                             "dispatch_id":  "dispatch-task-r6-pilot-003",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-003",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-003.json",
+                             "status":  "passed"
+                         },
+                         {
+                             "task_id":  "task-r6-pilot-004",
+                             "dispatch_id":  "dispatch-task-r6-pilot-004",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-004",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-004.json",
+                             "status":  "passed"
+                         },
+                         {
+                             "task_id":  "task-r6-pilot-005",
+                             "dispatch_id":  "dispatch-task-r6-pilot-005",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-005",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-005.json",
+                             "status":  "passed"
+                         },
+                         {
+                             "task_id":  "task-r6-pilot-006",
+                             "dispatch_id":  "dispatch-task-r6-pilot-006",
+                             "qa_observation_id":  "qa-observation-task-r6-pilot-006",
+                             "qa_observation_ref":  "../qa_observations/qa-observation-task-r6-pilot-006.json",
+                             "status":  "passed"
+                         }
+                     ],
+    "notes":  "Replay milestone QA aggregation across the exact frozen task set."
+}

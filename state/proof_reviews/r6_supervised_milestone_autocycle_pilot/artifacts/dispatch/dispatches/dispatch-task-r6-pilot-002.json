@@ -1,0 +1,51 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_autocycle_dispatch",
+    "dispatch_id":  "dispatch-task-r6-pilot-002",
+    "cycle_id":  "cycle-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "task_id":  "task-r6-pilot-002",
+    "executor_type":  "codex",
+    "baseline_binding_ref":  "../../baseline_binding/baseline_bindings/baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json",
+    "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+    "allowed_scope":  {
+                          "scope_kind":  "frozen_task_dispatch",
+                          "scope_summary":  "Turn an operator-approved proposal into one frozen milestone state with the exact proposed task set.",
+                          "allowed_paths":  [
+                                                "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/**"
+                                            ],
+                          "blocked_paths":  [
+                                                "governance/**",
+                                                "execution/**",
+                                                "README.md"
+                                            ]
+                      },
+    "target_branch":  "feature/r5-closeout-remaining-foundations",
+    "expected_outputs":  [
+                             {
+                                 "kind":  "executor_artifact",
+                                 "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/executor_outputs/task-r6-pilot-002/*",
+                                 "notes":  "Durable executor output for the replayed task."
+                             },
+                             {
+                                 "kind":  "execution_evidence",
+                                 "path":  "state/proof_reviews/r6_supervised_milestone_autocycle_pilot/artifacts/evidence/execution_evidence/*.json",
+                                 "notes":  "Durable governed execution evidence for the replayed task."
+                             }
+                         ],
+    "refusal_conditions":  [
+                               {
+                                   "code":  "repo_state_drift",
+                                   "description":  "Refuse when the live repository branch, head commit, tree, or worktree cleanliness drifts from the pinned baseline."
+                               },
+                               {
+                                   "code":  "executor_evidence_incomplete",
+                                   "description":  "Refuse when required produced artifacts, test outputs, or evidence refs are missing."
+                               },
+                               {
+                                   "code":  "proof_integrity_inconsistent",
+                                   "description":  "Refuse when authoritative replay lineage becomes inconsistent with the frozen pilot cycle."
+                               }
+                           ],
+    "status":  "completed",
+    "notes":  "Governed replay dispatch for frozen task task-r6-pilot-002."
+}
