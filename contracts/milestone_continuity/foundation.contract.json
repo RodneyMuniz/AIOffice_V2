@@ -4,6 +4,7 @@
   "handoff_packet_record_type": "milestone_continuity_handoff_packet",
   "resume_request_record_type": "milestone_continuity_resume_request",
   "resume_result_record_type": "milestone_continuity_resume_result",
+  "ledger_record_type": "milestone_continuity_ledger",
   "fault_event_record_type": "fault_management_event",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
@@ -39,6 +40,20 @@
   ],
   "allowed_resume_execution_claims": [
     "not_implied"
+  ],
+  "allowed_ledger_continuity_states": [
+    "stitched_interrupted_to_supervised_resume"
+  ],
+  "allowed_segment_roles": [
+    "interrupted_boundary",
+    "resumed_successor_prepared"
+  ],
+  "allowed_segment_continuity_states": [
+    "interrupted_checkpointed",
+    "supervised_resume_prepared"
+  ],
+  "allowed_ledger_non_claims": [
+    "stitching_only_no_rollback_plan_no_rollback_drill_no_unattended_recovery"
   ],
   "required_authoritative_ref_fields": [
     "readme_path",

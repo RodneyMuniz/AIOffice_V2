@@ -1,0 +1,100 @@
+{
+  "contract_version": "v1",
+  "record_type": "milestone_continuity_ledger",
+  "ledger_id": "continuity-ledger-r7-005-001",
+  "stitched_at": "2026-04-24T00:45:00Z",
+  "cycle_context": {
+    "cycle_id": "cycle-r7-fault-managed-continuity-001",
+    "milestone_id": "milestone-r7-fault-managed-continuity-and-rollback-drill",
+    "milestone_title": "R7 Fault-Managed Continuity and Rollback Drill"
+  },
+  "repository": {
+    "repository_name": "AIOffice_V2"
+  },
+  "git_context": {
+    "branch": "feature/r5-closeout-remaining-foundations",
+    "head_commit": "c4f004598fb7ae3e09f1cde257c91082d430033a",
+    "tree_id": "58429e49e1681c8c5ecd318512c59a3de1db3884"
+  },
+  "supervision": {
+    "mode": "supervised_operator_controlled",
+    "operator_authority": "operator:rodney",
+    "resume_authority_state": "operator_review_required"
+  },
+  "ledger_continuity_state": "stitched_interrupted_to_supervised_resume",
+  "authoritative_lineage": {
+    "fault_event_ref": {
+      "record_type": "fault_management_event",
+      "event_id": "event-r7-002-context-break-001",
+      "event_path": "state/fixtures/valid/fault_management/fault_event.valid.json"
+    },
+    "checkpoint_ref": {
+      "record_type": "milestone_continuity_checkpoint",
+      "checkpoint_id": "checkpoint-r7-003-segment-001",
+      "checkpoint_path": "state/fixtures/valid/milestone_continuity/continuity_checkpoint.valid.json"
+    },
+    "handoff_packet_ref": {
+      "record_type": "milestone_continuity_handoff_packet",
+      "handoff_id": "handoff-r7-003-segment-001",
+      "handoff_path": "state/fixtures/valid/milestone_continuity/continuity_handoff_packet.valid.json"
+    },
+    "resume_request_ref": {
+      "record_type": "milestone_continuity_resume_request",
+      "resume_request_id": "resume-from-fault-r7-004-001",
+      "resume_request_path": "state/fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json"
+    },
+    "resume_result_ref": {
+      "record_type": "milestone_continuity_resume_result",
+      "resume_result_id": "resume-from-fault-r7-004-001.result",
+      "resume_result_path": "state/fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json"
+    }
+  },
+  "ordered_segments": [
+    {
+      "ordinal": 1,
+      "task_id": "task-r7-002-fault-contracts-001",
+      "segment_id": "segment-r7-002-001",
+      "segment_role": "interrupted_boundary",
+      "continuity_state": "interrupted_checkpointed",
+      "git_context": {
+        "branch": "feature/r5-closeout-remaining-foundations",
+        "head_commit": "c4f004598fb7ae3e09f1cde257c91082d430033a",
+        "tree_id": "58429e49e1681c8c5ecd318512c59a3de1db3884"
+      },
+      "supervision": {
+        "mode": "supervised_operator_controlled",
+        "operator_authority": "operator:rodney",
+        "resume_authority_state": "operator_review_required"
+      }
+    },
+    {
+      "ordinal": 2,
+      "task_id": "task-r7-002-fault-contracts-001",
+      "segment_id": "segment-r7-005-001",
+      "prior_segment_id": "segment-r7-002-001",
+      "segment_role": "resumed_successor_prepared",
+      "continuity_state": "supervised_resume_prepared",
+      "git_context": {
+        "branch": "feature/r5-closeout-remaining-foundations",
+        "head_commit": "c4f004598fb7ae3e09f1cde257c91082d430033a",
+        "tree_id": "58429e49e1681c8c5ecd318512c59a3de1db3884"
+      },
+      "supervision": {
+        "mode": "supervised_operator_controlled",
+        "operator_authority": "operator:rodney",
+        "resume_authority_state": "operator_review_required"
+      }
+    }
+  ],
+  "authoritative_refs": {
+    "readme_path": "README.md",
+    "active_state_path": "governance/ACTIVE_STATE.md",
+    "kanban_path": "execution/KANBAN.md",
+    "decision_log_path": "governance/DECISION_LOG.md",
+    "milestone_authority_path": "governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md"
+  },
+  "non_claims": [
+    "stitching_only_no_rollback_plan_no_rollback_drill_no_unattended_recovery"
+  ],
+  "notes": "This continuity ledger stitches one interrupted segment to one supervised prepared successor segment from accepted R7 fault, checkpoint, handoff, and resume artifacts only. It does not generate rollback plans, execute rollback drills, or imply unattended recovery."
+}

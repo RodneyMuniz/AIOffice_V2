@@ -389,3 +389,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove unattended automatic resume, continuity ledger stitching, rollback plan generation, rollback drill execution, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: the accepted slice also does not prove destructive primary-tree rollback or any broader recovery orchestration beyond one prepared supervised re-entry result.
 - Consequence: the next gated step inside R7 is `R7-005 Add continuity ledger and multi-segment milestone stitching`.
+
+## D-0046 R7-005 Added Continuity Ledger And Multi-Segment Milestone Stitching
+- Date: 2026-04-24
+- Status: accepted
+- Decision: `R7-005` is complete as a bounded continuity-ledger slice through `contracts/milestone_continuity/continuity_ledger.contract.json`, `tools/MilestoneContinuityLedger.psm1`, `tools/validate_milestone_continuity_ledger.ps1`, `state/fixtures/valid/milestone_continuity/continuity_ledger.valid.json`, and focused proof through `tests/test_milestone_continuity_ledger.ps1`.
+- Consequence: the accepted slice proves one authoritative continuity ledger that stitches one interrupted segment to one supervised prepared successor segment from accepted `R7-002` fault-event truth, accepted `R7-003` checkpoint and handoff truth, and accepted `R7-004` supervised resume truth only; it preserves segment lineage, ordering, and continuity state across governed interruption and supervised resume boundaries and fails closed on missing prior links, contradictory ordering, milestone or cycle or task or segment identity drift, repository or git-context mismatch, and malformed ledger state.
+- Consequence: this acceptance does not prove rollback plan generation, rollback drill execution, unattended automatic resume, destructive primary-tree rollback, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the next gated step inside R7 is `R7-006 Add governed rollback plan artifact`.
