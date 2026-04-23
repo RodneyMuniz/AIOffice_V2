@@ -14,13 +14,17 @@ The honest next claim is not "make sessions longer." The honest next claim is "m
 Prove one interrupted-and-resumed supervised milestone cycle for `AIOffice_V2` only, with first-class interruption truth, governed continuity checkpoints and handoff packets, one governed rollback plan, and one safe rollback drill in a disposable environment, without widening into unattended automatic resume, destructive primary-tree rollback, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 
 ## Current status
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth as bounded structure only.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` and `R7-002` complete.
 
-`R7-001` is complete as the repo-truth open step. No fault-managed continuity runtime behavior, resume-from-fault behavior, governed rollback-plan execution, rollback drill harness, or closeout proof package is implemented or proved by this opening step.
+`R7-001` is complete as the repo-truth open step.
+
+`R7-002` is complete as a bounded fault/interruption contract slice through `contracts/fault_management/foundation.contract.json`, `contracts/fault_management/fault_event.contract.json`, `tools/FaultManagement.psm1`, `tools/validate_fault_event.ps1`, `state/fixtures/valid/fault_management/fault_event.valid.json`, and focused proof through `tests/test_fault_management_event.ps1`. That slice proves first-class interruption/fault contract shape, durable identity, repository plus branch/head/tree context, supervision state, required next action, explicit `automatic_recovery_claim` non-claim, and fail-closed validation only.
 
 `R6 Supervised Milestone Autocycle Pilot` remains formally closed on the original replay-closeout bar under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`.
 
-The next gated step inside active R7 is `R7-002 Add first-class fault / interruption event contracts`.
+The next gated step inside active R7 is `R7-003 Emit governed continuity checkpoints and handoff packets`.
+
+The accepted `R7-002` slice does not yet prove continuity checkpoints, handoff packets, supervised resume-from-fault behavior, continuity ledger stitching, governed rollback-plan generation, rollback drill execution, unattended automatic resume, or destructive primary-tree rollback.
 
 ## Exact boundary
 This milestone is bounded to:
@@ -121,8 +125,8 @@ R7 does not currently prove and must not casually widen into:
 - Done when: R7 is open in repo truth as bounded structure only, R6 remains honestly closed on the original replay-closeout bar, the real R6 continuity and context-window break is frozen into R7 rationale and ordering, the rollback safety boundary is explicit and narrow, and no implementation beyond the opening step is implied
 
 ### `R7-002` Add first-class fault / interruption event contracts
-- Status: planned
-- Done when: interruption and fault events have explicit governed contract shape, identity, required fields, and fail-closed validation without yet claiming resume behavior
+- Status: done
+- Done when: interruption and fault events have explicit governed contract shape, identity, repository plus git context, supervision state, required next action, explicit `automatic_recovery_claim` non-claim, and fail-closed validation without yet claiming checkpoints, handoff packets, or resume behavior
 
 ### `R7-003` Emit governed continuity checkpoints and handoff packets
 - Status: planned
@@ -154,6 +158,7 @@ R7 does not currently prove and must not casually widen into:
 
 ## Milestone notes
 - `R7-001` opens R7 in repo truth as bounded structure only. It does not claim that fault-managed continuity, resume-from-fault, rollback planning, rollback drill execution, or closeout proof is implemented.
+- `R7-002` now makes interruption and fault records first-class governed repo truth through explicit contracts and fail-closed validation only. It does not emit checkpoints or handoff packets, it does not resume from fault, and it does not generate rollback plans or drills.
 - The real R6 continuity and context-window break is preserved here as an ordering driver: interruption and continuity truth comes first, before rollback drill work and far before any UI or orchestration growth.
 - R7 keeps rollback rehearsal explicitly disposable. Any Git-mutating rollback drill still requires explicit operator approval and must not target the primary working tree.
 - Advisory operator review remains the ceiling for this milestone unless later repo truth proves more.

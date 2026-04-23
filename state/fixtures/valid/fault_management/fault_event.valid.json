@@ -1,0 +1,36 @@
+{
+  "contract_version": "v1",
+  "record_type": "fault_management_event",
+  "event_id": "event-r7-002-context-break-001",
+  "event_type": "interruption",
+  "event_category": "context_window_break",
+  "reason_summary": "The supervised milestone segment lost continuity because the working session hit a context-window break and requires explicit operator review before any later follow-up.",
+  "trigger_classification": "runtime_detected",
+  "occurred_at": "2026-04-23T04:15:00Z",
+  "cycle_context": {
+    "cycle_id": "cycle-r7-fault-managed-continuity-001",
+    "milestone_id": "milestone-r7-fault-managed-continuity-and-rollback-drill",
+    "milestone_title": "R7 Fault-Managed Continuity and Rollback Drill"
+  },
+  "affected_scope": {
+    "scope_level": "task",
+    "task_id": "task-r7-002-fault-contracts-001",
+    "segment_id": "segment-r7-002-001"
+  },
+  "repository": {
+    "repository_name": "AIOffice_V2"
+  },
+  "git_context": {
+    "branch": "feature/r5-closeout-remaining-foundations",
+    "head_commit": "c4f004598fb7ae3e09f1cde257c91082d430033a",
+    "tree_id": "58429e49e1681c8c5ecd318512c59a3de1db3884"
+  },
+  "supervision": {
+    "mode": "supervised_operator_controlled",
+    "operator_authority": "operator:rodney",
+    "resume_authority_state": "operator_review_required"
+  },
+  "required_next_action": "operator_review_required",
+  "automatic_recovery_claim": "not_implied",
+  "notes": "This event records interruption truth only. It does not emit checkpoints, handoff packets, or resume behavior."
+}

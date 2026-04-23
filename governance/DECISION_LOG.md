@@ -363,3 +363,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: opening R7 does not prove fault-managed continuity, supervised resume-from-fault behavior, rollback execution, rollback drill execution, UI, Standard runtime, multi-repo behavior, swarms, broader orchestration, or unattended automatic resume.
 - Consequence: R7 remains bounded to one repository, one active milestone cycle at a time, one interrupted-and-resumed supervised cycle only, one governed rollback plan only, one safe rollback drill only in a disposable environment, explicit operator approval before any rollback drill that mutates Git state, one replayable proof package at closeout, and advisory operator review only unless later repo truth proves more.
 - Consequence: `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `D-0041`; the real R6 continuity and context-window break is carried forward as an R7 scope driver, not as grounds to reopen R6.
+
+## D-0043 R7-002 Added First-Class Fault And Interruption Event Contracts
+- Date: 2026-04-23
+- Status: accepted
+- Decision: `R7-002` is complete as a bounded fault/interruption contract slice through `contracts/fault_management/foundation.contract.json`, `contracts/fault_management/fault_event.contract.json`, `tools/FaultManagement.psm1`, `tools/validate_fault_event.ps1`, and focused proof through `tests/test_fault_management_event.ps1`.
+- Consequence: the accepted slice proves first-class interruption/fault contract shape, durable identity, repository plus branch/head/tree context, supervision state, required next action, explicit `automatic_recovery_claim` non-claim, and fail-closed validation only.
+- Consequence: this acceptance does not prove continuity checkpointing, handoff packet emission, supervised resume-from-fault behavior, continuity ledger stitching, rollback plan generation, rollback drill execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the first implementation priority inside R7 remains interruption and continuity truth rather than UI or autonomy theater.
+- Consequence: the next gated step inside R7 is `R7-003 Emit governed continuity checkpoints and handoff packets`.

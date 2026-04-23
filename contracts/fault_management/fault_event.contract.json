@@ -1,0 +1,42 @@
+{
+  "record_type": "fault_management_event",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "event_id",
+    "event_type",
+    "event_category",
+    "reason_summary",
+    "trigger_classification",
+    "occurred_at",
+    "cycle_context",
+    "affected_scope",
+    "repository",
+    "git_context",
+    "supervision",
+    "required_next_action",
+    "automatic_recovery_claim",
+    "notes"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "affected_scope_required_fields": [
+    "scope_level"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "git_context_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ]
+}

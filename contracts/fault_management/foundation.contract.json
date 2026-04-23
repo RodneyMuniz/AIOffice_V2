@@ -1,0 +1,52 @@
+{
+  "contract_version": "v1",
+  "fault_event_record_type": "fault_management_event",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "operator_pattern": "^operator:[a-z0-9][a-z0-9._-]*$",
+  "repository_name": "AIOffice_V2",
+  "allowed_event_types": [
+    "interruption",
+    "fault"
+  ],
+  "allowed_interruption_categories": [
+    "context_window_break",
+    "session_terminated",
+    "operator_interruption",
+    "external_interruption"
+  ],
+  "allowed_fault_categories": [
+    "tool_failure",
+    "validation_refusal",
+    "repository_state_drift",
+    "dependency_unavailable"
+  ],
+  "allowed_trigger_classifications": [
+    "runtime_detected",
+    "operator_observed",
+    "validation_detected",
+    "external_condition_detected"
+  ],
+  "allowed_scope_levels": [
+    "cycle",
+    "task"
+  ],
+  "allowed_supervision_modes": [
+    "supervised_operator_controlled"
+  ],
+  "allowed_resume_authority_states": [
+    "not_granted",
+    "operator_review_required"
+  ],
+  "allowed_required_next_actions": [
+    "operator_review_required",
+    "manual_continuity_follow_up_required",
+    "manual_repo_state_review_required",
+    "cycle_stop_required"
+  ],
+  "allowed_automatic_recovery_claims": [
+    "not_implied"
+  ]
+}
