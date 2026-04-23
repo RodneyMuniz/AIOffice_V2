@@ -1,0 +1,75 @@
+{
+  "record_type": "milestone_continuity_rollback_plan",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "rollback_plan_id",
+    "rollback_plan_request_id",
+    "planned_at",
+    "cycle_context",
+    "repository",
+    "source_continuity",
+    "rollback_target",
+    "environment_constraints",
+    "supervision",
+    "operator_approval",
+    "refusal_conditions",
+    "execution_state",
+    "authoritative_refs",
+    "non_claims",
+    "notes"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "ledger_ref_required_fields": [
+    "record_type",
+    "ledger_id",
+    "ledger_path"
+  ],
+  "source_continuity_required_fields": [
+    "ledger_ref",
+    "task_id",
+    "interrupted_segment_id",
+    "successor_segment_id",
+    "ledger_continuity_state"
+  ],
+  "baseline_binding_ref_required_fields": [
+    "record_type",
+    "binding_id",
+    "binding_path"
+  ],
+  "baseline_ref_required_fields": [
+    "record_type",
+    "baseline_id",
+    "baseline_path"
+  ],
+  "rollback_target_required_fields": [
+    "target_scope",
+    "baseline_binding_ref",
+    "baseline_ref",
+    "repository_root",
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "environment_constraints_required_fields": [
+    "allowed_environment_scope",
+    "primary_worktree_execution"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "operator_approval_required_fields": [
+    "approval_required",
+    "required_authority_state",
+    "approved_for_execution"
+  ]
+}

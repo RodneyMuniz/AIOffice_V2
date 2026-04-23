@@ -5,6 +5,8 @@
   "resume_request_record_type": "milestone_continuity_resume_request",
   "resume_result_record_type": "milestone_continuity_resume_result",
   "ledger_record_type": "milestone_continuity_ledger",
+  "rollback_plan_request_record_type": "milestone_continuity_rollback_plan_request",
+  "rollback_plan_record_type": "milestone_continuity_rollback_plan",
   "fault_event_record_type": "fault_management_event",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
@@ -54,6 +56,23 @@
   ],
   "allowed_ledger_non_claims": [
     "stitching_only_no_rollback_plan_no_rollback_drill_no_unattended_recovery"
+  ],
+  "allowed_rollback_target_scopes": [
+    "milestone_baseline_anchor"
+  ],
+  "allowed_rollback_environment_scopes": [
+    "disposable_branch",
+    "disposable_worktree",
+    "replay_sandbox"
+  ],
+  "allowed_rollback_primary_worktree_execution_states": [
+    "refused"
+  ],
+  "allowed_rollback_execution_states": [
+    "not_executed"
+  ],
+  "allowed_rollback_non_claims": [
+    "plan_only_no_execution_no_drill_no_primary_worktree_rollback"
   ],
   "required_authoritative_ref_fields": [
     "readme_path",

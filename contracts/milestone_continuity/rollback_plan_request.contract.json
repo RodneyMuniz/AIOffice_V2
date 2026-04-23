@@ -1,0 +1,21 @@
+{
+  "record_type": "milestone_continuity_rollback_plan_request",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "rollback_plan_request_id",
+    "requested_at",
+    "continuity_ledger_ref",
+    "target_scope",
+    "allowed_environment_scope",
+    "operator_approval_required",
+    "required_approval_state",
+    "refusal_conditions",
+    "notes"
+  ],
+  "continuity_ledger_ref_required_fields": [
+    "record_type",
+    "ledger_id",
+    "ledger_path"
+  ]
+}

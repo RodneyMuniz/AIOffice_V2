@@ -1,0 +1,21 @@
+{
+  "contract_version": "v1",
+  "record_type": "milestone_continuity_rollback_plan_request",
+  "rollback_plan_request_id": "rollback-plan-request-r7-006-001",
+  "requested_at": "2026-04-24T01:30:00Z",
+  "continuity_ledger_ref": {
+    "record_type": "milestone_continuity_ledger",
+    "ledger_id": "continuity-ledger-r7-005-001",
+    "ledger_path": "state/fixtures/valid/milestone_continuity/continuity_ledger.valid.json"
+  },
+  "target_scope": "milestone_baseline_anchor",
+  "allowed_environment_scope": "disposable_worktree",
+  "operator_approval_required": true,
+  "required_approval_state": "operator_review_required",
+  "refusal_conditions": [
+    "Refuse when the referenced baseline binding or baseline is missing, malformed, or contradictory.",
+    "Refuse when rollback target scope, repository root, branch, head commit, or tree id diverges from the referenced baseline truth.",
+    "Refuse when operator approval requirement is absent, execution is implied, or primary-worktree rollback is requested."
+  ],
+  "notes": "Prepare one governed rollback plan from accepted continuity-ledger truth plus accepted baseline-binding truth only. This request remains explicitly pre-execution."
+}

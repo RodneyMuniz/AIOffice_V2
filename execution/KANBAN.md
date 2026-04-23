@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R7 Fault-Managed Continuity and Rollback Drill`
 
 Current posture:
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-005` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-006 Add governed rollback plan artifact`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts, governed checkpoint and handoff artifacts, one supervised resume-from-fault re-entry path, and one authoritative continuity ledger now exist, but rollback plan generation, rollback drill behavior, and destructive primary-tree rollback are still unproved here.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-006` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-007 Add safe rollback drill harness`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts, governed checkpoint and handoff artifacts, one supervised resume-from-fault re-entry path, one authoritative continuity ledger, and one governed pre-execution rollback plan now exist, but rollback drill behavior and destructive primary-tree rollback are still unproved here.
 
 ## Most Recently Closed Milestone
 `R6 Supervised Milestone Autocycle Pilot`
@@ -62,13 +62,13 @@ Closeout summary:
 - Done when: one interrupted milestone preserves authoritative segment lineage, ordering, and continuity state across governed interruption and supervised resume boundaries through `contracts/milestone_continuity/continuity_ledger.contract.json`, `tools/MilestoneContinuityLedger.psm1`, `tools/validate_milestone_continuity_ledger.ps1`, `state/fixtures/valid/milestone_continuity/continuity_ledger.valid.json`, and `tests/test_milestone_continuity_ledger.ps1`
 
 ### `R7-006` Add governed rollback plan artifact
-- Status: planned
+- Status: done
 - Order: 6
 - Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
 - Depends on: `R7-005`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
-- Durable output: one governed rollback plan artifact that stays explicitly pre-execution
-- Done when: rollback targets, approvals, environment constraints, and refusal conditions are durably expressed without executing rollback
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneRollbackPlan.psm1`
+- Durable output: one governed rollback plan artifact that stays explicitly pre-execution and reuses authoritative continuity-ledger plus baseline-binding truth
+- Done when: one governed rollback plan artifact records target scope, approvals, environment constraints, refusal conditions, and target repository or branch or head or tree context durably without executing rollback through `contracts/milestone_continuity/rollback_plan_request.contract.json`, `contracts/milestone_continuity/rollback_plan.contract.json`, `tools/MilestoneRollbackPlan.psm1`, `tools/prepare_milestone_rollback_plan.ps1`, `tools/validate_milestone_rollback_plan.ps1`, `state/fixtures/valid/milestone_continuity/rollback_plan_request.valid.json`, and `tests/test_milestone_rollback_plan.ps1`
 
 ### `R7-007` Add safe rollback drill harness
 - Status: planned
