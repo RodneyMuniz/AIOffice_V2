@@ -2,6 +2,8 @@
   "contract_version": "v1",
   "checkpoint_record_type": "milestone_continuity_checkpoint",
   "handoff_packet_record_type": "milestone_continuity_handoff_packet",
+  "resume_request_record_type": "milestone_continuity_resume_request",
+  "resume_result_record_type": "milestone_continuity_resume_result",
   "fault_event_record_type": "fault_management_event",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
@@ -28,6 +30,12 @@
   "allowed_handoff_next_actions": [
     "operator_review_required",
     "manual_repo_state_review_required"
+  ],
+  "allowed_resume_request_kinds": [
+    "supervised_reentry"
+  ],
+  "allowed_resume_prepared_next_steps": [
+    "resume_supervised_segment"
   ],
   "allowed_resume_execution_claims": [
     "not_implied"

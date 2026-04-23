@@ -1,8 +1,9 @@
 {
   "contract_version": "v1",
-  "record_type": "milestone_continuity_handoff_packet",
-  "handoff_id": "handoff-r7-003-segment-001",
-  "emitted_at": "2026-04-23T06:05:00Z",
+  "record_type": "milestone_continuity_resume_result",
+  "resume_result_id": "resume-from-fault-r7-004-001.result",
+  "resume_request_id": "resume-from-fault-r7-004-001",
+  "prepared_at": "2026-04-23T07:05:00Z",
   "fault_event_ref": {
     "record_type": "fault_management_event",
     "event_id": "event-r7-002-context-break-001",
@@ -12,6 +13,11 @@
     "record_type": "milestone_continuity_checkpoint",
     "checkpoint_id": "checkpoint-r7-003-segment-001",
     "checkpoint_path": "state/fixtures/valid/milestone_continuity/continuity_checkpoint.valid.json"
+  },
+  "handoff_packet_ref": {
+    "record_type": "milestone_continuity_handoff_packet",
+    "handoff_id": "handoff-r7-003-segment-001",
+    "handoff_path": "state/fixtures/valid/milestone_continuity/continuity_handoff_packet.valid.json"
   },
   "cycle_context": {
     "cycle_id": "cycle-r7-fault-managed-continuity-001",
@@ -36,7 +42,12 @@
     "operator_authority": "operator:rodney",
     "resume_authority_state": "operator_review_required"
   },
-  "required_next_action": "operator_review_required",
+  "resume_kind": "supervised_reentry",
+  "prepared_reentry": {
+    "prepared_action": "resume_supervised_segment",
+    "next_operator_visible_step": "Use the prepared supervised resume-from-fault result to resume one governed segment only after explicit operator confirmation.",
+    "prepared_scope_summary": "Resume cycle 'cycle-r7-fault-managed-continuity-001' task 'task-r7-002-fault-contracts-001' segment 'segment-r7-002-001' under explicit operator control only."
+  },
   "authoritative_refs": {
     "readme_path": "README.md",
     "active_state_path": "governance/ACTIVE_STATE.md",
@@ -44,18 +55,11 @@
     "decision_log_path": "governance/DECISION_LOG.md",
     "milestone_authority_path": "governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md"
   },
-  "handoff_summary": {
-    "segment_goal": "Carry one interrupted milestone segment forward without narrative reconstruction.",
-    "completed_work_summary": "The interruption is recorded as a first-class fault event and the segment now has a governed continuity checkpoint anchored to that event.",
-    "handoff_objective": "Preserve enough durable truth for one later supervised segment to continue through the bounded resume-from-fault flow.",
-    "next_operator_visible_step": "Use the supervised resume-from-fault flow to prepare one bounded re-entry result under explicit operator control."
-  },
-  "unresolved_blockers": [
-    "Any actual re-entry remains supervised only; this handoff packet does not authorize unattended automatic resume or broader recovery behavior."
-  ],
-  "interruption_notes": [
-    "This handoff packet preserves the interrupted segment context and authoritative refs only. It does not execute recovery."
+  "refusal_conditions": [
+    "Refuse when the linked fault event, checkpoint, or handoff packet is missing or malformed.",
+    "Refuse when repository, branch, head, tree, cycle, task, or segment identity diverges from accepted continuity truth.",
+    "Refuse when explicit operator authority is absent, malformed, or not in supervised operator-review state."
   ],
   "resume_execution_claim": "not_implied",
-  "notes": "This handoff packet is bounded continuity truth only. It does not authorize unattended or automatic resume."
+  "notes": "This result prepares one supervised re-entry path from accepted R7 fault and continuity artifacts only. It does not execute resume and does not imply unattended automatic resume."
 }

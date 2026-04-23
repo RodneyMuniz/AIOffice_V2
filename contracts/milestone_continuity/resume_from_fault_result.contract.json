@@ -1,0 +1,65 @@
+{
+  "record_type": "milestone_continuity_resume_result",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "resume_result_id",
+    "resume_request_id",
+    "prepared_at",
+    "fault_event_ref",
+    "checkpoint_ref",
+    "handoff_packet_ref",
+    "cycle_context",
+    "scope_context",
+    "repository",
+    "git_context",
+    "supervision",
+    "resume_kind",
+    "prepared_reentry",
+    "authoritative_refs",
+    "refusal_conditions",
+    "resume_execution_claim",
+    "notes"
+  ],
+  "fault_event_ref_required_fields": [
+    "record_type",
+    "event_id",
+    "event_path"
+  ],
+  "checkpoint_ref_required_fields": [
+    "record_type",
+    "checkpoint_id",
+    "checkpoint_path"
+  ],
+  "handoff_packet_ref_required_fields": [
+    "record_type",
+    "handoff_id",
+    "handoff_path"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "scope_context_required_fields": [
+    "scope_level"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "git_context_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "prepared_reentry_required_fields": [
+    "prepared_action",
+    "next_operator_visible_step",
+    "prepared_scope_summary"
+  ]
+}

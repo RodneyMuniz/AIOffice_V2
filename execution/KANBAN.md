@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R7 Fault-Managed Continuity and Rollback Drill`
 
 Current posture:
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-003` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-004 Add supervised resume-from-fault flow`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts plus governed checkpoint and handoff artifacts now exist, but supervised resume-from-fault, continuity ledger stitching, rollback plan generation, and rollback drill behavior are still unproved here.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-004` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-005 Add continuity ledger and multi-segment milestone stitching`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts, governed checkpoint and handoff artifacts, and one supervised resume-from-fault re-entry path now exist, but continuity ledger stitching, rollback plan generation, rollback drill behavior, and destructive primary-tree rollback are still unproved here.
 
 ## Most Recently Closed Milestone
 `R6 Supervised Milestone Autocycle Pilot`
@@ -44,13 +44,13 @@ Closeout summary:
 - Done when: one interrupted milestone segment can emit durable checkpoints and handoff packets that carry enough governed truth to avoid narrative reconstruction through `contracts/milestone_continuity/`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, and `tests/test_milestone_continuity_artifacts.ps1`
 
 ### `R7-004` Add supervised resume-from-fault flow
-- Status: planned
+- Status: done
 - Order: 4
 - Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
 - Depends on: `R7-003`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
-- Durable output: one supervised resume-from-fault flow that re-enters from governed continuity artifacts
-- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed checkpoints and handoff packets under explicit operator control without implying unattended resume
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuityResume.psm1`
+- Durable output: one supervised resume-from-fault request/result surface plus one preparation flow that re-enters from governed continuity artifacts under explicit operator control
+- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed checkpoints and handoff packets under explicit operator control through `contracts/milestone_continuity/resume_from_fault_request.contract.json`, `contracts/milestone_continuity/resume_from_fault_result.contract.json`, `tools/MilestoneContinuityResume.psm1`, `tools/prepare_supervised_resume_from_fault.ps1`, `state/fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json`, `state/fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json`, and `tests/test_milestone_continuity_resume_from_fault.ps1` without implying unattended resume
 
 ### `R7-005` Add continuity ledger and multi-segment milestone stitching
 - Status: planned
@@ -58,7 +58,7 @@ Closeout summary:
 - Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
 - Depends on: `R7-004`
 - Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
-- Durable output: one continuity ledger that stitches governed milestone segments into one authoritative cycle
+- Durable output: one authoritative continuity ledger that stitches governed milestone segments into one bounded continuity view
 - Done when: one interrupted milestone can preserve authoritative segment lineage, ordering, and continuity state across governed resume boundaries
 
 ### `R7-006` Add governed rollback plan artifact

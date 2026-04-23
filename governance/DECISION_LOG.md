@@ -379,4 +379,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Decision: `R7-003` is complete as a bounded checkpoint/handoff artifact slice through `contracts/milestone_continuity/foundation.contract.json`, `contracts/milestone_continuity/continuity_checkpoint.contract.json`, `contracts/milestone_continuity/continuity_handoff_packet.contract.json`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, and focused proof through `tests/test_milestone_continuity_artifacts.ps1`.
 - Consequence: the accepted slice proves governed continuity checkpoint and handoff packet shape, durable identity, explicit lineage back to the accepted `R7-002` fault event, authoritative milestone-artifact refs needed to avoid narrative reconstruction, and fail-closed validation only.
 - Consequence: this acceptance does not prove supervised resume-from-fault behavior, continuity ledger stitching, rollback plan generation, rollback drill execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
-- Consequence: the next gated step inside R7 is `R7-004 Add supervised resume-from-fault flow`.
+- Consequence: at that acceptance point, the next gated step inside R7 became `R7-004 Add supervised resume-from-fault flow`.
+
+## D-0045 R7-004 Added Supervised Resume-From-Fault Flow
+- Date: 2026-04-24
+- Status: accepted
+- Decision: `R7-004` is complete as a bounded supervised resume-from-fault slice through `contracts/milestone_continuity/resume_from_fault_request.contract.json`, `contracts/milestone_continuity/resume_from_fault_result.contract.json`, `tools/MilestoneContinuityResume.psm1`, `tools/prepare_supervised_resume_from_fault.ps1`, and focused proof through `tests/test_milestone_continuity_resume_from_fault.ps1`.
+- Consequence: the accepted slice proves one supervised re-entry path from accepted `R7-002` fault-event truth plus accepted `R7-003` checkpoint and handoff artifacts under explicit operator control only, emits one prepared resume result, and fails closed on missing refs, malformed or contradictory continuity state, invalid operator authority, and repository or git-context mismatch inside the governed continuity artifacts it reuses.
+- Consequence: this acceptance does not prove unattended automatic resume, continuity ledger stitching, rollback plan generation, rollback drill execution, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the accepted slice also does not prove destructive primary-tree rollback or any broader recovery orchestration beyond one prepared supervised re-entry result.
+- Consequence: the next gated step inside R7 is `R7-005 Add continuity ledger and multi-segment milestone stitching`.

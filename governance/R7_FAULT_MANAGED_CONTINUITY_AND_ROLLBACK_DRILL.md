@@ -14,7 +14,7 @@ The honest next claim is not "make sessions longer." The honest next claim is "m
 Prove one interrupted-and-resumed supervised milestone cycle for `AIOffice_V2` only, with first-class interruption truth, governed continuity checkpoints and handoff packets, one governed rollback plan, and one safe rollback drill in a disposable environment, without widening into unattended automatic resume, destructive primary-tree rollback, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 
 ## Current status
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-003` complete.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-004` complete.
 
 `R7-001` is complete as the repo-truth open step.
 
@@ -24,9 +24,11 @@ Prove one interrupted-and-resumed supervised milestone cycle for `AIOffice_V2` o
 
 `R7-003` is complete as a bounded checkpoint and handoff artifact slice through `contracts/milestone_continuity/foundation.contract.json`, `contracts/milestone_continuity/continuity_checkpoint.contract.json`, `contracts/milestone_continuity/continuity_handoff_packet.contract.json`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, valid fixtures under `state/fixtures/valid/milestone_continuity/`, and focused proof through `tests/test_milestone_continuity_artifacts.ps1`. That slice proves governed checkpoint and handoff artifact shape, durable identity, explicit lineage back to the accepted `R7-002` fault event, authoritative milestone-artifact refs needed to avoid narrative reconstruction, and fail-closed validation only.
 
-The next gated step inside active R7 is `R7-004 Add supervised resume-from-fault flow`.
+`R7-004` is complete as a bounded supervised resume-from-fault slice through `contracts/milestone_continuity/resume_from_fault_request.contract.json`, `contracts/milestone_continuity/resume_from_fault_result.contract.json`, `tools/MilestoneContinuityResume.psm1`, `tools/prepare_supervised_resume_from_fault.ps1`, the valid request and result fixtures under `state/fixtures/valid/milestone_continuity/`, and focused proof through `tests/test_milestone_continuity_resume_from_fault.ps1`. That slice proves one supervised re-entry path from accepted `R7-002` fault-event truth plus accepted `R7-003` checkpoint and handoff artifacts under explicit operator control only, emits one prepared resume result, and fails closed on missing or contradictory continuity state.
 
-The accepted `R7-003` slice does not yet prove supervised resume-from-fault behavior, continuity ledger stitching, governed rollback-plan generation, rollback drill execution, unattended automatic resume, or destructive primary-tree rollback.
+The next gated step inside active R7 is `R7-005 Add continuity ledger and multi-segment milestone stitching`.
+
+The accepted `R7-004` slice does not yet prove continuity ledger stitching, governed rollback-plan generation, rollback drill execution, unattended automatic resume, or destructive primary-tree rollback.
 
 ## Exact boundary
 This milestone is bounded to:
@@ -135,8 +137,8 @@ R7 does not currently prove and must not casually widen into:
 - Done when: one interrupted milestone segment can emit governed checkpoints and handoff packets with enough durable truth to avoid narrative reconstruction through explicit lineage back to the accepted `R7-002` fault event, authoritative milestone refs, and fail-closed validation
 
 ### `R7-004` Add supervised resume-from-fault flow
-- Status: planned
-- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed continuity artifacts under explicit operator control without implying unattended automatic resume
+- Status: done
+- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed continuity artifacts under explicit operator control through `contracts/milestone_continuity/resume_from_fault_request.contract.json`, `contracts/milestone_continuity/resume_from_fault_result.contract.json`, `tools/MilestoneContinuityResume.psm1`, `tools/prepare_supervised_resume_from_fault.ps1`, `state/fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json`, `state/fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json`, and `tests/test_milestone_continuity_resume_from_fault.ps1` without implying unattended automatic resume
 
 ### `R7-005` Add continuity ledger and multi-segment milestone stitching
 - Status: planned
@@ -162,6 +164,7 @@ R7 does not currently prove and must not casually widen into:
 - `R7-001` opens R7 in repo truth as bounded structure only. It does not claim that fault-managed continuity, resume-from-fault, rollback planning, rollback drill execution, or closeout proof is implemented.
 - `R7-002` now makes interruption and fault records first-class governed repo truth through explicit contracts and fail-closed validation only. It does not emit checkpoints or handoff packets, it does not resume from fault, and it does not generate rollback plans or drills.
 - `R7-003` now adds governed continuity checkpoints and handoff packets anchored directly to the accepted `R7-002` fault-event truth plus current milestone authority refs. It does not resume from fault, it does not stitch multi-segment continuity ledgers, and it does not generate rollback plans or drills.
+- `R7-004` now adds one supervised resume-from-fault request/result flow anchored directly to the accepted `R7-002` fault-event truth plus accepted `R7-003` checkpoint and handoff artifacts. It prepares one bounded re-entry result only, remains supervised only, and does not stitch continuity ledgers, generate rollback plans, execute rollback drills, or imply unattended automatic resume.
 - The real R6 continuity and context-window break is preserved here as an ordering driver: interruption and continuity truth comes first, before rollback drill work and far before any UI or orchestration growth.
 - R7 keeps rollback rehearsal explicitly disposable. Any Git-mutating rollback drill still requires explicit operator approval and must not target the primary working tree.
 - Advisory operator review remains the ceiling for this milestone unless later repo truth proves more.

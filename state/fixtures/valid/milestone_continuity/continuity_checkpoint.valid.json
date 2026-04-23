@@ -42,14 +42,14 @@
   "checkpoint_snapshot": {
     "segment_goal": "Preserve one interrupted milestone segment as governed repo truth without relying on narrative reconstruction.",
     "last_completed_step": "R7-002 recorded the interruption as a first-class fault-management event with fail-closed validation.",
-    "next_required_step": "Emit the governed continuity handoff packet for the interrupted segment."
+    "next_required_step": "Use the supervised resume-from-fault flow to prepare one governed re-entry result for the interrupted segment."
   },
   "unresolved_blockers": [
-    "Supervised resume-from-fault flow is not implemented yet and remains a later gated step."
+    "Prepared re-entry remains supervised only; this checkpoint does not authorize unattended automatic resume."
   ],
   "interruption_notes": [
     "The interrupted segment must resume later from governed artifacts rather than from narrative reconstruction."
   ],
   "resume_execution_claim": "not_implied",
-  "notes": "This checkpoint preserves one interrupted segment state only. It does not authorize or execute resume."
+  "notes": "This checkpoint preserves one interrupted segment state only. It does not authorize unattended or automatic resume."
 }
