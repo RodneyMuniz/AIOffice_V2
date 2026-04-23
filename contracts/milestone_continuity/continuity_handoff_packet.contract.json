@@ -1,0 +1,60 @@
+{
+  "record_type": "milestone_continuity_handoff_packet",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "handoff_id",
+    "emitted_at",
+    "fault_event_ref",
+    "checkpoint_ref",
+    "cycle_context",
+    "scope_context",
+    "repository",
+    "git_context",
+    "supervision",
+    "required_next_action",
+    "authoritative_refs",
+    "handoff_summary",
+    "unresolved_blockers",
+    "interruption_notes",
+    "resume_execution_claim",
+    "notes"
+  ],
+  "fault_event_ref_required_fields": [
+    "record_type",
+    "event_id",
+    "event_path"
+  ],
+  "checkpoint_ref_required_fields": [
+    "record_type",
+    "checkpoint_id",
+    "checkpoint_path"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "scope_context_required_fields": [
+    "scope_level"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "git_context_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "handoff_summary_required_fields": [
+    "segment_goal",
+    "completed_work_summary",
+    "handoff_objective",
+    "next_operator_visible_step"
+  ]
+}

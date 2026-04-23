@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R7 Fault-Managed Continuity and Rollback Drill`
 
 Current posture:
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` and `R7-002` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-003 Emit governed continuity checkpoints and handoff packets`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts now exist, but checkpoint/handoff behavior, supervised resume-from-fault, rollback plan generation, and rollback drill behavior are still unproved here.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-003` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-004 Add supervised resume-from-fault flow`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts plus governed checkpoint and handoff artifacts now exist, but supervised resume-from-fault, continuity ledger stitching, rollback plan generation, and rollback drill behavior are still unproved here.
 
 ## Most Recently Closed Milestone
 `R6 Supervised Milestone Autocycle Pilot`
@@ -35,13 +35,13 @@ Closeout summary:
 - Done when: interruption or fault events have explicit authoritative contract shape, required fields, durable identity, and fail-closed validation through `contracts/fault_management/foundation.contract.json`, `contracts/fault_management/fault_event.contract.json`, `tools/FaultManagement.psm1`, `tools/validate_fault_event.ps1`, and `tests/test_fault_management_event.ps1` without yet claiming checkpoints, handoff packets, or resume behavior
 
 ### `R7-003` Emit governed continuity checkpoints and handoff packets
-- Status: planned
+- Status: done
 - Order: 3
 - Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
 - Depends on: `R7-002`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
-- Durable output: governed checkpoint and handoff packet surfaces for interrupted milestone work
-- Done when: one interrupted milestone segment can emit durable checkpoints and handoff packets that carry enough governed truth to avoid narrative reconstruction
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuity.psm1`
+- Durable output: governed checkpoint and handoff packet surfaces for interrupted milestone work, each chained explicitly back to an accepted `R7-002` fault event and the current authoritative milestone refs
+- Done when: one interrupted milestone segment can emit durable checkpoints and handoff packets that carry enough governed truth to avoid narrative reconstruction through `contracts/milestone_continuity/`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, and `tests/test_milestone_continuity_artifacts.ps1`
 
 ### `R7-004` Add supervised resume-from-fault flow
 - Status: planned

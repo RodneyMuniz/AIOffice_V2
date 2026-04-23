@@ -1,0 +1,53 @@
+{
+  "record_type": "milestone_continuity_checkpoint",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "checkpoint_id",
+    "emitted_at",
+    "fault_event_ref",
+    "cycle_context",
+    "scope_context",
+    "repository",
+    "git_context",
+    "supervision",
+    "required_next_action",
+    "authoritative_refs",
+    "checkpoint_snapshot",
+    "unresolved_blockers",
+    "interruption_notes",
+    "resume_execution_claim",
+    "notes"
+  ],
+  "fault_event_ref_required_fields": [
+    "record_type",
+    "event_id",
+    "event_path"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "scope_context_required_fields": [
+    "scope_level"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "git_context_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "checkpoint_snapshot_required_fields": [
+    "segment_goal",
+    "last_completed_step",
+    "next_required_step"
+  ]
+}

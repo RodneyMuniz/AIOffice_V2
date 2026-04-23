@@ -372,3 +372,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove continuity checkpointing, handoff packet emission, supervised resume-from-fault behavior, continuity ledger stitching, rollback plan generation, rollback drill execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: the first implementation priority inside R7 remains interruption and continuity truth rather than UI or autonomy theater.
 - Consequence: the next gated step inside R7 is `R7-003 Emit governed continuity checkpoints and handoff packets`.
+
+## D-0044 R7-003 Added Governed Continuity Checkpoints And Handoff Packets
+- Date: 2026-04-23
+- Status: accepted
+- Decision: `R7-003` is complete as a bounded checkpoint/handoff artifact slice through `contracts/milestone_continuity/foundation.contract.json`, `contracts/milestone_continuity/continuity_checkpoint.contract.json`, `contracts/milestone_continuity/continuity_handoff_packet.contract.json`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, and focused proof through `tests/test_milestone_continuity_artifacts.ps1`.
+- Consequence: the accepted slice proves governed continuity checkpoint and handoff packet shape, durable identity, explicit lineage back to the accepted `R7-002` fault event, authoritative milestone-artifact refs needed to avoid narrative reconstruction, and fail-closed validation only.
+- Consequence: this acceptance does not prove supervised resume-from-fault behavior, continuity ledger stitching, rollback plan generation, rollback drill execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the next gated step inside R7 is `R7-004 Add supervised resume-from-fault flow`.
