@@ -352,3 +352,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this decision, not superseded `D-0039`, is the closure authority because it meets the original replay-closeout acceptance bar without softening the scope or claiming executed operator choice.
 - Consequence: this closes `R6 Supervised Milestone Autocycle Pilot` in repo truth as one bounded supervised pilot only. It does not prove executed operator acceptance, broader autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: no later implementation milestone is open yet in repo truth.
+
+## D-0042 R7 Opened As Fault-Managed Continuity And Rollback Drill Boundary
+- Date: 2026-04-23
+- Status: accepted
+- Decision: `R7 Fault-Managed Continuity and Rollback Drill` is opened as the next bounded milestone in repo truth through `R7-001` as structure only.
+- Consequence: R7 exists because the honestly closed R6 delivery exposed the next trust weaknesses: milestone work must survive real interruption and context-window breaks across governed segments without depending on narrative reconstruction, and rollback-drill readiness still needs a thin, governed, disposable boundary.
+- Consequence: the first implementation priority inside R7 is interruption and continuity truth, not surface expansion, and the next gated step is `R7-002 Add first-class fault / interruption event contracts`.
+- Consequence: the honest R7 claim is governed segmented continuity across interruption, checkpoints, and handoff packets. It is not a raw runtime claim of "longer sessions."
+- Consequence: opening R7 does not prove fault-managed continuity, supervised resume-from-fault behavior, rollback execution, rollback drill execution, UI, Standard runtime, multi-repo behavior, swarms, broader orchestration, or unattended automatic resume.
+- Consequence: R7 remains bounded to one repository, one active milestone cycle at a time, one interrupted-and-resumed supervised cycle only, one governed rollback plan only, one safe rollback drill only in a disposable environment, explicit operator approval before any rollback drill that mutates Git state, one replayable proof package at closeout, and advisory operator review only unless later repo truth proves more.
+- Consequence: `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `D-0041`; the real R6 continuity and context-window break is carried forward as an R7 scope driver, not as grounds to reopen R6.

@@ -3,128 +3,108 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`None currently open in repo truth`
+`R7 Fault-Managed Continuity and Rollback Drill`
 
 Current posture:
-`R6 Supervised Milestone Autocycle Pilot` is complete and formally closed in repo truth through `R6-009` on the original replay-closeout bar. No later implementation milestone is opened here.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth through `R7-001` as bounded structure only. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-002 Add first-class fault / interruption event contracts`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions," and no rollback drill execution is proved here.
 
 ## Most Recently Closed Milestone
 `R6 Supervised Milestone Autocycle Pilot`
 
 Closeout summary:
-`R6-001`, `R6-P1`, `R6-P2`, and `R6-002` through `R6-009` are complete and formally closed in repo truth. The closeout authority is `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, and the committed proof-review basis is `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`. That package records raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, and explicit non-claims for the exact pilot replay from structured intake through advisory-only operator decision. This closeout remains bounded and does not add executed operator acceptance, broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration claims.
+`R6-001`, `R6-P1`, `R6-P2`, and `R6-002` through `R6-009` are complete and formally closed in repo truth. The closeout authority is `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis is `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`, and decision authority is `D-0041`, not the earlier softened `D-0039` posture. That package records raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, and explicit non-claims for the exact pilot replay from structured intake through advisory-only operator decision. This closeout remains bounded and does not add executed operator acceptance, broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration claims.
 
 ## Tasks
 
-### `R6-001` Open R6 and freeze the pilot boundary
+### `R7-001` Open R7 and freeze the fault-managed continuity and rollback drill boundary
 - Status: done
 - Order: 1
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `governance/POST_R5_CLOSEOUT.md`, `governance/POST_R5_AUDIT_INDEX.md`
-- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`
-- Durable output: updated repo-truth surfaces plus initial milestone-autocycle contract foundation under `contracts/milestone_autocycle/`
-- Done when: R6 is opened in repo truth, the exact pilot boundary is written, stop conditions are explicit and fail-closed, and no broader autonomy is implied
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, `D-0041`
+- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: updated repo-truth surfaces that open R7 as structure only and freeze the exact continuity and rollback-drill boundary
+- Done when: R7 is the active milestone in repo truth, R6 remains honestly closed on the original replay-closeout bar, the real R6 continuity-break lesson is frozen into early R7 ordering, the rollback safety boundary is explicit and narrow, and no runtime implementation beyond the open step is implied
 
-### `R6-P1` Final-head evidence-thickness precondition
-- Status: done
-- Order: P1
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-001`
-- Authority: `governance/POST_R5_CLOSEOUT.md`, `governance/POST_R5_AUDIT_INDEX.md`, `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`
-- Durable output: one final-head closeout-support packet under `state/proof_reviews/r5_git_backed_recovery_resume_and_repo_enforcement_foundations/support/final_closeout_head/` archiving omitted support-test logs and recording the final inventory clearly
-- Done when: final-head support evidence exists for `tests/test_bounded_proof_suite.ps1`, `tests/test_bounded_proof_ci_foundation.ps1`, `tests/test_repo_enforcement.ps1`, `tests/test_r5_recovery_resume_proof_review.ps1`, and `tests/test_work_artifact_contracts.ps1`
-
-### `R6-P2` Baton path determinism precondition
-- Status: done
-- Order: P2
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-001`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
-- Durable output: deterministic baton-related path resolution that anchors top-level baton store plus resume request or output paths to repo roots and anchors request-relative `baton_ref` values to the request artifact directory
-- Done when: baton continuity no longer carries shell-location-sensitive path behavior into later R6 work
-
-### `R6-002` Add milestone task-set proposal from one structured intake
-- Status: done
+### `R7-002` Add first-class fault / interruption event contracts
+- Status: planned
 - Order: 2
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-P1`, `R6-P2`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
-- Durable output: one milestone proposal surface that derives a bounded 5 to 10 task set from one structured intake with durable request and milestone lineage
-- Done when: one structured intake can generate one milestone proposal, proposal lineage back to the request and milestone target is durable, and malformed or incomplete input fails closed
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-001`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `governance/ACTIVE_STATE.md`
+- Durable output: one bounded contract layer that records interruption and fault events as governed repo truth
+- Done when: interruption or fault events have explicit authoritative contract shape, required fields, durable identity, and fail-closed validation without yet claiming resume execution
 
-### `R6-003` Add explicit operator approval and milestone freeze
-- Status: done
+### `R7-003` Emit governed continuity checkpoints and handoff packets
+- Status: planned
 - Order: 3
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-002`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
-- Durable output: one explicit approval record surface plus one durable freeze artifact that records the exact approved task set and operator authority
-- Done when: the operator can explicitly approve or reject a milestone proposal, approved plans become frozen durable milestone state, freeze records exact task set and operator authority, rejected proposals do not emit freeze artifacts, and unfrozen milestones cannot dispatch work
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-002`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: governed checkpoint and handoff packet surfaces for interrupted milestone work
+- Done when: one interrupted milestone segment can emit durable checkpoints and handoff packets that carry enough governed truth to avoid narrative reconstruction
 
-### `R6-004` Bind milestone freeze to Git-backed baseline capture
-- Status: done
+### `R7-004` Add supervised resume-from-fault flow
+- Status: planned
 - Order: 4
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-003`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`, `contracts/milestone_baselines/`
-- Durable output: a frozen milestone linked durably to one Git-backed baseline anchor before dispatch through one accepted-planning-record bridge plus one baseline-binding artifact
-- Done when: a frozen milestone records a valid baseline id, the frozen task set can materialize accepted planning-record bridge surfaces for the reused milestone-baseline substrate, branch or head or tree or repository binding is durable, and dirty-worktree or mismatch or malformed bridge states fail closed
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-003`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: one supervised resume-from-fault flow that re-enters from governed continuity artifacts
+- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed checkpoints and handoff packets under explicit operator control without implying unattended resume
 
-### `R6-005` Add Codex dispatch contract and run ledger
-- Status: done
+### `R7-005` Add continuity ledger and multi-segment milestone stitching
+- Status: planned
 - Order: 5
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-004`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
-- Durable output: governed Codex dispatch surface plus one durable run ledger with one active dispatch at a time
-- Done when: each task dispatch records input refs, baseline binding ref, pinned baseline id, allowed scope, target branch, expected outputs, and refusal conditions; dispatch state changes are durable; and the pilot enforces one active dispatch at a time
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-004`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: one continuity ledger that stitches governed milestone segments into one authoritative cycle
+- Done when: one interrupted milestone can preserve authoritative segment lineage, ordering, and continuity state across governed resume boundaries
 
-### `R6-006` Assemble governed execution evidence from executor outputs
-- Status: done
+### `R7-006` Add governed rollback plan artifact
+- Status: planned
 - Order: 6
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-005`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
-- Durable output: one governed execution evidence bundle assembler for completed dispatches
-- Done when: completed dispatches can be converted into one governed execution evidence bundle capturing changed files, produced artifacts, test outputs, and evidence refs, and missing required evidence blocks bundle creation
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-005`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: one governed rollback plan artifact that stays explicitly pre-execution
+- Done when: rollback targets, approvals, environment constraints, and refusal conditions are durably expressed without executing rollback
 
-### `R6-007` Add automated QA observation and milestone aggregation
-- Status: done
+### `R7-007` Add safe rollback drill harness
+- Status: planned
 - Order: 7
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-006`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/ACTIVE_STATE.md`
-- Durable output: bounded QA observation path plus milestone-visible task and milestone roll-up status
-- Done when: execution evidence can trigger bounded QA observation, each task receives a milestone-visible QA outcome, milestone status rolls up task states into one milestone-level view, and blocked or failed tasks stop progression unless explicitly overridden by the operator
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-006`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: one rollback drill harness constrained to a disposable environment
+- Done when: one safe rollback drill can run only in a disposable branch, worktree, or replay sandbox, requires explicit operator approval before any Git mutation, and refuses primary-worktree execution
 
-### `R6-008` Add bounded PRO-style summary and operator decision packet
-- Status: done
+### `R7-008` Add advisory continuity / rollback review summary and operator packet
+- Status: planned
 - Order: 8
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-007`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `contracts/milestone_autocycle/`
-- Durable output: one milestone-level summary and one operator decision packet
-- Done when: one milestone-level summary can cover scope, diffs, tests, blockers, evidence quality, and non-claims, recommendation stays advisory only, and the operator receives one decision packet with `accept`, `rework`, or `stop`
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-007`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
+- Durable output: one advisory review summary and operator packet for continuity and rollback drill results
+- Done when: the operator receives one bounded advisory summary of continuity and rollback evidence with explicit non-claims and no implied automatic execution
 
-### `R6-009` Produce one replayable supervised pilot proof and closeout packet
-- Status: done
+### `R7-009` Produce one replayable interrupted-and-resumed proof plus rollback drill packet
+- Status: planned
 - Order: 9
-- Milestone: `R6 Supervised Milestone Autocycle Pilot`
-- Depends on: `R6-008`
-- Authority: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `governance/DECISION_LOG.md`, `contracts/milestone_autocycle/`
-- Durable output: one replayable end-to-end pilot proof plus honest closeout package
-- Done when: one exact pilot scenario replays from intake to operator decision, raw logs plus summary artifacts plus selection scope plus replay-source metadata are committed, closeout wording matches exact replay scope, and non-claims remain explicit
-- Closeout basis: the committed proof-review package under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` records the exact pilot replay from structured intake through advisory-only operator decision with raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, and explicit non-claims at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`.
+- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
+- Depends on: `R7-008`
+- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `governance/DECISION_LOG.md`
+- Durable output: one replayable interrupted-and-resumed proof package plus one rollback drill packet
+- Done when: one exact interrupted-and-resumed supervised cycle plus one safe rollback drill are replayable from committed evidence, closeout wording matches the exact scope, and non-claims remain explicit
 
 ## Explicitly Out Of Scope For This Milestone
-- operator-visible or user-facing UI work
-- unified workspace work
-- multi-repo behavior
-- multiple executor types
-- parallel dispatch or executor swarms
-- automatic merge or promotion
-- unattended automatic resume behavior
-- rollback execution
+- broader autonomy
+- unattended automatic resume
+- destructive rollback on the primary working tree
+- UI or control-room productization
+- unified workspace delivery
 - Standard or subproject runtime
-- broader orchestration beyond the exact pilot
-- donor backlog import or historical backfill
+- multi-repo behavior
+- swarms
+- broader orchestration
+- raw "longer sessions" as a runtime capability claim

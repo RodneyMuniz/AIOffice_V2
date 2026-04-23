@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-23
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, and `R6 Supervised Milestone Autocycle Pilot` is now complete and formally closed in repo truth on the original replay-closeout acceptance bar.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, and `R7 Fault-Managed Continuity and Rollback Drill` is now the active milestone in repo truth as bounded structure only.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -64,26 +64,37 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R6-008` is complete as a bounded summary and operator-decision-packet slice. One authoritative milestone QA aggregation can now emit one contract-valid `milestone_autocycle_summary` plus one matching `milestone_autocycle_decision_packet` that preserve authoritative cycle and aggregation identity, summarize governed scope or diffs or tests or blockers or evidence quality plus explicit non-claims, keep recommendation advisory only, expose only the bounded operator options `accept`, `rework`, and `stop`, and fail closed for missing or malformed QA aggregation state, missing non-claims, malformed summary or decision-packet state, invalid recommendation values, invalid option values, or summary overclaims through `tools/MilestoneAutocycleSummary.psm1`, `contracts/milestone_autocycle/summary.contract.json`, `contracts/milestone_autocycle/decision_packet.contract.json`, and `tests/test_milestone_autocycle_summary.ps1`.
 - `R6-009` is complete on the original replay-closeout acceptance bar through the committed proof-review package under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`.
 - That package records raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, explicit non-claims, and advisory-only operator decision state for the exact pilot cycle from structured intake through operator decision without claiming executed operator choice.
+- `R7-001` is complete as the repo-truth open step for `R7 Fault-Managed Continuity and Rollback Drill`.
+- R7 is bounded to one repository only, one active milestone cycle at a time, one interrupted-and-resumed supervised cycle only, one governed rollback plan only, one safe rollback drill only, rollback drill only in a disposable environment such as a disposable branch, worktree, or replay sandbox, explicit operator approval before any rollback drill that mutates Git state, one replayable proof package at closeout, and advisory operator review only unless later repo truth proves more.
+- R7 exists because the honestly closed R6 delivery still exposed the next trust weaknesses: continuity across real interruption and context-window breaks must become first-class governed truth, and rollback-drill readiness must stay thin and disposable instead of fuzzy or destructive.
+- The honest R7 claim is not "make sessions longer." The honest R7 claim is "make milestone work survive interruption across governed segments without depending on narrative reconstruction."
+- Opening R7 as structure only does not yet prove fault-managed continuity, supervised resume-from-fault behavior, governed rollback-plan execution, rollback drill execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 
 ## Not Yet Proved
 - any later-lane workflow beyond the first proof boundary
 - any broader workflow orchestration beyond the direct bounded R3 replay slice
+- any fault-managed continuity or supervised resume-from-fault behavior beyond opening R7 as structure only
 - any unattended automatic resume execution or broader recovery behavior
 - any rollback execution or broader recovery productization beyond bounded restore-gate validation
+- any rollback drill execution outside an explicit disposable environment with operator approval before Git mutation
 - any broad UI or control-room productization
 - any Standard or subproject pipeline productization
 - any unattended operation or broader product completeness
 
 ## Active Milestone
-`None currently open in repo truth.`
+`R7 Fault-Managed Continuity and Rollback Drill`
 
-`R6 Supervised Milestone Autocycle Pilot` now has `R6-001`, `R6-P1`, `R6-P2`, and `R6-002` through `R6-009` complete in repo truth. The closeout authority is `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, and the committed proof-review basis is `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`. That exact package proves one pilot replay from structured intake through advisory-only operator decision with raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, and explicit non-claims. The operator decision remains advisory only and unexecuted, and the closed R6 boundary still does not widen the repo into broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration. The most recently closed milestone is now `R6 Supervised Milestone Autocycle Pilot`.
+`R7 Fault-Managed Continuity and Rollback Drill` is now open in repo truth through `R7-001` as bounded structure only. `R6 Supervised Milestone Autocycle Pilot` remains the most recently closed milestone under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`, which re-closed `R6-009` on the original replay-closeout bar after the earlier softened closure was reopened.
+
+The carry-forward lesson from R6 is explicit inside active R7: there was a real continuity and context-window break during delivery, and the next claim to prove is governed segmented continuity that survives interruption without depending on narrative reconstruction. That is not grounds to reopen R6, and it is not a claim of magically longer sessions.
+
+R7 remains bounded to one repository, one active milestone cycle at a time, one interrupted-and-resumed supervised cycle only, one governed rollback plan only, one safe rollback drill only in a disposable environment, explicit operator approval before any rollback drill that mutates Git state, one replayable proof package at closeout, and advisory operator review only unless later repo truth proves more. Opening R7 does not yet prove fault-managed continuity, unattended automatic resume, rollback execution, destructive primary-tree rollback, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 
 ## Next Gated Step
-- None. No later implementation milestone is open in repo truth.
-- Future milestone work remains intentionally unopened until a later evidence-backed repo-truth decision.
+- `R7-002` Add first-class fault / interruption event contracts.
+- R7 ordering stays thin: interruption and continuity truth comes before supervised resume flow, rollback plan artifacts, rollback drill harnessing, UI, Standard runtime, multi-repo behavior, or broader orchestration.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -100,5 +111,8 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - Do not treat formal R5 closeout as proof of rollback execution, unattended automatic resume, UI productization, Standard runtime, or broader orchestration.
 - Do not treat opening R6 as R6 implementation.
 - Do not widen R6 into broad autonomy, rollback execution, unattended automatic resume, UI productization, Standard runtime, multi-repo behavior, executor swarms, or broader orchestration without real implementation and proof.
+- Do not treat opening R7 as fault-managed continuity, supervised resume-from-fault, rollback execution, rollback drill execution, or destructive primary-tree rollback proof.
+- Do not widen R7 into UI, control-room productization, Standard runtime, unified workspace delivery, multi-repo behavior, swarms, or broader orchestration.
+- Do not claim "longer sessions" as an R7 runtime capability; the only honest target is governed segmented continuity across interruption.
 - Do not treat Product Vision baseline reports as milestone proof.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.
