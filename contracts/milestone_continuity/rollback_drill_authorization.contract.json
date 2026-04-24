@@ -1,0 +1,16 @@
+{
+  "record_type": "milestone_continuity_rollback_drill_authorization",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "rollback_drill_authorization_id",
+    "rollback_plan_id",
+    "approved_at",
+    "operator_authority",
+    "required_authority_state",
+    "approved_environment_scope",
+    "git_mutation_approved",
+    "primary_worktree_execution",
+    "notes"
+  ]
+}

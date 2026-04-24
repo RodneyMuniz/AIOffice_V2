@@ -7,6 +7,8 @@
   "ledger_record_type": "milestone_continuity_ledger",
   "rollback_plan_request_record_type": "milestone_continuity_rollback_plan_request",
   "rollback_plan_record_type": "milestone_continuity_rollback_plan",
+  "rollback_drill_authorization_record_type": "milestone_continuity_rollback_drill_authorization",
+  "rollback_drill_result_record_type": "milestone_continuity_rollback_drill_result",
   "fault_event_record_type": "fault_management_event",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
@@ -73,6 +75,18 @@
   ],
   "allowed_rollback_non_claims": [
     "plan_only_no_execution_no_drill_no_primary_worktree_rollback"
+  ],
+  "allowed_rollback_drill_environment_scopes": [
+    "disposable_worktree"
+  ],
+  "allowed_rollback_drill_actions": [
+    "hard_reset_to_target_baseline_in_disposable_worktree"
+  ],
+  "allowed_rollback_drill_execution_states": [
+    "completed_disposable_worktree_drill"
+  ],
+  "allowed_rollback_drill_non_claims": [
+    "drill_only_no_primary_worktree_rollback_no_broader_recovery"
   ],
   "required_authoritative_ref_fields": [
     "readme_path",

@@ -1,0 +1,80 @@
+{
+  "record_type": "milestone_continuity_rollback_drill_result",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "rollback_drill_id",
+    "executed_at",
+    "rollback_plan_ref",
+    "rollback_drill_authorization_ref",
+    "cycle_context",
+    "repository",
+    "source_continuity",
+    "target_git_context",
+    "drill_environment",
+    "supervision",
+    "operator_approval",
+    "drill_action",
+    "observed_before",
+    "observed_after",
+    "execution_state",
+    "authoritative_refs",
+    "non_claims",
+    "notes"
+  ],
+  "rollback_plan_ref_required_fields": [
+    "record_type",
+    "rollback_plan_id",
+    "rollback_plan_path"
+  ],
+  "rollback_drill_authorization_ref_required_fields": [
+    "record_type",
+    "rollback_drill_authorization_id",
+    "authorization_path"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "source_continuity_required_fields": [
+    "ledger_id",
+    "task_id",
+    "interrupted_segment_id",
+    "successor_segment_id",
+    "ledger_continuity_state"
+  ],
+  "target_git_context_required_fields": [
+    "target_scope",
+    "repository_root",
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "drill_environment_required_fields": [
+    "environment_scope",
+    "environment_root",
+    "source_repository_root",
+    "disposable_branch",
+    "primary_worktree_execution"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "operator_approval_required_fields": [
+    "operator_authority",
+    "approved_at",
+    "required_authority_state",
+    "git_mutation_approved"
+  ],
+  "observed_state_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ]
+}

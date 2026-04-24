@@ -406,3 +406,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove rollback drill execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: the accepted slice also does not prove destructive primary-tree rollback or any destructive rollback execution; it remains one governed pre-execution plan only.
 - Consequence: the next gated step inside R7 is `R7-007 Add safe rollback drill harness`.
+
+## D-0048 R7-007 Added Safe Rollback Drill Harness
+- Date: 2026-04-24
+- Status: accepted
+- Decision: `R7-007` is complete as a bounded rollback-drill harness slice through `contracts/milestone_continuity/rollback_drill_authorization.contract.json`, `contracts/milestone_continuity/rollback_drill_result.contract.json`, `tools/MilestoneRollbackDrill.psm1`, `tools/invoke_milestone_rollback_drill.ps1`, `tools/validate_milestone_rollback_drill_result.ps1`, `state/fixtures/valid/milestone_continuity/rollback_drill_authorization.valid.json`, and focused proof through `tests/test_milestone_rollback_drill.ps1`.
+- Consequence: the accepted slice proves one safe rollback drill harness that reuses the accepted `R7-006` rollback plan plus one explicit drill authorization artifact, runs only inside one disposable worktree, requires explicit operator approval before any Git mutation, refuses primary-worktree execution, and fails closed on missing or malformed rollback-plan refs, invalid environment scope, repository or target git-context contradiction, missing operator approval, destructive drill-path implication, execution-state contradiction, and malformed drill-result state.
+- Consequence: this acceptance does not prove advisory continuity / rollback review packaging, replayable closeout proof, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the accepted slice also does not prove destructive primary-tree rollback or broader rollback productization; it remains one bounded disposable rehearsal only.
+- Consequence: the next gated step inside R7 is `R7-008 Add advisory continuity / rollback review summary and operator packet`.

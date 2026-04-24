@@ -1,0 +1,13 @@
+{
+  "contract_version": "v1",
+  "record_type": "milestone_continuity_rollback_drill_authorization",
+  "rollback_drill_authorization_id": "rollback-drill-authorization-r7-007-001",
+  "rollback_plan_id": "rollback-plan-r7-007-001",
+  "approved_at": "2026-04-24T03:10:00Z",
+  "operator_authority": "operator:rodney",
+  "required_authority_state": "operator_review_required",
+  "approved_environment_scope": "disposable_worktree",
+  "git_mutation_approved": true,
+  "primary_worktree_execution": "refused",
+  "notes": "Approve one bounded rollback drill mutation only inside a disposable worktree. This authorization does not approve primary-worktree rollback or broader recovery execution."
+}
