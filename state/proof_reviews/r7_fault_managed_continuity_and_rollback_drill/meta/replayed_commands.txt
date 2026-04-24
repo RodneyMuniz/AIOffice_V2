@@ -1,0 +1,10 @@
+﻿powershell -ExecutionPolicy Bypass -File tools\new_r7_fault_managed_continuity_proof_review.ps1 -OutputRoot state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill
+powershell -ExecutionPolicy Bypass -File tests\test_fault_management_event.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_artifacts.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_resume_from_fault.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_ledger.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_rollback_plan.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_rollback_drill.ps1
+powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_review.ps1
+powershell -ExecutionPolicy Bypass -File tools\validate_milestone_continuity_proof_review.ps1 -PackageRoot state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill
+powershell -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1

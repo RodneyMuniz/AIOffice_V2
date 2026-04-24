@@ -1,0 +1,9 @@
+﻿[2026-04-24T07:33:04Z] Validated committed R7-002 through R7-008 evidence.
+[2026-04-24T07:33:04Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_fault_management_event.ps1
+[2026-04-24T07:33:05Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_continuity_artifacts.ps1
+[2026-04-24T07:33:06Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_continuity_resume_from_fault.ps1
+[2026-04-24T07:33:09Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_continuity_ledger.ps1
+[2026-04-24T07:33:21Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_rollback_plan.ps1
+[2026-04-24T07:34:50Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_rollback_drill.ps1
+[2026-04-24T07:37:50Z] Running powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_continuity_review.ps1
+[2026-04-24T07:39:51Z] Proof-review package validated successfully.

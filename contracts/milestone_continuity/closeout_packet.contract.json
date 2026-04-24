@@ -1,0 +1,95 @@
+{
+  "record_type": "milestone_continuity_closeout_packet",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "closeout_packet_id",
+    "scenario_id",
+    "cycle_context",
+    "repository",
+    "replay_source",
+    "continuity_identity",
+    "rollback_identity",
+    "summary_ref",
+    "summary_id",
+    "proof_selection_scope_ref",
+    "authoritative_refs",
+    "operator_decision_state",
+    "exact_replay_scope",
+    "closeout_scope",
+    "proved_scope",
+    "unproved_scope",
+    "out_of_scope",
+    "automatic_execution_implied",
+    "destructive_primary_worktree_rollback_implied",
+    "non_claims",
+    "notes"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "replay_source_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "continuity_identity_required_fields": [
+    "task_id",
+    "interrupted_segment_id",
+    "successor_segment_id",
+    "fault_event_id",
+    "checkpoint_id",
+    "handoff_id",
+    "resume_request_id",
+    "resume_result_id",
+    "ledger_id"
+  ],
+  "rollback_identity_required_fields": [
+    "rollback_plan_request_id",
+    "rollback_plan_id",
+    "rollback_drill_authorization_id",
+    "rollback_drill_id",
+    "review_summary_id",
+    "operator_packet_id"
+  ],
+  "authoritative_refs_required_fields": [
+    "continuity_proof_refs",
+    "rollback_proof_refs",
+    "repo_truth_refs"
+  ],
+  "continuity_proof_refs_required_fields": [
+    "fault_event_ref",
+    "checkpoint_ref",
+    "handoff_packet_ref",
+    "resume_request_ref",
+    "resume_result_ref",
+    "continuity_ledger_ref"
+  ],
+  "rollback_proof_refs_required_fields": [
+    "rollback_plan_request_ref",
+    "rollback_plan_ref",
+    "rollback_drill_authorization_ref",
+    "rollback_drill_result_ref",
+    "review_summary_ref",
+    "operator_packet_ref"
+  ],
+  "repo_truth_refs_required_fields": [
+    "readme_path",
+    "active_state_path",
+    "kanban_path",
+    "decision_log_path",
+    "milestone_authority_path"
+  ],
+  "prohibited_claim_fragments": [
+    "automatic execution",
+    "destructive rollback proved",
+    "primary-tree rollback executed",
+    "multi-repo proved",
+    "swarm orchestration"
+  ]
+}

@@ -1,0 +1,94 @@
+﻿{
+    "summary_id":  "summary-r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "scenario_id":  "r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+    "repository":  {
+                       "repository_name":  "AIOffice_V2"
+                   },
+    "continuity_identity":  {
+                                "task_id":  "task-r7-002-fault-contracts-001",
+                                "interrupted_segment_id":  "segment-r7-002-001",
+                                "successor_segment_id":  "segment-r7-005-001",
+                                "fault_event_id":  "event-r7-002-context-break-001",
+                                "checkpoint_id":  "checkpoint-r7-003-segment-001",
+                                "handoff_id":  "handoff-r7-003-segment-001",
+                                "resume_request_id":  "resume-from-fault-r7-004-001",
+                                "resume_result_id":  "resume-from-fault-r7-004-001.result",
+                                "ledger_id":  "continuity-ledger-r7-005-001"
+                            },
+    "rollback_identity":  {
+                              "rollback_plan_request_id":  "rollback-plan-request-r7-006-001",
+                              "rollback_plan_id":  "rollback-plan-r7-007-001",
+                              "rollback_drill_authorization_id":  "rollback-drill-authorization-r7-007-001",
+                              "rollback_drill_id":  "rollback-drill-r7-007-001",
+                              "review_summary_id":  "review-summary-r7-008-001",
+                              "operator_packet_id":  "operator-packet-r7-008-001"
+                          },
+    "replay_source":  {
+                          "branch":  "feature/r5-closeout-remaining-foundations",
+                          "head_commit":  "fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905",
+                          "tree_id":  "3b55d697b6206a62967800cd78bc4f3b39b99858"
+                      },
+    "command_results":  [
+                            {
+                                "command_id":  "test-fault-event",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_fault_management_event.ps1",
+                                "log_ref":  "raw_logs/tests/test_fault_management_event.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All fault management event tests passed. Valid passed: 2. Invalid rejected: 6."
+                            },
+                            {
+                                "command_id":  "test-continuity-artifacts",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_artifacts.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_continuity_artifacts.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone continuity artifact tests passed. Valid passed: 4. Invalid rejected: 5."
+                            },
+                            {
+                                "command_id":  "test-resume-from-fault",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_resume_from_fault.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_continuity_resume_from_fault.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone continuity resume-from-fault tests passed. Valid passed: 2. Invalid rejected: 7."
+                            },
+                            {
+                                "command_id":  "test-continuity-ledger",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_ledger.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_continuity_ledger.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone continuity ledger tests passed. Valid passed: 2. Invalid rejected: 7."
+                            },
+                            {
+                                "command_id":  "test-rollback-plan",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_plan.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_rollback_plan.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone rollback plan tests passed. Valid passed: 2. Invalid rejected: 9."
+                            },
+                            {
+                                "command_id":  "test-rollback-drill",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_drill.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_rollback_drill.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone rollback drill tests passed. Valid passed: 2. Invalid rejected: 9."
+                            },
+                            {
+                                "command_id":  "test-continuity-review",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_review.ps1",
+                                "log_ref":  "raw_logs/tests/test_milestone_continuity_review.log",
+                                "exit_code":  0,
+                                "status":  "passed",
+                                "result_summary":  "All milestone continuity review tests passed. Valid passed: 3. Invalid rejected: 10."
+                            }
+                        ],
+    "exact_replay_scope":  "Exact replay scope: cycle cycle-r7-fault-managed-continuity-001 replays one interrupted-and-resumed supervised continuity path from committed fault event state/fixtures/valid/fault_management/fault_event.valid.json through committed operator packet state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json, plus one committed disposable-worktree rollback drill result, without implying unattended or destructive execution.",
+    "proved_scope":  "Proved scope: cycle cycle-r7-fault-managed-continuity-001 replays one exact chain across committed fault event, checkpoint, handoff packet, supervised resume request/result, continuity ledger, governed rollback plan request/plan, rollback drill authorization/result, advisory review summary, operator packet, raw replay logs, one bounded replay summary artifact, and one bounded closeout packet.",
+    "unproved_scope":  "Unproved scope: unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI or control-room productization, Standard runtime, multi-repo behavior, swarms, and broader orchestration.",
+    "notes":  "Proof-review summary records exact command-level replay results for the committed R7 evidence chain only."
+}

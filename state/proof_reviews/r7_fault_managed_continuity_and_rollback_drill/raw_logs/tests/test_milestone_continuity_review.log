@@ -1,0 +1,14 @@
+﻿PASS valid generated review summary: review-summary-r7-008-test-001
+PASS valid generated operator packet: operator-packet-r7-008-test-001
+PASS valid committed review fixtures.
+PASS invalid: missing-rollback-drill-result -> Rollback-drill artifact path 'C:\Users\rodne\AppData\Local\Temp\aioffice-r7-008-c590ec22f02f4047934da64863897beb\missing\rollback_drill_result.valid.json' does not exist.
+PASS invalid: missing-rollback-plan -> Rollback-plan artifact path 'C:\Users\rodne\AppData\Local\Temp\aioffice-r7-008-c590ec22f02f4047934da64863897beb\missing\rollback_plan.valid.json' does not exist.
+PASS invalid: missing-continuity-ledger -> Continuity ledger artifact path 'C:\Users\rodne\AppData\Local\Temp\aioffice-r7-008-c590ec22f02f4047934da64863897beb\missing\continuity_ledger.valid.json' does not exist.
+PASS invalid: repository-mismatch -> Continuity review summary.repository.repository_name must equal 'AIOffice_V2'.
+PASS invalid: cycle-mismatch -> Continuity review summary.cycle_context.cycle_id must match the referenced continuity, rollback plan, and rollback drill evidence.
+PASS invalid: packet-implies-automatic-execution -> Continuity operator packet.automatic_execution_implied must remain false.
+PASS invalid: packet-implies-destructive-rollback -> Continuity operator packet.destructive_primary_worktree_rollback_implied must remain false.
+PASS invalid: missing-explicit-non-claims -> Continuity review summary.non_claims must contain at least 7 item(s).
+PASS invalid: malformed-advisory-review-state -> Continuity review summary.evidence_snapshot must be an object.
+PASS invalid: malformed-operator-packet-state -> Continuity operator packet.operator_options must contain at least 3 item(s).
+All milestone continuity review tests passed. Valid passed: 3. Invalid rejected: 10.

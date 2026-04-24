@@ -1,0 +1,10 @@
+﻿{
+    "scenario_id":  "r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+    "repository_root_relative":  ".",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "source_head_commit":  "fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905",
+    "source_tree_id":  "3b55d697b6206a62967800cd78bc4f3b39b99858",
+    "generated_by_script":  "tools/new_r7_fault_managed_continuity_proof_review.ps1",
+    "generated_at_utc":  "2026-04-24T07:33:04Z"
+}

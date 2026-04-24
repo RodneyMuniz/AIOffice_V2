@@ -1,0 +1,85 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "milestone_continuity_closeout_packet",
+    "closeout_packet_id":  "closeout-packet-r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "scenario_id":  "r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "cycle_context":  {
+                          "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+                          "milestone_id":  "milestone-r7-fault-managed-continuity-and-rollback-drill",
+                          "milestone_title":  "R7 Fault-Managed Continuity and Rollback Drill"
+                      },
+    "repository":  {
+                       "repository_name":  "AIOffice_V2"
+                   },
+    "replay_source":  {
+                          "branch":  "feature/r5-closeout-remaining-foundations",
+                          "head_commit":  "fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905",
+                          "tree_id":  "3b55d697b6206a62967800cd78bc4f3b39b99858"
+                      },
+    "continuity_identity":  {
+                                "task_id":  "task-r7-002-fault-contracts-001",
+                                "interrupted_segment_id":  "segment-r7-002-001",
+                                "successor_segment_id":  "segment-r7-005-001",
+                                "fault_event_id":  "event-r7-002-context-break-001",
+                                "checkpoint_id":  "checkpoint-r7-003-segment-001",
+                                "handoff_id":  "handoff-r7-003-segment-001",
+                                "resume_request_id":  "resume-from-fault-r7-004-001",
+                                "resume_result_id":  "resume-from-fault-r7-004-001.result",
+                                "ledger_id":  "continuity-ledger-r7-005-001"
+                            },
+    "rollback_identity":  {
+                              "rollback_plan_request_id":  "rollback-plan-request-r7-006-001",
+                              "rollback_plan_id":  "rollback-plan-r7-007-001",
+                              "rollback_drill_authorization_id":  "rollback-drill-authorization-r7-007-001",
+                              "rollback_drill_id":  "rollback-drill-r7-007-001",
+                              "review_summary_id":  "review-summary-r7-008-001",
+                              "operator_packet_id":  "operator-packet-r7-008-001"
+                          },
+    "summary_ref":  "../../summary/summaries/summary-r7-fault-managed-continuity-and-rollback-drill-proof-001.json",
+    "summary_id":  "summary-r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "proof_selection_scope_ref":  "../../../meta/proof_selection_scope.json",
+    "authoritative_refs":  {
+                               "continuity_proof_refs":  {
+                                                             "fault_event_ref":  "../../../../../fixtures/valid/fault_management/fault_event.valid.json",
+                                                             "checkpoint_ref":  "../../../../../fixtures/valid/milestone_continuity/continuity_checkpoint.valid.json",
+                                                             "handoff_packet_ref":  "../../../../../fixtures/valid/milestone_continuity/continuity_handoff_packet.valid.json",
+                                                             "resume_request_ref":  "../../../../../fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json",
+                                                             "resume_result_ref":  "../../../../../fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json",
+                                                             "continuity_ledger_ref":  "../../../../../fixtures/valid/milestone_continuity/continuity_ledger.valid.json"
+                                                         },
+                               "rollback_proof_refs":  {
+                                                           "rollback_plan_request_ref":  "../../../../../fixtures/valid/milestone_continuity/rollback_plan_request.valid.json",
+                                                           "rollback_plan_ref":  "../../../../../fixtures/valid/milestone_continuity/rollback_plan.valid.json",
+                                                           "rollback_drill_authorization_ref":  "../../../../../fixtures/valid/milestone_continuity/rollback_drill_authorization.valid.json",
+                                                           "rollback_drill_result_ref":  "../../../../../fixtures/valid/milestone_continuity/rollback_drill_result.valid.json",
+                                                           "review_summary_ref":  "../../../../../fixtures/valid/milestone_continuity/review_summaries/review-summary-r7-008-001.json",
+                                                           "operator_packet_ref":  "../../../../../fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json"
+                                                       },
+                               "repo_truth_refs":  {
+                                                       "readme_path":  "../../../../../../README.md",
+                                                       "active_state_path":  "../../../../../../governance/ACTIVE_STATE.md",
+                                                       "kanban_path":  "../../../../../../execution/KANBAN.md",
+                                                       "decision_log_path":  "../../../../../../governance/DECISION_LOG.md",
+                                                       "milestone_authority_path":  "../../../../../../governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md"
+                                                   }
+                           },
+    "operator_decision_state":  "advisory_only_not_executed",
+    "exact_replay_scope":  "Exact replay scope: cycle cycle-r7-fault-managed-continuity-001 replays one interrupted-and-resumed supervised continuity path from committed fault event state/fixtures/valid/fault_management/fault_event.valid.json through committed operator packet state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json, plus one committed disposable-worktree rollback drill result, without implying unattended or destructive execution.",
+    "closeout_scope":  "Exact closeout scope: close out only cycle cycle-r7-fault-managed-continuity-001 for one repository-local interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet from committed R7-002 through R7-008 evidence.",
+    "proved_scope":  "Proved scope: cycle cycle-r7-fault-managed-continuity-001 replays one exact chain across committed fault event, checkpoint, handoff packet, supervised resume request/result, continuity ledger, governed rollback plan request/plan, rollback drill authorization/result, advisory review summary, operator packet, raw replay logs, one bounded replay summary artifact, and one bounded closeout packet.",
+    "unproved_scope":  "Unproved scope: unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI or control-room productization, Standard runtime, multi-repo behavior, swarms, and broader orchestration.",
+    "out_of_scope":  "Out of scope: any later milestone work, any R8 implementation, any broader autonomy claim, and any destructive rollback execution outside the bounded disposable-worktree drill already committed.",
+    "automatic_execution_implied":  false,
+    "destructive_primary_worktree_rollback_implied":  false,
+    "non_claims":  [
+                       "no_unattended_automatic_resume",
+                       "no_destructive_primary_tree_rollback",
+                       "no_ui",
+                       "no_standard_runtime",
+                       "no_multi_repo_behavior",
+                       "no_swarms",
+                       "no_broader_orchestration",
+                       "no_broader_rollback_productization"
+                   ],
+    "notes":  "Closeout packet remains bounded to one replayable interrupted-and-resumed supervised continuity path plus one safe rollback drill packet only."
+}

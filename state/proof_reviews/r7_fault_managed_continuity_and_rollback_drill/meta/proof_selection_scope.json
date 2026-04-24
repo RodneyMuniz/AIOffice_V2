@@ -1,0 +1,32 @@
+﻿{
+    "scenario_id":  "r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+    "scope_statement":  "Exact replay scope: cycle cycle-r7-fault-managed-continuity-001 replays one interrupted-and-resumed supervised continuity path from committed fault event state/fixtures/valid/fault_management/fault_event.valid.json through committed operator packet state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json, plus one committed disposable-worktree rollback drill result, without implying unattended or destructive execution.",
+    "closeout_scope_statement":  "Exact closeout scope: close out only cycle cycle-r7-fault-managed-continuity-001 for one repository-local interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet from committed R7-002 through R7-008 evidence.",
+    "replay_chain":  [
+                         "fault_event",
+                         "continuity_checkpoint",
+                         "continuity_handoff_packet",
+                         "resume_from_fault_request",
+                         "resume_from_fault_result",
+                         "continuity_ledger",
+                         "rollback_plan_request",
+                         "rollback_plan",
+                         "rollback_drill_authorization",
+                         "rollback_drill_result",
+                         "review_summary",
+                         "operator_packet",
+                         "proof_review_summary",
+                         "closeout_packet"
+                     ],
+    "selected_command_ids":  [
+                                 "test-fault-event",
+                                 "test-continuity-artifacts",
+                                 "test-resume-from-fault",
+                                 "test-continuity-ledger",
+                                 "test-rollback-plan",
+                                 "test-rollback-drill",
+                                 "test-continuity-review"
+                             ],
+    "notes":  "Selection scope records the exact committed R7-002 through R7-008 evidence chain replayed for one interrupted-and-resumed supervised cycle plus one safe rollback drill packet only."
+}

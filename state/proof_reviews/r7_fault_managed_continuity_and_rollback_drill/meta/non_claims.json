@@ -1,0 +1,10 @@
+﻿[
+    "no_unattended_automatic_resume",
+    "no_destructive_primary_tree_rollback",
+    "no_ui",
+    "no_standard_runtime",
+    "no_multi_repo_behavior",
+    "no_swarms",
+    "no_broader_orchestration",
+    "no_broader_rollback_productization"
+]

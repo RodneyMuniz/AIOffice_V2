@@ -1,0 +1,9 @@
+﻿PASS valid: .\state\fixtures\valid\fault_management\fault_event.valid.json -> interruption event-r7-002-context-break-001
+PASS valid in-memory: event-r7-002-context-break-001 -> operator_review_required
+PASS invalid: missing-reason-summary -> Fault event is missing required field 'reason_summary'.
+PASS invalid: malformed-event-id -> Fault event.event_id does not match the required pattern.
+PASS invalid: invalid-trigger-classification -> Fault event.trigger_classification must be one of: runtime_detected, operator_observed, validation_detected, external_condition_detected.
+PASS invalid: invalid-required-next-action -> Fault event.required_next_action must be one of: operator_review_required, manual_continuity_follow_up_required, manual_repo_state_review_required, cycle_stop_required.
+PASS invalid: contradictory-event-category -> Fault event.event_category must be one of: context_window_break, session_terminated, operator_interruption, external_interruption.
+PASS invalid: contradictory-cycle-scope-with-task-id -> Fault event.affected_scope must not include task_id or segment_id when scope_level is 'cycle'.
+All fault management event tests passed. Valid passed: 2. Invalid rejected: 6.

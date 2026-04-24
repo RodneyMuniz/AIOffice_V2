@@ -1,0 +1,52 @@
+{
+  "package_type": "r7_fault_managed_continuity_and_rollback_drill_proof_review",
+  "required_fields": [
+    "package_version",
+    "package_type",
+    "scenario_id",
+    "cycle_id",
+    "summary_ref",
+    "closeout_packet_ref",
+    "selection_scope_ref",
+    "replay_source_ref",
+    "replay_commands_ref",
+    "authoritative_artifact_refs_ref",
+    "non_claims_ref",
+    "replay_summary_ref",
+    "closeout_review_ref",
+    "raw_log_refs",
+    "notes"
+  ],
+  "summary_required_fields": [
+    "summary_id",
+    "scenario_id",
+    "cycle_id",
+    "repository",
+    "continuity_identity",
+    "rollback_identity",
+    "replay_source",
+    "command_results",
+    "exact_replay_scope",
+    "proved_scope",
+    "unproved_scope",
+    "notes"
+  ],
+  "summary_command_result_required_fields": [
+    "command_id",
+    "command",
+    "log_ref",
+    "exit_code",
+    "status",
+    "result_summary"
+  ],
+  "allowed_summary_statuses": [
+    "passed"
+  ],
+  "prohibited_claim_fragments": [
+    "automatic execution",
+    "destructive primary-tree rollback proved",
+    "broader rollback productization proved",
+    "multi-repo proved",
+    "swarm orchestration"
+  ]
+}

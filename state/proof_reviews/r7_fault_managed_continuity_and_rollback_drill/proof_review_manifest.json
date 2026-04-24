@@ -1,0 +1,27 @@
+﻿{
+    "package_version":  "v1",
+    "package_type":  "r7_fault_managed_continuity_and_rollback_drill_proof_review",
+    "scenario_id":  "r7-fault-managed-continuity-and-rollback-drill-proof-001",
+    "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+    "summary_ref":  "artifacts/summary/summaries/summary-r7-fault-managed-continuity-and-rollback-drill-proof-001.json",
+    "closeout_packet_ref":  "artifacts/closeout/closeout_packets/closeout-packet-r7-fault-managed-continuity-and-rollback-drill-proof-001.json",
+    "selection_scope_ref":  "meta/proof_selection_scope.json",
+    "replay_source_ref":  "meta/replay_source.json",
+    "replay_commands_ref":  "meta/replayed_commands.txt",
+    "authoritative_artifact_refs_ref":  "meta/authoritative_artifact_refs.json",
+    "non_claims_ref":  "meta/non_claims.json",
+    "replay_summary_ref":  "REPLAY_SUMMARY.md",
+    "closeout_review_ref":  "CLOSEOUT_REVIEW.md",
+    "raw_log_refs":  [
+                         "raw_logs/replay_steps.log",
+                         "raw_logs/replay_events.jsonl",
+                         "raw_logs/tests/test_fault_management_event.log",
+                         "raw_logs/tests/test_milestone_continuity_artifacts.log",
+                         "raw_logs/tests/test_milestone_continuity_resume_from_fault.log",
+                         "raw_logs/tests/test_milestone_continuity_ledger.log",
+                         "raw_logs/tests/test_milestone_rollback_plan.log",
+                         "raw_logs/tests/test_milestone_rollback_drill.log",
+                         "raw_logs/tests/test_milestone_continuity_review.log"
+                     ],
+    "notes":  "Committed proof-review package for the exact R7 interrupted-and-resumed supervised continuity replay plus one safe rollback drill packet from committed R7-002 through R7-008 evidence only."
+}

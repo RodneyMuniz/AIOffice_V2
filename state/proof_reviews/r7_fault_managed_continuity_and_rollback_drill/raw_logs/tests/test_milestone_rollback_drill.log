@@ -1,0 +1,12 @@
+﻿PASS valid rollback drill authorization: .\state\fixtures\valid\milestone_continuity\rollback_drill_authorization.valid.json -> rollback-drill-authorization-r7-007-001
+PASS valid rollback drill: rollback-plan-r7-007-001 -> disposable_worktree
+PASS invalid: primary-worktree-target -> DisposableEnvironmentRoot must not equal the primary worktree root.
+PASS invalid: missing-explicit-operator-approval -> Rollback drill authorization.git_mutation_approved must remain true.
+PASS invalid: invalid-environment-scope -> Rollback drill authorization.approved_environment_scope must be one of: disposable_worktree.
+PASS invalid: repository-mismatch -> Rollback plan.repository.repository_name must equal 'AIOffice_V2'.
+PASS invalid: target-git-context-mismatch -> Rollback plan.rollback_target git context must match the referenced baseline exactly.
+PASS invalid: malformed-rollback-plan-artifact -> Rollback plan is missing required field 'rollback_target'.
+PASS invalid: destructive-drill-path -> DisposableEnvironmentRoot must not resolve inside the primary repository root.
+PASS invalid: execution-state-contradiction -> Rollback plan.execution_state must be one of: not_executed.
+PASS invalid: malformed-drill-result-state -> Rollback drill result.execution_state must be one of: completed_disposable_worktree_drill.
+All milestone rollback drill tests passed. Valid passed: 2. Invalid rejected: 9.

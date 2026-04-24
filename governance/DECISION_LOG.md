@@ -424,3 +424,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove replayable closeout proof, unattended automatic resume, destructive primary-tree rollback, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: the accepted slice also does not prove broader rollback productization or final closeout; it remains advisory packaging only.
 - Consequence: the next gated step inside R7 is `R7-009 Produce one replayable interrupted-and-resumed proof plus rollback drill packet`.
+
+## D-0050 R7-009 Closed R7 On The Replayable Interrupted-Continuity And Rollback-Drill Packet
+- Date: 2026-04-24
+- Status: accepted
+- Decision: the committed proof-review package under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/` at replay source head `fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905` and replay source tree `3b55d697b6206a62967800cd78bc4f3b39b99858` satisfies the final `R7-009` replay-closeout bar, so `R7-009` is complete and `R7 Fault-Managed Continuity and Rollback Drill` is formally closed in repo truth.
+- Consequence: the package commits exact replay commands, raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs for `R7-002` through `R7-008`, one bounded closeout packet, and explicit non-claims for one exact replayable interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet only.
+- Consequence: this decision closes `R7 Fault-Managed Continuity and Rollback Drill` in repo truth as one bounded replayable continuity-and-rollback rehearsal only. It does not prove unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: no later implementation milestone is open yet in repo truth.

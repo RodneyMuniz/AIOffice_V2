@@ -1,0 +1,25 @@
+﻿{
+    "continuity_proof_refs":  {
+                                  "fault_event_ref":  "../../fixtures/valid/fault_management/fault_event.valid.json",
+                                  "checkpoint_ref":  "../../fixtures/valid/milestone_continuity/continuity_checkpoint.valid.json",
+                                  "handoff_packet_ref":  "../../fixtures/valid/milestone_continuity/continuity_handoff_packet.valid.json",
+                                  "resume_request_ref":  "../../fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json",
+                                  "resume_result_ref":  "../../fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json",
+                                  "continuity_ledger_ref":  "../../fixtures/valid/milestone_continuity/continuity_ledger.valid.json"
+                              },
+    "rollback_proof_refs":  {
+                                "rollback_plan_request_ref":  "../../fixtures/valid/milestone_continuity/rollback_plan_request.valid.json",
+                                "rollback_plan_ref":  "../../fixtures/valid/milestone_continuity/rollback_plan.valid.json",
+                                "rollback_drill_authorization_ref":  "../../fixtures/valid/milestone_continuity/rollback_drill_authorization.valid.json",
+                                "rollback_drill_result_ref":  "../../fixtures/valid/milestone_continuity/rollback_drill_result.valid.json",
+                                "review_summary_ref":  "../../fixtures/valid/milestone_continuity/review_summaries/review-summary-r7-008-001.json",
+                                "operator_packet_ref":  "../../fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json"
+                            },
+    "repo_truth_refs":  {
+                            "readme_path":  "../../../README.md",
+                            "active_state_path":  "../../../governance/ACTIVE_STATE.md",
+                            "kanban_path":  "../../../execution/KANBAN.md",
+                            "decision_log_path":  "../../../governance/DECISION_LOG.md",
+                            "milestone_authority_path":  "../../../governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md"
+                        }
+}

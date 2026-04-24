@@ -3,16 +3,16 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R7 Fault-Managed Continuity and Rollback Drill`
+No post-R7 milestone is open in repo truth.
 
 Current posture:
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-008` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The next gated step is `R7-009 Produce one replayable interrupted-and-resumed proof plus rollback drill packet`. The carry-forward claim is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." First-class fault/interruption contracts, governed checkpoint and handoff artifacts, one supervised resume-from-fault re-entry path, one authoritative continuity ledger, one governed pre-execution rollback plan, one safe disposable-worktree rollback drill, and one bounded advisory review layer now exist, but replayable closeout proof and destructive primary-tree rollback are still unproved here.
+`R7 Fault-Managed Continuity and Rollback Drill` is now honestly closed in repo truth with `R7-001` through `R7-009` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The committed proof-review basis is `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/` at replay source head `fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905` and replay source tree `3b55d697b6206a62967800cd78bc4f3b39b99858`. The carry-forward claim that is now actually proved is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." The bounded closeout package proves one replayable interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet only. No later milestone is defined in repo truth yet.
 
 ## Most Recently Closed Milestone
-`R6 Supervised Milestone Autocycle Pilot`
+`R7 Fault-Managed Continuity and Rollback Drill`
 
 Closeout summary:
-`R6-001`, `R6-P1`, `R6-P2`, and `R6-002` through `R6-009` are complete and formally closed in repo truth. The closeout authority is `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis is `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/` at replay source head `9069b29ace87d787515b4c4fb5e9c94e6fa40743`, and decision authority is `D-0041`, not the earlier softened `D-0039` posture. That package records raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs, one replay proof, one closeout packet, one closeout review, and explicit non-claims for the exact pilot replay from structured intake through advisory-only operator decision. This closeout remains bounded and does not add executed operator acceptance, broad autonomy, rollback execution, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration claims.
+`R7-001` through `R7-009` are complete and formally closed in repo truth. The closeout authority is `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis is `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/` at replay source head `fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905` and replay source tree `3b55d697b6206a62967800cd78bc4f3b39b99858`, and decision authority is `D-0050`. That package records exact replay commands, raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs for `R7-002` through `R7-008`, one bounded closeout packet, and explicit non-claims for the exact interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet only. This closeout remains bounded and does not add unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration claims.
 
 ## Tasks
 
@@ -89,13 +89,13 @@ Closeout summary:
 - Done when: one bounded advisory review summary plus one operator packet summarize exact committed continuity and rollback evidence only, preserve explicit non-claims, require manual operator decision, and are proved through `contracts/milestone_continuity/review_summary.contract.json`, `contracts/milestone_continuity/operator_packet.contract.json`, `tools/MilestoneContinuityReview.psm1`, `tools/prepare_milestone_continuity_review.ps1`, `tools/validate_milestone_continuity_review_summary.ps1`, `tools/validate_milestone_continuity_operator_packet.ps1`, `state/fixtures/valid/milestone_continuity/review_summaries/review-summary-r7-008-001.json`, `state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json`, and `tests/test_milestone_continuity_review.ps1`
 
 ### `R7-009` Produce one replayable interrupted-and-resumed proof plus rollback drill packet
-- Status: planned
+- Status: done
 - Order: 9
 - Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
 - Depends on: `R7-008`
 - Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `governance/DECISION_LOG.md`
 - Durable output: one replayable interrupted-and-resumed proof package plus one rollback drill packet
-- Done when: one exact interrupted-and-resumed supervised cycle plus one safe rollback drill are replayable from committed evidence, closeout wording matches the exact scope, and non-claims remain explicit
+- Done when: one exact interrupted-and-resumed supervised cycle plus one safe rollback drill are replayable from committed evidence through `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, closeout wording matches the exact scope, non-claims remain explicit, and R7 closes without opening a later milestone by narration alone
 
 ## Explicitly Out Of Scope For This Milestone
 - broader autonomy
