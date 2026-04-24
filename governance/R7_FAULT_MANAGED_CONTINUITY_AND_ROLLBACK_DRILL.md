@@ -14,7 +14,7 @@ The honest next claim is not "make sessions longer." The honest next claim is "m
 Prove one interrupted-and-resumed supervised milestone cycle for `AIOffice_V2` only, with first-class interruption truth, governed continuity checkpoints and handoff packets, one governed rollback plan, and one safe rollback drill in a disposable environment, without widening into unattended automatic resume, destructive primary-tree rollback, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 
 ## Current status
-`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-007` complete.
+`R7 Fault-Managed Continuity and Rollback Drill` is open in repo truth with `R7-001` through `R7-008` complete.
 
 `R7-001` is complete as the repo-truth open step.
 
@@ -32,9 +32,11 @@ Prove one interrupted-and-resumed supervised milestone cycle for `AIOffice_V2` o
 
 `R7-007` is complete as a bounded rollback-drill harness slice through `contracts/milestone_continuity/rollback_drill_authorization.contract.json`, `contracts/milestone_continuity/rollback_drill_result.contract.json`, `tools/MilestoneRollbackDrill.psm1`, `tools/invoke_milestone_rollback_drill.ps1`, `tools/validate_milestone_rollback_drill_result.ps1`, the valid rollback-drill authorization fixture under `state/fixtures/valid/milestone_continuity/`, and focused proof through `tests/test_milestone_rollback_drill.ps1`. That slice proves one safe rollback drill harness that reuses the accepted `R7-006` rollback plan plus explicit drill authorization truth, runs only inside one disposable worktree, requires explicit operator approval before any Git mutation, refuses primary-worktree execution, and fails closed on missing or malformed rollback-plan refs, invalid environment scope, repository or target git-context contradiction, missing operator approval, destructive drill-path implication, execution-state contradiction, and malformed drill-result state.
 
-The next gated step inside active R7 is `R7-008 Add advisory continuity / rollback review summary and operator packet`.
+`R7-008` is complete as a bounded advisory continuity / rollback review slice through `contracts/milestone_continuity/review_summary.contract.json`, `contracts/milestone_continuity/operator_packet.contract.json`, `tools/MilestoneContinuityReview.psm1`, `tools/prepare_milestone_continuity_review.ps1`, `tools/validate_milestone_continuity_review_summary.ps1`, `tools/validate_milestone_continuity_operator_packet.ps1`, the valid advisory review fixtures under `state/fixtures/valid/milestone_continuity/review_summaries/` and `state/fixtures/valid/milestone_continuity/operator_packets/`, and focused proof through `tests/test_milestone_continuity_review.ps1`. That slice proves one bounded advisory review summary plus one operator packet that summarize the exact committed continuity-ledger, rollback-plan, and rollback-drill evidence for one repository and one cycle only, preserve explicit non-claims, require manual operator decision, and fail closed on missing or contradictory evidence, cycle or milestone drift, automatic-execution implication, destructive-rollback implication, missing non-claims, and malformed advisory artifact state.
 
-The accepted `R7-007` slice does not yet prove advisory review packaging, replayable closeout proof, unattended automatic resume, or destructive primary-tree rollback.
+The next gated step inside active R7 is `R7-009 Produce one replayable interrupted-and-resumed proof plus rollback drill packet`.
+
+The accepted `R7-008` slice does not yet prove replayable closeout proof, unattended automatic resume, or destructive primary-tree rollback.
 
 ## Exact boundary
 This milestone is bounded to:
@@ -159,8 +161,8 @@ R7 does not currently prove and must not casually widen into:
 - Done when: one rollback drill harness runs only inside a disposable worktree, requires explicit operator approval before any Git mutation, refuses primary-worktree execution, and is proved through `contracts/milestone_continuity/rollback_drill_authorization.contract.json`, `contracts/milestone_continuity/rollback_drill_result.contract.json`, `tools/MilestoneRollbackDrill.psm1`, `tools/invoke_milestone_rollback_drill.ps1`, `tools/validate_milestone_rollback_drill_result.ps1`, `state/fixtures/valid/milestone_continuity/rollback_drill_authorization.valid.json`, and `tests/test_milestone_rollback_drill.ps1`
 
 ### `R7-008` Add advisory continuity / rollback review summary and operator packet
-- Status: planned
-- Done when: one bounded advisory review packet summarizes continuity and rollback drill evidence, records explicit non-claims, and does not imply automatic or destructive execution
+- Status: done
+- Done when: one bounded advisory review summary plus one operator packet summarize the exact committed continuity-ledger, rollback-plan, and rollback-drill evidence only, preserve explicit non-claims, require manual operator decision, and are proved through `contracts/milestone_continuity/review_summary.contract.json`, `contracts/milestone_continuity/operator_packet.contract.json`, `tools/MilestoneContinuityReview.psm1`, `tools/prepare_milestone_continuity_review.ps1`, `tools/validate_milestone_continuity_review_summary.ps1`, `tools/validate_milestone_continuity_operator_packet.ps1`, `state/fixtures/valid/milestone_continuity/review_summaries/review-summary-r7-008-001.json`, `state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json`, and `tests/test_milestone_continuity_review.ps1`
 
 ### `R7-009` Produce one replayable interrupted-and-resumed proof plus rollback drill packet
 - Status: planned
@@ -174,6 +176,7 @@ R7 does not currently prove and must not casually widen into:
 - `R7-005` now adds one authoritative continuity ledger anchored directly to the accepted `R7-002` fault-event truth plus accepted `R7-003` checkpoint and handoff artifacts plus the accepted `R7-004` supervised resume request/result flow. It stitches one interrupted segment to one supervised prepared successor segment only and does not generate rollback plans, execute rollback drills, or imply unattended automatic resume.
 - `R7-006` now adds one governed rollback plan artifact anchored directly to the accepted `R7-005` continuity ledger plus accepted R6 baseline-binding and milestone-baseline truth. It records one bounded rollback target and future operator approval guard only, remains explicitly pre-execution, and does not run a rollback drill, execute rollback, or imply unattended automatic resume.
 - `R7-007` now adds one safe rollback drill harness anchored directly to the accepted `R7-006` rollback plan plus one explicit drill authorization artifact. It executes one bounded hard-reset rehearsal only inside one disposable worktree after explicit operator approval, refuses primary-worktree execution, and does not produce advisory review packaging, replayable closeout proof, destructive primary-tree rollback, or unattended automatic resume.
+- `R7-008` now adds one advisory review summary plus one operator packet anchored directly to the accepted `R7-005` continuity ledger, accepted `R7-006` rollback plan, and accepted `R7-007` rollback drill result. It packages exact evidence for one repository and one cycle only, preserves explicit non-claims, requires manual operator decision, and does not imply automatic execution, destructive primary-tree rollback, or final closeout.
 - The real R6 continuity and context-window break is preserved here as an ordering driver: interruption and continuity truth comes first, before rollback drill work and far before any UI or orchestration growth.
 - R7 keeps rollback rehearsal explicitly disposable. Any Git-mutating rollback drill still requires explicit operator approval and must not target the primary working tree.
 - Advisory operator review remains the ceiling for this milestone unless later repo truth proves more.

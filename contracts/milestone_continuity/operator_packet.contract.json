@@ -1,0 +1,69 @@
+{
+  "record_type": "milestone_continuity_operator_packet",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "operator_packet_id",
+    "prepared_at",
+    "cycle_context",
+    "repository",
+    "review_summary_ref",
+    "review_summary_id",
+    "continuity_identity",
+    "supervision",
+    "evidence_snapshot",
+    "evidence_quality_summary",
+    "scope_limitations",
+    "recommendation",
+    "recommendation_is_advisory",
+    "manual_operator_decision_required",
+    "operator_options",
+    "automatic_execution_implied",
+    "destructive_primary_worktree_rollback_implied",
+    "non_claims",
+    "notes"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "review_summary_ref_required_fields": [
+    "record_type",
+    "review_summary_id",
+    "review_summary_path"
+  ],
+  "continuity_identity_required_fields": [
+    "task_id",
+    "interrupted_segment_id",
+    "successor_segment_id",
+    "rollback_plan_id",
+    "rollback_drill_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "evidence_snapshot_required_fields": [
+    "ledger_continuity_state",
+    "rollback_plan_execution_state",
+    "rollback_target_scope",
+    "rollback_environment_scope",
+    "rollback_drill_execution_state",
+    "rollback_drill_environment_scope",
+    "rollback_drill_action"
+  ],
+  "prohibited_claim_fragments": [
+    "automatic execution",
+    "automatic rollback",
+    "destructive rollback",
+    "primary-tree rollback executed",
+    "final closeout",
+    "multi-repo proved",
+    "swarm orchestration"
+  ]
+}

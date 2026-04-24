@@ -1,0 +1,74 @@
+{
+    "contract_version":  "v1",
+    "record_type":  "milestone_continuity_rollback_plan",
+    "rollback_plan_id":  "rollback-plan-r7-007-001",
+    "rollback_plan_request_id":  "rollback-plan-request-r7-006-001",
+    "planned_at":  "2026-04-24T03:00:00Z",
+    "cycle_context":  {
+                          "cycle_id":  "cycle-r7-fault-managed-continuity-001",
+                          "milestone_id":  "milestone-r7-fault-managed-continuity-and-rollback-drill",
+                          "milestone_title":  "R7 Fault-Managed Continuity and Rollback Drill"
+                      },
+    "repository":  {
+                       "repository_name":  "AIOffice_V2"
+                   },
+    "source_continuity":  {
+                              "ledger_ref":  {
+                                                 "record_type":  "milestone_continuity_ledger",
+                                                 "ledger_id":  "continuity-ledger-r7-005-001",
+                                                 "ledger_path":  "state/fixtures/valid/milestone_continuity/continuity_ledger.valid.json"
+                                             },
+                              "task_id":  "task-r7-002-fault-contracts-001",
+                              "interrupted_segment_id":  "segment-r7-002-001",
+                              "successor_segment_id":  "segment-r7-005-001",
+                              "ledger_continuity_state":  "stitched_interrupted_to_supervised_resume"
+                          },
+    "rollback_target":  {
+                            "target_scope":  "milestone_baseline_anchor",
+                            "baseline_binding_ref":  {
+                                                         "record_type":  "milestone_autocycle_baseline_binding",
+                                                         "binding_id":  "baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001",
+                                                         "binding_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r6_supervised_milestone_autocycle_pilot\\artifacts\\baseline_binding\\baseline_bindings\\baseline-binding-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+                                                     },
+                            "baseline_ref":  {
+                                                 "record_type":  "milestone_baseline",
+                                                 "baseline_id":  "baseline-r6-supervised-milestone-autocycle-pilot-proof-001",
+                                                 "baseline_path":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\proof_reviews\\r6_supervised_milestone_autocycle_pilot\\artifacts\\baseline_binding\\baseline_store\\milestone_baselines\\baseline-r6-supervised-milestone-autocycle-pilot-proof-001.json"
+                                             },
+                            "repository_root":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2",
+                            "branch":  "feature/r5-closeout-remaining-foundations",
+                            "head_commit":  "9069b29ace87d787515b4c4fb5e9c94e6fa40743",
+                            "tree_id":  "cd4dad7891ebdafd8b641f5957c0422f33937ca4"
+                        },
+    "environment_constraints":  {
+                                    "allowed_environment_scope":  "disposable_worktree",
+                                    "primary_worktree_execution":  "refused"
+                                },
+    "supervision":  {
+                        "mode":  "supervised_operator_controlled",
+                        "operator_authority":  "operator:rodney",
+                        "resume_authority_state":  "operator_review_required"
+                    },
+    "operator_approval":  {
+                              "approval_required":  true,
+                              "required_authority_state":  "operator_review_required",
+                              "approved_for_execution":  false
+                          },
+    "refusal_conditions":  [
+                               "Refuse when the referenced baseline binding or baseline is missing, malformed, or contradictory.",
+                               "Refuse when rollback target scope, repository root, branch, head commit, or tree id diverges from the referenced baseline truth.",
+                               "Refuse when operator approval requirement is absent, execution is implied, or primary-worktree rollback is requested."
+                           ],
+    "execution_state":  "not_executed",
+    "authoritative_refs":  {
+                               "readme_path":  "README.md",
+                               "active_state_path":  "governance/ACTIVE_STATE.md",
+                               "kanban_path":  "execution/KANBAN.md",
+                               "decision_log_path":  "governance/DECISION_LOG.md",
+                               "milestone_authority_path":  "governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md"
+                           },
+    "non_claims":  [
+                       "plan_only_no_execution_no_drill_no_primary_worktree_rollback"
+                   ],
+    "notes":  "This governed rollback plan records one bounded rollback target and future approval guard from accepted continuity-ledger truth plus accepted baseline-binding truth only. It does not execute rollback, does not run a rollback drill, and does not permit primary-worktree rollback."
+}

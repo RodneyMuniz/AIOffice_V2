@@ -9,6 +9,8 @@
   "rollback_plan_record_type": "milestone_continuity_rollback_plan",
   "rollback_drill_authorization_record_type": "milestone_continuity_rollback_drill_authorization",
   "rollback_drill_result_record_type": "milestone_continuity_rollback_drill_result",
+  "review_summary_record_type": "milestone_continuity_review_summary",
+  "operator_packet_record_type": "milestone_continuity_operator_packet",
   "fault_event_record_type": "fault_management_event",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
@@ -87,6 +89,31 @@
   ],
   "allowed_rollback_drill_non_claims": [
     "drill_only_no_primary_worktree_rollback_no_broader_recovery"
+  ],
+  "allowed_review_recommendations": [
+    "advance_to_r7_009",
+    "rework_evidence",
+    "stop_progression"
+  ],
+  "allowed_operator_packet_options": [
+    "advance_to_r7_009",
+    "rework_evidence",
+    "stop_progression"
+  ],
+  "allowed_review_scope_limitations": [
+    "single_repository_only",
+    "single_cycle_only",
+    "advisory_only_not_closeout",
+    "artifact_evidence_only"
+  ],
+  "allowed_review_non_claims": [
+    "no_unattended_automatic_resume",
+    "no_destructive_primary_tree_rollback",
+    "no_ui",
+    "no_standard_runtime",
+    "no_multi_repo_behavior",
+    "no_swarms",
+    "no_broader_orchestration"
   ],
   "required_authoritative_ref_fields": [
     "readme_path",

@@ -415,3 +415,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this acceptance does not prove advisory continuity / rollback review packaging, replayable closeout proof, unattended automatic resume, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: the accepted slice also does not prove destructive primary-tree rollback or broader rollback productization; it remains one bounded disposable rehearsal only.
 - Consequence: the next gated step inside R7 is `R7-008 Add advisory continuity / rollback review summary and operator packet`.
+
+## D-0049 R7-008 Added Advisory Continuity And Rollback Review Summary And Operator Packet
+- Date: 2026-04-24
+- Status: accepted
+- Decision: `R7-008` is complete as a bounded advisory continuity / rollback review slice through `contracts/milestone_continuity/review_summary.contract.json`, `contracts/milestone_continuity/operator_packet.contract.json`, `tools/MilestoneContinuityReview.psm1`, `tools/prepare_milestone_continuity_review.ps1`, `tools/validate_milestone_continuity_review_summary.ps1`, `tools/validate_milestone_continuity_operator_packet.ps1`, the valid advisory review fixtures under `state/fixtures/valid/milestone_continuity/review_summaries/` and `state/fixtures/valid/milestone_continuity/operator_packets/`, and focused proof through `tests/test_milestone_continuity_review.ps1`.
+- Consequence: the accepted slice proves one bounded advisory review summary plus one operator packet that summarize the exact committed continuity-ledger, rollback-plan, and rollback-drill evidence for one repository and one cycle only, preserve explicit non-claims, require manual operator decision, and fail closed on missing or contradictory evidence, cycle or milestone drift, automatic-execution implication, destructive-rollback implication, missing non-claims, and malformed advisory artifact state.
+- Consequence: this acceptance does not prove replayable closeout proof, unattended automatic resume, destructive primary-tree rollback, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
+- Consequence: the accepted slice also does not prove broader rollback productization or final closeout; it remains advisory packaging only.
+- Consequence: the next gated step inside R7 is `R7-009 Produce one replayable interrupted-and-resumed proof plus rollback drill packet`.

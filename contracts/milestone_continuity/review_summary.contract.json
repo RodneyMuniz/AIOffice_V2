@@ -1,0 +1,86 @@
+{
+  "record_type": "milestone_continuity_review_summary",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "review_summary_id",
+    "reviewed_at",
+    "cycle_context",
+    "repository",
+    "evidence_refs",
+    "continuity_identity",
+    "continuity_git_context",
+    "rollback_target_git_context",
+    "supervision",
+    "evidence_snapshot",
+    "evidence_quality_summary",
+    "scope_limitations",
+    "non_claims",
+    "recommendation",
+    "recommendation_is_advisory",
+    "automatic_execution_implied",
+    "destructive_primary_worktree_rollback_implied",
+    "notes"
+  ],
+  "cycle_context_required_fields": [
+    "cycle_id",
+    "milestone_id",
+    "milestone_title"
+  ],
+  "repository_required_fields": [
+    "repository_name"
+  ],
+  "evidence_refs_required_fields": [
+    "continuity_ledger_ref",
+    "rollback_plan_ref",
+    "rollback_drill_result_ref"
+  ],
+  "continuity_ledger_ref_required_fields": [
+    "record_type",
+    "ledger_id",
+    "ledger_path"
+  ],
+  "rollback_plan_ref_required_fields": [
+    "record_type",
+    "rollback_plan_id",
+    "rollback_plan_path"
+  ],
+  "rollback_drill_result_ref_required_fields": [
+    "record_type",
+    "rollback_drill_id",
+    "drill_result_path"
+  ],
+  "continuity_identity_required_fields": [
+    "task_id",
+    "interrupted_segment_id",
+    "successor_segment_id"
+  ],
+  "git_context_required_fields": [
+    "branch",
+    "head_commit",
+    "tree_id"
+  ],
+  "supervision_required_fields": [
+    "mode",
+    "operator_authority",
+    "resume_authority_state"
+  ],
+  "evidence_snapshot_required_fields": [
+    "ledger_continuity_state",
+    "rollback_plan_execution_state",
+    "rollback_target_scope",
+    "rollback_environment_scope",
+    "rollback_drill_execution_state",
+    "rollback_drill_environment_scope",
+    "rollback_drill_action"
+  ],
+  "prohibited_claim_fragments": [
+    "automatic execution",
+    "automatic rollback",
+    "destructive rollback",
+    "primary-tree rollback executed",
+    "final closeout",
+    "multi-repo proved",
+    "swarm orchestration"
+  ]
+}
