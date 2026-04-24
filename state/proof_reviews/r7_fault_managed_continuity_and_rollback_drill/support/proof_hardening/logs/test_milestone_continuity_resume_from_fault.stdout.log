@@ -1,0 +1,10 @@
+PASS valid resume request: .\state\fixtures\valid\milestone_continuity\resume_from_fault_request.valid.json -> resume-from-fault-r7-004-001
+PASS valid supervised resume-from-fault: resume-from-fault-r7-004-001 -> resume-from-fault-r7-004-001.result
+PASS invalid: missing-checkpoint-ref -> Resume-from-fault request is missing required field 'checkpoint_ref'.
+PASS invalid: missing-handoff-packet-ref -> Resume-from-fault request is missing required field 'handoff_packet_ref'.
+PASS invalid: missing-fault-event-ref -> Resume-from-fault request is missing required field 'fault_event_ref'.
+PASS invalid: checkpoint-ref-id-mismatch -> Resume-from-fault request.checkpoint_ref.checkpoint_id does not match the referenced checkpoint artifact.
+PASS invalid: invalid-operator-authority -> Resume-from-fault request.supervision.operator_authority must match the referenced fault, checkpoint, and handoff artifacts.
+PASS invalid: git-context-mismatch -> Resume-from-fault request.git_context.head_commit must match the referenced fault, checkpoint, and handoff artifacts.
+PASS invalid: identity-mismatch -> Resume-from-fault request.scope_context.task_id must match the referenced fault, checkpoint, and handoff artifacts.
+All milestone continuity resume-from-fault tests passed. Valid passed: 2. Invalid rejected: 7.

@@ -1,0 +1,10 @@
+PASS valid continuity ledger fixture: .\state\fixtures\valid\milestone_continuity\continuity_ledger.valid.json -> continuity-ledger-r7-005-001
+PASS stitched continuity ledger: segment-r7-002-001 -> segment-r7-005-002
+PASS invalid: missing-prior-link -> Continuity ledger.ordered_segments[1].prior_segment_id must equal 'segment-r7-002-001'.
+PASS invalid: contradictory-segment-ordering -> Continuity ledger.ordered_segments[0].ordinal must equal 1.
+PASS invalid: repository-mismatch -> Continuity ledger.repository.repository_name must equal 'AIOffice_V2'.
+PASS invalid: git-context-mismatch -> Continuity ledger.ordered_segments[1].git_context must match the ledger git context.
+PASS invalid: milestone-cycle-mismatch -> Continuity ledger.cycle_context must match the referenced continuity artifacts.
+PASS invalid: identity-drift-across-stitched-segments -> Continuity ledger.ordered_segments[1].task_id must equal 'task-r7-002-fault-contracts-001'.
+PASS invalid: malformed-ledger-state -> Continuity ledger is missing required field 'ordered_segments'.
+All milestone continuity ledger tests passed. Valid passed: 2. Invalid rejected: 7.

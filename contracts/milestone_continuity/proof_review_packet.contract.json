@@ -17,6 +17,54 @@
     "raw_log_refs",
     "notes"
   ],
+  "optional_fields": [
+    "support_manifest_ref"
+  ],
+  "support_manifest_required_fields": [
+    "support_kind",
+    "correction_purpose",
+    "original_replay_source",
+    "accepted_r7_closeout_head_before_correction",
+    "correction_commit_head",
+    "branch",
+    "local_head",
+    "remote_head",
+    "tree_hash",
+    "command_list",
+    "command_records",
+    "raw_log_refs",
+    "exit_codes",
+    "timestamp_utc",
+    "result",
+    "note",
+    "claimed_command_log_coverage"
+  ],
+  "support_manifest_original_replay_source_required_fields": [
+    "head_commit",
+    "tree_id"
+  ],
+  "support_manifest_command_record_required_fields": [
+    "command_id",
+    "command",
+    "stdout_log_ref",
+    "stderr_log_ref",
+    "exit_code",
+    "classification"
+  ],
+  "support_manifest_claimed_command_coverage_required_fields": [
+    "command",
+    "log_refs",
+    "classification",
+    "note"
+  ],
+  "allowed_support_manifest_results": [
+    "passed",
+    "failed"
+  ],
+  "allowed_support_log_classifications": [
+    "original_replay_logs",
+    "support_hardening_logs"
+  ],
   "summary_required_fields": [
     "summary_id",
     "scenario_id",

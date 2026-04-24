@@ -1,0 +1,10 @@
+PASS valid checkpoint: .\state\fixtures\valid\milestone_continuity\continuity_checkpoint.valid.json -> checkpoint-r7-003-segment-001
+PASS valid handoff: .\state\fixtures\valid\milestone_continuity\continuity_handoff_packet.valid.json -> handoff-r7-003-segment-001
+PASS emitted checkpoint: checkpoint-r7-003-segment-001 -> handoff_packet_required
+PASS emitted handoff: handoff-r7-003-segment-001 -> operator_review_required
+PASS invalid: checkpoint-missing-required-field -> Continuity checkpoint is missing required field 'checkpoint_snapshot'.
+PASS invalid: handoff-missing-fault-event-ref -> Continuity handoff is missing required field 'fault_event_ref'.
+PASS invalid: checkpoint-contradictory-git-context -> Continuity checkpoint.git_context must match the referenced fault event git context.
+PASS invalid: handoff-checkpoint-mismatch -> Continuity handoff.checkpoint_ref.checkpoint_id does not match the referenced checkpoint artifact.
+PASS invalid: handoff-invalid-required-next-action -> Continuity handoff.required_next_action must be one of: operator_review_required, manual_repo_state_review_required.
+All milestone continuity artifact tests passed. Valid passed: 4. Invalid rejected: 5.

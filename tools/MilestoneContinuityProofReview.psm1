@@ -573,6 +573,140 @@ function Assert-NoProhibitedClaimFragments {
     }
 }
 
+function Normalize-CommandText {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CommandText
+    )
+
+    $normalized = Assert-NonEmptyString -Value $CommandText -Context "Command text"
+    $normalized = $normalized -replace "\s+-NoProfile(?=\s|$)", ""
+    $normalized = $normalized.Replace("/", "\")
+    $normalized = $normalized -replace "\s+", " "
+    return $normalized.Trim().ToLowerInvariant()
+}
+
+function Get-NonEmptyFileLines {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    return @(
+        Get-Content -LiteralPath $Path | ForEach-Object { [string]$_ } | Where-Object {
+            -not [string]::IsNullOrWhiteSpace($_)
+        }
+    )
+}
+
+function Test-ProofReviewSupportManifest {
+    param(
+        [Parameter(Mandatory = $true)]
+        $ProofReviewManifest,
+        [Parameter(Mandatory = $true)]
+        [string]$PackageRoot,
+        [Parameter(Mandatory = $true)]
+        $ReplaySource
+    )
+
+    $contract = Get-ProofReviewPacketContract
+    if (-not (Test-HasProperty -Object $ProofReviewManifest -Name "support_manifest_ref")) {
+        return $null
+    }
+
+    $supportManifestPath = Resolve-ExistingPath -PathValue (Assert-NonEmptyString -Value $ProofReviewManifest.support_manifest_ref -Context "Proof-review manifest.support_manifest_ref") -Label "Proof-review support manifest" -AnchorPath $PackageRoot
+    $supportManifest = Get-JsonDocument -Path $supportManifestPath -Label "Proof-review support manifest"
+
+    Assert-RequiredObjectFields -Object $supportManifest -FieldNames @($contract.support_manifest_required_fields) -Context "Proof-review support manifest"
+    Assert-RequiredObjectFields -Object $supportManifest.original_replay_source -FieldNames @($contract.support_manifest_original_replay_source_required_fields) -Context "Proof-review support manifest.original_replay_source"
+    Assert-MatchingValue -Expected $ReplaySource.source_head_commit -Actual (Assert-NonEmptyString -Value $supportManifest.original_replay_source.head_commit -Context "Proof-review support manifest.original_replay_source.head_commit") -Context "Proof-review support manifest original replay source head"
+    Assert-MatchingValue -Expected $ReplaySource.source_tree_id -Actual (Assert-NonEmptyString -Value $supportManifest.original_replay_source.tree_id -Context "Proof-review support manifest.original_replay_source.tree_id") -Context "Proof-review support manifest original replay source tree"
+    Assert-NonEmptyString -Value $supportManifest.support_kind -Context "Proof-review support manifest.support_kind" | Out-Null
+    Assert-NonEmptyString -Value $supportManifest.correction_purpose -Context "Proof-review support manifest.correction_purpose" | Out-Null
+    Assert-NonEmptyString -Value $supportManifest.accepted_r7_closeout_head_before_correction -Context "Proof-review support manifest.accepted_r7_closeout_head_before_correction" | Out-Null
+    if ($null -ne $supportManifest.correction_commit_head) {
+        Assert-NonEmptyString -Value $supportManifest.correction_commit_head -Context "Proof-review support manifest.correction_commit_head" | Out-Null
+    }
+    Assert-NonEmptyString -Value $supportManifest.branch -Context "Proof-review support manifest.branch" | Out-Null
+    Assert-NonEmptyString -Value $supportManifest.local_head -Context "Proof-review support manifest.local_head" | Out-Null
+    Assert-NonEmptyString -Value $supportManifest.remote_head -Context "Proof-review support manifest.remote_head" | Out-Null
+    Assert-NonEmptyString -Value $supportManifest.tree_hash -Context "Proof-review support manifest.tree_hash" | Out-Null
+    $supportTimestamp = Assert-NonEmptyString -Value $supportManifest.timestamp_utc -Context "Proof-review support manifest.timestamp_utc"
+    if ($supportTimestamp -notmatch "^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$") {
+        throw "Proof-review support manifest.timestamp_utc must match the expected UTC timestamp pattern."
+    }
+    Assert-AllowedValue -Value (Assert-NonEmptyString -Value $supportManifest.result -Context "Proof-review support manifest.result") -AllowedValues @($contract.allowed_support_manifest_results) -Context "Proof-review support manifest.result"
+    if ([string]$supportManifest.result -ne "passed") {
+        throw "Proof-review support manifest.result must be 'passed' for a valid proof-review package."
+    }
+
+    $supportNote = Assert-NonEmptyString -Value $supportManifest.note -Context "Proof-review support manifest.note"
+    if ($supportNote.ToLowerInvariant() -notlike "*not replacement original replay logs*") {
+        throw "Proof-review support manifest.note must explicitly state that support-hardening logs are not replacement original replay logs."
+    }
+
+    $commandList = Assert-StringArray -Value $supportManifest.command_list -Context "Proof-review support manifest.command_list"
+    $commandRecords = Assert-ObjectArray -Value $supportManifest.command_records -Context "Proof-review support manifest.command_records"
+    $rawLogRefs = Assert-StringArray -Value $supportManifest.raw_log_refs -Context "Proof-review support manifest.raw_log_refs"
+    $exitCodes = Assert-ObjectValue -Value $supportManifest.exit_codes -Context "Proof-review support manifest.exit_codes"
+    $claimedCommandCoverage = Assert-ObjectArray -Value $supportManifest.claimed_command_log_coverage -Context "Proof-review support manifest.claimed_command_log_coverage"
+    $normalizedSupportCommandList = @{}
+
+    foreach ($commandListItem in $commandList) {
+        $normalizedSupportCommandList[(Normalize-CommandText -CommandText $commandListItem)] = $true
+    }
+
+    foreach ($rawLogRef in $rawLogRefs) {
+        Resolve-ExistingPath -PathValue $rawLogRef -Label "Proof-review support raw log" -AnchorPath $PackageRoot | Out-Null
+    }
+
+    foreach ($commandRecord in $commandRecords) {
+        Assert-RequiredObjectFields -Object $commandRecord -FieldNames @($contract.support_manifest_command_record_required_fields) -Context "Proof-review support manifest.command_records item"
+        $commandId = Assert-NonEmptyString -Value $commandRecord.command_id -Context "Proof-review support manifest.command_records item.command_id"
+        $command = Assert-NonEmptyString -Value $commandRecord.command -Context "Proof-review support manifest.command_records item.command"
+        $stdoutLogRef = Assert-NonEmptyString -Value $commandRecord.stdout_log_ref -Context "Proof-review support manifest.command_records item.stdout_log_ref"
+        $stderrLogRef = Assert-NonEmptyString -Value $commandRecord.stderr_log_ref -Context "Proof-review support manifest.command_records item.stderr_log_ref"
+        $classification = Assert-NonEmptyString -Value $commandRecord.classification -Context "Proof-review support manifest.command_records item.classification"
+
+        Assert-AllowedValue -Value $classification -AllowedValues @("support_hardening_logs") -Context "Proof-review support manifest.command_records item.classification"
+        Resolve-ExistingPath -PathValue $stdoutLogRef -Label "Proof-review support command stdout log" -AnchorPath $PackageRoot | Out-Null
+        Resolve-ExistingPath -PathValue $stderrLogRef -Label "Proof-review support command stderr log" -AnchorPath $PackageRoot | Out-Null
+
+        if ($commandList -notcontains $command) {
+            throw "Proof-review support manifest.command_list must include '$command'."
+        }
+        if (-not (Test-HasProperty -Object $exitCodes -Name $commandId)) {
+            throw "Proof-review support manifest.exit_codes is missing command id '$commandId'."
+        }
+        if ([int]$exitCodes.$commandId -ne [int]$commandRecord.exit_code) {
+            throw "Proof-review support manifest.exit_codes.$commandId must match command record exit_code."
+        }
+    }
+
+    foreach ($coverageEntry in $claimedCommandCoverage) {
+        Assert-RequiredObjectFields -Object $coverageEntry -FieldNames @($contract.support_manifest_claimed_command_coverage_required_fields) -Context "Proof-review support manifest.claimed_command_log_coverage item"
+        $coverageCommand = Assert-NonEmptyString -Value $coverageEntry.command -Context "Proof-review support manifest.claimed_command_log_coverage item.command"
+        $coverageLogRefs = Assert-StringArray -Value $coverageEntry.log_refs -Context "Proof-review support manifest.claimed_command_log_coverage item.log_refs"
+        $coverageClassification = Assert-NonEmptyString -Value $coverageEntry.classification -Context "Proof-review support manifest.claimed_command_log_coverage item.classification"
+        Assert-AllowedValue -Value $coverageClassification -AllowedValues @($contract.allowed_support_log_classifications) -Context "Proof-review support manifest.claimed_command_log_coverage item.classification"
+        Assert-NonEmptyString -Value $coverageEntry.note -Context "Proof-review support manifest.claimed_command_log_coverage item.note" | Out-Null
+
+        foreach ($coverageLogRef in $coverageLogRefs) {
+            Resolve-ExistingPath -PathValue $coverageLogRef -Label "Proof-review claimed-command coverage log" -AnchorPath $PackageRoot | Out-Null
+        }
+
+        if (-not $normalizedSupportCommandList.ContainsKey((Normalize-CommandText -CommandText $coverageCommand)) -and $coverageClassification -eq "support_hardening_logs") {
+            throw "Proof-review support manifest.command_list must include support-covered command '$coverageCommand'."
+        }
+    }
+
+    return [pscustomobject]@{
+        SupportManifestPath = $supportManifestPath
+        SupportManifest = $supportManifest
+        ClaimedCommandCoverage = $claimedCommandCoverage
+    }
+}
+
 function Test-R7CommittedEvidence {
     param(
         [Parameter(Mandatory = $true)]
@@ -903,6 +1037,7 @@ function Test-MilestoneContinuityProofReviewPackage {
     $artifactRefs = Get-JsonDocument -Path $artifactRefsPath -Label "Authoritative artifact refs"
     $summary = Get-JsonDocument -Path $summaryPath -Label "Proof-review summary artifact"
     $closeoutPacket = Test-MilestoneContinuityCloseoutPacketContract -CloseoutPacketPath $closeoutPacketPath
+    $supportManifestValidation = Test-ProofReviewSupportManifest -ProofReviewManifest $manifest -PackageRoot $packageRootPath -ReplaySource $replaySource
     $nonClaims = Assert-StringArray -Value (Get-JsonDocument -Path $nonClaimsPath -Label "Explicit non-claims") -Context "Proof-review package non-claims"
     Test-RequiredNonClaims -NonClaims @($nonClaims) -Expected @(Get-R7CloseoutNonClaims) -Context "Proof-review package non-claims"
 
@@ -913,6 +1048,7 @@ function Test-MilestoneContinuityProofReviewPackage {
 
     Assert-RequiredObjectFields -Object $summary -FieldNames @($contract.summary_required_fields) -Context "Proof-review summary artifact"
     $commandResults = Assert-ObjectArray -Value $summary.command_results -Context "Proof-review summary artifact.command_results"
+    $normalizedClaimedCommandCoverage = @{}
     foreach ($commandResult in $commandResults) {
         Assert-RequiredObjectFields -Object $commandResult -FieldNames @($contract.summary_command_result_required_fields) -Context "Proof-review summary artifact.command_results item"
         Assert-AllowedValue -Value ([string]$commandResult.status) -AllowedValues @($contract.allowed_summary_statuses) -Context "Proof-review summary artifact.command_results item.status"
@@ -921,6 +1057,13 @@ function Test-MilestoneContinuityProofReviewPackage {
         }
 
         Resolve-ExistingPath -PathValue (Join-Path $packageRootPath $commandResult.log_ref) -Label "Command result raw log" | Out-Null
+        $normalizedClaimedCommandCoverage[(Normalize-CommandText -CommandText ([string]$commandResult.command))] = @([string]$commandResult.log_ref)
+    }
+
+    if ($null -ne $supportManifestValidation) {
+        foreach ($coverageEntry in @($supportManifestValidation.ClaimedCommandCoverage)) {
+            $normalizedClaimedCommandCoverage[(Normalize-CommandText -CommandText ([string]$coverageEntry.command))] = @($coverageEntry.log_refs)
+        }
     }
 
     Assert-NoProhibitedClaimFragments -TextValues @(
@@ -972,6 +1115,7 @@ function Test-MilestoneContinuityProofReviewPackage {
     }
 
     $replayedCommandsText = Get-Content -LiteralPath $replayedCommandsPath -Raw
+    $replayedCommandLines = @(Get-NonEmptyFileLines -Path $replayedCommandsPath)
     foreach ($requiredCommand in @(
             "powershell -ExecutionPolicy Bypass -File tools\new_r7_fault_managed_continuity_proof_review.ps1",
             "powershell -ExecutionPolicy Bypass -File tests\test_fault_management_event.ps1",
@@ -980,10 +1124,19 @@ function Test-MilestoneContinuityProofReviewPackage {
             "powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_ledger.ps1",
             "powershell -ExecutionPolicy Bypass -File tests\test_milestone_rollback_plan.ps1",
             "powershell -ExecutionPolicy Bypass -File tests\test_milestone_rollback_drill.ps1",
-            "powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_review.ps1"
+            "powershell -ExecutionPolicy Bypass -File tests\test_milestone_continuity_review.ps1",
+            "powershell -ExecutionPolicy Bypass -File tools\validate_milestone_continuity_proof_review.ps1",
+            "powershell -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1"
         )) {
         if ($replayedCommandsText -notlike ("*{0}*" -f $requiredCommand)) {
             throw "Replayed commands must include '$requiredCommand'."
+        }
+    }
+
+    foreach ($replayedCommandLine in $replayedCommandLines) {
+        $normalizedCommand = Normalize-CommandText -CommandText $replayedCommandLine
+        if (-not $normalizedClaimedCommandCoverage.ContainsKey($normalizedCommand)) {
+            throw "Claimed replay command '$replayedCommandLine' has no raw log or explicit support-log reference."
         }
     }
 
@@ -995,6 +1148,7 @@ function Test-MilestoneContinuityProofReviewPackage {
         ReplaySourcePath = $replaySourcePath
         ReplaySourceHeadCommit = $replaySource.source_head_commit
         ReplaySourceTreeId = $replaySource.source_tree_id
+        SupportManifestPath = $(if ($null -ne $supportManifestValidation) { $supportManifestValidation.SupportManifestPath } else { $null })
     }
 }
 

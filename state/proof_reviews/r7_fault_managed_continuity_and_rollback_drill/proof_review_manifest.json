@@ -23,5 +23,6 @@
                          "raw_logs/tests/test_milestone_rollback_drill.log",
                          "raw_logs/tests/test_milestone_continuity_review.log"
                      ],
-    "notes":  "Committed proof-review package for the exact R7 interrupted-and-resumed supervised continuity replay plus one safe rollback drill packet from committed R7-002 through R7-008 evidence only."
+    "notes":  "Committed proof-review package for the exact R7 interrupted-and-resumed supervised continuity replay plus one safe rollback drill packet from committed R7-002 through R7-008 evidence only.",
+    "support_manifest_ref":  "support/proof_hardening/support_manifest.json"
 }

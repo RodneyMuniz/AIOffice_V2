@@ -1,0 +1,238 @@
+{
+    "support_kind":  "r7_proof_hardening_support",
+    "correction_purpose":  "Bounded R7 proof-hardening correction after PRO audit to add explicit support-log linkage for claimed replay commands and rerun support logs without replacing the original replay evidence.",
+    "original_replay_source":  {
+                                   "head_commit":  "fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905",
+                                   "tree_id":  "3b55d697b6206a62967800cd78bc4f3b39b99858"
+                               },
+    "accepted_r7_closeout_head_before_correction":  "7549b0200eaaa790940450159c6503ad57d1f6e3",
+    "correction_commit_head":  null,
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "local_head":  "7549b0200eaaa790940450159c6503ad57d1f6e3",
+    "remote_head":  "7549b0200eaaa790940450159c6503ad57d1f6e3",
+    "tree_hash":  "6e48cd27c3fe971588fd213a4e8f77d80bac8d75",
+    "command_list":  [
+                         "git rev-parse HEAD",
+                         "git rev-parse HEAD^{tree}",
+                         "git status --porcelain",
+                         "git diff --check",
+                         "git ls-remote origin feature/r5-closeout-remaining-foundations",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_fault_management_event.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_artifacts.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_resume_from_fault.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_ledger.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_plan.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_drill.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_review.ps1",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_continuity_proof_review.ps1 -PackageRoot state\\proof_reviews\\r7_fault_managed_continuity_and_rollback_drill",
+                         "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1"
+                     ],
+    "command_records":  [
+                            {
+                                "command_id":  "git_rev_parse_head",
+                                "command":  "git rev-parse HEAD",
+                                "stdout_log_ref":  "support/proof_hardening/logs/git_rev_parse_head.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/git_rev_parse_head.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "git_rev_parse_tree",
+                                "command":  "git rev-parse HEAD^{tree}",
+                                "stdout_log_ref":  "support/proof_hardening/logs/git_rev_parse_tree.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/git_rev_parse_tree.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "git_status_porcelain",
+                                "command":  "git status --porcelain",
+                                "stdout_log_ref":  "support/proof_hardening/logs/git_status_porcelain.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/git_status_porcelain.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "git_diff_check",
+                                "command":  "git diff --check",
+                                "stdout_log_ref":  "support/proof_hardening/logs/git_diff_check.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/git_diff_check.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "git_ls_remote_branch_head",
+                                "command":  "git ls-remote origin feature/r5-closeout-remaining-foundations",
+                                "stdout_log_ref":  "support/proof_hardening/logs/git_ls_remote_branch_head.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/git_ls_remote_branch_head.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_fault_management_event",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_fault_management_event.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_fault_management_event.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_fault_management_event.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_continuity_artifacts",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_artifacts.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_artifacts.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_artifacts.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_continuity_resume_from_fault",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_resume_from_fault.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_resume_from_fault.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_resume_from_fault.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_continuity_ledger",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_ledger.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_ledger.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_ledger.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_rollback_plan",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_plan.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_rollback_plan.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_rollback_plan.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_rollback_drill",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_rollback_drill.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_rollback_drill.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_rollback_drill.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_milestone_continuity_review",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_continuity_review.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_review.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_milestone_continuity_review.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "validate_proof_review",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_continuity_proof_review.ps1 -PackageRoot state\\proof_reviews\\r7_fault_managed_continuity_and_rollback_drill",
+                                "stdout_log_ref":  "support/proof_hardening/logs/validate_proof_review.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/validate_proof_review.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            },
+                            {
+                                "command_id":  "test_r7_fault_managed_continuity_proof_review",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1",
+                                "stdout_log_ref":  "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stdout.log",
+                                "stderr_log_ref":  "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stderr.log",
+                                "exit_code":  0,
+                                "classification":  "support_hardening_logs"
+                            }
+                        ],
+    "raw_log_refs":  [
+                         "support/proof_hardening/logs/git_rev_parse_head.stdout.log",
+                         "support/proof_hardening/logs/git_rev_parse_head.stderr.log",
+                         "support/proof_hardening/logs/git_rev_parse_head.exitcode.txt",
+                         "support/proof_hardening/logs/git_rev_parse_tree.stdout.log",
+                         "support/proof_hardening/logs/git_rev_parse_tree.stderr.log",
+                         "support/proof_hardening/logs/git_rev_parse_tree.exitcode.txt",
+                         "support/proof_hardening/logs/git_status_porcelain.stdout.log",
+                         "support/proof_hardening/logs/git_status_porcelain.stderr.log",
+                         "support/proof_hardening/logs/git_status_porcelain.exitcode.txt",
+                         "support/proof_hardening/logs/git_diff_check.stdout.log",
+                         "support/proof_hardening/logs/git_diff_check.stderr.log",
+                         "support/proof_hardening/logs/git_diff_check.exitcode.txt",
+                         "support/proof_hardening/logs/git_ls_remote_branch_head.stdout.log",
+                         "support/proof_hardening/logs/git_ls_remote_branch_head.stderr.log",
+                         "support/proof_hardening/logs/git_ls_remote_branch_head.exitcode.txt",
+                         "support/proof_hardening/logs/test_fault_management_event.stdout.log",
+                         "support/proof_hardening/logs/test_fault_management_event.stderr.log",
+                         "support/proof_hardening/logs/test_fault_management_event.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_continuity_artifacts.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_artifacts.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_artifacts.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_continuity_resume_from_fault.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_resume_from_fault.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_resume_from_fault.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_continuity_ledger.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_ledger.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_ledger.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_rollback_plan.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_rollback_plan.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_rollback_plan.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_rollback_drill.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_rollback_drill.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_rollback_drill.exitcode.txt",
+                         "support/proof_hardening/logs/test_milestone_continuity_review.stdout.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_review.stderr.log",
+                         "support/proof_hardening/logs/test_milestone_continuity_review.exitcode.txt",
+                         "support/proof_hardening/logs/validate_proof_review.stdout.log",
+                         "support/proof_hardening/logs/validate_proof_review.stderr.log",
+                         "support/proof_hardening/logs/validate_proof_review.exitcode.txt",
+                         "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stdout.log",
+                         "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stderr.log",
+                         "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.exitcode.txt"
+                     ],
+    "exit_codes":  {
+                       "git_rev_parse_head":  0,
+                       "git_rev_parse_tree":  0,
+                       "git_status_porcelain":  0,
+                       "git_diff_check":  0,
+                       "git_ls_remote_branch_head":  0,
+                       "test_fault_management_event":  0,
+                       "test_milestone_continuity_artifacts":  0,
+                       "test_milestone_continuity_resume_from_fault":  0,
+                       "test_milestone_continuity_ledger":  0,
+                       "test_milestone_rollback_plan":  0,
+                       "test_milestone_rollback_drill":  0,
+                       "test_milestone_continuity_review":  0,
+                       "validate_proof_review":  0,
+                       "test_r7_fault_managed_continuity_proof_review":  0
+                   },
+    "timestamp_utc":  "2026-04-24T15:30:58Z",
+    "result":  "passed",
+    "note":  "These are support-hardening logs only and not replacement original replay logs.",
+    "claimed_command_log_coverage":  [
+                                         {
+                                             "command":  "powershell -ExecutionPolicy Bypass -File tools\\new_r7_fault_managed_continuity_proof_review.ps1 -OutputRoot state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill",
+                                             "log_refs":  [
+                                                              "raw_logs/replay_steps.log",
+                                                              "raw_logs/replay_events.jsonl"
+                                                          ],
+                                             "classification":  "original_replay_logs",
+                                             "note":  "Original replay package logs preserved as original replay evidence only."
+                                         },
+                                         {
+                                             "command":  "powershell -ExecutionPolicy Bypass -File tools\\validate_milestone_continuity_proof_review.ps1 -PackageRoot state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill",
+                                             "log_refs":  [
+                                                              "support/proof_hardening/logs/validate_proof_review.stdout.log",
+                                                              "support/proof_hardening/logs/validate_proof_review.stderr.log",
+                                                              "support/proof_hardening/logs/validate_proof_review.exitcode.txt"
+                                                          ],
+                                             "classification":  "support_hardening_logs",
+                                             "note":  "Support-hardening validator rerun only; not replacement original replay log."
+                                         },
+                                         {
+                                             "command":  "powershell -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1",
+                                             "log_refs":  [
+                                                              "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stdout.log",
+                                                              "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.stderr.log",
+                                                              "support/proof_hardening/logs/test_r7_fault_managed_continuity_proof_review.exitcode.txt"
+                                                          ],
+                                             "classification":  "support_hardening_logs",
+                                             "note":  "Support-hardening proof-review rerun only; not replacement original replay log."
+                                         }
+                                     ]
+}

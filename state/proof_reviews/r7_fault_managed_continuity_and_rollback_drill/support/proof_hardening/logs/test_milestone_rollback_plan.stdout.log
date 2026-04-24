@@ -1,0 +1,12 @@
+PASS valid rollback plan request: .\state\fixtures\valid\milestone_continuity\rollback_plan_request.valid.json -> rollback-plan-request-r7-006-001
+PASS valid rollback plan: continuity-ledger-r7-005-001 -> baseline-r7-006-valid-001
+PASS invalid: missing-target-baseline-ref -> Rollback-plan artifact path 'C:\Users\rodne\AppData\Local\Temp\missing-baseline-r7-006.json' does not exist.
+PASS invalid: invalid-target-scope -> Rollback plan.rollback_target.target_scope must be one of: milestone_baseline_anchor.
+PASS invalid: invalid-environment-scope -> Rollback plan.environment_constraints.allowed_environment_scope must be one of: disposable_branch, disposable_worktree, replay_sandbox.
+PASS invalid: repository-mismatch -> Rollback plan.repository.repository_name must equal 'AIOffice_V2'.
+PASS invalid: target-git-context-mismatch -> Rollback plan.rollback_target git context must match the referenced baseline exactly.
+PASS invalid: missing-operator-approval-requirement -> Rollback plan.operator_approval.approval_required must remain true.
+PASS invalid: execution-implying-state -> Rollback plan.execution_state must be one of: not_executed.
+PASS invalid: continuity-segment-identity-mismatch -> Rollback plan.source_continuity must match the referenced continuity ledger segment lineage exactly.
+PASS invalid: malformed-rollback-plan-state -> Rollback plan is missing required field 'rollback_target'.
+All milestone rollback plan tests passed. Valid passed: 2. Invalid rejected: 9.
