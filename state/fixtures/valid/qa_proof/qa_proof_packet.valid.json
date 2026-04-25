@@ -1,0 +1,67 @@
+{
+  "contract_version": "v1",
+  "packet_type": "remote_gated_qa_proof_packet",
+  "packet_id": "qa-proof-r8-002-valid-001",
+  "repository": {
+    "repository_name": "AIOffice_V2",
+    "repository_root_relative": "."
+  },
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "local_head": "99a022cee2a94fd79d743b061208fe9bf684c2b6",
+  "remote_head": "99a022cee2a94fd79d743b061208fe9bf684c2b6",
+  "checked_out_head": "99a022cee2a94fd79d743b061208fe9bf684c2b6",
+  "tree_hash": "6a6ab4c7f862dd7ce0a6893d2fbdd4f10c0692a7",
+  "captured_at_utc": "2026-04-25T11:15:00Z",
+  "command_list": [
+    "git diff --check",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1"
+  ],
+  "command_results": [
+    {
+      "command_id": "git-diff-check",
+      "command": "git diff --check",
+      "stdout_log_ref": "logs/git_diff_check.stdout.log",
+      "stderr_log_ref": "logs/git_diff_check.stderr.log",
+      "exit_code": 0,
+      "status": "passed"
+    },
+    {
+      "command_id": "test-r7-proof-review",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1",
+      "stdout_log_ref": "logs/test_r7_fault_managed_continuity_proof_review.stdout.log",
+      "stderr_log_ref": "logs/test_r7_fault_managed_continuity_proof_review.stderr.log",
+      "exit_code": 0,
+      "status": "passed"
+    }
+  ],
+  "environment": {
+    "runner_kind": "clean_checkout_runner",
+    "runner_identity": "qa-subagent-r8-002",
+    "platform": "windows",
+    "shell": "powershell",
+    "checkout_mode": "exact_remote_sha_pinned"
+  },
+  "workspace_state": {
+    "status_before": "clean",
+    "status_after": "clean",
+    "git_status_porcelain_before_ref": "logs/git_status_porcelain_before.log",
+    "git_status_porcelain_after_ref": "logs/git_status_porcelain_after.log",
+    "git_diff_check_ref": "logs/git_diff_check.stdout.log"
+  },
+  "artifact_hashes": [
+    {
+      "artifact_label": "qa-summary",
+      "artifact_ref": "artifacts/qa_summary.txt",
+      "hash_sha256": "d101a1f029a0e1926e3b0bdb0476f5cf68fa751cd73f987906f6b5a19c79f6c6"
+    },
+    {
+      "artifact_label": "proof-index",
+      "artifact_ref": "artifacts/proof_index.json",
+      "hash_sha256": "351ce837b492bcfe19e69d4406bc8767efd4832dbb3dc72aade9f6fd508b00f5"
+    }
+  ],
+  "qa_verdict": "passed",
+  "refusal_reasons": [],
+  "executor_self_certification_state": "rejected_replaced_by_qa_packet",
+  "notes": "Valid QA proof packet fixture for R8-002 contract and validator tests only."
+}

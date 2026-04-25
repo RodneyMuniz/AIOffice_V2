@@ -1,0 +1,35 @@
+{
+  "contract_version": "v1",
+  "qa_proof_packet_type": "remote_gated_qa_proof_packet",
+  "repository_name": "AIOffice_V2",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "sha256_pattern": "^[a-f0-9]{64}$",
+  "allowed_runner_kinds": [
+    "clean_checkout_runner",
+    "ci_runner",
+    "external_runner"
+  ],
+  "allowed_checkout_modes": [
+    "exact_remote_sha_pinned"
+  ],
+  "allowed_workspace_statuses": [
+    "clean",
+    "dirty"
+  ],
+  "allowed_command_statuses": [
+    "passed",
+    "failed"
+  ],
+  "allowed_qa_verdicts": [
+    "passed",
+    "failed",
+    "refused"
+  ],
+  "allowed_executor_self_certification_states": [
+    "rejected_pending_independent_qa",
+    "rejected_replaced_by_qa_packet"
+  ]
+}

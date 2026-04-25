@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
 
 Current posture:
-`R8` is now active in repo truth as structure and planning only. `R8-001` is complete through the milestone-open and registration step. `R8-002` through `R8-009` are planned only. `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. The operator-facing bridge artifact for the R7-to-R8 transition is `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is a narrative operator report artifact only, not milestone proof by itself. R8 exists because R7 still left no independent clean-checkout QA, no CI or external final proof artifact, no separate QA signoff packet, and no committed final post-push verification artifact in repo truth.
+`R8` is now active in repo truth as a bounded QA and proof trust milestone. `R8-001` is complete through the milestone-open and registration step. `R8-002` is complete through the durable QA proof packet contract, validator, fixture, and focused test surfaces under `contracts/qa_proof/`, `tools/QaProofPacket.psm1`, `tools/validate_qa_proof_packet.ps1`, `state/fixtures/valid/qa_proof/`, and `tests/test_qa_proof_packet.ps1`. `R8-003` through `R8-009` are planned only. `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. The operator-facing bridge artifact for the R7-to-R8 transition is `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is a narrative operator report artifact only, not milestone proof by itself. R8 exists because R7 still left no independent clean-checkout QA, no CI or external final proof artifact, no separate QA signoff packet, and no committed final post-push verification artifact in repo truth.
 
 ## Most Recently Closed Milestone
 `R7 Fault-Managed Continuity and Rollback Drill`
@@ -26,7 +26,7 @@ Closeout summary:
 - Done when: R8 is open in repo truth, R7 remains honestly closed, no post-R8 milestone is opened, and scope or non-scope or stop conditions are explicit
 
 ### `R8-002` Define QA proof packet contract
-- Status: planned
+- Status: done
 - Order: 2
 - Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
 - Depends on: `R8-001`

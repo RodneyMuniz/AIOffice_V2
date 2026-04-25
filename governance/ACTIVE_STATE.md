@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-25
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, and `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now the active milestone in repo truth as planning and opening only with `R8-001` complete and `R8-002` through `R8-009` planned.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, and `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now the active milestone in repo truth with `R8-001` and `R8-002` complete and `R8-003` through `R8-009` planned.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -86,8 +86,9 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - The accepted `R7-009` closeout packet proves one exact replayable interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet from committed `R7-002` through `R7-008` evidence only.
 - R7 still does not prove unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI productization, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - `R8-001` is complete as the repo-truth open step for `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`.
-- `R8` is active in repo truth as a structure and planning milestone only, focused on remote-head verification, post-push verification, clean-checkout QA replay, complete command logging, QA proof packets, CI or external proof references, and status-doc gating before milestone completion can be accepted.
-- `R8-002` through `R8-009` are planned only.
+- `R8-002` is complete through the first durable QA proof packet contract, validator, fixture, and focused test surfaces under `contracts/qa_proof/`, `tools/QaProofPacket.psm1`, `tools/validate_qa_proof_packet.ps1`, `state/fixtures/valid/qa_proof/`, and `tests/test_qa_proof_packet.ps1`.
+- `R8` is active in repo truth as a bounded QA and proof trust milestone focused on remote-head verification, post-push verification, clean-checkout QA replay, complete command logging, QA proof packets, CI or external proof references, and status-doc gating before milestone completion can be accepted.
+- `R8-003` through `R8-009` are planned only.
 - Closed R7 still does not prove independent clean-checkout QA, CI or external final proof execution, a separate QA signoff packet, or a committed final post-push verification artifact inside repo truth.
 - The operator-facing bridge artifact for the R7-to-R8 transition is `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is a narrative operator report artifact, not milestone proof by itself.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
@@ -109,17 +110,17 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - any unattended operation or broader product completeness
 
 ## Active Milestone
-`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now the active milestone in repo truth as planning and opening only.
+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now the active milestone in repo truth as a bounded QA and proof trust milestone.
 
-`R8-001` is complete as the repo-truth open step through `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`, and this opening commit. `R8-002` through `R8-009` remain planned only.
+`R8-001` is complete as the repo-truth open step through `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`, and the opening commit. `R8-002` is complete through the first durable QA proof packet contract and validator surfaces under `contracts/qa_proof/`, `tools/QaProofPacket.psm1`, `tools/validate_qa_proof_packet.ps1`, `state/fixtures/valid/qa_proof/`, and `tests/test_qa_proof_packet.ps1`. `R8-003` through `R8-009` remain planned only.
 
 `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`.
 
 R8 exists because closed R7 still preserved major cautions: no independent clean-checkout QA exists, no CI or external final proof artifact exists, no separate QA signoff packet exists, no committed final post-push verification artifact exists in repo truth, and status or narration had previously drifted ahead of landed evidence. R8 is intentionally a QA and proof trust substrate milestone, not productization.
 
 ## Next Gated Step
-- `R8-002` Define QA proof packet contract.
-- R8 remains intentionally fail-closed at the opening step: remote-head verification, post-push verification, clean-checkout QA replay, CI or external proof execution, and status-doc gating are not yet proved by `R8-001` alone.
+- `R8-003` Implement remote-head verification gate.
+- R8 remains intentionally fail-closed after `R8-002`: remote-head verification, post-push verification, clean-checkout QA replay, CI or external proof execution, and status-doc gating are not yet proved by the open step plus QA proof packet contract alone.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.

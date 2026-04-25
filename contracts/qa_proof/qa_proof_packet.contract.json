@@ -1,0 +1,55 @@
+{
+  "package_type": "remote_gated_qa_proof_packet",
+  "required_fields": [
+    "contract_version",
+    "packet_type",
+    "packet_id",
+    "repository",
+    "branch",
+    "local_head",
+    "remote_head",
+    "checked_out_head",
+    "tree_hash",
+    "captured_at_utc",
+    "command_list",
+    "command_results",
+    "environment",
+    "workspace_state",
+    "artifact_hashes",
+    "qa_verdict",
+    "refusal_reasons",
+    "executor_self_certification_state",
+    "notes"
+  ],
+  "repository_required_fields": [
+    "repository_name",
+    "repository_root_relative"
+  ],
+  "environment_required_fields": [
+    "runner_kind",
+    "runner_identity",
+    "platform",
+    "shell",
+    "checkout_mode"
+  ],
+  "workspace_state_required_fields": [
+    "status_before",
+    "status_after",
+    "git_status_porcelain_before_ref",
+    "git_status_porcelain_after_ref",
+    "git_diff_check_ref"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "stdout_log_ref",
+    "stderr_log_ref",
+    "exit_code",
+    "status"
+  ],
+  "artifact_hash_required_fields": [
+    "artifact_label",
+    "artifact_ref",
+    "hash_sha256"
+  ]
+}
