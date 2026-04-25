@@ -432,3 +432,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the package commits exact replay commands, raw replay logs, summary artifacts, exact proof selection scope, replay-source metadata, authoritative artifact refs for `R7-002` through `R7-008`, one bounded closeout packet, and explicit non-claims for one exact replayable interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet only.
 - Consequence: this decision closes `R7 Fault-Managed Continuity and Rollback Drill` in repo truth as one bounded replayable continuity-and-rollback rehearsal only. It does not prove unattended automatic resume, destructive primary-tree rollback, broader rollback productization, UI, Standard runtime, multi-repo behavior, swarms, or broader orchestration.
 - Consequence: no later implementation milestone is open yet in repo truth.
+
+## D-0051 R8 Opened As Remote-Gated QA And Clean-Checkout Proof Boundary
+- Date: 2026-04-25
+- Status: accepted
+- Decision: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is opened as the next bounded milestone in repo truth through `R8-001` as planning and opening only.
+- Consequence: R8 is opened because closed R7 still preserved serious proof and QA trust gaps: executor-produced evidence remains the main proof source, no independent clean-checkout replay exists, no CI or external-runner final proof artifact exists, no separate QA signoff packet exists, no committed final post-push verification artifact exists in repo truth, status docs had previously moved ahead of evidence, and local-only completion claims repeatedly occurred during R7.
+- Consequence: `R8-001` is complete through this opening commit and `R8-002` through `R8-009` remain planned only.
+- Consequence: the next gated step inside R8 is `R8-002 Define QA proof packet contract`.
+- Consequence: opening R8 does not prove remote-head verification, post-push verification, clean-checkout QA runners, CI or external proof execution, UI, Standard runtime, multi-repo behavior, swarms, broad autonomy, unattended automatic resume, destructive rollback, or productized control-room behavior.
+- Consequence: `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md` is included as a narrative operator bridge artifact only, not milestone proof by itself.

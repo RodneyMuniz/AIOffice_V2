@@ -3,10 +3,10 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-No post-R7 milestone is open in repo truth.
+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
 
 Current posture:
-`R7 Fault-Managed Continuity and Rollback Drill` is now honestly closed in repo truth with `R7-001` through `R7-009` complete. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed on the original replay-closeout bar. The committed proof-review basis is `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/` at replay source head `fce96fb35c3d1ff8d2676d470ccfe81ae3cb6905` and replay source tree `3b55d697b6206a62967800cd78bc4f3b39b99858`. The carry-forward claim that is now actually proved is governed segmented continuity across interruption without narrative reconstruction, not raw "longer sessions." The bounded closeout package proves one replayable interrupted-and-resumed supervised continuity chain plus one safe disposable-worktree rollback drill packet only. No later milestone is defined in repo truth yet.
+`R8` is now active in repo truth as structure and planning only. `R8-001` is complete through the milestone-open and registration step. `R8-002` through `R8-009` are planned only. `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. The operator-facing bridge artifact for the R7-to-R8 transition is `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is a narrative operator report artifact only, not milestone proof by itself. R8 exists because R7 still left no independent clean-checkout QA, no CI or external final proof artifact, no separate QA signoff packet, and no committed final post-push verification artifact in repo truth.
 
 ## Most Recently Closed Milestone
 `R7 Fault-Managed Continuity and Rollback Drill`
@@ -16,95 +16,95 @@ Closeout summary:
 
 ## Tasks
 
-### `R7-001` Open R7 and freeze the fault-managed continuity and rollback drill boundary
+### `R8-001` Open R8 and freeze the remote-gated QA boundary
 - Status: done
 - Order: 1
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, `D-0041`
-- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`
-- Durable output: updated repo-truth surfaces that open R7 as structure only and freeze the exact continuity and rollback-drill boundary
-- Done when: R7 is the active milestone in repo truth, R6 remains honestly closed on the original replay-closeout bar, the real R6 continuity-break lesson is frozen into early R7 ordering, the rollback safety boundary is explicit and narrow, and no runtime implementation beyond the open step is implied
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, `D-0050`
+- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: updated repo-truth surfaces that open R8 as planning only and freeze the exact remote-gated QA boundary
+- Done when: R8 is open in repo truth, R7 remains honestly closed, no post-R8 milestone is opened, and scope or non-scope or stop conditions are explicit
 
-### `R7-002` Add first-class fault / interruption event contracts
-- Status: done
+### `R8-002` Define QA proof packet contract
+- Status: planned
 - Order: 2
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-001`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `governance/ACTIVE_STATE.md`, `contracts/fault_management/`
-- Durable output: one bounded contract and validation layer that records interruption and fault events as governed repo truth with explicit identity, repository plus git context, supervision state, required next action, and explicit automatic-recovery non-claim
-- Done when: interruption or fault events have explicit authoritative contract shape, required fields, durable identity, and fail-closed validation through `contracts/fault_management/foundation.contract.json`, `contracts/fault_management/fault_event.contract.json`, `tools/FaultManagement.psm1`, `tools/validate_fault_event.ps1`, and `tests/test_fault_management_event.ps1` without yet claiming checkpoints, handoff packets, or resume behavior
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-001`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one durable machine-validated QA proof packet contract plus future validation surfaces
+- Done when: the packet requires remote head, tree hash, command list, raw logs, exit codes, environment, dirty or clean status, artifact hashes, QA verdict, and refusal reasons
 
-### `R7-003` Emit governed continuity checkpoints and handoff packets
-- Status: done
+### `R8-003` Implement remote-head verification gate
+- Status: planned
 - Order: 3
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-002`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuity.psm1`
-- Durable output: governed checkpoint and handoff packet surfaces for interrupted milestone work, each chained explicitly back to an accepted `R7-002` fault event and the current authoritative milestone refs
-- Done when: one interrupted milestone segment can emit durable checkpoints and handoff packets that carry enough governed truth to avoid narrative reconstruction through `contracts/milestone_continuity/`, `tools/MilestoneContinuity.psm1`, `tools/validate_milestone_continuity_artifact.ps1`, and `tests/test_milestone_continuity_artifacts.ps1`
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-002`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one gate that records branch, local head, remote head, commit subject, tree, timestamp, and pass or fail for remote branch truth
+- Done when: local-only completion claims fail closed on local or remote mismatch
 
-### `R7-004` Add supervised resume-from-fault flow
-- Status: done
+### `R8-004` Implement post-push verification gate
+- Status: planned
 - Order: 4
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-003`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuityResume.psm1`
-- Durable output: one supervised resume-from-fault request/result surface plus one preparation flow that re-enters from governed continuity artifacts under explicit operator control
-- Done when: one interrupted-and-resumed supervised cycle can re-enter from governed checkpoints and handoff packets under explicit operator control through `contracts/milestone_continuity/resume_from_fault_request.contract.json`, `contracts/milestone_continuity/resume_from_fault_result.contract.json`, `tools/MilestoneContinuityResume.psm1`, `tools/prepare_supervised_resume_from_fault.ps1`, `state/fixtures/valid/milestone_continuity/resume_from_fault_request.valid.json`, `state/fixtures/valid/milestone_continuity/resume_from_fault_result.valid.json`, and `tests/test_milestone_continuity_resume_from_fault.ps1` without implying unattended resume
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-003`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one final remote-head verification artifact path that proves the exact landed SHA after push
+- Done when: completion cannot be claimed without post-push verification for the exact final remote SHA
 
-### `R7-005` Add continuity ledger and multi-segment milestone stitching
-- Status: done
+### `R8-005` Implement clean-checkout QA runner
+- Status: planned
 - Order: 5
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-004`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuityLedger.psm1`
-- Durable output: one authoritative continuity ledger that stitches governed milestone segments into one bounded continuity view
-- Done when: one interrupted milestone preserves authoritative segment lineage, ordering, and continuity state across governed interruption and supervised resume boundaries through `contracts/milestone_continuity/continuity_ledger.contract.json`, `tools/MilestoneContinuityLedger.psm1`, `tools/validate_milestone_continuity_ledger.ps1`, `state/fixtures/valid/milestone_continuity/continuity_ledger.valid.json`, and `tests/test_milestone_continuity_ledger.ps1`
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-004`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one clean or disposable checkout QA runner pinned to the exact remote SHA, with raw log output root
+- Done when: the runner checks out the exact remote head, runs declared commands, captures stdout or stderr or exit codes, and records clean or dirty status before and after
 
-### `R7-006` Add governed rollback plan artifact
-- Status: done
+### `R8-006` Harden proof-package validator for complete command logs
+- Status: planned
 - Order: 6
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-005`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneRollbackPlan.psm1`
-- Durable output: one governed rollback plan artifact that stays explicitly pre-execution and reuses authoritative continuity-ledger plus baseline-binding truth
-- Done when: one governed rollback plan artifact records target scope, approvals, environment constraints, refusal conditions, and target repository or branch or head or tree context durably without executing rollback through `contracts/milestone_continuity/rollback_plan_request.contract.json`, `contracts/milestone_continuity/rollback_plan.contract.json`, `tools/MilestoneRollbackPlan.psm1`, `tools/prepare_milestone_rollback_plan.ps1`, `tools/validate_milestone_rollback_plan.ps1`, `state/fixtures/valid/milestone_continuity/rollback_plan_request.valid.json`, and `tests/test_milestone_rollback_plan.ps1`
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-005`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one proof-validator hardening layer that rejects claimed commands without raw or support log coverage
+- Done when: generator, validator, proof-review test, Git hygiene, remote-head, and QA runner commands all fail closed if coverage is missing
 
-### `R7-007` Add safe rollback drill harness
-- Status: done
+### `R8-007` Add CI or equivalent external proof runner
+- Status: planned
 - Order: 7
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-006`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneRollbackDrill.psm1`
-- Durable output: one rollback drill harness constrained to one disposable worktree with explicit drill authorization and durable drill-result output
-- Done when: one safe rollback drill can run only in a disposable worktree, requires explicit operator approval before any Git mutation, refuses primary-worktree execution, and is proved through `contracts/milestone_continuity/rollback_drill_authorization.contract.json`, `contracts/milestone_continuity/rollback_drill_result.contract.json`, `tools/MilestoneRollbackDrill.psm1`, `tools/invoke_milestone_rollback_drill.ps1`, `tools/validate_milestone_rollback_drill_result.ps1`, `state/fixtures/valid/milestone_continuity/rollback_drill_authorization.valid.json`, and `tests/test_milestone_rollback_drill.ps1`
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-006`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one external proof execution path with concrete artifact identity
+- Done when: CI or equivalent external execution can run the clean-checkout QA flow and publish or reference artifacts with concrete run identity
 
-### `R7-008` Add advisory continuity / rollback review summary and operator packet
-- Status: done
+### `R8-008` Add status-doc gating
+- Status: planned
 - Order: 8
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-007`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `contracts/milestone_continuity/`, `tools/MilestoneContinuityReview.psm1`
-- Durable output: one advisory review summary plus one operator packet that package exact continuity, rollback-plan, and rollback-drill evidence without implying automatic or destructive execution
-- Done when: one bounded advisory review summary plus one operator packet summarize exact committed continuity and rollback evidence only, preserve explicit non-claims, require manual operator decision, and are proved through `contracts/milestone_continuity/review_summary.contract.json`, `contracts/milestone_continuity/operator_packet.contract.json`, `tools/MilestoneContinuityReview.psm1`, `tools/prepare_milestone_continuity_review.ps1`, `tools/validate_milestone_continuity_review_summary.ps1`, `tools/validate_milestone_continuity_operator_packet.ps1`, `state/fixtures/valid/milestone_continuity/review_summaries/review-summary-r7-008-001.json`, `state/fixtures/valid/milestone_continuity/operator_packets/operator-packet-r7-008-001.json`, and `tests/test_milestone_continuity_review.ps1`
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-007`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
+- Durable output: one status-doc gating layer across `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, and `governance/DECISION_LOG.md`
+- Done when: status docs cannot claim milestone `done` or `closed` without QA packet, remote-head verification, and proof refs, and stale "most recently closed" contradictions fail validation
 
-### `R7-009` Produce one replayable interrupted-and-resumed proof plus rollback drill packet
-- Status: done
+### `R8-009` Pilot and close R8 narrowly
+- Status: planned
 - Order: 9
-- Milestone: `R7 Fault-Managed Continuity and Rollback Drill`
-- Depends on: `R7-008`
-- Authority: `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, `governance/DECISION_LOG.md`
-- Durable output: one replayable interrupted-and-resumed proof package plus one rollback drill packet
-- Done when: one exact interrupted-and-resumed supervised cycle plus one safe rollback drill are replayable from committed evidence through `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, closeout wording matches the exact scope, non-claims remain explicit, and R7 closes without opening a later milestone by narration alone
+- Milestone: `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+- Depends on: `R8-008`
+- Authority: `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, `governance/DECISION_LOG.md`
+- Durable output: one bounded R8 closeout path that uses the remote-gated QA process on itself
+- Done when: R8 closes only after remote-gated clean-checkout QA passes, explicit non-claims remain intact, and no broader automation claim is made
 
 ## Explicitly Out Of Scope For This Milestone
-- broader autonomy
+- UI or control-room productization
+- Standard runtime
+- multi-repo orchestration
+- swarms
+- broad autonomous milestone execution
 - unattended automatic resume
 - destructive rollback on the primary working tree
-- UI or control-room productization
-- unified workspace delivery
-- Standard or subproject runtime
-- multi-repo behavior
-- swarms
-- broader orchestration
-- raw "longer sessions" as a runtime capability claim
+- production-grade general CI for every future workflow
+- productized control-room behavior
+- general "Codex is now reliable" claims
