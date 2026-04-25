@@ -1,0 +1,18 @@
+{
+  "record_type": "remote_head_verification_result",
+  "required_fields": [
+    "contract_version",
+    "record_type",
+    "verification_id",
+    "repository_name",
+    "branch",
+    "local_head",
+    "remote_head",
+    "commit_subject",
+    "tree_hash",
+    "verified_at_utc",
+    "status",
+    "result",
+    "refusal_reason"
+  ]
+}

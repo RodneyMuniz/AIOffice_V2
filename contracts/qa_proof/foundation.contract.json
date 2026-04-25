@@ -1,7 +1,9 @@
 {
   "contract_version": "v1",
   "qa_proof_packet_type": "remote_gated_qa_proof_packet",
+  "remote_head_verification_record_type": "remote_head_verification_result",
   "repository_name": "AIOffice_V2",
+  "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
   "git_object_pattern": "^[a-f0-9]{40}$",
@@ -31,5 +33,13 @@
   "allowed_executor_self_certification_states": [
     "rejected_pending_independent_qa",
     "rejected_replaced_by_qa_packet"
+  ],
+  "allowed_remote_head_verification_statuses": [
+    "matched",
+    "mismatch"
+  ],
+  "allowed_remote_head_verification_results": [
+    "passed",
+    "failed"
   ]
 }
