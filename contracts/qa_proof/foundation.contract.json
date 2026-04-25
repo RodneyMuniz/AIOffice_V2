@@ -2,6 +2,7 @@
   "contract_version": "v1",
   "qa_proof_packet_type": "remote_gated_qa_proof_packet",
   "remote_head_verification_record_type": "remote_head_verification_result",
+  "post_push_verification_record_type": "post_push_verification_result",
   "repository_name": "AIOffice_V2",
   "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",

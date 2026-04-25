@@ -16,13 +16,15 @@ Prove one narrow trust substrate for `AIOffice_V2` only in which executor work c
 ## Current status
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now active in repo truth as a bounded QA and proof trust milestone.
 
-`R8-001` through `R8-003` are complete in repo truth.
+`R8-001` through `R8-004` are complete in repo truth.
 
-`R8-004` through `R8-009` are planned only.
+`R8-005` through `R8-009` are planned only.
 
 `R8-002` now defines the first durable QA proof packet contract and validator surfaces through `contracts/qa_proof/foundation.contract.json`, `contracts/qa_proof/qa_proof_packet.contract.json`, `tools/QaProofPacket.psm1`, `tools/validate_qa_proof_packet.ps1`, `state/fixtures/valid/qa_proof/`, and `tests/test_qa_proof_packet.ps1`.
 
 `R8-003` now adds the first remote-head verification gate through `contracts/qa_proof/remote_head_verification.contract.json`, `tools/RemoteHeadVerification.psm1`, `tools/verify_remote_branch_head.ps1`, and `tests/test_remote_head_verification.ps1`.
+
+`R8-004` now adds the first post-push verification gate through `contracts/qa_proof/post_push_verification.contract.json`, `tools/PostPushVerification.psm1`, `tools/verify_post_push_remote_head.ps1`, and `tests/test_post_push_verification.ps1`, with a separate satisfaction check that refuses completion if the exact final remote SHA is missing or mismatched.
 
 `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
@@ -147,7 +149,7 @@ R8 does not currently prove and must not casually widen into:
 - Done when: the gate records branch, local HEAD, remote HEAD, commit subject, tree, timestamp, and pass or fail, and refuses mismatch
 
 ### `R8-004` Implement post-push verification gate
-- Status: planned
+- Status: done
 - Done when: final completion cannot be claimed without a committed or externally published post-push verification artifact and the exact final remote SHA
 
 ### `R8-005` Implement clean-checkout QA runner
@@ -180,6 +182,7 @@ R8 does not currently prove and must not casually widen into:
 - `R8-001` opens R8 in repo truth as bounded structure only. It does not claim that remote-head gates, post-push verification, clean-checkout QA runners, CI or external proof execution, or status-doc validators are implemented yet.
 - `R8-002` adds the QA proof packet contract, validator, and focused fixtures or tests only. It does not yet implement the remote-head gate, post-push verification gate, clean-checkout runner, CI runner, status-doc validator, or R8 closeout packet.
 - `R8-003` adds the remote-head verification contract, module, CLI entrypoint, and focused tests only. It does not yet add post-push verification, clean-checkout QA replay, CI or external proof execution, status-doc gating, or R8 closeout proof.
+- `R8-004` adds the post-push verification contract, module, CLI entrypoint, and satisfaction check only. It does not yet add clean-checkout QA replay, CI or external proof execution, status-doc gating, or R8 closeout proof.
 - R8 is a QA and proof trust substrate milestone, not productization. The milestone is meant to make completion claims mechanically trustworthy before broader automation is attempted.
 - The operator-facing bridge artifact for the R7-to-R8 transition remains `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is narrative planning input only and must not be treated as milestone proof by itself.
 - R8 exists because closed R7 still preserved major cautions: executor-produced evidence remains the main proof source, no independent clean-checkout replay exists, no CI or external-runner final proof artifact exists, no separate QA packet exists, no committed final post-push verification artifact exists in repo truth, and status docs have previously moved ahead of evidence.
