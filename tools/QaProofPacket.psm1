@@ -1,6 +1,7 @@
 Set-StrictMode -Version Latest
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$script:commandCache = @{}
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -87,6 +88,21 @@ function Get-RequiredProperty {
 
     if (-not (Test-HasProperty -Object $Object -Name $Name)) {
         throw "$Context is missing required field '$Name'."
+    }
+
+    Write-Output -NoEnumerate ($Object.$Name)
+}
+
+function Get-OptionalProperty {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Object,
+        [Parameter(Mandatory = $true)]
+        [string]$Name
+    )
+
+    if (-not (Test-HasProperty -Object $Object -Name $Name)) {
+        return $null
     }
 
     Write-Output -NoEnumerate ($Object.$Name)
@@ -233,12 +249,116 @@ function Assert-RequiredObjectFields {
     }
 }
 
+function Normalize-CommandText {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CommandText
+    )
+
+    return (($CommandText -replace "\s+", " ").Trim())
+}
+
 function Get-QaProofFoundationContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\qa_proof\foundation.contract.json") -Label "QA proof foundation contract"
 }
 
 function Get-QaProofPacketContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\qa_proof\qa_proof_packet.contract.json") -Label "QA proof packet contract"
+}
+
+function Get-RequiredDependencyCommand {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ModulePath,
+        [Parameter(Mandatory = $true)]
+        [string]$DependencyLabel,
+        [Parameter(Mandatory = $true)]
+        [string]$CommandName
+    )
+
+    $cacheKey = "{0}|{1}" -f $ModulePath, $CommandName
+    if ($script:commandCache.ContainsKey($cacheKey)) {
+        return $script:commandCache[$cacheKey]
+    }
+
+    if (-not (Test-Path -LiteralPath $ModulePath)) {
+        throw "QA proof packet validation requires dependency module '$DependencyLabel' at '$ModulePath'."
+    }
+
+    $module = Import-Module $ModulePath -Force -PassThru -ErrorAction Stop
+    $command = $module.ExportedCommands[$CommandName]
+    if ($null -eq $command) {
+        throw "QA proof packet validation requires dependency command '$CommandName' from module '$DependencyLabel'."
+    }
+
+    $script:commandCache[$cacheKey] = $command
+    return $command
+}
+
+function Get-RemoteHeadVerificationValidatorCommand {
+    return Get-RequiredDependencyCommand -ModulePath (Join-Path $PSScriptRoot "RemoteHeadVerification.psm1") -DependencyLabel "RemoteHeadVerification" -CommandName "Test-RemoteHeadVerificationContract"
+}
+
+function Get-PostPushVerificationValidatorCommand {
+    return Get-RequiredDependencyCommand -ModulePath (Join-Path $PSScriptRoot "PostPushVerification.psm1") -DependencyLabel "PostPushVerification" -CommandName "Test-PostPushVerificationContract"
+}
+
+function Test-CommandResultCoverageItem {
+    param(
+        [Parameter(Mandatory = $true)]
+        $CommandResult,
+        [Parameter(Mandatory = $true)]
+        [string[]]$RequiredFields,
+        [Parameter(Mandatory = $true)]
+        [string]$CommandContext,
+        [Parameter(Mandatory = $true)]
+        [string]$AnchorPath,
+        [Parameter(Mandatory = $true)]
+        [object[]]$AllowedCommandStatuses,
+        [Parameter(Mandatory = $true)]
+        [string]$IdentifierPattern,
+        [Parameter(Mandatory = $true)]
+        [hashtable]$CoverageMap
+    )
+
+    Assert-RequiredObjectFields -Object $CommandResult -FieldNames $RequiredFields -Context $CommandContext
+
+    $commandId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $CommandResult -Name "command_id" -Context $CommandContext) -Context "$CommandContext.command_id"
+    Assert-MatchesPattern -Value $commandId -Pattern $IdentifierPattern -Context "$CommandContext.command_id"
+
+    $command = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $CommandResult -Name "command" -Context $CommandContext) -Context "$CommandContext.command"
+    Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $CommandResult -Name "stdout_log_ref" -Context $CommandContext) -Label "$CommandContext.stdout_log_ref" -AnchorPath $AnchorPath | Out-Null
+    Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $CommandResult -Name "stderr_log_ref" -Context $CommandContext) -Label "$CommandContext.stderr_log_ref" -AnchorPath $AnchorPath | Out-Null
+
+    $exitCode = Assert-IntegerValue -Value (Get-RequiredProperty -Object $CommandResult -Name "exit_code" -Context $CommandContext) -Context "$CommandContext.exit_code"
+    if ($exitCode -lt 0) {
+        throw "$CommandContext.exit_code must be zero or greater."
+    }
+
+    $commandStatus = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $CommandResult -Name "status" -Context $CommandContext) -Context "$CommandContext.status"
+    Assert-AllowedValue -Value $commandStatus -AllowedValues $AllowedCommandStatuses -Context "$CommandContext.status"
+
+    if (($exitCode -eq 0 -and $commandStatus -ne "passed") -or ($exitCode -ne 0 -and $commandStatus -ne "failed")) {
+        throw "$CommandContext exit_code and status must agree."
+    }
+
+    $normalizedCommand = Normalize-CommandText -CommandText $command
+    if (-not $CoverageMap.ContainsKey($normalizedCommand)) {
+        $CoverageMap[$normalizedCommand] = @()
+    }
+
+    $CoverageMap[$normalizedCommand] += [pscustomobject]@{
+        command_id = $commandId
+        context = $CommandContext
+        exit_code = $exitCode
+        status = $commandStatus
+    }
+
+    return [pscustomobject]@{
+        Command = $command
+        ExitCode = $exitCode
+        Status = $commandStatus
+    }
 }
 
 function Test-QaProofPacketObject {
@@ -306,6 +426,8 @@ function Test-QaProofPacketObject {
         throw "$SourceLabel command_list and command_results must have the same item count."
     }
 
+    $normalizedCommandCoverage = @{}
+
     $environment = Get-RequiredProperty -Object $QaProofPacket -Name "environment" -Context $SourceLabel
     Assert-RequiredObjectFields -Object $environment -FieldNames $contract.environment_required_fields -Context "$SourceLabel environment"
     $runnerKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $environment -Name "runner_kind" -Context "$SourceLabel environment") -Context "$SourceLabel environment.runner_kind"
@@ -330,31 +452,13 @@ function Test-QaProofPacketObject {
     for ($i = 0; $i -lt $commandResults.Count; $i++) {
         $commandResult = $commandResults[$i]
         $commandContext = "{0} command_results[{1}]" -f $SourceLabel, $i
-        Assert-RequiredObjectFields -Object $commandResult -FieldNames $contract.command_result_required_fields -Context $commandContext
-
-        $commandId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $commandResult -Name "command_id" -Context $commandContext) -Context "$commandContext.command_id"
-        Assert-MatchesPattern -Value $commandId -Pattern $foundation.identifier_pattern -Context "$commandContext.command_id"
-        $command = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $commandResult -Name "command" -Context $commandContext) -Context "$commandContext.command"
+        $validatedCommandResult = Test-CommandResultCoverageItem -CommandResult $commandResult -RequiredFields $contract.command_result_required_fields -CommandContext $commandContext -AnchorPath $AnchorPath -AllowedCommandStatuses $foundation.allowed_command_statuses -IdentifierPattern $foundation.identifier_pattern -CoverageMap $normalizedCommandCoverage
+        $command = $validatedCommandResult.Command
         if ($commandList[$i] -ne $command) {
             throw "$commandContext.command must match command_list[$i]."
         }
 
-        Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $commandResult -Name "stdout_log_ref" -Context $commandContext) -Label "$commandContext.stdout_log_ref" -AnchorPath $AnchorPath | Out-Null
-        Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $commandResult -Name "stderr_log_ref" -Context $commandContext) -Label "$commandContext.stderr_log_ref" -AnchorPath $AnchorPath | Out-Null
-
-        $exitCode = Assert-IntegerValue -Value (Get-RequiredProperty -Object $commandResult -Name "exit_code" -Context $commandContext) -Context "$commandContext.exit_code"
-        if ($exitCode -lt 0) {
-            throw "$commandContext.exit_code must be zero or greater."
-        }
-
-        $commandStatus = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $commandResult -Name "status" -Context $commandContext) -Context "$commandContext.status"
-        Assert-AllowedValue -Value $commandStatus -AllowedValues $foundation.allowed_command_statuses -Context "$commandContext.status"
-
-        if (($exitCode -eq 0 -and $commandStatus -ne "passed") -or ($exitCode -ne 0 -and $commandStatus -ne "failed")) {
-            throw "$commandContext exit_code and status must agree."
-        }
-
-        if ($commandStatus -eq "failed") {
+        if ($validatedCommandResult.Status -eq "failed") {
             $hasFailedCommand = $true
         }
     }
@@ -373,6 +477,72 @@ function Test-QaProofPacketObject {
     Assert-AllowedValue -Value $qaVerdict -AllowedValues $foundation.allowed_qa_verdicts -Context "$SourceLabel qa_verdict"
 
     $refusalReasons = Assert-StringArray -Value (Get-RequiredProperty -Object $QaProofPacket -Name "refusal_reasons" -Context $SourceLabel) -Context "$SourceLabel refusal_reasons" -AllowEmpty
+
+    $completionClaim = Get-OptionalProperty -Object $QaProofPacket -Name "completion_claim"
+    if ($null -ne $completionClaim) {
+        $completionContext = "$SourceLabel completion_claim"
+        Assert-RequiredObjectFields -Object $completionClaim -FieldNames $contract.completion_claim_required_fields -Context $completionContext
+
+        $claimType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $completionClaim -Name "claim_type" -Context $completionContext) -Context "$completionContext.claim_type"
+        Assert-AllowedValue -Value $claimType -AllowedValues $foundation.allowed_completion_claim_types -Context "$completionContext.claim_type"
+
+        $claimedCommands = Assert-StringArray -Value (Get-RequiredProperty -Object $completionClaim -Name "claimed_commands" -Context $completionContext) -Context "$completionContext.claimed_commands"
+        $supplementalCommandResults = Assert-ObjectArray -Value (Get-RequiredProperty -Object $completionClaim -Name "supplemental_command_results" -Context $completionContext) -Context "$completionContext.supplemental_command_results" -AllowEmpty
+        foreach ($supplementalCommandResult in $supplementalCommandResults) {
+            $supplementalCommandIndex = [array]::IndexOf($supplementalCommandResults, $supplementalCommandResult)
+            $supplementalCommandContext = "{0}.supplemental_command_results[{1}]" -f $completionContext, $supplementalCommandIndex
+            Test-CommandResultCoverageItem -CommandResult $supplementalCommandResult -RequiredFields $contract.supplemental_command_result_required_fields -CommandContext $supplementalCommandContext -AnchorPath $AnchorPath -AllowedCommandStatuses $foundation.allowed_command_statuses -IdentifierPattern $foundation.identifier_pattern -CoverageMap $normalizedCommandCoverage | Out-Null
+        }
+
+        $normalizedClaimedCommands = @($claimedCommands | ForEach-Object { Normalize-CommandText -CommandText $_ })
+        foreach ($requiredCompletionCommand in @("git status --porcelain", "git diff --check")) {
+            if ($normalizedClaimedCommands -notcontains (Normalize-CommandText -CommandText $requiredCompletionCommand)) {
+                throw "$completionContext.claimed_commands must include '$requiredCompletionCommand' when completion is claimed."
+            }
+        }
+
+        foreach ($claimedCommand in $claimedCommands) {
+            $normalizedClaimedCommand = Normalize-CommandText -CommandText $claimedCommand
+            if (-not $normalizedCommandCoverage.ContainsKey($normalizedClaimedCommand)) {
+                throw "$completionContext command '$claimedCommand' has no command_result or supplemental_command_result coverage."
+            }
+        }
+
+        $remoteHeadVerificationRef = Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $completionClaim -Name "remote_head_verification_ref" -Context $completionContext) -Label "$completionContext.remote_head_verification_ref" -AnchorPath $AnchorPath
+        $testRemoteHeadVerification = Get-RemoteHeadVerificationValidatorCommand
+        $remoteHeadVerification = & $testRemoteHeadVerification -ArtifactPath $remoteHeadVerificationRef
+        if ($remoteHeadVerification.Branch -ne $branch) {
+            throw "$completionContext remote_head_verification_ref branch '$($remoteHeadVerification.Branch)' must match packet branch '$branch'."
+        }
+
+        if ($remoteHeadVerification.RemoteHead -ne $remoteHead -or $remoteHeadVerification.LocalHead -ne $remoteHead) {
+            throw "$completionContext remote_head_verification_ref must prove the exact packet remote head '$remoteHead'."
+        }
+
+        if ($remoteHeadVerification.Result -ne "passed" -or $remoteHeadVerification.Status -ne "matched") {
+            throw "$completionContext remote_head_verification_ref must be a passed matched verification artifact."
+        }
+
+        $postPushVerificationRef = Resolve-ExistingPath -PathValue (Get-RequiredProperty -Object $completionClaim -Name "post_push_verification_ref" -Context $completionContext) -Label "$completionContext.post_push_verification_ref" -AnchorPath $AnchorPath
+        $testPostPushVerification = Get-PostPushVerificationValidatorCommand
+        $postPushVerification = & $testPostPushVerification -ArtifactPath $postPushVerificationRef
+        if ($postPushVerification.Branch -ne $branch) {
+            throw "$completionContext post_push_verification_ref branch '$($postPushVerification.Branch)' must match packet branch '$branch'."
+        }
+
+        if ($postPushVerification.ExpectedPushedCommit -ne $remoteHead -or $postPushVerification.ActualRemoteHead -ne $remoteHead) {
+            throw "$completionContext post_push_verification_ref must prove the exact packet remote head '$remoteHead'."
+        }
+
+        if ($postPushVerification.Result -ne "passed" -or $postPushVerification.Status -ne "matched") {
+            throw "$completionContext post_push_verification_ref must be a passed matched verification artifact."
+        }
+
+        Assert-NonEmptyString -Value (Get-RequiredProperty -Object $completionClaim -Name "notes" -Context $completionContext) -Context "$completionContext.notes" | Out-Null
+        if ($qaVerdict -ne "passed") {
+            throw "$completionContext requires qa_verdict 'passed'."
+        }
+    }
 
     $executorSelfCertificationState = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $QaProofPacket -Name "executor_self_certification_state" -Context $SourceLabel) -Context "$SourceLabel executor_self_certification_state"
     Assert-AllowedValue -Value $executorSelfCertificationState -AllowedValues $foundation.allowed_executor_self_certification_states -Context "$SourceLabel executor_self_certification_state"

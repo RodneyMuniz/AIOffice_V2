@@ -15,6 +15,9 @@
     "ci_runner",
     "external_runner"
   ],
+  "allowed_completion_claim_types": [
+    "milestone_completion_candidate"
+  ],
   "allowed_checkout_modes": [
     "exact_remote_sha_pinned"
   ],

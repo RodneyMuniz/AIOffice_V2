@@ -47,6 +47,22 @@
     "exit_code",
     "status"
   ],
+  "completion_claim_required_fields": [
+    "claim_type",
+    "claimed_commands",
+    "supplemental_command_results",
+    "remote_head_verification_ref",
+    "post_push_verification_ref",
+    "notes"
+  ],
+  "supplemental_command_result_required_fields": [
+    "command_id",
+    "command",
+    "stdout_log_ref",
+    "stderr_log_ref",
+    "exit_code",
+    "status"
+  ],
   "artifact_hash_required_fields": [
     "artifact_label",
     "artifact_ref",

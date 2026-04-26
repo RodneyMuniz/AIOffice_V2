@@ -81,6 +81,118 @@ function New-FixtureRoot {
     return $fixtureRoot
 }
 
+function New-CompletionClaimFixture {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FixtureRoot
+    )
+
+    $packetPath = Join-Path $FixtureRoot "qa_proof_packet.valid.json"
+    $packet = Get-JsonDocument -Path $packetPath
+
+    $supplementalCommandResults = @(
+        @{
+            command_id = "clean-checkout-runner"
+            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_clean_checkout_qa.ps1"
+            stdout_log_ref = "logs/invoke_clean_checkout_qa.stdout.log"
+            stderr_log_ref = "logs/invoke_clean_checkout_qa.stderr.log"
+            exit_code = 0
+            status = "passed"
+        },
+        @{
+            command_id = "qa-packet-validator"
+            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_qa_proof_packet.ps1 -PacketPath state\fixtures\valid\qa_proof\qa_proof_packet.valid.json"
+            stdout_log_ref = "logs/validate_qa_proof_packet.stdout.log"
+            stderr_log_ref = "logs/validate_qa_proof_packet.stderr.log"
+            exit_code = 0
+            status = "passed"
+        },
+        @{
+            command_id = "remote-head-verifier"
+            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_remote_branch_head.ps1"
+            stdout_log_ref = "logs/verify_remote_branch_head.stdout.log"
+            stderr_log_ref = "logs/verify_remote_branch_head.stderr.log"
+            exit_code = 0
+            status = "passed"
+        },
+        @{
+            command_id = "post-push-verifier"
+            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_post_push_remote_head.ps1"
+            stdout_log_ref = "logs/verify_post_push_remote_head.stdout.log"
+            stderr_log_ref = "logs/verify_post_push_remote_head.stderr.log"
+            exit_code = 0
+            status = "passed"
+        },
+        @{
+            command_id = "git-status-porcelain"
+            command = "git status --porcelain"
+            stdout_log_ref = "logs/git_status_porcelain_completion.stdout.log"
+            stderr_log_ref = "logs/git_status_porcelain_completion.stderr.log"
+            exit_code = 0
+            status = "passed"
+        }
+    )
+
+    foreach ($supplementalCommandResult in $supplementalCommandResults) {
+        Set-Content -LiteralPath (Join-Path $FixtureRoot $supplementalCommandResult.stdout_log_ref) -Value ("stdout for {0}" -f $supplementalCommandResult.command_id) -Encoding UTF8
+        Set-Content -LiteralPath (Join-Path $FixtureRoot $supplementalCommandResult.stderr_log_ref) -Value "" -Encoding UTF8
+    }
+
+    $remoteHeadVerificationPath = Join-Path $FixtureRoot "artifacts\\remote_head_verification.valid.json"
+    Write-JsonDocument -Path $remoteHeadVerificationPath -Document ([pscustomobject]@{
+            contract_version = "v1"
+            record_type = "remote_head_verification_result"
+            verification_id = "remote-head-verification-r8-006-valid-001"
+            repository_name = $packet.repository.repository_name
+            branch = $packet.branch
+            local_head = $packet.remote_head
+            remote_head = $packet.remote_head
+            commit_subject = "Valid fixture remote-head verification artifact"
+            tree_hash = $packet.tree_hash
+            verified_at_utc = $packet.captured_at_utc
+            status = "matched"
+            result = "passed"
+            refusal_reason = ""
+        })
+
+    $postPushVerificationPath = Join-Path $FixtureRoot "artifacts\\post_push_verification.valid.json"
+    Write-JsonDocument -Path $postPushVerificationPath -Document ([pscustomobject]@{
+            contract_version = "v1"
+            record_type = "post_push_verification_result"
+            verification_id = "post-push-verification-r8-006-valid-001"
+            repository_name = $packet.repository.repository_name
+            branch = $packet.branch
+            expected_pushed_commit = $packet.remote_head
+            actual_remote_head = $packet.remote_head
+            commit_subject = "Valid fixture post-push verification artifact"
+            tree_hash = $packet.tree_hash
+            verified_at_utc = $packet.captured_at_utc
+            status = "matched"
+            result = "passed"
+            refusal_reason = ""
+        })
+
+    $packet | Add-Member -NotePropertyName "completion_claim" -NotePropertyValue ([pscustomobject]@{
+            claim_type = "milestone_completion_candidate"
+            claimed_commands = @(
+                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_clean_checkout_qa.ps1",
+                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_qa_proof_packet.ps1 -PacketPath state\fixtures\valid\qa_proof\qa_proof_packet.valid.json",
+                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1",
+                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_remote_branch_head.ps1",
+                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify_post_push_remote_head.ps1",
+                "git status --porcelain",
+                "git diff --check"
+            )
+            supplemental_command_results = @($supplementalCommandResults | ForEach-Object { [pscustomobject]$_ })
+            remote_head_verification_ref = "artifacts/remote_head_verification.valid.json"
+            post_push_verification_ref = "artifacts/post_push_verification.valid.json"
+            notes = "Completion-claim fixture for R8-006 command-log coverage hardening tests."
+        }) -Force
+
+    Write-JsonDocument -Path $packetPath -Document $packet
+    return $packetPath
+}
+
 $validPassed = 0
 $invalidRejected = 0
 $failures = @()
@@ -91,6 +203,19 @@ try {
     $validResult = & $testQaProofPacket -PacketPath $validFixture
     Write-Output ("PASS valid: {0} -> {1} {2}" -f (Resolve-Path -Relative $validFixture), $validResult.PacketId, $validResult.Verdict)
     $validPassed += 1
+
+    $completionClaimRoot = New-FixtureRoot -Label "completion-claim-valid"
+    try {
+        $completionClaimPacketPath = New-CompletionClaimFixture -FixtureRoot $completionClaimRoot
+        $completionClaimResult = & $testQaProofPacket -PacketPath $completionClaimPacketPath
+        Write-Output ("PASS valid completion-claim: {0} -> {1}" -f $completionClaimResult.PacketId, $completionClaimResult.Verdict)
+        $validPassed += 1
+    }
+    finally {
+        if (Test-Path -LiteralPath $completionClaimRoot) {
+            Remove-Item -LiteralPath $completionClaimRoot -Recurse -Force
+        }
+    }
 
     $dirtyFailureRoot = New-FixtureRoot -Label "dirty-final-failed-verdict"
     try {
@@ -152,6 +277,118 @@ try {
     finally {
         if (Test-Path -LiteralPath $missingLogRoot) {
             Remove-Item -LiteralPath $missingLogRoot -Recurse -Force
+        }
+    }
+
+    $missingStdoutRefRoot = New-FixtureRoot -Label "missing-stdout-log-ref"
+    try {
+        $missingStdoutRefPacketPath = New-CompletionClaimFixture -FixtureRoot $missingStdoutRefRoot
+        $missingStdoutRefPacket = Get-JsonDocument -Path $missingStdoutRefPacketPath
+        $missingStdoutRefPacket.completion_claim.supplemental_command_results[0].PSObject.Properties.Remove("stdout_log_ref")
+        Write-JsonDocument -Path $missingStdoutRefPacketPath -Document $missingStdoutRefPacket
+        Invoke-ExpectedRefusal -Label "missing-stdout-log-ref" -RequiredFragments @("stdout_log_ref", "missing required field") -Action {
+            & $testQaProofPacket -PacketPath $missingStdoutRefPacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingStdoutRefRoot) {
+            Remove-Item -LiteralPath $missingStdoutRefRoot -Recurse -Force
+        }
+    }
+
+    $missingStderrRefRoot = New-FixtureRoot -Label "missing-stderr-log-ref"
+    try {
+        $missingStderrRefPacketPath = New-CompletionClaimFixture -FixtureRoot $missingStderrRefRoot
+        $missingStderrRefPacket = Get-JsonDocument -Path $missingStderrRefPacketPath
+        $missingStderrRefPacket.completion_claim.supplemental_command_results[0].PSObject.Properties.Remove("stderr_log_ref")
+        Write-JsonDocument -Path $missingStderrRefPacketPath -Document $missingStderrRefPacket
+        Invoke-ExpectedRefusal -Label "missing-stderr-log-ref" -RequiredFragments @("stderr_log_ref", "missing required field") -Action {
+            & $testQaProofPacket -PacketPath $missingStderrRefPacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingStderrRefRoot) {
+            Remove-Item -LiteralPath $missingStderrRefRoot -Recurse -Force
+        }
+    }
+
+    $missingExitCodeRoot = New-FixtureRoot -Label "missing-exit-code"
+    try {
+        $missingExitCodePacketPath = New-CompletionClaimFixture -FixtureRoot $missingExitCodeRoot
+        $missingExitCodePacket = Get-JsonDocument -Path $missingExitCodePacketPath
+        $missingExitCodePacket.completion_claim.supplemental_command_results[0].PSObject.Properties.Remove("exit_code")
+        Write-JsonDocument -Path $missingExitCodePacketPath -Document $missingExitCodePacket
+        Invoke-ExpectedRefusal -Label "missing-exit-code" -RequiredFragments @("exit_code", "missing required field") -Action {
+            & $testQaProofPacket -PacketPath $missingExitCodePacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingExitCodeRoot) {
+            Remove-Item -LiteralPath $missingExitCodeRoot -Recurse -Force
+        }
+    }
+
+    $claimedCommandGapRoot = New-FixtureRoot -Label "claimed-command-gap"
+    try {
+        $claimedCommandGapPacketPath = New-CompletionClaimFixture -FixtureRoot $claimedCommandGapRoot
+        $claimedCommandGapPacket = Get-JsonDocument -Path $claimedCommandGapPacketPath
+        $claimedCommandGapPacket.completion_claim.supplemental_command_results = @($claimedCommandGapPacket.completion_claim.supplemental_command_results | Where-Object { $_.command -ne "powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_qa_proof_packet.ps1 -PacketPath state\fixtures\valid\qa_proof\qa_proof_packet.valid.json" })
+        Write-JsonDocument -Path $claimedCommandGapPacketPath -Document $claimedCommandGapPacket
+        Invoke-ExpectedRefusal -Label "claimed-command-gap" -RequiredFragments @("tools\validate_qa_proof_packet.ps1", "has no command_result or supplemental_command_result coverage") -Action {
+            & $testQaProofPacket -PacketPath $claimedCommandGapPacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $claimedCommandGapRoot) {
+            Remove-Item -LiteralPath $claimedCommandGapRoot -Recurse -Force
+        }
+    }
+
+    $missingGitHygieneRoot = New-FixtureRoot -Label "missing-git-hygiene"
+    try {
+        $missingGitHygienePacketPath = New-CompletionClaimFixture -FixtureRoot $missingGitHygieneRoot
+        $missingGitHygienePacket = Get-JsonDocument -Path $missingGitHygienePacketPath
+        $missingGitHygienePacket.completion_claim.claimed_commands = @($missingGitHygienePacket.completion_claim.claimed_commands | Where-Object { $_ -ne "git status --porcelain" })
+        Write-JsonDocument -Path $missingGitHygienePacketPath -Document $missingGitHygienePacket
+        Invoke-ExpectedRefusal -Label "missing-git-hygiene-command-evidence" -RequiredFragments @("completion_claim.claimed_commands", "git status --porcelain") -Action {
+            & $testQaProofPacket -PacketPath $missingGitHygienePacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingGitHygieneRoot) {
+            Remove-Item -LiteralPath $missingGitHygieneRoot -Recurse -Force
+        }
+    }
+
+    $missingRemoteVerificationRoot = New-FixtureRoot -Label "missing-remote-verification"
+    try {
+        $missingRemoteVerificationPacketPath = New-CompletionClaimFixture -FixtureRoot $missingRemoteVerificationRoot
+        $missingRemoteVerificationPacket = Get-JsonDocument -Path $missingRemoteVerificationPacketPath
+        $missingRemoteVerificationPacket.completion_claim.PSObject.Properties.Remove("remote_head_verification_ref")
+        Write-JsonDocument -Path $missingRemoteVerificationPacketPath -Document $missingRemoteVerificationPacket
+        Invoke-ExpectedRefusal -Label "missing-remote-verification-evidence" -RequiredFragments @("remote_head_verification_ref", "missing required field") -Action {
+            & $testQaProofPacket -PacketPath $missingRemoteVerificationPacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingRemoteVerificationRoot) {
+            Remove-Item -LiteralPath $missingRemoteVerificationRoot -Recurse -Force
+        }
+    }
+
+    $missingPostPushVerificationRoot = New-FixtureRoot -Label "missing-post-push-verification"
+    try {
+        $missingPostPushVerificationPacketPath = New-CompletionClaimFixture -FixtureRoot $missingPostPushVerificationRoot
+        $missingPostPushVerificationPacket = Get-JsonDocument -Path $missingPostPushVerificationPacketPath
+        $missingPostPushVerificationPacket.completion_claim.PSObject.Properties.Remove("post_push_verification_ref")
+        Write-JsonDocument -Path $missingPostPushVerificationPacketPath -Document $missingPostPushVerificationPacket
+        Invoke-ExpectedRefusal -Label "missing-post-push-verification-evidence" -RequiredFragments @("post_push_verification_ref", "missing required field") -Action {
+            & $testQaProofPacket -PacketPath $missingPostPushVerificationPacketPath | Out-Null
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $missingPostPushVerificationRoot) {
+            Remove-Item -LiteralPath $missingPostPushVerificationRoot -Recurse -Force
         }
     }
 
