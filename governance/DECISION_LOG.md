@@ -461,3 +461,20 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: no committed exact-final post-push verification artifact is claimed because such an artifact would be self-referential to the final pushed commit; final remote-head verification must be performed after push and reported outside this committed package.
 - Consequence: R8 does not prove product UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, or general Codex reliability.
 - Consequence: no later implementation milestone is open yet in repo truth, and R9 is not opened by this decision.
+
+## D-0054 Post-R8 Status-Gate Correction Accepted
+- Date: 2026-04-27
+- Status: accepted
+- Decision: the bounded post-R8 correction commit `4140780c08c90af03d398644050682de42ee0b1d` fixes the stale `governance/ACTIVE_STATE.md` contradiction that identified R7 as the most recently closed milestone after R8 closeout, keeps the operator-added report `governance/reports/AIOffice_V2_R8_Audit_and_R9_Planning_Report_v1.md` as a narrative report artifact only, and hardens `tools/StatusDocGate.psm1` plus `tests/test_status_doc_gate.ps1` against stale most-recently-closed milestone contradictions.
+- Consequence: R8 remains closed in repo truth, R8 remains the most recently closed milestone, and the correction does not widen R8 or open R9 by itself.
+- Consequence: the accepted focused validation was `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`, `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1`, and `git diff --check`.
+
+## D-0055 R9 Opened As Isolated QA And Continuity-Managed Pilot
+- Date: 2026-04-27
+- Status: accepted
+- Decision: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is opened as the next bounded milestone in repo truth through `R9-001` as planning and boundary-freeze only.
+- Consequence: R9 opens only after the post-R8 correction accepted in `D-0054`; R8 remains the most recently closed milestone under `D-0053`.
+- Consequence: R9 is bounded to isolated QA role/signoff, exact-final post-push verification support, real external or CI runner artifact identity if available, continuity-managed execution segments, and one tiny segmented milestone execution pilot.
+- Consequence: `R9-001` is complete through this opening commit and `R9-002` through `R9-007` remain planned only.
+- Consequence: opening R9 does not prove isolated QA signoff, exact-final post-push support evidence, external runner identity, continuity-managed execution segments, the tiny milestone pilot, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution.
+- Consequence: the next gated step inside R9 is `R9-002 Define isolated QA role and signoff packet`.

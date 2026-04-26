@@ -1,9 +1,9 @@
 # AIOffice Active State
 
-Last reconciled: 2026-04-26
+Last reconciled: 2026-04-27
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, and `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now closed in repo truth with `R8-001` through `R8-009` complete. No active implementation milestone is open after R8 closeout.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, and `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now closed in repo truth with `R8-001` through `R8-009` complete. After the bounded post-R8 status-gate correction, `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-001` only.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -104,6 +104,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - No committed exact-final post-push verification artifact is claimed because that artifact would be self-referential to the final pushed commit.
 - Closed R7 still does not prove independent clean-checkout QA, CI or external final proof execution, a separate QA signoff packet, or a committed final post-push verification artifact inside repo truth.
 - The operator-facing bridge artifact for the R7-to-R8 transition is `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is a narrative operator report artifact, not milestone proof by itself.
+- The operator-facing post-R8 audit and R9 planning report is `governance/reports/AIOffice_V2_R8_Audit_and_R9_Planning_Report_v1.md`. It is a narrative operator report artifact only, not R8 proof by itself, and it does not open R9 by itself.
+- `R9-001` is complete as the repo-truth open step for `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`.
+- `R9-002` through `R9-007` remain planned only.
+- R9 is bounded to isolated QA, exact-final remote-head support evidence, real external or CI runner artifact identity if available, continuity-managed execution segments, and one tiny segmented milestone pilot only.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 
@@ -115,6 +119,11 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - any concrete CI or external-runner proof artifact as closeout authority
 - any separate QA-role signoff packet beyond the R8 QA proof packet recorded for this closeout
 - any committed final post-push remote verification artifact for the exact landed completion head
+- any implemented R9 isolated QA signoff packet
+- any R9 continuity-managed execution segment artifacts
+- any R9 tiny segmented milestone execution pilot
+- any claim that Codex context compaction is solved
+- any claim that hours-long milestones can now run unattended
 - any unattended automatic resume execution or broader recovery behavior
 - any rollback execution or broader recovery productization beyond bounded restore-gate validation
 - any rollback drill execution outside an explicit disposable environment with operator approval before Git mutation
@@ -123,18 +132,18 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - any unattended operation or broader product completeness
 
 ## Active Milestone
-No active implementation milestone is open after R8 closeout.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-001` only.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now closed in repo truth. `R8-001` through `R8-009` complete one bounded QA and proof trust substrate only, with closeout authority under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is the most recently closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`. `R7 Fault-Managed Continuity and Rollback Drill` remains the prior closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`.
 
-R8 exists because closed R7 still preserved major cautions: no independent clean-checkout QA exists, no CI or external final proof artifact exists, no separate QA signoff packet exists, no committed final post-push verification artifact exists in repo truth, and status or narration had previously drifted ahead of landed evidence. R8 is intentionally a QA and proof trust substrate milestone, not productization.
+R9 exists because closed R8 still preserved major cautions: no fully isolated QA role/signoff exists, no concrete CI or external runner artifact identity is claimed, no committed exact-final post-push verification artifact exists in repo truth, no final-head clean-checkout replay after closeout push is claimed, and Codex context-window failure still needs durable segment-level recovery from repo state instead of chat memory.
 
 ## Next Gated Step
-- No next implementation milestone is open yet in repo truth.
-- Do not open R9 until a separate repo-truth decision does so.
-- The next recommended action is post-push remote-head verification for the committed R8 closeout head and operator review of the R8 proof package.
+- Execute `R9-002` only inside the frozen R9 boundary.
+- Define isolated QA role and signoff packet surfaces without accepting executor self-certification as QA authority.
+- Do not start UI, Standard runtime, swarms, multi-repo orchestration, or broad autonomy under R9.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -165,3 +174,5 @@ R8 exists because closed R7 still preserved major cautions: no independent clean
 - Do not treat `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md` as milestone proof by itself.
 - Do not treat opening R8 as proof that remote-head verification, post-push verification, clean-checkout QA, CI or external proof execution, or status-doc gating already exist.
 - Do not import donor code unless fresh implementation work is blocked by pattern ambiguity that cannot be resolved locally.
+- Do not treat opening R9 as proof of isolated QA signoff, exact-final post-push support evidence, external runner identity, continuity-managed execution segments, or the tiny milestone pilot.
+- Do not treat R9 as a claim that Codex context compaction is solved or that hours-long milestones can run unattended.

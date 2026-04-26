@@ -106,20 +106,49 @@ function Get-R8TaskStatusMap {
     return $statusMap
 }
 
+function Get-R9TaskStatusMap {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $matches = [regex]::Matches($Text, '(?ms)^###\s+`(R9-\d{3})`.*?^\-\s+Status:\s+(done|planned)\s*$')
+    if ($matches.Count -eq 0) {
+        throw "$Context does not define any R9 task status headings."
+    }
+
+    $statusMap = @{}
+    foreach ($match in $matches) {
+        $taskId = $match.Groups[1].Value
+        $status = $match.Groups[2].Value
+        if ($statusMap.ContainsKey($taskId)) {
+            throw "$Context defines duplicate task status entries for '$taskId'."
+        }
+
+        $statusMap[$taskId] = $status
+    }
+
+    return $statusMap
+}
+
 function Get-ContiguousDoneThroughFromStatusMap {
     param(
         [Parameter(Mandatory = $true)]
         [hashtable]$StatusMap,
         [Parameter(Mandatory = $true)]
-        [string]$Context
+        [string]$Context,
+        [string]$TaskPrefix = "R8",
+        [int]$TaskCount = 9
     )
 
     $doneThrough = 0
     $plannedStart = $null
     $plannedThrough = $null
 
-    foreach ($taskNumber in 1..9) {
-        $taskId = "R8-{0}" -f $taskNumber.ToString("000")
+    foreach ($taskNumber in 1..$TaskCount) {
+        $taskId = "{0}-{1}" -f $TaskPrefix, $taskNumber.ToString("000")
         if (-not $StatusMap.ContainsKey($taskId)) {
             throw "$Context is missing status for '$taskId'."
         }
@@ -141,8 +170,8 @@ function Get-ContiguousDoneThroughFromStatusMap {
         $plannedThrough = $taskNumber
     }
 
-    if ($doneThrough -lt 9 -and $null -eq $plannedStart) {
-        throw "$Context must preserve at least one planned R8 task while the milestone remains open."
+    if ($doneThrough -lt $TaskCount -and $null -eq $plannedStart) {
+        throw "$Context must preserve at least one planned $TaskPrefix task while the milestone remains open."
     }
 
     return [pscustomobject]@{
@@ -347,6 +376,83 @@ function Assert-MostRecentlyClosedMilestoneConsistency {
     }
 }
 
+function Assert-R9NonClaimsPreserved {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $nonClaimsSectionMatch = [regex]::Match($Text, '(?ms)^##\s+Required non-claims\s*\r?\n(.*?)(?=^##\s+|\z)')
+    if (-not $nonClaimsSectionMatch.Success) {
+        throw "$Context must preserve a 'Required non-claims' section."
+    }
+
+    $nonClaimsSectionText = $nonClaimsSectionMatch.Groups[1].Value
+
+    $requiredPhrases = @(
+        "no UI or control-room productization",
+        "no Standard runtime",
+        "no multi-repo orchestration",
+        "no swarms",
+        "no broad autonomous milestone execution",
+        "no unattended automatic resume",
+        "no destructive rollback",
+        "no production-grade CI for every workflow",
+        "no general Codex reliability claim",
+        "no claim that Codex context compaction is solved",
+        "no claim that hours-long milestones can now run unattended"
+    )
+
+    foreach ($requiredPhrase in $requiredPhrases) {
+        if ($nonClaimsSectionText -notmatch [regex]::Escape($requiredPhrase)) {
+            throw "$Context must preserve the R9 non-claim '$requiredPhrase'."
+        }
+    }
+}
+
+function Test-R9OpeningStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    if (-not $Texts.Contains("R9Authority")) {
+        throw "R9 authority document must exist when R9 is open."
+    }
+
+    $kanbanTaskStatuses = Get-R9TaskStatusMap -Text $Texts.Kanban -Context "KANBAN"
+    $authorityTaskStatuses = Get-R9TaskStatusMap -Text $Texts.R9Authority -Context "R9 authority"
+
+    foreach ($taskId in $kanbanTaskStatuses.Keys) {
+        if ($authorityTaskStatuses[$taskId] -ne $kanbanTaskStatuses[$taskId]) {
+            throw "R9 authority does not match KANBAN for status '$taskId'."
+        }
+    }
+
+    $kanbanSnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanTaskStatuses -Context "KANBAN" -TaskPrefix "R9" -TaskCount 7
+    $authoritySnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $authorityTaskStatuses -Context "R9 authority" -TaskPrefix "R9" -TaskCount 7
+
+    if ($authoritySnapshot.DoneThrough -ne $kanbanSnapshot.DoneThrough -or $authoritySnapshot.PlannedStart -ne $kanbanSnapshot.PlannedStart -or $authoritySnapshot.PlannedThrough -ne $kanbanSnapshot.PlannedThrough) {
+        throw "R9 authority does not match KANBAN for the live R9 task status boundary."
+    }
+
+    if ($kanbanSnapshot.DoneThrough -ne 1 -or $kanbanSnapshot.PlannedStart -ne 2 -or $kanbanSnapshot.PlannedThrough -ne 7) {
+        throw "R9 opening status must keep only R9-001 done and R9-002 through R9-007 planned."
+    }
+
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-001` only' -Message "README must declare R9 as the active milestone through R9-001 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-001` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-001 only."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must declare R9 as the active milestone."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R9 Opened As Isolated QA And Continuity-Managed Pilot' -Message "DECISION_LOG must record the R9 opening decision."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-001` only' -Message "R9 authority must declare R9 active through R9-001 only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-002`\s+through\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-002 through R9-007 planned only."
+    Assert-R9NonClaimsPreserved -Text $Texts.R9Authority -Context "R9 authority"
+
+    return $kanbanSnapshot
+}
+
 function Test-StatusDocGate {
     [CmdletBinding()]
     param(
@@ -361,6 +467,11 @@ function Test-StatusDocGate {
         Kanban = Resolve-ExistingPath -PathValue "execution\KANBAN.md" -Label "Kanban" -AnchorPath $resolvedRepositoryRoot
         DecisionLog = Resolve-ExistingPath -PathValue "governance\DECISION_LOG.md" -Label "Decision log" -AnchorPath $resolvedRepositoryRoot
         R8Authority = Resolve-ExistingPath -PathValue "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md" -Label "R8 authority" -AnchorPath $resolvedRepositoryRoot
+    }
+
+    $r9AuthorityPath = Resolve-PathValue -PathValue "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md" -AnchorPath $resolvedRepositoryRoot
+    if (Test-Path -LiteralPath $r9AuthorityPath) {
+        $paths["R9Authority"] = (Resolve-Path -LiteralPath $r9AuthorityPath).Path
     }
 
     $texts = [ordered]@{}
@@ -411,6 +522,8 @@ function Test-StatusDocGate {
 
     $r8Closed = $kanbanSnapshot.DoneThrough -ge 9 -or $r8ClosedClaimed
     Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed
+    $r9Opened = $combinedText -match 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now (?:the )?active'
+    $r9Snapshot = $null
 
     if (-not $r8Closed) {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
@@ -424,8 +537,13 @@ function Test-StatusDocGate {
     }
     else {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the most recently closed milestone' -Message "README must mark R8 as the most recently closed milestone after R8-009."
-        Assert-RegexMatch -Text $texts.ActiveState -Pattern 'No active implementation milestone is open after R8 closeout' -Message "ACTIVE_STATE must not open a successor milestone after R8 closeout."
-        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R8 closeout\.' -Message "KANBAN must not open a successor milestone after R8 closeout."
+        if ($r9Opened) {
+            $r9Snapshot = Test-R9OpeningStatus -Texts $texts
+        }
+        else {
+            Assert-RegexMatch -Text $texts.ActiveState -Pattern 'No active implementation milestone is open after R8 closeout' -Message "ACTIVE_STATE must not open a successor milestone after R8 closeout."
+            Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R8 closeout\.' -Message "KANBAN must not open a successor milestone after R8 closeout."
+        }
         Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must mark R8 as the most recently closed milestone."
         Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now closed in repo truth' -Message "R8 authority must declare R8 closed in repo truth."
     }
@@ -468,7 +586,7 @@ function Test-StatusDocGate {
         throw "DECISION_LOG still implies no later implementation milestone is open after R8 was opened."
     }
 
-    $activeMilestone = if ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
+    $activeMilestone = if ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
     $mostRecentlyClosedMilestone = if ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
 
     return [pscustomobject]@{
@@ -477,8 +595,12 @@ function Test-StatusDocGate {
         DoneThrough = $kanbanSnapshot.DoneThrough
         PlannedStart = $kanbanSnapshot.PlannedStart
         PlannedThrough = $kanbanSnapshot.PlannedThrough
+        R9DoneThrough = if ($null -eq $r9Snapshot) { $null } else { $r9Snapshot.DoneThrough }
+        R9PlannedStart = if ($null -eq $r9Snapshot) { $null } else { $r9Snapshot.PlannedStart }
+        R9PlannedThrough = if ($null -eq $r9Snapshot) { $null } else { $r9Snapshot.PlannedThrough }
         R8RemainsOpen = (-not $r8Closed)
         R8Closed = $r8Closed
+        R9Opened = $r9Opened
     }
 }
 
