@@ -1,0 +1,15 @@
+PASS valid: .\state\fixtures\valid\post_push_support\final_remote_head_support_packet.valid.json -> r9-003-final-remote-head-support-valid passed
+PASS invalid: missing-required-field -> Final remote-head support packet is missing required field 'packet_id'.
+PASS invalid: missing-verified-remote-head -> Final remote-head support packet is missing required field 'verified_remote_head'.
+PASS invalid: malformed-verified-remote-head -> Final remote-head support packet verified_remote_head does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: missing-closeout-commit -> Final remote-head support packet is missing required field 'closeout_commit'.
+PASS invalid: malformed-closeout-commit -> Final remote-head support packet closeout_commit does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: wrong-verification-timing -> Final remote-head support packet verification_timing must be one of: after_closeout_push.
+PASS invalid: same-commit-support-policy -> Final remote-head support packet support_packet_commit_policy must explicitly state that the support packet is not inside the same closeout commit it verifies.
+PASS invalid: empty-verification-evidence-refs -> Final remote-head support packet verification_evidence_refs must not be empty.
+PASS invalid: invalid-status -> Final remote-head support packet status must be one of: passed, failed, blocked.
+PASS invalid: passed-with-refusal-reasons -> Final remote-head support packet refusal_reasons must be empty when status is 'passed'.
+PASS invalid: failed-without-refusal-reasons -> Final remote-head support packet refusal_reasons must not be empty when status is 'failed'.
+PASS invalid: missing-required-non-claim -> Final remote-head support packet non_claims must include 'no solved Codex context compaction claim'.
+PASS invalid: ci-claim-without-run-identity -> Final remote-head support packet claims CI or external runner proof without a concrete run identity reference.
+All final remote-head support tests passed. Valid passed: 1. Invalid rejected: 13.

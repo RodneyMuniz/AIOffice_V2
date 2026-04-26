@@ -1,0 +1,9 @@
+ M README.md
+ M execution/KANBAN.md
+ M governance/ACTIVE_STATE.md
+ M governance/DECISION_LOG.md
+ M governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md
+ M tests/test_status_doc_gate.ps1
+ M tools/StatusDocGate.psm1
+ M tools/validate_status_doc_gate.ps1
+?? state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/

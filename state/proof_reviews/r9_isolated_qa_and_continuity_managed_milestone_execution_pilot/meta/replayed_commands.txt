@@ -1,0 +1,11 @@
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r9_tiny_segmented_pilot.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_execution_segment_continuity.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_external_runner_artifact_identity.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_final_remote_head_support.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_isolated_qa_signoff.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+git diff --check
+git rev-parse HEAD
+git rev-parse HEAD^{tree}
+git status --porcelain

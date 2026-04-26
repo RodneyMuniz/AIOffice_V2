@@ -3,18 +3,24 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
+No active implementation milestone is open after R9 closeout.
 
 Current posture:
-`R9` is now active in repo truth through `R9-006` only. `R9-006` is complete through one tiny bounded segmented control-path pilot under `state/pilots/r9_tiny_segmented_milestone_pilot/` with focused proof through `tests/test_r9_tiny_segmented_pilot.ps1`. No concrete CI or external runner artifact identity is claimed, because R9-004 landed only the limitation path. `R9-007` remains planned only. R9 still does not close, does not prove real external or CI runner artifact identity, does not solve Codex context compaction, does not prove hours-long unattended milestone execution, does not prove unattended automatic resume, and does not prove broad autonomous milestone execution. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is closed narrowly in repo truth with `R9-001` through `R9-007` complete. The closeout proof package is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`. No active successor milestone is open. R9 closes only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. R9 did not prove real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
 
 ## Most Recently Closed Milestone
-`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
 Closeout summary:
-`R8-001` through `R8-009` are complete and formally closed in repo truth. The closeout authority is `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, the QA proof packet is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/clean_checkout_qa/qa_proof_packet.json`, the starting remote-head verification artifact is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/remote_head_verification/remote_head_verification_starting_head.json`, the starting remote head is `e27464278c2fb29cc3269b562019784124451288`, and decision authority is `D-0053`. This closeout remains bounded to one remote-gated QA/proof trust substrate for one repository and one active milestone cycle only.
+`R9-001` through `R9-007` are complete and formally closed in repo truth. The closeout authority is `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, the R9-006 pilot package is `state/pilots/r9_tiny_segmented_milestone_pilot/`, and decision authority is `D-0061`. This closeout remains bounded to one isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path only.
 
 Prior closed milestone:
+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains honestly closed under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
+
+R8 closeout summary:
+`R8-001` through `R8-009` are complete and formally closed in repo truth. The closeout authority is `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, the QA proof packet is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/clean_checkout_qa/qa_proof_packet.json`, the starting remote-head verification artifact is `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/remote_head_verification/remote_head_verification_starting_head.json`, the starting remote head is `e27464278c2fb29cc3269b562019784124451288`, and decision authority is `D-0053`. This closeout remains bounded to one remote-gated QA/proof trust substrate for one repository and one active milestone cycle only.
+
+Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
@@ -74,13 +80,13 @@ Prior closed milestone:
 - Done when: the pilot runs request, plan, approve or freeze, segment dispatch, Codex execution evidence, isolated QA, audit summary, and operator decision without claiming full autonomous milestone execution, external or CI proof, solved Codex context compaction, unattended automatic resume, or hours-long unattended processing
 
 ### `R9-007` Close R9 narrowly
-- Status: planned
+- Status: done
 - Order: 7
 - Milestone: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 - Depends on: `R9-006`
 - Authority: `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, `governance/DECISION_LOG.md`
-- Durable output: one narrow R9 closeout package
-- Done when: isolated QA signoff exists, exact final remote-head verification support exists, clean or external QA evidence exists or a limitation is explicitly recorded, status-doc gate passes, no self-certification is accepted, continuity segment artifacts prove resume-from-state is possible, and all non-claims are preserved
+- Durable output: `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`
+- Done when: isolated QA signoff exists, final remote-head support model exists, local QA evidence exists, external/CI runner identity limitation is explicitly recorded, status-doc gate passes, no self-certification is accepted, continuity segment artifacts prove the one tiny pilot can resume from durable repo-state refs, and all non-claims are preserved
 
 ## Closed R8 Task Record
 

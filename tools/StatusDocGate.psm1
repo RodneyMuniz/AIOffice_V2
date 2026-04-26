@@ -351,27 +351,36 @@ function Assert-MostRecentlyClosedMilestoneConsistency {
         [Parameter(Mandatory = $true)]
         [System.Collections.IDictionary]$Texts,
         [Parameter(Mandatory = $true)]
-        [bool]$R8Closed
+        [bool]$R8Closed,
+        [bool]$R9Closed = $false
     )
 
-    $forbiddenMilestone = if ($R8Closed) {
-        "R7 Fault-Managed Continuity and Rollback Drill"
+    $forbiddenMilestones = if ($R9Closed) {
+        @(
+            "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner",
+            "R7 Fault-Managed Continuity and Rollback Drill"
+        )
+    }
+    elseif ($R8Closed) {
+        @("R7 Fault-Managed Continuity and Rollback Drill")
     }
     else {
-        "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner"
+        @("R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner")
     }
 
-    $escapedForbiddenMilestone = [regex]::Escape('`' + $forbiddenMilestone + '`')
-    $forbiddenPatterns = @(
-        ($escapedForbiddenMilestone + '\s+(?:is\s+now|is|remains|was)?\s*the\s+most\s+recently\s+closed\s+milestone'),
-        ('most\s+recently\s+closed\s+milestone\s*\r?\n\s*' + $escapedForbiddenMilestone)
-    )
+    foreach ($forbiddenMilestone in $forbiddenMilestones) {
+        $escapedForbiddenMilestone = [regex]::Escape('`' + $forbiddenMilestone + '`')
+        $forbiddenPatterns = @(
+            ($escapedForbiddenMilestone + '\s+(?:is\s+now|is|remains|was)?\s*the\s+most\s+recently\s+closed\s+milestone'),
+            ('most\s+recently\s+closed\s+milestone\s*\r?\n\s*' + $escapedForbiddenMilestone)
+        )
 
-    foreach ($entry in $Texts.GetEnumerator()) {
+        foreach ($entry in $Texts.GetEnumerator()) {
         foreach ($forbiddenPattern in $forbiddenPatterns) {
             if ($entry.Value -match $forbiddenPattern) {
                 throw "$($entry.Key) contains a stale most recently closed milestone claim for '$forbiddenMilestone'."
             }
+        }
         }
     }
 }
@@ -479,6 +488,77 @@ function Test-R9OpeningStatus {
     return $kanbanSnapshot
 }
 
+function Test-R9ClosedStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    if (-not $Texts.Contains("R9Authority")) {
+        throw "R9 authority document must exist when R9 is closed."
+    }
+
+    $kanbanTaskStatuses = Get-R9TaskStatusMap -Text $Texts.Kanban -Context "KANBAN"
+    $authorityTaskStatuses = Get-R9TaskStatusMap -Text $Texts.R9Authority -Context "R9 authority"
+
+    foreach ($taskId in $kanbanTaskStatuses.Keys) {
+        if ($authorityTaskStatuses[$taskId] -ne $kanbanTaskStatuses[$taskId]) {
+            throw "R9 authority does not match KANBAN for status '$taskId'."
+        }
+    }
+
+    $kanbanSnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanTaskStatuses -Context "KANBAN" -TaskPrefix "R9" -TaskCount 7
+    $authoritySnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $authorityTaskStatuses -Context "R9 authority" -TaskPrefix "R9" -TaskCount 7
+
+    if ($authoritySnapshot.DoneThrough -ne $kanbanSnapshot.DoneThrough -or $authoritySnapshot.PlannedStart -ne $kanbanSnapshot.PlannedStart -or $authoritySnapshot.PlannedThrough -ne $kanbanSnapshot.PlannedThrough) {
+        throw "R9 authority does not match KANBAN for the live R9 task status boundary."
+    }
+
+    if ($kanbanSnapshot.DoneThrough -ne 7 -or $kanbanSnapshot.PlannedStart -ne $null -or $kanbanSnapshot.PlannedThrough -ne $null) {
+        throw "R9 closed status must keep R9-001 through R9-007 done with no planned R9 tasks."
+    }
+
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the most recently closed milestone' -Message "README must mark R9 as the most recently closed milestone."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R9 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R9 closeout."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R9 closeout\.' -Message "KANBAN must not open a successor milestone after R9 closeout."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must mark R9 as the most recently closed milestone."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R9-007 Closed R9 Narrowly' -Message "DECISION_LOG must record the R9 closeout decision."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now closed in repo truth' -Message "R9 authority must declare R9 closed in repo truth."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/' -Message "R9 authority must cite the R9 proof-review package path."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/' -Message "README must cite the R9 proof-review package path."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern 'state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/' -Message "ACTIVE_STATE must cite the R9 proof-review package path."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+remains the prior closed milestone' -Message "R9 authority must preserve R8 as the prior closed milestone."
+
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/isolated_qa/qa_signoff_packet\.contract\.json' -Message "R9 authority must cite the R9-002 QA signoff contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/IsolatedQaSignoff\.psm1' -Message "R9 authority must cite the R9-002 isolated QA signoff validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_isolated_qa_signoff\.ps1' -Message "R9 authority must cite the R9-002 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/post_push_support/final_remote_head_support_packet\.contract\.json' -Message "R9 authority must cite the R9-003 final remote-head support contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/FinalRemoteHeadSupport\.psm1' -Message "R9 authority must cite the R9-003 final remote-head support validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_final_remote_head_support\.ps1' -Message "R9 authority must cite the R9-003 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/external_runner_artifact/external_runner_artifact_identity\.contract\.json' -Message "R9 authority must cite the R9-004 external runner artifact identity contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/ExternalRunnerArtifactIdentity\.psm1' -Message "R9 authority must cite the R9-004 external runner artifact identity validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/fixtures/valid/external_runner_artifact/external_runner_limitation\.valid\.json' -Message "R9 authority must cite the R9-004 explicit limitation fixture."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_external_runner_artifact_identity\.ps1' -Message "R9 authority must cite the R9-004 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'no concrete CI or external runner artifact identity is claimed' -Message "R9 authority must preserve the R9-004 no-concrete-run-identity limitation."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 remains blocked from claiming external proof until a real run identity is captured' -Message "R9 authority must keep external proof blocked until a real run identity is captured."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/execution_segments/execution_segment_dispatch\.contract\.json' -Message "R9 authority must cite the R9-005 execution segment dispatch contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/ExecutionSegmentContinuity\.psm1' -Message "R9 authority must cite the R9-005 execution segment validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_execution_segment_continuity\.ps1' -Message "R9 authority must cite the R9-005 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/pilots/r9_tiny_segmented_milestone_pilot/' -Message "R9 authority must cite the R9-006 tiny pilot package."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request\.json' -Message "R9 authority must cite the R9-006 pilot request artifact."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_r9_tiny_segmented_pilot\.ps1' -Message "R9 authority must cite the R9-006 focused pilot test."
+
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not prove real external/CI runner artifact identity' -Message "R9 authority must preserve the real external/CI runner identity non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not prove external QA proof' -Message "R9 authority must preserve the external QA proof non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not solve Codex context compaction' -Message "R9 authority must preserve the Codex compaction non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not prove hours-long unattended milestone execution' -Message "R9 authority must preserve the hours-long unattended milestone non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not prove unattended automatic resume' -Message "R9 authority must preserve the unattended automatic resume non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 did not prove broad autonomous milestone execution' -Message "R9 authority must preserve the broad-autonomy non-claim."
+    Assert-R9NonClaimsPreserved -Text $Texts.R9Authority -Context "R9 authority"
+
+    return $kanbanSnapshot
+}
+
 function Test-StatusDocGate {
     [CmdletBinding()]
     param(
@@ -554,8 +634,9 @@ function Test-StatusDocGate {
     }
 
     $r8Closed = $kanbanSnapshot.DoneThrough -ge 9 -or $r8ClosedClaimed
-    Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed
     $r9Opened = $combinedText -match 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now (?:the )?active'
+    $r9Closed = $combinedText -match 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+(?:is now closed in repo truth|is formally closed|is now the most recently closed milestone)'
+    Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed -R9Closed $r9Closed
     $r9Snapshot = $null
 
     if (-not $r8Closed) {
@@ -569,15 +650,20 @@ function Test-StatusDocGate {
         Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R7 Fault-Managed Continuity and Rollback Drill`\s+remains the most recently closed milestone' -Message "R8 authority must preserve R7 as the most recently closed milestone."
     }
     else {
-        Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the most recently closed milestone' -Message "README must mark R8 as the most recently closed milestone after R8-009."
-        if ($r9Opened) {
+        if ($r9Closed) {
+            $r9Snapshot = Test-R9ClosedStatus -Texts $texts
+        }
+        elseif ($r9Opened) {
+            Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the most recently closed milestone' -Message "README must mark R8 as the most recently closed milestone after R8-009."
             $r9Snapshot = Test-R9OpeningStatus -Texts $texts
+            Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must mark R8 as the most recently closed milestone."
         }
         else {
+            Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the most recently closed milestone' -Message "README must mark R8 as the most recently closed milestone after R8-009."
             Assert-RegexMatch -Text $texts.ActiveState -Pattern 'No active implementation milestone is open after R8 closeout' -Message "ACTIVE_STATE must not open a successor milestone after R8 closeout."
             Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R8 closeout\.' -Message "KANBAN must not open a successor milestone after R8 closeout."
+            Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must mark R8 as the most recently closed milestone."
         }
-        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must mark R8 as the most recently closed milestone."
         Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now closed in repo truth' -Message "R8 authority must declare R8 closed in repo truth."
     }
 
@@ -619,8 +705,12 @@ function Test-StatusDocGate {
         throw "DECISION_LOG still implies no later implementation milestone is open after R8 was opened."
     }
 
+    if ($r9Closed -and $combinedText -match '(?i)(R10|successor).*is now active') {
+        throw "Status docs must not open a successor milestone after R9 closeout."
+    }
+
     $activeMilestone = if ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
-    $mostRecentlyClosedMilestone = if ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
+    $mostRecentlyClosedMilestone = if ($r9Closed) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
 
     return [pscustomobject]@{
         ActiveMilestone = $activeMilestone
@@ -634,6 +724,7 @@ function Test-StatusDocGate {
         R8RemainsOpen = (-not $r8Closed)
         R8Closed = $r8Closed
         R9Opened = $r9Opened
+        R9Closed = $r9Closed
     }
 }
 

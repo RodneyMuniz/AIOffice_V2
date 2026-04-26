@@ -1,0 +1,21 @@
+{
+  "non_claims_id": "r9-closeout-non-claims",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "non_claims": [
+    "no product UI",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms or fleet execution",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no real external/CI runner artifact identity",
+    "no external QA proof",
+    "no production-grade CI",
+    "no general Codex reliability claim",
+    "no destructive rollback",
+    "no broad milestone automation beyond one tiny pilot"
+  ],
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

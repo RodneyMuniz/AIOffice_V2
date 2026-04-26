@@ -1,0 +1,31 @@
+{
+  "limitations_id": "r9-closeout-limitations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "limitations": [
+    {
+      "id": "no-real-external-runner-identity",
+      "statement": "R9-004 landed an external-runner identity and limitation model only; no concrete CI or external runner artifact identity is claimed."
+    },
+    {
+      "id": "local-qa-only-for-pilot",
+      "statement": "The R9-006 pilot uses local isolated QA evidence only and does not claim external QA proof."
+    },
+    {
+      "id": "support-model-not-final-same-commit-proof",
+      "statement": "R9-003 defines the final remote-head support model; exact post-push verification for a final landed closeout commit cannot be committed inside the same commit it verifies."
+    },
+    {
+      "id": "one-tiny-pilot-only",
+      "statement": "R9-006 proves one tiny bounded segmented control path only, not broad milestone automation."
+    },
+    {
+      "id": "context-compaction-not-solved",
+      "statement": "R9 makes Codex disposable through durable segment state; it does not solve Codex context compaction."
+    },
+    {
+      "id": "no-unattended-runtime-proof",
+      "statement": "R9 does not prove unattended automatic resume or hours-long unattended milestone execution."
+    }
+  ],
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

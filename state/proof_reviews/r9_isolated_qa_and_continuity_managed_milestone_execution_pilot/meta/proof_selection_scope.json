@@ -1,0 +1,40 @@
+{
+  "scope_id": "r9-closeout-proof-selection",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "included_tasks": [
+    "R9-001",
+    "R9-002",
+    "R9-003",
+    "R9-004",
+    "R9-005",
+    "R9-006",
+    "R9-007"
+  ],
+  "included_surfaces": [
+    "R9 governance authority document",
+    "isolated QA signoff contracts, tooling, fixtures, and tests",
+    "final remote-head support contracts, tooling, fixtures, and tests",
+    "external runner identity limitation contracts, tooling, fixtures, and tests",
+    "execution segment continuity contracts, tooling, fixtures, and tests",
+    "one tiny segmented pilot package",
+    "status-doc gate and status surfaces",
+    "closeout proof-review package and raw logs"
+  ],
+  "excluded_surfaces": [
+    "product UI",
+    "Standard runtime",
+    "multi-repo orchestration",
+    "swarms or fleet execution",
+    "broad autonomous milestone execution",
+    "unattended automatic resume",
+    "solved Codex context compaction",
+    "hours-long unattended milestone execution",
+    "real external or CI runner proof",
+    "external QA proof",
+    "production-grade CI",
+    "destructive rollback"
+  ],
+  "replay_source_head": "a0c95dfabd5f387bc5f0139074f8ab79da881ff8",
+  "replay_source_tree": "feb17ff8581ec345d7d48491ce214c0298b95d9b",
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

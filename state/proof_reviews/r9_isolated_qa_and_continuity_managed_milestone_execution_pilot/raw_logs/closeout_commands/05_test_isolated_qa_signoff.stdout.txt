@@ -1,0 +1,12 @@
+PASS valid: .\state\fixtures\valid\isolated_qa\qa_signoff_packet.valid.json -> r9-002-isolated-qa-signoff-valid passed
+PASS invalid: missing-qa-role-identity -> Isolated QA signoff packet is missing required field 'qa_role_identity'.
+PASS invalid: missing-qa-runner-kind -> Isolated QA signoff packet is missing required field 'qa_runner_kind'.
+PASS invalid: missing-qa-authority-type -> Isolated QA signoff packet is missing required field 'qa_authority_type'.
+PASS invalid: executor-self-certification-authority -> Isolated QA signoff packet qa_authority_type must not imply executor self-certification.
+PASS invalid: executor-only-source-evidence -> Isolated QA signoff packet source_artifacts must include remote-head evidence and clean-checkout or external QA evidence; executor evidence alone is not QA signoff authority.
+PASS invalid: missing-remote-head-evidence-ref -> Isolated QA signoff packet is missing required field 'remote_head_evidence_ref'.
+PASS invalid: missing-clean-checkout-or-external-qa-ref -> Isolated QA signoff packet is missing required field 'clean_checkout_or_external_qa_ref'.
+PASS invalid: invalid-verdict -> Isolated QA signoff packet verdict must be one of: passed, failed, blocked.
+PASS invalid: executor-evidence-as-qa-authority -> Isolated QA signoff packet executor evidence refs must not be presented as QA verdict authority.
+PASS invalid: contradictory-independence-boundary -> Isolated QA signoff packet independence_boundary must not say the same executor produced and approved the signoff.
+All isolated QA signoff tests passed. Valid passed: 1. Invalid rejected: 10.

@@ -112,11 +112,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Opened -or $liveValidation.ActiveMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 6 -or $liveValidation.R9PlannedStart -ne 7 -or $liveValidation.R9PlannedThrough -ne 7) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed and R9 active through R9-006 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or $liveValidation.ActiveMilestone -ne "none" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed and R9 narrowly closed."
     }
     else {
-        Write-Output ("PASS valid current R9 status: R8 through R8-{0} complete, '{1}' most recently closed, and R9 through R9-{2} active" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R9DoneThrough.ToString("000"))
+        Write-Output ("PASS valid current R9 closeout status: R8 through R8-{0} complete, '{1}' most recently closed, and R9 through R9-{2} closed" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R9DoneThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -158,9 +158,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r9-active-status-mismatch" -RequiredFragments @("R9 as the active milestone") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-active-mismatch")
-        Replace-FileText -Path $scenario.ActiveStatePath -OldValue '`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-006` only.' -NewValue '`R10 Next Milestone` is now active in repo truth.'
+    Invoke-ExpectedRefusal -Label "successor-opened-after-r9-closeout" -RequiredFragments @("successor", "R9 closeout") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-successor-opened")
+        Replace-FileText -Path $scenario.ActiveStatePath -OldValue "No active implementation milestone is open after R9 closeout." -NewValue '`R10 Next Milestone` is now active in repo truth.'
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -180,6 +180,18 @@ try {
     Invoke-ExpectedRefusal -Label "missing-r9-006-pilot-ref" -RequiredFragments @("R9-006", "pilot request") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-006-pilot-ref")
         Replace-FileText -Path $scenario.R9AuthorityPath -OldValue "state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request.json" -NewValue "state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request_missing.json"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r9-proof-package-ref" -RequiredFragments @("R9 proof-review package") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-proof-package-ref")
+        Replace-FileText -Path $scenario.R9AuthorityPath -OldValue "state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/" -NewValue "state/proof_reviews/r9_missing/"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "stale-r8-most-recent-after-r9-closeout" -RequiredFragments @("stale most recently closed milestone", "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-stale-r8-most-recent")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the most recently closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -209,7 +221,7 @@ try {
 
     Invoke-ExpectedRefusal -Label "r9-task-status-mismatch" -RequiredFragments @("R9 authority does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-task-mismatch")
-        Replace-RegexInFile -Path $scenario.R9AuthorityPath -Pattern '###\s+`R9-007`\s+Close R9 narrowly\r?\n-\s+Status:\s+planned' -Replacement ('### `R9-007` Close R9 narrowly' + $crlf + '- Status: done')
+        Replace-RegexInFile -Path $scenario.R9AuthorityPath -Pattern '###\s+`R9-007`\s+Close R9 narrowly\r?\n-\s+Status:\s+done' -Replacement ('### `R9-007` Close R9 narrowly' + $crlf + '- Status: planned')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

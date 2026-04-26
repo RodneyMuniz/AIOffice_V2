@@ -1,0 +1,23 @@
+PASS valid: .\state\fixtures\valid\execution_segments\execution_segment_dispatch.valid.json -> execution_segment_dispatch prepared
+PASS valid: .\state\fixtures\valid\execution_segments\execution_segment_checkpoint.valid.json -> execution_segment_checkpoint checkpointed
+PASS valid: .\state\fixtures\valid\execution_segments\execution_segment_result.valid.json -> execution_segment_result completed
+PASS valid: .\state\fixtures\valid\execution_segments\execution_segment_resume_request.valid.json -> execution_segment_resume_request prepared
+PASS valid: .\state\fixtures\valid\execution_segments\execution_segment_handoff.valid.json -> execution_segment_handoff prepared
+PASS invalid: missing-required-field -> Execution segment artifact is missing required field 'artifact_id'.
+PASS invalid: malformed-git-sha -> Execution segment artifact baseline_head does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: contradictory-segment-identity -> Execution segment artifact dispatch_ref has contradictory repository/branch/milestone/task/segment or git identity for 'TaskId'.
+PASS invalid: segment-sequence-going-backward -> Execution segment artifact segment_sequence must move forward from the prior segment.
+PASS invalid: checkpoint-without-dispatch-ref -> Execution segment artifact is missing required field 'dispatch_ref'.
+PASS invalid: result-without-checkpoint-ref -> Execution segment artifact is missing required field 'checkpoint_ref'.
+PASS invalid: resume-without-prior-result-ref -> Execution segment artifact is missing required field 'prior_segment_result_ref'.
+PASS invalid: handoff-without-resume-request-ref -> Execution segment artifact is missing required field 'resume_request_ref'.
+PASS invalid: expected-current-head-mismatch -> Execution segment artifact expected_current_head/expected_current_tree must match prior segment result current truth.
+PASS invalid: missing-allowed-scope -> Execution segment artifact is missing required field 'allowed_scope'.
+PASS invalid: missing-context-budget -> Execution segment artifact is missing required field 'context_budget'.
+PASS invalid: empty-expected-outputs -> Execution segment artifact expected_outputs must not be empty.
+PASS invalid: completed-result-without-evidence -> Execution segment artifact evidence_refs must not be empty when outcome is 'completed'.
+PASS invalid: resume-uses-chat-memory -> Execution segment artifact required_artifact_refs item must reference durable repo artifacts, not chat memory.
+PASS invalid: handoff-uses-chat-transcript-authority -> Execution segment artifact handoff_packet must not use chat transcript as authority.
+PASS invalid: artifact-claims-unattended-resume -> Execution segment artifact must not claim 'unattended automatic resume'.
+PASS invalid: missing-required-non-claim -> Execution segment artifact non_claims must include 'no solved Codex context compaction'.
+All execution segment continuity tests passed. Valid passed: 5. Invalid rejected: 17.

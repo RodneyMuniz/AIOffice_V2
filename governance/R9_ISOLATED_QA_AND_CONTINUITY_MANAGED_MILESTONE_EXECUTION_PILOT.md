@@ -14,9 +14,11 @@ R9 opens only after that correction. It is not UI work, not Standard runtime wor
 Prove one bounded request-to-closeout milestone execution path where Codex executor output is accepted only after isolated QA verification, exact final remote-head verification support, and durable segment-level continuity evidence, while surviving Codex context-window failure through repo-state resume rather than chat memory.
 
 ## Current status
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-006` only.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now closed in repo truth with `R9-001` through `R9-007` complete.
 
-`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the most recently closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now the most recently closed milestone. Its committed proof-review package is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
+
+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the prior closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
 
 `R9-001` is complete as the repo-truth opening and boundary-freeze step.
 
@@ -32,9 +34,9 @@ No concrete CI or external runner artifact identity is claimed. R9 remains block
 
 `R9-006` is complete through one tiny bounded segmented control-path pilot under `state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/pilot_plan.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/operator_freeze.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_dispatch.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_checkpoint.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_result.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/qa/local_qa_evidence.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/qa/isolated_qa_signoff.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/audit/pilot_audit_summary.json`, `state/pilots/r9_tiny_segmented_milestone_pilot/operator_decision_packet.json`, and focused proof through `tests/test_r9_tiny_segmented_pilot.ps1`.
 
-The pilot proves only one tiny bounded segmented control path. R9 still does not close. R9 still does not prove real external or CI runner artifact identity, because R9-004 landed only the limitation path. R9 still does not solve Codex context compaction. R9 still does not prove hours-long unattended milestone execution. R9 still does not prove unattended automatic resume. R9 still does not prove broad autonomous milestone execution.
+`R9-007` is complete through one narrow proof-review closeout package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, including `proof_review_manifest.json`, `REPLAY_SUMMARY.md`, `CLOSEOUT_REVIEW.md`, `meta/proof_selection_scope.json`, `meta/authoritative_artifact_refs.json`, `meta/non_claims.json`, `meta/limitations.json`, `meta/replayed_commands.txt`, and raw command logs under `raw_logs/`.
 
-`R9-007` remains planned only.
+R9 closes only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. R9 did not prove real external/CI runner artifact identity. R9 did not prove external QA proof. R9 did not solve Codex context compaction. R9 did not prove hours-long unattended milestone execution. R9 did not prove unattended automatic resume. R9 did not prove broad autonomous milestone execution.
 
 ## Exact boundary
 R9 is bounded to:
@@ -123,8 +125,9 @@ R9 does not currently prove and must not casually widen into:
 - Done when: the pilot runs request, plan, approve/freeze, segment dispatch, Codex execution evidence, isolated QA, audit summary, and operator decision without claiming full autonomous milestone execution, external or CI proof, solved Codex context compaction, unattended automatic resume, or hours-long unattended processing.
 
 ### `R9-007` Close R9 narrowly
-- Status: planned
-- Done when: isolated QA signoff exists, exact final remote-head verification support exists, clean or external QA evidence exists or a limitation is explicitly recorded, status-doc gate passes, no self-certification is accepted, continuity segment artifacts prove resume-from-state is possible, and all non-claims are preserved.
+- Status: done
+- Durable output: `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
+- Done when: isolated QA signoff exists, final remote-head support model exists, local QA evidence exists, external/CI runner identity limitation is explicitly recorded, status-doc gate passes, no self-certification is accepted, continuity segment artifacts prove the one tiny pilot can resume from durable repo-state refs, and all non-claims are preserved.
 
 ## Milestone notes
 - `R9-001` opens R9 in repo truth only. It does not implement isolated QA signoff, final-head support packets, external runner proof, continuity-managed segment artifacts, or the tiny pilot.
@@ -133,5 +136,5 @@ R9 does not currently prove and must not casually widen into:
 - `R9-004` must not fake CI. This environment records `state/fixtures/valid/external_runner_artifact/external_runner_limitation.valid.json` as a limitation only: no concrete CI or external runner artifact identity is claimed, no external QA proof is claimed, and R9 remains blocked from claiming external proof until a real run identity is captured in a later support packet or closeout.
 - `R9-005` exists because Codex context compaction and deadlock are expected failure modes. The accepted slice defines the durable segment model only; it does not run the pilot, solve compaction, prove unattended resume, prove hours-long unattended milestone execution, or claim real external CI proof.
 - `R9-006` is complete as a control-pattern pilot only. It proves only one tiny bounded segmented control path from request through advisory operator decision. It is not a broad milestone automation claim, not external or CI proof, not R9 closeout, not solved Codex context compaction, and not unattended resume.
-- `R9-007` closes only if the isolated QA, final-head support, external/clean evidence, status gate, and continuity artifacts all align.
-- After `R9-006`, R9 still does not close, does not prove real external or CI runner artifact identity, does not solve Codex context compaction, does not prove hours-long unattended milestone execution, does not prove unattended automatic resume, and does not prove broad autonomous milestone execution. The durable segment state, not chat memory, is the continuity authority.
+- `R9-007` closes R9 narrowly through `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`. The closeout ties implemented repo surfaces, committed proof artifacts, focused Codex-reported tests, limitations, non-claims, and future work boundaries together without opening a successor milestone.
+- After `R9-007`, R9 is closed only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. The durable segment state, not chat memory, is the continuity authority. R9 did not prove real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.

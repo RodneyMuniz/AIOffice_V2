@@ -1,0 +1,1 @@
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_isolated_qa_signoff.ps1

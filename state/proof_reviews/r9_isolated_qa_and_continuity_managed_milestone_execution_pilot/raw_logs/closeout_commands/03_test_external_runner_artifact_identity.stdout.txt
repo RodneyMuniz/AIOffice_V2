@@ -1,0 +1,14 @@
+PASS valid limitation: .\state\fixtures\valid\external_runner_artifact\external_runner_limitation.valid.json -> r9-004-external-runner-limitation unavailable
+PASS valid synthetic completed model: r9-004-synthetic-completed-run -> completed success
+PASS invalid: missing-required-field -> External runner artifact identity is missing required field 'artifact_id'.
+PASS invalid: completed-success-without-run-id -> External runner artifact identity run_id must be a non-empty string.
+PASS invalid: completed-success-without-artifact-name -> External runner artifact identity artifact_name must be a non-empty string.
+PASS invalid: github-actions-run-url-not-concrete -> External runner artifact identity run_url does not match required pattern '^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/actions/runs/[0-9]+(?:/attempts/[0-9]+)?$'.
+PASS invalid: success-without-qa-packet-ref -> External runner artifact identity qa_packet_ref must be a non-empty string.
+PASS invalid: success-without-remote-head-evidence-ref -> External runner artifact identity remote_head_evidence_ref must be a non-empty string.
+PASS invalid: invalid-status -> External runner artifact identity status must be one of: queued, in_progress, completed, unavailable.
+PASS invalid: invalid-conclusion -> External runner artifact identity conclusion must be one of: success, failure, cancelled, timed_out, skipped, unavailable.
+PASS invalid: missing-required-non-claim -> External runner artifact identity non_claims must include 'no solved Codex context compaction claim'.
+PASS invalid: unavailable-with-run-identity -> External runner artifact identity unavailable limitation must not claim concrete run_id, run_url, or artifact_name.
+PASS invalid: unavailable-described-as-proof -> External runner artifact identity unavailable limitation must not be described as proof.
+All external runner artifact identity tests passed. Valid passed: 2. Invalid rejected: 11.

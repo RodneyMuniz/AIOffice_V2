@@ -524,3 +524,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the accepted slice demonstrates one pilot path from request through advisory operator decision using durable repo-state refs and one local isolated QA signoff. Executor evidence remains source evidence only and is not accepted as QA verdict authority.
 - Consequence: this pilot uses local QA evidence only. It does not claim real external or CI runner artifact identity, external QA proof, R9 closeout, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, or swarms.
 - Consequence: `R9-007` remains planned only, and the next gated step inside R9 is `R9-007 Close R9 narrowly`.
+
+## D-0061 R9-007 Closed R9 Narrowly
+- Date: 2026-04-27
+- Status: accepted
+- Decision: `R9-007` is complete and `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is formally closed in repo truth through the committed proof-review package at `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
+- Consequence: the closeout package records the R9 proof-review manifest, replay summary, closeout review, proof-selection scope, authoritative artifact refs, explicit limitations, explicit non-claims, replayed command list, and raw logs for the focused R9 validation commands.
+- Consequence: this closes R9 only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. It proves that isolated QA signoff validation exists, final remote-head support modeling exists, external-runner identity limitation modeling exists, execution segment continuity modeling exists, one tiny segmented pilot package exists, local isolated QA signoff exists for that pilot, and status-doc gate supports the narrow closeout.
+- Consequence: R9 did not prove real external/CI runner artifact identity, external QA proof, product UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, production-grade CI, general Codex reliability, or destructive rollback.
+- Consequence: no active successor implementation milestone is opened by this decision.

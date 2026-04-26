@@ -1,0 +1,90 @@
+[
+    {
+        "id":  "01_test_r9_tiny_segmented_pilot",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r9_tiny_segmented_pilot.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\01_test_r9_tiny_segmented_pilot.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\01_test_r9_tiny_segmented_pilot.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\01_test_r9_tiny_segmented_pilot.exit_code.txt"
+    },
+    {
+        "id":  "02_test_execution_segment_continuity",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_execution_segment_continuity.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\02_test_execution_segment_continuity.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\02_test_execution_segment_continuity.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\02_test_execution_segment_continuity.exit_code.txt"
+    },
+    {
+        "id":  "03_test_external_runner_artifact_identity",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_external_runner_artifact_identity.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\03_test_external_runner_artifact_identity.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\03_test_external_runner_artifact_identity.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\03_test_external_runner_artifact_identity.exit_code.txt"
+    },
+    {
+        "id":  "04_test_final_remote_head_support",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_final_remote_head_support.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\04_test_final_remote_head_support.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\04_test_final_remote_head_support.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\04_test_final_remote_head_support.exit_code.txt"
+    },
+    {
+        "id":  "05_test_isolated_qa_signoff",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_isolated_qa_signoff.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\05_test_isolated_qa_signoff.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\05_test_isolated_qa_signoff.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\05_test_isolated_qa_signoff.exit_code.txt"
+    },
+    {
+        "id":  "06_test_status_doc_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\06_test_status_doc_gate.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\06_test_status_doc_gate.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\06_test_status_doc_gate.exit_code.txt"
+    },
+    {
+        "id":  "07_validate_status_doc_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\07_validate_status_doc_gate.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\07_validate_status_doc_gate.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\07_validate_status_doc_gate.exit_code.txt"
+    },
+    {
+        "id":  "08_git_diff_check",
+        "command":  "git diff --check",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\08_git_diff_check.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\08_git_diff_check.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\08_git_diff_check.exit_code.txt"
+    },
+    {
+        "id":  "09_git_rev_parse_head",
+        "command":  "git rev-parse HEAD",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\09_git_rev_parse_head.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\09_git_rev_parse_head.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\09_git_rev_parse_head.exit_code.txt"
+    },
+    {
+        "id":  "10_git_rev_parse_head_tree",
+        "command":  "git rev-parse HEAD^{tree}",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\10_git_rev_parse_head_tree.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\10_git_rev_parse_head_tree.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\10_git_rev_parse_head_tree.exit_code.txt"
+    },
+    {
+        "id":  "11_git_status_porcelain",
+        "command":  "git status --porcelain",
+        "exit_code":  0,
+        "stdout":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\11_git_status_porcelain.stdout.txt",
+        "stderr":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\11_git_status_porcelain.stderr.txt",
+        "exit_code_path":  "state\\proof_reviews\\r9_isolated_qa_and_continuity_managed_milestone_execution_pilot\\raw_logs\\closeout_commands\\11_git_status_porcelain.exit_code.txt"
+    }
+]
