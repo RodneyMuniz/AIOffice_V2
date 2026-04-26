@@ -1,0 +1,136 @@
+name: R8 Clean Checkout QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to replay from remote repo truth.
+        required: false
+        type: string
+      remote_sha:
+        description: Exact remote SHA to replay. Leave empty to infer the checked-out branch head.
+        required: false
+        type: string
+      qa_commands:
+        description: PowerShell QA commands, one per line. Defaults to a smoke command only.
+        required: false
+        default: Write-Output 'qa smoke'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  clean-checkout-qa:
+    name: R8 Clean Checkout QA
+    runs-on: windows-latest
+    env:
+      DEFAULT_BRANCH: feature/r5-closeout-remaining-foundations
+    steps:
+      - name: Resolve workflow inputs
+        id: resolve
+        shell: pwsh
+        run: |
+          $branch = '${{ github.event.inputs.branch }}'
+          if ([string]::IsNullOrWhiteSpace($branch)) {
+            $branch = '${{ github.ref_name }}'
+          }
+          if ([string]::IsNullOrWhiteSpace($branch)) {
+            $branch = $env:DEFAULT_BRANCH
+          }
+
+          $outputRoot = Join-Path $env:RUNNER_TEMP ("r8-clean-checkout-qa-{0}-{1}" -f '${{ github.run_id }}', '${{ github.run_attempt }}')
+          $artifactName = "r8-clean-checkout-qa-${{ github.run_id }}-${{ github.run_attempt }}"
+
+          "branch=$branch" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "output_root=$outputRoot" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "artifact_name=$artifactName" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Check out requested branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.resolve.outputs.branch }}
+          fetch-depth: 0
+
+      - name: Configure Git path handling
+        shell: pwsh
+        run: |
+          git config --global core.longpaths true
+          git config --global core.autocrlf false
+
+      - name: Resolve replay inputs
+        id: qa_input
+        shell: pwsh
+        env:
+          INPUT_REMOTE_SHA: ${{ github.event.inputs.remote_sha }}
+          INPUT_QA_COMMANDS: ${{ github.event.inputs.qa_commands }}
+        run: |
+          $outputRoot = '${{ steps.resolve.outputs.output_root }}'
+          New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
+
+          $remoteSha = $env:INPUT_REMOTE_SHA
+          if ([string]::IsNullOrWhiteSpace($remoteSha)) {
+            $remoteSha = (git rev-parse HEAD).Trim()
+          }
+
+          $commandsText = $env:INPUT_QA_COMMANDS
+          if ([string]::IsNullOrWhiteSpace($commandsText)) {
+            $commandsText = "Write-Output 'qa smoke'"
+          }
+
+          $commandsFile = Join-Path $outputRoot "requested_commands.txt"
+          Set-Content -LiteralPath $commandsFile -Value $commandsText -Encoding UTF8
+
+          "remote_sha=$remoteSha" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "commands_file=$commandsFile" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Run clean-checkout QA
+        shell: pwsh
+        env:
+          R8_QA_COMMANDS_FILE: ${{ steps.qa_input.outputs.commands_file }}
+        run: |
+          $commands = @(Get-Content -LiteralPath $env:R8_QA_COMMANDS_FILE | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_clean_checkout_qa.ps1 `
+            -RepositoryRoot . `
+            -RepositoryName AIOffice_V2 `
+            -Branch '${{ steps.resolve.outputs.branch }}' `
+            -RemoteSha '${{ steps.qa_input.outputs.remote_sha }}' `
+            -Commands $commands `
+            -OutputRoot '${{ steps.resolve.outputs.output_root }}'
+
+      - name: Record workflow run identity
+        if: always()
+        shell: pwsh
+        run: |
+          $outputRoot = '${{ steps.resolve.outputs.output_root }}'
+          New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
+
+          $packetRef = $null
+          $packetPath = Join-Path $outputRoot "qa_proof_packet.json"
+          if (Test-Path -LiteralPath $packetPath) {
+            $packetRef = "qa_proof_packet.json"
+          }
+
+          $runIdentity = [pscustomobject]@{
+            workflow_name = "R8 Clean Checkout QA"
+            repository = '${{ github.repository }}'
+            branch = '${{ steps.resolve.outputs.branch }}'
+            requested_remote_sha = '${{ steps.qa_input.outputs.remote_sha }}'
+            workflow_run_id = '${{ github.run_id }}'
+            workflow_run_attempt = '${{ github.run_attempt }}'
+            workflow_run_url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+            workflow_job = "clean-checkout-qa"
+            artifact_name = '${{ steps.resolve.outputs.artifact_name }}'
+            qa_packet_ref = $packetRef
+            note = "R8-007 adds external proof runner foundation only. No external proof claim exists until a concrete workflow run artifact is recorded and cited."
+          }
+
+          $runIdentity | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $outputRoot "run_identity.json") -Encoding UTF8
+
+      - name: Upload QA proof outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.resolve.outputs.artifact_name }}
+          path: ${{ steps.resolve.outputs.output_root }}
+          if-no-files-found: warn
