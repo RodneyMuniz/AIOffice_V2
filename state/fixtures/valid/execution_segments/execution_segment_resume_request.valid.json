@@ -1,0 +1,51 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_resume_request",
+  "artifact_id": "r9-005-resume-request-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-005",
+  "segment_id": "r9-005-segment-002",
+  "segment_sequence": 2,
+  "baseline_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "baseline_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "current_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "current_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "prepared",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "resume_request_id": "r9-005-resume-request-001",
+  "prior_segment_result_ref": "execution_segment_result.valid.json",
+  "prior_checkpoint_ref": "execution_segment_checkpoint.valid.json",
+  "requested_next_segment_id": "r9-005-segment-002",
+  "resume_reason": "fresh runner continuation from committed segment artifacts only",
+  "required_artifact_refs": [
+    "execution_segment_dispatch.valid.json",
+    "execution_segment_checkpoint.valid.json",
+    "execution_segment_result.valid.json",
+    "artifacts/operator_authority.json"
+  ],
+  "operator_authority_ref": "artifacts/operator_authority.json",
+  "expected_current_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "expected_current_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "allowed_scope": {
+    "scope_id": "r9-005-resume-from-artifacts",
+    "description": "Resume only from durable repo artifacts produced by the prior segment model."
+  },
+  "refusal_conditions": [
+    "required prior segment artifacts are missing",
+    "required prior segment artifacts are malformed",
+    "expected current head or tree does not match prior result truth",
+    "chat memory is presented as authority"
+  ]
+}

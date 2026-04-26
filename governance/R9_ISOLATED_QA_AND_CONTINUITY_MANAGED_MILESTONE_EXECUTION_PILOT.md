@@ -14,7 +14,7 @@ R9 opens only after that correction. It is not UI work, not Standard runtime wor
 Prove one bounded request-to-closeout milestone execution path where Codex executor output is accepted only after isolated QA verification, exact final remote-head verification support, and durable segment-level continuity evidence, while surviving Codex context-window failure through repo-state resume rather than chat memory.
 
 ## Current status
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-004` only.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-005` only.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the most recently closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
 
@@ -28,7 +28,11 @@ Prove one bounded request-to-closeout milestone execution path where Codex execu
 
 No concrete CI or external runner artifact identity is claimed. R9 remains blocked from claiming external proof until a real run identity is captured in a later support packet or closeout.
 
-`R9-005` through `R9-007` remain planned only.
+`R9-005` is complete through the first continuity-managed execution segment artifact model under `contracts/execution_segments/foundation.contract.json`, `contracts/execution_segments/execution_segment_dispatch.contract.json`, `contracts/execution_segments/execution_segment_checkpoint.contract.json`, `contracts/execution_segments/execution_segment_result.contract.json`, `contracts/execution_segments/execution_segment_resume_request.contract.json`, `contracts/execution_segments/execution_segment_handoff.contract.json`, `tools/ExecutionSegmentContinuity.psm1`, `tools/validate_execution_segment_artifact.ps1`, `state/fixtures/valid/execution_segments/execution_segment_dispatch.valid.json`, `state/fixtures/valid/execution_segments/execution_segment_checkpoint.valid.json`, `state/fixtures/valid/execution_segments/execution_segment_result.valid.json`, `state/fixtures/valid/execution_segments/execution_segment_resume_request.valid.json`, `state/fixtures/valid/execution_segments/execution_segment_handoff.valid.json`, and focused proof through `tests/test_execution_segment_continuity.ps1`.
+
+R9 still does not prove the tiny segmented milestone pilot. R9 still does not solve Codex context compaction. R9 still does not prove hours-long unattended milestone execution. R9 still does not prove unattended automatic resume. R9 still does not prove real external or CI runner artifact identity, because R9-004 landed only the limitation path.
+
+`R9-006` and `R9-007` remain planned only.
 
 ## Exact boundary
 R9 is bounded to:
@@ -107,9 +111,9 @@ R9 does not currently prove and must not casually widen into:
 - Done when: the external-runner identity contract and validator require concrete run ID, run URL, artifact name, and retrieval instruction for completed runs; require concrete GitHub Actions run URL shape for GitHub Actions identity; require QA and remote-head evidence refs before a successful conclusion can be accepted; preserve required non-claims; and support an explicit `unavailable` limitation state that is not described as proof.
 
 ### `R9-005` Add continuity-managed execution segment model
-- Status: planned
-- Planned output: durable contracts or artifacts for segmented milestone execution.
-- Done when: `execution_segment_dispatch`, `execution_segment_checkpoint`, `execution_segment_result`, `execution_segment_resume_request`, and `execution_segment_handoff` artifacts exist; each segment is small enough to run in a fresh Codex thread or API call, writes durable state before exit, and resume reconstructs from Git and committed or persisted state only.
+- Status: done
+- Durable output: `contracts/execution_segments/foundation.contract.json`, `contracts/execution_segments/execution_segment_dispatch.contract.json`, `contracts/execution_segments/execution_segment_checkpoint.contract.json`, `contracts/execution_segments/execution_segment_result.contract.json`, `contracts/execution_segments/execution_segment_resume_request.contract.json`, `contracts/execution_segments/execution_segment_handoff.contract.json`, `tools/ExecutionSegmentContinuity.psm1`, `tools/validate_execution_segment_artifact.ps1`, `state/fixtures/valid/execution_segments/`, and `tests/test_execution_segment_continuity.ps1`.
+- Done when: `execution_segment_dispatch`, `execution_segment_checkpoint`, `execution_segment_result`, `execution_segment_resume_request`, and `execution_segment_handoff` artifacts validate as a bounded restartable segment model; each segment declares a context budget and allowed scope; each checkpoint/result/resume/handoff depends on durable repo artifact refs rather than chat memory; completed results require evidence refs; segment sequence and git identity contradictions fail closed; and focused tests pass.
 
 ### `R9-006` Pilot one tiny milestone through segmented execution
 - Status: planned
@@ -125,7 +129,7 @@ R9 does not currently prove and must not casually widen into:
 - `R9-002` separates executor evidence from QA authority at the first contract and validation layer. Executor-produced artifacts may be source evidence, but they cannot be the QA verdict by themselves.
 - `R9-003` defines the final-closeout SHA support model honestly. Exact final post-push verification may live in a follow-up support packet or external artifact identity; it must not pretend to be inside the same final commit it verifies.
 - `R9-004` must not fake CI. This environment records `state/fixtures/valid/external_runner_artifact/external_runner_limitation.valid.json` as a limitation only: no concrete CI or external runner artifact identity is claimed, no external QA proof is claimed, and R9 remains blocked from claiming external proof until a real run identity is captured in a later support packet or closeout.
-- `R9-005` exists because Codex context compaction and deadlock are expected failure modes. The solution is durable segmentation, not trusting chat memory.
+- `R9-005` exists because Codex context compaction and deadlock are expected failure modes. The accepted slice defines the durable segment model only; it does not run the pilot, solve compaction, prove unattended resume, prove hours-long unattended milestone execution, or claim real external CI proof.
 - `R9-006` is a control-pattern pilot only. It is not a broad milestone automation claim.
 - `R9-007` closes only if the isolated QA, final-head support, external/clean evidence, status gate, and continuity artifacts all align.
-- After `R9-004`, R9 still does not prove real external or CI runner artifact identity, continuity-managed execution segments, the tiny segmented milestone pilot, solved Codex context compaction, or hours-long unattended milestone execution. R9-004 defines and validates an identity or limitation path only; the committed limitation is not proof of a real external run.
+- After `R9-005`, R9 still does not prove the tiny segmented milestone pilot, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, or real external or CI runner artifact identity. The durable segment state, not chat memory, is the continuity authority.

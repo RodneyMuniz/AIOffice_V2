@@ -1,0 +1,50 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_checkpoint",
+  "artifact_id": "r9-005-checkpoint-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-005",
+  "segment_id": "r9-005-segment-001",
+  "segment_sequence": 1,
+  "baseline_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "baseline_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "current_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "current_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "checkpointed",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "checkpoint_id": "r9-005-checkpoint-001",
+  "dispatch_ref": "execution_segment_dispatch.valid.json",
+  "checkpoint_reason": "durable checkpoint before segment exit so a fresh runner can reconstruct from repo artifacts only",
+  "completed_steps": [
+    "dispatch accepted",
+    "durable checkpoint artifact written"
+  ],
+  "remaining_steps": [
+    "validate result artifact",
+    "prepare resume request and handoff model"
+  ],
+  "produced_artifact_refs": [
+    "artifacts/checkpoint_artifact.json"
+  ],
+  "evidence_refs": [
+    "artifacts/checkpoint_evidence.json"
+  ],
+  "workspace_state": {
+    "state": "clean",
+    "durable_state_written": true,
+    "notes": "Fixture checkpoint is fully represented by committed repo artifacts."
+  },
+  "next_action": "fresh runner may continue only from the referenced durable artifacts"
+}

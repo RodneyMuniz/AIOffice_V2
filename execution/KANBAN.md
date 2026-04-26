@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
 Current posture:
-`R9` is now active in repo truth through `R9-004` only. `R9-004` is complete only as an external-runner identity and limitation contract plus validation path. No concrete CI or external runner artifact identity is claimed, and R9 remains blocked from claiming external proof until a real run identity is captured in a later support packet or closeout. `R9-005` through `R9-007` remain planned only. R9 still does not prove continuity-managed execution segments, the tiny segmented milestone pilot, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
+`R9` is now active in repo truth through `R9-005` only. `R9-005` is complete through the first continuity-managed execution segment artifact model. No concrete CI or external runner artifact identity is claimed, because R9-004 landed only the limitation path. `R9-006` and `R9-007` remain planned only. R9 still does not prove the tiny segmented milestone pilot, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, destructive rollback, production-grade CI for every workflow, or general Codex reliability. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
 
 ## Most Recently Closed Milestone
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
@@ -56,13 +56,13 @@ Prior closed milestone:
 - Done when: the external-runner identity contract and validator fail closed on missing run or artifact identity for completed or successful runs, GitHub Actions run URLs must be concrete, success requires QA and remote-head evidence refs, required non-claims are present, and this environment records an explicit unavailable limitation without faking run identity or describing the limitation as proof
 
 ### `R9-005` Add continuity-managed execution segment model
-- Status: planned
+- Status: done
 - Order: 5
 - Milestone: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 - Depends on: `R9-004`
 - Authority: `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`
-- Durable output: durable contracts or artifacts for segmented milestone execution
-- Done when: `execution_segment_dispatch`, `execution_segment_checkpoint`, `execution_segment_result`, `execution_segment_resume_request`, and `execution_segment_handoff` artifacts exist, each segment is small enough for a fresh Codex thread or API call, each segment writes durable state before exit, and resume reconstructs from Git and committed or persisted state only
+- Durable output: `contracts/execution_segments/foundation.contract.json`, `contracts/execution_segments/execution_segment_dispatch.contract.json`, `contracts/execution_segments/execution_segment_checkpoint.contract.json`, `contracts/execution_segments/execution_segment_result.contract.json`, `contracts/execution_segments/execution_segment_resume_request.contract.json`, `contracts/execution_segments/execution_segment_handoff.contract.json`, `tools/ExecutionSegmentContinuity.psm1`, `tools/validate_execution_segment_artifact.ps1`, `state/fixtures/valid/execution_segments/`, and `tests/test_execution_segment_continuity.ps1`
+- Done when: `execution_segment_dispatch`, `execution_segment_checkpoint`, `execution_segment_result`, `execution_segment_resume_request`, and `execution_segment_handoff` artifacts validate as a bounded restartable segment model; each segment declares a context budget and allowed scope; checkpoints, results, resume requests, and handoffs resolve from durable repo artifacts rather than chat memory; and the focused tests pass without claiming the R9-006 pilot, unattended resume, solved compaction, or hours-long unattended execution
 
 ### `R9-006` Pilot one tiny milestone through segmented execution
 - Status: planned

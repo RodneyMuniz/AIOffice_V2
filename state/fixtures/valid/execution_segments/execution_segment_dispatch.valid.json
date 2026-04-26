@@ -1,0 +1,71 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_dispatch",
+  "artifact_id": "r9-005-dispatch-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-005",
+  "segment_id": "r9-005-segment-001",
+  "segment_sequence": 1,
+  "baseline_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "baseline_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "current_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "current_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "prepared",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "dispatch_id": "r9-005-dispatch-001",
+  "source_request_ref": "artifacts/source_request.json",
+  "allowed_scope": {
+    "scope_id": "r9-005-execution-segment-model",
+    "description": "Define contracts, validation, fixtures, and tests for the R9-005 execution segment continuity model only."
+  },
+  "allowed_files": [
+    "contracts/execution_segments/**",
+    "tools/ExecutionSegmentContinuity.psm1",
+    "tools/validate_execution_segment_artifact.ps1",
+    "state/fixtures/valid/execution_segments/**",
+    "tests/test_execution_segment_continuity.ps1",
+    "governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md",
+    "execution/KANBAN.md",
+    "governance/ACTIVE_STATE.md",
+    "README.md",
+    "governance/DECISION_LOG.md",
+    "tools/StatusDocGate.psm1",
+    "tests/test_status_doc_gate.ps1"
+  ],
+  "forbidden_paths": [
+    "ui/**",
+    "standard/**",
+    "swarms/**",
+    "multi_repo/**"
+  ],
+  "expected_outputs": [
+    "execution segment contracts",
+    "execution segment validator",
+    "valid segment continuity fixtures",
+    "focused execution segment continuity tests"
+  ],
+  "context_budget": {
+    "max_prompt_tokens": 12000,
+    "max_runtime_minutes": 45,
+    "segment_boundary": "R9-005 model definition only; do not run the R9-006 pilot."
+  },
+  "runner_kind": "codex_segment_executor",
+  "operator_authority_ref": "artifacts/operator_authority.json",
+  "refusal_conditions": [
+    "missing durable artifact refs",
+    "chat memory presented as authority",
+    "scope widens into forbidden productization or orchestration paths"
+  ]
+}

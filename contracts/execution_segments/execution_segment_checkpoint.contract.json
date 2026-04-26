@@ -1,0 +1,35 @@
+{
+  "artifact_type": "execution_segment_checkpoint",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "repository",
+    "branch",
+    "milestone",
+    "task_id",
+    "segment_id",
+    "segment_sequence",
+    "baseline_head",
+    "baseline_tree",
+    "current_head",
+    "current_tree",
+    "created_at_utc",
+    "status",
+    "non_claims",
+    "checkpoint_id",
+    "dispatch_ref",
+    "checkpoint_reason",
+    "completed_steps",
+    "remaining_steps",
+    "produced_artifact_refs",
+    "evidence_refs",
+    "workspace_state",
+    "next_action"
+  ],
+  "workspace_state_required_fields": [
+    "state",
+    "durable_state_written",
+    "notes"
+  ]
+}

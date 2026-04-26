@@ -1,0 +1,44 @@
+{
+  "artifact_type": "execution_segment_handoff",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "repository",
+    "branch",
+    "milestone",
+    "task_id",
+    "segment_id",
+    "segment_sequence",
+    "baseline_head",
+    "baseline_tree",
+    "current_head",
+    "current_tree",
+    "created_at_utc",
+    "status",
+    "non_claims",
+    "handoff_id",
+    "resume_request_ref",
+    "next_segment_id",
+    "handoff_packet",
+    "reconstructed_context_refs",
+    "allowed_scope",
+    "required_inputs",
+    "expected_outputs",
+    "context_budget"
+  ],
+  "allowed_scope_required_fields": [
+    "scope_id",
+    "description"
+  ],
+  "context_budget_required_fields": [
+    "max_prompt_tokens",
+    "max_runtime_minutes",
+    "segment_boundary"
+  ],
+  "handoff_packet_required_fields": [
+    "authority_basis",
+    "chat_memory_authority",
+    "summary"
+  ]
+}

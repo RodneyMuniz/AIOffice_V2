@@ -1,0 +1,40 @@
+{
+  "artifact_type": "execution_segment_dispatch",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "repository",
+    "branch",
+    "milestone",
+    "task_id",
+    "segment_id",
+    "segment_sequence",
+    "baseline_head",
+    "baseline_tree",
+    "current_head",
+    "current_tree",
+    "created_at_utc",
+    "status",
+    "non_claims",
+    "dispatch_id",
+    "source_request_ref",
+    "allowed_scope",
+    "allowed_files",
+    "forbidden_paths",
+    "expected_outputs",
+    "context_budget",
+    "runner_kind",
+    "operator_authority_ref",
+    "refusal_conditions"
+  ],
+  "allowed_scope_required_fields": [
+    "scope_id",
+    "description"
+  ],
+  "context_budget_required_fields": [
+    "max_prompt_tokens",
+    "max_runtime_minutes",
+    "segment_boundary"
+  ]
+}

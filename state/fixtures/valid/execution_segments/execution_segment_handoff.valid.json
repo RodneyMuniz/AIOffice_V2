@@ -1,0 +1,60 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_handoff",
+  "artifact_id": "r9-005-handoff-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-005",
+  "segment_id": "r9-005-segment-002",
+  "segment_sequence": 2,
+  "baseline_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "baseline_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "current_head": "138aad32359b7154d9777cbde81fd210a22b90c8",
+  "current_tree": "05f5c5c2e4828460149bc2e350ce0561bef1e0d8",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "prepared",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "handoff_id": "r9-005-handoff-001",
+  "resume_request_ref": "execution_segment_resume_request.valid.json",
+  "next_segment_id": "r9-005-segment-002",
+  "handoff_packet": {
+    "authority_basis": "durable_repo_state",
+    "chat_memory_authority": false,
+    "summary": "A fresh runner must reconstruct context from the listed durable repo artifacts only."
+  },
+  "reconstructed_context_refs": [
+    "execution_segment_dispatch.valid.json",
+    "execution_segment_checkpoint.valid.json",
+    "execution_segment_result.valid.json",
+    "execution_segment_resume_request.valid.json"
+  ],
+  "allowed_scope": {
+    "scope_id": "r9-005-handoff-model",
+    "description": "Prepare a bounded handoff packet for the next disposable segment runner."
+  },
+  "required_inputs": [
+    "execution_segment_dispatch.valid.json",
+    "execution_segment_checkpoint.valid.json",
+    "execution_segment_result.valid.json",
+    "execution_segment_resume_request.valid.json"
+  ],
+  "expected_outputs": [
+    "next segment dispatch packet",
+    "next segment checkpoint or result artifact"
+  ],
+  "context_budget": {
+    "max_prompt_tokens": 10000,
+    "max_runtime_minutes": 30,
+    "segment_boundary": "Fresh runner may continue only from durable refs; do not rely on chat memory."
+  }
+}

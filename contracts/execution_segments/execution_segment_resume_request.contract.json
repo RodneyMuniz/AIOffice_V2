@@ -1,0 +1,36 @@
+{
+  "artifact_type": "execution_segment_resume_request",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "repository",
+    "branch",
+    "milestone",
+    "task_id",
+    "segment_id",
+    "segment_sequence",
+    "baseline_head",
+    "baseline_tree",
+    "current_head",
+    "current_tree",
+    "created_at_utc",
+    "status",
+    "non_claims",
+    "resume_request_id",
+    "prior_segment_result_ref",
+    "prior_checkpoint_ref",
+    "requested_next_segment_id",
+    "resume_reason",
+    "required_artifact_refs",
+    "operator_authority_ref",
+    "expected_current_head",
+    "expected_current_tree",
+    "allowed_scope",
+    "refusal_conditions"
+  ],
+  "allowed_scope_required_fields": [
+    "scope_id",
+    "description"
+  ]
+}

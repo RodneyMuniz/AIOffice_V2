@@ -1,0 +1,50 @@
+{
+  "contract_version": "v1",
+  "repository_name": "AIOffice_V2",
+  "milestone_title": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "task_id_pattern": "^R[0-9]+-[0-9]{3}$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "artifact_types": [
+    "execution_segment_dispatch",
+    "execution_segment_checkpoint",
+    "execution_segment_result",
+    "execution_segment_resume_request",
+    "execution_segment_handoff"
+  ],
+  "allowed_statuses": [
+    "prepared",
+    "in_progress",
+    "checkpointed",
+    "completed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_outcomes": [
+    "completed",
+    "checkpointed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_workspace_states": [
+    "clean",
+    "dirty",
+    "unknown"
+  ],
+  "max_context_prompt_tokens": 32000,
+  "max_segment_runtime_minutes": 60,
+  "required_non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "required_durable_authority_basis": "durable_repo_state"
+}
