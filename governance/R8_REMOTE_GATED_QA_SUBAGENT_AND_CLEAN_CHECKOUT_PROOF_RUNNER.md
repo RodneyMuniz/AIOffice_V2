@@ -16,9 +16,9 @@ Prove one narrow trust substrate for `AIOffice_V2` only in which executor work c
 ## Current status
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now active in repo truth as a bounded QA and proof trust milestone.
 
-`R8-001` through `R8-007` are complete in repo truth.
+`R8-001` through `R8-008` are complete in repo truth.
 
-`R8-008` through `R8-009` are planned only.
+`R8-009` is planned only.
 
 `R8-002` now defines the first durable QA proof packet contract and validator surfaces through `contracts/qa_proof/foundation.contract.json`, `contracts/qa_proof/qa_proof_packet.contract.json`, `tools/QaProofPacket.psm1`, `tools/validate_qa_proof_packet.ps1`, `state/fixtures/valid/qa_proof/`, and `tests/test_qa_proof_packet.ps1`.
 
@@ -31,6 +31,8 @@ Prove one narrow trust substrate for `AIOffice_V2` only in which executor work c
 `R8-006` now hardens claimed-command proof validation through `contracts/qa_proof/foundation.contract.json`, `contracts/qa_proof/qa_proof_packet.contract.json`, `tools/QaProofPacket.psm1`, and `tests/test_qa_proof_packet.ps1`, so completion-facing QA packets fail closed if claimed commands lack stdout or stderr or exit-code coverage, if claimed command log refs are missing, or if remote-head or post-push verification evidence is absent.
 
 `R8-007` now adds the first external proof runner foundation through `.github/workflows/r8-clean-checkout-qa.yml` and `tests/test_r8_external_proof_runner_foundation.ps1`, so a manual external runner path can invoke the disposable clean-checkout QA flow, upload QA and proof outputs as artifacts, and record workflow run identity for later closeout reference without claiming that a concrete external proof artifact already exists.
+
+`R8-008` now adds the first status-doc gating validator through `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1`, so README, ACTIVE_STATE, KANBAN, DECISION_LOG, and the R8 authority file cannot claim R8 closeout, clean-checkout QA proof, post-push verification, or external proof existence ahead of cited evidence refs and preserved non-claims.
 
 `R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
@@ -177,7 +179,7 @@ R8 does not currently prove and must not casually widen into:
 - Done when: an external runner can execute clean-checkout QA and publish or download or reference artifacts with concrete run identity
 
 ### `R8-008` Add status-doc gating
-- Status: planned
+- Status: done
 - Done when: `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, and `governance/DECISION_LOG.md` cannot claim milestone `done` or `closed` without QA packet, remote-head verification, and proof refs, and stale "most recently closed" contradictions fail validation
 
 ### `R8-009` Pilot and close R8 narrowly
@@ -192,6 +194,7 @@ R8 does not currently prove and must not casually widen into:
 - `R8-005` adds the disposable clean-checkout QA runner, CLI entrypoint, and focused tests only. It does not yet add CI or external proof execution, status-doc gating, or R8 closeout proof.
 - `R8-006` adds stricter claimed-command proof validation only. It does not yet add CI or external proof execution, status-doc gating, or R8 closeout proof.
 - `R8-007` adds the external proof runner foundation only. It does not yet claim that a concrete CI or external proof run artifact exists, it does not add status-doc gating, and it does not close R8.
+- `R8-008` adds the status-doc gating validator only. It does not add a concrete CI or external proof artifact, it does not create the R8 closeout proof package, and it does not close R8.
 - R8 is a QA and proof trust substrate milestone, not productization. The milestone is meant to make completion claims mechanically trustworthy before broader automation is attempted.
 - The operator-facing bridge artifact for the R7-to-R8 transition remains `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`. It is narrative planning input only and must not be treated as milestone proof by itself.
 - R8 exists because closed R7 still preserved major cautions: executor-produced evidence remains the main proof source, no independent clean-checkout replay exists, no CI or external-runner final proof artifact exists, no separate QA packet exists, no committed final post-push verification artifact exists in repo truth, and status docs have previously moved ahead of evidence.

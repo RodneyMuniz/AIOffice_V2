@@ -442,3 +442,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the next gated step inside R8 is `R8-002 Define QA proof packet contract`.
 - Consequence: opening R8 does not prove remote-head verification, post-push verification, clean-checkout QA runners, CI or external proof execution, UI, Standard runtime, multi-repo behavior, swarms, broad autonomy, unattended automatic resume, destructive rollback, or productized control-room behavior.
 - Consequence: `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md` is included as a narrative operator bridge artifact only, not milestone proof by itself.
+
+## D-0052 R8-008 Added Status-Doc Gating
+- Date: 2026-04-26
+- Status: accepted
+- Decision: `R8-008` is complete as a bounded status-doc gating slice through `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and focused proof through `tests/test_status_doc_gate.ps1`.
+- Consequence: README, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`, and `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md` now fail closed if they claim R8 closeout, clean-checkout QA proof, post-push verification, or external proof existence ahead of cited evidence refs, preserved non-claims, and cross-surface status consistency.
+- Consequence: this acceptance keeps `R8` open in repo truth. `R8-009` remains planned only as the next gated step, and no concrete CI or external proof artifact is claimed by this decision.
+- Consequence: the next gated step inside R8 is `R8-009 Pilot and close R8 narrowly`.
