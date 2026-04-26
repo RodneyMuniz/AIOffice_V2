@@ -317,6 +317,36 @@ function Assert-PositiveClaimHasReference {
     }
 }
 
+function Assert-MostRecentlyClosedMilestoneConsistency {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts,
+        [Parameter(Mandatory = $true)]
+        [bool]$R8Closed
+    )
+
+    $forbiddenMilestone = if ($R8Closed) {
+        "R7 Fault-Managed Continuity and Rollback Drill"
+    }
+    else {
+        "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner"
+    }
+
+    $escapedForbiddenMilestone = [regex]::Escape('`' + $forbiddenMilestone + '`')
+    $forbiddenPatterns = @(
+        ($escapedForbiddenMilestone + '\s+(?:is\s+now|is|remains|was)?\s*the\s+most\s+recently\s+closed\s+milestone'),
+        ('most\s+recently\s+closed\s+milestone\s*\r?\n\s*' + $escapedForbiddenMilestone)
+    )
+
+    foreach ($entry in $Texts.GetEnumerator()) {
+        foreach ($forbiddenPattern in $forbiddenPatterns) {
+            if ($entry.Value -match $forbiddenPattern) {
+                throw "$($entry.Key) contains a stale most recently closed milestone claim for '$forbiddenMilestone'."
+            }
+        }
+    }
+}
+
 function Test-StatusDocGate {
     [CmdletBinding()]
     param(
@@ -380,6 +410,7 @@ function Test-StatusDocGate {
     }
 
     $r8Closed = $kanbanSnapshot.DoneThrough -ge 9 -or $r8ClosedClaimed
+    Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed
 
     if (-not $r8Closed) {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."

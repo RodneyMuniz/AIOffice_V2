@@ -163,6 +163,12 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
+    Invoke-ExpectedRefusal -Label "stale-most-recently-closed-after-r8-closeout" -RequiredFragments @("stale most recently closed milestone", "R7 Fault-Managed Continuity and Rollback Drill") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-stale-most-recent")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R7 Fault-Managed Continuity and Rollback Drill` remains the most recently closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`.') -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
     Invoke-ExpectedRefusal -Label "missing-r8-non-claims" -RequiredFragments @("non-claim", "unattended automatic resume") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-non-claims")
         Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '\- unattended automatic resume\r?\n' -Replacement ""
