@@ -1,0 +1,37 @@
+{
+  "packet_type": "isolated_qa_signoff_packet",
+  "required_fields": [
+    "contract_version",
+    "packet_type",
+    "packet_id",
+    "repository",
+    "branch",
+    "source_milestone",
+    "source_task",
+    "executor_evidence_refs",
+    "remote_head_evidence_ref",
+    "clean_checkout_or_external_qa_ref",
+    "qa_role_identity",
+    "qa_runner_kind",
+    "qa_authority_type",
+    "source_artifacts",
+    "verdict",
+    "refusal_reasons",
+    "independence_boundary",
+    "created_at_utc"
+  ],
+  "source_artifact_required_fields": [
+    "artifact_ref",
+    "artifact_kind",
+    "authority_role",
+    "produced_by",
+    "notes"
+  ],
+  "independence_boundary_required_fields": [
+    "boundary_type",
+    "executor_identity",
+    "qa_identity",
+    "executor_artifacts_role",
+    "statement"
+  ]
+}

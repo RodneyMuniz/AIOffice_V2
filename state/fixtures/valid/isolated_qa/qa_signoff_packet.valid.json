@@ -1,0 +1,50 @@
+{
+  "contract_version": "v1",
+  "packet_type": "isolated_qa_signoff_packet",
+  "packet_id": "r9-002-isolated-qa-signoff-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "source_milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "source_task": "R9-002",
+  "executor_evidence_refs": [
+    "artifacts/executor_evidence.json"
+  ],
+  "remote_head_evidence_ref": "artifacts/remote_head_evidence.json",
+  "clean_checkout_or_external_qa_ref": "artifacts/clean_checkout_qa_evidence.json",
+  "qa_role_identity": "local-isolated-qa-runner-r9-002",
+  "qa_runner_kind": "local_isolated_qa_runner",
+  "qa_authority_type": "isolated_local_qa_runner",
+  "source_artifacts": [
+    {
+      "artifact_ref": "artifacts/executor_evidence.json",
+      "artifact_kind": "executor_evidence",
+      "authority_role": "source_evidence",
+      "produced_by": "codex-executor-r9-002-fixture",
+      "notes": "Executor artifact consumed as source evidence only."
+    },
+    {
+      "artifact_ref": "artifacts/remote_head_evidence.json",
+      "artifact_kind": "remote_head_evidence",
+      "authority_role": "supporting_qa_evidence",
+      "produced_by": "remote-head-verification-gate",
+      "notes": "Remote-head evidence supports the signoff packet."
+    },
+    {
+      "artifact_ref": "artifacts/clean_checkout_qa_evidence.json",
+      "artifact_kind": "clean_checkout_qa_evidence",
+      "authority_role": "supporting_qa_evidence",
+      "produced_by": "clean-checkout-qa-runner",
+      "notes": "Clean-checkout QA evidence supports the signoff packet without claiming CI or external QA."
+    }
+  ],
+  "verdict": "passed",
+  "refusal_reasons": [],
+  "independence_boundary": {
+    "boundary_type": "separate_local_qa_runner",
+    "executor_identity": "codex-executor-r9-002-fixture",
+    "qa_identity": "local-isolated-qa-runner-r9-002",
+    "executor_artifacts_role": "source_evidence_only",
+    "statement": "Executor artifacts are consumed as source evidence only; QA signoff authority is the separately identified local QA runner."
+  },
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

@@ -1,0 +1,5 @@
+{
+  "artifact_type": "clean_checkout_qa_evidence",
+  "artifact_id": "r9-002-clean-checkout-qa-evidence-valid",
+  "notes": "Clean-checkout QA evidence fixture consumed by the isolated QA signoff packet. This is not a CI or external QA claim."
+}

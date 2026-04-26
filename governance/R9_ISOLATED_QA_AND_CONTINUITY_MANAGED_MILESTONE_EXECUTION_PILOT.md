@@ -14,13 +14,15 @@ R9 opens only after that correction. It is not UI work, not Standard runtime wor
 Prove one bounded request-to-closeout milestone execution path where Codex executor output is accepted only after isolated QA verification, exact final remote-head verification support, and durable segment-level continuity evidence, while surviving Codex context-window failure through repo-state resume rather than chat memory.
 
 ## Current status
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-001` only.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-002` only.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the most recently closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
 
 `R9-001` is complete as the repo-truth opening and boundary-freeze step.
 
-`R9-002` through `R9-007` remain planned only.
+`R9-002` is complete through the first isolated QA signoff packet foundation under `contracts/isolated_qa/`, `tools/IsolatedQaSignoff.psm1`, `tools/validate_isolated_qa_signoff.ps1`, `state/fixtures/valid/isolated_qa/`, and focused proof through `tests/test_isolated_qa_signoff.ps1`.
+
+`R9-003` through `R9-007` remain planned only.
 
 ## Exact boundary
 R9 is bounded to:
@@ -84,9 +86,9 @@ R9 does not currently prove and must not casually widen into:
 - Done when: R9 opens only after the post-R8 correction, R8 remains the most recently closed milestone, the R9 scope is frozen as isolated QA plus continuity-managed execution pilot only, and the non-scope explicitly excludes UI, Standard runtime, swarms, multi-repo behavior, broad autonomy, and unattended execution.
 
 ### `R9-002` Define isolated QA role and signoff packet
-- Status: planned
-- Planned output: contract and tooling for a QA signoff packet separate from executor evidence.
-- Done when: QA signoff consumes executor evidence plus remote or clean-checkout artifacts, records `qa_role_identity`, `qa_runner_kind`, `source_artifacts`, `verdict`, `refusal_reasons`, and `independence_boundary`, and fails closed if executor self-certification is presented as QA authority or if the QA packet lacks separate QA role or runner identity.
+- Status: done
+- Durable output: `contracts/isolated_qa/foundation.contract.json`, `contracts/isolated_qa/qa_signoff_packet.contract.json`, `tools/IsolatedQaSignoff.psm1`, `tools/validate_isolated_qa_signoff.ps1`, `state/fixtures/valid/isolated_qa/qa_signoff_packet.valid.json`, and `tests/test_isolated_qa_signoff.ps1`.
+- Done when: QA signoff consumes executor evidence plus remote or clean-checkout artifacts, records `qa_role_identity`, `qa_runner_kind`, `qa_authority_type`, `source_artifacts`, `verdict`, `refusal_reasons`, and `independence_boundary`, and fails closed if executor self-certification is presented as QA authority, if the QA packet lacks separate QA role or runner identity, if executor evidence is the only source artifact, if required remote-head or clean-checkout/external QA refs are missing, or if the independence boundary says the same executor produced and approved the signoff.
 
 ### `R9-003` Define exact-final post-push verification support model
 - Status: planned
@@ -114,9 +116,10 @@ R9 does not currently prove and must not casually widen into:
 
 ## Milestone notes
 - `R9-001` opens R9 in repo truth only. It does not implement isolated QA signoff, final-head support packets, external runner proof, continuity-managed segment artifacts, or the tiny pilot.
-- `R9-002` must separate executor evidence from QA authority. Executor-produced artifacts may be source evidence, but they cannot be the QA verdict by themselves.
+- `R9-002` separates executor evidence from QA authority at the first contract and validation layer. Executor-produced artifacts may be source evidence, but they cannot be the QA verdict by themselves.
 - `R9-003` must handle the final-closeout SHA honestly. Exact final post-push verification may live in a follow-up support packet or external artifact identity; it must not pretend to be inside the same final commit it verifies.
 - `R9-004` must not fake CI. If no real run identity is available, record the limitation and stop short of the claim.
 - `R9-005` exists because Codex context compaction and deadlock are expected failure modes. The solution is durable segmentation, not trusting chat memory.
 - `R9-006` is a control-pattern pilot only. It is not a broad milestone automation claim.
 - `R9-007` closes only if the isolated QA, final-head support, external/clean evidence, status gate, and continuity artifacts all align.
+- After `R9-002`, R9 still does not prove exact-final post-push support evidence, real external or CI runner artifact identity, continuity-managed execution segments, the tiny segmented milestone pilot, solved Codex context compaction, or hours-long unattended milestone execution.

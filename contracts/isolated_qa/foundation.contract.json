@@ -1,0 +1,44 @@
+{
+  "contract_version": "v1",
+  "qa_signoff_packet_type": "isolated_qa_signoff_packet",
+  "repository_name": "AIOffice_V2",
+  "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_qa_runner_kinds": [
+    "local_isolated_qa_runner",
+    "clean_checkout_runner",
+    "ci_runner",
+    "external_runner"
+  ],
+  "allowed_qa_authority_types": [
+    "isolated_local_qa_runner",
+    "isolated_clean_checkout_qa_runner",
+    "isolated_ci_qa_runner",
+    "isolated_external_qa_runner"
+  ],
+  "allowed_source_artifact_kinds": [
+    "executor_evidence",
+    "remote_head_evidence",
+    "clean_checkout_qa_evidence",
+    "external_qa_evidence"
+  ],
+  "allowed_artifact_authority_roles": [
+    "source_evidence",
+    "supporting_qa_evidence"
+  ],
+  "allowed_independence_boundary_types": [
+    "separate_local_qa_runner",
+    "separate_clean_checkout_runner",
+    "separate_ci_runner",
+    "separate_external_runner"
+  ],
+  "required_executor_artifacts_role": "source_evidence_only",
+  "forbidden_self_certification_pattern": "(?i)(executor|self[-_ ]?certification|self[-_ ]?certified|same[-_ ]?executor)"
+}

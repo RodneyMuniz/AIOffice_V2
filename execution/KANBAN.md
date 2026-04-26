@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
 Current posture:
-`R9` is now active in repo truth through `R9-001` only after the bounded post-R8 status-gate correction. `R9-002` through `R9-007` remain planned only. R9 is bounded to isolated QA, exact-final post-push verification support, real external or CI runner artifact identity if available, continuity-managed execution segments, and one tiny segmented milestone pilot. R9 does not prove UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution.
+`R9` is now active in repo truth through `R9-002` only. `R9-002` is complete through the first isolated QA signoff contract, validator, valid fixture, CLI validation wrapper, and focused tests. `R9-003` through `R9-007` remain planned only. R9 still does not prove exact-final post-push support evidence, real external or CI runner artifact identity, continuity-managed execution segments, the tiny segmented milestone pilot, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution.
 
 ## Most Recently Closed Milestone
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
@@ -29,13 +29,13 @@ Prior closed milestone:
 - Done when: R9 opens only after the post-R8 correction, R8 remains the most recently closed milestone, R9 scope is isolated QA plus continuity-managed execution pilot only, and UI, Standard runtime, swarms, multi-repo behavior, broad autonomy, and unattended execution are explicitly excluded
 
 ### `R9-002` Define isolated QA role and signoff packet
-- Status: planned
+- Status: done
 - Order: 2
 - Milestone: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 - Depends on: `R9-001`
 - Authority: `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`
-- Durable output: contract and tooling for a QA signoff packet separate from executor evidence
-- Done when: QA signoff consumes executor evidence and remote or clean-checkout artifacts, records `qa_role_identity`, `qa_runner_kind`, `source_artifacts`, `verdict`, `refusal_reasons`, and `independence_boundary`, and fails closed if executor self-certification is presented as QA authority or if separate QA role or runner identity is missing
+- Durable output: `contracts/isolated_qa/foundation.contract.json`, `contracts/isolated_qa/qa_signoff_packet.contract.json`, `tools/IsolatedQaSignoff.psm1`, `tools/validate_isolated_qa_signoff.ps1`, `state/fixtures/valid/isolated_qa/qa_signoff_packet.valid.json`, and `tests/test_isolated_qa_signoff.ps1`
+- Done when: QA signoff consumes executor evidence and remote or clean-checkout artifacts, records `qa_role_identity`, `qa_runner_kind`, `qa_authority_type`, `source_artifacts`, `verdict`, `refusal_reasons`, and `independence_boundary`, and fails closed if executor self-certification is presented as QA authority, if separate QA role or runner identity is missing, if executor evidence is the only source artifact, if required remote-head or clean-checkout/external QA refs are missing, or if the independence boundary says the same executor produced and approved the signoff
 
 ### `R9-003` Define exact-final post-push verification support model
 - Status: planned

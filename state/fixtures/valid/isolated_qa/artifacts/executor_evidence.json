@@ -1,0 +1,5 @@
+{
+  "artifact_type": "executor_evidence",
+  "artifact_id": "r9-002-executor-evidence-valid",
+  "notes": "Executor-produced evidence fixture for isolated QA signoff validation. This is source evidence only, not QA authority."
+}

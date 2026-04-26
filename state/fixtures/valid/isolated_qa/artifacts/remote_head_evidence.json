@@ -1,0 +1,6 @@
+{
+  "artifact_type": "remote_head_evidence",
+  "artifact_id": "r9-002-remote-head-evidence-valid",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "notes": "Remote-head evidence fixture consumed by the isolated QA signoff packet."
+}

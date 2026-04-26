@@ -438,16 +438,19 @@ function Test-R9OpeningStatus {
         throw "R9 authority does not match KANBAN for the live R9 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 1 -or $kanbanSnapshot.PlannedStart -ne 2 -or $kanbanSnapshot.PlannedThrough -ne 7) {
-        throw "R9 opening status must keep only R9-001 done and R9-002 through R9-007 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 2 -or $kanbanSnapshot.PlannedStart -ne 3 -or $kanbanSnapshot.PlannedThrough -ne 7) {
+        throw "R9 status must keep only R9-001 through R9-002 done and R9-003 through R9-007 planned."
     }
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-001` only' -Message "README must declare R9 as the active milestone through R9-001 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-001` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-001 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-002` only' -Message "README must declare R9 as the active milestone through R9-002 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-002` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-002 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must declare R9 as the active milestone."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R9 Opened As Isolated QA And Continuity-Managed Pilot' -Message "DECISION_LOG must record the R9 opening decision."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-001` only' -Message "R9 authority must declare R9 active through R9-001 only."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-002`\s+through\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-002 through R9-007 planned only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-002` only' -Message "R9 authority must declare R9 active through R9-002 only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-003`\s+through\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-003 through R9-007 planned only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/isolated_qa/qa_signoff_packet\.contract\.json' -Message "R9 authority must cite the R9-002 QA signoff contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/IsolatedQaSignoff\.psm1' -Message "R9 authority must cite the R9-002 isolated QA signoff validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_isolated_qa_signoff\.ps1' -Message "R9 authority must cite the R9-002 focused test."
     Assert-R9NonClaimsPreserved -Text $Texts.R9Authority -Context "R9 authority"
 
     return $kanbanSnapshot
