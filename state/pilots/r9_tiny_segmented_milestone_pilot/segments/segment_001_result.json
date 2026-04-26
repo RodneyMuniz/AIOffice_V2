@@ -1,0 +1,55 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_result",
+  "artifact_id": "r9-006-pilot-result-001",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-006",
+  "segment_id": "r9-006-pilot-segment-001",
+  "segment_sequence": 1,
+  "baseline_head": "e96ae30044ee81b0d0aa950a5b6a3705003ed703",
+  "baseline_tree": "e9e4a0aa670d2ceb62b938a55bf4eef2a6e12c88",
+  "current_head": "e96ae30044ee81b0d0aa950a5b6a3705003ed703",
+  "current_tree": "e9e4a0aa670d2ceb62b938a55bf4eef2a6e12c88",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "completed",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "result_id": "r9-006-pilot-result-001",
+  "dispatch_ref": "segment_001_dispatch.json",
+  "checkpoint_ref": "segment_001_checkpoint.json",
+  "outcome": "completed",
+  "changed_files": [
+    "state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request.json",
+    "state/pilots/r9_tiny_segmented_milestone_pilot/pilot_plan.json",
+    "state/pilots/r9_tiny_segmented_milestone_pilot/operator_freeze.json",
+    "state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_dispatch.json",
+    "state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_checkpoint.json",
+    "state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_result.json"
+  ],
+  "produced_artifact_refs": [
+    "../pilot_request.json",
+    "../pilot_plan.json",
+    "../operator_freeze.json",
+    "../evidence/segment_001_executor_evidence.json",
+    "../evidence/segment_001_result_evidence.json"
+  ],
+  "test_refs": [
+    "../evidence/segment_001_validation_log.json"
+  ],
+  "evidence_refs": [
+    "../evidence/segment_001_executor_evidence.json",
+    "../evidence/segment_001_result_evidence.json"
+  ],
+  "next_segment_required": false,
+  "refusal_reasons": []
+}

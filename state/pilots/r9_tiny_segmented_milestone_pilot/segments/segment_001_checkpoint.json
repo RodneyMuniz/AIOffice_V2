@@ -1,0 +1,54 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "execution_segment_checkpoint",
+  "artifact_id": "r9-006-pilot-checkpoint-001",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-006",
+  "segment_id": "r9-006-pilot-segment-001",
+  "segment_sequence": 1,
+  "baseline_head": "e96ae30044ee81b0d0aa950a5b6a3705003ed703",
+  "baseline_tree": "e9e4a0aa670d2ceb62b938a55bf4eef2a6e12c88",
+  "current_head": "e96ae30044ee81b0d0aa950a5b6a3705003ed703",
+  "current_tree": "e9e4a0aa670d2ceb62b938a55bf4eef2a6e12c88",
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "status": "checkpointed",
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms"
+  ],
+  "checkpoint_id": "r9-006-pilot-checkpoint-001",
+  "dispatch_ref": "segment_001_dispatch.json",
+  "checkpoint_reason": "Durable pilot-local state was written before segment exit so a fresh runner can reconstruct from repo artifacts only.",
+  "completed_steps": [
+    "pilot request represented durably",
+    "pilot plan represented durably",
+    "operator freeze represented durably",
+    "segment dispatch represented durably"
+  ],
+  "remaining_steps": [
+    "record segment result",
+    "record local isolated QA evidence",
+    "record advisory audit summary",
+    "record advisory operator decision packet"
+  ],
+  "produced_artifact_refs": [
+    "../evidence/segment_001_checkpoint_evidence.json"
+  ],
+  "evidence_refs": [
+    "../evidence/segment_001_checkpoint_evidence.json"
+  ],
+  "workspace_state": {
+    "state": "dirty",
+    "durable_state_written": true,
+    "notes": "Pilot-local files are durable in the working tree before commit; repo state remains reconstructable from these artifacts after commit."
+  },
+  "next_action": "Continue from the committed pilot artifact refs only; do not use chat memory as authority."
+}

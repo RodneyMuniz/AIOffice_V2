@@ -1,0 +1,20 @@
+{
+  "artifact_type": "executor_evidence",
+  "artifact_id": "r9-006-segment-001-executor-evidence",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "task_id": "R9-006",
+  "segment_id": "r9-006-pilot-segment-001",
+  "produced_by": "codex-executor-r9-006-segment-001",
+  "authority_role": "source_evidence_only",
+  "artifact_refs": [
+    "../pilot_request.json",
+    "../pilot_plan.json",
+    "../operator_freeze.json",
+    "../segments/segment_001_dispatch.json",
+    "../segments/segment_001_checkpoint.json",
+    "../segments/segment_001_result.json"
+  ],
+  "notes": "Executor-produced evidence for the tiny pilot segment. It is source evidence only and is not QA verdict authority.",
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_type": "execution_segment_checkpoint_evidence",
+  "artifact_id": "r9-006-segment-001-checkpoint-evidence",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "task_id": "R9-006",
+  "segment_id": "r9-006-pilot-segment-001",
+  "evidence_role": "durable_checkpoint_support",
+  "durable_state_written": true,
+  "notes": "The pilot checkpoint records enough durable refs for a fresh runner to continue from repo state, not chat memory.",
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

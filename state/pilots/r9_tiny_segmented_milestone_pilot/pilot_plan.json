@@ -1,0 +1,36 @@
+{
+  "artifact_type": "r9_tiny_segmented_pilot_plan",
+  "plan_id": "r9-006-pilot-plan-001",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-006",
+  "source_request_ref": "pilot_request.json",
+  "segment_count": 1,
+  "segment_count_limit": 2,
+  "segments": [
+    {
+      "segment_id": "r9-006-pilot-segment-001",
+      "segment_sequence": 1,
+      "task": "Materialize the tiny pilot-local artifact package and durable executor evidence.",
+      "expected_outputs": [
+        "pilot-local request, plan, and freeze artifacts",
+        "segment dispatch, checkpoint, and result artifacts",
+        "local QA evidence, isolated QA signoff, audit summary, and advisory operator decision packet"
+      ]
+    }
+  ],
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no real external or CI runner artifact identity is claimed",
+    "no external QA proof is claimed"
+  ],
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

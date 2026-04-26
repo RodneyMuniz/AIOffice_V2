@@ -1,0 +1,21 @@
+{
+  "artifact_type": "local_qa_evidence",
+  "artifact_id": "r9-006-pilot-local-qa-evidence",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "qa_runner_kind": "local_isolated_qa_runner",
+  "qa_scope": "Validate the tiny pilot artifacts, execution segment artifacts, and isolated QA signoff package locally.",
+  "supporting_refs": [
+    "../segments/segment_001_dispatch.json",
+    "../segments/segment_001_checkpoint.json",
+    "../segments/segment_001_result.json",
+    "isolated_qa_signoff.json"
+  ],
+  "limitations": [
+    "local QA evidence only",
+    "no external QA proof is claimed",
+    "no CI proof is claimed",
+    "no real external runner artifact identity is claimed"
+  ],
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

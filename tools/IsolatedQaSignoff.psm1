@@ -286,9 +286,7 @@ function Test-IsolatedQaSignoffObject {
 
     Assert-NonEmptyString -Value (Get-RequiredProperty -Object $QaSignoffPacket -Name "source_milestone" -Context $SourceLabel) -Context "$SourceLabel source_milestone" | Out-Null
     $sourceTask = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $QaSignoffPacket -Name "source_task" -Context $SourceLabel) -Context "$SourceLabel source_task"
-    if ($sourceTask -ne "R9-002") {
-        throw "$SourceLabel source_task must be 'R9-002'."
-    }
+    Assert-MatchesPattern -Value $sourceTask -Pattern $foundation.source_task_pattern -Context "$SourceLabel source_task"
 
     $executorEvidenceRefs = Assert-StringArray -Value (Get-RequiredProperty -Object $QaSignoffPacket -Name "executor_evidence_refs" -Context $SourceLabel) -Context "$SourceLabel executor_evidence_refs"
     foreach ($executorEvidenceRef in $executorEvidenceRefs) {
@@ -347,7 +345,7 @@ function Test-IsolatedQaSignoffObject {
             $hasRemoteArtifact = $true
         }
 
-        if ($sourceArtifact.artifact_kind -eq "clean_checkout_qa_evidence" -or $sourceArtifact.artifact_kind -eq "external_qa_evidence") {
+        if ($sourceArtifact.artifact_kind -eq "local_qa_evidence" -or $sourceArtifact.artifact_kind -eq "clean_checkout_qa_evidence" -or $sourceArtifact.artifact_kind -eq "external_qa_evidence") {
             $hasCleanOrExternalArtifact = $true
         }
     }
@@ -357,7 +355,7 @@ function Test-IsolatedQaSignoffObject {
     }
 
     Assert-ReferenceIsPresent -Reference $remoteHeadEvidenceRef -SourceArtifacts $sourceArtifacts -AllowedKinds @("remote_head_evidence") -Context "$SourceLabel remote_head_evidence_ref" | Out-Null
-    Assert-ReferenceIsPresent -Reference $cleanCheckoutOrExternalQaRef -SourceArtifacts $sourceArtifacts -AllowedKinds @("clean_checkout_qa_evidence", "external_qa_evidence") -Context "$SourceLabel clean_checkout_or_external_qa_ref" | Out-Null
+    Assert-ReferenceIsPresent -Reference $cleanCheckoutOrExternalQaRef -SourceArtifacts $sourceArtifacts -AllowedKinds @("local_qa_evidence", "clean_checkout_qa_evidence", "external_qa_evidence") -Context "$SourceLabel clean_checkout_or_external_qa_ref" | Out-Null
 
     $verdict = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $QaSignoffPacket -Name "verdict" -Context $SourceLabel) -Context "$SourceLabel verdict"
     Assert-AllowedValue -Value $verdict -AllowedValues $foundation.allowed_verdicts -Context "$SourceLabel verdict"

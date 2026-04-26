@@ -1,0 +1,30 @@
+{
+  "artifact_type": "r9_tiny_segmented_pilot_operator_freeze",
+  "freeze_id": "r9-006-pilot-freeze-001",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-006",
+  "source_request_ref": "pilot_request.json",
+  "plan_ref": "pilot_plan.json",
+  "scope_frozen": true,
+  "segment_count_frozen": 1,
+  "allowed_root": "state/pilots/r9_tiny_segmented_milestone_pilot/",
+  "allowed_scope": [
+    "Create pilot-local artifact package",
+    "Add focused pilot validation test",
+    "Update current R9 status surfaces through R9-006 only"
+  ],
+  "forbidden_scope": [
+    "R9-007 closeout",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no real external or CI proof claim"
+  ],
+  "operator_authority_statement": "This freeze is a durable repo artifact representing the bounded R9-006 instruction; scope widening must fail closed.",
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

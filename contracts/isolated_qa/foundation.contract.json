@@ -4,6 +4,7 @@
   "repository_name": "AIOffice_V2",
   "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
   "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "source_task_pattern": "^R9-[0-9]{3}$",
   "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
   "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
   "allowed_verdicts": [
@@ -26,6 +27,7 @@
   "allowed_source_artifact_kinds": [
     "executor_evidence",
     "remote_head_evidence",
+    "local_qa_evidence",
     "clean_checkout_qa_evidence",
     "external_qa_evidence"
   ],

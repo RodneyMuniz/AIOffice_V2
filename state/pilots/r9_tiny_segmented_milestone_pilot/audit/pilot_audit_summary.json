@@ -1,0 +1,40 @@
+{
+  "artifact_type": "r9_tiny_segmented_pilot_audit_summary",
+  "audit_id": "r9-006-pilot-audit-summary-001",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "task_id": "R9-006",
+  "advisory_only": true,
+  "summary": "The tiny pilot records request, plan, freeze, one segment dispatch, checkpoint, result, local QA evidence, isolated QA signoff, and advisory operator decision surfaces as durable repo artifacts.",
+  "request_ref": "../pilot_request.json",
+  "plan_ref": "../pilot_plan.json",
+  "freeze_ref": "../operator_freeze.json",
+  "segment_refs": [
+    "../segments/segment_001_dispatch.json",
+    "../segments/segment_001_checkpoint.json",
+    "../segments/segment_001_result.json"
+  ],
+  "qa_refs": [
+    "../qa/local_qa_evidence.json",
+    "../qa/isolated_qa_signoff.json"
+  ],
+  "limitations": [
+    "one tiny bounded segmented control path only",
+    "local QA evidence only",
+    "no real external or CI runner artifact identity is claimed",
+    "no final R9 closeout is claimed"
+  ],
+  "non_claims": [
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no broad autonomous milestone execution",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no external QA proof is claimed"
+  ],
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

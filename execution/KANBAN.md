@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
 Current posture:
-`R9` is now active in repo truth through `R9-005` only. `R9-005` is complete through the first continuity-managed execution segment artifact model. No concrete CI or external runner artifact identity is claimed, because R9-004 landed only the limitation path. `R9-006` and `R9-007` remain planned only. R9 still does not prove the tiny segmented milestone pilot, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, destructive rollback, production-grade CI for every workflow, or general Codex reliability. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
+`R9` is now active in repo truth through `R9-006` only. `R9-006` is complete through one tiny bounded segmented control-path pilot under `state/pilots/r9_tiny_segmented_milestone_pilot/` with focused proof through `tests/test_r9_tiny_segmented_pilot.ps1`. No concrete CI or external runner artifact identity is claimed, because R9-004 landed only the limitation path. `R9-007` remains planned only. R9 still does not close, does not prove real external or CI runner artifact identity, does not solve Codex context compaction, does not prove hours-long unattended milestone execution, does not prove unattended automatic resume, and does not prove broad autonomous milestone execution. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
 
 ## Most Recently Closed Milestone
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
@@ -65,13 +65,13 @@ Prior closed milestone:
 - Done when: `execution_segment_dispatch`, `execution_segment_checkpoint`, `execution_segment_result`, `execution_segment_resume_request`, and `execution_segment_handoff` artifacts validate as a bounded restartable segment model; each segment declares a context budget and allowed scope; checkpoints, results, resume requests, and handoffs resolve from durable repo artifacts rather than chat memory; and the focused tests pass without claiming the R9-006 pilot, unattended resume, solved compaction, or hours-long unattended execution
 
 ### `R9-006` Pilot one tiny milestone through segmented execution
-- Status: planned
+- Status: done
 - Order: 6
 - Milestone: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 - Depends on: `R9-005`
 - Authority: `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`
-- Durable output: one small bounded milestone pilot using one or two execution segments
-- Done when: the pilot runs request, plan, approve or freeze, segment dispatch, Codex execution evidence, isolated QA, audit summary, and operator decision without claiming full autonomous milestone execution or hours-long unattended processing
+- Durable output: `state/pilots/r9_tiny_segmented_milestone_pilot/` and `tests/test_r9_tiny_segmented_pilot.ps1`
+- Done when: the pilot runs request, plan, approve or freeze, segment dispatch, Codex execution evidence, isolated QA, audit summary, and operator decision without claiming full autonomous milestone execution, external or CI proof, solved Codex context compaction, unattended automatic resume, or hours-long unattended processing
 
 ### `R9-007` Close R9 narrowly
 - Status: planned

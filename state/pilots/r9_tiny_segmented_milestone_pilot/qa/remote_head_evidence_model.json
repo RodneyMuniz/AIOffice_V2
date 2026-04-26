@@ -1,0 +1,11 @@
+{
+  "artifact_type": "remote_head_evidence",
+  "artifact_id": "r9-006-pilot-remote-head-evidence-model",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "remote_head_observed_before_pilot": "e96ae30044ee81b0d0aa950a5b6a3705003ed703",
+  "remote_tree_observed_before_pilot": "e9e4a0aa670d2ceb62b938a55bf4eef2a6e12c88",
+  "evidence_kind": "pre_pilot_remote_head_model",
+  "limitation": "This supports the tiny pilot QA packet only. It is not final R9 closeout post-push verification and not CI or external proof.",
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

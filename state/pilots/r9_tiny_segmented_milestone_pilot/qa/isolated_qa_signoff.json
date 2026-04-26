@@ -1,0 +1,58 @@
+{
+  "contract_version": "v1",
+  "packet_type": "isolated_qa_signoff_packet",
+  "packet_id": "r9-006-pilot-isolated-qa-signoff",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "source_milestone": "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot",
+  "source_task": "R9-006",
+  "executor_evidence_refs": [
+    "../segments/segment_001_result.json",
+    "../evidence/segment_001_executor_evidence.json"
+  ],
+  "remote_head_evidence_ref": "remote_head_evidence_model.json",
+  "clean_checkout_or_external_qa_ref": "local_qa_evidence.json",
+  "qa_role_identity": "local-isolated-qa-runner-r9-006-pilot",
+  "qa_runner_kind": "local_isolated_qa_runner",
+  "qa_authority_type": "isolated_local_qa_runner",
+  "source_artifacts": [
+    {
+      "artifact_ref": "../segments/segment_001_result.json",
+      "artifact_kind": "executor_evidence",
+      "authority_role": "source_evidence",
+      "produced_by": "codex-executor-r9-006-segment-001",
+      "notes": "Segment result is executor evidence consumed as source input only."
+    },
+    {
+      "artifact_ref": "../evidence/segment_001_executor_evidence.json",
+      "artifact_kind": "executor_evidence",
+      "authority_role": "source_evidence",
+      "produced_by": "codex-executor-r9-006-segment-001",
+      "notes": "Executor evidence is not QA verdict authority."
+    },
+    {
+      "artifact_ref": "remote_head_evidence_model.json",
+      "artifact_kind": "remote_head_evidence",
+      "authority_role": "supporting_qa_evidence",
+      "produced_by": "pre-pilot-remote-head-check",
+      "notes": "Pre-pilot remote-head evidence supports the QA packet without claiming final R9 closeout verification."
+    },
+    {
+      "artifact_ref": "local_qa_evidence.json",
+      "artifact_kind": "local_qa_evidence",
+      "authority_role": "supporting_qa_evidence",
+      "produced_by": "local-isolated-qa-runner-r9-006-pilot",
+      "notes": "Local QA evidence supports the signoff without claiming CI or external QA."
+    }
+  ],
+  "verdict": "passed",
+  "refusal_reasons": [],
+  "independence_boundary": {
+    "boundary_type": "separate_local_qa_runner",
+    "executor_identity": "codex-executor-r9-006-segment-001",
+    "qa_identity": "local-isolated-qa-runner-r9-006-pilot",
+    "executor_artifacts_role": "source_evidence_only",
+    "statement": "Executor artifacts are consumed as source evidence only; QA signoff authority is the separately identified local QA runner for the tiny pilot."
+  },
+  "created_at_utc": "2026-04-27T00:00:00Z"
+}

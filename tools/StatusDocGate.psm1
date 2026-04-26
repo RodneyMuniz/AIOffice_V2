@@ -438,16 +438,16 @@ function Test-R9OpeningStatus {
         throw "R9 authority does not match KANBAN for the live R9 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 5 -or $kanbanSnapshot.PlannedStart -ne 6 -or $kanbanSnapshot.PlannedThrough -ne 7) {
-        throw "R9 status must keep only R9-001 through R9-005 done and R9-006 through R9-007 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 6 -or $kanbanSnapshot.PlannedStart -ne 7 -or $kanbanSnapshot.PlannedThrough -ne 7) {
+        throw "R9 status must keep only R9-001 through R9-006 done and R9-007 planned."
     }
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-005` only' -Message "README must declare R9 as the active milestone through R9-005 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-005` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-005 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-006` only' -Message "README must declare R9 as the active milestone through R9-006 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-006` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-006 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must declare R9 as the active milestone."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R9 Opened As Isolated QA And Continuity-Managed Pilot' -Message "DECISION_LOG must record the R9 opening decision."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-005` only' -Message "R9 authority must declare R9 active through R9-005 only."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-006`\s+and\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-006 and R9-007 planned only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-006` only' -Message "R9 authority must declare R9 active through R9-006 only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-007`\s+remains planned only' -Message "R9 authority must keep R9-007 planned only."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/isolated_qa/qa_signoff_packet\.contract\.json' -Message "R9 authority must cite the R9-002 QA signoff contract."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/IsolatedQaSignoff\.psm1' -Message "R9 authority must cite the R9-002 isolated QA signoff validator module."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_isolated_qa_signoff\.ps1' -Message "R9 authority must cite the R9-002 focused test."
@@ -464,10 +464,16 @@ function Test-R9OpeningStatus {
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/ExecutionSegmentContinuity\.psm1' -Message "R9 authority must cite the R9-005 execution segment validator module."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_execution_segment_continuity\.ps1' -Message "R9 authority must cite the R9-005 focused test."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/fixtures/valid/execution_segments/execution_segment_handoff\.valid\.json' -Message "R9 authority must cite the R9-005 valid handoff fixture."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not prove the tiny segmented milestone pilot' -Message "R9 authority must preserve that R9-006 has not run."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/pilots/r9_tiny_segmented_milestone_pilot/pilot_request\.json' -Message "R9 authority must cite the R9-006 pilot request artifact."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/pilots/r9_tiny_segmented_milestone_pilot/segments/segment_001_result\.json' -Message "R9 authority must cite the R9-006 segment result artifact."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/pilots/r9_tiny_segmented_milestone_pilot/qa/isolated_qa_signoff\.json' -Message "R9 authority must cite the R9-006 isolated QA signoff artifact."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_r9_tiny_segmented_pilot\.ps1' -Message "R9 authority must cite the R9-006 focused pilot test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not close' -Message "R9 authority must preserve that R9 is not closed by R9-006."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'The pilot proves only one tiny bounded segmented control path' -Message "R9 authority must bound the R9-006 pilot claim."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not solve Codex context compaction' -Message "R9 authority must preserve the Codex compaction non-claim."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not prove hours-long unattended milestone execution' -Message "R9 authority must preserve the hours-long unattended milestone non-claim."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not prove unattended automatic resume' -Message "R9 authority must preserve the unattended automatic resume non-claim."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 still does not prove broad autonomous milestone execution' -Message "R9 authority must preserve the broad-autonomy non-claim."
     Assert-R9NonClaimsPreserved -Text $Texts.R9Authority -Context "R9 authority"
 
     return $kanbanSnapshot
