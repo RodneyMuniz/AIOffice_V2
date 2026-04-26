@@ -1,0 +1,36 @@
+{
+  "contract_version": "v1",
+  "final_remote_head_support_packet_type": "final_remote_head_support_packet",
+  "repository_name": "AIOffice_V2",
+  "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "allowed_statuses": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_verification_timings": [
+    "after_closeout_push"
+  ],
+  "allowed_publication_modes": [
+    "follow_up_support_commit",
+    "external_artifact_identity"
+  ],
+  "allowed_verification_method_types": [
+    "git_remote_query",
+    "manual_remote_query",
+    "ci_runner",
+    "external_runner"
+  ],
+  "concrete_run_identity_pattern": "(?i)(actions/runs/\\d+|run[-_ ]?id[:= ]?[A-Za-z0-9._/-]+|https?://[^\\s]+)",
+  "required_non_claims": [
+    "no self-referential final-proof claim",
+    "no CI or external runner claim unless an actual run identity exists",
+    "no broad automation claim",
+    "no solved Codex context compaction claim",
+    "no unattended long-running milestone claim"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "packet_type": "final_remote_head_support_packet",
+  "required_fields": [
+    "contract_version",
+    "packet_type",
+    "packet_id",
+    "repository",
+    "branch",
+    "verified_remote_head",
+    "verified_tree",
+    "verified_commit_subject",
+    "closeout_commit",
+    "closeout_commit_subject",
+    "verification_timing",
+    "support_packet_commit_policy",
+    "verification_method",
+    "verification_evidence_refs",
+    "status",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "support_packet_commit_policy_required_fields": [
+    "created_after_closeout_push",
+    "not_inside_same_closeout_commit",
+    "allowed_publication_modes",
+    "statement"
+  ],
+  "verification_method_required_fields": [
+    "method_type",
+    "runner_identity",
+    "external_run_identity_ref",
+    "notes"
+  ]
+}

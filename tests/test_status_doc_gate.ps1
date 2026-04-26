@@ -112,8 +112,8 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Opened -or $liveValidation.ActiveMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 2 -or $liveValidation.R9PlannedStart -ne 3 -or $liveValidation.R9PlannedThrough -ne 7) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed and R9 active through R9-002 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Opened -or $liveValidation.ActiveMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 3 -or $liveValidation.R9PlannedStart -ne 4 -or $liveValidation.R9PlannedThrough -ne 7) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed and R9 active through R9-003 only."
     }
     else {
         Write-Output ("PASS valid current R9 opening status: R8 through R8-{0} complete, '{1}' most recently closed, and R9 through R9-{2} active" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R9DoneThrough.ToString("000"))
@@ -160,7 +160,7 @@ try {
 
     Invoke-ExpectedRefusal -Label "r9-active-status-mismatch" -RequiredFragments @("R9 as the active milestone") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-active-mismatch")
-        Replace-FileText -Path $scenario.ActiveStatePath -OldValue '`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-002` only.' -NewValue '`R10 Next Milestone` is now active in repo truth.'
+        Replace-FileText -Path $scenario.ActiveStatePath -OldValue '`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now active in repo truth through `R9-003` only.' -NewValue '`R10 Next Milestone` is now active in repo truth.'
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -190,7 +190,7 @@ try {
 
     Invoke-ExpectedRefusal -Label "r9-task-status-mismatch" -RequiredFragments @("R9 authority does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-task-mismatch")
-        Replace-RegexInFile -Path $scenario.R9AuthorityPath -Pattern '###\s+`R9-003`\s+Define exact-final post-push verification support model\r?\n-\s+Status:\s+planned' -Replacement ('### `R9-003` Define exact-final post-push verification support model' + $crlf + '- Status: done')
+        Replace-RegexInFile -Path $scenario.R9AuthorityPath -Pattern '###\s+`R9-004`\s+Capture real external or CI runner artifact identity\r?\n-\s+Status:\s+planned' -Replacement ('### `R9-004` Capture real external or CI runner artifact identity' + $crlf + '- Status: done')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

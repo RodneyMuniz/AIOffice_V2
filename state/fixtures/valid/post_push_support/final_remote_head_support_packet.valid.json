@@ -1,0 +1,41 @@
+{
+  "contract_version": "v1",
+  "packet_type": "final_remote_head_support_packet",
+  "packet_id": "r9-003-final-remote-head-support-valid",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "verified_remote_head": "b373f66ebd6b9fa8f45ba0f1d592e753d5bce5f5",
+  "verified_tree": "b24bdc99ea93bc20e57ecc8c13b7abc932796f18",
+  "verified_commit_subject": "Define R9 isolated QA signoff packet",
+  "closeout_commit": "b373f66ebd6b9fa8f45ba0f1d592e753d5bce5f5",
+  "closeout_commit_subject": "Define R9 isolated QA signoff packet",
+  "verification_timing": "after_closeout_push",
+  "support_packet_commit_policy": {
+    "created_after_closeout_push": true,
+    "not_inside_same_closeout_commit": true,
+    "allowed_publication_modes": [
+      "follow_up_support_commit",
+      "external_artifact_identity"
+    ],
+    "statement": "The support packet is created after closeout push, is not inside the same closeout commit it verifies, and may be published by a follow-up support commit or by an external artifact identity."
+  },
+  "verification_method": {
+    "method_type": "git_remote_query",
+    "runner_identity": "local-final-remote-head-support-validator-r9-003",
+    "external_run_identity_ref": "",
+    "notes": "Remote branch head query model only; this does not claim CI or external runner proof."
+  },
+  "verification_evidence_refs": [
+    "artifacts/final_remote_head_query.json"
+  ],
+  "status": "passed",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-27T00:00:00Z",
+  "non_claims": [
+    "no self-referential final-proof claim",
+    "no CI or external runner claim unless an actual run identity exists",
+    "no broad automation claim",
+    "no solved Codex context compaction claim",
+    "no unattended long-running milestone claim"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "artifact_type": "final_remote_head_query_fixture",
+  "artifact_id": "r9-003-final-remote-head-query-valid",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "verified_remote_head": "b373f66ebd6b9fa8f45ba0f1d592e753d5bce5f5",
+  "notes": "Fixture evidence for the final remote-head support packet model. This is not CI or external runner proof."
+}
