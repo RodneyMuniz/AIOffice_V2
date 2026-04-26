@@ -1,0 +1,10 @@
+﻿PASS valid current R8 closeout status: through R8-009 complete and 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner' most recently closed
+PASS invalid: r8-closeout-without-qa-packet-ref -> R8 closeout claims require a referenced QA packet.
+PASS invalid: r8-closeout-without-remote-head-ref -> R8 closeout claims require a referenced remote-head verification artifact.
+PASS invalid: r8-closeout-without-post-push-limitation -> R8 closeout claims require either a post-push verification artifact reference or an explicit exact-final post-push verification limitation.
+PASS invalid: external-proof-claim-without-run-identity -> Status docs claims a concrete CI or external proof artifact without a concrete reference.
+PASS invalid: post-push-artifact-claim-without-artifact-ref -> Status docs claims a post-push verification artifact without a concrete reference.
+PASS invalid: successor-milestone-opened -> ACTIVE_STATE must not open a successor milestone after R8 closeout.
+PASS invalid: missing-r8-non-claims -> R8 authority must preserve the R8 non-claim 'unattended automatic resume'.
+PASS invalid: task-status-mismatch -> R8 authority does not match KANBAN for status 'R8-009'.
+All status-doc gate tests passed. Valid passed: 1. Invalid rejected: 8.

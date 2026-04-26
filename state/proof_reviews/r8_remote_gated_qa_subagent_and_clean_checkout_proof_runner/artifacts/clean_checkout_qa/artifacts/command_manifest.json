@@ -1,0 +1,95 @@
+﻿{
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "remote_sha":  "e27464278c2fb29cc3269b562019784124451288",
+    "command_count":  11,
+    "commands":  [
+                     {
+                         "command_id":  "command-001",
+                         "command":  "git rev-parse HEAD",
+                         "stdout_log_ref":  "logs/command-001.stdout.log",
+                         "stderr_log_ref":  "logs/command-001.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-002",
+                         "command":  "git rev-parse \u0027HEAD^{tree}\u0027",
+                         "stdout_log_ref":  "logs/command-002.stdout.log",
+                         "stderr_log_ref":  "logs/command-002.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-003",
+                         "command":  "git status --porcelain",
+                         "stdout_log_ref":  "logs/command-003.stdout.log",
+                         "stderr_log_ref":  "logs/command-003.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-004",
+                         "command":  "git diff --check",
+                         "stdout_log_ref":  "logs/command-004.stdout.log",
+                         "stderr_log_ref":  "logs/command-004.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-005",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_qa_proof_packet.ps1",
+                         "stdout_log_ref":  "logs/command-005.stdout.log",
+                         "stderr_log_ref":  "logs/command-005.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-006",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_remote_head_verification.ps1",
+                         "stdout_log_ref":  "logs/command-006.stdout.log",
+                         "stderr_log_ref":  "logs/command-006.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-007",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_post_push_verification.ps1",
+                         "stdout_log_ref":  "logs/command-007.stdout.log",
+                         "stderr_log_ref":  "logs/command-007.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-008",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_clean_checkout_qa_runner.ps1",
+                         "stdout_log_ref":  "logs/command-008.stdout.log",
+                         "stderr_log_ref":  "logs/command-008.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-009",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r8_external_proof_runner_foundation.ps1",
+                         "stdout_log_ref":  "logs/command-009.stdout.log",
+                         "stderr_log_ref":  "logs/command-009.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-010",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+                         "stdout_log_ref":  "logs/command-010.stdout.log",
+                         "stderr_log_ref":  "logs/command-010.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     },
+                     {
+                         "command_id":  "command-011",
+                         "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1",
+                         "stdout_log_ref":  "logs/command-011.stdout.log",
+                         "stderr_log_ref":  "logs/command-011.stderr.log",
+                         "exit_code":  0,
+                         "status":  "passed"
+                     }
+                 ]
+}

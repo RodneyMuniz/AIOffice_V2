@@ -1,0 +1,13 @@
+﻿{
+    "repository_name":  "AIOffice_V2",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "remote_sha":  "e27464278c2fb29cc3269b562019784124451288",
+    "checked_out_head":  "e27464278c2fb29cc3269b562019784124451288",
+    "tree_hash":  "2c8b4d648cf2e4b8bf74448659d99633f9b3edf1",
+    "qa_verdict":  "passed",
+    "refusal_reasons":  [
+
+                        ],
+    "git_diff_check_exit_code":  0,
+    "captured_at_utc":  "2026-04-26T05:42:18Z"
+}

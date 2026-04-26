@@ -1,0 +1,8 @@
+﻿{
+    "external_proof_runner_foundation_exists":  true,
+    "workflow_foundation_ref":  ".github/workflows/r8-clean-checkout-qa.yml",
+    "external_workflow_run_performed":  false,
+    "external_workflow_run_id_or_url":  null,
+    "external_workflow_artifact_ref":  null,
+    "limitation":  "No GitHub Actions workflow run was triggered or verified during this R8 closeout because no workflow-dispatch-capable CLI or connector was available in the execution environment. No concrete CI or external proof artifact is claimed."
+}

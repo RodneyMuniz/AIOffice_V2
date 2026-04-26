@@ -1,0 +1,4 @@
+﻿PASS workflow file exists: C:\t\r8wtc6e3f7282b\.github\workflows\r8-clean-checkout-qa.yml
+PASS workflow foundation assertions.
+PASS R8 status-surface assertions.
+All R8 external proof runner foundation tests passed.

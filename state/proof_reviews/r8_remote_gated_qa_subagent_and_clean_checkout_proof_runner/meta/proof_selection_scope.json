@@ -1,0 +1,31 @@
+﻿{
+    "milestone":  "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner",
+    "task":  "R8-009 Pilot and close R8 narrowly",
+    "repository":  "AIOffice_V2",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "starting_remote_head":  "e27464278c2fb29cc3269b562019784124451288",
+    "starting_tree":  "2c8b4d648cf2e4b8bf74448659d99633f9b3edf1",
+    "proof_selection_scope":  "One bounded R8 closeout proof package for one repository and one active milestone cycle, using starting remote-head verification, a disposable clean-checkout QA packet pinned to the R8-008 landed head, status-doc gating, and focused R8 regression tests only.",
+    "accepted_boundary":  [
+                              "QA proof packet contract exists",
+                              "remote-head verification gate exists",
+                              "post-push verification gate exists",
+                              "clean/disposable checkout QA runner exists",
+                              "claimed-command log validation exists",
+                              "external proof runner foundation exists",
+                              "status-doc gating exists",
+                              "one closeout proof package ties those together without overclaiming"
+                          ],
+    "excluded_scope":  [
+                           "R9 or later milestone opening",
+                           "product UI",
+                           "Standard runtime",
+                           "multi-repo orchestration",
+                           "swarms",
+                           "broad autonomous milestone execution",
+                           "unattended automatic resume",
+                           "destructive rollback",
+                           "production-grade CI for every workflow",
+                           "general Codex reliability claims"
+                       ]
+}

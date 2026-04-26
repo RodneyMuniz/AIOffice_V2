@@ -1,0 +1,5 @@
+﻿{
+    "post_push_verification_gate_exists":  true,
+    "exact_final_post_push_artifact_committed":  false,
+    "limitation":  "No committed exact-final post-push verification artifact is claimed. A self-referential artifact for the final commit cannot be committed without changing the final commit again; final remote head verification must be performed after push and reported outside this committed package."
+}

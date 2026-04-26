@@ -1,0 +1,11 @@
+﻿PASS valid current R8 status: through R8-008 complete with R8-009 planned
+PASS valid prior R8 state: through R8-007 complete with R8-008 through R8-009 planned
+PASS invalid: stale-most-recently-closed-contradiction -> README must preserve R7 as the most recently closed milestone.
+PASS invalid: r8-closed-before-r8-009 -> Status docs claim R8 is closed before R8-009 is complete.
+PASS invalid: r8-009-done-without-proof-refs -> R8 closeout claims require a referenced QA packet.
+PASS invalid: external-proof-claim-without-run-identity -> Status docs claims a concrete CI or external proof artifact without a concrete reference.
+PASS invalid: clean-checkout-qa-claim-without-packet-ref -> Status docs claims a clean-checkout QA packet without a concrete reference.
+PASS invalid: post-push-claim-without-artifact-ref -> Status docs claims a post-push verification artifact without a concrete reference.
+PASS invalid: missing-r8-non-claims -> R8 authority must preserve the R8 non-claim 'unattended automatic resume'.
+PASS invalid: task-status-mismatch -> R8 authority does not match KANBAN for status 'R8-008'.
+All status-doc gate tests passed. Valid passed: 2. Invalid rejected: 8.

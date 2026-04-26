@@ -1,0 +1,18 @@
+﻿git rev-parse HEAD
+git rev-parse HEAD^{tree}
+git status --porcelain
+git diff --check
+& 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\tools\verify_remote_branch_head.ps1' -RepositoryRoot 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2' -Branch feature/r5-closeout-remaining-foundations -OutputPath 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2_r8_009_proof_staging\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\artifacts\remote_head_verification\remote_head_verification_starting_head.json'
+$commands = @('git rev-parse HEAD','git rev-parse ''HEAD^{tree}''','git status --porcelain','git diff --check','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_qa_proof_packet.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_remote_head_verification.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_post_push_verification.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_clean_checkout_qa_runner.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r8_external_proof_runner_foundation.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1','powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1')
+& 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\tools\invoke_clean_checkout_qa.ps1' -RepositoryRoot 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2' -Branch feature/r5-closeout-remaining-foundations -RemoteSha e27464278c2fb29cc3269b562019784124451288 -Commands $commands -OutputRoot 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2_r8_009_proof_staging\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\artifacts\clean_checkout_qa'
+& 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\tools\validate_qa_proof_packet.ps1' -PacketPath 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2_r8_009_proof_staging\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\artifacts\clean_checkout_qa\qa_proof_packet.json'
+git diff --check
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_qa_proof_packet.ps1 -PacketPath state\proof_reviews\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner\artifacts\clean_checkout_qa\qa_proof_packet.json
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_qa_proof_packet.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_remote_head_verification.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_post_push_verification.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_clean_checkout_qa_runner.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r8_external_proof_runner_foundation.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1

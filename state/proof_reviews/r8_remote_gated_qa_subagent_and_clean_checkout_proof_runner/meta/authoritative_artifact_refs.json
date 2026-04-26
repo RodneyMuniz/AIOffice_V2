@@ -1,0 +1,44 @@
+﻿{
+    "repo_truth_refs":  [
+                            "README.md",
+                            "governance/ACTIVE_STATE.md",
+                            "execution/KANBAN.md",
+                            "governance/DECISION_LOG.md",
+                            "governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md"
+                        ],
+    "qa_proof_contract_refs":  [
+                                   "contracts/qa_proof/foundation.contract.json",
+                                   "contracts/qa_proof/qa_proof_packet.contract.json",
+                                   "contracts/qa_proof/remote_head_verification.contract.json",
+                                   "contracts/qa_proof/post_push_verification.contract.json"
+                               ],
+    "qa_tool_refs":  [
+                         "tools/QaProofPacket.psm1",
+                         "tools/RemoteHeadVerification.psm1",
+                         "tools/PostPushVerification.psm1",
+                         "tools/CleanCheckoutQaRunner.psm1",
+                         "tools/StatusDocGate.psm1",
+                         "tools/validate_status_doc_gate.ps1",
+                         "tools/validate_qa_proof_packet.ps1",
+                         "tools/verify_remote_branch_head.ps1",
+                         "tools/verify_post_push_remote_head.ps1",
+                         "tools/invoke_clean_checkout_qa.ps1"
+                     ],
+    "external_runner_foundation_ref":  ".github/workflows/r8-clean-checkout-qa.yml",
+    "relevant_test_refs":  [
+                               "tests/test_qa_proof_packet.ps1",
+                               "tests/test_remote_head_verification.ps1",
+                               "tests/test_post_push_verification.ps1",
+                               "tests/test_clean_checkout_qa_runner.ps1",
+                               "tests/test_r8_external_proof_runner_foundation.ps1",
+                               "tests/test_status_doc_gate.ps1",
+                               "tests/test_r7_fault_managed_continuity_proof_review.ps1"
+                           ],
+    "proof_artifact_refs":  {
+                                "qa_packet_ref":  "artifacts/clean_checkout_qa/qa_proof_packet.json",
+                                "remote_head_verification_ref":  "artifacts/remote_head_verification/remote_head_verification_starting_head.json",
+                                "pre_closeout_command_records_ref":  "meta/pre_closeout_command_records.json",
+                                "closeout_review_ref":  "CLOSEOUT_REVIEW.md",
+                                "replay_summary_ref":  "REPLAY_SUMMARY.md"
+                            }
+}

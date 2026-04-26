@@ -338,15 +338,6 @@ function Test-StatusDocGate {
         $texts[$entry.Key] = Get-TextDocument -Path $entry.Value -Label $entry.Key
     }
 
-    Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
-    Assert-RegexMatch -Text $texts.ActiveState -Pattern '## Active Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "ACTIVE_STATE must declare R8 as the active milestone."
-    Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must declare R8 as the active milestone."
-    Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now active in repo truth' -Message "R8 authority must declare R8 as active in repo truth."
-
-    Assert-RegexMatch -Text $texts.Readme -Pattern 'R7 Fault-Managed Continuity and Rollback Drill`\s+is now the most recently closed milestone' -Message "README must preserve R7 as the most recently closed milestone."
-    Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R7 Fault-Managed Continuity and Rollback Drill`' -Message "KANBAN must preserve R7 as the most recently closed milestone."
-    Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R7 Fault-Managed Continuity and Rollback Drill`\s+remains the most recently closed milestone' -Message "R8 authority must preserve R7 as the most recently closed milestone."
-
     $kanbanTaskStatuses = Get-R8TaskStatusMap -Text $texts.Kanban -Context "KANBAN"
     $authorityTaskStatuses = Get-R8TaskStatusMap -Text $texts.R8Authority -Context "R8 authority"
 
@@ -388,7 +379,27 @@ function Test-StatusDocGate {
         }
     }
 
-    if ($kanbanSnapshot.DoneThrough -ge 9 -or $r8ClosedClaimed) {
+    $r8Closed = $kanbanSnapshot.DoneThrough -ge 9 -or $r8ClosedClaimed
+
+    if (-not $r8Closed) {
+        Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
+        Assert-RegexMatch -Text $texts.ActiveState -Pattern '## Active Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "ACTIVE_STATE must declare R8 as the active milestone."
+        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must declare R8 as the active milestone."
+        Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now active in repo truth' -Message "R8 authority must declare R8 as active in repo truth."
+
+        Assert-RegexMatch -Text $texts.Readme -Pattern 'R7 Fault-Managed Continuity and Rollback Drill`\s+is now the most recently closed milestone' -Message "README must preserve R7 as the most recently closed milestone."
+        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R7 Fault-Managed Continuity and Rollback Drill`' -Message "KANBAN must preserve R7 as the most recently closed milestone."
+        Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R7 Fault-Managed Continuity and Rollback Drill`\s+remains the most recently closed milestone' -Message "R8 authority must preserve R7 as the most recently closed milestone."
+    }
+    else {
+        Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the most recently closed milestone' -Message "README must mark R8 as the most recently closed milestone after R8-009."
+        Assert-RegexMatch -Text $texts.ActiveState -Pattern 'No active implementation milestone is open after R8 closeout' -Message "ACTIVE_STATE must not open a successor milestone after R8 closeout."
+        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R8 closeout\.' -Message "KANBAN must not open a successor milestone after R8 closeout."
+        Assert-RegexMatch -Text $texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`' -Message "KANBAN must mark R8 as the most recently closed milestone."
+        Assert-RegexMatch -Text $texts.R8Authority -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now closed in repo truth' -Message "R8 authority must declare R8 closed in repo truth."
+    }
+
+    if ($r8Closed) {
         if ($kanbanSnapshot.DoneThrough -lt 9) {
             throw "Status docs claim R8 is closed before R8-009 is complete."
         }
@@ -401,12 +412,16 @@ function Test-StatusDocGate {
             throw "R8 closeout claims require a referenced QA packet."
         }
 
-        if ($combinedText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/].*post[_-]push.*verification.*\.json') {
-            throw "R8 closeout claims require a referenced post-push verification artifact."
+        if ($combinedText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/][^\s`]*remote[_-]head[_-]verification[^\s`]*\.json') {
+            throw "R8 closeout claims require a referenced remote-head verification artifact."
         }
 
-        if ($combinedText -notmatch '(?i)actions/runs/\d+') {
-            throw "R8 closeout claims require a concrete CI or external workflow run identity."
+        if ($combinedText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/].*post[_-]push.*verification.*\.json' -and $combinedText -notmatch '(?i)(self-referential|exact-final).*post-push verification.*limitation|post-push verification.*(limitation|not committed)|no committed exact-final post-push verification artifact is claimed') {
+            throw "R8 closeout claims require either a post-push verification artifact reference or an explicit exact-final post-push verification limitation."
+        }
+
+        if ($combinedText -notmatch '(?i)actions/runs/\d+' -and $combinedText -notmatch '(?i)no concrete (CI|external|CI/external).*proof.*artifact.*claimed|external proof runner foundation exists') {
+            throw "R8 closeout claims require either a concrete external workflow run identity or an explicit external-proof non-claim."
         }
 
         if ($combinedText -notmatch '(?i)state/proof_reviews/.*/r8') {
@@ -418,17 +433,21 @@ function Test-StatusDocGate {
     Assert-PositiveClaimHasReference -Text $combinedText -Context "Status docs" -ClaimLabel "a clean-checkout QA packet" -PositivePattern '(?i)\b(clean-checkout qa|qa proof packet|qa packet)\b.*\b(exists|recorded|available|present)\b' -ReferencePattern 'qa_proof_packet\.json'
     Assert-PositiveClaimHasReference -Text $combinedText -Context "Status docs" -ClaimLabel "a post-push verification artifact" -PositivePattern '(?i)\bpost-push verification artifact\b.*\b(exists|recorded|available|present)\b' -ReferencePattern '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/].*post[_-]push.*verification.*\.json'
 
-    if ($texts.DecisionLog -match 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner.*no later implementation milestone is open yet in repo truth') {
+    if (-not $r8Closed -and $texts.DecisionLog -match 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner.*no later implementation milestone is open yet in repo truth') {
         throw "DECISION_LOG still implies no later implementation milestone is open after R8 was opened."
     }
 
+    $activeMilestone = if ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
+    $mostRecentlyClosedMilestone = if ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
+
     return [pscustomobject]@{
-        ActiveMilestone = "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner"
-        MostRecentlyClosedMilestone = "R7 Fault-Managed Continuity and Rollback Drill"
+        ActiveMilestone = $activeMilestone
+        MostRecentlyClosedMilestone = $mostRecentlyClosedMilestone
         DoneThrough = $kanbanSnapshot.DoneThrough
         PlannedStart = $kanbanSnapshot.PlannedStart
         PlannedThrough = $kanbanSnapshot.PlannedThrough
-        R8RemainsOpen = ($kanbanSnapshot.DoneThrough -lt 9)
+        R8RemainsOpen = (-not $r8Closed)
+        R8Closed = $r8Closed
     }
 }
 

@@ -53,8 +53,7 @@ function Replace-FileText {
         throw "Expected text was not found in '$Path'."
     }
 
-    $updatedText = $text.Replace($OldValue, $NewValue)
-    Set-Content -LiteralPath $Path -Value $updatedText -Encoding UTF8
+    Set-Content -LiteralPath $Path -Value ($text.Replace($OldValue, $NewValue)) -Encoding UTF8
 }
 
 function Replace-RegexInFile {
@@ -75,28 +74,6 @@ function Replace-RegexInFile {
     }
 
     Set-Content -LiteralPath $Path -Value $updatedText -Encoding UTF8
-}
-
-function Remove-FileText {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path,
-        [Parameter(Mandatory = $true)]
-        [string]$Value
-    )
-
-    Replace-FileText -Path $Path -OldValue $Value -NewValue ""
-}
-
-function Remove-RegexFromFile {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path,
-        [Parameter(Mandatory = $true)]
-        [string]$Pattern
-    )
-
-    Replace-RegexInFile -Path $Path -Pattern $Pattern -Replacement ""
 }
 
 function Invoke-ExpectedRefusal {
@@ -133,99 +110,68 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 8 -or $liveValidation.PlannedStart -ne 9 -or $liveValidation.PlannedThrough -ne 9 -or -not $liveValidation.R8RemainsOpen) {
-        $failures += "FAIL valid: live repo truth did not validate as R8-001 through R8-008 complete with R8-009 planned."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or $liveValidation.ActiveMilestone -ne "none") {
+        $failures += "FAIL valid: live repo truth did not validate as R8-001 through R8-009 complete with no active successor milestone."
     }
     else {
-        Write-Output ("PASS valid current R8 status: through R8-{0} complete with R8-{1} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.PlannedStart.ToString("000"))
+        Write-Output ("PASS valid current R8 closeout status: through R8-{0} complete and '{1}' most recently closed" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone)
         $validPassed += 1
     }
 
-    $harness = New-StatusDocHarness -Root $tempRoot
-
-    Replace-RegexInFile -Path $harness.ReadmePath -Pattern '`R8-008`\s+is\s+complete[^;]+;\s+`R8-009`\s+is\s+planned\s+only\s+as\s+the\s+bounded\s+closeout\s+slice\.' -Replacement '`R8-008` through `R8-009` remain planned only.'
-    Replace-FileText -Path $harness.ActiveStatePath -OldValue 'with `R8-001` through `R8-008` complete and `R8-009` planned.' -NewValue 'with `R8-001` through `R8-007` complete and `R8-008` through `R8-009` planned.'
-    Replace-FileText -Path $harness.ActiveStatePath -OldValue '- `R8-008` is complete through the first status-doc gating validator at `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1`, which fails closed on stale closed-milestone contradictions, task-status drift, and premature closeout claims without evidence refs.' -NewValue '- `R8-008` through `R8-009` are planned only.'
-    Replace-FileText -Path $harness.ActiveStatePath -OldValue '`R8-008` is complete through the first status-doc gating validator under `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1`, while `R8-009` remains planned only.' -NewValue '`R8-008` through `R8-009` remain planned only.'
-    Replace-FileText -Path $harness.ActiveStatePath -OldValue '- `R8-009` Pilot and close R8 narrowly.' -NewValue '- `R8-008` Add status-doc gating.'
-    Replace-FileText -Path $harness.ActiveStatePath -OldValue '- R8 remains intentionally fail-closed after `R8-008`: status-doc gating now exists, but no concrete external proof run artifact and no final closeout proof packet yet exist in repo truth.' -NewValue '- R8 remains intentionally fail-closed after `R8-007`: a workflow foundation now exists, but no concrete external proof run artifact, no status-doc gating layer, and no final closeout proof packet yet exist in repo truth.'
-    Replace-RegexInFile -Path $harness.KanbanPath -Pattern '`R8-008`\s+is\s+complete\s+through\s+the\s+status-doc\s+gating\s+validator[\s\S]+?\.\s+`R8-009`\s+is\s+planned\s+only\.' -Replacement '`R8-008` through `R8-009` are planned only.'
-    Replace-RegexInFile -Path $harness.KanbanPath -Pattern '###\s+`R8-008`\s+Add\s+status-doc\s+gating\r?\n-\s+Status:\s+done' -Replacement ('### `R8-008` Add status-doc gating' + $crlf + '- Status: planned')
-    Replace-FileText -Path $harness.R8AuthorityPath -OldValue '`R8-001` through `R8-008` are complete in repo truth.' -NewValue '`R8-001` through `R8-007` are complete in repo truth.'
-    Replace-FileText -Path $harness.R8AuthorityPath -OldValue '`R8-009` is planned only.' -NewValue '`R8-008` through `R8-009` are planned only.'
-    Remove-RegexFromFile -Path $harness.R8AuthorityPath -Pattern '`R8-008`\s+now\s+adds\s+the\s+first\s+status-doc\s+gating\s+validator[\s\S]+?\.\r?\n\r?\n'
-    Replace-RegexInFile -Path $harness.R8AuthorityPath -Pattern '###\s+`R8-008`\s+Add\s+status-doc\s+gating\r?\n-\s+Status:\s+done' -Replacement ('### `R8-008` Add status-doc gating' + $crlf + '- Status: planned')
-    Remove-RegexFromFile -Path $harness.R8AuthorityPath -Pattern '\- `R8-008` adds the status-doc gating validator only\. It does not add a concrete CI or external proof artifact, it does not create the R8 closeout proof package, and it does not close R8\.\r?\n'
-    Remove-RegexFromFile -Path $harness.DecisionLogPath -Pattern '## D-0052 R8-008 Added Status-Doc Gating[\s\S]*$'
-
-    $plannedValidation = & $testStatusDocGate -RepositoryRoot $harness.Root
-    if ($plannedValidation.DoneThrough -ne 7 -or $plannedValidation.PlannedStart -ne 8 -or $plannedValidation.PlannedThrough -ne 9 -or -not $plannedValidation.R8RemainsOpen) {
-        $failures += "FAIL valid: pre-R8-008 planned state was not accepted."
-    }
-    else {
-        Write-Output ("PASS valid prior R8 state: through R8-{0} complete with R8-{1} through R8-{2} planned" -f $plannedValidation.DoneThrough.ToString("000"), $plannedValidation.PlannedStart.ToString("000"), $plannedValidation.PlannedThrough.ToString("000"))
-        $validPassed += 1
-    }
-
-    Invoke-ExpectedRefusal -Label "stale-most-recently-closed-contradiction" -RequiredFragments @("most recently closed milestone") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-readme-r6"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Replace-FileText -Path $scenario.ReadmePath -OldValue '`R7 Fault-Managed Continuity and Rollback Drill` is now the most recently closed milestone in repo truth.' -NewValue '`R6 Supervised Milestone Autocycle Pilot` is now the most recently closed milestone in repo truth.'
+    Invoke-ExpectedRefusal -Label "r8-closeout-without-qa-packet-ref" -RequiredFragments @("referenced QA packet") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-missing-qa")
+        foreach ($path in @($scenario.ReadmePath, $scenario.ActiveStatePath, $scenario.KanbanPath, $scenario.DecisionLogPath, $scenario.R8AuthorityPath)) {
+            Replace-FileText -Path $path -OldValue "qa_proof_packet.json" -NewValue "qa_packet_missing.json"
+        }
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r8-closed-before-r8-009" -RequiredFragments @("R8 is closed before R8-009 is complete") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-closed-before-009"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now closed in repo truth.') -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "r8-closeout-without-remote-head-ref" -RequiredFragments @("remote-head verification artifact") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-missing-remote-head")
+        foreach ($path in @($scenario.ReadmePath, $scenario.ActiveStatePath, $scenario.KanbanPath, $scenario.DecisionLogPath, $scenario.R8AuthorityPath)) {
+            Replace-FileText -Path $path -OldValue "remote_head_verification_starting_head.json" -NewValue "remote_head_verification_starting_head.txt"
+        }
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r8-009-done-without-proof-refs" -RequiredFragments @("referenced QA packet") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-r8-009-without-refs"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Replace-FileText -Path $scenario.ReadmePath -OldValue '`R8-009` is planned only as the bounded closeout slice.' -NewValue '`R8-009` is complete as the bounded closeout slice.'
-        Replace-FileText -Path $scenario.ActiveStatePath -OldValue 'with `R8-001` through `R8-008` complete and `R8-009` planned.' -NewValue 'with `R8-001` through `R8-009` complete.'
-        Replace-FileText -Path $scenario.ActiveStatePath -OldValue '`R8-008` is complete through the first status-doc gating validator under `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1`, while `R8-009` remains planned only.' -NewValue '`R8-008` is complete through the first status-doc gating validator under `tools/StatusDocGate.psm1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1`, and `R8-009` is complete as the bounded closeout slice.'
-        Replace-RegexInFile -Path $scenario.KanbanPath -Pattern '###\s+`R8-009`\s+Pilot\s+and\s+close\s+R8\s+narrowly\r?\n-\s+Status:\s+planned' -Replacement ('### `R8-009` Pilot and close R8 narrowly' + $crlf + '- Status: done')
-        Replace-FileText -Path $scenario.R8AuthorityPath -OldValue '`R8-009` is planned only.' -NewValue '`R8-009` is complete in repo truth.'
-        Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '###\s+`R8-009`\s+Pilot\s+and\s+close\s+R8\s+narrowly\r?\n-\s+Status:\s+planned' -Replacement ('### `R8-009` Pilot and close R8 narrowly' + $crlf + '- Status: done')
-        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is now closed in repo truth.') -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "r8-closeout-without-post-push-limitation" -RequiredFragments @("post-push verification") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-missing-post-push-limitation")
+        foreach ($path in @($scenario.ReadmePath, $scenario.ActiveStatePath, $scenario.KanbanPath, $scenario.DecisionLogPath, $scenario.R8AuthorityPath)) {
+            $text = Get-Content -LiteralPath $path -Raw
+            $text = [regex]::Replace($text, '(?i)no committed exact-final post-push verification artifact is claimed', 'post-push closeout note omitted')
+            Set-Content -LiteralPath $path -Value $text -Encoding UTF8
+        }
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
     Invoke-ExpectedRefusal -Label "external-proof-claim-without-run-identity" -RequiredFragments @("concrete CI or external proof artifact") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-external-proof-claim"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Add-Content -LiteralPath $scenario.ReadmePath -Value "`r`nA concrete CI or external proof artifact now exists for R8 closeout." -Encoding UTF8
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-external-proof-claim")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "A concrete CI external proof artifact exists for R8 closeout.") -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "clean-checkout-qa-claim-without-packet-ref" -RequiredFragments @("clean-checkout QA packet") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-qa-packet-claim"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Add-Content -LiteralPath $scenario.ReadmePath -Value "`r`nA clean-checkout QA packet now exists for R8 closeout." -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "post-push-artifact-claim-without-artifact-ref" -RequiredFragments @("post-push verification artifact") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-post-push-artifact-claim")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "A post-push verification artifact exists for R8 closeout.") -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "post-push-claim-without-artifact-ref" -RequiredFragments @("post-push verification artifact") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-post-push-claim"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Add-Content -LiteralPath $scenario.ReadmePath -Value "`r`nA post-push verification artifact now exists for R8 closeout." -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "successor-milestone-opened" -RequiredFragments @("must not open a successor milestone") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-successor")
+        Replace-FileText -Path $scenario.ActiveStatePath -OldValue "No active implementation milestone is open after R8 closeout." -NewValue '`R9 Next Milestone` is now active in repo truth.'
+        Replace-FileText -Path $scenario.KanbanPath -OldValue "No active implementation milestone is open after R8 closeout." -NewValue '`R9 Next Milestone`'
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
     Invoke-ExpectedRefusal -Label "missing-r8-non-claims" -RequiredFragments @("non-claim", "unattended automatic resume") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-non-claims"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Remove-RegexFromFile -Path $scenario.R8AuthorityPath -Pattern '\- unattended automatic resume\r?\n'
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-non-claims")
+        Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '\- unattended automatic resume\r?\n' -Replacement ""
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
     Invoke-ExpectedRefusal -Label "task-status-mismatch" -RequiredFragments @("does not match KANBAN") -Action {
-        $scenarioRoot = Join-Path $tempRoot "invalid-task-mismatch"
-        $scenario = New-StatusDocHarness -Root $scenarioRoot
-        Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '###\s+`R8-008`\s+Add\s+status-doc\s+gating\r?\n-\s+Status:\s+done' -Replacement ('### `R8-008` Add status-doc gating' + $crlf + '- Status: planned')
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-task-mismatch")
+        Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '###\s+`R8-009`\s+Pilot\s+and\s+close\s+R8\s+narrowly\r?\n-\s+Status:\s+done' -Replacement ('### `R8-009` Pilot and close R8 narrowly' + $crlf + '- Status: planned')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

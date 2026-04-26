@@ -450,3 +450,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: README, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`, and `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md` now fail closed if they claim R8 closeout, clean-checkout QA proof, post-push verification, or external proof existence ahead of cited evidence refs, preserved non-claims, and cross-surface status consistency.
 - Consequence: this acceptance keeps `R8` open in repo truth. `R8-009` remains planned only as the next gated step, and no concrete CI or external proof artifact is claimed by this decision.
 - Consequence: the next gated step inside R8 is `R8-009 Pilot and close R8 narrowly`.
+
+## D-0053 R8-009 Closed R8 With Remote-Gated QA Proof Packet
+- Date: 2026-04-26
+- Status: accepted
+- Decision: `R8-009` is complete and `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is formally closed in repo truth through the committed closeout proof package at `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`.
+- Consequence: the closeout package records starting remote-head verification at `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/remote_head_verification/remote_head_verification_starting_head.json`, a validator-backed clean-checkout QA proof packet at `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/artifacts/clean_checkout_qa/qa_proof_packet.json`, raw command logs, proof-selection scope, authoritative artifact refs, explicit non-claims, status-doc gate evidence, and focused regression logs.
+- Consequence: this closes R8 only as one QA/proof trust substrate for one repository and one active milestone cycle. It proves the existence and bounded use of the QA proof packet contract, remote-head verification gate, post-push verification gate, clean/disposable checkout QA runner, claimed-command log validation, external proof runner foundation, status-doc gating, and one closeout proof package.
+- Consequence: external proof runner foundation exists, but no concrete CI or external proof artifact is claimed because no real workflow run identity was triggered and verified during this closeout.
+- Consequence: no committed exact-final post-push verification artifact is claimed because such an artifact would be self-referential to the final pushed commit; final remote-head verification must be performed after push and reported outside this committed package.
+- Consequence: R8 does not prove product UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, or general Codex reliability.
+- Consequence: no later implementation milestone is open yet in repo truth, and R9 is not opened by this decision.

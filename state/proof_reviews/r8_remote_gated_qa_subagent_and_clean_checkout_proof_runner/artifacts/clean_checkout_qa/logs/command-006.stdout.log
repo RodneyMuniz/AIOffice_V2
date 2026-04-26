@@ -1,0 +1,7 @@
+﻿PASS valid match: remote-head-verification-36bb6c704b85 -> c58852e4bfc5b0e0b5b36f18bc01fdd644f21a77
+PASS valid script smoke: verify_remote_branch_head.ps1 emitted a durable artifact.
+PASS invalid mismatch artifact: remote-head-verification-d1c2588a94fc -> mismatch
+PASS invalid: missing-remote -> Remote head lookup failed for remote 'origin' branch 'feature/r5-closeout-remaining-foundations'.
+PASS invalid: malformed-branch -> Branch does not match required pattern '^[A-Za-z0-9][A-Za-z0-9._/-]*$'.
+PASS invalid: malformed-repository-name -> RepositoryName does not match required pattern '^[A-Za-z0-9][A-Za-z0-9._-]*$'.
+All remote head verification tests passed. Valid passed: 2. Invalid rejected: 4.

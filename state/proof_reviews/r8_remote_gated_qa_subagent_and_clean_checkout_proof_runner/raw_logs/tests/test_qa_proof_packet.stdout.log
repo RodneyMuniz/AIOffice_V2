@@ -1,0 +1,17 @@
+﻿PASS valid: .\state\fixtures\valid\qa_proof\qa_proof_packet.valid.json -> qa-proof-r8-002-valid-001 passed
+PASS valid completion-claim: qa-proof-r8-002-valid-001 -> passed
+PASS valid dirty-final failed verdict: qa-proof-r8-002-valid-001 -> failed
+PASS invalid: malformed-packet -> QA proof packet at 'C:\t\qapkt4f32a176\malformed\qa_proof_packet.valid.json' is not valid JSON. Invalid object passed in, ':' or '}' expected. (8): { this is not valid json
+
+PASS invalid: missing-remote-head -> QA proof packet is missing required field 'remote_head'.
+PASS invalid: missing-raw-log -> QA proof packet command_results[1].stdout_log_ref 'logs/test_r7_fault_managed_continuity_proof_review.stdout.log' does not exist.
+PASS invalid: missing-stdout-log-ref -> QA proof packet completion_claim.supplemental_command_results[0] is missing required field 'stdout_log_ref'.
+PASS invalid: missing-stderr-log-ref -> QA proof packet completion_claim.supplemental_command_results[0] is missing required field 'stderr_log_ref'.
+PASS invalid: missing-exit-code -> QA proof packet completion_claim.supplemental_command_results[0] is missing required field 'exit_code'.
+PASS invalid: claimed-command-gap -> QA proof packet completion_claim command 'powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_qa_proof_packet.ps1 -PacketPath state\fixtures\valid\qa_proof\qa_proof_packet.valid.json' has no command_result or supplemental_command_result coverage.
+PASS invalid: missing-git-hygiene-command-evidence -> QA proof packet completion_claim.claimed_commands must include 'git status --porcelain' when completion is claimed.
+PASS invalid: missing-remote-verification-evidence -> QA proof packet completion_claim is missing required field 'remote_head_verification_ref'.
+PASS invalid: missing-post-push-verification-evidence -> QA proof packet completion_claim is missing required field 'post_push_verification_ref'.
+PASS invalid: failed-command-with-passed-verdict -> QA proof packet cannot report qa_verdict 'passed' when any command failed.
+PASS invalid: dirty-final-passed-verdict -> QA proof packet cannot report qa_verdict 'passed' when workspace_state is dirty before or after execution.
+All QA proof packet tests passed. Valid passed: 3. Invalid rejected: 12.

@@ -1,0 +1,92 @@
+﻿[
+    {
+        "command_id":  "git_diff_check_final",
+        "command":  "git diff --check",
+        "stdout_log_ref":  "raw_logs/closeout_commands/git_diff_check_final.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/git_diff_check_final.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/git_diff_check_final.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "validate_qa_proof_packet_committed_package",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_qa_proof_packet.ps1 -PacketPath state\\proof_reviews\\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner\\artifacts\\clean_checkout_qa\\qa_proof_packet.json",
+        "stdout_log_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_committed_package.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_committed_package.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_committed_package.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "validate_status_doc_gate_final",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+        "stdout_log_ref":  "raw_logs/closeout_commands/validate_status_doc_gate_final.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/validate_status_doc_gate_final.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/validate_status_doc_gate_final.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_qa_proof_packet",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_qa_proof_packet.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_qa_proof_packet.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_qa_proof_packet.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_qa_proof_packet.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_remote_head_verification",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_remote_head_verification.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_remote_head_verification.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_remote_head_verification.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_remote_head_verification.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_post_push_verification",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_post_push_verification.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_post_push_verification.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_post_push_verification.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_post_push_verification.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_clean_checkout_qa_runner",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_clean_checkout_qa_runner.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_clean_checkout_qa_runner.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_clean_checkout_qa_runner.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_clean_checkout_qa_runner.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_r8_external_proof_runner_foundation",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r8_external_proof_runner_foundation.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_r8_external_proof_runner_foundation.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_r8_external_proof_runner_foundation.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_r8_external_proof_runner_foundation.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_status_doc_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_status_doc_gate.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_status_doc_gate.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_status_doc_gate.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "test_r7_fault_managed_continuity_proof_review",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1",
+        "stdout_log_ref":  "raw_logs/tests/test_r7_fault_managed_continuity_proof_review.stdout.log",
+        "stderr_log_ref":  "raw_logs/tests/test_r7_fault_managed_continuity_proof_review.stderr.log",
+        "exit_code_ref":  "raw_logs/tests/test_r7_fault_managed_continuity_proof_review.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    }
+]

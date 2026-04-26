@@ -1,0 +1,15 @@
+﻿{
+    "contract_version":  "v1",
+    "record_type":  "remote_head_verification_result",
+    "verification_id":  "remote-head-verification-509c8dc481e1",
+    "repository_name":  "AIOffice_V2",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "local_head":  "e27464278c2fb29cc3269b562019784124451288",
+    "remote_head":  "e27464278c2fb29cc3269b562019784124451288",
+    "commit_subject":  "Add R8 status-doc gating",
+    "tree_hash":  "2c8b4d648cf2e4b8bf74448659d99633f9b3edf1",
+    "verified_at_utc":  "2026-04-26T05:42:00Z",
+    "status":  "matched",
+    "result":  "passed",
+    "refusal_reason":  ""
+}

@@ -1,0 +1,6 @@
+﻿PASS valid clean-checkout happy path: qa-proof-4c7303cdb16a -> passed
+PASS valid failed-command packet: qa-proof-87ac52f08c58 -> failed
+PASS valid dirty-final packet: qa-proof-b1fec7851ad5 -> failed
+PASS invalid: missing-command-log -> QA proof packet command_results[0].stdout_log_ref 'logs/command-001.stdout.log' does not exist.
+PASS invalid: checkout-sha-mismatch -> Requested RemoteSha '5711db412f2bf4b7805731f51540615c76358899' does not match actual remote head 'cee671ff2ef93425281f9655655fb5e3a0bebdd0' for branch 'feature/r5-closeout-remaining-foundations'.
+All clean-checkout QA runner tests passed. Valid passed: 3. Invalid rejected: 2.

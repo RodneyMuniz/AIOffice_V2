@@ -1,0 +1,9 @@
+﻿{
+    "repository":  "AIOffice_V2",
+    "branch":  "feature/r5-closeout-remaining-foundations",
+    "starting_remote_head":  "e27464278c2fb29cc3269b562019784124451288",
+    "starting_tree":  "2c8b4d648cf2e4b8bf74448659d99633f9b3edf1",
+    "package_generated_from_clean_repo_truth":  true,
+    "generated_at_utc":  "2026-04-26T05:46:25Z",
+    "generator_note":  "R8-009 evidence was regenerated after quarantining deadlocked local residue; partial deadlock artifacts were not adopted."
+}

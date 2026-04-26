@@ -1,0 +1,10 @@
+﻿PASS valid proof-review package: C:\t\r7prfac6d2f5a\state\proof_reviews\r7_fault_managed_continuity_and_rollback_drill
+PASS invalid: missing-raw-log -> Proof-review claimed-command coverage log 'raw_logs/replay_steps.log' does not exist.
+PASS invalid: missing-replay-source -> Replay source metadata 'C:\t\r7prfac6d2f5a\state\proof_reviews\r7_fault_managed_continuity_and_rollback_drill\meta\replay_source.json' does not exist.
+PASS invalid: missing-operator-packet-ref -> Authoritative artifact rollback refs is missing required field 'operator_packet_ref'.
+PASS invalid: missing-explicit-non-claims -> Proof-review package non-claims must be an array.
+PASS invalid: automatic-execution-implication -> C:\t\r7prfac6d2f5a\state\proof_reviews\r7_fault_managed_continuity_and_rollback_drill\artifacts\closeout\closeout_packets\closeout-packet-r7-fault-managed-continuity-and-rollback-drill-proof-001.json must not imply automatic execution.
+PASS invalid: destructive-rollback-implication -> C:\t\r7prfac6d2f5a\state\proof_reviews\r7_fault_managed_continuity_and_rollback_drill\artifacts\closeout\closeout_packets\closeout-packet-r7-fault-managed-continuity-and-rollback-drill-proof-001.json must not imply destructive primary-worktree rollback.
+PASS invalid: malformed-summary-command-state -> Proof-review summary artifact.command_results item.status must be one of: passed.
+PASS invalid: missing-claimed-command-log-coverage -> Claimed replay command 'powershell -ExecutionPolicy Bypass -File tests\test_r7_fault_managed_continuity_proof_review.ps1' has no raw log or explicit support-log reference.
+All R7 fault-managed continuity proof-review tests passed. Valid passed: 1. Invalid rejected: 8.

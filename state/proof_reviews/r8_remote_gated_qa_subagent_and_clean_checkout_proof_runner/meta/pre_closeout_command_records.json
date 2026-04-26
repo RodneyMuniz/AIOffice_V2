@@ -1,0 +1,65 @@
+﻿[
+    {
+        "command_id":  "git_rev_parse_head",
+        "command":  "git rev-parse HEAD",
+        "stdout_log_ref":  "raw_logs/closeout_commands/git_rev_parse_head.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/git_rev_parse_head.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/git_rev_parse_head.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "git_rev_parse_tree",
+        "command":  "git rev-parse HEAD^{tree}",
+        "stdout_log_ref":  "raw_logs/closeout_commands/git_rev_parse_tree.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/git_rev_parse_tree.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/git_rev_parse_tree.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "git_status_porcelain",
+        "command":  "git status --porcelain",
+        "stdout_log_ref":  "raw_logs/closeout_commands/git_status_porcelain.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/git_status_porcelain.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/git_status_porcelain.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "git_diff_check",
+        "command":  "git diff --check",
+        "stdout_log_ref":  "raw_logs/closeout_commands/git_diff_check.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/git_diff_check.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/git_diff_check.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "remote_head_verification_starting_head",
+        "command":  "\u0026 \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\tools\\verify_remote_branch_head.ps1\u0027 -RepositoryRoot \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\u0027 -Branch feature/r5-closeout-remaining-foundations -OutputPath \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2_r8_009_proof_staging\\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\\artifacts\\remote_head_verification\\remote_head_verification_starting_head.json\u0027",
+        "stdout_log_ref":  "raw_logs/closeout_commands/remote_head_verification_starting_head.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/remote_head_verification_starting_head.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/remote_head_verification_starting_head.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "clean_checkout_qa_starting_head",
+        "command":  "$commands = @(\u0027git rev-parse HEAD\u0027,\u0027git rev-parse \u0027\u0027HEAD^{tree}\u0027\u0027\u0027,\u0027git status --porcelain\u0027,\u0027git diff --check\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_qa_proof_packet.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_remote_head_verification.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_post_push_verification.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_clean_checkout_qa_runner.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r8_external_proof_runner_foundation.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1\u0027,\u0027powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r7_fault_managed_continuity_proof_review.ps1\u0027)\r\n\u0026 \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\tools\\invoke_clean_checkout_qa.ps1\u0027 -RepositoryRoot \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\u0027 -Branch feature/r5-closeout-remaining-foundations -RemoteSha e27464278c2fb29cc3269b562019784124451288 -Commands $commands -OutputRoot \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2_r8_009_proof_staging\\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\\artifacts\\clean_checkout_qa\u0027",
+        "stdout_log_ref":  "raw_logs/closeout_commands/clean_checkout_qa_starting_head.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/clean_checkout_qa_starting_head.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/clean_checkout_qa_starting_head.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    },
+    {
+        "command_id":  "validate_qa_proof_packet_starting_head",
+        "command":  "\u0026 \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\tools\\validate_qa_proof_packet.ps1\u0027 -PacketPath \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2_r8_009_proof_staging\\r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner_20260426_174158\\artifacts\\clean_checkout_qa\\qa_proof_packet.json\u0027",
+        "stdout_log_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_starting_head.stdout.log",
+        "stderr_log_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_starting_head.stderr.log",
+        "exit_code_ref":  "raw_logs/closeout_commands/validate_qa_proof_packet_starting_head.exitcode.txt",
+        "exit_code":  0,
+        "status":  "passed"
+    }
+]

@@ -1,0 +1,13 @@
+﻿[
+    "no product UI or control-room productization is proved",
+    "no Standard runtime or subproject runtime is proved",
+    "no multi-repo orchestration is proved",
+    "no swarms or fleet execution are proved",
+    "no broad autonomous milestone execution is proved",
+    "no unattended automatic resume is proved",
+    "no destructive rollback is proved",
+    "no production-grade CI for every workflow is proved",
+    "no concrete CI or external proof artifact is claimed unless a real workflow run identity is recorded",
+    "no committed exact-final post-push verification artifact is claimed",
+    "no general claim that Codex is reliable is made"
+]

@@ -1,0 +1,5 @@
+﻿PASS valid match: post-push-verification-52660705e566 -> 74f360a3881d1a84d53c62037136dd158ccb1cd4
+PASS valid script smoke: verify_post_push_remote_head.ps1 emitted a durable artifact.
+PASS invalid mismatch artifact: post-push-verification-160ea46a2b86 -> mismatch
+PASS invalid: missing-verification-artifact -> Post-push verification artifact 'C:\t\r8ppv37288a83\working\artifacts\missing.json' does not exist.
+All post-push verification tests passed. Valid passed: 2. Invalid rejected: 2.
