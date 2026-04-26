@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
 Current posture:
-`R9` is now active in repo truth through `R9-003` only. `R9-003` is complete through the first final remote-head support packet contract, validator, valid fixture, CLI validation wrapper, and focused tests. `R9-004` through `R9-007` remain planned only. R9 still does not prove real external or CI runner artifact identity, continuity-managed execution segments, the tiny segmented milestone pilot, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution. R9-003 defines the support model only and does not produce the final R9 closeout support packet yet.
+`R9` is now active in repo truth through `R9-004` only. `R9-004` is complete only as an external-runner identity and limitation contract plus validation path. No concrete CI or external runner artifact identity is claimed, and R9 remains blocked from claiming external proof until a real run identity is captured in a later support packet or closeout. `R9-005` through `R9-007` remain planned only. R9 still does not prove continuity-managed execution segments, the tiny segmented milestone pilot, UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, destructive rollback, production-grade CI for every workflow, general Codex reliability, solved Codex context compaction, or hours-long unattended milestone execution. R9-003 defines the final-head support model only and does not produce the final R9 closeout support packet yet.
 
 ## Most Recently Closed Milestone
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`
@@ -47,13 +47,13 @@ Prior closed milestone:
 - Done when: final-head support evidence is distinguished from the milestone closeout commit itself, `verification_timing` is `after_closeout_push`, follow-up support commit or external artifact publication is allowed without pretending same-commit proof exists, and self-referential proof, empty evidence refs, invalid status/refusal combinations, missing non-claims, or CI/external claims without run identity fail closed
 
 ### `R9-004` Capture real external or CI runner artifact identity
-- Status: planned
+- Status: done
 - Order: 4
 - Milestone: `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 - Depends on: `R9-003`
 - Authority: `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`
-- Durable output: one real external or CI runner artifact identity if available, or an explicit limitation if unavailable
-- Done when: evidence records run ID, artifact name, artifact URL or retrieval instruction, branch, head SHA, tree, verdict, and timestamp; if CI cannot be triggered, the milestone fails closed or records a limitation without faking run identity
+- Durable output: `contracts/external_runner_artifact/foundation.contract.json`, `contracts/external_runner_artifact/external_runner_artifact_identity.contract.json`, `tools/ExternalRunnerArtifactIdentity.psm1`, `tools/validate_external_runner_artifact_identity.ps1`, `state/fixtures/valid/external_runner_artifact/external_runner_limitation.valid.json`, and `tests/test_external_runner_artifact_identity.ps1`
+- Done when: the external-runner identity contract and validator fail closed on missing run or artifact identity for completed or successful runs, GitHub Actions run URLs must be concrete, success requires QA and remote-head evidence refs, required non-claims are present, and this environment records an explicit unavailable limitation without faking run identity or describing the limitation as proof
 
 ### `R9-005` Add continuity-managed execution segment model
 - Status: planned

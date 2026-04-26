@@ -1,0 +1,41 @@
+{
+  "contract_version": "v1",
+  "artifact_identity_type": "external_runner_artifact_identity",
+  "repository_name": "AIOffice_V2",
+  "repository_name_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "github_actions_run_url_pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/actions/runs/[0-9]+(?:/attempts/[0-9]+)?$",
+  "allowed_runner_kinds": [
+    "github_actions",
+    "external_runner"
+  ],
+  "allowed_statuses": [
+    "queued",
+    "in_progress",
+    "completed",
+    "unavailable"
+  ],
+  "allowed_conclusions": [
+    "success",
+    "failure",
+    "cancelled",
+    "timed_out",
+    "skipped",
+    "unavailable"
+  ],
+  "required_non_claims": [
+    "no broad automation claim",
+    "no solved Codex context compaction claim",
+    "no unattended long-running milestone claim"
+  ],
+  "limitation_required_non_claims": [
+    "no concrete CI or external runner artifact identity is claimed",
+    "no external QA proof is claimed",
+    "no broad automation claim",
+    "no solved Codex context compaction claim",
+    "no unattended long-running milestone claim"
+  ]
+}

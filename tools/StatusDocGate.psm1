@@ -438,22 +438,28 @@ function Test-R9OpeningStatus {
         throw "R9 authority does not match KANBAN for the live R9 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 3 -or $kanbanSnapshot.PlannedStart -ne 4 -or $kanbanSnapshot.PlannedThrough -ne 7) {
-        throw "R9 status must keep only R9-001 through R9-003 done and R9-004 through R9-007 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 4 -or $kanbanSnapshot.PlannedStart -ne 5 -or $kanbanSnapshot.PlannedThrough -ne 7) {
+        throw "R9 status must keep only R9-001 through R9-004 done and R9-005 through R9-007 planned."
     }
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-003` only' -Message "README must declare R9 as the active milestone through R9-003 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-003` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-003 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the active milestone in repo truth through `R9-004` only' -Message "README must declare R9 as the active milestone through R9-004 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-004` only\.' -Message "ACTIVE_STATE must declare R9 as the active milestone through R9-004 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must declare R9 as the active milestone."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R9 Opened As Isolated QA And Continuity-Managed Pilot' -Message "DECISION_LOG must record the R9 opening decision."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-003` only' -Message "R9 authority must declare R9 active through R9-003 only."
-    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-004`\s+through\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-004 through R9-007 planned only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now active in repo truth through `R9-004` only' -Message "R9 authority must declare R9 active through R9-004 only."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9-005`\s+through\s+`R9-007`\s+remain planned only' -Message "R9 authority must keep R9-005 through R9-007 planned only."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/isolated_qa/qa_signoff_packet\.contract\.json' -Message "R9 authority must cite the R9-002 QA signoff contract."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/IsolatedQaSignoff\.psm1' -Message "R9 authority must cite the R9-002 isolated QA signoff validator module."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_isolated_qa_signoff\.ps1' -Message "R9 authority must cite the R9-002 focused test."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/post_push_support/final_remote_head_support_packet\.contract\.json' -Message "R9 authority must cite the R9-003 final remote-head support contract."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/FinalRemoteHeadSupport\.psm1' -Message "R9 authority must cite the R9-003 final remote-head support validator module."
     Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_final_remote_head_support\.ps1' -Message "R9 authority must cite the R9-003 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'contracts/external_runner_artifact/external_runner_artifact_identity\.contract\.json' -Message "R9 authority must cite the R9-004 external runner artifact identity contract."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tools/ExternalRunnerArtifactIdentity\.psm1' -Message "R9 authority must cite the R9-004 external runner artifact identity validator module."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'tests/test_external_runner_artifact_identity\.ps1' -Message "R9 authority must cite the R9-004 focused test."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'state/fixtures/valid/external_runner_artifact/external_runner_limitation\.valid\.json' -Message "R9 authority must cite the R9-004 explicit limitation fixture when no real run identity is captured."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'no concrete CI or external runner artifact identity is claimed' -Message "R9 authority must preserve the R9-004 no-concrete-run-identity limitation."
+    Assert-RegexMatch -Text $Texts.R9Authority -Pattern 'R9 remains blocked from claiming external proof until a real run identity is captured' -Message "R9 authority must keep external proof blocked until a real run identity is captured."
     Assert-R9NonClaimsPreserved -Text $Texts.R9Authority -Context "R9 authority"
 
     return $kanbanSnapshot
@@ -512,6 +518,13 @@ function Test-StatusDocGate {
     Assert-R8NonClaimsPreserved -Text $texts.R8Authority -Context "R8 authority"
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
+    $r8CloseoutText = [string]::Join([Environment]::NewLine, @(
+            $texts.Readme,
+            $texts.ActiveState,
+            $texts.Kanban,
+            $texts.DecisionLog,
+            $texts.R8Authority
+        ))
     $r8ClosedClaimed = $false
 
     $closeoutClaimPatterns = @(
@@ -563,23 +576,23 @@ function Test-StatusDocGate {
             throw "Status docs cannot keep planned R8 tasks once R8-009 is marked done."
         }
 
-        if ($combinedText -notmatch 'qa_proof_packet\.json') {
+        if ($r8CloseoutText -notmatch 'qa_proof_packet\.json') {
             throw "R8 closeout claims require a referenced QA packet."
         }
 
-        if ($combinedText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/][^\s`]*remote[_-]head[_-]verification[^\s`]*\.json') {
+        if ($r8CloseoutText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/][^\s`]*remote[_-]head[_-]verification[^\s`]*\.json') {
             throw "R8 closeout claims require a referenced remote-head verification artifact."
         }
 
-        if ($combinedText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/].*post[_-]push.*verification.*\.json' -and $combinedText -notmatch '(?i)(self-referential|exact-final).*post-push verification.*limitation|post-push verification.*(limitation|not committed)|no committed exact-final post-push verification artifact is claimed') {
+        if ($r8CloseoutText -notmatch '(?i)(state[\\/](proof_reviews|qa)|artifacts|support)[\\/].*post[_-]push.*verification.*\.json' -and $r8CloseoutText -notmatch '(?i)post-push verification.{0,120}(limitation|not committed)|no committed exact-final post-push verification artifact is claimed') {
             throw "R8 closeout claims require either a post-push verification artifact reference or an explicit exact-final post-push verification limitation."
         }
 
-        if ($combinedText -notmatch '(?i)actions/runs/\d+' -and $combinedText -notmatch '(?i)no concrete (CI|external|CI/external).*proof.*artifact.*claimed|external proof runner foundation exists') {
+        if ($r8CloseoutText -notmatch '(?i)actions/runs/\d+' -and $r8CloseoutText -notmatch '(?i)no concrete (CI|external|CI/external).*proof.*artifact.*claimed|external proof runner foundation exists') {
             throw "R8 closeout claims require either a concrete external workflow run identity or an explicit external-proof non-claim."
         }
 
-        if ($combinedText -notmatch '(?i)state/proof_reviews/.*/r8') {
+        if ($r8CloseoutText -notmatch '(?i)state/proof_reviews/.*/r8') {
             throw "R8 closeout claims require a referenced R8 proof package path."
         }
     }

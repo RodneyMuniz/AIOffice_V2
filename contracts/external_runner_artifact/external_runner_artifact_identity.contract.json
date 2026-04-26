@@ -1,0 +1,28 @@
+{
+  "artifact_type": "external_runner_artifact_identity",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "artifact_id",
+    "repository",
+    "branch",
+    "head_sha",
+    "tree_sha",
+    "runner_kind",
+    "runner_identity",
+    "workflow_name",
+    "workflow_ref",
+    "run_id",
+    "run_url",
+    "artifact_name",
+    "artifact_url_or_retrieval_instruction",
+    "triggered_at_utc",
+    "completed_at_utc",
+    "status",
+    "conclusion",
+    "qa_packet_ref",
+    "remote_head_evidence_ref",
+    "final_remote_head_support_ref",
+    "non_claims"
+  ]
+}

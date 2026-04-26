@@ -1,0 +1,31 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_artifact_identity",
+  "artifact_id": "r9-004-external-runner-limitation",
+  "repository": "AIOffice_V2",
+  "branch": "feature/r5-closeout-remaining-foundations",
+  "head_sha": "411a9df841f88ce277f5586554725b1f2ab9980b",
+  "tree_sha": "96d9126e374d1020688615d409ea7abbc823b760",
+  "runner_kind": "github_actions",
+  "runner_identity": "github-actions-workflow-foundation-unavailable-local-environment",
+  "workflow_name": "R8 Clean Checkout QA",
+  "workflow_ref": ".github/workflows/r8-clean-checkout-qa.yml",
+  "run_id": "",
+  "run_url": "",
+  "artifact_name": "",
+  "artifact_url_or_retrieval_instruction": "limitation: no real GitHub Actions run identity or artifact could be triggered or retrieved in this environment; no external proof is claimed.",
+  "triggered_at_utc": "2026-04-27T00:00:00Z",
+  "completed_at_utc": "2026-04-27T00:00:00Z",
+  "status": "unavailable",
+  "conclusion": "unavailable",
+  "qa_packet_ref": "",
+  "remote_head_evidence_ref": "",
+  "final_remote_head_support_ref": "",
+  "non_claims": [
+    "no concrete CI or external runner artifact identity is claimed",
+    "no external QA proof is claimed",
+    "no broad automation claim",
+    "no solved Codex context compaction claim",
+    "no unattended long-running milestone claim"
+  ]
+}
