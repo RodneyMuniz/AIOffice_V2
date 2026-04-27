@@ -14,6 +14,8 @@ Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed 
 
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now the active milestone in repo truth through `R10-001` only. `R10-002` through `R10-008` remain planned only. R10 scope is external-runner artifact identity plus exact final-head clean replay only, and limitation-only external-runner evidence is insufficient for R10 closeout. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution.
 
+From R10 onward, each release or milestone uses a dedicated release branch. The R10 branch is `release/r10-real-external-runner-proof-foundation`. The previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
+
 The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
 
 ## Start Here
@@ -21,6 +23,7 @@ The current repo is a clean reset. Its first acceptable proof boundary is superv
 - `governance/PROJECT.md`
 - `governance/V1_PRD.md`
 - `governance/OPERATING_MODEL.md`
+- `governance/BRANCHING_CONVENTION.md`
 - `governance/DECISION_LOG.md`
 - `governance/ACTIVE_STATE.md`
 - `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`

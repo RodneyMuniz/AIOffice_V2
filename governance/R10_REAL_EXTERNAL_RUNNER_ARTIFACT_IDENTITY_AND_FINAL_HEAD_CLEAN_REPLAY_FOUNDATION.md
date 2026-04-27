@@ -45,7 +45,7 @@ Limitation-only external-runner evidence is insufficient for R10 closeout.
 ## Exact boundary
 R10 is bounded to:
 - one repository only: `AIOffice_V2`
-- one active branch: `feature/r5-closeout-remaining-foundations`
+- one active branch: `release/r10-real-external-runner-proof-foundation`
 - one external-runner artifact identity contract suitable for closeout use
 - one standard external proof artifact bundle format
 - one real GitHub Actions or equivalent external runner path
@@ -58,6 +58,19 @@ R10 is bounded to:
 R10 must not close on another limitation-only external-runner record.
 
 A limitation-only path was acceptable in R9 because R9 modeled the unavailable external-runner state honestly. R10 must remove that weakness rather than preserve it as the final answer.
+
+## Branch convention
+From R10 onward, each release or milestone gets a dedicated release branch.
+
+Pattern: `release/r<release-number>-<short-kebab-milestone-name>`
+
+R10 branch: `release/r10-real-external-runner-proof-foundation`
+
+The previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
+
+Reports remain narrative operator artifacts, not proof.
+
+Branch truth must be verified before each milestone slice.
 
 ## R10 must eventually prove
 - one real external or CI runner executes the selected proof commands
@@ -117,7 +130,7 @@ R10 does not currently prove and must not casually widen into:
 
 ### `R10-004` Wire one GitHub Actions or equivalent runner path
 - Status: planned
-- Done when: one real external runner path can be triggered on the feature branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage.
+- Done when: one real external runner path can be triggered on the R10 release branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage.
 
 ### `R10-005` Capture one real external run identity
 - Status: planned

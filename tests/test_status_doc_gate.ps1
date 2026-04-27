@@ -16,6 +16,7 @@ function New-StatusDocHarness {
         "governance\ACTIVE_STATE.md",
         "execution\KANBAN.md",
         "governance\DECISION_LOG.md",
+        "governance\BRANCHING_CONVENTION.md",
         "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md",
         "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md",
         "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
@@ -35,6 +36,7 @@ function New-StatusDocHarness {
         ActiveStatePath = Join-Path $Root "governance\ACTIVE_STATE.md"
         KanbanPath = Join-Path $Root "execution\KANBAN.md"
         DecisionLogPath = Join-Path $Root "governance\DECISION_LOG.md"
+        BranchingConventionPath = Join-Path $Root "governance\BRANCHING_CONVENTION.md"
         R8AuthorityPath = Join-Path $Root "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md"
         R9AuthorityPath = Join-Path $Root "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md"
         R10AuthorityPath = Join-Path $Root "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
@@ -181,6 +183,18 @@ try {
     Invoke-ExpectedRefusal -Label "missing-r10-limitation-only-closeout-block" -RequiredFragments @("limitation-only", "external-runner") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-limitation-only-block")
         Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "Limitation-only external-runner evidence is insufficient for R10 closeout" -NewValue "External-runner limitation wording omitted for R10 closeout"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r10-branch-convention" -RequiredFragments @("R10 branch") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-branch-convention")
+        Replace-FileText -Path $scenario.BranchingConventionPath -OldValue 'R10 branch: `release/r10-real-external-runner-proof-foundation`' -NewValue 'R10 branch: `feature/r5-closeout-remaining-foundations`'
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "stale-r10-authority-branch" -RequiredFragments @("active R10 release branch") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-authority-branch")
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue 'one active branch: `release/r10-real-external-runner-proof-foundation`' -NewValue 'one active branch: `feature/r5-closeout-remaining-foundations`'
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

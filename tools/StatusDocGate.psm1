@@ -672,6 +672,10 @@ function Test-R10OpeningStatus {
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+remains the most recently closed milestone' -Message "R10 authority must keep R9 as the most recently closed milestone."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2\.md' -Message "R10 authority must reference the R9-to-R10 operator report as narrative only."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'It is not milestone proof by itself' -Message "R10 authority must state that the operator report is not milestone proof by itself."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 branch is `release/r10-real-external-runner-proof-foundation`' -Message "README must record the active R10 release branch."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern 'active R10 branch is `release/r10-real-external-runner-proof-foundation`' -Message "ACTIVE_STATE must record the active R10 release branch."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern 'Active branch:\s+`release/r10-real-external-runner-proof-foundation`' -Message "KANBAN must record the active R10 release branch."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'one active branch: `release/r10-real-external-runner-proof-foundation`' -Message "R10 authority must record the active R10 release branch."
 
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'Opening R10 does not implement external runner proof' -Message "R10 authority must preserve the external-runner proof non-claim."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'Opening R10 does not prove real CI' -Message "R10 authority must preserve the real-CI non-claim."
@@ -682,6 +686,17 @@ function Test-R10OpeningStatus {
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'Opening R10 does not prove broad autonomous milestone execution' -Message "R10 authority must preserve the broad-autonomy non-claim."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'Limitation-only external-runner evidence is insufficient for R10 closeout' -Message "R10 authority must reject limitation-only external-runner closeout."
     Assert-R10NonClaimsPreserved -Text $Texts.R10Authority -Context "R10 authority"
+
+    if (-not $Texts.Contains("BranchingConvention")) {
+        throw "Branching convention document must exist when R10 is open."
+    }
+
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'From R10 onward, each release or milestone gets a dedicated release branch' -Message "Branching convention must record the R10+ release branch rule."
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'Pattern: `release/r<release-number>-<short-kebab-milestone-name>`' -Message "Branching convention must record the release branch pattern."
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'R10 branch: `release/r10-real-external-runner-proof-foundation`' -Message "Branching convention must record the R10 branch."
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'feature/r5-closeout-remaining-foundations`\s+remains the historical R9 closed/support line' -Message "Branching convention must preserve the old feature branch as historical R9 support only."
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'Reports remain narrative operator artifacts, not proof' -Message "Branching convention must preserve report non-proof status."
+    Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'Branch truth must be verified before each milestone slice' -Message "Branching convention must require branch truth checks before each slice."
 
     if ($combinedText -match 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+(?:is now closed in repo truth|is formally closed|is now the most recently closed milestone)') {
         throw "Status docs must not claim R10 closeout while only R10-001 is complete."
@@ -707,6 +722,7 @@ function Test-StatusDocGate {
         ActiveState = Resolve-ExistingPath -PathValue "governance\ACTIVE_STATE.md" -Label "Active state" -AnchorPath $resolvedRepositoryRoot
         Kanban = Resolve-ExistingPath -PathValue "execution\KANBAN.md" -Label "Kanban" -AnchorPath $resolvedRepositoryRoot
         DecisionLog = Resolve-ExistingPath -PathValue "governance\DECISION_LOG.md" -Label "Decision log" -AnchorPath $resolvedRepositoryRoot
+        BranchingConvention = Resolve-ExistingPath -PathValue "governance\BRANCHING_CONVENTION.md" -Label "Branching convention" -AnchorPath $resolvedRepositoryRoot
         R8Authority = Resolve-ExistingPath -PathValue "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md" -Label "R8 authority" -AnchorPath $resolvedRepositoryRoot
     }
 

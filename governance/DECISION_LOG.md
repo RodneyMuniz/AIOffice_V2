@@ -546,3 +546,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R10 does not open UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, production-grade CI for every workflow, general Codex reliability, or broad segmented milestone execution beyond the external-runner proof loop.
 - Consequence: `governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2.md` is included as a narrative operator bridge artifact only, not milestone proof by itself.
 - Consequence: the next gated step inside R10 is `R10-002 Harden external-runner artifact identity contract for closeout use`.
+
+## D-0063 Recorded R10 Release Branch Convention
+- Date: 2026-04-28
+- Status: accepted
+- Decision: from R10 onward, each release or milestone uses a dedicated release branch with pattern `release/r<release-number>-<short-kebab-milestone-name>`.
+- Consequence: the R10 branch is `release/r10-real-external-runner-proof-foundation`.
+- Consequence: the previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
+- Consequence: R10 remains active through `R10-001` only, and `R10-002` through `R10-008` remain planned only.
+- Consequence: branch truth must be verified before each milestone slice.
+- Consequence: this decision records branch discipline only. It does not prove external runner proof, CI proof, external QA, final-head clean replay, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, or broad autonomous milestone execution.
+- Consequence: reports remain narrative operator artifacts, not milestone proof.

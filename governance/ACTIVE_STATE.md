@@ -117,6 +117,10 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R10-001` is complete as the repo-truth opening and boundary-freeze step for `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`.
 - `R10-002` through `R10-008` remain planned only.
 - R10 is bounded to external-runner artifact identity plus exact final-head clean replay only. Opening R10 does not implement external runner proof, prove real CI, prove external QA, solve Codex context compaction, prove unattended automatic resume, prove hours-long unattended milestone execution, or prove broad autonomous milestone execution.
+- From R10 onward, each release or milestone uses a dedicated release branch with pattern `release/r<release-number>-<short-kebab-milestone-name>`.
+- The active R10 branch is `release/r10-real-external-runner-proof-foundation`.
+- The previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
+- Branch truth must be verified before each milestone slice.
 - Limitation-only external-runner evidence is insufficient for R10 closeout.
 - The operator-facing bridge artifact for the R9-to-R10 transition is `governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
@@ -147,6 +151,8 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 
 `R10-001` is complete as the opening and boundary-freeze step. `R10-002` through `R10-008` remain planned only. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
+The active R10 Git branch is `release/r10-real-external-runner-proof-foundation` under the release-branch convention in `governance/BRANCHING_CONVENTION.md`. The previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line.
+
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is the most recently closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`. `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the prior closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`. `R7 Fault-Managed Continuity and Rollback Drill` remains the earlier closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`.
 
 R9 existed because closed R8 still preserved major cautions: no concrete CI or external runner artifact identity was claimed, no committed exact-final post-push verification artifact existed in repo truth, no final-head clean-checkout replay after closeout push was claimed, and Codex context-window failure still needed durable segment-level recovery from repo state instead of chat memory. `R9-002` adds the first isolated QA signoff authority surface, `R9-003` defines the final remote-head support model, `R9-004` records the external-runner identity path plus an explicit no-real-run limitation for this environment, `R9-005` defines the first durable execution-segment continuity artifact model, `R9-006` runs one tiny bounded segmented control-path pilot, and `R9-007` closes R9 narrowly. R9 did not prove external QA, CI QA, real external/CI runner artifact identity, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
@@ -156,6 +162,7 @@ R9 existed because closed R8 still preserved major cautions: no concrete CI or e
 - Do not treat the R10 opening as proof of real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, or broad autonomous milestone execution.
 - Do not treat the `R9-004` limitation artifact as external proof.
 - Do not close R10 on limitation-only external-runner evidence.
+- Do verify branch truth before each R10 milestone slice and use `release/r10-real-external-runner-proof-foundation` for R10 work.
 - Do not start UI, Standard runtime, swarms, multi-repo orchestration, or broad autonomy from the R9 closeout or R10 opening.
 
 ## Guardrails
@@ -193,3 +200,4 @@ R9 existed because closed R8 still preserved major cautions: no concrete CI or e
 - Do not treat R9 as a claim that Codex context compaction is solved or that hours-long milestones can run unattended.
 - Do not treat opening R10 as proof of real CI, external runner proof, external QA, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
 - Do not close R10 on another limitation-only external-runner record.
+- Do not use `feature/r5-closeout-remaining-foundations` for new R10+ milestone implementation.

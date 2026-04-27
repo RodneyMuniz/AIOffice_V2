@@ -8,6 +8,12 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-001` only. `R10-002` through `R10-008` remain planned only. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
+Active branch:
+`release/r10-real-external-runner-proof-foundation`
+
+Previous branch:
+`feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
+
 ## Most Recently Closed Milestone
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
 
@@ -59,7 +65,7 @@ Earlier closed milestone:
 - Depends on: `R10-003`
 - Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
 - Durable output: one focused external runner path
-- Done when: one real external runner path can be triggered on the feature branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage
+- Done when: one real external runner path can be triggered on the R10 release branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage
 
 ### `R10-005` Capture one real external run identity
 - Status: planned
@@ -260,3 +266,4 @@ Earlier closed milestone:
 - claiming Codex context compaction is solved
 - claiming hours-long milestones can now run unattended
 - closing R10 on limitation-only external-runner evidence
+- using `feature/r5-closeout-remaining-foundations` for new R10+ milestone implementation
