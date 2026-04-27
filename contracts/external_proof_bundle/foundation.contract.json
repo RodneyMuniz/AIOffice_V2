@@ -1,0 +1,44 @@
+{
+  "contract_version": "v1",
+  "bundle_type": "external_proof_artifact_bundle",
+  "repository_name": "AIOffice_V2",
+  "required_branch": "release/r10-real-external-runner-proof-foundation",
+  "identifier_pattern": "^[a-z0-9][a-z0-9._-]*$",
+  "branch_pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+  "git_object_pattern": "^[a-f0-9]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "github_actions_run_url_pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/actions/runs/[0-9]+(?:/attempts/[0-9]+)?$",
+  "allowed_runner_kinds": [
+    "github_actions",
+    "external_runner"
+  ],
+  "allowed_clean_statuses": [
+    "clean",
+    "dirty",
+    "refused",
+    "unknown"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ]
+}

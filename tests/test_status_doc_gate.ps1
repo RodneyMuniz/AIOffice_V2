@@ -116,11 +116,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Opened -or $liveValidation.ActiveMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 2 -or $liveValidation.R10PlannedStart -ne 3 -or $liveValidation.R10PlannedThrough -ne 8) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 active through R10-002 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Opened -or $liveValidation.ActiveMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 3 -or $liveValidation.R10PlannedStart -ne 4 -or $liveValidation.R10PlannedThrough -ne 8) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 active through R10-003 only."
     }
     else {
-        Write-Output ("PASS valid current R10 validator-hardened status: R8 through R8-{0} complete, '{1}' most recently closed, and R10 through R10-{2} active with R10-{3} through R10-{4} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R10PlannedStart.ToString("000"), $liveValidation.R10PlannedThrough.ToString("000"))
+        Write-Output ("PASS valid current R10 bundle-format status: R8 through R8-{0} complete, '{1}' most recently closed, and R10 through R10-{2} active with R10-{3} through R10-{4} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R10PlannedStart.ToString("000"), $liveValidation.R10PlannedThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -174,7 +174,7 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r10-closeout-claimed-at-opening" -RequiredFragments @("R10 closeout", "R10-002") -Action {
+    Invoke-ExpectedRefusal -Label "r10-closeout-claimed-at-opening" -RequiredFragments @("R10 closeout", "R10-003") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-closeout-claim")
         Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed in repo truth.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
@@ -189,6 +189,18 @@ try {
     Invoke-ExpectedRefusal -Label "missing-r10-validator-only-fixture-nonproof" -RequiredFragments @("R10-002 fixture", "real external proof") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-validator-fixture-nonproof")
         Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "That fixture is not a real external runner capture and is not R10 proof." -NewValue "That fixture records a real external runner capture for R10 proof."
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r10-external-proof-bundle-contract-ref" -RequiredFragments @("R10-003", "external proof artifact bundle contract") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-bundle-contract-ref")
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "contracts/external_proof_bundle/external_proof_artifact_bundle.contract.json" -NewValue "contracts/external_proof_bundle/external_proof_artifact_bundle_missing.contract.json"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r10-external-proof-bundle-fixture-nonproof" -RequiredFragments @("R10-003 fixture", "real external proof") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-bundle-fixture-nonproof")
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "Its validator-only fixture is not a real external runner capture, not CI proof, not external QA proof, and not R10 closeout proof." -NewValue "Its validator-only fixture records real external runner proof, CI proof, external QA proof, and R10 closeout proof."
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

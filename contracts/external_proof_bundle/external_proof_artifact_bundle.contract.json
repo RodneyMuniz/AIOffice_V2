@@ -1,0 +1,44 @@
+{
+  "bundle_type": "external_proof_artifact_bundle",
+  "required_fields": [
+    "contract_version",
+    "bundle_type",
+    "bundle_id",
+    "repository",
+    "branch",
+    "triggering_ref",
+    "runner_kind",
+    "runner_identity",
+    "workflow_name",
+    "workflow_ref",
+    "run_id",
+    "run_url",
+    "artifact_name",
+    "artifact_url_or_retrieval_instruction",
+    "remote_head_sha",
+    "tested_head_sha",
+    "tested_tree_sha",
+    "head_match",
+    "clean_status_before",
+    "clean_status_after",
+    "command_manifest_ref",
+    "command_results",
+    "aggregate_verdict",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "clean_status_required_fields": [
+    "status",
+    "evidence_ref"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "stdout_ref",
+    "stderr_ref",
+    "exit_code_ref",
+    "exit_code",
+    "verdict"
+  ]
+}

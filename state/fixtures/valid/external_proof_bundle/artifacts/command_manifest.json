@@ -1,0 +1,9 @@
+{
+  "fixture_note": "Validator-only external proof bundle command manifest shape; not real external runner proof.",
+  "commands": [
+    {
+      "command_id": "status-doc-gate",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1"
+    }
+  ]
+}

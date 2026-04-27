@@ -1,0 +1,63 @@
+{
+  "contract_version": "v1",
+  "bundle_type": "external_proof_artifact_bundle",
+  "bundle_id": "r10-003-external-proof-bundle-validator-shape",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "triggering_ref": "release/r10-real-external-runner-proof-foundation",
+  "runner_kind": "github_actions",
+  "runner_identity": "github-hosted-windows-latest-validator-only",
+  "workflow_name": "R10 External Proof Bundle Validator Shape",
+  "workflow_ref": ".github/workflows/r8-clean-checkout-qa.yml",
+  "run_id": "9876543212",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/9876543212",
+  "artifact_name": "r10-external-proof-bundle-validator-shape",
+  "artifact_url_or_retrieval_instruction": "Validator-only retrieval instruction: use GitHub Actions run 9876543212 artifact named r10-external-proof-bundle-validator-shape.",
+  "remote_head_sha": "b72ea2d74bbb19e2765bd873faab2a684586b4da",
+  "tested_head_sha": "b72ea2d74bbb19e2765bd873faab2a684586b4da",
+  "tested_tree_sha": "9e1fb5d4d773737532b0aa9573c1b28fbbdaf47d",
+  "head_match": true,
+  "clean_status_before": {
+    "status": "clean",
+    "evidence_ref": "artifacts/clean_status_before.json"
+  },
+  "clean_status_after": {
+    "status": "clean",
+    "evidence_ref": "artifacts/clean_status_after.json"
+  },
+  "command_manifest_ref": "artifacts/command_manifest.json",
+  "command_results": [
+    {
+      "command_id": "status-doc-gate",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "stdout_ref": "artifacts/status_doc_gate.stdout.log",
+      "stderr_ref": "artifacts/status_doc_gate.stderr.log",
+      "exit_code_ref": "artifacts/status_doc_gate.exit_code.txt",
+      "exit_code": 0,
+      "verdict": "passed"
+    }
+  ],
+  "aggregate_verdict": "passed",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-28T00:10:00Z",
+  "non_claims": [
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ],
+  "fixture_boundary": {
+    "purpose": "validator-only fixture",
+    "not_real_external_runner_capture": true,
+    "not_ci_proof": true,
+    "not_external_qa_proof": true,
+    "not_r10_closeout_proof": true
+  }
+}
