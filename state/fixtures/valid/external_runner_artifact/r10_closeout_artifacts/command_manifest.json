@@ -1,0 +1,6 @@
+{
+  "fixture_note": "Validator-only R10 closeout identity command manifest shape; not real external proof.",
+  "commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_external_runner_closeout_identity.ps1"
+  ]
+}

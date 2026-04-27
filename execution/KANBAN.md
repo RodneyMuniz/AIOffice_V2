@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 
 Current posture:
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-001` only. `R10-002` through `R10-008` remain planned only. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-002` only. `R10-003` through `R10-008` remain planned only. `R10-002` hardens the closeout-use external-runner identity validator, but R10 still has not captured a real external runner identity, has not triggered CI, has not produced an external artifact bundle, has not produced external QA proof, has not performed final-head clean replay, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -41,12 +41,12 @@ Earlier closed milestone:
 - Done when: R10 is active in repo truth, R9 remains most recently closed, R10 scope is external-runner artifact identity plus exact final-head clean replay only, and limitation-only external-runner evidence is explicitly insufficient for R10 closeout
 
 ### `R10-002` Harden external-runner artifact identity contract for closeout use
-- Status: planned
+- Status: done
 - Order: 2
 - Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 - Depends on: `R10-001`
-- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
-- Durable output: closeout-facing external-runner identity validation hardening
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, `contracts/external_runner_artifact/external_runner_closeout_identity.contract.json`, `tools/ExternalRunnerArtifactIdentity.psm1`, `tools/validate_external_runner_closeout_identity.ps1`, `tests/test_external_runner_closeout_identity.ps1`
+- Durable output: closeout-facing external-runner identity validation hardening plus validator-only shape fixture under `state/fixtures/valid/external_runner_artifact/r10_closeout_identity.valid.json`
 - Done when: validation rejects empty/synthetic run identity, missing workflow identity, missing artifact identity, missing exact head/tree, success without command logs, success without final-head support evidence, and unavailable limitation described as proof
 
 ### `R10-003` Build the external proof artifact bundle format

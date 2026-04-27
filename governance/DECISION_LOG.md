@@ -557,3 +557,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: branch truth must be verified before each milestone slice.
 - Consequence: this decision records branch discipline only. It does not prove external runner proof, CI proof, external QA, final-head clean replay, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, or broad autonomous milestone execution.
 - Consequence: reports remain narrative operator artifacts, not milestone proof.
+
+## D-0064 R10-002 Hardened External Runner Closeout Identity
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-002` is complete as the closeout-use external-runner identity contract and validator hardening step through `contracts/external_runner_artifact/external_runner_closeout_identity.contract.json`, `tools/ExternalRunnerArtifactIdentity.psm1`, `tools/validate_external_runner_closeout_identity.ps1`, `state/fixtures/valid/external_runner_artifact/r10_closeout_identity.valid.json`, and focused proof through `tests/test_external_runner_closeout_identity.ps1`.
+- Consequence: R10 closeout-use identity validation now rejects empty or synthetic run identity, missing workflow or runner identity, missing artifact identity, missing exact head or tree SHA, missing command manifest, missing stdout or stderr or exit-code refs, missing QA packet, missing remote-head evidence, missing final-head support evidence, unavailable status or conclusion, old R9 limitation evidence presented as R10 proof, and broad CI/product coverage claims.
+- Consequence: the committed R10 closeout identity fixture is validator-only shape evidence. It is not a real external runner capture, not CI proof, not external QA proof, not an external artifact bundle, and not final-head clean replay proof.
+- Consequence: R10 remains active through `R10-002` only, and `R10-003` through `R10-008` remain planned only.
+- Consequence: R9 remains the most recently closed milestone under `D-0061`.
+- Consequence: R10 still does not prove UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, production-grade CI for every workflow, general Codex reliability, or broad segmented milestone execution beyond the external-runner proof loop.
+- Consequence: the next gated step inside R10 is `R10-003 Build the external proof artifact bundle format`.

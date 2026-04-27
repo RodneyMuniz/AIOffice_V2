@@ -216,6 +216,10 @@ function Get-ExternalRunnerArtifactIdentityContract {
     return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_runner_artifact\external_runner_artifact_identity.contract.json") -Label "External runner artifact identity contract"
 }
 
+function Get-ExternalRunnerCloseoutIdentityContract {
+    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_runner_artifact\external_runner_closeout_identity.contract.json") -Label "External runner closeout identity contract"
+}
+
 function Assert-OptionalReference {
     param(
         [Parameter(Mandatory = $true)]
@@ -232,6 +236,21 @@ function Assert-OptionalReference {
     }
 }
 
+function Assert-RequiredReference {
+    param(
+        [AllowNull()]
+        $Reference,
+        [Parameter(Mandatory = $true)]
+        [string]$Label,
+        [Parameter(Mandatory = $true)]
+        [string]$AnchorPath
+    )
+
+    $referenceValue = Assert-NonEmptyString -Value $Reference -Context $Label
+    Resolve-ExistingPath -PathValue $referenceValue -Label $Label -AnchorPath $AnchorPath | Out-Null
+    return $referenceValue
+}
+
 function Assert-RequiredNonClaims {
     param(
         [Parameter(Mandatory = $true)]
@@ -246,6 +265,77 @@ function Assert-RequiredNonClaims {
         if ($NonClaims -notcontains $requiredNonClaim) {
             throw "$Context non_claims must include '$requiredNonClaim'."
         }
+    }
+}
+
+function Assert-NoForbiddenCloseoutClaimText {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Values,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    foreach ($value in $Values) {
+        if ([string]::IsNullOrWhiteSpace($value)) {
+            continue
+        }
+
+        if ($value -match '(?i)(R9-004|external_runner_limitation|external-runner limitation).{0,120}(satisfies|proves|proof|closeout|external proof)') {
+            throw "$Context must not claim that R9-004 limitation evidence satisfies R10 external proof."
+        }
+
+        if ($value -match '(?i)\b(unavailable|limitation|could not|cannot|no real)\b.{0,120}\b(proof|proves|satisfies|closeout|successful)\b' -and $value -notmatch '(?i)\b(no|not|without|insufficient|must not|does not)\b.{0,120}\b(proof|prove|satisfy|closeout|success)') {
+            throw "$Context must not describe unavailable or limitation-only external-runner evidence as proof."
+        }
+
+        if ($value -match '(?i)\b(broad|production-grade|product(?:ion)?|product)\b.{0,80}\b(CI|coverage|product coverage)\b.{0,80}\b(claim|claimed|proves|proof|exists|available|complete)\b' -and $value -notmatch '(?i)\b(no|not|without|must not|does not)\b') {
+            throw "$Context must not claim broad CI/product coverage."
+        }
+    }
+}
+
+function Assert-ConcreteCloseoutRunIdentity {
+    param(
+        [Parameter(Mandatory = $true)]
+        [AllowEmptyString()]
+        [string]$RunId,
+        [Parameter(Mandatory = $true)]
+        [AllowEmptyString()]
+        [string]$RunUrl,
+        [Parameter(Mandatory = $true)]
+        [AllowEmptyString()]
+        [string]$ArtifactName,
+        [Parameter(Mandatory = $true)]
+        [string]$RetrievalInstruction,
+        [Parameter(Mandatory = $true)]
+        [string]$RunnerKind,
+        [Parameter(Mandatory = $true)]
+        [string]$GithubActionsRunUrlPattern,
+        [Parameter(Mandatory = $true)]
+        [string]$SyntheticRunIdPattern,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    Assert-NonEmptyString -Value $RunId -Context "$Context run_id" | Out-Null
+    if ($RunId -match $SyntheticRunIdPattern) {
+        throw "$Context run_id must not be synthetic, dummy, test, or placeholder."
+    }
+
+    Assert-NonEmptyString -Value $RunUrl -Context "$Context run_url" | Out-Null
+    Assert-NonEmptyString -Value $ArtifactName -Context "$Context artifact_name" | Out-Null
+    Assert-NonEmptyString -Value $RetrievalInstruction -Context "$Context artifact_url_or_retrieval_instruction" | Out-Null
+
+    if ($RetrievalInstruction -match '(?i)^(n/a|none|unavailable|limitation)$') {
+        throw "$Context artifact_url_or_retrieval_instruction must be actionable."
+    }
+
+    if ($RunnerKind -eq "github_actions") {
+        Assert-MatchesPattern -Value $RunUrl -Pattern $GithubActionsRunUrlPattern -Context "$Context run_url"
+    }
+    elseif ($RunUrl -notmatch '^https?://') {
+        throw "$Context run_url must be a concrete external runner URL."
     }
 }
 
@@ -278,6 +368,154 @@ function Assert-ConcreteRunIdentity {
     if ($RunnerKind -eq "github_actions") {
         Assert-MatchesPattern -Value $RunUrl -Pattern $GithubActionsRunUrlPattern -Context "$Context run_url"
     }
+}
+
+function Test-ExternalRunnerCloseoutIdentityObject {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        $ArtifactIdentity,
+        [string]$SourceLabel = "External runner closeout identity",
+        [string]$AnchorPath = (Get-ModuleRepositoryRootPath)
+    )
+
+    $foundation = Get-ExternalRunnerArtifactFoundationContract
+    $contract = Get-ExternalRunnerCloseoutIdentityContract
+
+    Assert-RequiredObjectFields -Object $ArtifactIdentity -FieldNames $contract.required_fields -Context $SourceLabel
+
+    $contractVersion = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "contract_version" -Context $SourceLabel) -Context "$SourceLabel contract_version"
+    if ($contractVersion -ne $foundation.contract_version) {
+        throw "$SourceLabel contract_version must be '$($foundation.contract_version)'."
+    }
+
+    $artifactType = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "artifact_type" -Context $SourceLabel) -Context "$SourceLabel artifact_type"
+    if ($artifactType -ne $contract.artifact_type) {
+        throw "$SourceLabel artifact_type must be '$($contract.artifact_type)'."
+    }
+
+    $artifactId = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "artifact_id" -Context $SourceLabel) -Context "$SourceLabel artifact_id"
+    Assert-MatchesPattern -Value $artifactId -Pattern $foundation.identifier_pattern -Context "$SourceLabel artifact_id"
+
+    $repository = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "repository" -Context $SourceLabel) -Context "$SourceLabel repository"
+    Assert-MatchesPattern -Value $repository -Pattern $foundation.repository_name_pattern -Context "$SourceLabel repository"
+    if ($repository -ne $foundation.repository_name) {
+        throw "$SourceLabel repository must be '$($foundation.repository_name)'."
+    }
+
+    $branch = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "branch" -Context $SourceLabel) -Context "$SourceLabel branch"
+    if ($branch -ne $contract.required_branch) {
+        throw "$SourceLabel branch must be '$($contract.required_branch)'."
+    }
+
+    $headSha = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "head_sha" -Context $SourceLabel) -Context "$SourceLabel head_sha"
+    $treeSha = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "tree_sha" -Context $SourceLabel) -Context "$SourceLabel tree_sha"
+    Assert-MatchesPattern -Value $headSha -Pattern $foundation.git_object_pattern -Context "$SourceLabel head_sha"
+    Assert-MatchesPattern -Value $treeSha -Pattern $foundation.git_object_pattern -Context "$SourceLabel tree_sha"
+
+    $runnerKind = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "runner_kind" -Context $SourceLabel) -Context "$SourceLabel runner_kind"
+    Assert-AllowedValue -Value $runnerKind -AllowedValues $foundation.allowed_runner_kinds -Context "$SourceLabel runner_kind"
+
+    $runnerIdentity = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "runner_identity" -Context $SourceLabel) -Context "$SourceLabel runner_identity"
+    $workflowName = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "workflow_name" -Context $SourceLabel) -Context "$SourceLabel workflow_name"
+    $workflowRef = Assert-RequiredReference -Reference (Get-RequiredProperty -Object $ArtifactIdentity -Name "workflow_ref" -Context $SourceLabel) -Label "$SourceLabel workflow_ref" -AnchorPath (Get-ModuleRepositoryRootPath)
+
+    $runId = Assert-StringValue -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "run_id" -Context $SourceLabel) -Context "$SourceLabel run_id"
+    $runUrl = Assert-StringValue -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "run_url" -Context $SourceLabel) -Context "$SourceLabel run_url"
+    $artifactName = Assert-StringValue -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "artifact_name" -Context $SourceLabel) -Context "$SourceLabel artifact_name"
+    $retrievalInstruction = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "artifact_url_or_retrieval_instruction" -Context $SourceLabel) -Context "$SourceLabel artifact_url_or_retrieval_instruction"
+
+    Assert-ConcreteCloseoutRunIdentity -RunId $runId -RunUrl $runUrl -ArtifactName $artifactName -RetrievalInstruction $retrievalInstruction -RunnerKind $runnerKind -GithubActionsRunUrlPattern $foundation.github_actions_run_url_pattern -SyntheticRunIdPattern $contract.synthetic_run_id_pattern -Context $SourceLabel
+
+    $triggeredAtUtc = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "triggered_at_utc" -Context $SourceLabel) -Context "$SourceLabel triggered_at_utc"
+    $completedAtUtc = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "completed_at_utc" -Context $SourceLabel) -Context "$SourceLabel completed_at_utc"
+    Assert-MatchesPattern -Value $triggeredAtUtc -Pattern $foundation.timestamp_pattern -Context "$SourceLabel triggered_at_utc"
+    Assert-MatchesPattern -Value $completedAtUtc -Pattern $foundation.timestamp_pattern -Context "$SourceLabel completed_at_utc"
+
+    $status = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "status" -Context $SourceLabel) -Context "$SourceLabel status"
+    Assert-AllowedValue -Value $status -AllowedValues $contract.allowed_statuses -Context "$SourceLabel status"
+    if ($status -eq "unavailable") {
+        throw "$SourceLabel status must not be 'unavailable' for R10 closeout-use identity."
+    }
+
+    $conclusion = Assert-NonEmptyString -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "conclusion" -Context $SourceLabel) -Context "$SourceLabel conclusion"
+    Assert-AllowedValue -Value $conclusion -AllowedValues $contract.allowed_conclusions -Context "$SourceLabel conclusion"
+    if ($conclusion -eq "unavailable") {
+        throw "$SourceLabel conclusion must not be 'unavailable' for R10 closeout-use identity."
+    }
+
+    $commandManifestRef = Assert-RequiredReference -Reference (Get-RequiredProperty -Object $ArtifactIdentity -Name "command_manifest_ref" -Context $SourceLabel) -Label "$SourceLabel command_manifest_ref" -AnchorPath $AnchorPath
+    $stdoutLogRefs = Assert-StringArray -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "stdout_log_refs" -Context $SourceLabel) -Context "$SourceLabel stdout_log_refs"
+    $stderrLogRefs = Assert-StringArray -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "stderr_log_refs" -Context $SourceLabel) -Context "$SourceLabel stderr_log_refs"
+    $exitCodeRefs = Assert-StringArray -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "exit_code_refs" -Context $SourceLabel) -Context "$SourceLabel exit_code_refs"
+
+    foreach ($stdoutLogRef in $stdoutLogRefs) {
+        Assert-RequiredReference -Reference $stdoutLogRef -Label "$SourceLabel stdout_log_refs item" -AnchorPath $AnchorPath | Out-Null
+    }
+
+    foreach ($stderrLogRef in $stderrLogRefs) {
+        Assert-RequiredReference -Reference $stderrLogRef -Label "$SourceLabel stderr_log_refs item" -AnchorPath $AnchorPath | Out-Null
+    }
+
+    foreach ($exitCodeRef in $exitCodeRefs) {
+        Assert-RequiredReference -Reference $exitCodeRef -Label "$SourceLabel exit_code_refs item" -AnchorPath $AnchorPath | Out-Null
+    }
+
+    $qaPacketRef = Assert-RequiredReference -Reference (Get-RequiredProperty -Object $ArtifactIdentity -Name "qa_packet_ref" -Context $SourceLabel) -Label "$SourceLabel qa_packet_ref" -AnchorPath $AnchorPath
+    $remoteHeadEvidenceRef = Assert-RequiredReference -Reference (Get-RequiredProperty -Object $ArtifactIdentity -Name "remote_head_evidence_ref" -Context $SourceLabel) -Label "$SourceLabel remote_head_evidence_ref" -AnchorPath $AnchorPath
+    $finalRemoteHeadSupportRef = Assert-RequiredReference -Reference (Get-RequiredProperty -Object $ArtifactIdentity -Name "final_remote_head_support_ref" -Context $SourceLabel) -Label "$SourceLabel final_remote_head_support_ref" -AnchorPath $AnchorPath
+
+    $nonClaims = Assert-StringArray -Value (Get-RequiredProperty -Object $ArtifactIdentity -Name "non_claims" -Context $SourceLabel) -Context "$SourceLabel non_claims"
+    Assert-RequiredNonClaims -NonClaims $nonClaims -RequiredNonClaims $contract.required_non_claims -Context $SourceLabel
+
+    $claimText = @(
+        $artifactId,
+        $branch,
+        $runnerKind,
+        $runnerIdentity,
+        $workflowName,
+        $workflowRef,
+        $runId,
+        $runUrl,
+        $artifactName,
+        $retrievalInstruction,
+        $commandManifestRef,
+        $qaPacketRef,
+        $remoteHeadEvidenceRef,
+        $finalRemoteHeadSupportRef
+    )
+    $claimText += $stdoutLogRefs
+    $claimText += $stderrLogRefs
+    $claimText += $exitCodeRefs
+    $claimText += $nonClaims
+    Assert-NoForbiddenCloseoutClaimText -Values $claimText -Context $SourceLabel
+
+    return [pscustomobject]@{
+        ArtifactId = $artifactId
+        Repository = $repository
+        Branch = $branch
+        HeadSha = $headSha
+        TreeSha = $treeSha
+        RunnerKind = $runnerKind
+        Status = $status
+        Conclusion = $conclusion
+        RunId = $runId
+        RunUrl = $runUrl
+        ArtifactName = $artifactName
+        IsSuccessfulProofIdentity = ($status -eq "completed" -and $conclusion -eq "success")
+    }
+}
+
+function Test-ExternalRunnerCloseoutIdentityContract {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PacketPath
+    )
+
+    $resolvedPacketPath = Resolve-ExistingPath -PathValue $PacketPath -Label "External runner closeout identity"
+    $artifactIdentity = Get-JsonDocument -Path $resolvedPacketPath -Label "External runner closeout identity"
+    return Test-ExternalRunnerCloseoutIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner closeout identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
 }
 
 function Test-ExternalRunnerArtifactIdentityObject {
@@ -428,4 +666,4 @@ function Test-ExternalRunnerArtifactIdentityContract {
     return Test-ExternalRunnerArtifactIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner artifact identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
 }
 
-Export-ModuleMember -Function Test-ExternalRunnerArtifactIdentityContract, Test-ExternalRunnerArtifactIdentityObject
+Export-ModuleMember -Function Test-ExternalRunnerArtifactIdentityContract, Test-ExternalRunnerArtifactIdentityObject, Test-ExternalRunnerCloseoutIdentityContract, Test-ExternalRunnerCloseoutIdentityObject
