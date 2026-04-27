@@ -533,3 +533,16 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this closes R9 only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. It proves that isolated QA signoff validation exists, final remote-head support modeling exists, external-runner identity limitation modeling exists, execution segment continuity modeling exists, one tiny segmented pilot package exists, local isolated QA signoff exists for that pilot, and status-doc gate supports the narrow closeout.
 - Consequence: R9 did not prove real external/CI runner artifact identity, external QA proof, product UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, production-grade CI, general Codex reliability, or destructive rollback.
 - Consequence: no active successor implementation milestone is opened by this decision.
+
+## D-0062 R10-001 Opened R10 Narrowly For External Runner Final-Head Proof
+- Date: 2026-04-27
+- Status: accepted
+- Decision: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is opened as the next bounded milestone in repo truth through `R10-001` as planning and boundary-freeze only.
+- Consequence: R9 remains the most recently closed milestone under `D-0061`, and R8 remains the prior closed milestone under `D-0053`.
+- Consequence: R10 is bounded to external-runner artifact identity plus exact final-head clean replay only.
+- Consequence: `R10-001` is complete through this opening commit and `R10-002` through `R10-008` remain planned only.
+- Consequence: opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution.
+- Consequence: limitation-only external-runner evidence is insufficient for R10 closeout.
+- Consequence: R10 does not open UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, production-grade CI for every workflow, general Codex reliability, or broad segmented milestone execution beyond the external-runner proof loop.
+- Consequence: `governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2.md` is included as a narrative operator bridge artifact only, not milestone proof by itself.
+- Consequence: the next gated step inside R10 is `R10-002 Harden external-runner artifact identity contract for closeout use`.

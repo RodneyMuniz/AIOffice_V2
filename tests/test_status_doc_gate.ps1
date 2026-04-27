@@ -17,7 +17,8 @@ function New-StatusDocHarness {
         "execution\KANBAN.md",
         "governance\DECISION_LOG.md",
         "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md",
-        "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md"
+        "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md",
+        "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
     )
 
     foreach ($relativePath in $paths) {
@@ -36,6 +37,7 @@ function New-StatusDocHarness {
         DecisionLogPath = Join-Path $Root "governance\DECISION_LOG.md"
         R8AuthorityPath = Join-Path $Root "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md"
         R9AuthorityPath = Join-Path $Root "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md"
+        R10AuthorityPath = Join-Path $Root "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
     }
 }
 
@@ -112,11 +114,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or $liveValidation.ActiveMilestone -ne "none" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed and R9 narrowly closed."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Opened -or $liveValidation.ActiveMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 1 -or $liveValidation.R10PlannedStart -ne 2 -or $liveValidation.R10PlannedThrough -ne 8) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 active through R10-001 only."
     }
     else {
-        Write-Output ("PASS valid current R9 closeout status: R8 through R8-{0} complete, '{1}' most recently closed, and R9 through R9-{2} closed" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R9DoneThrough.ToString("000"))
+        Write-Output ("PASS valid current R10 opening status: R8 through R8-{0} complete, '{1}' most recently closed, and R10 through R10-{2} active with R10-{3} through R10-{4} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R10PlannedStart.ToString("000"), $liveValidation.R10PlannedThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -152,15 +154,33 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
+    Invoke-ExpectedRefusal -Label "r10-external-proof-claim-without-run-identity" -RequiredFragments @("concrete CI or external proof artifact") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-external-proof-claim")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "A concrete CI external proof artifact exists for R10 closeout.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
     Invoke-ExpectedRefusal -Label "post-push-artifact-claim-without-artifact-ref" -RequiredFragments @("post-push verification artifact") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-post-push-artifact-claim")
         Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "A post-push verification artifact exists for R8 closeout.") -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "successor-opened-after-r9-closeout" -RequiredFragments @("successor", "R9 closeout") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-successor-opened")
-        Replace-FileText -Path $scenario.ActiveStatePath -OldValue "No active implementation milestone is open after R9 closeout." -NewValue '`R10 Next Milestone` is now active in repo truth.'
+    Invoke-ExpectedRefusal -Label "successor-opened-after-r10-opening" -RequiredFragments @("successor", "R10 opening") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-successor-opened")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R11 Next Milestone` is now active in repo truth.') -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r10-closeout-claimed-at-opening" -RequiredFragments @("R10 closeout", "R10-001") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-closeout-claim")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed in repo truth.') -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r10-limitation-only-closeout-block" -RequiredFragments @("limitation-only", "external-runner") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-limitation-only-block")
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "Limitation-only external-runner evidence is insufficient for R10 closeout" -NewValue "External-runner limitation wording omitted for R10 closeout"
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -213,6 +233,12 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
+    Invoke-ExpectedRefusal -Label "missing-r10-non-claims" -RequiredFragments @("R10 non-claim", "Codex context compaction") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-non-claims")
+        Replace-RegexInFile -Path $scenario.R10AuthorityPath -Pattern '\- no solved Codex context compaction\r?\n' -Replacement ""
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
     Invoke-ExpectedRefusal -Label "task-status-mismatch" -RequiredFragments @("does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-task-mismatch")
         Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '###\s+`R8-009`\s+Pilot\s+and\s+close\s+R8\s+narrowly\r?\n-\s+Status:\s+done' -Replacement ('### `R8-009` Pilot and close R8 narrowly' + $crlf + '- Status: planned')
@@ -222,6 +248,12 @@ try {
     Invoke-ExpectedRefusal -Label "r9-task-status-mismatch" -RequiredFragments @("R9 authority does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r9-task-mismatch")
         Replace-RegexInFile -Path $scenario.R9AuthorityPath -Pattern '###\s+`R9-007`\s+Close R9 narrowly\r?\n-\s+Status:\s+done' -Replacement ('### `R9-007` Close R9 narrowly' + $crlf + '- Status: planned')
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r10-task-status-mismatch" -RequiredFragments @("R10 authority does not match KANBAN") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-task-mismatch")
+        Replace-RegexInFile -Path $scenario.R10AuthorityPath -Pattern '###\s+`R10-008`\s+Close R10 only with real external final-head proof\r?\n-\s+Status:\s+planned' -Replacement ('### `R10-008` Close R10 only with real external final-head proof' + $crlf + '- Status: done')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

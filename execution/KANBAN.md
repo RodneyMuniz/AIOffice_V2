@@ -3,10 +3,10 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-No active implementation milestone is open after R9 closeout.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 
 Current posture:
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is closed narrowly in repo truth with `R9-001` through `R9-007` complete. The closeout proof package is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`. No active successor milestone is open. R9 closes only as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path. R9 did not prove real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-001` only. `R10-002` through `R10-008` remain planned only. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
 ## Most Recently Closed Milestone
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
@@ -24,6 +24,79 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R10-001` Open R10 narrowly and freeze boundary
+- Status: done
+- Order: 1
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: post-R9 final-head support commit `3c225f863add07f64a9026661d9465d02024a83d`, `D-0061`
+- Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: repo-truth surfaces that open R10 narrowly and freeze the boundary
+- Done when: R10 is active in repo truth, R9 remains most recently closed, R10 scope is external-runner artifact identity plus exact final-head clean replay only, and limitation-only external-runner evidence is explicitly insufficient for R10 closeout
+
+### `R10-002` Harden external-runner artifact identity contract for closeout use
+- Status: planned
+- Order: 2
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-001`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: closeout-facing external-runner identity validation hardening
+- Done when: validation rejects empty/synthetic run identity, missing workflow identity, missing artifact identity, missing exact head/tree, success without command logs, success without final-head support evidence, and unavailable limitation described as proof
+
+### `R10-003` Build the external proof artifact bundle format
+- Status: planned
+- Order: 3
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-002`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: standard external proof artifact bundle format
+- Done when: a standard bundle format exists for repository, branch, triggering ref, runner identity, run ID/URL, artifact identity, remote/tested head/tree, clean status, command manifest, logs, exit codes, verdict, refusal reasons, and non-claims
+
+### `R10-004` Wire one GitHub Actions or equivalent runner path
+- Status: planned
+- Order: 4
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-003`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: one focused external runner path
+- Done when: one real external runner path can be triggered on the feature branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage
+
+### `R10-005` Capture one real external run identity
+- Status: planned
+- Order: 5
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-004`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: one committed external run identity packet
+- Done when: a committed packet contains real run ID, run URL, workflow name/ref, runner identity, artifact name, artifact retrieval instruction, head SHA, tree SHA, branch, run status, conclusion, QA/evidence refs, and non-claims
+- This task is not complete if the packet says only `unavailable`.
+
+### `R10-006` Add external-runner-consuming QA signoff
+- Status: planned
+- Order: 6
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-005`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: QA signoff validation tied to real external runner artifacts
+- Done when: QA signoff validation rejects local-only QA for R10 closeout, executor-only evidence, missing external run packet, missing artifact retrieval instruction, missing final-head support ref, and external-runner limitation presented as QA proof
+
+### `R10-007` Add two-phase final-head closeout support procedure
+- Status: planned
+- Order: 7
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-006`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
+- Durable output: non-self-referential final-head closeout support procedure
+- Done when: the repo distinguishes candidate closeout commit, external run identity, final-head support commit, and final accepted R10 posture
+
+### `R10-008` Close R10 only with real external final-head proof
+- Status: planned
+- Order: 8
+- Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+- Depends on: `R10-007`
+- Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, `governance/DECISION_LOG.md`
+- Durable output: future R10 proof package only if real external final-head proof exists
+- Done when: R10 proof package exists, real external run identity exists, external artifact bundle is referenced and retrievable, final-head support packet exists after push, status-doc gate passes, non-claims are preserved, and no successor milestone is opened
 
 ### `R9-001` Open R9 and freeze boundary
 - Status: done
@@ -178,9 +251,12 @@ Earlier closed milestone:
 - swarms
 - broad autonomous milestone execution
 - unattended automatic resume
+- solved Codex context compaction
+- hours-long unattended milestone execution
 - destructive rollback on the primary working tree
 - production-grade general CI for every future workflow
 - productized control-room behavior
 - general "Codex is now reliable" claims
 - claiming Codex context compaction is solved
 - claiming hours-long milestones can now run unattended
+- closing R10 on limitation-only external-runner evidence

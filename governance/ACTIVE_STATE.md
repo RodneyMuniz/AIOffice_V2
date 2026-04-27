@@ -3,7 +3,7 @@
 Last reconciled: 2026-04-27
 
 ## Status Summary
-The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is closed in repo truth with `R8-001` through `R8-009` complete, and `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now closed narrowly in repo truth with `R9-001` through `R9-007` complete.
+The repo has closed out the first bounded V1 proof for the narrow boundary of supervised workflow through `architect` plus bounded `apply/promotion` control. `RST-009`, `RST-010`, `RST-011`, and `RST-012` remain complete and externally accepted, bounded R3 remains complete in repo truth, bounded R4 is complete and closed in repo truth, bounded R5 is complete and formally closed in repo truth through `governance/POST_R5_CLOSEOUT.md` and `governance/POST_R5_AUDIT_INDEX.md`, `R6 Supervised Milestone Autocycle Pilot` remains honestly closed in repo truth on the original replay-closeout acceptance bar, `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed in repo truth with `R7-001` through `R7-009` complete, `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` is closed in repo truth with `R8-001` through `R8-009` complete, `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now closed narrowly in repo truth with `R9-001` through `R9-007` complete, and `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active in repo truth through `R10-001` only.
 
 ## Currently True
 - The repo is operating from reset-era governance only.
@@ -114,6 +114,11 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - `R9-006` is complete through one tiny bounded segmented control-path pilot under `state/pilots/r9_tiny_segmented_milestone_pilot/`, with one segment dispatch/checkpoint/result, local QA evidence, isolated QA signoff, advisory audit summary, advisory operator decision packet, and focused proof through `tests/test_r9_tiny_segmented_pilot.ps1`.
 - `R9-007` is complete through the narrow closeout proof-review package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
 - R9 is bounded to isolated QA, exact-final remote-head support evidence, real external or CI runner artifact identity if available, continuity-managed execution segments, and one tiny segmented milestone pilot only.
+- `R10-001` is complete as the repo-truth opening and boundary-freeze step for `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`.
+- `R10-002` through `R10-008` remain planned only.
+- R10 is bounded to external-runner artifact identity plus exact final-head clean replay only. Opening R10 does not implement external runner proof, prove real CI, prove external QA, solve Codex context compaction, prove unattended automatic resume, prove hours-long unattended milestone execution, or prove broad autonomous milestone execution.
+- Limitation-only external-runner evidence is insufficient for R10 closeout.
+- The operator-facing bridge artifact for the R9-to-R10 transition is `governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2.md`. It is a narrative report artifact only, not milestone proof by itself.
 - The operator-facing bridge artifact for the R5-to-R6 transition is `governance/reports/AIOffice_V2_R5_Audit_and_R6_Planning_Report_v2.md`. It is a report artifact, not milestone proof by itself.
 - The `governance/Product Vision V1 baseline/` folder remains reference-only direction material and is not milestone evidence.
 
@@ -134,21 +139,24 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - any broad UI or control-room productization
 - any Standard or subproject pipeline productization
 - any unattended operation or broader product completeness
+- any real external or CI runner proof for R10 before a concrete run identity and artifact bundle exist
+- any R10 closeout claim before real external final-head proof exists
 
 ## Active Milestone
-No active implementation milestone is open after R9 closeout.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-001` only.
 
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now closed in repo truth. `R9-001` through `R9-007` complete one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path only, with closeout authority under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
+`R10-001` is complete as the opening and boundary-freeze step. `R10-002` through `R10-008` remain planned only. Opening R10 does not implement external runner proof, does not prove real CI, does not prove external QA, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is the most recently closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`. `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the prior closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`. `R7 Fault-Managed Continuity and Rollback Drill` remains the earlier closed milestone under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`. `R6 Supervised Milestone Autocycle Pilot` remains honestly closed under `governance/R6_SUPERVISED_MILESTONE_AUTOCYCLE_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r6_supervised_milestone_autocycle_pilot/`, and decision authority `D-0041`.
 
 R9 existed because closed R8 still preserved major cautions: no concrete CI or external runner artifact identity was claimed, no committed exact-final post-push verification artifact existed in repo truth, no final-head clean-checkout replay after closeout push was claimed, and Codex context-window failure still needed durable segment-level recovery from repo state instead of chat memory. `R9-002` adds the first isolated QA signoff authority surface, `R9-003` defines the final remote-head support model, `R9-004` records the external-runner identity path plus an explicit no-real-run limitation for this environment, `R9-005` defines the first durable execution-segment continuity artifact model, `R9-006` runs one tiny bounded segmented control-path pilot, and `R9-007` closes R9 narrowly. R9 did not prove external QA, CI QA, real external/CI runner artifact identity, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
 
 ## Next Gated Step
-- No active successor implementation milestone is open.
-- Do not treat the R9 closeout as proof of real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, or broad autonomous milestone execution.
+- `R10-002 Harden external-runner artifact identity contract for closeout use`.
+- Do not treat the R10 opening as proof of real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, or broad autonomous milestone execution.
 - Do not treat the `R9-004` limitation artifact as external proof.
-- Do not start UI, Standard runtime, swarms, multi-repo orchestration, or broad autonomy from the R9 closeout.
+- Do not close R10 on limitation-only external-runner evidence.
+- Do not start UI, Standard runtime, swarms, multi-repo orchestration, or broad autonomy from the R9 closeout or R10 opening.
 
 ## Guardrails
 - Do not import old tasks or milestone chains.
@@ -183,3 +191,5 @@ R9 existed because closed R8 still preserved major cautions: no concrete CI or e
 - Do not treat the R9-006 tiny pilot as proof of R9 closeout, real external or CI runner artifact identity, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, or broad autonomous milestone execution.
 - Do not treat R9 closeout as proof of real external/CI runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
 - Do not treat R9 as a claim that Codex context compaction is solved or that hours-long milestones can run unattended.
+- Do not treat opening R10 as proof of real CI, external runner proof, external QA, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
+- Do not close R10 on another limitation-only external-runner record.
