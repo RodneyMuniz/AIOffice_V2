@@ -1,7 +1,21 @@
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$module = Import-Module (Join-Path $repoRoot "tools\ExternalProofArtifactBundle.psm1") -Force -PassThru
+function Join-PathSegments {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Segments
+    )
+
+    $path = $Segments[0]
+    foreach ($segment in @($Segments | Select-Object -Skip 1)) {
+        $path = Join-Path $path $segment
+    }
+
+    return $path
+}
+
+$module = Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalProofArtifactBundle.psm1")) -Force -PassThru
 $testExternalProofArtifactBundle = $module.ExportedCommands["Test-ExternalProofArtifactBundleContract"]
 
 function Get-JsonDocument {
@@ -10,7 +24,8 @@ function Get-JsonDocument {
         [string]$Path
     )
 
-    return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    $document = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    Write-Output -NoEnumerate $document
 }
 
 function Write-JsonDocument {
@@ -32,10 +47,10 @@ function New-ExternalProofBundleFixtureRoot {
     )
 
     $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r10externalproofbundle" + [guid]::NewGuid().ToString("N").Substring(0, 8))
-    $sourceRoot = Join-Path $repoRoot "state\fixtures\valid\external_proof_bundle"
+    $sourceRoot = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "valid", "external_proof_bundle")
     $fixtureRoot = Join-Path $tempRoot $Label
-    New-Item -ItemType Directory -Path (Split-Path -Parent $fixtureRoot) -Force | Out-Null
-    Copy-Item -LiteralPath $sourceRoot -Destination $fixtureRoot -Recurse -Force
+    New-Item -ItemType Directory -Path $fixtureRoot -Force | Out-Null
+    Get-ChildItem -LiteralPath $sourceRoot | Copy-Item -Destination $fixtureRoot -Recurse -Force
     return $fixtureRoot
 }
 
@@ -129,9 +144,26 @@ function Invoke-MutatedRefusal {
 $validPassed = 0
 $invalidRejected = 0
 $failures = @()
-$validFixture = Join-Path $repoRoot "state\fixtures\valid\external_proof_bundle\external_proof_artifact_bundle.valid.json"
+$validFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "valid", "external_proof_bundle", "external_proof_artifact_bundle.valid.json")
 
 try {
+    $validFixtureDocument = Get-JsonDocument -Path $validFixture
+    if ($validFixtureDocument.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($validFixtureDocument.contract_version)) {
+        throw "Valid fixture contract_version did not load as a non-empty string from the repository fixture path."
+    }
+
+    $copiedFixtureRoot = New-ExternalProofBundleFixtureRoot -Label "cross-platform-fixture-copy"
+    try {
+        $copiedFixturePath = Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json"
+        $copiedFixtureDocument = Get-JsonDocument -Path $copiedFixturePath
+        if ($copiedFixtureDocument.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($copiedFixtureDocument.contract_version)) {
+            throw "Copied fixture contract_version did not load as a non-empty string from the temp fixture path."
+        }
+    }
+    finally {
+        Remove-FixtureForBundle -BundlePath (Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json")
+    }
+
     $validResult = & $testExternalProofArtifactBundle -BundlePath $validFixture
     if (-not $validResult.IsPassingBundleShape -or $validResult.CommandCount -ne 1) {
         $failures += "FAIL valid: validator-only external proof bundle shape did not validate as a passing bundle shape."

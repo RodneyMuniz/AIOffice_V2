@@ -104,6 +104,13 @@ try {
     Assert-TextContains -Text $runnerText -Pattern 'command_manifest\.json' -Message "Runner must emit a command manifest."
     Assert-TextContains -Text $runnerText -Pattern 'artifact_retrieval_README\.txt' -Message "Runner must emit artifact retrieval instructions."
     Assert-TextContains -Text $runnerText -Pattern 'validate_external_proof_artifact_bundle\.ps1' -Message "Runner must validate the generated bundle with the R10-003 validator."
+    Assert-TextContains -Text $runnerText -Pattern 'System\.UriBuilder' -Message "Runner must build file URIs explicitly for Linux-compatible relative refs."
+    Assert-TextContains -Text $runnerText -Pattern 'UriSchemeFile' -Message "Runner relative-ref conversion must use file-scheme URIs."
+    Assert-TextContains -Text $runnerText -Pattern 'CommandExecutable' -Message "Runner must invoke focused commands through explicit executables."
+    Assert-TextContains -Text $runnerText -Pattern 'CommandArguments' -Message "Runner must invoke focused commands through explicit argument arrays."
+    if ($runnerText -match '"-Command",\s*\$Command') {
+        throw "Runner must not wrap proof commands in nested pwsh -Command invocation."
+    }
 
     foreach ($requiredCommand in @(
             'tests/test_external_proof_artifact_bundle\.ps1',

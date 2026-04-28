@@ -10,6 +10,20 @@ function Get-ModuleRepositoryRootPath {
     return (Resolve-Path -LiteralPath (Get-RepositoryRoot)).Path
 }
 
+function Join-RepositoryPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Segments
+    )
+
+    $path = Get-RepositoryRoot
+    foreach ($segment in $Segments) {
+        $path = Join-Path $path $segment
+    }
+
+    return $path
+}
+
 function Resolve-PathValue {
     param(
         [Parameter(Mandatory = $true)]
@@ -57,7 +71,8 @@ function Get-JsonDocument {
     )
 
     try {
-        return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+        $document = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+        Write-Output -NoEnumerate $document
     }
     catch {
         throw "$Label at '$Path' is not valid JSON. $($_.Exception.Message)"
@@ -89,7 +104,8 @@ function Get-RequiredProperty {
         throw "$Context is missing required field '$Name'."
     }
 
-    Write-Output -NoEnumerate ($Object.$Name)
+    $property = $Object.PSObject.Properties[$Name]
+    Write-Output -NoEnumerate $property.Value
 }
 
 function Assert-NonEmptyString {
@@ -263,11 +279,11 @@ function Assert-RequiredReference {
 }
 
 function Get-ExternalProofBundleFoundationContract {
-    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_proof_bundle\foundation.contract.json") -Label "External proof bundle foundation contract"
+    return Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "foundation.contract.json")) -Label "External proof bundle foundation contract"
 }
 
 function Get-ExternalProofArtifactBundleContract {
-    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_proof_bundle\external_proof_artifact_bundle.contract.json") -Label "External proof artifact bundle contract"
+    return Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "external_proof_artifact_bundle.contract.json")) -Label "External proof artifact bundle contract"
 }
 
 function Assert-RequiredNonClaims {

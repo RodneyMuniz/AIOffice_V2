@@ -617,3 +617,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: run `25033063285` completed with conclusion `failure`; it captures one real external runner identity, but successful external proof is not established.
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: this decision does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.
+
+## D-0070 R10-005A Corrected External Proof Bundle Linux Validation
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005A` fixes the Linux/pwsh external proof bundle validation and relative artifact-ref handling failure exposed by run `25033063285`.
+- Consequence: the failed validation analysis is recorded at `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`.
+- Consequence: the external proof bundle validator and tests now use explicit cross-platform fixture paths and preserve JSON document shape, and the R10 bundle runner now builds file-scheme URIs for relative artifact refs and invokes proof commands through explicit executables and argument arrays.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: this correction does not create a new R10-005 identity packet, does not establish successful external proof, does not claim external QA proof, does not claim final-head clean replay, does not claim broad CI/product coverage, and does not close R10.

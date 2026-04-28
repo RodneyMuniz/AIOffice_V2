@@ -38,8 +38,19 @@ function ConvertTo-RelativeRef {
     $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
     $trimChars = @([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
     $basePathWithSeparator = $resolvedBasePath.TrimEnd($trimChars) + [System.IO.Path]::DirectorySeparatorChar
-    $baseUri = [System.Uri]$basePathWithSeparator
-    $pathUri = [System.Uri]$resolvedPath
+
+    $baseUriBuilder = [System.UriBuilder]::new()
+    $baseUriBuilder.Scheme = [System.Uri]::UriSchemeFile
+    $baseUriBuilder.Host = ""
+    $baseUriBuilder.Path = $basePathWithSeparator
+
+    $pathUriBuilder = [System.UriBuilder]::new()
+    $pathUriBuilder.Scheme = [System.Uri]::UriSchemeFile
+    $pathUriBuilder.Host = ""
+    $pathUriBuilder.Path = $resolvedPath
+
+    $baseUri = $baseUriBuilder.Uri
+    $pathUri = $pathUriBuilder.Uri
     return [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($pathUri).ToString())
 }
 
@@ -75,6 +86,10 @@ function Invoke-CommandForBundle {
         [Parameter(Mandatory = $true)]
         [string]$Command,
         [Parameter(Mandatory = $true)]
+        [string]$CommandExecutable,
+        [Parameter(Mandatory = $true)]
+        [string[]]$CommandArguments,
+        [Parameter(Mandatory = $true)]
         [string]$LogRoot,
         [Parameter(Mandatory = $true)]
         [string]$BundleRoot,
@@ -86,8 +101,8 @@ function Invoke-CommandForBundle {
     $stderrPath = Join-Path $LogRoot ("{0}.stderr.log" -f $CommandId)
     $exitCodePath = Join-Path $LogRoot ("{0}.exit_code.txt" -f $CommandId)
 
-    $process = Start-Process -FilePath (Get-PowerShellExecutable) `
-        -ArgumentList @("-NoProfile", "-Command", $Command) `
+    $process = Start-Process -FilePath $CommandExecutable `
+        -ArgumentList $CommandArguments `
         -WorkingDirectory $RepositoryRoot `
         -RedirectStandardOutput $stdoutPath `
         -RedirectStandardError $stderrPath `
@@ -197,22 +212,32 @@ try {
     $commands = @(
         [pscustomobject]@{
             command_id = "external-proof-artifact-bundle"
+            executable = $powershellExecutable
+            arguments = @("-NoProfile", "-File", "tests/test_external_proof_artifact_bundle.ps1")
             command = "$powershellExecutable -NoProfile -File tests/test_external_proof_artifact_bundle.ps1"
         },
         [pscustomobject]@{
             command_id = "external-runner-closeout-identity"
+            executable = $powershellExecutable
+            arguments = @("-NoProfile", "-File", "tests/test_external_runner_closeout_identity.ps1")
             command = "$powershellExecutable -NoProfile -File tests/test_external_runner_closeout_identity.ps1"
         },
         [pscustomobject]@{
             command_id = "status-doc-gate-test"
+            executable = $powershellExecutable
+            arguments = @("-NoProfile", "-File", "tests/test_status_doc_gate.ps1")
             command = "$powershellExecutable -NoProfile -File tests/test_status_doc_gate.ps1"
         },
         [pscustomobject]@{
             command_id = "status-doc-gate-validator"
+            executable = $powershellExecutable
+            arguments = @("-NoProfile", "-File", "tools/validate_status_doc_gate.ps1")
             command = "$powershellExecutable -NoProfile -File tools/validate_status_doc_gate.ps1"
         },
         [pscustomobject]@{
             command_id = "git-diff-check"
+            executable = "git"
+            arguments = @("diff", "--check")
             command = "git diff --check"
         }
     )
@@ -220,12 +245,17 @@ try {
     $commandManifestPath = Join-Path $artifactsRoot "command_manifest.json"
     Write-JsonFile -Path $commandManifestPath -Value ([pscustomobject]@{
             note = "Focused R10-004 external proof bundle command set. This manifest is not broad CI/product coverage."
-            commands = $commands
+            commands = @($commands | ForEach-Object {
+                    [pscustomobject]@{
+                        command_id = $_.command_id
+                        command = $_.command
+                    }
+                })
         })
 
     $commandResults = @()
     foreach ($commandSpec in $commands) {
-        $commandResults += Invoke-CommandForBundle -CommandId $commandSpec.command_id -Command $commandSpec.command -LogRoot $artifactsRoot -BundleRoot $resolvedOutputRoot -RepositoryRoot $resolvedRepositoryRoot
+        $commandResults += Invoke-CommandForBundle -CommandId $commandSpec.command_id -Command $commandSpec.command -CommandExecutable $commandSpec.executable -CommandArguments $commandSpec.arguments -LogRoot $artifactsRoot -BundleRoot $resolvedOutputRoot -RepositoryRoot $resolvedRepositoryRoot
     }
 
     $cleanStatusAfter = Write-CleanStatusEvidence -Path $cleanStatusAfterPath -Label "after_commands"

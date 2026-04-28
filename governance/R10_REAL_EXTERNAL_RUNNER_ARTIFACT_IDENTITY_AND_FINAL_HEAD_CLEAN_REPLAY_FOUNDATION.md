@@ -50,6 +50,8 @@ R10-005 captured real run ID `25033063285` at `https://github.com/RodneyMuniz/AI
 
 Run `25033063285` completed with conclusion `failure`; it is a real external runner identity capture, but successful external proof is not established.
 
+R10-005A is complete as a corrective support slice for the failed Linux/pwsh external proof bundle validation path. The analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`.
+
 R10 still has not produced a successful external proof artifact bundle.
 
 R10 still has not produced external QA proof.
@@ -165,6 +167,7 @@ R10 does not currently prove and must not casually widen into:
 - Done when: a committed packet contains real run ID, run URL, workflow name/ref, runner identity, artifact name, artifact retrieval instruction, head SHA, tree SHA, branch, run status, conclusion, QA/evidence refs, and non-claims.
 - Durable output: `state/external_runs/r10_external_proof_bundle/25033063285/external_runner_closeout_identity.json`, `state/external_runs/r10_external_proof_bundle/25033063285/RUN_IDENTITY_SUMMARY.md`, `state/external_runs/r10_external_proof_bundle/25033063285/artifact_retrieval_instructions.md`, raw run metadata under `state/external_runs/r10_external_proof_bundle/25033063285/raw_logs/`, and downloaded artifact contents under `state/external_runs/r10_external_proof_bundle/25033063285/downloaded_artifact/`.
 - Result: run `25033063285` completed with conclusion `failure`; this captures one real external runner identity and artifact reference, but successful external proof is not established.
+- Corrective support: `R10-005A` fixes Linux/pwsh external proof bundle validation and relative artifact-ref handling after failed run `25033063285`; the failure analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`. R10 remains active through `R10-005` only.
 
 ### `R10-006` Add external-runner-consuming QA signoff
 - Status: planned
@@ -186,6 +189,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-004` wires one external runner path through a controlled GitHub Actions workflow and runner script. Workflow existence alone is not proof of a successful run.
 - `R10-004B` moves the workflow to `ubuntu-latest` with `pwsh` after failed run `25032362789` proved the Windows checkout path could hit filename-too-long errors before bundle creation. That failed run uploaded no artifact, created no R10-005 packet, and is not accepted as R10-005 proof.
 - `R10-005` captures real GitHub Actions run `25033063285` and artifact `r10-external-proof-bundle-25033063285-1` as a completed failed external runner identity. This is not successful external proof, not external QA proof, not final-head clean replay, and not R10 closeout.
+- `R10-005A` corrects the Linux/pwsh validation and artifact-ref handling failure exposed by run `25033063285`. It does not create a new identity packet and does not establish successful external proof.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.
 - `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.
