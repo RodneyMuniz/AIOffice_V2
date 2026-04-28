@@ -74,6 +74,26 @@ try {
         $validPassed += 1
     }
 
+    $timestampPath = Write-TestJson -Name "timestamps.json" -Content '{"contract_version":"v1","created_at_utc":"2026-04-28T00:00:00Z","triggered_at_utc":"2026-04-28T00:01:00Z","completed_at_utc":"2026-04-28T00:02:00Z"}'
+    $timestampDocument = Read-SingleJsonObject -Path $timestampPath -Label "Timestamp object root"
+    if ($timestampDocument.created_at_utc -isnot [string] -or $timestampDocument.triggered_at_utc -isnot [string] -or $timestampDocument.completed_at_utc -isnot [string]) {
+        $failures += "FAIL valid: root timestamp fields did not remain strings."
+    }
+    else {
+        Write-Output "PASS valid: root timestamp fields remain strings."
+        $validPassed += 1
+    }
+
+    $nestedTimestampPath = Write-TestJson -Name "nested-timestamps.json" -Content '{"contract_version":"v1","meta":{"created_at_utc":"2026-04-28T00:03:00Z"},"items":[{"completed_at_utc":"2026-04-28T00:04:00Z"},{"observed_at_utc":"2026-04-28T00:05:00Z"}]}'
+    $nestedTimestampDocument = Read-SingleJsonObject -Path $nestedTimestampPath -Label "Nested timestamp object root"
+    if ($nestedTimestampDocument.meta.created_at_utc -isnot [string] -or @($nestedTimestampDocument.items)[0].completed_at_utc -isnot [string] -or @($nestedTimestampDocument.items)[1].observed_at_utc -isnot [string]) {
+        $failures += "FAIL valid: nested or array timestamp fields did not remain strings."
+    }
+    else {
+        Write-Output "PASS valid: nested object and array timestamp fields remain strings."
+        $validPassed += 1
+    }
+
     $nestedArrayPath = Write-TestJson -Name "nested-array.json" -Content '{"contract_version":"v1","items":[{"id":"one"},{"id":"two"}]}'
     $nestedArrayDocument = Read-SingleJsonObject -Path $nestedArrayPath -Label "Nested array object root"
     if ($nestedArrayDocument.items.Count -ne 2 -or $nestedArrayDocument.contract_version -ne "v1") {

@@ -5,6 +5,66 @@ function Get-ConvertFromJsonNoEnumerateSupport {
     return $command.Parameters.ContainsKey("NoEnumerate")
 }
 
+function Get-ConvertFromJsonDateKindStringSupport {
+    $command = Get-Command -Name ConvertFrom-Json -ErrorAction Stop
+    return $command.Parameters.ContainsKey("DateKind")
+}
+
+function Convert-DateValueToJsonString {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Value
+    )
+
+    if ($Value -is [datetime]) {
+        return $Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", [System.Globalization.CultureInfo]::InvariantCulture)
+    }
+
+    if ($Value -is [datetimeoffset]) {
+        return $Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", [System.Globalization.CultureInfo]::InvariantCulture)
+    }
+
+    return $Value
+}
+
+function Convert-JsonDatesToStrings {
+    [CmdletBinding()]
+    param(
+        [AllowNull()]
+        $Value
+    )
+
+    if ($null -eq $Value) {
+        $PSCmdlet.WriteObject($null, $false)
+        return
+    }
+
+    if ($Value -is [datetime] -or $Value -is [datetimeoffset]) {
+        $PSCmdlet.WriteObject((Convert-DateValueToJsonString -Value $Value), $false)
+        return
+    }
+
+    if ($Value -is [System.Array]) {
+        for ($index = 0; $index -lt $Value.Count; $index += 1) {
+            $Value[$index] = Convert-JsonDatesToStrings -Value $Value[$index]
+        }
+
+        $PSCmdlet.WriteObject($Value, $false)
+        return
+    }
+
+    if ($Value -is [pscustomobject]) {
+        foreach ($property in @($Value.PSObject.Properties)) {
+            $property.Value = Convert-JsonDatesToStrings -Value $property.Value
+        }
+
+        $PSCmdlet.WriteObject($Value, $false)
+        return
+    }
+
+    $PSCmdlet.WriteObject($Value, $false)
+}
+
 function Assert-SingleJsonRootObject {
     param(
         [AllowNull()]
@@ -63,17 +123,26 @@ function Read-SingleJsonObject {
     }
 
     try {
+        $convertParameters = @{
+            InputObject = $json
+        }
+
         if (Get-ConvertFromJsonNoEnumerateSupport) {
-            $document = ConvertFrom-Json -InputObject $json -NoEnumerate
+            $convertParameters["NoEnumerate"] = $true
         }
-        else {
-            $document = ConvertFrom-Json -InputObject $json
+
+        if (Get-ConvertFromJsonDateKindStringSupport) {
+            $convertParameters["DateKind"] = "String"
         }
+
+        $document = ConvertFrom-Json @convertParameters
     }
     catch {
         throw "$Label at '$Path' is not valid JSON. $($_.Exception.Message)"
     }
 
+    Assert-SingleJsonRootObject -Document $document -Label $Label
+    $document = Convert-JsonDatesToStrings -Value $document
     Assert-SingleJsonRootObject -Document $document -Label $Label
     return $document
 }
@@ -103,4 +172,4 @@ function Test-JsonRootShape {
     }
 }
 
-Export-ModuleMember -Function Read-SingleJsonObject, Assert-SingleJsonRootObject, Test-JsonRootShape, Get-ConvertFromJsonNoEnumerateSupport
+Export-ModuleMember -Function Read-SingleJsonObject, Assert-SingleJsonRootObject, Test-JsonRootShape, Get-ConvertFromJsonNoEnumerateSupport, Get-ConvertFromJsonDateKindStringSupport

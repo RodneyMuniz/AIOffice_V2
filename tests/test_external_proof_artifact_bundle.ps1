@@ -19,6 +19,21 @@ Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalProofA
 Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "JsonRoot.psm1")) -Force
 $testExternalProofArtifactBundle = Get-Command -Name "Test-ExternalProofArtifactBundleContract" -ErrorAction Stop
 
+function Assert-TimestampStringVisible {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$FieldName,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($Document.$FieldName -isnot [string] -or [string]::IsNullOrWhiteSpace($Document.$FieldName)) {
+        throw "$Label $FieldName did not load as a non-empty string."
+    }
+}
+
 function Assert-ContractVersionVisible {
     param(
         [Parameter(Mandatory = $true)]
@@ -163,12 +178,14 @@ $validFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "v
 try {
     $validFixtureDocument = Get-JsonDocument -Path $validFixture
     Assert-ContractVersionVisible -Document $validFixtureDocument -Label "Valid repository fixture"
+    Assert-TimestampStringVisible -Document $validFixtureDocument -FieldName "created_at_utc" -Label "Valid repository fixture"
 
     $copiedFixtureRoot = New-ExternalProofBundleFixtureRoot -Label "cross-platform-fixture-copy"
     try {
         $copiedFixturePath = Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json"
         $copiedFixtureDocument = Get-JsonDocument -Path $copiedFixturePath
         Assert-ContractVersionVisible -Document $copiedFixtureDocument -Label "Copied temp fixture"
+        Assert-TimestampStringVisible -Document $copiedFixtureDocument -FieldName "created_at_utc" -Label "Copied temp fixture"
     }
     finally {
         Remove-FixtureForBundle -BundlePath (Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json")
@@ -308,6 +325,18 @@ try {
     Invoke-MutatedRefusal -Label "missing-command-manifest-ref" -RequiredFragments @("command_manifest_ref", "non-empty string") -Mutation {
         param($bundle)
         $bundle.command_manifest_ref = ""
+    }
+
+    Invoke-MutatedRefusal -Label "missing-created-at-utc" -RequiredFragments @("missing required field", "created_at_utc") -Mutation {
+        param($bundle)
+        $bundle.PSObject.Properties.Remove("created_at_utc")
+    }
+
+    Invoke-MutatedRefusal -Label "non-string-created-at-utc" -RequiredFragments @("created_at_utc", "non-empty string") -Mutation {
+        param($bundle)
+        $bundle.created_at_utc = [pscustomobject]@{
+            value = "2026-04-28T00:10:00Z"
+        }
     }
 
     Invoke-MutatedRefusal -Label "command-manifest-ref-does-not-resolve" -RequiredFragments @("command_manifest_ref", "does not exist") -Mutation {

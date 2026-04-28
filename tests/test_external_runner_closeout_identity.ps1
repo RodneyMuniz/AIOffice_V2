@@ -19,6 +19,21 @@ Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalRunner
 Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "JsonRoot.psm1")) -Force
 $testExternalRunnerCloseoutIdentity = Get-Command -Name "Test-ExternalRunnerCloseoutIdentityContract" -ErrorAction Stop
 
+function Assert-TimestampStringVisible {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$FieldName,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($Document.$FieldName -isnot [string] -or [string]::IsNullOrWhiteSpace($Document.$FieldName)) {
+        throw "$Label $FieldName did not load as a non-empty string."
+    }
+}
+
 function Assert-ContractVersionVisible {
     param(
         [Parameter(Mandatory = $true)]
@@ -164,12 +179,16 @@ $r9LimitationFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtur
 try {
     $validFixtureDocument = Get-JsonDocument -Path $validFixture
     Assert-ContractVersionVisible -Document $validFixtureDocument -Label "Valid closeout identity repository fixture"
+    Assert-TimestampStringVisible -Document $validFixtureDocument -FieldName "triggered_at_utc" -Label "Valid closeout identity repository fixture"
+    Assert-TimestampStringVisible -Document $validFixtureDocument -FieldName "completed_at_utc" -Label "Valid closeout identity repository fixture"
 
     $copiedFixtureRoot = New-R10CloseoutFixtureRoot -Label "cross-platform-fixture-copy"
     try {
         $copiedFixturePath = Join-Path $copiedFixtureRoot "r10_closeout_identity.valid.json"
         $copiedFixtureDocument = Get-JsonDocument -Path $copiedFixturePath
         Assert-ContractVersionVisible -Document $copiedFixtureDocument -Label "Copied closeout identity temp fixture"
+        Assert-TimestampStringVisible -Document $copiedFixtureDocument -FieldName "triggered_at_utc" -Label "Copied closeout identity temp fixture"
+        Assert-TimestampStringVisible -Document $copiedFixtureDocument -FieldName "completed_at_utc" -Label "Copied closeout identity temp fixture"
     }
     finally {
         Remove-FixtureForPacket -PacketPath (Join-Path $copiedFixtureRoot "r10_closeout_identity.valid.json")
@@ -280,6 +299,25 @@ try {
     Invoke-MutatedRefusal -Label "missing-command-manifest-ref" -RequiredFragments @("command_manifest_ref", "non-empty string") -Mutation {
         param($packet)
         $packet.command_manifest_ref = ""
+    }
+
+    Invoke-MutatedRefusal -Label "missing-triggered-at-utc" -RequiredFragments @("missing required field", "triggered_at_utc") -Mutation {
+        param($packet)
+        $packet.PSObject.Properties.Remove("triggered_at_utc")
+    }
+
+    Invoke-MutatedRefusal -Label "non-string-triggered-at-utc" -RequiredFragments @("triggered_at_utc", "non-empty string") -Mutation {
+        param($packet)
+        $packet.triggered_at_utc = [pscustomobject]@{
+            value = "2026-04-28T00:00:00Z"
+        }
+    }
+
+    Invoke-MutatedRefusal -Label "non-string-completed-at-utc" -RequiredFragments @("completed_at_utc", "non-empty string") -Mutation {
+        param($packet)
+        $packet.completed_at_utc = [pscustomobject]@{
+            value = "2026-04-28T00:05:00Z"
+        }
     }
 
     Invoke-MutatedRefusal -Label "missing-head-sha" -RequiredFragments @("head_sha", "non-empty string") -Mutation {

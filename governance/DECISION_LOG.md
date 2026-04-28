@@ -657,3 +657,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: successful external proof is still not established until a new external run passes.
 - Consequence: this correction does not retry the workflow, does not implement R10-006, does not claim external QA proof, does not claim final-head clean replay, does not close R10, and does not claim broad CI/product coverage.
+
+## D-0074 R10-005F Preserved PowerShell Core Timestamp Strings
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005F` updates the canonical JSON-root reader so timestamp-looking JSON string values remain strings under PowerShell Core, including `created_at_utc`, `triggered_at_utc`, `completed_at_utc`, and other nested timestamp fields.
+- Consequence: when `ConvertFrom-Json -DateKind String` is available it is used, and when unavailable the parsed document is normalized recursively so any `[datetime]` or `[datetimeoffset]` value is converted back to the required UTC ISO string form.
+- Consequence: focused tests now prove timestamp fields load as strings before validator invocation, nested and array timestamp strings remain strings, missing timestamp fields still fail, and explicit non-string timestamp values still fail validation.
+- Consequence: failed run `25037934779` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25037934779` exposed the timestamp coercion issue after the canonical root reader corrected the prior array-root failure class; that failed run was not committed as R10 proof evidence.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: successful external proof is still not established until a new external run passes.
+- Consequence: this correction does not retry the workflow, does not implement R10-006, does not claim external QA proof, does not claim final-head clean replay, does not close R10, and does not claim broad CI/product coverage.
