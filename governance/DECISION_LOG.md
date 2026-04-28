@@ -591,3 +591,11 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R9 remains the most recently closed milestone under `D-0061`.
 - Consequence: R10 still has not accepted a real external run identity packet, captured a real external runner identity as accepted R10-005 proof, triggered CI as accepted R10 proof, produced a real external proof artifact bundle, produced external QA proof, or performed final-head clean replay.
 - Consequence: the next gated step inside R10 is `R10-005 Capture one real external run identity`.
+
+## D-0067 Corrected R10 External Proof Workflow Dispatch Parse Issue
+- Date: 2026-04-28
+- Status: accepted
+- Decision: the R10 external proof workflow dispatch parse issue is corrected by removing the job-level `runner.temp` context from `.github/workflows/r10-external-proof-bundle.yml`, computing the output root inside the PowerShell runner step from `RUNNER_TEMP`, and hardening `tests/test_r10_external_proof_workflow.ps1` against workflow-level or job-level runner context use in `env`.
+- Consequence: this correction keeps R10 active through `R10-004` only and makes the workflow parse-safe for a later R10-005 dispatch attempt.
+- Consequence: this correction does not implement `R10-005`, does not capture an external runner identity packet, does not claim CI proof, does not claim external QA proof, and does not claim final-head clean replay.
+- Consequence: R10 still has not accepted a real external run identity packet, and `R10-005` through `R10-008` remain planned only.

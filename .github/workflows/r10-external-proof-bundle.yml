@@ -19,7 +19,6 @@ jobs:
     env:
       DEFAULT_R10_BRANCH: release/r10-real-external-runner-proof-foundation
       R10_ARTIFACT_NAME: r10-external-proof-bundle-${{ github.run_id }}-${{ github.run_attempt }}
-      R10_OUTPUT_ROOT: ${{ runner.temp }}\r10-external-proof-bundle
     steps:
       - name: Resolve requested ref
         id: resolve
@@ -50,11 +49,13 @@ jobs:
       - name: Build and validate R10 external proof bundle
         shell: powershell
         run: |
+          $outputRoot = Join-Path $env:RUNNER_TEMP "r10-external-proof-bundle"
+
           powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_r10_external_proof_bundle.ps1 `
             -RepositoryRoot . `
             -RequestedRef '${{ steps.resolve.outputs.requested_ref }}' `
             -Branch $env:DEFAULT_R10_BRANCH `
-            -OutputRoot $env:R10_OUTPUT_ROOT `
+            -OutputRoot $outputRoot `
             -ArtifactName $env:R10_ARTIFACT_NAME `
             -WorkflowName 'R10 External Proof Bundle' `
             -WorkflowRef '.github/workflows/r10-external-proof-bundle.yml'
@@ -64,5 +65,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.R10_ARTIFACT_NAME }}
-          path: ${{ env.R10_OUTPUT_ROOT }}
+          path: ${{ runner.temp }}\r10-external-proof-bundle
           if-no-files-found: error
