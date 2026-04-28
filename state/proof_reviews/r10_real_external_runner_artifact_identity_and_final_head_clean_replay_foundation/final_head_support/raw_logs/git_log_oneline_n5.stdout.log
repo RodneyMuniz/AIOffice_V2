@@ -1,0 +1,5 @@
+cfebd35 Prepare R10 candidate closeout package
+022eda4 Define R10 two-phase final-head support
+3e56b69 Add R10 external-runner-consuming QA signoff
+974910a Capture successful R10 external proof run
+3412f05 Preserve R10 JSON timestamp strings

@@ -16,7 +16,7 @@ Prove one bounded request-to-closeout milestone execution path where Codex execu
 ## Current status
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now closed in repo truth with `R9-001` through `R9-007` complete.
 
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` is now the most recently closed milestone. Its committed proof-review package is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains a prior closed milestone after R10 closeout. Its committed proof-review package is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the prior closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
 

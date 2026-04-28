@@ -1,0 +1,112 @@
+{
+    "contract_version":  "v1",
+    "packet_type":  "final_remote_head_support_packet",
+    "packet_id":  "r10-008-phase-2-final-head-support-cfebd35",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "source_milestone":  "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation",
+    "source_task":  "R10-008",
+    "phase":  "phase_2_post_push_final_head_support",
+    "candidate_closeout_commit":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+    "candidate_closeout_tree":  "9ad47c4c245d763713e120942a90bd83efdfe2df",
+    "candidate_closeout_subject":  "Prepare R10 candidate closeout package",
+    "verified_remote_head":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+    "verified_tree":  "9ad47c4c245d763713e120942a90bd83efdfe2df",
+    "verified_commit_subject":  "Prepare R10 candidate closeout package",
+    "closeout_commit":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+    "closeout_commit_subject":  "Prepare R10 candidate closeout package",
+    "verification_timing":  "after_closeout_push",
+    "support_creation_context":  {
+                                     "created_after_candidate_closeout_push":  true,
+                                     "statement":  "This support evidence is created after the candidate closeout commit was pushed and after origin/release/r10-real-external-runner-proof-foundation was verified to equal cfebd351922b192585ed5f9d3ca56bee30ea16ae.",
+                                     "candidate_closeout_commit_sha":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+                                     "candidate_closeout_tree_sha":  "9ad47c4c245d763713e120942a90bd83efdfe2df",
+                                     "phase_1_candidate_package_ref":  "state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/",
+                                     "raw_evidence_worktree":  "clean temporary detached worktree at the candidate closeout commit"
+                                 },
+    "support_packet_commit_policy":  {
+                                         "created_after_closeout_push":  true,
+                                         "not_inside_same_closeout_commit":  true,
+                                         "allowed_publication_modes":  [
+                                                                           "follow_up_support_commit"
+                                                                       ],
+                                         "statement":  "This support packet is created after the closeout push, is not inside the same closeout commit it verifies, and is published by a follow-up support commit for R10-008 Phase 2."
+                                     },
+    "verification_method":  {
+                                "method_type":  "git_remote_query",
+                                "runner_identity":  "local-r10-008-phase-2-final-head-support",
+                                "external_run_identity_ref":  "",
+                                "notes":  "Local git remote query after the R10-008 Phase 1 candidate closeout commit was pushed; raw evidence commands were captured in a clean temporary detached worktree at the candidate closeout commit. This proves only that the remote branch head equals the pushed candidate closeout commit."
+                            },
+    "remote_branch_head_evidence":  {
+                                        "ref":  "refs/heads/release/r10-real-external-runner-proof-foundation",
+                                        "raw_ls_remote_line":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae\trefs/heads/release/r10-real-external-runner-proof-foundation",
+                                        "expected_head":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+                                        "observed_head":  "cfebd351922b192585ed5f9d3ca56bee30ea16ae",
+                                        "matches_candidate_closeout_commit":  true
+                                    },
+    "raw_command_refs":  {
+                             "git_rev_parse_head":  [
+                                                        "raw_logs/git_rev_parse_head.command.txt",
+                                                        "raw_logs/git_rev_parse_head.stdout.log",
+                                                        "raw_logs/git_rev_parse_head.stderr.log",
+                                                        "raw_logs/git_rev_parse_head.exit_code.txt"
+                                                    ],
+                             "git_rev_parse_head_tree":  [
+                                                             "raw_logs/git_rev_parse_head_tree.command.txt",
+                                                             "raw_logs/git_rev_parse_head_tree.stdout.log",
+                                                             "raw_logs/git_rev_parse_head_tree.stderr.log",
+                                                             "raw_logs/git_rev_parse_head_tree.exit_code.txt"
+                                                         ],
+                             "git_ls_remote_release_branch":  [
+                                                                  "raw_logs/git_ls_remote_release_branch.command.txt",
+                                                                  "raw_logs/git_ls_remote_release_branch.stdout.log",
+                                                                  "raw_logs/git_ls_remote_release_branch.stderr.log",
+                                                                  "raw_logs/git_ls_remote_release_branch.exit_code.txt"
+                                                              ],
+                             "git_status_short":  [
+                                                      "raw_logs/git_status_short.command.txt",
+                                                      "raw_logs/git_status_short.stdout.log",
+                                                      "raw_logs/git_status_short.stderr.log",
+                                                      "raw_logs/git_status_short.exit_code.txt"
+                                                  ],
+                             "git_log_oneline_n5":  [
+                                                        "raw_logs/git_log_oneline_n5.command.txt",
+                                                        "raw_logs/git_log_oneline_n5.stdout.log",
+                                                        "raw_logs/git_log_oneline_n5.stderr.log",
+                                                        "raw_logs/git_log_oneline_n5.exit_code.txt"
+                                                    ]
+                         },
+    "verification_evidence_refs":  [
+                                       "raw_logs/git_rev_parse_head.stdout.log",
+                                       "raw_logs/git_rev_parse_head_tree.stdout.log",
+                                       "raw_logs/git_ls_remote_release_branch.stdout.log",
+                                       "raw_logs/git_status_short.stdout.log",
+                                       "raw_logs/git_log_oneline_n5.stdout.log"
+                                   ],
+    "status":  "passed",
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-04-28T12:56:31Z",
+    "non_claims":  [
+                       "no self-referential final-proof claim",
+                       "no CI or external runner claim unless an actual run identity exists",
+                       "no broad automation claim",
+                       "no solved Codex context compaction claim",
+                       "no unattended long-running milestone claim",
+                       "no completed final-head clean replay claim",
+                       "no broad CI/product coverage claim",
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended milestone execution",
+                       "no destructive rollback",
+                       "no general Codex reliability",
+                       "no successor milestone opened"
+                   ]
+}

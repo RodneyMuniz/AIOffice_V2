@@ -16,9 +16,9 @@ The operator-facing bridge report `governance/reports/AIOffice_V2_R9_Audit_and_R
 Prove one bounded external-runner evidence loop in which the exact final remote head for the milestone is replayed or verified by a real external runner or CI workflow, with concrete artifact identity, retrievable logs, exact commit/tree identity, and status-doc gating that rejects any external-proof claim without those artifacts.
 
 ## Current status
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-007` only.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed in repo truth narrowly after `R10-008` Phase 2 post-push final-head support.
 
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains the most recently closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains the prior closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
 
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains the prior closed milestone under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review package under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
 
@@ -32,9 +32,7 @@ Prove one bounded external-runner evidence loop in which the exact final remote 
 
 `R10-005` is complete as one real external runner identity capture.
 
-`R10-008` has a Phase 1 candidate package prepared at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, but remains planned until Phase 2 post-push final-head support exists.
-
-`R10-008` remains planned only.
+`R10-008` is complete through the Phase 1 candidate package at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, and Phase 2 post-push final-head support packet at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`.
 
 R10-002 hardens the closeout-use validator.
 
@@ -76,11 +74,13 @@ R10-005G has produced one successful external proof artifact bundle for the test
 
 R10-006 records external-runner-consuming QA signoff at `state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff.json`.
 
-R10 still has not executed final-head clean replay.
+R10 does not claim executed final-head clean replay beyond the Phase 2 remote-head support packet.
 
-R10 is not closed.
+R10 is closed narrowly only after Phase 2 support evidence.
 
-The full `R10-001` through `R10-008` sequence may be treated as complete only after both the candidate closeout package and post-push final-head support evidence are complete.
+The full `R10-001` through `R10-008` sequence is complete only because both the candidate closeout package and post-push final-head support evidence are complete.
+
+The narrow R10 closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened.
 
 R10 does not prove solved Codex context compaction.
 
@@ -102,8 +102,9 @@ R10 is bounded to:
 - one real external run identity packet
 - one external-runner-consuming QA signoff path
 - one two-phase final-head closeout support procedure
-- one candidate closeout package, pending post-push final-head support
-- one narrow R10 closeout path, later, only if real external final-head proof exists
+- one Phase 1 candidate closeout package
+- one Phase 2 post-push final-head support packet
+- one narrow R10 closeout path, now complete only for the bounded evidence chain recorded here
 
 ## Critical acceptance rule
 R10 must not close on another limitation-only external-runner record.
@@ -152,7 +153,7 @@ R10 must stop or fail closed if:
 - R10 scope widens into UI, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended resume, solved context compaction, hours-long execution, destructive rollback, production-grade CI for every workflow, or general Codex reliability
 
 ## Required non-claims
-R10 does not currently prove and must not casually widen into:
+R10 does not prove and must not casually widen into:
 - no UI or control-room productization
 - no Standard runtime
 - no multi-repo orchestration
@@ -211,10 +212,12 @@ R10 does not currently prove and must not casually widen into:
 - Durable output: `governance/R10_TWO_PHASE_FINAL_HEAD_CLOSEOUT_SUPPORT_PROCEDURE.md`, `contracts/post_push_support/r10_two_phase_final_head_closeout_procedure.contract.json`, `tools/R10TwoPhaseFinalHeadSupport.psm1`, `tools/validate_r10_two_phase_final_head_support.ps1`, `state/fixtures/valid/post_push_support/r10_two_phase_final_head_closeout_procedure.valid.json`, and `tests/test_r10_two_phase_final_head_support.ps1`.
 
 ### `R10-008` Close R10 only with real external final-head proof
-- Status: planned
+- Status: done
 - Done when: R10 proof package exists, real external run identity exists, external artifact bundle is referenced and retrievable, final-head support packet exists after push, status-doc gate passes, non-claims are preserved, and no successor milestone is opened.
 - Phase 1 candidate output: `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`.
-- Phase 1 boundary: the candidate package is not R10 closeout authority until Phase 2 post-push final-head support exists after the candidate commit is pushed.
+- Phase 2 support output: `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`.
+- Candidate closeout commit: `cfebd351922b192585ed5f9d3ca56bee30ea16ae`.
+- Phase 2 boundary: R10 closes narrowly only after the pushed candidate closeout commit is verified as the remote branch head by the Phase 2 support packet.
 
 ## Milestone notes
 - `R10-001` opens R10 in repo truth only. It does not implement external-runner proof, real CI, external QA, artifact-bundle validation, final-head replay, or R10 closeout.
@@ -231,5 +234,5 @@ R10 does not currently prove and must not casually widen into:
 - `R10-005F` corrects PowerShell Core timestamp string preservation in the canonical JSON-root reader. It does not retry the external workflow, does not implement R10-006, does not create successful external proof, and does not close R10.
 - `R10-005G` captures successful GitHub Actions run `25040949422` and artifact `r10-external-proof-bundle-25040949422-1` as one bounded external runner proof run. By itself, it did not implement R10-006, did not produce external-runner-consuming QA signoff, did not perform final-head clean replay, did not close R10, and did not prove broad CI/product coverage.
 - `R10-006` adds external-runner-consuming QA signoff based on successful R10-005G evidence and ensures R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
-- `R10-007` defines the two-phase final-head closeout support procedure so a future R10-008 closeout attempt can avoid self-referential final-head proof.
-- `R10-008` has a Phase 1 candidate closeout package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, but must close R10 only after Phase 2 post-push final-head support verifies the pushed candidate closeout head, all non-claims are preserved, and no successor milestone opens.
+- `R10-007` defines the two-phase final-head closeout support procedure so R10-008 can avoid self-referential final-head proof.
+- `R10-008` has a Phase 1 candidate closeout package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/` and a Phase 2 post-push final-head support packet under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. It closes R10 narrowly only because the support packet verifies pushed candidate closeout head `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, all non-claims are preserved, and no successor milestone opens.

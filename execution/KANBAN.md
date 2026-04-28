@@ -3,10 +3,10 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
+No active implementation milestone is open after R10 closeout.
 
 Current posture:
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-007` only. `R10-008` remains planned only until the candidate package is pushed and Phase 2 post-push final-head support exists. `R10-004` wires one external runner path, and `R10-004B` improves workflow checkout compatibility after failed run `25032362789`, but workflow existence and failed-run analysis are not proof of a successful run. `R10-005` captures real GitHub Actions run `25033063285` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25033063285` with artifact `r10-external-proof-bundle-25033063285-1`; the run conclusion is `failure`, so it was not successful external proof. `R10-005A` corrects the Linux/pwsh validation and relative artifact-ref handling failure from that run without creating a new identity packet. `R10-005B` captures retry run `25034566460` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460` with artifact `r10-external-proof-bundle-25034566460-1`; the run also concluded `failure`, so it is diagnostic failure evidence only. `R10-005C` corrects PowerShell Core JSON-root/object-shape handling in the validators. `R10-005D` hardens the canonical JSON-root reader after failed run `25036440624` repeated the same Linux/pwsh root-shape failure class; that failed run was not committed as R10 proof evidence. `R10-005F` preserves timestamp strings in the canonical reader after failed run `25037934779` exposed timestamp coercion; that failed run was not committed as R10 proof evidence. `R10-005G` captures successful GitHub Actions run `25040949422` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25040949422` with artifact `r10-external-proof-bundle-25040949422-1` and retrieval instruction `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip`. `R10-006` adds external-runner-consuming QA signoff based on the successful R10-005G evidence. `R10-007` adds the two-phase final-head closeout support procedure. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, but R10 is not accepted as closed until Phase 2 final-head support exists after candidate push. The full R10-001 through R10-008 sequence may be treated as complete only after both the package and support evidence are complete. R10 still has not executed final-head clean replay, is not closed, does not open any successor milestone, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, does not prove broad autonomous milestone execution, and does not prove broad CI/product coverage. Limitation-only external-runner evidence is insufficient for R10 closeout.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -15,10 +15,13 @@ Previous branch:
 `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
 
 ## Most Recently Closed Milestone
-`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 
 Closeout summary:
-`R9-001` through `R9-007` are complete and formally closed in repo truth. The closeout authority is `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis is `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, the R9-006 pilot package is `state/pilots/r9_tiny_segmented_milestone_pilot/`, and decision authority is `D-0061`. This closeout remains bounded to one isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path only.
+`R10-001` through `R10-008` are complete and formally closed narrowly in repo truth. The closeout authority is `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, the candidate closeout commit is `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, and decision authority is `D-0079`. This closeout remains bounded to the R10 evidence chain and opens no successor milestone.
+
+Prior closed milestone:
+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains closed under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
 
 Prior closed milestone:
 `R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner` remains honestly closed under `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`, the committed proof-review basis under `state/proof_reviews/r8_remote_gated_qa_subagent_and_clean_checkout_proof_runner/`, and decision authority `D-0053`.
@@ -103,12 +106,12 @@ Earlier closed milestone:
 - Done when: the repo distinguishes candidate closeout commit, external run identity, final-head support commit, and final accepted R10 posture
 
 ### `R10-008` Close R10 only with real external final-head proof
-- Status: planned
+- Status: done
 - Order: 8
 - Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 - Depends on: `R10-007`
 - Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, `governance/DECISION_LOG.md`
-- Durable output: candidate package at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`; final closeout remains pending until Phase 2 post-push final-head support exists
+- Durable output: Phase 1 candidate package at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, and Phase 2 post-push final-head support packet at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`
 - Done when: R10 proof package exists, real external run identity exists, external artifact bundle is referenced and retrievable, final-head support packet exists after push, status-doc gate passes, non-claims are preserved, and no successor milestone is opened
 
 ### `R9-001` Open R9 and freeze boundary
