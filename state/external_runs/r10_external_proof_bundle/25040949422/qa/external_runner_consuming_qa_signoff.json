@@ -1,0 +1,71 @@
+{
+  "contract_version": "v1",
+  "packet_type": "external_runner_consuming_qa_signoff",
+  "packet_id": "r10-006-external-runner-consuming-qa-25040949422",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "source_milestone": "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation",
+  "source_task": "R10-006",
+  "qa_role_identity": "r10-external-runner-consuming-qa-validator",
+  "qa_runner_kind": "external_runner_consuming_qa",
+  "qa_authority_type": "isolated_external_runner_consuming_qa",
+  "external_runner_identity_ref": "state/external_runs/r10_external_proof_bundle/25040949422/external_runner_closeout_identity.json",
+  "external_proof_bundle_ref": "state/external_runs/r10_external_proof_bundle/25040949422/downloaded_artifact/external_proof_artifact_bundle.json",
+  "artifact_retrieval_ref": "state/external_runs/r10_external_proof_bundle/25040949422/artifact_retrieval_instructions.md",
+  "final_remote_head_support_ref": "state/external_runs/r10_external_proof_bundle/25040949422/support_refs/r10_005g_final_remote_head_support_ref.md",
+  "source_artifacts": [
+    {
+      "artifact_ref": "state/external_runs/r10_external_proof_bundle/25040949422/external_runner_closeout_identity.json",
+      "artifact_kind": "external_runner_identity",
+      "authority_role": "consumed_external_runner_evidence",
+      "produced_by": "github_actions:R10 External Proof Bundle",
+      "notes": "Successful R10-005G external runner identity packet for run 25040949422."
+    },
+    {
+      "artifact_ref": "state/external_runs/r10_external_proof_bundle/25040949422/downloaded_artifact/external_proof_artifact_bundle.json",
+      "artifact_kind": "external_proof_bundle",
+      "authority_role": "consumed_external_runner_evidence",
+      "produced_by": "github_actions:R10 External Proof Bundle",
+      "notes": "Downloaded R10-005G external proof artifact bundle with aggregate verdict passed."
+    },
+    {
+      "artifact_ref": "state/external_runs/r10_external_proof_bundle/25040949422/artifact_retrieval_instructions.md",
+      "artifact_kind": "artifact_retrieval_instruction",
+      "authority_role": "supporting_retrieval_evidence",
+      "produced_by": "codex:r10-005g-capture",
+      "notes": "Artifact retrieval instruction for r10-external-proof-bundle-25040949422-1."
+    },
+    {
+      "artifact_ref": "state/external_runs/r10_external_proof_bundle/25040949422/support_refs/r10_005g_final_remote_head_support_ref.md",
+      "artifact_kind": "final_remote_head_support_ref",
+      "authority_role": "supporting_final_head_reference",
+      "produced_by": "codex:r10-005g-capture",
+      "notes": "Support reference consumed for signoff packet completeness only; it is not final-head clean replay."
+    }
+  ],
+  "verdict": "passed",
+  "refusal_reasons": [],
+  "independence_boundary": {
+    "boundary_type": "separate_external_runner_consuming_qa",
+    "executor_identity": "github_actions:R10 External Proof Bundle",
+    "qa_identity": "r10-external-runner-consuming-qa-validator",
+    "executor_artifacts_role": "source_evidence_only",
+    "statement": "The QA signoff consumes the successful external runner identity, downloaded proof bundle, retrieval instructions, and support ref without treating executor-local evidence as QA authority."
+  },
+  "created_at_utc": "2026-04-28T08:12:00Z",
+  "non_claims": [
+    "no final-head clean replay claim",
+    "no R10 closeout claim",
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ]
+}

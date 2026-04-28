@@ -1,0 +1,96 @@
+{
+  "packet_type": "external_runner_consuming_qa_signoff",
+  "required_branch": "release/r10-real-external-runner-proof-foundation",
+  "required_source_milestone": "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation",
+  "required_source_task": "R10-006",
+  "required_external_run_id": "25040949422",
+  "failed_or_limitation_run_ids": [
+    "25033063285",
+    "25034566460"
+  ],
+  "required_fields": [
+    "contract_version",
+    "packet_type",
+    "packet_id",
+    "repository",
+    "branch",
+    "source_milestone",
+    "source_task",
+    "qa_role_identity",
+    "qa_runner_kind",
+    "qa_authority_type",
+    "external_runner_identity_ref",
+    "external_proof_bundle_ref",
+    "artifact_retrieval_ref",
+    "final_remote_head_support_ref",
+    "source_artifacts",
+    "verdict",
+    "refusal_reasons",
+    "independence_boundary",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "allowed_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_qa_runner_kinds": [
+    "external_runner_consuming_qa"
+  ],
+  "allowed_qa_authority_types": [
+    "isolated_external_runner_consuming_qa"
+  ],
+  "forbidden_self_certification_pattern": "(?i)(executor|self[-_ ]?certification|self[-_ ]?certified|same[-_ ]?executor)",
+  "source_artifact_required_fields": [
+    "artifact_ref",
+    "artifact_kind",
+    "authority_role",
+    "produced_by",
+    "notes"
+  ],
+  "allowed_source_artifact_kinds": [
+    "external_runner_identity",
+    "external_proof_bundle",
+    "artifact_retrieval_instruction",
+    "final_remote_head_support_ref"
+  ],
+  "forbidden_source_artifact_kinds": [
+    "executor_evidence",
+    "local_qa_evidence",
+    "r9_external_runner_limitation",
+    "failed_external_runner_identity",
+    "failed_external_proof_bundle"
+  ],
+  "allowed_artifact_authority_roles": [
+    "consumed_external_runner_evidence",
+    "supporting_retrieval_evidence",
+    "supporting_final_head_reference"
+  ],
+  "independence_boundary_required_fields": [
+    "boundary_type",
+    "executor_identity",
+    "qa_identity",
+    "executor_artifacts_role",
+    "statement"
+  ],
+  "allowed_independence_boundary_types": [
+    "separate_external_runner_consuming_qa"
+  ],
+  "required_executor_artifacts_role": "source_evidence_only",
+  "required_non_claims": [
+    "no final-head clean replay claim",
+    "no R10 closeout claim",
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ]
+}

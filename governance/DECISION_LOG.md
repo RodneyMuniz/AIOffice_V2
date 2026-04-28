@@ -678,3 +678,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this is one bounded external runner proof run only.
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: this decision does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, or broad autonomous milestone execution.
+
+## D-0076 R10-006 Added External-Runner-Consuming QA Signoff
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-006` is complete through the external-runner-consuming QA signoff contract, validator module, CLI wrapper, committed signoff packet, and focused proof at `contracts/isolated_qa/external_runner_consuming_qa_signoff.contract.json`, `tools/ExternalRunnerConsumingQaSignoff.psm1`, `tools/validate_external_runner_consuming_qa_signoff.ps1`, `state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff.json`, and `tests/test_external_runner_consuming_qa_signoff.ps1`.
+- Consequence: R10-006 consumes the successful R10-005G external runner identity packet, downloaded external proof bundle, artifact retrieval instruction, and final remote-head support ref for QA signoff.
+- Consequence: validation fails closed for missing required fields, missing QA role identity, missing QA runner kind, missing QA authority type, executor self-certification, missing external runner identity packet, missing external proof bundle, missing artifact retrieval instruction, missing final remote-head support ref, wrong external run id, non-success external runner identity, non-passed proof bundle, false head match, failed-run evidence, R9-004 limitation evidence, local-only QA evidence, executor-only QA authority, verdict/refusal contradictions, and missing non-claims.
+- Consequence: R10 remains active through `R10-006` only, and `R10-007` and `R10-008` remain planned only.
+- Consequence: this decision does not claim final-head clean replay, broad CI/product coverage, R10 closeout, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, broad autonomous milestone execution, UI, Standard runtime, multi-repo orchestration, swarms, destructive rollback, or general Codex reliability.

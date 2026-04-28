@@ -593,7 +593,7 @@ function Test-R9ClosedStatus {
 
     Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the most recently closed milestone' -Message "README must mark R9 as the most recently closed milestone."
     if ($AllowR10Active) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-005` only\.' -Message "ACTIVE_STATE must declare R10 as active through R10-005 only when R10 is open."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-006` only\.' -Message "ACTIVE_STATE must declare R10 as active through R10-006 only when R10 is open."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`' -Message "KANBAN must declare R10 as the active milestone when R10 is open."
     }
     else {
@@ -664,19 +664,20 @@ function Test-R10OpeningStatus {
         throw "R10 authority does not match KANBAN for the live R10 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 5 -or $kanbanSnapshot.PlannedStart -ne 6 -or $kanbanSnapshot.PlannedThrough -ne 8) {
-        throw "R10 status must keep only R10-001 through R10-005 done and R10-006 through R10-008 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 6 -or $kanbanSnapshot.PlannedStart -ne 7 -or $kanbanSnapshot.PlannedThrough -ne 8) {
+        throw "R10 status must keep only R10-001 through R10-006 done and R10-007 through R10-008 planned."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now the active milestone in repo truth through `R10-005` only' -Message "README must declare R10 as the active milestone through R10-005 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-005` only\.' -Message "ACTIVE_STATE must declare R10 as active through R10-005 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now the active milestone in repo truth through `R10-006` only' -Message "README must declare R10 as the active milestone through R10-006 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-006` only\.' -Message "ACTIVE_STATE must declare R10 as active through R10-006 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`' -Message "KANBAN must declare R10 as the active milestone."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`' -Message "KANBAN must keep R9 as the most recently closed milestone while R10 is open."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R10-001 Opened R10 Narrowly' -Message "DECISION_LOG must record the R10 opening decision."
-    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-005` only' -Message "R10 authority must declare R10 active through R10-005 only."
-    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10-006`\s+through\s+`R10-008`\s+remain planned only' -Message "R10 authority must keep R10-006 through R10-008 planned only."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R10-006 Added External-Runner-Consuming QA Signoff' -Message "DECISION_LOG must record the R10-006 QA signoff decision."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-006` only' -Message "R10 authority must declare R10 active through R10-006 only."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10-007`\s+and\s+`R10-008`\s+remain planned only' -Message "R10 authority must keep R10-007 and R10-008 planned only."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+remains the most recently closed milestone' -Message "R10 authority must keep R9 as the most recently closed milestone."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2\.md' -Message "R10 authority must reference the R9-to-R10 operator report as narrative only."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'It is not milestone proof by itself' -Message "R10 authority must state that the operator report is not milestone proof by itself."
@@ -700,7 +701,8 @@ function Test-R10OpeningStatus {
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'https://api\.github\.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip' -Message "R10 authority must record the R10-005G artifact retrieval instruction."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'Run `25040949422` completed with status `completed` and conclusion `success`; this is one bounded external runner proof run only' -Message "R10 authority must distinguish the successful external proof run from broader R10 proof."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10-005G has produced one successful external proof artifact bundle for the tested R10 release branch head' -Message "R10 authority must record the bounded successful external proof bundle."
-    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 still has not produced external QA proof' -Message "R10 authority must preserve the external-QA non-claim."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10-006 adds external-runner-consuming QA signoff based on successful R10-005G evidence' -Message "R10 authority must record the R10-006 external-runner-consuming QA signoff."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff\.json' -Message "R10 authority must cite the R10-006 QA signoff packet."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 still has not performed final-head clean replay' -Message "R10 authority must preserve the final-head clean replay non-claim."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 does not prove solved Codex context compaction' -Message "R10 authority must preserve the Codex compaction non-claim."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 does not prove unattended automatic resume' -Message "R10 authority must preserve the unattended automatic resume non-claim."
@@ -722,6 +724,10 @@ function Test-R10OpeningStatus {
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern '\.github/workflows/r10-external-proof-bundle\.yml' -Message "R10 authority must cite the R10-004 workflow."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'tools/invoke_r10_external_proof_bundle\.ps1' -Message "R10 authority must cite the R10-004 runner script."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'tests/test_r10_external_proof_workflow\.ps1' -Message "R10 authority must cite the R10-004 focused workflow test."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'contracts/isolated_qa/external_runner_consuming_qa_signoff\.contract\.json' -Message "R10 authority must cite the R10-006 QA signoff contract."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'tools/ExternalRunnerConsumingQaSignoff\.psm1' -Message "R10 authority must cite the R10-006 QA signoff validator module."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'tools/validate_external_runner_consuming_qa_signoff\.ps1' -Message "R10 authority must cite the R10-006 QA signoff CLI validator."
+    Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'tests/test_external_runner_consuming_qa_signoff\.ps1' -Message "R10 authority must cite the R10-006 focused test."
     Assert-R10NonClaimsPreserved -Text $Texts.R10Authority -Context "R10 authority"
 
     if (-not $Texts.Contains("BranchingConvention")) {
@@ -736,11 +742,11 @@ function Test-R10OpeningStatus {
     Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'Branch truth must be verified before each milestone slice' -Message "Branching convention must require branch truth checks before each slice."
 
     if ($combinedText -match 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+(?:is now closed in repo truth|is formally closed|is now the most recently closed milestone)') {
-        throw "Status docs must not claim R10 closeout while only R10-005 is complete."
+        throw "Status docs must not claim R10 closeout while only R10-006 is complete."
     }
 
     if ($combinedText -match '`R10-008`\s+is\s+complete') {
-        throw "Status docs must not claim R10-008 complete while only R10-005 is complete."
+        throw "Status docs must not claim R10-008 complete while only R10-006 is complete."
     }
 
     return $kanbanSnapshot
@@ -836,7 +842,7 @@ function Test-StatusDocGate {
     $r10Snapshot = $null
 
     if ($r10Closed) {
-        throw "Status docs must not claim R10 closeout during the R10-005 active state."
+        throw "Status docs must not claim R10 closeout during the R10-006 active state."
     }
 
     if (-not $r8Closed) {
