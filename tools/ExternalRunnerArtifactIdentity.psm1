@@ -10,6 +10,20 @@ function Get-ModuleRepositoryRootPath {
     return (Resolve-Path -LiteralPath (Get-RepositoryRoot)).Path
 }
 
+function Join-RepositoryPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Segments
+    )
+
+    $path = Get-RepositoryRoot
+    foreach ($segment in $Segments) {
+        $path = Join-Path $path $segment
+    }
+
+    return $path
+}
+
 function Resolve-PathValue {
     param(
         [Parameter(Mandatory = $true)]
@@ -48,7 +62,29 @@ function Resolve-ExistingPath {
     return (Resolve-Path -LiteralPath $resolvedPath).Path
 }
 
+function Assert-JsonRootObject {
+    param(
+        [AllowNull()]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($null -eq $Document) {
+        throw "$Label root must be a single JSON object, but it was null."
+    }
+
+    if ($Document -is [System.Array]) {
+        throw "$Label root must be a single JSON object, but it loaded as an array/property stream."
+    }
+
+    if ($Document -isnot [pscustomobject]) {
+        throw "$Label root must be a single JSON object, but it loaded as '$($Document.GetType().FullName)'."
+    }
+}
+
 function Get-JsonDocument {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$Path,
@@ -57,11 +93,15 @@ function Get-JsonDocument {
     )
 
     try {
-        return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+        $json = [System.IO.File]::ReadAllText($Path)
+        $document = $json | ConvertFrom-Json
     }
     catch {
         throw "$Label at '$Path' is not valid JSON. $($_.Exception.Message)"
     }
+
+    Assert-JsonRootObject -Document $document -Label $Label
+    $PSCmdlet.WriteObject($document, $false)
 }
 
 function Test-HasProperty {
@@ -89,7 +129,8 @@ function Get-RequiredProperty {
         throw "$Context is missing required field '$Name'."
     }
 
-    Write-Output -NoEnumerate ($Object.$Name)
+    $property = $Object.PSObject.Properties[$Name]
+    Write-Output -NoEnumerate $property.Value
 }
 
 function Assert-NonEmptyString {
@@ -209,15 +250,18 @@ function Assert-AllowedValue {
 }
 
 function Get-ExternalRunnerArtifactFoundationContract {
-    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_runner_artifact\foundation.contract.json") -Label "External runner artifact foundation contract"
+    $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "foundation.contract.json")) -Label "External runner artifact foundation contract"
+    Write-Output -NoEnumerate $contract
 }
 
 function Get-ExternalRunnerArtifactIdentityContract {
-    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_runner_artifact\external_runner_artifact_identity.contract.json") -Label "External runner artifact identity contract"
+    $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "external_runner_artifact_identity.contract.json")) -Label "External runner artifact identity contract"
+    Write-Output -NoEnumerate $contract
 }
 
 function Get-ExternalRunnerCloseoutIdentityContract {
-    return Get-JsonDocument -Path (Join-Path (Get-RepositoryRoot) "contracts\external_runner_artifact\external_runner_closeout_identity.contract.json") -Label "External runner closeout identity contract"
+    $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "external_runner_closeout_identity.contract.json")) -Label "External runner closeout identity contract"
+    Write-Output -NoEnumerate $contract
 }
 
 function Assert-OptionalReference {
@@ -490,7 +534,7 @@ function Test-ExternalRunnerCloseoutIdentityObject {
     $claimText += $nonClaims
     Assert-NoForbiddenCloseoutClaimText -Values $claimText -Context $SourceLabel
 
-    return [pscustomobject]@{
+    $result = [pscustomobject]@{
         ArtifactId = $artifactId
         Repository = $repository
         Branch = $branch
@@ -504,6 +548,8 @@ function Test-ExternalRunnerCloseoutIdentityObject {
         ArtifactName = $artifactName
         IsSuccessfulProofIdentity = ($status -eq "completed" -and $conclusion -eq "success")
     }
+
+    Write-Output -NoEnumerate $result
 }
 
 function Test-ExternalRunnerCloseoutIdentityContract {
@@ -515,7 +561,8 @@ function Test-ExternalRunnerCloseoutIdentityContract {
 
     $resolvedPacketPath = Resolve-ExistingPath -PathValue $PacketPath -Label "External runner closeout identity"
     $artifactIdentity = Get-JsonDocument -Path $resolvedPacketPath -Label "External runner closeout identity"
-    return Test-ExternalRunnerCloseoutIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner closeout identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
+    $validation = Test-ExternalRunnerCloseoutIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner closeout identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
+    Write-Output -NoEnumerate $validation
 }
 
 function Test-ExternalRunnerArtifactIdentityObject {
@@ -639,7 +686,7 @@ function Test-ExternalRunnerArtifactIdentityObject {
     Assert-OptionalReference -Reference $remoteHeadEvidenceRef -Label "$SourceLabel remote_head_evidence_ref" -AnchorPath $AnchorPath
     Assert-OptionalReference -Reference $finalRemoteHeadSupportRef -Label "$SourceLabel final_remote_head_support_ref" -AnchorPath $AnchorPath
 
-    return [pscustomobject]@{
+    $result = [pscustomobject]@{
         ArtifactId = $artifactId
         Repository = $repository
         Branch = $branch
@@ -652,6 +699,8 @@ function Test-ExternalRunnerArtifactIdentityObject {
         RunUrl = $runUrl
         ArtifactName = $artifactName
     }
+
+    Write-Output -NoEnumerate $result
 }
 
 function Test-ExternalRunnerArtifactIdentityContract {
@@ -663,7 +712,8 @@ function Test-ExternalRunnerArtifactIdentityContract {
 
     $resolvedPacketPath = Resolve-ExistingPath -PathValue $PacketPath -Label "External runner artifact identity"
     $artifactIdentity = Get-JsonDocument -Path $resolvedPacketPath -Label "External runner artifact identity"
-    return Test-ExternalRunnerArtifactIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner artifact identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
+    $validation = Test-ExternalRunnerArtifactIdentityObject -ArtifactIdentity $artifactIdentity -SourceLabel "External runner artifact identity" -AnchorPath (Split-Path -Parent $resolvedPacketPath)
+    Write-Output -NoEnumerate $validation
 }
 
 Export-ModuleMember -Function Test-ExternalRunnerArtifactIdentityContract, Test-ExternalRunnerArtifactIdentityObject, Test-ExternalRunnerCloseoutIdentityContract, Test-ExternalRunnerCloseoutIdentityObject

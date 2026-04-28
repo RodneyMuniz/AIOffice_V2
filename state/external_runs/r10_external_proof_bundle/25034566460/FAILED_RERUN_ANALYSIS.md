@@ -27,4 +27,10 @@ Local validation of the downloaded bundle accepted it as a completed non-passing
 
 This is new diagnostic value after R10-005A: the runner now reaches artifact creation and upload with exact head evidence, but the Linux/pwsh proof-test fixture path still fails inside the external runner.
 
+## R10-005C follow-up
+
+R10-005C identified the remaining failure class as Linux/pwsh object-shape or JSON-root preservation handling in the external proof and closeout identity validator paths. The downloaded bundle JSON does contain `contract_version: "v1"`, so the failure was not treated as a genuinely missing field in the artifact.
+
+Run `25034566460` remains failed evidence only. The R10-005C correction does not claim successful external proof; a new external run must pass before successful external proof is established.
+
 This run is not successful external proof. It does not implement R10-006, does not provide external QA proof, does not provide final-head clean replay, does not close R10, and does not prove broad CI/product coverage.

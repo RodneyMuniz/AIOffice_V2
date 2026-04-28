@@ -636,3 +636,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the retry shows the runner now reaches artifact creation and upload after R10-005A, while the Linux/pwsh proof-test fixture path still fails with missing `contract_version` diagnostics.
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: this retry record does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.
+
+## D-0072 R10-005C Corrected PowerShell Core Object Shape Handling
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005C` hardens external proof bundle and external runner closeout identity JSON loading so root documents must load as a single `PSCustomObject`, object outputs are preserved without pipeline enumeration, and array/property-stream roots fail closed with explicit diagnostics.
+- Consequence: the correction updates `tools/ExternalProofArtifactBundle.psm1`, `tools/ExternalRunnerArtifactIdentity.psm1`, `tests/test_external_proof_artifact_bundle.ps1`, and `tests/test_external_runner_closeout_identity.ps1`.
+- Consequence: the failed rerun analysis for `25034566460` records that the downloaded JSON contained `contract_version: "v1"` and that R10-005C addresses object-shape and JSON-root preservation rather than weakening required-field validation.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: successful external proof is still not established until a new external run passes.
+- Consequence: this correction does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.

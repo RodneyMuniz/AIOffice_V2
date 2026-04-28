@@ -1,8 +1,57 @@
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$module = Import-Module (Join-Path $repoRoot "tools\ExternalRunnerArtifactIdentity.psm1") -Force -PassThru
-$testExternalRunnerCloseoutIdentity = $module.ExportedCommands["Test-ExternalRunnerCloseoutIdentityContract"]
+function Join-PathSegments {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string[]]$Segments
+    )
+
+    $path = $Segments[0]
+    foreach ($segment in @($Segments | Select-Object -Skip 1)) {
+        $path = Join-Path $path $segment
+    }
+
+    return $path
+}
+
+Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalRunnerArtifactIdentity.psm1")) -Force
+$testExternalRunnerCloseoutIdentity = Get-Command -Name "Test-ExternalRunnerCloseoutIdentityContract" -ErrorAction Stop
+
+function Assert-SingleJsonRootObject {
+    param(
+        [AllowNull()]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($null -eq $Document) {
+        throw "$Label root did not load as a single JSON object; it was null."
+    }
+
+    if ($Document -is [System.Array]) {
+        throw "$Label root did not load as a single JSON object; it loaded as an array/property stream."
+    }
+
+    if ($Document -isnot [pscustomobject]) {
+        throw "$Label root did not load as a single JSON object; it loaded as '$($Document.GetType().FullName)'."
+    }
+}
+
+function Assert-ContractVersionVisible {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    Assert-SingleJsonRootObject -Document $Document -Label $Label
+    if ($Document.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($Document.contract_version)) {
+        throw "$Label contract_version did not load as a non-empty string."
+    }
+}
 
 function Get-JsonDocument {
     param(
@@ -10,7 +59,9 @@ function Get-JsonDocument {
         [string]$Path
     )
 
-    return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    $document = [System.IO.File]::ReadAllText($Path) | ConvertFrom-Json
+    Assert-SingleJsonRootObject -Document $document -Label $Path
+    Write-Output -NoEnumerate $document
 }
 
 function Write-JsonDocument {
@@ -32,10 +83,10 @@ function New-R10CloseoutFixtureRoot {
     )
 
     $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r10closeoutidentity" + [guid]::NewGuid().ToString("N").Substring(0, 8))
-    $sourceRoot = Join-Path $repoRoot "state\fixtures\valid\external_runner_artifact"
+    $sourceRoot = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "valid", "external_runner_artifact")
     $fixtureRoot = Join-Path $tempRoot $Label
-    New-Item -ItemType Directory -Path (Split-Path -Parent $fixtureRoot) -Force | Out-Null
-    Copy-Item -LiteralPath $sourceRoot -Destination $fixtureRoot -Recurse -Force
+    New-Item -ItemType Directory -Path $fixtureRoot -Force | Out-Null
+    Get-ChildItem -LiteralPath $sourceRoot | Copy-Item -Destination $fixtureRoot -Recurse -Force
     return $fixtureRoot
 }
 
@@ -129,10 +180,36 @@ function Invoke-MutatedRefusal {
 $validPassed = 0
 $invalidRejected = 0
 $failures = @()
-$validFixture = Join-Path $repoRoot "state\fixtures\valid\external_runner_artifact\r10_closeout_identity.valid.json"
-$r9LimitationFixture = Join-Path $repoRoot "state\fixtures\valid\external_runner_artifact\external_runner_limitation.valid.json"
+$validFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "valid", "external_runner_artifact", "r10_closeout_identity.valid.json")
+$r9LimitationFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "valid", "external_runner_artifact", "external_runner_limitation.valid.json")
 
 try {
+    $validFixtureDocument = Get-JsonDocument -Path $validFixture
+    Assert-ContractVersionVisible -Document $validFixtureDocument -Label "Valid closeout identity repository fixture"
+
+    $copiedFixtureRoot = New-R10CloseoutFixtureRoot -Label "cross-platform-fixture-copy"
+    try {
+        $copiedFixturePath = Join-Path $copiedFixtureRoot "r10_closeout_identity.valid.json"
+        $copiedFixtureDocument = Get-JsonDocument -Path $copiedFixturePath
+        Assert-ContractVersionVisible -Document $copiedFixtureDocument -Label "Copied closeout identity temp fixture"
+    }
+    finally {
+        Remove-FixtureForPacket -PacketPath (Join-Path $copiedFixtureRoot "r10_closeout_identity.valid.json")
+    }
+
+    Invoke-ExpectedRefusal -Label "array-root-json-document" -RequiredFragments @("single JSON object", "array/property stream") -Action {
+        $arrayRootPath = Join-Path ([System.IO.Path]::GetTempPath()) ("r10closeoutidentity-array-root-" + [guid]::NewGuid().ToString("N") + ".json")
+        try {
+            Set-Content -LiteralPath $arrayRootPath -Value '[{"contract_version":"v1"}]' -Encoding UTF8
+            & $testExternalRunnerCloseoutIdentity -PacketPath $arrayRootPath | Out-Null
+        }
+        finally {
+            if (Test-Path -LiteralPath $arrayRootPath) {
+                Remove-Item -LiteralPath $arrayRootPath -Force
+            }
+        }
+    }
+
     $validResult = & $testExternalRunnerCloseoutIdentity -PacketPath $validFixture
     if (-not $validResult.IsSuccessfulProofIdentity) {
         $failures += "FAIL valid: validator-only R10 closeout identity shape was not marked as a successful identity shape."

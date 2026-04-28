@@ -15,8 +15,43 @@ function Join-PathSegments {
     return $path
 }
 
-$module = Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalProofArtifactBundle.psm1")) -Force -PassThru
-$testExternalProofArtifactBundle = $module.ExportedCommands["Test-ExternalProofArtifactBundleContract"]
+Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalProofArtifactBundle.psm1")) -Force
+$testExternalProofArtifactBundle = Get-Command -Name "Test-ExternalProofArtifactBundleContract" -ErrorAction Stop
+
+function Assert-SingleJsonRootObject {
+    param(
+        [AllowNull()]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($null -eq $Document) {
+        throw "$Label root did not load as a single JSON object; it was null."
+    }
+
+    if ($Document -is [System.Array]) {
+        throw "$Label root did not load as a single JSON object; it loaded as an array/property stream."
+    }
+
+    if ($Document -isnot [pscustomobject]) {
+        throw "$Label root did not load as a single JSON object; it loaded as '$($Document.GetType().FullName)'."
+    }
+}
+
+function Assert-ContractVersionVisible {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    Assert-SingleJsonRootObject -Document $Document -Label $Label
+    if ($Document.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($Document.contract_version)) {
+        throw "$Label contract_version did not load as a non-empty string."
+    }
+}
 
 function Get-JsonDocument {
     param(
@@ -24,7 +59,8 @@ function Get-JsonDocument {
         [string]$Path
     )
 
-    $document = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+    $document = [System.IO.File]::ReadAllText($Path) | ConvertFrom-Json
+    Assert-SingleJsonRootObject -Document $document -Label $Path
     Write-Output -NoEnumerate $document
 }
 
@@ -148,20 +184,29 @@ $validFixture = Join-PathSegments -Segments @($repoRoot, "state", "fixtures", "v
 
 try {
     $validFixtureDocument = Get-JsonDocument -Path $validFixture
-    if ($validFixtureDocument.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($validFixtureDocument.contract_version)) {
-        throw "Valid fixture contract_version did not load as a non-empty string from the repository fixture path."
-    }
+    Assert-ContractVersionVisible -Document $validFixtureDocument -Label "Valid repository fixture"
 
     $copiedFixtureRoot = New-ExternalProofBundleFixtureRoot -Label "cross-platform-fixture-copy"
     try {
         $copiedFixturePath = Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json"
         $copiedFixtureDocument = Get-JsonDocument -Path $copiedFixturePath
-        if ($copiedFixtureDocument.contract_version -isnot [string] -or [string]::IsNullOrWhiteSpace($copiedFixtureDocument.contract_version)) {
-            throw "Copied fixture contract_version did not load as a non-empty string from the temp fixture path."
-        }
+        Assert-ContractVersionVisible -Document $copiedFixtureDocument -Label "Copied temp fixture"
     }
     finally {
         Remove-FixtureForBundle -BundlePath (Join-Path $copiedFixtureRoot "external_proof_artifact_bundle.valid.json")
+    }
+
+    Invoke-ExpectedRefusal -Label "array-root-json-document" -RequiredFragments @("single JSON object", "array/property stream") -Action {
+        $arrayRootPath = Join-Path ([System.IO.Path]::GetTempPath()) ("r10externalproofbundle-array-root-" + [guid]::NewGuid().ToString("N") + ".json")
+        try {
+            Set-Content -LiteralPath $arrayRootPath -Value '[{"contract_version":"v1"}]' -Encoding UTF8
+            & $testExternalProofArtifactBundle -BundlePath $arrayRootPath | Out-Null
+        }
+        finally {
+            if (Test-Path -LiteralPath $arrayRootPath) {
+                Remove-Item -LiteralPath $arrayRootPath -Force
+            }
+        }
     }
 
     $validResult = & $testExternalProofArtifactBundle -BundlePath $validFixture

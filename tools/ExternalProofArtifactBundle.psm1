@@ -62,7 +62,29 @@ function Resolve-ExistingPath {
     return (Resolve-Path -LiteralPath $resolvedPath).Path
 }
 
+function Assert-JsonRootObject {
+    param(
+        [AllowNull()]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Label
+    )
+
+    if ($null -eq $Document) {
+        throw "$Label root must be a single JSON object, but it was null."
+    }
+
+    if ($Document -is [System.Array]) {
+        throw "$Label root must be a single JSON object, but it loaded as an array/property stream."
+    }
+
+    if ($Document -isnot [pscustomobject]) {
+        throw "$Label root must be a single JSON object, but it loaded as '$($Document.GetType().FullName)'."
+    }
+}
+
 function Get-JsonDocument {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$Path,
@@ -71,12 +93,15 @@ function Get-JsonDocument {
     )
 
     try {
-        $document = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
-        Write-Output -NoEnumerate $document
+        $json = [System.IO.File]::ReadAllText($Path)
+        $document = $json | ConvertFrom-Json
     }
     catch {
         throw "$Label at '$Path' is not valid JSON. $($_.Exception.Message)"
     }
+
+    Assert-JsonRootObject -Document $document -Label $Label
+    $PSCmdlet.WriteObject($document, $false)
 }
 
 function Test-HasProperty {
@@ -279,11 +304,13 @@ function Assert-RequiredReference {
 }
 
 function Get-ExternalProofBundleFoundationContract {
-    return Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "foundation.contract.json")) -Label "External proof bundle foundation contract"
+    $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "foundation.contract.json")) -Label "External proof bundle foundation contract"
+    Write-Output -NoEnumerate $contract
 }
 
 function Get-ExternalProofArtifactBundleContract {
-    return Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "external_proof_artifact_bundle.contract.json")) -Label "External proof artifact bundle contract"
+    $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_proof_bundle", "external_proof_artifact_bundle.contract.json")) -Label "External proof artifact bundle contract"
+    Write-Output -NoEnumerate $contract
 }
 
 function Assert-RequiredNonClaims {
@@ -351,10 +378,12 @@ function Test-ExternalProofCleanStatus {
         Assert-NonEmptyString -Value $CleanStatus.refusal_reason -Context "$SourceLabel refusal_reason" | Out-Null
     }
 
-    return [pscustomobject]@{
+    $result = [pscustomobject]@{
         Status = $status
         EvidenceRef = $evidenceRef
     }
+
+    Write-Output -NoEnumerate $result
 }
 
 function Test-ExternalProofCommandResult {
@@ -387,7 +416,7 @@ function Test-ExternalProofCommandResult {
         throw "$SourceLabel verdict 'passed' requires exit_code 0."
     }
 
-    return [pscustomobject]@{
+    $result = [pscustomobject]@{
         CommandId = $commandId
         Command = $command
         StdoutRef = $stdoutRef
@@ -396,6 +425,8 @@ function Test-ExternalProofCommandResult {
         ExitCode = $exitCode
         Verdict = $verdict
     }
+
+    Write-Output -NoEnumerate $result
 }
 
 function Test-ExternalProofArtifactBundleObject {
@@ -548,7 +579,7 @@ function Test-ExternalProofArtifactBundleObject {
     }
     Assert-NoForbiddenBundleClaimText -Values $claimText -Context $SourceLabel
 
-    return [pscustomobject]@{
+    $result = [pscustomobject]@{
         BundleId = $bundleId
         Repository = $repository
         Branch = $branch
@@ -566,6 +597,8 @@ function Test-ExternalProofArtifactBundleObject {
         AggregateVerdict = $aggregateVerdict
         IsPassingBundleShape = ($aggregateVerdict -eq "passed")
     }
+
+    Write-Output -NoEnumerate $result
 }
 
 function Test-ExternalProofArtifactBundleContract {
@@ -577,7 +610,8 @@ function Test-ExternalProofArtifactBundleContract {
 
     $resolvedBundlePath = Resolve-ExistingPath -PathValue $BundlePath -Label "External proof artifact bundle"
     $bundle = Get-JsonDocument -Path $resolvedBundlePath -Label "External proof artifact bundle"
-    return Test-ExternalProofArtifactBundleObject -Bundle $bundle -SourceLabel "External proof artifact bundle" -AnchorPath (Split-Path -Parent $resolvedBundlePath)
+    $validation = Test-ExternalProofArtifactBundleObject -Bundle $bundle -SourceLabel "External proof artifact bundle" -AnchorPath (Split-Path -Parent $resolvedBundlePath)
+    Write-Output -NoEnumerate $validation
 }
 
 Export-ModuleMember -Function Test-ExternalProofArtifactBundleContract, Test-ExternalProofArtifactBundleObject
