@@ -1,6 +1,7 @@
 Set-StrictMode -Version Latest
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+Import-Module (Join-Path $PSScriptRoot "JsonRoot.psm1") -Force
 
 function Get-RepositoryRoot {
     return $repoRoot
@@ -62,27 +63,6 @@ function Resolve-ExistingPath {
     return (Resolve-Path -LiteralPath $resolvedPath).Path
 }
 
-function Assert-JsonRootObject {
-    param(
-        [AllowNull()]
-        $Document,
-        [Parameter(Mandatory = $true)]
-        [string]$Label
-    )
-
-    if ($null -eq $Document) {
-        throw "$Label root must be a single JSON object, but it was null."
-    }
-
-    if ($Document -is [System.Array]) {
-        throw "$Label root must be a single JSON object, but it loaded as an array/property stream."
-    }
-
-    if ($Document -isnot [pscustomobject]) {
-        throw "$Label root must be a single JSON object, but it loaded as '$($Document.GetType().FullName)'."
-    }
-}
-
 function Get-JsonDocument {
     [CmdletBinding()]
     param(
@@ -92,16 +72,7 @@ function Get-JsonDocument {
         [string]$Label
     )
 
-    try {
-        $json = [System.IO.File]::ReadAllText($Path)
-        $document = $json | ConvertFrom-Json
-    }
-    catch {
-        throw "$Label at '$Path' is not valid JSON. $($_.Exception.Message)"
-    }
-
-    Assert-JsonRootObject -Document $document -Label $Label
-    $PSCmdlet.WriteObject($document, $false)
+    return (Read-SingleJsonObject -Path $Path -Label $Label)
 }
 
 function Test-HasProperty {
@@ -116,6 +87,7 @@ function Test-HasProperty {
 }
 
 function Get-RequiredProperty {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         $Object,
@@ -130,7 +102,7 @@ function Get-RequiredProperty {
     }
 
     $property = $Object.PSObject.Properties[$Name]
-    Write-Output -NoEnumerate $property.Value
+    $PSCmdlet.WriteObject($property.Value, $false)
 }
 
 function Assert-NonEmptyString {
@@ -179,6 +151,7 @@ function Assert-ObjectValue {
 }
 
 function Assert-StringArray {
+    [CmdletBinding()]
     param(
         [AllowNull()]
         $Value,
@@ -200,7 +173,7 @@ function Assert-StringArray {
         Assert-NonEmptyString -Value $item -Context "$Context item" | Out-Null
     }
 
-    Write-Output -NoEnumerate $items
+    $PSCmdlet.WriteObject($items, $false)
 }
 
 function Assert-RequiredObjectFields {
@@ -251,17 +224,17 @@ function Assert-AllowedValue {
 
 function Get-ExternalRunnerArtifactFoundationContract {
     $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "foundation.contract.json")) -Label "External runner artifact foundation contract"
-    Write-Output -NoEnumerate $contract
+    return $contract
 }
 
 function Get-ExternalRunnerArtifactIdentityContract {
     $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "external_runner_artifact_identity.contract.json")) -Label "External runner artifact identity contract"
-    Write-Output -NoEnumerate $contract
+    return $contract
 }
 
 function Get-ExternalRunnerCloseoutIdentityContract {
     $contract = Get-JsonDocument -Path (Join-RepositoryPath -Segments @("contracts", "external_runner_artifact", "external_runner_closeout_identity.contract.json")) -Label "External runner closeout identity contract"
-    Write-Output -NoEnumerate $contract
+    return $contract
 }
 
 function Assert-OptionalReference {

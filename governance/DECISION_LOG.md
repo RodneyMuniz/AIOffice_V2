@@ -646,3 +646,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: successful external proof is still not established until a new external run passes.
 - Consequence: this correction does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.
+
+## D-0073 R10-005D Hardened Canonical JSON Root Handling
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005D` adds one canonical fail-closed JSON-root reader under `tools/JsonRoot.psm1` and routes the R10 external proof bundle and closeout identity validators/tests through it.
+- Consequence: raw JSON documents now fail before field validation when the first non-whitespace root character is not `{`, including explicit array-root rejection before `ConvertFrom-Json` can flatten a single-item array under Linux `pwsh`.
+- Consequence: focused proof is added through `tests/test_json_root.ps1`, and `tools/diagnose_json_root_pwsh.ps1` provides diagnostic-only local or runner probes for PowerShell version, `ConvertFrom-Json -NoEnumerate` availability, fixture root types, and array-root rejection.
+- Consequence: failed run `25036440624` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25036440624` repeated the same root-shape failure class as run `25034566460` and was not committed as R10 proof evidence.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: successful external proof is still not established until a new external run passes.
+- Consequence: this correction does not retry the workflow, does not implement R10-006, does not claim external QA proof, does not claim final-head clean replay, does not close R10, and does not claim broad CI/product coverage.

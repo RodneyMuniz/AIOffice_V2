@@ -16,28 +16,8 @@ function Join-PathSegments {
 }
 
 Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "ExternalRunnerArtifactIdentity.psm1")) -Force
+Import-Module (Join-PathSegments -Segments @($repoRoot, "tools", "JsonRoot.psm1")) -Force
 $testExternalRunnerCloseoutIdentity = Get-Command -Name "Test-ExternalRunnerCloseoutIdentityContract" -ErrorAction Stop
-
-function Assert-SingleJsonRootObject {
-    param(
-        [AllowNull()]
-        $Document,
-        [Parameter(Mandatory = $true)]
-        [string]$Label
-    )
-
-    if ($null -eq $Document) {
-        throw "$Label root did not load as a single JSON object; it was null."
-    }
-
-    if ($Document -is [System.Array]) {
-        throw "$Label root did not load as a single JSON object; it loaded as an array/property stream."
-    }
-
-    if ($Document -isnot [pscustomobject]) {
-        throw "$Label root did not load as a single JSON object; it loaded as '$($Document.GetType().FullName)'."
-    }
-}
 
 function Assert-ContractVersionVisible {
     param(
@@ -59,9 +39,7 @@ function Get-JsonDocument {
         [string]$Path
     )
 
-    $document = [System.IO.File]::ReadAllText($Path) | ConvertFrom-Json
-    Assert-SingleJsonRootObject -Document $document -Label $Path
-    Write-Output -NoEnumerate $document
+    return (Read-SingleJsonObject -Path $Path -Label $Path)
 }
 
 function Write-JsonDocument {
@@ -197,7 +175,7 @@ try {
         Remove-FixtureForPacket -PacketPath (Join-Path $copiedFixtureRoot "r10_closeout_identity.valid.json")
     }
 
-    Invoke-ExpectedRefusal -Label "array-root-json-document" -RequiredFragments @("single JSON object", "array/property stream") -Action {
+    Invoke-ExpectedRefusal -Label "array-root-json-document" -RequiredFragments @("single JSON object", "array root") -Action {
         $arrayRootPath = Join-Path ([System.IO.Path]::GetTempPath()) ("r10closeoutidentity-array-root-" + [guid]::NewGuid().ToString("N") + ".json")
         try {
             Set-Content -LiteralPath $arrayRootPath -Value '[{"contract_version":"v1"}]' -Encoding UTF8

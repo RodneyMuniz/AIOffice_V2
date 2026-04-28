@@ -58,6 +58,8 @@ Run `25034566460` completed with conclusion `failure`; it uploaded a retrievable
 
 R10-005C is complete as a corrective support slice for PowerShell Core object-shape and JSON-root preservation in the external proof and closeout identity validators. It does not establish successful external proof; a new external run must pass before R10 can treat external proof as successful.
 
+R10-005D is complete as a corrective support slice for canonical JSON-root reader hardening after failed retry run `25036440624` repeated the same Linux/pwsh root-shape failure class as run `25034566460`. The failed run `25036440624` was not committed as R10 evidence and is not successful external proof.
+
 R10 still has not produced a successful external proof artifact bundle.
 
 R10 still has not produced external QA proof.
@@ -176,6 +178,7 @@ R10 does not currently prove and must not casually widen into:
 - Corrective support: `R10-005A` fixes Linux/pwsh external proof bundle validation and relative artifact-ref handling after failed run `25033063285`; the failure analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`. R10 remains active through `R10-005` only.
 - Retry support: `R10-005B` records failed retry run `25034566460` with artifact `r10-external-proof-bundle-25034566460-1`, committed identity packet `state/external_runs/r10_external_proof_bundle/25034566460/external_runner_closeout_identity.json`, downloaded artifact contents, and failure analysis `state/external_runs/r10_external_proof_bundle/25034566460/FAILED_RERUN_ANALYSIS.md`. The retry is not successful external proof.
 - Corrective support: `R10-005C` hardens PowerShell Core object-shape handling so JSON roots are preserved as single `PSCustomObject` values and array/property-stream roots fail closed. It does not establish successful external proof.
+- Corrective support: `R10-005D` adds the canonical `tools/JsonRoot.psm1` reader and routes the external proof and closeout identity validators/tests through it so raw array roots fail before field validation. Failed run `25036440624` repeated the prior root-shape failure class and was not committed as R10 evidence. Successful external proof remains unestablished.
 
 ### `R10-006` Add external-runner-consuming QA signoff
 - Status: planned
@@ -200,6 +203,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-005A` corrects the Linux/pwsh validation and artifact-ref handling failure exposed by run `25033063285`. It does not create a new identity packet and does not establish successful external proof.
 - `R10-005B` captures retry run `25034566460` and artifact `r10-external-proof-bundle-25034566460-1` as completed failed external runner evidence after R10-005A. The bundle records matching remote and tested heads and a failed aggregate verdict, so it is diagnostic failure evidence only, not successful external proof.
 - `R10-005C` corrects PowerShell Core JSON-root preservation and object-shape handling for the external proof and closeout identity validators. It does not implement R10-006, does not create successful external proof, and does not close R10.
+- `R10-005D` corrects the remaining JSON-root reader path by using one canonical fail-closed root reader for the external proof and closeout identity validators/tests. It does not retry the external workflow, does not implement R10-006, does not create successful external proof, and does not close R10.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.
 - `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.
