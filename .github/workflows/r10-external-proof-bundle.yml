@@ -1,0 +1,68 @@
+name: R10 External Proof Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag, or SHA to check out for the focused R10 proof bundle.
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  r10-external-proof-bundle:
+    name: R10 External Proof Bundle
+    runs-on: windows-latest
+    env:
+      DEFAULT_R10_BRANCH: release/r10-real-external-runner-proof-foundation
+      R10_ARTIFACT_NAME: r10-external-proof-bundle-${{ github.run_id }}-${{ github.run_attempt }}
+      R10_OUTPUT_ROOT: ${{ runner.temp }}\r10-external-proof-bundle
+    steps:
+      - name: Resolve requested ref
+        id: resolve
+        shell: powershell
+        run: |
+          $requestedRef = '${{ github.event.inputs.ref }}'
+          if ([string]::IsNullOrWhiteSpace($requestedRef)) {
+            $requestedRef = '${{ github.ref_name }}'
+          }
+          if ([string]::IsNullOrWhiteSpace($requestedRef)) {
+            $requestedRef = $env:DEFAULT_R10_BRANCH
+          }
+
+          "requested_ref=$requestedRef" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Check out requested ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.resolve.outputs.requested_ref }}
+          fetch-depth: 0
+
+      - name: Configure Git path handling
+        shell: powershell
+        run: |
+          git config --global core.longpaths true
+          git config --global core.autocrlf false
+
+      - name: Build and validate R10 external proof bundle
+        shell: powershell
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_r10_external_proof_bundle.ps1 `
+            -RepositoryRoot . `
+            -RequestedRef '${{ steps.resolve.outputs.requested_ref }}' `
+            -Branch $env:DEFAULT_R10_BRANCH `
+            -OutputRoot $env:R10_OUTPUT_ROOT `
+            -ArtifactName $env:R10_ARTIFACT_NAME `
+            -WorkflowName 'R10 External Proof Bundle' `
+            -WorkflowRef '.github/workflows/r10-external-proof-bundle.yml'
+
+      - name: Upload R10 external proof bundle artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.R10_ARTIFACT_NAME }}
+          path: ${{ env.R10_OUTPUT_ROOT }}
+          if-no-files-found: error

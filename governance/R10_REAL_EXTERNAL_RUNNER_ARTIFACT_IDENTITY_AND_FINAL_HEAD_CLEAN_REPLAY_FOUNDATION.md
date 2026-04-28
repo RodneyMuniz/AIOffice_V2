@@ -16,7 +16,7 @@ The operator-facing bridge report `governance/reports/AIOffice_V2_R9_Audit_and_R
 Prove one bounded external-runner evidence loop in which the exact final remote head for the milestone is replayed or verified by a real external runner or CI workflow, with concrete artifact identity, retrievable logs, exact commit/tree identity, and status-doc gating that rejects any external-proof claim without those artifacts.
 
 ## Current status
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-003` only.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-004` only.
 
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains the most recently closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
 
@@ -28,17 +28,25 @@ Prove one bounded external-runner evidence loop in which the exact final remote 
 
 `R10-003` is complete as the external proof artifact bundle format step only.
 
-`R10-004` through `R10-008` remain planned only.
+`R10-004` is complete as the one external runner path wiring step only.
+
+`R10-005` through `R10-008` remain planned only.
 
 R10-002 hardens the closeout-use validator.
 
 R10-003 defines the external proof artifact bundle format.
 
-R10 still has not wired an external runner path.
+R10-004 wires one external runner path.
 
-R10 still has not captured a real external runner identity.
+Workflow existence is not proof of a successful run.
 
-R10 still has not triggered CI.
+Any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later.
+
+R10 still has not accepted a real external run identity packet.
+
+R10 still has not captured a real external runner identity as accepted R10-005 proof.
+
+R10 still has not triggered CI as accepted R10 proof.
 
 R10 still has not produced a real external proof artifact bundle.
 
@@ -145,8 +153,9 @@ R10 does not currently prove and must not casually widen into:
 - Durable output: `contracts/external_proof_bundle/foundation.contract.json`, `contracts/external_proof_bundle/external_proof_artifact_bundle.contract.json`, `tools/ExternalProofArtifactBundle.psm1`, `tools/validate_external_proof_artifact_bundle.ps1`, `state/fixtures/valid/external_proof_bundle/external_proof_artifact_bundle.valid.json`, `state/fixtures/valid/external_proof_bundle/artifacts/`, and `tests/test_external_proof_artifact_bundle.ps1`.
 
 ### `R10-004` Wire one GitHub Actions or equivalent runner path
-- Status: planned
+- Status: done
 - Done when: one real external runner path can be triggered on the R10 release branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage.
+- Durable output: `.github/workflows/r10-external-proof-bundle.yml`, `tools/invoke_r10_external_proof_bundle.ps1`, and `tests/test_r10_external_proof_workflow.ps1`.
 
 ### `R10-005` Capture one real external run identity
 - Status: planned
@@ -170,7 +179,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-002` hardens the closeout-facing external-runner identity contract without treating unavailable runner state, synthetic run identity, missing workflow identity, missing artifact identity, missing command logs, missing QA/evidence refs, missing final-head support evidence, old R9 limitation evidence, or broad CI/product coverage language as R10 closeout proof.
 - `R10-002` includes a validator-only fixture for contract shape testing. That fixture is not a real external runner capture and is not R10 proof.
 - `R10-003` defines the bundle shape before a future runner result can be accepted as closeout evidence. Its validator-only fixture is not a real external runner capture, not CI proof, not external QA proof, and not R10 closeout proof.
-- `R10-004` is the next gated step and must wire only one real external runner path without claiming broad production CI coverage.
+- `R10-004` wires one external runner path through a controlled GitHub Actions workflow and runner script. Workflow existence is not proof of a successful run, and any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later.
 - `R10-005` is not complete if the packet says only `unavailable`.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.

@@ -580,3 +580,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R9 remains the most recently closed milestone under `D-0061`.
 - Consequence: R10 still has not wired an external runner path, triggered CI, captured a real external runner identity, produced a real external proof artifact bundle, produced external QA proof, or performed final-head clean replay.
 - Consequence: the next gated step inside R10 is `R10-004 Wire one GitHub Actions or equivalent runner path`.
+
+## D-0066 R10-004 Wired External Proof Runner Path
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-004` is complete as the one external runner path wiring step through `.github/workflows/r10-external-proof-bundle.yml`, `tools/invoke_r10_external_proof_bundle.ps1`, and focused workflow-shape proof through `tests/test_r10_external_proof_workflow.ps1`.
+- Consequence: the controlled GitHub Actions workflow supports manual dispatch, resolves the requested ref, checks it out, invokes the R10 bundle runner, records remote head, tested head and tree, clean status before and after commands, command stdout/stderr/exit codes, artifact retrieval instructions, and validates the generated bundle with the R10-003 validator before uploading the artifact directory.
+- Consequence: workflow existence is not proof of a successful run, and any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later.
+- Consequence: R10 remains active through `R10-004` only, and `R10-005` through `R10-008` remain planned only.
+- Consequence: R9 remains the most recently closed milestone under `D-0061`.
+- Consequence: R10 still has not accepted a real external run identity packet, captured a real external runner identity as accepted R10-005 proof, triggered CI as accepted R10 proof, produced a real external proof artifact bundle, produced external QA proof, or performed final-head clean replay.
+- Consequence: the next gated step inside R10 is `R10-005 Capture one real external run identity`.
