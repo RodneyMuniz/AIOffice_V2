@@ -1,0 +1,31 @@
+PASS valid external-runner-consuming QA signoff: r10-006-external-runner-consuming-qa-25040949422 -> passed run 25040949422
+PASS invalid: missing-required-field -> External-runner-consuming QA signoff is missing required field 'contract_version'.
+PASS invalid: missing-qa-role-identity -> External-runner-consuming QA signoff is missing required field 'qa_role_identity'.
+PASS invalid: missing-qa-runner-kind -> External-runner-consuming QA signoff is missing required field 'qa_runner_kind'.
+PASS invalid: missing-qa-authority-type -> External-runner-consuming QA signoff is missing required field 'qa_authority_type'.
+PASS invalid: executor-self-certification-authority -> External-runner-consuming QA signoff qa_authority_type must not imply executor self-certification.
+PASS invalid: missing-external-runner-identity-ref -> External-runner-consuming QA signoff is missing required field 'external_runner_identity_ref'.
+PASS invalid: missing-external-proof-bundle-ref -> External-runner-consuming QA signoff is missing required field 'external_proof_bundle_ref'.
+PASS invalid: missing-artifact-retrieval-ref -> External-runner-consuming QA signoff is missing required field 'artifact_retrieval_ref'.
+PASS invalid: missing-final-remote-head-support-ref -> External-runner-consuming QA signoff is missing required field 'final_remote_head_support_ref'.
+PASS invalid: external-runner-identity-run-id-mismatch -> External-runner-consuming QA signoff external_runner_identity_ref must reference run '25040949422'.
+PASS invalid: external-runner-identity-conclusion-not-success -> External-runner-consuming QA signoff external runner identity must be completed with conclusion 'success'.
+PASS invalid: failed-run-25033063285-as-qa-proof -> External-runner-consuming QA signoff must not use failed run evidence from '25033063285' as QA proof.
+PASS invalid: failed-run-25034566460-as-qa-proof -> External-runner-consuming QA signoff must not use failed run evidence from '25034566460' as QA proof.
+PASS invalid: r9-004-limitation-as-qa-proof -> External-runner-consuming QA signoff must not use R9-004 limitation evidence as QA proof.
+PASS invalid: failed-external-proof-bundle-as-qa-proof -> External-runner-consuming QA signoff must not use failed run evidence from '25034566460' as QA proof.
+PASS invalid: external-proof-bundle-run-id-mismatch -> External-runner-consuming QA signoff external proof bundle run ID must match identity packet run ID.
+PASS invalid: external-proof-bundle-head-match-false -> External proof artifact bundle head_match cannot be false when aggregate_verdict is 'passed'.
+PASS invalid: external-proof-bundle-aggregate-not-passed -> External-runner-consuming QA signoff external proof bundle aggregate verdict must be 'passed'.
+PASS invalid: local-only-qa-source-artifact -> External-runner-consuming QA signoff local-only QA evidence must not be presented as R10 closeout QA.
+PASS invalid: executor-only-source-artifact -> External-runner-consuming QA signoff executor-only evidence must not be presented as QA authority.
+PASS invalid: failed-run-source-artifact-disguised-as-allowed-kind -> External-runner-consuming QA signoff must not use failed run evidence from '25033063285' as QA proof.
+PASS invalid: r9-limitation-source-artifact-disguised-as-allowed-kind -> External-runner-consuming QA signoff must not use R9-004 limitation evidence as QA proof.
+PASS invalid: executor-produced-source-artifact-as-qa-authority -> External-runner-consuming QA signoff executor-only evidence must not be presented as QA authority.
+PASS invalid: passed-verdict-with-refusal-reasons -> External-runner-consuming QA signoff refusal_reasons must be empty when verdict is 'passed'.
+PASS invalid: failed-verdict-without-refusal-reasons -> External-runner-consuming QA signoff refusal_reasons must not be empty when verdict is 'failed'.
+PASS invalid: blocked-verdict-without-refusal-reasons -> External-runner-consuming QA signoff refusal_reasons must not be empty when verdict is 'blocked'.
+PASS invalid: missing-required-non-claim -> External-runner-consuming QA signoff non_claims must include 'no final-head clean replay claim'.
+PASS invalid: same-executor-approves-signoff -> External-runner-consuming QA signoff independence_boundary must not say the same executor produced and approved the signoff.
+PASS invalid: artifact-retrieval-missing-run-artifact -> External-runner-consuming QA signoff artifact retrieval ref must identify the successful run URL and artifact name.
+All external-runner-consuming QA signoff tests passed. Valid passed: 1. Invalid rejected: 29.

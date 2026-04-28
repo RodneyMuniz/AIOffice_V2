@@ -32,6 +32,8 @@ Prove one bounded external-runner evidence loop in which the exact final remote 
 
 `R10-005` is complete as one real external runner identity capture.
 
+`R10-008` has a Phase 1 candidate package prepared at `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, but remains planned until Phase 2 post-push final-head support exists.
+
 `R10-008` remains planned only.
 
 R10-002 hardens the closeout-use validator.
@@ -78,6 +80,8 @@ R10 still has not executed final-head clean replay.
 
 R10 is not closed.
 
+The full `R10-001` through `R10-008` sequence may be treated as complete only after both the candidate closeout package and post-push final-head support evidence are complete.
+
 R10 does not prove solved Codex context compaction.
 
 R10 does not prove unattended automatic resume.
@@ -98,6 +102,7 @@ R10 is bounded to:
 - one real external run identity packet
 - one external-runner-consuming QA signoff path
 - one two-phase final-head closeout support procedure
+- one candidate closeout package, pending post-push final-head support
 - one narrow R10 closeout path, later, only if real external final-head proof exists
 
 ## Critical acceptance rule
@@ -139,6 +144,7 @@ R10 must stop or fail closed if:
 - external proof is claimed without concrete run ID, run URL, workflow identity, runner identity, artifact name, and artifact retrieval instruction
 - command success is claimed without command logs, stderr, stdout, exit codes, head SHA, tree SHA, and verdict
 - final-head support is claimed from the same commit it tries to verify
+- a candidate closeout package is treated as final R10 closeout before post-push final-head support exists
 - remote branch head equality to the tested head is missing
 - clean worktree before/after evidence is missing without exact refusal reasons
 - local-only QA is presented as R10 closeout QA
@@ -207,6 +213,8 @@ R10 does not currently prove and must not casually widen into:
 ### `R10-008` Close R10 only with real external final-head proof
 - Status: planned
 - Done when: R10 proof package exists, real external run identity exists, external artifact bundle is referenced and retrievable, final-head support packet exists after push, status-doc gate passes, non-claims are preserved, and no successor milestone is opened.
+- Phase 1 candidate output: `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`.
+- Phase 1 boundary: the candidate package is not R10 closeout authority until Phase 2 post-push final-head support exists after the candidate commit is pushed.
 
 ## Milestone notes
 - `R10-001` opens R10 in repo truth only. It does not implement external-runner proof, real CI, external QA, artifact-bundle validation, final-head replay, or R10 closeout.
@@ -224,4 +232,4 @@ R10 does not currently prove and must not casually widen into:
 - `R10-005G` captures successful GitHub Actions run `25040949422` and artifact `r10-external-proof-bundle-25040949422-1` as one bounded external runner proof run. By itself, it did not implement R10-006, did not produce external-runner-consuming QA signoff, did not perform final-head clean replay, did not close R10, and did not prove broad CI/product coverage.
 - `R10-006` adds external-runner-consuming QA signoff based on successful R10-005G evidence and ensures R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` defines the two-phase final-head closeout support procedure so a future R10-008 closeout attempt can avoid self-referential final-head proof.
-- `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.
+- `R10-008` has a Phase 1 candidate closeout package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, but must close R10 only after Phase 2 post-push final-head support verifies the pushed candidate closeout head, all non-claims are preserved, and no successor milestone opens.

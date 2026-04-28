@@ -1,0 +1,30 @@
+PASS valid R10 two-phase final-head support procedure: r10-007-two-phase-final-head-closeout-support-procedure -> run 25040949422, bundle passed, QA passed
+PASS invalid: missing-required-field -> R10 two-phase final-head closeout procedure is missing required field 'contract_version'.
+PASS invalid: wrong-branch -> R10 two-phase final-head closeout procedure branch must be 'release/r10-real-external-runner-proof-foundation'.
+PASS invalid: wrong-source-task -> R10 two-phase final-head closeout procedure source_task must be 'R10-007'.
+PASS invalid: missing-candidate-closeout-commit-ref -> R10 two-phase final-head closeout procedure is missing required field 'candidate_closeout_commit_ref'.
+PASS invalid: missing-candidate-closeout-tree-ref -> R10 two-phase final-head closeout procedure is missing required field 'candidate_closeout_tree_ref'.
+PASS invalid: missing-external-runner-identity-ref -> R10 two-phase final-head closeout procedure is missing required field 'external_runner_identity_ref'.
+PASS invalid: missing-external-proof-bundle-ref -> R10 two-phase final-head closeout procedure is missing required field 'external_proof_bundle_ref'.
+PASS invalid: missing-external-runner-consuming-qa-signoff-ref -> R10 two-phase final-head closeout procedure is missing required field 'external_runner_consuming_qa_signoff_ref'.
+PASS invalid: external-runner-identity-not-successful-required-run -> R10 two-phase final-head closeout procedure external runner identity must reference successful run '25040949422'.
+PASS invalid: external-proof-bundle-not-passed -> R10 two-phase final-head closeout procedure external proof bundle aggregate verdict must be 'passed'.
+PASS invalid: qa-signoff-not-passed -> R10 two-phase final-head closeout procedure external-runner-consuming QA signoff verdict must be 'passed'.
+PASS invalid: post-push-final-head-support-not-required -> R10 two-phase final-head closeout procedure post-push final-head support is required.
+PASS invalid: claims-final-head-clean-replay-complete -> R10 two-phase final-head closeout procedure must not claim final-head clean replay is already complete or that R10 is already closed.
+PASS invalid: claims-r10-closed -> R10 two-phase final-head closeout procedure must not claim final-head clean replay is already complete or that R10 is already closed.
+PASS invalid: allows-same-commit-self-referential-proof -> R10 two-phase final-head closeout procedure post_push_support_commit_policy must not allow same-commit self-referential final-head proof.
+PASS invalid: allows-closeout-without-support -> R10 two-phase final-head closeout procedure post_push_support_commit_policy must not allow closeout without a follow-up support commit or external artifact identity.
+PASS invalid: omits-support-publication-mode -> R10 two-phase final-head closeout procedure post_push_support_commit_policy must allow a follow-up support commit or external artifact identity.
+PASS invalid: final-acceptance-omits-external-proof -> R10 two-phase final-head closeout procedure final_acceptance_conditions must include 'successful external proof run identity exists'.
+PASS invalid: final-acceptance-omits-qa-signoff -> R10 two-phase final-head closeout procedure final_acceptance_conditions must include 'external-runner-consuming QA signoff verdict is `passed`'.
+PASS invalid: final-acceptance-omits-post-push-support -> R10 two-phase final-head closeout procedure final_acceptance_conditions must include 'post-push final-head support packet verifies the final closeout head'.
+PASS invalid: final-acceptance-omits-status-doc-gate -> R10 two-phase final-head closeout procedure final_acceptance_conditions must include 'status-doc gate passes'.
+PASS invalid: final-acceptance-omits-non-claims -> R10 two-phase final-head closeout procedure final_acceptance_conditions must include 'R10 non-claims are preserved'.
+PASS invalid: refusal-omits-missing-external-proof -> R10 two-phase final-head closeout procedure refusal_conditions must include 'missing successful external proof identity'.
+PASS invalid: refusal-omits-failed-qa-signoff -> R10 two-phase final-head closeout procedure refusal_conditions must include 'missing or failed external-runner-consuming QA signoff'.
+PASS invalid: refusal-omits-missing-post-push-support -> R10 two-phase final-head closeout procedure refusal_conditions must include 'missing post-push final-head support'.
+PASS invalid: refusal-omits-self-referential-proof -> R10 two-phase final-head closeout procedure refusal_conditions must include 'self-referential final-head proof'.
+PASS invalid: refusal-omits-status-doc-drift -> R10 two-phase final-head closeout procedure refusal_conditions must include 'status-doc drift'.
+PASS invalid: missing-required-non-claim -> R10 two-phase final-head closeout procedure non_claims must include 'no completed final-head clean replay claim'.
+All R10 two-phase final-head support tests passed. Valid passed: 1. Invalid rejected: 28.

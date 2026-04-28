@@ -1,0 +1,1 @@
+VALID: R10 two-phase final-head support procedure 'r10-007-two-phase-final-head-closeout-support-procedure' for branch 'release/r10-real-external-runner-proof-foundation' consumes external run '25040949422', bundle verdict 'passed', QA verdict 'passed', and requires post-push final-head support: True.

@@ -1,0 +1,1 @@
+VALID: external runner closeout identity 'r10-005g-run-25040949422-external-runner-identity' for branch 'release/r10-real-external-runner-proof-foundation' records status 'completed', conclusion 'success', runner kind 'github_actions', run id '25040949422', artifact 'r10-external-proof-bundle-25040949422-1', and successful closeout-use identity shape.
