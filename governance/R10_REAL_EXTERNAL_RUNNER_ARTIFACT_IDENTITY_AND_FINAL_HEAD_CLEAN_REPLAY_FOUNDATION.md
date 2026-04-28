@@ -52,6 +52,10 @@ Run `25033063285` completed with conclusion `failure`; it is a real external run
 
 R10-005A is complete as a corrective support slice for the failed Linux/pwsh external proof bundle validation path. The analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`.
 
+R10-005B captured retry run ID `25034566460` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460` with artifact `r10-external-proof-bundle-25034566460-1` and retrieval instruction `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6676514702/zip`.
+
+Run `25034566460` completed with conclusion `failure`; it uploaded a retrievable artifact and the downloaded bundle validates as a completed non-passing bundle shape, but successful external proof is not established. The failure analysis is `state/external_runs/r10_external_proof_bundle/25034566460/FAILED_RERUN_ANALYSIS.md`.
+
 R10 still has not produced a successful external proof artifact bundle.
 
 R10 still has not produced external QA proof.
@@ -168,6 +172,7 @@ R10 does not currently prove and must not casually widen into:
 - Durable output: `state/external_runs/r10_external_proof_bundle/25033063285/external_runner_closeout_identity.json`, `state/external_runs/r10_external_proof_bundle/25033063285/RUN_IDENTITY_SUMMARY.md`, `state/external_runs/r10_external_proof_bundle/25033063285/artifact_retrieval_instructions.md`, raw run metadata under `state/external_runs/r10_external_proof_bundle/25033063285/raw_logs/`, and downloaded artifact contents under `state/external_runs/r10_external_proof_bundle/25033063285/downloaded_artifact/`.
 - Result: run `25033063285` completed with conclusion `failure`; this captures one real external runner identity and artifact reference, but successful external proof is not established.
 - Corrective support: `R10-005A` fixes Linux/pwsh external proof bundle validation and relative artifact-ref handling after failed run `25033063285`; the failure analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`. R10 remains active through `R10-005` only.
+- Retry support: `R10-005B` records failed retry run `25034566460` with artifact `r10-external-proof-bundle-25034566460-1`, committed identity packet `state/external_runs/r10_external_proof_bundle/25034566460/external_runner_closeout_identity.json`, downloaded artifact contents, and failure analysis `state/external_runs/r10_external_proof_bundle/25034566460/FAILED_RERUN_ANALYSIS.md`. The retry is not successful external proof.
 
 ### `R10-006` Add external-runner-consuming QA signoff
 - Status: planned
@@ -190,6 +195,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-004B` moves the workflow to `ubuntu-latest` with `pwsh` after failed run `25032362789` proved the Windows checkout path could hit filename-too-long errors before bundle creation. That failed run uploaded no artifact, created no R10-005 packet, and is not accepted as R10-005 proof.
 - `R10-005` captures real GitHub Actions run `25033063285` and artifact `r10-external-proof-bundle-25033063285-1` as a completed failed external runner identity. This is not successful external proof, not external QA proof, not final-head clean replay, and not R10 closeout.
 - `R10-005A` corrects the Linux/pwsh validation and artifact-ref handling failure exposed by run `25033063285`. It does not create a new identity packet and does not establish successful external proof.
+- `R10-005B` captures retry run `25034566460` and artifact `r10-external-proof-bundle-25034566460-1` as completed failed external runner evidence after R10-005A. The bundle records matching remote and tested heads and a failed aggregate verdict, so it is diagnostic failure evidence only, not successful external proof.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.
 - `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.

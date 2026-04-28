@@ -1,0 +1,99 @@
+{
+  "contract_version": "v1",
+  "bundle_type": "external_proof_artifact_bundle",
+  "bundle_id": "r10-004-external-proof-bundle-25034566460-1",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "triggering_ref": "release/r10-real-external-runner-proof-foundation",
+  "runner_kind": "github_actions",
+  "runner_identity": "GitHub Actions runner GitHub Actions 1000000008 Linux X64",
+  "workflow_name": "R10 External Proof Bundle",
+  "workflow_ref": ".github/workflows/r10-external-proof-bundle.yml",
+  "run_id": "25034566460",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460",
+  "artifact_name": "r10-external-proof-bundle-25034566460-1",
+  "artifact_url_or_retrieval_instruction": "Download artifact 'r10-external-proof-bundle-25034566460-1' from GitHub Actions run 'https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460'.",
+  "remote_head_sha": "0973f1159431fc6bfd0163c3975aaa91bd7ea127",
+  "tested_head_sha": "0973f1159431fc6bfd0163c3975aaa91bd7ea127",
+  "tested_tree_sha": "74afeb0730779ae32679c7f31a18ec04c89e14d9",
+  "head_match": true,
+  "clean_status_before": {
+    "status": "clean",
+    "evidence_ref": "artifacts/clean_status_before.json"
+  },
+  "clean_status_after": {
+    "status": "clean",
+    "evidence_ref": "artifacts/clean_status_after.json"
+  },
+  "command_manifest_ref": "artifacts/command_manifest.json",
+  "command_results": [
+    {
+      "command_id": "external-proof-artifact-bundle",
+      "command": "/opt/microsoft/powershell/7/pwsh -NoProfile -File tests/test_external_proof_artifact_bundle.ps1",
+      "stdout_ref": "artifacts/external-proof-artifact-bundle.stdout.log",
+      "stderr_ref": "artifacts/external-proof-artifact-bundle.stderr.log",
+      "exit_code_ref": "artifacts/external-proof-artifact-bundle.exit_code.txt",
+      "exit_code": 1,
+      "verdict": "failed"
+    },
+    {
+      "command_id": "external-runner-closeout-identity",
+      "command": "/opt/microsoft/powershell/7/pwsh -NoProfile -File tests/test_external_runner_closeout_identity.ps1",
+      "stdout_ref": "artifacts/external-runner-closeout-identity.stdout.log",
+      "stderr_ref": "artifacts/external-runner-closeout-identity.stderr.log",
+      "exit_code_ref": "artifacts/external-runner-closeout-identity.exit_code.txt",
+      "exit_code": 1,
+      "verdict": "failed"
+    },
+    {
+      "command_id": "status-doc-gate-test",
+      "command": "/opt/microsoft/powershell/7/pwsh -NoProfile -File tests/test_status_doc_gate.ps1",
+      "stdout_ref": "artifacts/status-doc-gate-test.stdout.log",
+      "stderr_ref": "artifacts/status-doc-gate-test.stderr.log",
+      "exit_code_ref": "artifacts/status-doc-gate-test.exit_code.txt",
+      "exit_code": 0,
+      "verdict": "passed"
+    },
+    {
+      "command_id": "status-doc-gate-validator",
+      "command": "/opt/microsoft/powershell/7/pwsh -NoProfile -File tools/validate_status_doc_gate.ps1",
+      "stdout_ref": "artifacts/status-doc-gate-validator.stdout.log",
+      "stderr_ref": "artifacts/status-doc-gate-validator.stderr.log",
+      "exit_code_ref": "artifacts/status-doc-gate-validator.exit_code.txt",
+      "exit_code": 0,
+      "verdict": "passed"
+    },
+    {
+      "command_id": "git-diff-check",
+      "command": "git diff --check",
+      "stdout_ref": "artifacts/git-diff-check.stdout.log",
+      "stderr_ref": "artifacts/git-diff-check.stderr.log",
+      "exit_code_ref": "artifacts/git-diff-check.exit_code.txt",
+      "exit_code": 0,
+      "verdict": "passed"
+    }
+  ],
+  "aggregate_verdict": "failed",
+  "refusal_reasons": [
+    "command 'external-proof-artifact-bundle' exited with 1",
+    "command 'external-runner-closeout-identity' exited with 1"
+  ],
+  "created_at_utc": "2026-04-28T04:51:37Z",
+  "non_claims": [
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ],
+  "remote_head_query_ref": "artifacts/remote_head_query.txt",
+  "tested_head_ref": "artifacts/tested_head.txt",
+  "tested_tree_ref": "artifacts/tested_tree.txt",
+  "retrieval_readme_ref": "artifact_retrieval_README.txt"
+}

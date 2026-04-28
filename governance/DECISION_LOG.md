@@ -626,3 +626,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the external proof bundle validator and tests now use explicit cross-platform fixture paths and preserve JSON document shape, and the R10 bundle runner now builds file-scheme URIs for relative artifact refs and invokes proof commands through explicit executables and argument arrays.
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: this correction does not create a new R10-005 identity packet, does not establish successful external proof, does not claim external QA proof, does not claim final-head clean replay, does not claim broad CI/product coverage, and does not close R10.
+
+## D-0071 R10-005B Recorded Failed External Proof Retry
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005B` records real GitHub Actions retry run `25034566460` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460`, artifact `r10-external-proof-bundle-25034566460-1`, and committed identity packet `state/external_runs/r10_external_proof_bundle/25034566460/external_runner_closeout_identity.json`.
+- Consequence: the artifact retrieval instruction, raw GitHub metadata, downloaded artifact contents, and failure analysis are recorded under `state/external_runs/r10_external_proof_bundle/25034566460/`.
+- Consequence: run `25034566460` completed with conclusion `failure`; the downloaded bundle validates as a completed non-passing bundle shape with matching remote and tested heads, but successful external proof is not established.
+- Consequence: the retry shows the runner now reaches artifact creation and upload after R10-005A, while the Linux/pwsh proof-test fixture path still fails with missing `contract_version` diagnostics.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: this retry record does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.

@@ -1,0 +1,97 @@
+{
+    "total_count":  1,
+    "jobs":  [
+                 {
+                     "id":  73323272895,
+                     "run_id":  25034566460,
+                     "workflow_name":  "R10 External Proof Bundle",
+                     "head_branch":  "release/r10-real-external-runner-proof-foundation",
+                     "run_url":  "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/runs/25034566460",
+                     "run_attempt":  1,
+                     "node_id":  "CR_kwDOSFN1Yc8AAAAREmhavw",
+                     "head_sha":  "0973f1159431fc6bfd0163c3975aaa91bd7ea127",
+                     "url":  "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/jobs/73323272895",
+                     "html_url":  "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25034566460/job/73323272895",
+                     "status":  "completed",
+                     "conclusion":  "failure",
+                     "created_at":  "2026-04-28T04:51:21Z",
+                     "started_at":  "2026-04-28T04:51:23Z",
+                     "completed_at":  "2026-04-28T04:51:42Z",
+                     "name":  "R10 External Proof Bundle",
+                     "steps":  [
+                                   {
+                                       "name":  "Set up job",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  1,
+                                       "started_at":  "2026-04-28T04:51:24Z",
+                                       "completed_at":  "2026-04-28T04:51:25Z"
+                                   },
+                                   {
+                                       "name":  "Resolve requested ref",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  2,
+                                       "started_at":  "2026-04-28T04:51:25Z",
+                                       "completed_at":  "2026-04-28T04:51:28Z"
+                                   },
+                                   {
+                                       "name":  "Check out requested ref",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  3,
+                                       "started_at":  "2026-04-28T04:51:28Z",
+                                       "completed_at":  "2026-04-28T04:51:29Z"
+                                   },
+                                   {
+                                       "name":  "Configure Git checkout behavior",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  4,
+                                       "started_at":  "2026-04-28T04:51:29Z",
+                                       "completed_at":  "2026-04-28T04:51:30Z"
+                                   },
+                                   {
+                                       "name":  "Build and validate R10 external proof bundle",
+                                       "status":  "completed",
+                                       "conclusion":  "failure",
+                                       "number":  5,
+                                       "started_at":  "2026-04-28T04:51:30Z",
+                                       "completed_at":  "2026-04-28T04:51:39Z"
+                                   },
+                                   {
+                                       "name":  "Upload R10 external proof bundle artifact",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  6,
+                                       "started_at":  "2026-04-28T04:51:39Z",
+                                       "completed_at":  "2026-04-28T04:51:40Z"
+                                   },
+                                   {
+                                       "name":  "Post Check out requested ref",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  12,
+                                       "started_at":  "2026-04-28T04:51:40Z",
+                                       "completed_at":  "2026-04-28T04:51:40Z"
+                                   },
+                                   {
+                                       "name":  "Complete job",
+                                       "status":  "completed",
+                                       "conclusion":  "success",
+                                       "number":  13,
+                                       "started_at":  "2026-04-28T04:51:40Z",
+                                       "completed_at":  "2026-04-28T04:51:40Z"
+                                   }
+                               ],
+                     "check_run_url":  "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/check-runs/73323272895",
+                     "labels":  [
+                                    "ubuntu-latest"
+                                ],
+                     "runner_id":  1000000008,
+                     "runner_name":  "GitHub Actions 1000000008",
+                     "runner_group_id":  0,
+                     "runner_group_name":  "GitHub Actions"
+                 }
+             ]
+}
