@@ -1,0 +1,63 @@
+{
+  "contract_version": "v1",
+  "procedure_type": "r10_two_phase_final_head_closeout_procedure",
+  "procedure_id": "r10-007-two-phase-final-head-closeout-support-procedure",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "source_milestone": "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation",
+  "source_task": "R10-007",
+  "candidate_closeout_commit_ref": "state/fixtures/valid/post_push_support/r10_two_phase_artifacts/candidate_closeout_commit_ref.md",
+  "candidate_closeout_tree_ref": "state/fixtures/valid/post_push_support/r10_two_phase_artifacts/candidate_closeout_tree_ref.md",
+  "external_runner_identity_ref": "state/external_runs/r10_external_proof_bundle/25040949422/external_runner_closeout_identity.json",
+  "external_proof_bundle_ref": "state/external_runs/r10_external_proof_bundle/25040949422/downloaded_artifact/external_proof_artifact_bundle.json",
+  "external_runner_consuming_qa_signoff_ref": "state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff.json",
+  "post_push_final_head_support_required": true,
+  "post_push_support_commit_policy": {
+    "candidate_closeout_commit_must_be_pushed_first": true,
+    "support_must_be_after_push": true,
+    "same_commit_self_referential_proof_allowed": false,
+    "closeout_without_support_allowed": false,
+    "allowed_publication_modes": [
+      "follow_up_support_commit",
+      "external_artifact_identity"
+    ],
+    "statement": "The candidate closeout commit must be pushed first; final-head support must be created after that push in a follow-up support commit or external artifact identity, not in the same closeout commit it verifies."
+  },
+  "final_acceptance_conditions": [
+    "successful external proof run identity exists",
+    "external proof bundle aggregate verdict is `passed`",
+    "external-runner-consuming QA signoff verdict is `passed`",
+    "candidate closeout commit is pushed before final-head support is created",
+    "post-push final-head support packet verifies the final closeout head",
+    "final-head support is in a follow-up support commit or external artifact, not the same closeout commit it verifies",
+    "status-doc gate passes",
+    "no successor milestone is opened",
+    "R10 non-claims are preserved"
+  ],
+  "refusal_conditions": [
+    "missing successful external proof identity",
+    "failed or missing external proof bundle",
+    "missing or failed external-runner-consuming QA signoff",
+    "missing post-push final-head support",
+    "self-referential final-head proof",
+    "status-doc drift",
+    "broad CI/product coverage claim",
+    "R10 closeout claim before support evidence exists"
+  ],
+  "non_claims": [
+    "no R10 closeout claim",
+    "no completed final-head clean replay claim",
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ],
+  "created_at_utc": "2026-04-28T10:10:00Z"
+}

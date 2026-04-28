@@ -1,0 +1,78 @@
+{
+  "contract_version": "v1",
+  "procedure_type": "r10_two_phase_final_head_closeout_procedure",
+  "required_branch": "release/r10-real-external-runner-proof-foundation",
+  "required_source_milestone": "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation",
+  "required_source_task": "R10-007",
+  "required_external_run_id": "25040949422",
+  "required_fields": [
+    "contract_version",
+    "procedure_type",
+    "procedure_id",
+    "repository",
+    "branch",
+    "source_milestone",
+    "source_task",
+    "candidate_closeout_commit_ref",
+    "candidate_closeout_tree_ref",
+    "external_runner_identity_ref",
+    "external_proof_bundle_ref",
+    "external_runner_consuming_qa_signoff_ref",
+    "post_push_final_head_support_required",
+    "post_push_support_commit_policy",
+    "final_acceptance_conditions",
+    "refusal_conditions",
+    "non_claims",
+    "created_at_utc"
+  ],
+  "post_push_support_commit_policy_required_fields": [
+    "candidate_closeout_commit_must_be_pushed_first",
+    "support_must_be_after_push",
+    "same_commit_self_referential_proof_allowed",
+    "closeout_without_support_allowed",
+    "allowed_publication_modes",
+    "statement"
+  ],
+  "allowed_publication_modes": [
+    "follow_up_support_commit",
+    "external_artifact_identity"
+  ],
+  "required_final_acceptance_conditions": [
+    "successful external proof run identity exists",
+    "external proof bundle aggregate verdict is `passed`",
+    "external-runner-consuming QA signoff verdict is `passed`",
+    "candidate closeout commit is pushed before final-head support is created",
+    "post-push final-head support packet verifies the final closeout head",
+    "final-head support is in a follow-up support commit or external artifact, not the same closeout commit it verifies",
+    "status-doc gate passes",
+    "no successor milestone is opened",
+    "R10 non-claims are preserved"
+  ],
+  "required_refusal_conditions": [
+    "missing successful external proof identity",
+    "failed or missing external proof bundle",
+    "missing or failed external-runner-consuming QA signoff",
+    "missing post-push final-head support",
+    "self-referential final-head proof",
+    "status-doc drift",
+    "broad CI/product coverage claim",
+    "R10 closeout claim before support evidence exists"
+  ],
+  "required_non_claims": [
+    "no R10 closeout claim",
+    "no completed final-head clean replay claim",
+    "no broad CI/product coverage claim",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended milestone execution",
+    "no destructive rollback",
+    "no general Codex reliability"
+  ],
+  "forbidden_completed_claim_pattern": "(?i)(final[- ]head clean replay|R10 closeout|R10.{0,20}closed).{0,120}(complete|completed|done|closed|accepted|proved|proven|satisfied|finished|already)",
+  "forbidden_self_referential_pattern": "(?i)(same[- ]commit|self[- ]referential).{0,120}(allowed|accepted|proof|support|final[- ]head)"
+}

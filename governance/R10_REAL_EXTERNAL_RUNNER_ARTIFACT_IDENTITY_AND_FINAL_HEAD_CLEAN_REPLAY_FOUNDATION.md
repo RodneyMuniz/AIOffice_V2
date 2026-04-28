@@ -16,7 +16,7 @@ The operator-facing bridge report `governance/reports/AIOffice_V2_R9_Audit_and_R
 Prove one bounded external-runner evidence loop in which the exact final remote head for the milestone is replayed or verified by a real external runner or CI workflow, with concrete artifact identity, retrievable logs, exact commit/tree identity, and status-doc gating that rejects any external-proof claim without those artifacts.
 
 ## Current status
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-006` only.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now active in repo truth through `R10-007` only.
 
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains the most recently closed milestone under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review package under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
 
@@ -32,7 +32,7 @@ Prove one bounded external-runner evidence loop in which the exact final remote 
 
 `R10-005` is complete as one real external runner identity capture.
 
-`R10-007` and `R10-008` remain planned only.
+`R10-008` remains planned only.
 
 R10-002 hardens the closeout-use validator.
 
@@ -41,6 +41,8 @@ R10-003 defines the external proof artifact bundle format.
 R10-004 wires one external runner path.
 
 R10-006 adds external-runner-consuming QA signoff based on successful R10-005G evidence.
+
+R10-007 adds the two-phase final-head closeout support procedure.
 
 Workflow existence is not proof of a successful run.
 
@@ -72,7 +74,7 @@ R10-005G has produced one successful external proof artifact bundle for the test
 
 R10-006 records external-runner-consuming QA signoff at `state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff.json`.
 
-R10 still has not performed final-head clean replay.
+R10 still has not executed final-head clean replay.
 
 R10 is not closed.
 
@@ -198,8 +200,9 @@ R10 does not currently prove and must not casually widen into:
 - Durable output: `contracts/isolated_qa/external_runner_consuming_qa_signoff.contract.json`, `tools/ExternalRunnerConsumingQaSignoff.psm1`, `tools/validate_external_runner_consuming_qa_signoff.ps1`, `state/external_runs/r10_external_proof_bundle/25040949422/qa/external_runner_consuming_qa_signoff.json`, and `tests/test_external_runner_consuming_qa_signoff.ps1`.
 
 ### `R10-007` Add two-phase final-head closeout support procedure
-- Status: planned
+- Status: done
 - Done when: the repo distinguishes candidate closeout commit, external run identity, final-head support commit, and final accepted R10 posture.
+- Durable output: `governance/R10_TWO_PHASE_FINAL_HEAD_CLOSEOUT_SUPPORT_PROCEDURE.md`, `contracts/post_push_support/r10_two_phase_final_head_closeout_procedure.contract.json`, `tools/R10TwoPhaseFinalHeadSupport.psm1`, `tools/validate_r10_two_phase_final_head_support.ps1`, `state/fixtures/valid/post_push_support/r10_two_phase_final_head_closeout_procedure.valid.json`, and `tests/test_r10_two_phase_final_head_support.ps1`.
 
 ### `R10-008` Close R10 only with real external final-head proof
 - Status: planned
@@ -220,5 +223,5 @@ R10 does not currently prove and must not casually widen into:
 - `R10-005F` corrects PowerShell Core timestamp string preservation in the canonical JSON-root reader. It does not retry the external workflow, does not implement R10-006, does not create successful external proof, and does not close R10.
 - `R10-005G` captures successful GitHub Actions run `25040949422` and artifact `r10-external-proof-bundle-25040949422-1` as one bounded external runner proof run. By itself, it did not implement R10-006, did not produce external-runner-consuming QA signoff, did not perform final-head clean replay, did not close R10, and did not prove broad CI/product coverage.
 - `R10-006` adds external-runner-consuming QA signoff based on successful R10-005G evidence and ensures R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
-- `R10-007` must make the final-head support procedure non-self-referential.
+- `R10-007` defines the two-phase final-head closeout support procedure so a future R10-008 closeout attempt can avoid self-referential final-head proof.
 - `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.
