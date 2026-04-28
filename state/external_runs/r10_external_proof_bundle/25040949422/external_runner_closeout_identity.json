@@ -1,0 +1,62 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "external_runner_closeout_identity",
+    "artifact_id":  "r10-005g-run-25040949422-external-runner-identity",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "head_sha":  "3412f05f3f88a5381f9d2ed1918e45d43793b5cd",
+    "tree_sha":  "43184291731e1a195ce3aecfd78967a90ddfb9b9",
+    "runner_kind":  "github_actions",
+    "runner_identity":  "GitHub Actions 1000000012; runner_group=GitHub Actions; labels=ubuntu-latest",
+    "workflow_name":  "R10 External Proof Bundle",
+    "workflow_ref":  ".github/workflows/r10-external-proof-bundle.yml",
+    "run_id":  "25040949422",
+    "run_url":  "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25040949422",
+    "artifact_name":  "r10-external-proof-bundle-25040949422-1",
+    "artifact_url_or_retrieval_instruction":  "Download artifact r10-external-proof-bundle-25040949422-1 from https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25040949422 or use authenticated GET https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip.",
+    "triggered_at_utc":  "2026-04-28T07:56:14Z",
+    "completed_at_utc":  "2026-04-28T07:56:45Z",
+    "status":  "completed",
+    "conclusion":  "success",
+    "command_manifest_ref":  "downloaded_artifact/artifacts/command_manifest.json",
+    "stdout_log_refs":  [
+                            "downloaded_artifact/artifacts/external-proof-artifact-bundle.stdout.log",
+                            "downloaded_artifact/artifacts/external-runner-closeout-identity.stdout.log",
+                            "downloaded_artifact/artifacts/status-doc-gate-test.stdout.log",
+                            "downloaded_artifact/artifacts/status-doc-gate-validator.stdout.log",
+                            "downloaded_artifact/artifacts/git-diff-check.stdout.log",
+                            "downloaded_artifact/artifacts/bundle_validation.stdout.log"
+                        ],
+    "stderr_log_refs":  [
+                            "downloaded_artifact/artifacts/external-proof-artifact-bundle.stderr.log",
+                            "downloaded_artifact/artifacts/external-runner-closeout-identity.stderr.log",
+                            "downloaded_artifact/artifacts/status-doc-gate-test.stderr.log",
+                            "downloaded_artifact/artifacts/status-doc-gate-validator.stderr.log",
+                            "downloaded_artifact/artifacts/git-diff-check.stderr.log",
+                            "downloaded_artifact/artifacts/bundle_validation.stderr.log"
+                        ],
+    "exit_code_refs":  [
+                           "downloaded_artifact/artifacts/external-proof-artifact-bundle.exit_code.txt",
+                           "downloaded_artifact/artifacts/external-runner-closeout-identity.exit_code.txt",
+                           "downloaded_artifact/artifacts/status-doc-gate-test.exit_code.txt",
+                           "downloaded_artifact/artifacts/status-doc-gate-validator.exit_code.txt",
+                           "downloaded_artifact/artifacts/git-diff-check.exit_code.txt",
+                           "downloaded_artifact/artifacts/bundle_validation.exit_code.txt"
+                       ],
+    "qa_packet_ref":  "support_refs/r10_005g_qa_packet_ref.md",
+    "remote_head_evidence_ref":  "downloaded_artifact/artifacts/remote_head_query.txt",
+    "final_remote_head_support_ref":  "support_refs/r10_005g_final_remote_head_support_ref.md",
+    "non_claims":  [
+                       "no broad CI/product coverage claim",
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended milestone execution",
+                       "no destructive rollback",
+                       "no general Codex reliability"
+                   ]
+}

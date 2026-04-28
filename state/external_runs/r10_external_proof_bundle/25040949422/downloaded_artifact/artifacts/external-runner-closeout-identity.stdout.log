@@ -1,0 +1,36 @@
+PASS invalid: array-root-json-document -> External runner closeout identity root must be a single JSON object; array root documents are not accepted.
+PASS valid validator-only shape: r10-002-closeout-identity-validator-shape -> completed success
+PASS valid completed failure shape: r10-002-closeout-identity-validator-failure-shape -> completed failure
+PASS invalid: r9-limitation-fixture-as-r10-closeout-proof -> External runner closeout identity is missing required field 'command_manifest_ref'.
+PASS invalid: unavailable-status -> External runner closeout identity status must be one of: completed.
+PASS invalid: unavailable-conclusion -> External runner closeout identity conclusion must be one of: success, failure, cancelled, timed_out, skipped.
+PASS invalid: empty-run-id -> External runner closeout identity run_id must be a non-empty string.
+PASS invalid: synthetic-run-id-synthetic -> External runner closeout identity run_id must not be synthetic, dummy, test, or placeholder.
+PASS invalid: synthetic-run-id-dummy -> External runner closeout identity run_id must not be synthetic, dummy, test, or placeholder.
+PASS invalid: synthetic-run-id-test -> External runner closeout identity run_id must not be synthetic, dummy, test, or placeholder.
+PASS invalid: synthetic-run-id-placeholder -> External runner closeout identity run_id must not be synthetic, dummy, test, or placeholder.
+PASS invalid: empty-run-url -> External runner closeout identity run_url must be a non-empty string.
+PASS invalid: invalid-github-actions-run-url -> External runner closeout identity run_url does not match required pattern '^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/actions/runs/[0-9]+(?:/attempts/[0-9]+)?$'.
+PASS invalid: missing-runner-identity -> External runner closeout identity runner_identity must be a non-empty string.
+PASS invalid: missing-workflow-name -> External runner closeout identity workflow_name must be a non-empty string.
+PASS invalid: missing-workflow-ref -> External runner closeout identity workflow_ref must be a non-empty string.
+PASS invalid: empty-artifact-name -> External runner closeout identity artifact_name must be a non-empty string.
+PASS invalid: empty-retrieval-instruction -> External runner closeout identity artifact_url_or_retrieval_instruction must be a non-empty string.
+PASS invalid: missing-command-manifest-ref -> External runner closeout identity command_manifest_ref must be a non-empty string.
+PASS invalid: missing-triggered-at-utc -> External runner closeout identity is missing required field 'triggered_at_utc'.
+PASS invalid: non-string-triggered-at-utc -> External runner closeout identity triggered_at_utc must be a non-empty string.
+PASS invalid: non-string-completed-at-utc -> External runner closeout identity completed_at_utc must be a non-empty string.
+PASS invalid: missing-head-sha -> External runner closeout identity head_sha must be a non-empty string.
+PASS invalid: missing-tree-sha -> External runner closeout identity tree_sha must be a non-empty string.
+PASS invalid: missing-stdout-refs -> External runner closeout identity stdout_log_refs must not be empty.
+PASS invalid: missing-stderr-refs -> External runner closeout identity stderr_log_refs must not be empty.
+PASS invalid: missing-exit-code-refs -> External runner closeout identity exit_code_refs must not be empty.
+PASS invalid: missing-qa-packet-ref -> External runner closeout identity qa_packet_ref must be a non-empty string.
+PASS invalid: missing-remote-head-evidence-ref -> External runner closeout identity remote_head_evidence_ref must be a non-empty string.
+PASS invalid: missing-final-head-support-ref -> External runner closeout identity final_remote_head_support_ref must be a non-empty string.
+PASS invalid: wrong-branch-old-r9-support-line -> External runner closeout identity branch must be 'release/r10-real-external-runner-proof-foundation'.
+PASS invalid: missing-required-non-claim -> External runner closeout identity non_claims must include 'no solved Codex context compaction'.
+PASS invalid: broad-ci-product-coverage-claim -> External runner closeout identity must not claim broad CI/product coverage.
+PASS invalid: unavailable-limitation-described-as-proof -> External runner closeout identity must not describe unavailable or limitation-only external-runner evidence as proof.
+PASS invalid: r9-004-limitation-satisfies-r10-proof -> External runner closeout identity must not claim that R9-004 limitation evidence satisfies R10 external proof.
+All external runner closeout identity tests passed. Valid passed: 2. Invalid rejected: 33.

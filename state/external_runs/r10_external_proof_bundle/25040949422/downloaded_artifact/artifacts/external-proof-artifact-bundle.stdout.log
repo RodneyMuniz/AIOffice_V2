@@ -1,0 +1,37 @@
+PASS invalid: array-root-json-document -> External proof artifact bundle root must be a single JSON object; array root documents are not accepted.
+PASS valid validator-only bundle shape: r10-003-external-proof-bundle-validator-shape -> passed with 1 command(s)
+PASS valid failed bundle shape: r10-003-external-proof-bundle-validator-failed-shape -> failed
+PASS invalid: missing-required-field -> External proof artifact bundle is missing required field 'bundle_id'.
+PASS invalid: wrong-repository -> External proof artifact bundle repository must be 'AIOffice_V2'.
+PASS invalid: wrong-branch -> External proof artifact bundle branch must be 'release/r10-real-external-runner-proof-foundation'.
+PASS invalid: empty-run-id -> External proof artifact bundle run_id must be a non-empty string.
+PASS invalid: empty-run-url -> External proof artifact bundle run_url must be a non-empty string.
+PASS invalid: github-actions-run-url-not-concrete -> External proof artifact bundle run_url does not match required pattern '^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/actions/runs/[0-9]+(?:/attempts/[0-9]+)?$'.
+PASS invalid: missing-workflow-name -> External proof artifact bundle workflow_name must be a non-empty string.
+PASS invalid: missing-workflow-ref -> External proof artifact bundle workflow_ref must be a non-empty string.
+PASS invalid: empty-artifact-name -> External proof artifact bundle artifact_name must be a non-empty string.
+PASS invalid: empty-retrieval-instruction -> External proof artifact bundle artifact_url_or_retrieval_instruction must be a non-empty string.
+PASS invalid: malformed-remote-head-sha -> External proof artifact bundle remote_head_sha does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: malformed-tested-head-sha -> External proof artifact bundle tested_head_sha does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: malformed-tested-tree-sha -> External proof artifact bundle tested_tree_sha does not match required pattern '^[a-f0-9]{40}$'.
+PASS invalid: passed-head-match-false -> External proof artifact bundle head_match cannot be false when aggregate_verdict is 'passed'.
+PASS invalid: head-match-true-with-sha-mismatch -> External proof artifact bundle head_match true requires remote_head_sha to equal tested_head_sha.
+PASS invalid: missing-clean-status-before -> External proof artifact bundle is missing required field 'clean_status_before'.
+PASS invalid: missing-clean-status-after-evidence -> External proof artifact bundle clean_status_after evidence_ref must be a non-empty string.
+PASS invalid: missing-command-manifest-ref -> External proof artifact bundle command_manifest_ref must be a non-empty string.
+PASS invalid: missing-created-at-utc -> External proof artifact bundle is missing required field 'created_at_utc'.
+PASS invalid: non-string-created-at-utc -> External proof artifact bundle created_at_utc must be a non-empty string.
+PASS invalid: command-manifest-ref-does-not-resolve -> External proof artifact bundle command_manifest_ref 'artifacts/missing_command_manifest.json' does not exist.
+PASS invalid: empty-command-results -> External proof artifact bundle command_results must not be empty.
+PASS invalid: command-result-missing-stdout-ref -> External proof artifact bundle command_results item stdout_ref must be a non-empty string.
+PASS invalid: command-result-missing-stderr-ref -> External proof artifact bundle command_results item stderr_ref must be a non-empty string.
+PASS invalid: command-result-missing-exit-code-ref -> External proof artifact bundle command_results item exit_code_ref must be a non-empty string.
+PASS invalid: command-result-stdout-ref-does-not-resolve -> External proof artifact bundle command_results item stdout_ref 'artifacts/missing_stdout.log' does not exist.
+PASS invalid: invalid-aggregate-verdict -> External proof artifact bundle aggregate_verdict must be one of: passed, failed, blocked.
+PASS invalid: passed-aggregate-with-failed-command -> External proof artifact bundle aggregate_verdict 'passed' requires every command result verdict to be 'passed'.
+PASS invalid: passed-aggregate-with-refusal-reasons -> External proof artifact bundle aggregate_verdict 'passed' requires refusal_reasons to be empty.
+PASS invalid: failed-aggregate-without-refusal-reasons -> External proof artifact bundle aggregate_verdict 'failed' requires refusal_reasons to be non-empty.
+PASS invalid: missing-required-non-claim -> External proof artifact bundle non_claims must include 'no solved Codex context compaction'.
+PASS invalid: broad-ci-product-coverage-claim -> External proof artifact bundle must not claim broad CI/product coverage.
+PASS invalid: standard-runtime-claim -> External proof artifact bundle must not claim UI, Standard runtime, multi-repo, swarms, broad autonomy, unattended resume, solved compaction, hours-long execution, destructive rollback, or general Codex reliability.
+All external proof artifact bundle tests passed. Valid passed: 2. Invalid rejected: 34.

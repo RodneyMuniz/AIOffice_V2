@@ -668,3 +668,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
 - Consequence: successful external proof is still not established until a new external run passes.
 - Consequence: this correction does not retry the workflow, does not implement R10-006, does not claim external QA proof, does not claim final-head clean replay, does not close R10, and does not claim broad CI/product coverage.
+
+## D-0075 R10-005G Captured Successful External Proof Run
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005G` records successful GitHub Actions run `25040949422` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25040949422`, artifact `r10-external-proof-bundle-25040949422-1`, committed identity packet `state/external_runs/r10_external_proof_bundle/25040949422/external_runner_closeout_identity.json`, and downloaded bundle `state/external_runs/r10_external_proof_bundle/25040949422/downloaded_artifact/external_proof_artifact_bundle.json`.
+- Consequence: the artifact retrieval instruction is recorded at `state/external_runs/r10_external_proof_bundle/25040949422/artifact_retrieval_instructions.md` and includes authenticated ZIP retrieval from `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip`.
+- Consequence: run `25040949422` completed with status `completed` and conclusion `success`; the downloaded artifact bundle validates as a passed bundle with matching remote and tested heads for `release/r10-real-external-runner-proof-foundation`.
+- Consequence: this is one bounded external runner proof run only.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: this decision does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, or broad autonomous milestone execution.

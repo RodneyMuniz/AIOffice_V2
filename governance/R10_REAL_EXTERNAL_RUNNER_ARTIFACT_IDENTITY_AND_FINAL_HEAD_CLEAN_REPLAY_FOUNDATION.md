@@ -48,7 +48,7 @@ R10-004B improves workflow checkout compatibility by moving the external proof w
 
 R10-005 captured real run ID `25033063285` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25033063285` with artifact `r10-external-proof-bundle-25033063285-1` and retrieval instruction `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6675983991/zip`.
 
-Run `25033063285` completed with conclusion `failure`; it is a real external runner identity capture, but successful external proof is not established.
+Run `25033063285` completed with conclusion `failure`; it is a real external runner identity capture, but successful external proof was not established by that run.
 
 R10-005A is complete as a corrective support slice for the failed Linux/pwsh external proof bundle validation path. The analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`.
 
@@ -62,7 +62,11 @@ R10-005D is complete as a corrective support slice for canonical JSON-root reade
 
 R10-005F is complete as a corrective support slice for PowerShell Core timestamp string preservation after failed retry run `25037934779` showed that the prior root-shape class was fixed and exposed timestamp coercion for `created_at_utc`, `triggered_at_utc`, and `completed_at_utc`. The failed run `25037934779` was not committed as R10 proof evidence and is not successful external proof.
 
-R10 still has not produced a successful external proof artifact bundle.
+R10-005G captured successful external proof run ID `25040949422` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25040949422` with artifact `r10-external-proof-bundle-25040949422-1` and retrieval instruction `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip`.
+
+Run `25040949422` completed with status `completed` and conclusion `success`; this is one bounded external runner proof run only, not external QA proof, not final-head clean replay, not broad CI/product coverage, and not R10 closeout.
+
+R10-005G has produced one successful external proof artifact bundle for the tested R10 release branch head.
 
 R10 still has not produced external QA proof.
 
@@ -175,13 +179,14 @@ R10 does not currently prove and must not casually widen into:
 ### `R10-005` Capture one real external run identity
 - Status: done
 - Done when: a committed packet contains real run ID, run URL, workflow name/ref, runner identity, artifact name, artifact retrieval instruction, head SHA, tree SHA, branch, run status, conclusion, QA/evidence refs, and non-claims.
-- Durable output: `state/external_runs/r10_external_proof_bundle/25033063285/external_runner_closeout_identity.json`, `state/external_runs/r10_external_proof_bundle/25033063285/RUN_IDENTITY_SUMMARY.md`, `state/external_runs/r10_external_proof_bundle/25033063285/artifact_retrieval_instructions.md`, raw run metadata under `state/external_runs/r10_external_proof_bundle/25033063285/raw_logs/`, and downloaded artifact contents under `state/external_runs/r10_external_proof_bundle/25033063285/downloaded_artifact/`.
-- Result: run `25033063285` completed with conclusion `failure`; this captures one real external runner identity and artifact reference, but successful external proof is not established.
+- Durable output: initial failed run evidence under `state/external_runs/r10_external_proof_bundle/25033063285/`, failed retry evidence under `state/external_runs/r10_external_proof_bundle/25034566460/`, and successful bounded external proof evidence under `state/external_runs/r10_external_proof_bundle/25040949422/`.
+- Initial result: run `25033063285` completed with conclusion `failure`; this captured one real external runner identity and artifact reference, but it was not successful external proof.
 - Corrective support: `R10-005A` fixes Linux/pwsh external proof bundle validation and relative artifact-ref handling after failed run `25033063285`; the failure analysis is `state/external_runs/r10_external_proof_bundle/25033063285/FAILED_VALIDATION_ANALYSIS.md`. R10 remains active through `R10-005` only.
 - Retry support: `R10-005B` records failed retry run `25034566460` with artifact `r10-external-proof-bundle-25034566460-1`, committed identity packet `state/external_runs/r10_external_proof_bundle/25034566460/external_runner_closeout_identity.json`, downloaded artifact contents, and failure analysis `state/external_runs/r10_external_proof_bundle/25034566460/FAILED_RERUN_ANALYSIS.md`. The retry is not successful external proof.
 - Corrective support: `R10-005C` hardens PowerShell Core object-shape handling so JSON roots are preserved as single `PSCustomObject` values and array/property-stream roots fail closed. It does not establish successful external proof.
-- Corrective support: `R10-005D` adds the canonical `tools/JsonRoot.psm1` reader and routes the external proof and closeout identity validators/tests through it so raw array roots fail before field validation. Failed run `25036440624` repeated the prior root-shape failure class and was not committed as R10 evidence. Successful external proof remains unestablished.
-- Corrective support: `R10-005F` preserves JSON timestamp fields as strings under PowerShell Core through the canonical reader. Failed run `25037934779` exposed the timestamp coercion issue after the array-root failure path was corrected; the failed run was not committed as R10 proof evidence. Successful external proof remains unestablished.
+- Corrective support: `R10-005D` adds the canonical `tools/JsonRoot.psm1` reader and routes the external proof and closeout identity validators/tests through it so raw array roots fail before field validation. Failed run `25036440624` repeated the prior root-shape failure class and was not committed as R10 evidence. At that point, successful external proof remained unestablished.
+- Corrective support: `R10-005F` preserves JSON timestamp fields as strings under PowerShell Core through the canonical reader. Failed run `25037934779` exposed the timestamp coercion issue after the array-root failure path was corrected; the failed run was not committed as R10 proof evidence. At that point, successful external proof remained unestablished.
+- Retry support: `R10-005G` records successful GitHub Actions run `25040949422`, artifact `r10-external-proof-bundle-25040949422-1`, identity packet `state/external_runs/r10_external_proof_bundle/25040949422/external_runner_closeout_identity.json`, downloaded artifact contents, run metadata, and artifact retrieval instruction `https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6679018430/zip`. This is one bounded external runner proof run only; R10 still has not produced external QA proof, has not performed final-head clean replay, and is not closed.
 
 ### `R10-006` Add external-runner-consuming QA signoff
 - Status: planned
@@ -208,6 +213,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-005C` corrects PowerShell Core JSON-root preservation and object-shape handling for the external proof and closeout identity validators. It does not implement R10-006, does not create successful external proof, and does not close R10.
 - `R10-005D` corrects the remaining JSON-root reader path by using one canonical fail-closed root reader for the external proof and closeout identity validators/tests. It does not retry the external workflow, does not implement R10-006, does not create successful external proof, and does not close R10.
 - `R10-005F` corrects PowerShell Core timestamp string preservation in the canonical JSON-root reader. It does not retry the external workflow, does not implement R10-006, does not create successful external proof, and does not close R10.
+- `R10-005G` captures successful GitHub Actions run `25040949422` and artifact `r10-external-proof-bundle-25040949422-1` as one bounded external runner proof run. It does not implement R10-006, does not produce external QA proof, does not perform final-head clean replay, does not close R10, and does not prove broad CI/product coverage.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.
 - `R10-008` must close R10 only if real external final-head proof exists, all non-claims are preserved, and no successor milestone opens.

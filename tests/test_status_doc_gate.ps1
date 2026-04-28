@@ -222,9 +222,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r10-failed-run-treated-as-successful-proof" -RequiredFragments @("successful external proof") -Action {
+    Invoke-ExpectedRefusal -Label "r10-failed-run-treated-as-successful-proof" -RequiredFragments @("failed identity capture", "successful external proof") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-failed-run-success-claim")
-        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "successful external proof is not established" -NewValue "successful external proof is established"
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue 'Run `25033063285` completed with conclusion `failure`; it is a real external runner identity capture, but successful external proof was not established by that run.' -NewValue 'Run `25033063285` completed with conclusion `success`; it is accepted as the R10-005G successful external proof run.'
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

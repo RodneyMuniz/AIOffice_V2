@@ -1,0 +1,1 @@
+VALID: external proof artifact bundle 'r10-004-external-proof-bundle-25040949422-1' for branch 'release/r10-real-external-runner-proof-foundation' records runner kind 'github_actions', run id '25040949422', artifact 'r10-external-proof-bundle-25040949422-1', 5 commands, aggregate verdict 'passed', and passing bundle shape.
