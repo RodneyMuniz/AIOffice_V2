@@ -160,6 +160,33 @@ function Get-R10TaskStatusMap {
     return $statusMap
 }
 
+function Get-R11TaskStatusMap {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $matches = [regex]::Matches($Text, '(?ms)^###\s+`(R11-\d{3})`.*?^\-\s+Status:\s+(done|planned)\s*$')
+    if ($matches.Count -eq 0) {
+        throw "$Context does not define any R11 task status headings."
+    }
+
+    $statusMap = @{}
+    foreach ($match in $matches) {
+        $taskId = $match.Groups[1].Value
+        $status = $match.Groups[2].Value
+        if ($statusMap.ContainsKey($taskId)) {
+            throw "$Context defines duplicate task status entries for '$taskId'."
+        }
+
+        $statusMap[$taskId] = $status
+    }
+
+    return $statusMap
+}
+
 function Get-ContiguousDoneThroughFromStatusMap {
     param(
         [Parameter(Mandatory = $true)]
@@ -501,6 +528,76 @@ function Assert-R10NonClaimsPreserved {
     }
 }
 
+function Assert-R11NonClaimsPreserved {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $nonClaimsSectionMatch = [regex]::Match($Text, '(?ms)^##\s+Required non-claims\s*\r?\n(.*?)(?=^##\s+|\z)')
+    if (-not $nonClaimsSectionMatch.Success) {
+        throw "$Context must preserve a 'Required non-claims' section."
+    }
+
+    $nonClaimsSectionText = $nonClaimsSectionMatch.Groups[1].Value
+
+    $requiredPhrases = @(
+        "no UI or control-room productization",
+        "no Standard runtime",
+        "no multi-repo orchestration",
+        "no swarms",
+        "no broad autonomous milestone execution",
+        "no unattended automatic resume",
+        "no solved Codex context compaction",
+        "no hours-long unattended milestone execution",
+        "no destructive rollback",
+        "no broad CI/product coverage",
+        "no general Codex reliability",
+        "no successor milestone without explicit approval"
+    )
+
+    foreach ($requiredPhrase in $requiredPhrases) {
+        if ($nonClaimsSectionText -notmatch [regex]::Escape($requiredPhrase)) {
+            throw "$Context must preserve the R11 non-claim '$requiredPhrase'."
+        }
+    }
+}
+
+function Test-LineHasNegation {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Line
+    )
+
+    if ($Line -match '^\s*-\s+(any\s+)?(broad UI or control-room productization|UI or control-room productization|Standard runtime|Standard or subproject runtime|multi-repo orchestration|multi-repo or fleet orchestration|swarms|swarms or fleet execution|broad autonomous milestone execution|unattended automatic resume|solved Codex context compaction|hours-long unattended milestone execution|destructive rollback|destructive primary-tree rollback)') {
+        return $true
+    }
+
+    return ($Line -match '(?i)\b(no|not|without|cannot|must not|does not|do not|is not|are not|did not|does not widen|does not open|non-claim|nonclaims|non-scope|claim of|any claim|claiming|scope widens|widens|excludes|refuse|reject|rejects|stop|fail closed|fails closed|fail-closed|explicitly excluded|implies|must not claim|does not claim|does not prove|docs claim)\b')
+}
+
+function Assert-NoForbiddenPositiveClaim {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context,
+        [Parameter(Mandatory = $true)]
+        [string]$ClaimLabel,
+        [Parameter(Mandatory = $true)]
+        [string]$Pattern
+    )
+
+    $lines = $Text -split "\r?\n"
+    foreach ($line in $lines) {
+        if ($line -match $Pattern -and -not (Test-LineHasNegation -Line $line)) {
+            throw "$Context claims $ClaimLabel."
+        }
+    }
+}
+
 function Test-R9OpeningStatus {
     param(
         [Parameter(Mandatory = $true)]
@@ -573,7 +670,8 @@ function Test-R9ClosedStatus {
         [Parameter(Mandatory = $true)]
         [System.Collections.IDictionary]$Texts,
         [bool]$AllowR10Active = $false,
-        [bool]$AllowR10Closed = $false
+        [bool]$AllowR10Closed = $false,
+        [bool]$AllowR11Active = $false
     )
 
     if (-not $Texts.Contains("R9Authority")) {
@@ -607,9 +705,13 @@ function Test-R9ClosedStatus {
         Assert-RegexMatch -Text $Texts.Readme -Pattern 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+is now the most recently closed milestone' -Message "README must mark R9 as the most recently closed milestone."
     }
 
-    if ($AllowR10Closed) {
+    if ($AllowR10Closed -and -not $AllowR11Active) {
         Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R10 closeout."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "KANBAN must not open a successor milestone after R10 closeout."
+    }
+    elseif ($AllowR10Closed -and $AllowR11Active) {
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-001` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-001 only."
+        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone."
     }
     elseif ($AllowR10Active) {
         Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now active in repo truth through `R10-007` only\.' -Message "ACTIVE_STATE must declare R10 as active through R10-007 only when R10 is open."
@@ -784,7 +886,8 @@ function Test-R10OpeningStatus {
 function Test-R10ClosedStatus {
     param(
         [Parameter(Mandatory = $true)]
-        [System.Collections.IDictionary]$Texts
+        [System.Collections.IDictionary]$Texts,
+        [bool]$AllowR11Active = $false
     )
 
     if (-not $Texts.Contains("R10Authority")) {
@@ -817,8 +920,14 @@ function Test-R10ClosedStatus {
     $candidateCommit = "cfebd351922b192585ed5f9d3ca56bee30ea16ae"
 
     Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now closed in repo truth' -Message "README must declare R10 closed in repo truth after Phase 2 support."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R10 closeout."
-    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "KANBAN must not open a successor milestone after R10 closeout."
+    if ($AllowR11Active) {
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-001` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-001 only."
+        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone after R11 opening."
+    }
+    else {
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R10 closeout."
+        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "KANBAN must not open a successor milestone after R10 closeout."
+    }
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`' -Message "KANBAN must mark R10 as the most recently closed milestone."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R10-008 Added Final-Head Support And Closed R10 Narrowly' -Message "DECISION_LOG must record the R10-008 Phase 2 closeout decision."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now closed in repo truth' -Message "R10 authority must declare R10 closed in repo truth."
@@ -839,7 +948,9 @@ function Test-R10ClosedStatus {
     Assert-RegexMatch -Text $combinedText -Pattern 'one two-phase final-head support procedure exists from R10-007' -Message "Status docs must keep the narrow R10 two-phase procedure claim."
     Assert-RegexMatch -Text $combinedText -Pattern 'one Phase 1 candidate closeout package exists from R10-008' -Message "Status docs must keep the R10 Phase 1 candidate package claim."
     Assert-RegexMatch -Text $combinedText -Pattern 'one Phase 2 post-push final-head support packet exists after the candidate push' -Message "Status docs must keep the R10 Phase 2 support packet claim."
-    Assert-RegexMatch -Text $combinedText -Pattern 'no successor milestone (?:is )?opened' -Message "Status docs must preserve that no successor milestone opened."
+    if (-not $AllowR11Active) {
+        Assert-RegexMatch -Text $combinedText -Pattern 'no successor milestone (?:is )?opened' -Message "Status docs must preserve that no successor milestone opened."
+    }
 
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'one active branch: `release/r10-real-external-runner-proof-foundation`' -Message "R10 authority must record the active R10 release branch."
     Assert-RegexMatch -Text $Texts.R10Authority -Pattern 'R10-002 hardens the closeout-use validator' -Message "R10 authority must record the R10-002 validator hardening."
@@ -883,8 +994,105 @@ function Test-R10ClosedStatus {
 
     Assert-R10NonClaimsPreserved -Text $Texts.R10Authority -Context "R10 authority"
 
-    if ($combinedText -match '(?i)R11.*is now active') {
+    if (-not $AllowR11Active -and $combinedText -match '(?i)R11.*is now active') {
         throw "Status docs must not open a successor milestone after R10 closeout."
+    }
+
+    return $kanbanSnapshot
+}
+
+function Test-R11OpeningStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    if (-not $Texts.Contains("R11Authority")) {
+        throw "R11 authority document must exist when R11 is open."
+    }
+
+    $kanbanTaskStatuses = Get-R11TaskStatusMap -Text $Texts.Kanban -Context "KANBAN"
+    $authorityTaskStatuses = Get-R11TaskStatusMap -Text $Texts.R11Authority -Context "R11 authority"
+
+    foreach ($taskId in $kanbanTaskStatuses.Keys) {
+        if ($authorityTaskStatuses[$taskId] -ne $kanbanTaskStatuses[$taskId]) {
+            throw "R11 authority does not match KANBAN for status '$taskId'."
+        }
+    }
+
+    $kanbanSnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanTaskStatuses -Context "KANBAN" -TaskPrefix "R11" -TaskCount 9
+    $authoritySnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $authorityTaskStatuses -Context "R11 authority" -TaskPrefix "R11" -TaskCount 9
+
+    if ($authoritySnapshot.DoneThrough -ne $kanbanSnapshot.DoneThrough -or $authoritySnapshot.PlannedStart -ne $kanbanSnapshot.PlannedStart -or $authoritySnapshot.PlannedThrough -ne $kanbanSnapshot.PlannedThrough) {
+        throw "R11 authority does not match KANBAN for the live R11 task status boundary."
+    }
+
+    if ($kanbanSnapshot.DoneThrough -ne 1 -or $kanbanSnapshot.PlannedStart -ne 2 -or $kanbanSnapshot.PlannedThrough -ne 9) {
+        throw "R11 status must keep only R11-001 done and R11-002 through R11-009 planned."
+    }
+
+    $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
+    $currentStatusText = [string]::Join([Environment]::NewLine, @(
+            $Texts.Readme,
+            $Texts.ActiveState,
+            $Texts.Kanban
+        ))
+    $r10SupportPacketPath = "state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json"
+    $r10FinalSupportHead = "91035cfbb34f531684943d0bfd8c3ba660f48f08"
+    $r10CandidateCommit = "cfebd351922b192585ed5f9d3ca56bee30ea16ae"
+    $r11AuthorityPath = "governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md"
+    $r10R11ReportPath = "governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md"
+
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now the active milestone in repo truth through `R11-001` only' -Message "README must declare R11 as the active milestone through R11-001 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-001` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-001 only."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`' -Message "KANBAN must keep R10 as the most recently closed milestone while R11 is open."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-001 Opened R11 Controlled Cycle Controller Pilot' -Message "DECISION_LOG must record the R11 opening decision."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-001` only' -Message "R11 authority must declare R11 active through R11-001 only."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11-002`\s+through\s+`R11-009`\s+remain planned only' -Message "R11 authority must keep R11-002 through R11-009 planned only."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+remains the most recently closed prior milestone' -Message "R11 authority must preserve R10 as the most recently closed prior milestone."
+
+    foreach ($entry in @(
+            @{ Text = $Texts.Readme; Context = "README" },
+            @{ Text = $Texts.ActiveState; Context = "ACTIVE_STATE" },
+            @{ Text = $Texts.Kanban; Context = "KANBAN" },
+            @{ Text = $Texts.R11Authority; Context = "R11 authority" }
+        )) {
+        Assert-RegexMatch -Text $entry.Text -Pattern ([regex]::Escape($r10FinalSupportHead)) -Message "$($entry.Context) must cite the R10 closeout head required before R11 opens."
+    }
+
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r10SupportPacketPath)) -Message "Status docs must cite the R10 Phase 2 final-head support packet before R11 opens."
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r10CandidateCommit)) -Message "Status docs must cite the R10 candidate closeout commit before R11 opens."
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r11AuthorityPath)) -Message "Status docs must cite the R11 authority document."
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r10R11ReportPath)) -Message "Status docs must cite the R10-to-R11 operator report artifact."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'narrative operator artifact only' -Message "R11 authority must state that the R10-to-R11 report is narrative only."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'not milestone proof by itself' -Message "R11 authority must state that the R10-to-R11 report is not proof by itself."
+
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'not another proof-documentation milestone' -Message "R11 authority must reject another proof-documentation milestone."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'not another proof-paperwork milestone' -Message "R11 authority must reject another proof-paperwork milestone."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'operator intervention count per cycle decreases' -Message "R11 authority must include operator intervention reduction as a success metric."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'manual bootstrap count decreases to zero' -Message "R11 authority must include manual bootstrap reduction as a success metric."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'at least two bounded tasks run inside one controlled cycle' -Message "R11 authority must require at least two bounded tasks in one cycle."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'state authority is repo-truth ledger/controller, not chat memory' -Message "R11 authority must make repo-truth ledger/controller the state authority."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'failed or interrupted executor session can be resumed from repo state' -Message "R11 authority must require bounded resume from repo state."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'local-only residue is detected, quarantined, or refused automatically' -Message "R11 authority must require local-only residue handling."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'QA is separate from executor evidence' -Message "R11 authority must require separate QA from executor evidence."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'final audit packet is generated from ledger/evidence refs' -Message "R11 authority must require final audit packet generation from ledger/evidence refs."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'user intervention is limited to planned approval and final decision points' -Message "R11 authority must limit user intervention to planned approval/final decision points."
+
+    Assert-R11NonClaimsPreserved -Text $Texts.R11Authority -Context "R11 authority"
+
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "broad autonomous milestone execution" -Pattern '(?i)\bbroad autonomous milestone execution\b|\bbroad autonomy\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "solved Codex context compaction" -Pattern '(?i)\bsolved Codex context compaction\b|\bCodex context compaction is solved\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "unattended automatic resume" -Pattern '(?i)\bunattended automatic resume\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "UI/control-room productization" -Pattern '(?i)\bUI/control-room productization\b|\bcontrol-room productization\b|\bproduct UI\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "Standard runtime" -Pattern '(?i)\bStandard runtime\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "multi-repo orchestration" -Pattern '(?i)\bmulti-repo orchestration\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "swarms" -Pattern '(?i)\bswarms\b|\bfleet execution\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "Status docs" -ClaimLabel "unapproved successor milestone" -Pattern '(?i)\bR12\b.*\b(active|open|opened)\b|\bsuccessor milestone\b.*\b(active|open|opened)\b'
+
+    if ($currentStatusText -match '(?i)(`R10`|R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation).{0,120}(currently open|is now active|active in repo truth through `R10-|## Active Milestone)') {
+        throw "Current status docs contain a stale R10 active contradiction after R11 opening."
     }
 
     return $kanbanSnapshot
@@ -915,6 +1123,11 @@ function Test-StatusDocGate {
     $r10AuthorityPath = Resolve-PathValue -PathValue "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md" -AnchorPath $resolvedRepositoryRoot
     if (Test-Path -LiteralPath $r10AuthorityPath) {
         $paths["R10Authority"] = (Resolve-Path -LiteralPath $r10AuthorityPath).Path
+    }
+
+    $r11AuthorityPath = Resolve-PathValue -PathValue "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md" -AnchorPath $resolvedRepositoryRoot
+    if (Test-Path -LiteralPath $r11AuthorityPath) {
+        $paths["R11Authority"] = (Resolve-Path -LiteralPath $r11AuthorityPath).Path
     }
 
     $texts = [ordered]@{}
@@ -975,9 +1188,11 @@ function Test-StatusDocGate {
     $r9Closed = $combinedText -match 'R9 Isolated QA and Continuity-Managed Milestone Execution Pilot`\s+(?:is now closed in repo truth|is formally closed|is now the most recently closed milestone)'
     $r10Opened = $combinedText -match 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now (?:the )?active'
     $r10Closed = $combinedText -match 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+(?:is now closed in repo truth|is formally closed|is now the most recently closed milestone)'
+    $r11Opened = $combinedText -match 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now (?:the )?active'
     Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed -R9Closed $r9Closed -R10Closed $r10Closed
     $r9Snapshot = $null
     $r10Snapshot = $null
+    $r11Snapshot = $null
 
     if (-not $r8Closed) {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
@@ -991,9 +1206,12 @@ function Test-StatusDocGate {
     }
     else {
         if ($r9Closed) {
-            $r9Snapshot = Test-R9ClosedStatus -Texts $texts -AllowR10Active:$r10Opened -AllowR10Closed:$r10Closed
+            $r9Snapshot = Test-R9ClosedStatus -Texts $texts -AllowR10Active:$r10Opened -AllowR10Closed:$r10Closed -AllowR11Active:$r11Opened
             if ($r10Closed) {
-                $r10Snapshot = Test-R10ClosedStatus -Texts $texts
+                $r10Snapshot = Test-R10ClosedStatus -Texts $texts -AllowR11Active:$r11Opened
+                if ($r11Opened) {
+                    $r11Snapshot = Test-R11OpeningStatus -Texts $texts
+                }
             }
             elseif ($r10Opened) {
                 $r10Snapshot = Test-R10OpeningStatus -Texts $texts
@@ -1055,7 +1273,7 @@ function Test-StatusDocGate {
         throw "Status docs must not open a successor milestone after R10 opening."
     }
 
-    $activeMilestone = if ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
+    $activeMilestone = if ($r11Opened) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
     $mostRecentlyClosedMilestone = if ($r10Closed) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Closed) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
 
     return [pscustomobject]@{
@@ -1070,12 +1288,16 @@ function Test-StatusDocGate {
         R10DoneThrough = if ($null -eq $r10Snapshot) { $null } else { $r10Snapshot.DoneThrough }
         R10PlannedStart = if ($null -eq $r10Snapshot) { $null } else { $r10Snapshot.PlannedStart }
         R10PlannedThrough = if ($null -eq $r10Snapshot) { $null } else { $r10Snapshot.PlannedThrough }
+        R11DoneThrough = if ($null -eq $r11Snapshot) { $null } else { $r11Snapshot.DoneThrough }
+        R11PlannedStart = if ($null -eq $r11Snapshot) { $null } else { $r11Snapshot.PlannedStart }
+        R11PlannedThrough = if ($null -eq $r11Snapshot) { $null } else { $r11Snapshot.PlannedThrough }
         R8RemainsOpen = (-not $r8Closed)
         R8Closed = $r8Closed
         R9Opened = $r9Opened
         R9Closed = $r9Closed
         R10Opened = $r10Opened
         R10Closed = $r10Closed
+        R11Opened = $r11Opened
     }
 }
 

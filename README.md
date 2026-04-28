@@ -14,6 +14,8 @@ Bounded `R4 Control-Kernel Hardening and CI Foundations` is complete and closed 
 
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed in repo truth narrowly after `R10-008` Phase 2 post-push final-head support. The Phase 1 candidate closeout commit is `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not claim broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now the active milestone in repo truth through `R11-001` only. R11 opens only after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, preserves R10 as the most recently closed prior milestone, and freezes scope to a controlled cycle-controller pilot. `R11-002` through `R11-009` remain planned only. R11 is not another proof-paperwork milestone: its success is measured by repo-truth cycle control, one complete controlled cycle with multiple bounded tasks, controller-driven bootstrap/resume, local-only residue detection/quarantine/refusal, separate QA, final audit packet generation from ledger/evidence refs, and reduced operator interruption. R11 does not claim UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, broad CI/product coverage, or general Codex reliability. No R12 or successor milestone is opened.
+
 From R10 onward, each release or milestone uses a dedicated release branch. The R10 branch is `release/r10-real-external-runner-proof-foundation`. The previous branch `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
 
 The current repo is a clean reset. Its first acceptable proof boundary is supervised workflow through `architect` plus bounded `apply/promotion` control. That narrow proof boundary is now formally claimable from direct repo evidence, and the closeout is recorded in `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`. Git and persisted state remain the intended truth substrates.
@@ -26,6 +28,7 @@ The current repo is a clean reset. Its first acceptable proof boundary is superv
 - `governance/BRANCHING_CONVENTION.md`
 - `governance/DECISION_LOG.md`
 - `governance/ACTIVE_STATE.md`
+- `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
 - `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`
 - `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`
 - `governance/R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md`
@@ -39,6 +42,7 @@ The current repo is a clean reset. Its first acceptable proof boundary is superv
 - `governance/reports/AIOffice_V2_R7_Audit_and_R8_Planning_Report_v1.md`
 - `governance/reports/AIOffice_V2_R8_Audit_and_R9_Planning_Report_v1.md`
 - `governance/reports/AIOffice_V2_R9_Audit_and_R10_Planning_Report_v2.md`
+- `governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md`
 - `governance/R2_FIRST_BOUNDED_V1_PROOF_CLOSEOUT.md`
 - `governance/R3_GOVERNED_WORK_OBJECTS_AND_DOUBLE_AUDIT_FOUNDATIONS.md`
 - `execution/KANBAN.md`
@@ -83,7 +87,7 @@ The corrected `R5-002` slice now participates in the bounded proof suite under `
 
 This validation proves only that R9 closed narrowly as one bounded isolated-QA and continuity-managed segmented execution pilot for one repository and one tiny pilot path; executor evidence cannot be accepted as QA signoff authority by itself; final remote-head support evidence must be represented outside the same closeout commit it verifies; unavailable external-runner identity capture is recorded as a limitation rather than proof; segment continuity artifacts can be validated from durable repo-state refs; and one tiny bounded segmented control path exists under the pilot package. It does not claim a concrete CI or external runner artifact identity, external QA proof, solved Codex context compaction, hours-long unattended milestone execution, unattended automatic resume, broad autonomous milestone execution, product UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, or destructive rollback.
 
-`R10` is currently open only through the two-phase final-head closeout support procedure step `R10-007`. Its status and validator surfaces are backed by:
+`R10` is closed narrowly after `R10-008` Phase 2 post-push final-head support. Its final status and validator surfaces are backed by:
 - `.github/workflows/r10-external-proof-bundle.yml`
 - `tools/invoke_r10_external_proof_bundle.ps1`
 - `state/external_runs/r10_external_proof_bundle/25033063285/external_runner_closeout_identity.json`
@@ -118,6 +122,14 @@ This validation proves only that R9 closed narrowly as one bounded isolated-QA a
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1`
 
 This validation proves only that R10 closed narrowly after Phase 2 final-head support verified the pushed candidate closeout head `cfebd351922b192585ed5f9d3ca56bee30ea16ae`. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 post-push support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The validator-only fixtures are not real external runner captures and are not R10 proof. This does not claim broad CI/product coverage, executed final-head clean replay beyond the Phase 2 remote-head support packet, solved Codex context compaction, unattended automatic resume, hours-long unattended milestone execution, broad autonomous milestone execution, product UI, Standard runtime, multi-repo orchestration, swarms, production-grade CI, general Codex reliability, destructive rollback, or successor milestone opening.
+
+`R11` is active through `R11-001` only. Its opening status and validator surfaces are backed by:
+- `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
+- `governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1`
+
+This validation proves only that R11 opened after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, that R10 remains the most recently closed prior milestone, that R11 is active through `R11-001` only, that `R11-002` through `R11-009` remain planned only, and that no R12 or successor milestone is opened. It does not claim cycle ledger implementation, controller CLI implementation, bootstrap/resume execution, local-only residue automation, bounded Dev adapter execution, separate QA gate execution, a completed controlled cycle, final R11 audit packet generation, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, broad CI/product coverage, destructive rollback, hours-long unattended milestone execution, or general Codex reliability.
 
 `R5-003` is currently backed by one focused restore-gate test entrypoint and its bounded proof-suite replay id:
 - `powershell -ExecutionPolicy Bypass -File tests\test_restore_gate.ps1`

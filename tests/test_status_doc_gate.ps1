@@ -19,7 +19,8 @@ function New-StatusDocHarness {
         "governance\BRANCHING_CONVENTION.md",
         "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md",
         "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md",
-        "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
+        "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md",
+        "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md"
     )
 
     foreach ($relativePath in $paths) {
@@ -40,6 +41,7 @@ function New-StatusDocHarness {
         R8AuthorityPath = Join-Path $Root "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md"
         R9AuthorityPath = Join-Path $Root "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md"
         R10AuthorityPath = Join-Path $Root "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
+        R11AuthorityPath = Join-Path $Root "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md"
     }
 }
 
@@ -116,11 +118,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or $liveValidation.ActiveMilestone -ne "none" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 narrowly closed with no active successor milestone."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Opened -or $liveValidation.ActiveMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 1 -or $liveValidation.R11PlannedStart -ne 2 -or $liveValidation.R11PlannedThrough -ne 9) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 active through R11-001 only."
     }
     else {
-        Write-Output ("PASS valid current R10 closeout status: R8 through R8-{0} complete, '{1}' most recently closed, no active successor milestone, and R10 through R10-{2} closed" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"))
+        Write-Output ("PASS valid current R11 opening status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, and R11 through R11-{3} active with R11-{4} through R11-{5} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R11PlannedStart.ToString("000"), $liveValidation.R11PlannedThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -168,9 +170,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "successor-opened-after-r10-closeout" -RequiredFragments @("successor", "R10 closeout") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-successor-opened")
-        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R11 Next Milestone` is now active in repo truth.') -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "successor-opened-after-r11-opening" -RequiredFragments @("unapproved successor milestone") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r12-successor-opened")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R12 Next Milestone` is now active in repo truth.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -337,6 +339,54 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
+    Invoke-ExpectedRefusal -Label "r11-open-without-r10-closeout-head" -RequiredFragments @("R10 closeout head") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-missing-r10-head")
+        Replace-FileText -Path $scenario.R11AuthorityPath -OldValue "91035cfbb34f531684943d0bfd8c3ba660f48f08" -NewValue "91035cfbb34f531684943d0bfd8c3ba660f48f09"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-broad-autonomy" -RequiredFragments @("broad autonomous milestone execution") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-broad-autonomy")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11 now proves broad autonomous milestone execution.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-solved-compaction" -RequiredFragments @("solved Codex context compaction") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-solved-compaction")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11 proves solved Codex context compaction.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-unattended-automatic-resume" -RequiredFragments @("unattended automatic resume") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-unattended-resume")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11 now provides unattended automatic resume.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-ui-control-room" -RequiredFragments @("UI/control-room productization") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-ui-control-room")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11 now ships UI/control-room productization.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-standard-multirepo-swarms" -RequiredFragments @("Standard runtime") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-standard-multirepo-swarms")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11 now ships Standard runtime, multi-repo orchestration, and swarms.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-missing-non-claim" -RequiredFragments @("R11 non-claim", "Codex context compaction") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-non-claim")
+        Replace-RegexInFile -Path $scenario.R11AuthorityPath -Pattern '\- no solved Codex context compaction\r?\n' -Replacement ""
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "stale-r10-active-contradiction" -RequiredFragments @("stale R10 active contradiction") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-stale-r10-active")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R10` is currently open through `R10-008`.') -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
     Invoke-ExpectedRefusal -Label "task-status-mismatch" -RequiredFragments @("does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-task-mismatch")
         Replace-RegexInFile -Path $scenario.R8AuthorityPath -Pattern '###\s+`R8-009`\s+Pilot\s+and\s+close\s+R8\s+narrowly\r?\n-\s+Status:\s+done' -Replacement ('### `R8-009` Pilot and close R8 narrowly' + $crlf + '- Status: planned')
@@ -352,6 +402,12 @@ try {
     Invoke-ExpectedRefusal -Label "r10-task-status-mismatch" -RequiredFragments @("R10 authority does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-task-mismatch")
         Replace-RegexInFile -Path $scenario.R10AuthorityPath -Pattern '###\s+`R10-008`\s+Close R10 only with real external final-head proof\r?\n-\s+Status:\s+done' -Replacement ('### `R10-008` Close R10 only with real external final-head proof' + $crlf + '- Status: planned')
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-task-status-mismatch" -RequiredFragments @("R11 authority does not match KANBAN") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-task-mismatch")
+        Replace-RegexInFile -Path $scenario.R11AuthorityPath -Pattern '###\s+`R11-002`\s+Define cycle ledger/state machine\r?\n-\s+Status:\s+planned' -Replacement ('### `R11-002` Define cycle ledger/state machine' + $crlf + '- Status: done')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

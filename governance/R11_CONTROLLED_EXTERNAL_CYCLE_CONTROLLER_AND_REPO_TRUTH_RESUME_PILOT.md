@@ -1,0 +1,144 @@
+# R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot
+
+## Milestone name
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`
+
+## Why this milestone exists now
+R10 closed narrowly with cautions at required starting remote head `91035cfbb34f531684943d0bfd8c3ba660f48f08`.
+
+R10 improved the external proof substrate by capturing one successful bounded GitHub Actions proof run, consuming that run through an external-runner-consuming QA signoff, and publishing a two-phase final-head support packet. R10 still exposed serious operating weakness: repeated external-runner failures and repairs under `R10-005`, manual bootstraps, Codex compact/context failure, local-only residue cleanup, high operator burden, and a one-task-at-a-time execution pattern.
+
+R11 opens because the project now needs a controller/state-machine milestone that proves controlled complete cycles, not another proof-documentation milestone.
+
+The operator-facing bridge report `governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md` is included as a narrative operator artifact only. It accepts R10 narrowly with cautions, says no corrective R10 support slice is required before R11, and recommends this R11 direction. It is not milestone proof by itself and does not widen R10.
+
+## Current status
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-001` only.
+
+`R11-002` through `R11-009` remain planned only.
+
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` remains the most recently closed prior milestone under `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, final R10 support head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, and decision authority `D-0079`.
+
+No R12 or successor milestone is open.
+
+## Objective
+Open and prove a governed external/repo-truth cycle controller pilot in which committed repo state, not chat transcript memory, becomes the authority for cycle state, next action, executor dispatch, QA gate, resume, local-residue handling, audit packet generation, and final decision posture.
+
+R11 is explicitly not another proof-paperwork milestone. It is measured by controlled complete-cycle execution and reduced operator burden.
+
+## Exact boundary
+R11 is bounded to:
+- one repository only: `AIOffice_V2`
+- the existing release branch `release/r10-real-external-runner-proof-foundation` for this opening slice, as directed by the operator
+- one repo-truth cycle ledger/state machine
+- one controller-driven bootstrap/resume path from committed cycle state
+- one local-only residue detection/quarantine/refusal path with dry-run evidence
+- bounded Dev dispatch/result packets
+- a separate QA gate over executor evidence
+- one complete controlled cycle with 2 to 3 bounded tasks
+- one final audit packet generated from ledger/evidence refs
+- a no-successor posture unless the operator explicitly approves a successor milestone
+
+## R11 must prove
+- one repo-truth cycle ledger/state machine
+- controller-driven bootstrap/resume from committed state
+- local-only residue detection/quarantine/refusal
+- bounded Dev dispatch/result packets
+- separate QA gate over executor evidence
+- one complete controlled cycle with multiple bounded tasks
+- final audit packet generated from ledger/evidence refs
+- fewer operator interruptions than R10
+- no successor milestone opened unless explicitly approved
+
+## Success metrics
+R11 succeeds only if the demonstrated cycle shows:
+- operator intervention count per cycle decreases
+- manual bootstrap count decreases to zero for the demonstrated cycle after initial approval
+- at least two bounded tasks run inside one controlled cycle
+- state authority is repo-truth ledger/controller, not chat memory
+- a failed or interrupted executor session can be resumed from repo state
+- local-only residue is detected, quarantined, or refused automatically
+- QA is separate from executor evidence
+- final audit packet is generated from ledger/evidence refs
+- user intervention is limited to planned approval and final decision points
+
+## Stop conditions
+R11 must stop or fail closed if:
+- R11 opens without the R10 closeout evidence chain and final support head `91035cfbb34f531684943d0bfd8c3ba660f48f08`
+- status docs contradict the active R11 posture by saying R10 is still active
+- a chat transcript is treated as cycle state authority
+- local-only residue is used as evidence instead of being refused or quarantined
+- executor self-certification is accepted as QA authority
+- a task advances without required ledger state, evidence refs, head/tree refs, and allowed transition
+- controller output implies broad autonomous milestone execution
+- docs claim solved Codex context compaction
+- docs claim unattended automatic resume beyond the bounded pilot
+- docs claim hours-long unattended milestone execution
+- docs claim UI/control-room productization
+- docs claim multi-repo orchestration, swarms, or Standard runtime
+- docs open R12 or any successor milestone without explicit operator approval
+- any R10 claim is widened beyond the narrow Phase 2-supported closeout
+- destructive rollback or broad CI/product coverage is claimed
+
+## Required non-claims
+R11 does not prove and must not casually widen into:
+- no UI or control-room productization
+- no Standard runtime
+- no multi-repo orchestration
+- no swarms
+- no broad autonomous milestone execution
+- no unattended automatic resume
+- no solved Codex context compaction
+- no hours-long unattended milestone execution
+- no destructive rollback
+- no broad CI/product coverage
+- no general Codex reliability
+- no productized control-room behavior
+- no production runtime
+- no successor milestone without explicit approval
+
+## Task list
+
+### `R11-001` Open R11 and freeze boundary
+- Status: done
+- Done when: R11 opens in repo truth after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the most recently closed milestone; R11 is frozen as a controlled cycle-controller pilot only; status docs and gates reject R10-active contradictions, broad autonomy, solved compaction, unattended automatic resume, UI/control-room productization, multi-repo/swarms/Standard runtime, and successor opening.
+
+### `R11-002` Define cycle ledger/state machine
+- Status: planned
+- Done when: canonical cycle states and allowed transitions are defined under `contracts/cycle_controller/`, with repo-truth authority and fail-closed invalid transition rules.
+
+### `R11-003` Build cycle controller CLI
+- Status: planned
+- Done when: controller commands can initialize, inspect, advance, and refuse cycles from repo truth, with no chat transcript authority.
+
+### `R11-004` Add bootstrap/resume from repo truth
+- Status: planned
+- Done when: a new session can resume from committed cycle state and next-action packet without chat memory.
+
+### `R11-005` Add local-only residue detection/quarantine
+- Status: planned
+- Done when: untracked or dirty local residue is detected and refused or quarantined safely with dry-run evidence.
+
+### `R11-006` Add bounded Dev execution adapter
+- Status: planned
+- Done when: bounded implementation dispatch/result packets are defined and at least two bounded task packets are representable.
+
+### `R11-007` Add separate QA gate for cycle tasks
+- Status: planned
+- Done when: QA consumes executor evidence and rejects executor self-certification as QA authority.
+
+### `R11-008` Execute one complete controlled cycle
+- Status: planned
+- Done when: one operator-approved request runs through 2 to 3 bounded tasks, evidence, QA, audit packet, and decision packet while reducing manual per-task prompting.
+
+### `R11-009` Close R11 narrowly with final support
+- Status: planned
+- Done when: R11 closes only if cycle evidence, final support, non-claims, and no-successor posture are present.
+
+## Milestone notes
+- `R11-001` opens R11 in repo truth only. It does not implement the cycle ledger, controller CLI, resume path, residue guard, Dev adapter, QA gate, controlled cycle, audit packet generation, or closeout.
+- `R11-002` through `R11-009` remain planned only after this slice.
+- The approved R10 audit/report content is preserved as an operator report artifact and does not become proof by itself.
+- R10 remains accepted narrowly with cautions and is not reopened.
+- The historical R9 support branch `feature/r5-closeout-remaining-foundations` remains untouched.
+- No R12 or successor milestone is opened by this authority document.
