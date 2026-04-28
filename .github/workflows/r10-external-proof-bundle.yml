@@ -15,14 +15,14 @@ permissions:
 jobs:
   r10-external-proof-bundle:
     name: R10 External Proof Bundle
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       DEFAULT_R10_BRANCH: release/r10-real-external-runner-proof-foundation
       R10_ARTIFACT_NAME: r10-external-proof-bundle-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Resolve requested ref
         id: resolve
-        shell: powershell
+        shell: pwsh
         run: |
           $requestedRef = '${{ github.event.inputs.ref }}'
           if ([string]::IsNullOrWhiteSpace($requestedRef)) {
@@ -40,18 +40,17 @@ jobs:
           ref: ${{ steps.resolve.outputs.requested_ref }}
           fetch-depth: 0
 
-      - name: Configure Git path handling
-        shell: powershell
+      - name: Configure Git checkout behavior
+        shell: pwsh
         run: |
-          git config --global core.longpaths true
           git config --global core.autocrlf false
 
       - name: Build and validate R10 external proof bundle
-        shell: powershell
+        shell: pwsh
         run: |
           $outputRoot = Join-Path $env:RUNNER_TEMP "r10-external-proof-bundle"
 
-          powershell -NoProfile -ExecutionPolicy Bypass -File tools\invoke_r10_external_proof_bundle.ps1 `
+          pwsh -NoProfile -File tools/invoke_r10_external_proof_bundle.ps1 `
             -RepositoryRoot . `
             -RequestedRef '${{ steps.resolve.outputs.requested_ref }}' `
             -Branch $env:DEFAULT_R10_BRANCH `
@@ -65,5 +64,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.R10_ARTIFACT_NAME }}
-          path: ${{ runner.temp }}\r10-external-proof-bundle
+          path: ${{ runner.temp }}/r10-external-proof-bundle
           if-no-files-found: error

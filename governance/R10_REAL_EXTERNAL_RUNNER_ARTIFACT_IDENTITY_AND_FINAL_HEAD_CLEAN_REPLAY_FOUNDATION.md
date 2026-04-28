@@ -40,6 +40,10 @@ R10-004 wires one external runner path.
 
 Workflow existence is not proof of a successful run.
 
+The failed real run `25032362789` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25032362789` failed before bundle creation because `windows-latest` checkout hit filename-too-long errors. No artifact was uploaded, no R10-005 packet was created, and the run is not accepted R10-005 proof.
+
+R10-004B improves workflow checkout compatibility by moving the external proof workflow to `ubuntu-latest`, using `pwsh`, and keeping artifact upload paths OS-compatible.
+
 Any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later.
 
 R10 still has not accepted a real external run identity packet.
@@ -156,6 +160,7 @@ R10 does not currently prove and must not casually widen into:
 - Status: done
 - Done when: one real external runner path can be triggered on the R10 release branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage.
 - Durable output: `.github/workflows/r10-external-proof-bundle.yml`, `tools/invoke_r10_external_proof_bundle.ps1`, and `tests/test_r10_external_proof_workflow.ps1`.
+- Corrective support: `R10-004B` records checkout compatibility hardening after failed run `25032362789`; the failure analysis is `state/external_runs/r10_external_proof_bundle/25032362789/FAILED_RUN_ANALYSIS.md` and is not accepted R10-005 proof.
 
 ### `R10-005` Capture one real external run identity
 - Status: planned
@@ -180,6 +185,7 @@ R10 does not currently prove and must not casually widen into:
 - `R10-002` includes a validator-only fixture for contract shape testing. That fixture is not a real external runner capture and is not R10 proof.
 - `R10-003` defines the bundle shape before a future runner result can be accepted as closeout evidence. Its validator-only fixture is not a real external runner capture, not CI proof, not external QA proof, and not R10 closeout proof.
 - `R10-004` wires one external runner path through a controlled GitHub Actions workflow and runner script. Workflow existence is not proof of a successful run, and any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later.
+- `R10-004B` moves the workflow to `ubuntu-latest` with `pwsh` after failed run `25032362789` proved the Windows checkout path could hit filename-too-long errors before bundle creation. That failed run uploaded no artifact, created no R10-005 packet, and is not accepted as R10-005 proof.
 - `R10-005` is not complete if the packet says only `unavailable`.
 - `R10-006` must ensure R10 closeout QA consumes real external-runner artifacts rather than local-only executor evidence.
 - `R10-007` must make the final-head support procedure non-self-referential.

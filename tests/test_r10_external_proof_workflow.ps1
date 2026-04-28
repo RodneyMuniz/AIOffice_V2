@@ -74,15 +74,23 @@ try {
     $combinedText = $workflowText + "`n" + $runnerText
 
     Assert-NoRunnerContextInTopOrJobEnv -WorkflowText $workflowText
+    Assert-TextContains -Text $workflowText -Pattern '(?m)^\s*runs-on:\s*ubuntu-latest\s*$' -Message "Workflow must use ubuntu-latest for checkout compatibility."
+    if ($workflowText -match '(?m)^\s*runs-on:\s*windows-latest\s*$') {
+        throw "Workflow must not use windows-latest for R10 external proof checkout."
+    }
+    if ($workflowText -match '(?m)^\s*shell:\s*powershell\s*$') {
+        throw "Workflow PowerShell steps must use pwsh, not Windows PowerShell."
+    }
+    Assert-TextContains -Text $workflowText -Pattern '(?m)^\s*shell:\s*pwsh\s*$' -Message "Workflow PowerShell steps must use pwsh."
     Assert-TextContains -Text $workflowText -Pattern '(?m)^\s*workflow_dispatch:\s*$' -Message "Workflow must support workflow_dispatch."
     Assert-TextContains -Text $workflowText -Pattern 'actions/checkout@v4' -Message "Workflow must check out the requested ref."
     Assert-TextContains -Text $workflowText -Pattern 'ref:\s*\$\{\{\s*steps\.resolve\.outputs\.requested_ref\s*\}\}' -Message "Workflow checkout must use the resolved requested ref."
     Assert-TextContains -Text $workflowText -Pattern 'actions/upload-artifact@v4' -Message "Workflow must upload an artifact."
     Assert-TextContains -Text $workflowText -Pattern 'r10-external-proof-bundle-\$\{\{\s*github\.run_id\s*\}\}-\$\{\{\s*github\.run_attempt\s*\}\}' -Message "Workflow artifact name must follow the R10 convention."
-    Assert-TextContains -Text $workflowText -Pattern 'tools\\invoke_r10_external_proof_bundle\.ps1' -Message "Workflow must invoke the R10 external proof bundle runner."
+    Assert-TextContains -Text $workflowText -Pattern 'tools/invoke_r10_external_proof_bundle\.ps1' -Message "Workflow must invoke the R10 external proof bundle runner."
     Assert-TextContains -Text $workflowText -Pattern '\$outputRoot\s*=\s*Join-Path\s+\$env:RUNNER_TEMP\s+"r10-external-proof-bundle"' -Message "Workflow must compute the output root inside a runner step."
     Assert-TextContains -Text $workflowText -Pattern '\-OutputRoot\s+\$outputRoot' -Message "Workflow must pass the computed output root to the runner script."
-    Assert-TextContains -Text $workflowText -Pattern '(?m)^\s*path:\s*\$\{\{\s*runner\.temp\s*\}\}\\r10-external-proof-bundle\s*$' -Message "Workflow must upload the runner output root with a parse-safe runner context."
+    Assert-TextContains -Text $workflowText -Pattern '(?m)^\s*path:\s*\$\{\{\s*runner\.temp\s*\}\}/r10-external-proof-bundle\s*$' -Message "Workflow must upload the runner output root with a parse-safe runner context."
 
     Assert-TextContains -Text $runnerText -Pattern 'external_proof_artifact_bundle\.json' -Message "Runner must emit external_proof_artifact_bundle.json."
     Assert-TextContains -Text $runnerText -Pattern 'RedirectStandardOutput' -Message "Runner must capture stdout."
@@ -98,10 +106,10 @@ try {
     Assert-TextContains -Text $runnerText -Pattern 'validate_external_proof_artifact_bundle\.ps1' -Message "Runner must validate the generated bundle with the R10-003 validator."
 
     foreach ($requiredCommand in @(
-            'tests\\test_external_proof_artifact_bundle\.ps1',
-            'tests\\test_external_runner_closeout_identity\.ps1',
-            'tests\\test_status_doc_gate\.ps1',
-            'tools\\validate_status_doc_gate\.ps1',
+            'tests/test_external_proof_artifact_bundle\.ps1',
+            'tests/test_external_runner_closeout_identity\.ps1',
+            'tests/test_status_doc_gate\.ps1',
+            'tools/validate_status_doc_gate\.ps1',
             'git diff --check'
         )) {
         Assert-TextContains -Text $runnerText -Pattern $requiredCommand -Message "Runner must include focused proof command '$requiredCommand'."
@@ -124,7 +132,9 @@ try {
     }
 
     Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)broad.{0,80}CI.{0,80}(coverage|proof|complete|available|claim)' -Message "Workflow/script must not claim broad CI/product coverage."
+    Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)\bCI proof\b.{0,80}(exists|complete|available|claimed|proves)' -Message "Workflow/script must not claim CI proof."
     Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)external QA proof.{0,80}(exists|complete|available|claimed|proves)' -Message "Workflow/script must not claim external QA proof."
+    Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)final-head.{0,80}(replay|clean replay).{0,80}(exists|complete|available|claimed|proves)' -Message "Workflow/script must not claim final-head clean replay."
     Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)R10.{0,80}(closed|closeout complete|formally closed)' -Message "Workflow/script must not close R10."
     Assert-NoPositiveClaim -Text $combinedText -Pattern '(?i)R10-005.{0,80}(complete|proof|captured|accepted)' -Message "Workflow/script must not claim R10-005 completion or proof."
 

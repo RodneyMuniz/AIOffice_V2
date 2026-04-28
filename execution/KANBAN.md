@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 
 Current posture:
-`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-004` only. `R10-005` through `R10-008` remain planned only. `R10-004` wires one external runner path, but workflow existence is not proof of a successful run, and any incidental run from pushing this commit is not accepted R10-005 proof unless captured in the R10-005 artifact identity packet later. R10 still has not accepted a real external run identity packet, has not captured a real external runner identity as accepted R10-005 proof, has not triggered CI as accepted R10 proof, has not produced a real external proof artifact bundle, has not produced external QA proof, has not performed final-head clean replay, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is active through `R10-004` only. `R10-005` through `R10-008` remain planned only. `R10-004` wires one external runner path, and `R10-004B` improves workflow checkout compatibility after failed run `25032362789`, but workflow existence and failed-run analysis are not proof of a successful run. The failed run uploaded no artifact and is not accepted R10-005 proof. R10 still has not accepted a real external run identity packet, has not captured a real external runner identity as accepted R10-005 proof, has not triggered CI as accepted R10 proof, has not produced a real external proof artifact bundle, has not produced external QA proof, has not performed final-head clean replay, does not prove solved Codex context compaction, does not prove unattended automatic resume, does not prove hours-long unattended milestone execution, and does not prove broad autonomous milestone execution. Limitation-only external-runner evidence is insufficient for R10 closeout.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -64,8 +64,9 @@ Earlier closed milestone:
 - Milestone: `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 - Depends on: `R10-003`
 - Authority: `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, `.github/workflows/r10-external-proof-bundle.yml`, `tools/invoke_r10_external_proof_bundle.ps1`, `tests/test_r10_external_proof_workflow.ps1`
-- Durable output: one focused external runner path with controlled workflow dispatch, focused command capture, bundle validation, and artifact upload wiring
+- Durable output: one focused external runner path with controlled workflow dispatch, focused command capture, bundle validation, artifact upload wiring, and R10-004B checkout compatibility hardening for `ubuntu-latest` plus `pwsh`
 - Done when: one real external runner path can be triggered on the R10 release branch or controlled dispatch, runs a focused proof set, uploads a standard artifact bundle, and does not claim broad CI/product coverage
+- Corrective support: failed run `25032362789` is recorded only as failure analysis at `state/external_runs/r10_external_proof_bundle/25032362789/FAILED_RUN_ANALYSIS.md`; it is not accepted R10-005 proof.
 
 ### `R10-005` Capture one real external run identity
 - Status: planned

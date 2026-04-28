@@ -366,6 +366,14 @@ function Assert-PositiveClaimHasReference {
                 continue
             }
 
+            if ($ClaimLabel -eq "a concrete CI or external proof artifact") {
+                if ($line -notmatch $ReferencePattern) {
+                    throw "$Context claims $ClaimLabel without a concrete reference."
+                }
+
+                continue
+            }
+
             if ($Text -notmatch $ReferencePattern) {
                 throw "$Context claims $ClaimLabel without a concrete reference."
             }

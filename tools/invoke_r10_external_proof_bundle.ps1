@@ -34,9 +34,13 @@ function ConvertTo-RelativeRef {
         [string]$Path
     )
 
-    $baseUri = [System.Uri]((Resolve-Path -LiteralPath $BasePath).Path.TrimEnd('\') + '\')
-    $pathUri = [System.Uri]((Resolve-Path -LiteralPath $Path).Path)
-    return [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($pathUri).ToString()).Replace('/', '\')
+    $resolvedBasePath = (Resolve-Path -LiteralPath $BasePath).Path
+    $resolvedPath = (Resolve-Path -LiteralPath $Path).Path
+    $trimChars = @([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+    $basePathWithSeparator = $resolvedBasePath.TrimEnd($trimChars) + [System.IO.Path]::DirectorySeparatorChar
+    $baseUri = [System.Uri]$basePathWithSeparator
+    $pathUri = [System.Uri]$resolvedPath
+    return [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($pathUri).ToString())
 }
 
 function Write-JsonFile {
@@ -48,6 +52,20 @@ function Write-JsonFile {
     )
 
     $Value | ConvertTo-Json -Depth 40 | Set-Content -LiteralPath $Path -Encoding UTF8
+}
+
+function Get-PowerShellExecutable {
+    $pwshCommand = Get-Command -Name "pwsh" -ErrorAction SilentlyContinue
+    if ($null -ne $pwshCommand) {
+        return $pwshCommand.Source
+    }
+
+    $powershellCommand = Get-Command -Name "powershell" -ErrorAction SilentlyContinue
+    if ($null -ne $powershellCommand) {
+        return $powershellCommand.Source
+    }
+
+    throw "Neither pwsh nor powershell is available."
 }
 
 function Invoke-CommandForBundle {
@@ -68,8 +86,8 @@ function Invoke-CommandForBundle {
     $stderrPath = Join-Path $LogRoot ("{0}.stderr.log" -f $CommandId)
     $exitCodePath = Join-Path $LogRoot ("{0}.exit_code.txt" -f $CommandId)
 
-    $process = Start-Process -FilePath "cmd.exe" `
-        -ArgumentList @("/d", "/s", "/c", $Command) `
+    $process = Start-Process -FilePath (Get-PowerShellExecutable) `
+        -ArgumentList @("-NoProfile", "-Command", $Command) `
         -WorkingDirectory $RepositoryRoot `
         -RedirectStandardOutput $stdoutPath `
         -RedirectStandardError $stderrPath `
@@ -174,23 +192,24 @@ try {
     $cleanStatusBeforePath = Join-Path $artifactsRoot "clean_status_before.json"
     $cleanStatusAfterPath = Join-Path $artifactsRoot "clean_status_after.json"
     $cleanStatusBefore = Write-CleanStatusEvidence -Path $cleanStatusBeforePath -Label "before_commands"
+    $powershellExecutable = Get-PowerShellExecutable
 
     $commands = @(
         [pscustomobject]@{
             command_id = "external-proof-artifact-bundle"
-            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_external_proof_artifact_bundle.ps1"
+            command = "$powershellExecutable -NoProfile -File tests/test_external_proof_artifact_bundle.ps1"
         },
         [pscustomobject]@{
             command_id = "external-runner-closeout-identity"
-            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_external_runner_closeout_identity.ps1"
+            command = "$powershellExecutable -NoProfile -File tests/test_external_runner_closeout_identity.ps1"
         },
         [pscustomobject]@{
             command_id = "status-doc-gate-test"
-            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1"
+            command = "$powershellExecutable -NoProfile -File tests/test_status_doc_gate.ps1"
         },
         [pscustomobject]@{
             command_id = "status-doc-gate-validator"
-            command = "powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1"
+            command = "$powershellExecutable -NoProfile -File tools/validate_status_doc_gate.ps1"
         },
         [pscustomobject]@{
             command_id = "git-diff-check"
@@ -300,8 +319,8 @@ try {
     $validationStdoutPath = Join-Path $artifactsRoot "bundle_validation.stdout.log"
     $validationStderrPath = Join-Path $artifactsRoot "bundle_validation.stderr.log"
     $validationExitCodePath = Join-Path $artifactsRoot "bundle_validation.exit_code.txt"
-    $validationProcess = Start-Process -FilePath "powershell" `
-        -ArgumentList @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "tools\validate_external_proof_artifact_bundle.ps1", "-BundlePath", $bundlePath) `
+    $validationProcess = Start-Process -FilePath $powershellExecutable `
+        -ArgumentList @("-NoProfile", "-File", "tools/validate_external_proof_artifact_bundle.ps1", "-BundlePath", $bundlePath) `
         -WorkingDirectory $resolvedRepositoryRoot `
         -RedirectStandardOutput $validationStdoutPath `
         -RedirectStandardError $validationStderrPath `

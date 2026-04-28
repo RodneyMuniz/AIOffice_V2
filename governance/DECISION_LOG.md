@@ -599,3 +599,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: this correction keeps R10 active through `R10-004` only and makes the workflow parse-safe for a later R10-005 dispatch attempt.
 - Consequence: this correction does not implement `R10-005`, does not capture an external runner identity packet, does not claim CI proof, does not claim external QA proof, and does not claim final-head clean replay.
 - Consequence: R10 still has not accepted a real external run identity packet, and `R10-005` through `R10-008` remain planned only.
+
+## D-0068 R10-004B External Proof Workflow Checkout Compatibility Fix
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-004B` moves `.github/workflows/r10-external-proof-bundle.yml` from `windows-latest` to `ubuntu-latest`, uses `pwsh` for PowerShell steps, updates artifact upload path separators, and keeps `tools/invoke_r10_external_proof_bundle.ps1` compatible with PowerShell Core on Ubuntu.
+- Consequence: real run `25032362789` failed before bundle creation because Windows checkout hit filename-too-long errors in old R6 proof-review paths. The failure analysis is recorded at `state/external_runs/r10_external_proof_bundle/25032362789/FAILED_RUN_ANALYSIS.md`.
+- Consequence: failed run `25032362789` uploaded no artifact, created no R10-005 packet, and is not accepted as R10-005 proof.
+- Consequence: R10 remains active through `R10-004` only, and `R10-005` through `R10-008` remain planned only.
+- Consequence: this correction does not claim CI proof, external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.
