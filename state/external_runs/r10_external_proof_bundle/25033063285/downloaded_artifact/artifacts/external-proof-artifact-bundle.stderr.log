@@ -1,0 +1,6 @@
+[31;1mException: [0m/home/runner/work/AIOffice_V2/AIOffice_V2/tests/test_external_proof_artifact_bundle.ps1:339[0m
+[31;1m[0m[36;1mLine |[0m
+[31;1m[0m[36;1m[36;1m 339 | [0m     [36;1mthrow ("External proof artifact bundle tests failed. Valid passed[0m …[0m
+[31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1mExternal proof artifact bundle tests failed. Valid passed: 0. Invalid[0m
+[31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m     | [31;1mrejected: 0. Failures: 1[0m

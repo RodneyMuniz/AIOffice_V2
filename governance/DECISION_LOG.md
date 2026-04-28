@@ -608,3 +608,12 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: failed run `25032362789` uploaded no artifact, created no R10-005 packet, and is not accepted as R10-005 proof.
 - Consequence: R10 remains active through `R10-004` only, and `R10-005` through `R10-008` remain planned only.
 - Consequence: this correction does not claim CI proof, external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.
+
+## D-0069 R10-005 Captured Failed External Runner Identity
+- Date: 2026-04-28
+- Status: accepted
+- Decision: `R10-005` is complete through real GitHub Actions run `25033063285` at `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25033063285`, artifact `r10-external-proof-bundle-25033063285-1`, and committed identity packet `state/external_runs/r10_external_proof_bundle/25033063285/external_runner_closeout_identity.json`.
+- Consequence: the artifact retrieval instruction is recorded at `state/external_runs/r10_external_proof_bundle/25033063285/artifact_retrieval_instructions.md`, raw GitHub metadata is recorded under `state/external_runs/r10_external_proof_bundle/25033063285/raw_logs/`, and the downloaded artifact is recorded under `state/external_runs/r10_external_proof_bundle/25033063285/downloaded_artifact/`.
+- Consequence: run `25033063285` completed with conclusion `failure`; it captures one real external runner identity, but successful external proof is not established.
+- Consequence: R10 remains active through `R10-005` only, and `R10-006` through `R10-008` remain planned only.
+- Consequence: this decision does not claim external QA proof, final-head clean replay, broad CI/product coverage, R10 closeout, or broad autonomous milestone execution.

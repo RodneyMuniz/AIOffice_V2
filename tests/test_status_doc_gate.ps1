@@ -116,11 +116,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Opened -or $liveValidation.ActiveMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 4 -or $liveValidation.R10PlannedStart -ne 5 -or $liveValidation.R10PlannedThrough -ne 8) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 active through R10-004 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Opened -or $liveValidation.ActiveMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 5 -or $liveValidation.R10PlannedStart -ne 6 -or $liveValidation.R10PlannedThrough -ne 8) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, and R10 active through R10-005 only."
     }
     else {
-        Write-Output ("PASS valid current R10 runner-path status: R8 through R8-{0} complete, '{1}' most recently closed, and R10 through R10-{2} active with R10-{3} through R10-{4} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R10PlannedStart.ToString("000"), $liveValidation.R10PlannedThrough.ToString("000"))
+        Write-Output ("PASS valid current R10 external identity status: R8 through R8-{0} complete, '{1}' most recently closed, and R10 through R10-{2} active with R10-{3} through R10-{4} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R10PlannedStart.ToString("000"), $liveValidation.R10PlannedThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -174,7 +174,7 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r10-closeout-claimed-at-opening" -RequiredFragments @("R10 closeout", "R10-004") -Action {
+    Invoke-ExpectedRefusal -Label "r10-closeout-claimed-at-opening" -RequiredFragments @("R10 closeout", "R10-005") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-closeout-claim")
         Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed in repo truth.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
@@ -222,9 +222,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "missing-r10-incidental-run-nonproof" -RequiredFragments @("incidental", "R10-005 proof") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-incidental-run-nonproof")
-        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "is not accepted R10-005 proof" -NewValue "is accepted R10-005 proof"
+    Invoke-ExpectedRefusal -Label "r10-failed-run-treated-as-successful-proof" -RequiredFragments @("successful external proof") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r10-failed-run-success-claim")
+        Replace-FileText -Path $scenario.R10AuthorityPath -OldValue "successful external proof is not established" -NewValue "successful external proof is established"
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
