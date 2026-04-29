@@ -8,7 +8,7 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-005` only. `R11-006` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only. `R11-002` defines the cycle ledger/state machine contract and validator foundation. `R11-003` builds the thin cycle controller CLI only. `R11-004` adds bounded bootstrap/resume-from-repo-truth packet generation and next-action packet derivation only. `R11-005` adds local-only residue detection, dry-run quarantine validation, authorized outside-repo quarantine, and refusal behavior only; no Dev adapter, QA gate execution, complete controlled cycle, R11 closeout, unattended automatic resume, or successor milestone is opened.
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-006` only. `R11-007` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only. `R11-002` defines the cycle ledger/state machine contract and validator foundation. `R11-003` builds the thin cycle controller CLI only. `R11-004` adds bounded bootstrap/resume-from-repo-truth packet generation and next-action packet derivation only. `R11-005` adds local-only residue detection, dry-run quarantine validation, authorized outside-repo quarantine, and refusal behavior only. `R11-006` adds bounded Dev dispatch/result packet contracts/tooling only; result packets are source evidence for later QA, not QA authority, and no real implementation task, QA gate execution, complete controlled cycle, R11 closeout, unattended automatic resume, or successor milestone is opened.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -82,13 +82,13 @@ Earlier closed milestone:
 - Done when: `git status --short --untracked-files=all` residue scans record raw status and classify tracked/untracked states, dirty tracked files refuse, exact untracked candidates can dry-run, authorized quarantine moves only exact untracked candidates outside the repo, broad/root/.git/outside/missing/tracked candidates refuse, no deletion occurs without dry-run and explicit authorization, tracked files are not modified, and local-only residue is never evidence or repo truth
 
 ### `R11-006` Add bounded Dev execution adapter
-- Status: planned
+- Status: done
 - Order: 6
 - Milestone: `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`
 - Depends on: `R11-005`
-- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
-- Durable output: bounded implementation dispatch/result packet contracts
-- Done when: at least two bounded task packets are representable and executor result packets preserve evidence refs, scope, and head/tree identity
+- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`, `contracts/cycle_controller/dev_dispatch_packet.contract.json`, `contracts/cycle_controller/dev_execution_result_packet.contract.json`, `tools/DevExecutionAdapter.psm1`, `tools/invoke_dev_execution_adapter.ps1`, `tests/test_dev_execution_adapter.ps1`
+- Durable output: bounded implementation dispatch/result packet contracts, valid dispatch/result fixtures, invalid fixtures under `state/fixtures/invalid/cycle_controller/`, adapter module, CLI wrapper, and focused proof test
+- Done when: at least two bounded task packets are representable and executor result packets preserve evidence refs, scope, dispatch/cycle identity, and head/tree identity while rejecting QA authority, QA verdict, complete controlled cycle, successor, broad autonomy/productization/runtime/orchestration, and unbounded path claims
 
 ### `R11-007` Add separate QA gate for cycle tasks
 - Status: planned
