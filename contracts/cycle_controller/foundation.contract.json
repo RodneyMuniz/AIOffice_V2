@@ -1,0 +1,137 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_foundation",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-002",
+  "cycle_ledger_artifact_type": "cycle_controller_ledger",
+  "authority_type": "repo_truth_cycle_ledger",
+  "state_authority": "cycle_ledger_artifact",
+  "initial_transition_from": "none",
+  "identifier_pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$",
+  "git_sha_pattern": "^[0-9a-f]{40}$",
+  "timestamp_pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+  "repo_ref_pattern": "^(README\\.md|[A-Za-z0-9._-]+/[A-Za-z0-9._@=+/-]+)$",
+  "forbidden_controller_authority_pattern": "(?i)\\b(chat transcript|chat memory|memory|narration|manual assertion)\\b",
+  "allowed_states": [
+    "initialized",
+    "request_recorded",
+    "plan_prepared",
+    "plan_approved",
+    "dev_dispatch_ready",
+    "dev_in_progress",
+    "dev_evidence_recorded",
+    "qa_pending",
+    "qa_passed",
+    "qa_failed",
+    "audit_packet_ready",
+    "operator_decision_pending",
+    "accepted",
+    "blocked",
+    "stopped"
+  ],
+  "terminal_states": [
+    "accepted",
+    "blocked",
+    "stopped"
+  ],
+  "allowed_transitions": {
+    "initialized": [
+      "request_recorded",
+      "stopped"
+    ],
+    "request_recorded": [
+      "plan_prepared",
+      "blocked",
+      "stopped"
+    ],
+    "plan_prepared": [
+      "plan_approved",
+      "blocked",
+      "stopped"
+    ],
+    "plan_approved": [
+      "dev_dispatch_ready",
+      "blocked",
+      "stopped"
+    ],
+    "dev_dispatch_ready": [
+      "dev_in_progress",
+      "blocked",
+      "stopped"
+    ],
+    "dev_in_progress": [
+      "dev_evidence_recorded",
+      "blocked",
+      "stopped"
+    ],
+    "dev_evidence_recorded": [
+      "qa_pending",
+      "blocked",
+      "stopped"
+    ],
+    "qa_pending": [
+      "qa_passed",
+      "qa_failed",
+      "blocked",
+      "stopped"
+    ],
+    "qa_passed": [
+      "audit_packet_ready",
+      "blocked",
+      "stopped"
+    ],
+    "qa_failed": [
+      "audit_packet_ready",
+      "blocked",
+      "stopped"
+    ],
+    "audit_packet_ready": [
+      "operator_decision_pending",
+      "blocked",
+      "stopped"
+    ],
+    "operator_decision_pending": [
+      "accepted",
+      "blocked",
+      "stopped"
+    ],
+    "accepted": [],
+    "blocked": [],
+    "stopped": []
+  },
+  "current_step_by_state": {
+    "initialized": "initialize_cycle_ledger",
+    "request_recorded": "record_operator_request",
+    "plan_prepared": "prepare_cycle_plan",
+    "plan_approved": "record_operator_approval",
+    "dev_dispatch_ready": "prepare_dev_dispatch",
+    "dev_in_progress": "await_dev_execution",
+    "dev_evidence_recorded": "record_dev_evidence",
+    "qa_pending": "run_separate_qa_gate",
+    "qa_passed": "record_qa_pass",
+    "qa_failed": "record_qa_failure",
+    "audit_packet_ready": "prepare_audit_packet",
+    "operator_decision_pending": "await_operator_decision",
+    "accepted": "cycle_accepted",
+    "blocked": "cycle_blocked",
+    "stopped": "cycle_stopped"
+  },
+  "required_non_claims": [
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no destructive rollback",
+    "no broad CI/product coverage",
+    "no general Codex reliability",
+    "no productized control-room behavior",
+    "no production runtime",
+    "no successor milestone without explicit approval"
+  ]
+}

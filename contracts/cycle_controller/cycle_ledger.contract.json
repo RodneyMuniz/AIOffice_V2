@@ -1,0 +1,227 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_ledger_contract",
+  "ledger_artifact_type": "cycle_controller_ledger",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "cycle_id",
+    "repository",
+    "branch",
+    "milestone",
+    "source_task",
+    "controller_authority",
+    "state",
+    "allowed_next_states",
+    "current_step",
+    "operator_request_ref",
+    "cycle_plan_ref",
+    "baseline_ref",
+    "dispatch_refs",
+    "execution_result_refs",
+    "qa_refs",
+    "audit_packet_ref",
+    "decision_packet_ref",
+    "head_sha",
+    "tree_sha",
+    "created_at_utc",
+    "updated_at_utc",
+    "transition_history",
+    "evidence_refs",
+    "refusal_reasons",
+    "non_claims"
+  ],
+  "controller_authority_required_fields": [
+    "authority_type",
+    "state_authority",
+    "committed_state_required",
+    "chat_memory_authority_allowed",
+    "statement"
+  ],
+  "transition_required_fields": [
+    "from_state",
+    "to_state",
+    "transitioned_at_utc",
+    "evidence_ref",
+    "actor",
+    "reason"
+  ],
+  "singular_ref_fields": [
+    "operator_request_ref",
+    "cycle_plan_ref",
+    "baseline_ref",
+    "audit_packet_ref",
+    "decision_packet_ref"
+  ],
+  "array_ref_fields": [
+    "dispatch_refs",
+    "execution_result_refs",
+    "qa_refs",
+    "evidence_refs"
+  ],
+  "approval_evidence_pattern": "(?i)approval",
+  "state_ref_requirements": {
+    "initialized": {
+      "singular_refs": [],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": false
+    },
+    "request_recorded": {
+      "singular_refs": [
+        "operator_request_ref"
+      ],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": false
+    },
+    "plan_prepared": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref"
+      ],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": false
+    },
+    "plan_approved": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref"
+      ],
+      "array_refs": [],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "dev_dispatch_ready": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "dev_in_progress": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "dev_evidence_recorded": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "qa_pending": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "qa_passed": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs",
+        "qa_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "qa_failed": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs",
+        "qa_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "audit_packet_ready": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref",
+        "audit_packet_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs",
+        "qa_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "operator_decision_pending": {
+      "singular_refs": [
+        "operator_request_ref",
+        "cycle_plan_ref",
+        "baseline_ref",
+        "audit_packet_ref",
+        "decision_packet_ref"
+      ],
+      "array_refs": [
+        "dispatch_refs",
+        "execution_result_refs",
+        "qa_refs"
+      ],
+      "approval_evidence_required": true,
+      "refusal_reasons_required": false
+    },
+    "accepted": {
+      "singular_refs": [
+        "audit_packet_ref",
+        "decision_packet_ref"
+      ],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": false
+    },
+    "blocked": {
+      "singular_refs": [],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": true
+    },
+    "stopped": {
+      "singular_refs": [],
+      "array_refs": [],
+      "approval_evidence_required": false,
+      "refusal_reasons_required": true
+    }
+  }
+}

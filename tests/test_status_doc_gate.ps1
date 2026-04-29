@@ -118,11 +118,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Opened -or $liveValidation.ActiveMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 1 -or $liveValidation.R11PlannedStart -ne 2 -or $liveValidation.R11PlannedThrough -ne 9) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 active through R11-001 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Opened -or $liveValidation.ActiveMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 2 -or $liveValidation.R11PlannedStart -ne 3 -or $liveValidation.R11PlannedThrough -ne 9) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 active through R11-002 only."
     }
     else {
-        Write-Output ("PASS valid current R11 opening status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, and R11 through R11-{3} active with R11-{4} through R11-{5} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R11PlannedStart.ToString("000"), $liveValidation.R11PlannedThrough.ToString("000"))
+        Write-Output ("PASS valid current R11 ledger status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, and R11 through R11-{3} active with R11-{4} through R11-{5} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R11PlannedStart.ToString("000"), $liveValidation.R11PlannedThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -381,6 +381,24 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
+    Invoke-ExpectedRefusal -Label "missing-r11-cycle-ledger-contract-ref" -RequiredFragments @("R11-002 ledger artifact", "cycle_ledger.contract.json") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-ledger-contract-ref")
+        Replace-FileText -Path $scenario.R11AuthorityPath -OldValue "contracts/cycle_controller/cycle_ledger.contract.json" -NewValue "contracts/cycle_controller/cycle_ledger_missing.contract.json"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r11-claims-controller-cli" -RequiredFragments @("controller CLI implementation") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-controller-cli-claim")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11-002 now includes the controller CLI.") -Encoding UTF8
+        foreach ($path in @($scenario.ReadmePath, $scenario.ActiveStatePath, $scenario.KanbanPath, $scenario.DecisionLogPath, $scenario.R11AuthorityPath)) {
+            $text = Get-Content -LiteralPath $path -Raw
+            $text = $text.Replace("controller CLI", "control command surface")
+            Set-Content -LiteralPath $path -Value $text -Encoding UTF8
+        }
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R11-002 now includes the controller CLI.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
     Invoke-ExpectedRefusal -Label "stale-r10-active-contradiction" -RequiredFragments @("stale R10 active contradiction") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-stale-r10-active")
         Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + '`R10` is currently open through `R10-008`.') -Encoding UTF8
@@ -407,7 +425,7 @@ try {
 
     Invoke-ExpectedRefusal -Label "r11-task-status-mismatch" -RequiredFragments @("R11 authority does not match KANBAN") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-task-mismatch")
-        Replace-RegexInFile -Path $scenario.R11AuthorityPath -Pattern '###\s+`R11-002`\s+Define cycle ledger/state machine\r?\n-\s+Status:\s+planned' -Replacement ('### `R11-002` Define cycle ledger/state machine' + $crlf + '- Status: done')
+        Replace-RegexInFile -Path $scenario.R11AuthorityPath -Pattern '###\s+`R11-002`\s+Define cycle ledger/state machine\r?\n-\s+Status:\s+done' -Replacement ('### `R11-002` Define cycle ledger/state machine' + $crlf + '- Status: planned')
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 }

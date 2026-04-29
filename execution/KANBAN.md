@@ -8,7 +8,7 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-001` only. `R11-002` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only.
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-002` only. `R11-003` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only. `R11-002` defines the cycle ledger/state machine contract and validator foundation only; no controller CLI, bootstrap/resume execution, local-only residue automation, Dev adapter, QA gate execution, complete controlled cycle, R11 closeout, or successor milestone is opened.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -20,7 +20,7 @@ Previous branch:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`
 
 Closeout summary:
-`R10-001` through `R10-008` are complete and formally closed narrowly in repo truth. The closeout authority is `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, the candidate closeout commit is `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, final R10 support head is `91035cfbb34f531684943d0bfd8c3ba660f48f08`, and decision authority is `D-0079`. R10 closeout remains bounded to the R10 evidence chain; R11 opens separately through `R11-001` only after accepted R10 closeout and approved operator report direction.
+`R10-001` through `R10-008` are complete and formally closed narrowly in repo truth. The closeout authority is `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, the candidate closeout commit is `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, final R10 support head is `91035cfbb34f531684943d0bfd8c3ba660f48f08`, and decision authority is `D-0079`. R10 closeout remains bounded to the R10 evidence chain; R11 opens separately after accepted R10 closeout and approved operator report direction.
 
 Prior closed milestone:
 `R9 Isolated QA and Continuity-Managed Milestone Execution Pilot` remains closed under `governance/R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md`, the committed proof-review basis under `state/proof_reviews/r9_isolated_qa_and_continuity_managed_milestone_execution_pilot/`, and decision authority `D-0061`.
@@ -43,16 +43,16 @@ Earlier closed milestone:
 - Depends on: R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, `D-0079`, approved R10 audit/report direction
 - Authority: `README.md`, `governance/ACTIVE_STATE.md`, `governance/DECISION_LOG.md`, `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
 - Durable output: repo-truth surfaces that open R11 and freeze it as a controlled cycle-controller pilot only
-- Done when: R10 remains the most recently closed prior milestone, R11 is active through R11-001 only, R11-002 through R11-009 remain planned only, no R12 or successor opens, and status-doc gates reject broad autonomy, solved compaction, unattended automatic resume, UI/control-room productization, multi-repo/swarms/Standard runtime, stale R10-active contradiction, and R11 opening without R10 closeout evidence
+- Done when: at R11-001 completion, R10 remains the most recently closed prior milestone, R11 is active through R11-001 only, R11-002 through R11-009 remain planned only, no R12 or successor opens, and status-doc gates reject broad autonomy, solved compaction, unattended automatic resume, UI/control-room productization, multi-repo/swarms/Standard runtime, stale R10-active contradiction, and R11 opening without R10 closeout evidence
 
 ### `R11-002` Define cycle ledger/state machine
-- Status: planned
+- Status: done
 - Order: 2
 - Milestone: `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`
 - Depends on: `R11-001`
-- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
-- Durable output: canonical cycle states and allowed transitions under `contracts/cycle_controller/`
-- Done when: cycle ledger/state machine contracts define repo-truth authority, allowed transitions, evidence refs, and fail-closed invalid state handling
+- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`, `contracts/cycle_controller/foundation.contract.json`, `contracts/cycle_controller/cycle_ledger.contract.json`, `tools/CycleLedger.psm1`, `tools/validate_cycle_ledger.ps1`, `tests/test_cycle_ledger.ps1`
+- Durable output: canonical cycle states, allowed transitions, per-state evidence/ref requirements, validator-only fixture, invalid fixtures, validator module, CLI validator, and focused tests
+- Done when: cycle ledger/state machine contracts define repo-truth authority, allowed transitions, evidence refs, current-step consistency, transition-history validation, non-claims, and fail-closed invalid state handling
 
 ### `R11-003` Build cycle controller CLI
 - Status: planned
