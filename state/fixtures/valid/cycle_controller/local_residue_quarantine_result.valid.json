@@ -1,0 +1,54 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "local_residue_quarantine_result",
+  "quarantine_id": "local-residue-quarantine-fixture",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-005",
+  "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "tree_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "authorized": true,
+  "dry_run_ref": "state/cycle_controller/local_residue/dry_run.example.json",
+  "source_paths": [
+    "tests/OLD_Test/residue.txt"
+  ],
+  "quarantine_root": "C:/Temp/AIOffice_V2_local_quarantine_20260430T000000Z",
+  "moved_items": [
+    {
+      "original_path": "tests/OLD_Test/residue.txt",
+      "quarantine_path": "C:/Temp/AIOffice_V2_local_quarantine_20260430T000000Z/tests/OLD_Test/residue.txt",
+      "moved_at_utc": "2026-04-30T00:00:00Z",
+      "actor": "R11-005-local-residue-guard",
+      "reason": "Quarantine explicit local-only residue candidate after dry-run evidence.",
+      "dry_run_ref": "state/cycle_controller/local_residue/dry_run.example.json",
+      "command_evidence": [
+        "git status --short --untracked-files=all",
+        "git ls-files -- tests/OLD_Test/residue.txt",
+        "Move-Item -LiteralPath <candidate> -Destination <outside-repo-quarantine>"
+      ],
+      "evidence_status": "not_evidence",
+      "repo_truth_status": "not_repo_truth"
+    }
+  ],
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-30T00:00:00Z",
+  "non_claims": [
+    "no deletion without dry-run and explicit authorization",
+    "no tracked-file modification",
+    "no local-only residue used as evidence",
+    "no destructive rollback",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no broad CI/product coverage",
+    "no production runtime",
+    "no general Codex reliability",
+    "no successor milestone without explicit approval"
+  ]
+}

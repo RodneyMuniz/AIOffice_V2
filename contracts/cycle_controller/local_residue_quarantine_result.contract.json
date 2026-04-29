@@ -1,0 +1,48 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "local_residue_quarantine_result_contract",
+  "quarantine_result_artifact_type": "local_residue_quarantine_result",
+  "source_task": "R11-005",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "quarantine_id",
+    "repository",
+    "branch",
+    "milestone",
+    "source_task",
+    "head_sha",
+    "tree_sha",
+    "authorized",
+    "dry_run_ref",
+    "source_paths",
+    "quarantine_root",
+    "moved_items",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "moved_item_required_fields": [
+    "original_path",
+    "quarantine_path",
+    "moved_at_utc",
+    "actor",
+    "reason",
+    "dry_run_ref",
+    "command_evidence",
+    "evidence_status",
+    "repo_truth_status"
+  ],
+  "evidence_policy": "quarantined files are not evidence and are not repo truth",
+  "non_scope": [
+    "no deletion without dry-run and explicit authorization",
+    "no tracked-file modification",
+    "no local-only residue used as evidence",
+    "no destructive rollback",
+    "no Dev execution adapter",
+    "no QA gate execution",
+    "no complete controlled cycle",
+    "no R11 closeout",
+    "no successor milestone opening"
+  ]
+}

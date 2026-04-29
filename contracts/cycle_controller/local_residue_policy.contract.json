@@ -1,0 +1,52 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "local_residue_policy_contract",
+  "source_task": "R11-005",
+  "scan_result_artifact_type": "local_residue_scan_result",
+  "quarantine_result_artifact_type": "local_residue_quarantine_result",
+  "scan_command": "git status --short --untracked-files=all",
+  "allowed_scan_modes": [
+    "scan",
+    "dry-run"
+  ],
+  "allowed_entry_classifications": [
+    "clean",
+    "tracked_modified",
+    "tracked_deleted",
+    "tracked_added_or_staged",
+    "untracked",
+    "ignored_or_unknown"
+  ],
+  "allowed_residue_policy_decisions": [
+    "allowed",
+    "refused",
+    "quarantine_eligible"
+  ],
+  "broad_path_refusals": [
+    ".",
+    ".git",
+    "governance",
+    "tools",
+    "contracts",
+    "state"
+  ],
+  "default_quarantine_root_pattern": "AIOffice_V2_local_quarantine_<timestamp>",
+  "required_non_claims": [
+    "no deletion without dry-run and explicit authorization",
+    "no tracked-file modification",
+    "no local-only residue used as evidence",
+    "no destructive rollback",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no broad CI/product coverage",
+    "no production runtime",
+    "no general Codex reliability",
+    "no successor milestone without explicit approval"
+  ]
+}

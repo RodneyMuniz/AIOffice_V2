@@ -1,0 +1,67 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "local_residue_scan_result",
+  "scan_id": "local-residue-scan-evidence-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-005",
+  "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "tree_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "scan_mode": "scan",
+  "git_status_command": "git status --short --untracked-files=all",
+  "raw_status_lines": [
+    "?? tests/OLD_Test/residue.txt"
+  ],
+  "entries": [
+    {
+      "raw_status": "?? tests/OLD_Test/residue.txt",
+      "xy_status": "??",
+      "path": "tests/OLD_Test/residue.txt",
+      "original_path": "",
+      "classification": "untracked",
+      "tracked": false,
+      "quarantine_eligible": true,
+      "evidence_allowed": true,
+      "evidence_status": "evidence",
+      "refusal_reasons": []
+    }
+  ],
+  "worktree_clean": false,
+  "residue_detected": true,
+  "tracked_changes_detected": false,
+  "untracked_residue_detected": true,
+  "quarantine_candidates": [
+    "tests/OLD_Test/residue.txt"
+  ],
+  "residue_policy_decision": "refused",
+  "residue_allowed": false,
+  "refused": true,
+  "quarantine_eligible": false,
+  "candidate_paths": [],
+  "candidate_path_results": [],
+  "unexpected_untracked_paths": [],
+  "local_residue_evidence_policy": "local-only residue is not evidence and is not repo truth",
+  "refusal_reasons": [
+    "untracked residue detected; explicit dry-run and quarantine authorization are required."
+  ],
+  "created_at_utc": "2026-04-30T00:00:00Z",
+  "non_claims": [
+    "no deletion without dry-run and explicit authorization",
+    "no tracked-file modification",
+    "no local-only residue used as evidence",
+    "no destructive rollback",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no broad CI/product coverage",
+    "no production runtime",
+    "no general Codex reliability",
+    "no successor milestone without explicit approval"
+  ]
+}
