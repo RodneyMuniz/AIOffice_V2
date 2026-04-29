@@ -1,0 +1,42 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_bootstrap_packet_contract",
+  "bootstrap_packet_artifact_type": "cycle_bootstrap_packet",
+  "source_task": "R11-004",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "bootstrap_id",
+    "repository",
+    "branch",
+    "milestone",
+    "source_task",
+    "cycle_id",
+    "cycle_ledger_ref",
+    "ledger_state",
+    "ledger_current_step",
+    "allowed_next_states",
+    "next_action_packet_ref",
+    "head_sha",
+    "tree_sha",
+    "created_at_utc",
+    "bootstrap_source",
+    "state_authority",
+    "chat_memory_authority_allowed",
+    "evidence_refs",
+    "refusal_reasons",
+    "non_claims"
+  ],
+  "bootstrap_source": "repo_truth_cycle_ledger",
+  "state_authority": "cycle_ledger_artifact",
+  "chat_memory_authority_allowed": false,
+  "authority_rule": "The committed cycle_controller_ledger artifact is the state authority. Chat transcript, Codex narration, operator memory, and manual assertion are not state authority.",
+  "non_scope": [
+    "no local-only residue automation",
+    "no Dev execution adapter",
+    "no QA gate execution",
+    "no complete controlled cycle execution",
+    "no R11 closeout",
+    "no successor milestone opening"
+  ]
+}

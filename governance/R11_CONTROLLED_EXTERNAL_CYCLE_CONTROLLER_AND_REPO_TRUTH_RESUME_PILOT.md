@@ -13,9 +13,9 @@ R11 opens because the project now needs a controller/state-machine milestone tha
 The operator-facing bridge report `governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md` is included as a narrative operator artifact only. It accepts R10 narrowly with cautions, says no corrective R10 support slice is required before R11, and recommends this R11 direction. It is not milestone proof by itself and does not widen R10.
 
 ## Current status
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-003` only.
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-004` only.
 
-`R11-004` through `R11-009` remain planned only.
+`R11-005` through `R11-009` remain planned only.
 
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` remains the most recently closed prior milestone under `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, final R10 support head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, and decision authority `D-0079`.
 
@@ -116,8 +116,10 @@ R11 does not prove and must not casually widen into:
 - Boundary: this is a thin cycle controller CLI only. It does not implement bootstrap/resume from a new session, local-only residue automation, a Dev execution adapter, QA gate execution, a complete controlled cycle, audit packet generation, R11 closeout, or any successor milestone.
 
 ### `R11-004` Add bootstrap/resume from repo truth
-- Status: planned
-- Done when: a new session can resume from committed cycle state and next-action packet without chat memory.
+- Status: done
+- Done when: bootstrap and next-action packets can be generated from a valid committed cycle ledger, validated against contract, and refused when ledger state, authority, branch/head/tree identity, allowed next state, or required non-claims contradict repo truth.
+- Durable output: `contracts/cycle_controller/cycle_bootstrap_packet.contract.json`, `contracts/cycle_controller/cycle_next_action_packet.contract.json`, `state/fixtures/valid/cycle_controller/cycle_bootstrap_packet.valid.json`, `state/fixtures/valid/cycle_controller/cycle_next_action_packet.valid.json`, invalid fixtures under `state/fixtures/invalid/cycle_controller/`, `tools/CycleBootstrap.psm1`, `tools/prepare_cycle_bootstrap.ps1`, and `tests/test_cycle_bootstrap_resume.ps1`.
+- Boundary: this is a bounded bootstrap/resume-from-repo-truth proof only. It emits packets from the committed ledger and recommends only ledger-allowed next states. It does not execute local-only residue automation, Dev tasks, QA gates, a complete controlled cycle, unattended automatic resume beyond this bounded packet proof, R11 closeout, or any successor milestone.
 
 ### `R11-005` Add local-only residue detection/quarantine
 - Status: planned
@@ -143,7 +145,8 @@ R11 does not prove and must not casually widen into:
 - `R11-001` opens R11 in repo truth only. It does not implement the controller CLI, resume path, residue guard, Dev adapter, QA gate, controlled cycle, audit packet generation, or closeout.
 - `R11-002` defines the canonical cycle ledger/state machine contract and validator foundation only. It does not build the controller CLI, bootstrap/resume execution, local-only residue automation, Dev execution adapter, QA gate execution, complete controlled cycle, audit packet generation, R11 closeout, or any successor milestone.
 - `R11-003` builds the first thin cycle controller CLI only. It can initialize, inspect, advance, block, and stop cycle ledgers while validating through the R11-002 ledger contract. It does not execute Dev tasks, QA tasks, bootstrap/resume across sessions, local-only residue automation, or a complete controlled cycle.
-- `R11-004` through `R11-009` remain planned only after this slice.
+- `R11-004` proves bounded bootstrap/resume from repo truth only. It reconstructs state and next action from committed cycle ledger artifacts without chat transcript authority, and it does not execute local-only residue automation, Dev tasks, QA gates, a complete controlled cycle, unattended automatic resume beyond this bounded packet proof, audit packet generation, R11 closeout, or any successor milestone.
+- `R11-005` through `R11-009` remain planned only after this slice.
 - The approved R10 audit/report content is preserved as an operator report artifact and does not become proof by itself.
 - R10 remains accepted narrowly with cautions and is not reopened.
 - The historical R9 support branch `feature/r5-closeout-remaining-foundations` remains untouched.

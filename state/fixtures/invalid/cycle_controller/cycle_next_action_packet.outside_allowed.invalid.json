@@ -1,0 +1,41 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_next_action_packet",
+  "next_action_id": "next-action-r11-004-outside-allowed",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-004",
+  "cycle_id": "cycle-r11-002-validator-fixture",
+  "cycle_ledger_ref": "state/fixtures/valid/cycle_controller/cycle_ledger.valid.json",
+  "ledger_state": "initialized",
+  "ledger_current_step": "initialize_cycle_ledger",
+  "recommended_action": "advance_to_plan_prepared",
+  "allowed_target_states": [
+    "plan_prepared"
+  ],
+  "required_inputs": [
+    "cycle_plan_ref"
+  ],
+  "blocked_reasons": [],
+  "operator_decision_required": false,
+  "head_sha": "6ee01d669b272ee613a91128e2f1c289df81591f",
+  "tree_sha": "ee138ee2d2f8bf6654d31a0dbc0347d61e256f24",
+  "created_at_utc": "2026-04-29T00:00:00Z",
+  "non_claims": [
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no destructive rollback",
+    "no broad CI/product coverage",
+    "no general Codex reliability",
+    "no productized control-room behavior",
+    "no production runtime",
+    "no successor milestone without explicit approval"
+  ]
+}
