@@ -1,0 +1,69 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_command_contract",
+  "command_artifact_type": "cycle_controller_command",
+  "source_task": "R11-003",
+  "allowed_commands": [
+    "initialize",
+    "inspect",
+    "advance",
+    "refuse"
+  ],
+  "required_command_fields": {
+    "initialize": [
+      "contract_version",
+      "artifact_type",
+      "command",
+      "cycle_id",
+      "output_path",
+      "repository",
+      "branch",
+      "head_sha",
+      "tree_sha"
+    ],
+    "inspect": [
+      "contract_version",
+      "artifact_type",
+      "command",
+      "ledger_path"
+    ],
+    "advance": [
+      "contract_version",
+      "artifact_type",
+      "command",
+      "ledger_path",
+      "target_state",
+      "evidence_ref",
+      "actor",
+      "reason"
+    ],
+    "refuse": [
+      "contract_version",
+      "artifact_type",
+      "command",
+      "ledger_path",
+      "target_state",
+      "evidence_ref",
+      "actor",
+      "reason",
+      "refusal_reasons"
+    ]
+  },
+  "authority_rule": "Controller commands may request ledger creation or state transitions, but the committed cycle_controller_ledger artifact remains cycle state authority.",
+  "forbidden_authority_sources": [
+    "chat transcript",
+    "chat memory",
+    "Codex narration",
+    "operator memory",
+    "manual assertion"
+  ],
+  "non_scope": [
+    "no bootstrap/resume from a new session",
+    "no local-only residue automation",
+    "no Dev execution adapter",
+    "no QA gate execution",
+    "no complete controlled cycle execution",
+    "no R11 closeout",
+    "no successor milestone opening"
+  ]
+}

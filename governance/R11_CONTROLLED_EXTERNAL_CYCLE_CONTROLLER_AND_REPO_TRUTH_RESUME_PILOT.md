@@ -13,9 +13,9 @@ R11 opens because the project now needs a controller/state-machine milestone tha
 The operator-facing bridge report `governance/reports/AIOffice_V2_R10_Audit_and_R11_Planning_Report_v1.md` is included as a narrative operator artifact only. It accepts R10 narrowly with cautions, says no corrective R10 support slice is required before R11, and recommends this R11 direction. It is not milestone proof by itself and does not widen R10.
 
 ## Current status
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-002` only.
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-003` only.
 
-`R11-003` through `R11-009` remain planned only.
+`R11-004` through `R11-009` remain planned only.
 
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` remains the most recently closed prior milestone under `governance/R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md`, the Phase 1 candidate package under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, the Phase 2 final-head support packet under `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`, candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae`, final R10 support head `91035cfbb34f531684943d0bfd8c3ba660f48f08`, and decision authority `D-0079`.
 
@@ -110,8 +110,10 @@ R11 does not prove and must not casually widen into:
 - Durable output: `contracts/cycle_controller/foundation.contract.json`, `contracts/cycle_controller/cycle_ledger.contract.json`, `state/fixtures/valid/cycle_controller/cycle_ledger.valid.json`, invalid fixtures under `state/fixtures/invalid/cycle_controller/`, `tools/CycleLedger.psm1`, `tools/validate_cycle_ledger.ps1`, and `tests/test_cycle_ledger.ps1`.
 
 ### `R11-003` Build cycle controller CLI
-- Status: planned
+- Status: done
 - Done when: controller commands can initialize, inspect, advance, and refuse cycles from repo truth, with no chat transcript authority.
+- Durable output: `contracts/cycle_controller/controller_command.contract.json`, `contracts/cycle_controller/controller_result.contract.json`, `state/fixtures/valid/cycle_controller/controller_initialize_command.valid.json`, `state/fixtures/valid/cycle_controller/controller_advance_command.valid.json`, `state/fixtures/valid/cycle_controller/controller_refuse_command.valid.json`, invalid fixtures under `state/fixtures/invalid/cycle_controller/`, `tools/CycleController.psm1`, `tools/invoke_cycle_controller.ps1`, and `tests/test_cycle_controller.ps1`.
+- Boundary: this is a thin cycle controller CLI only. It does not implement bootstrap/resume from a new session, local-only residue automation, a Dev execution adapter, QA gate execution, a complete controlled cycle, audit packet generation, R11 closeout, or any successor milestone.
 
 ### `R11-004` Add bootstrap/resume from repo truth
 - Status: planned
@@ -140,7 +142,8 @@ R11 does not prove and must not casually widen into:
 ## Milestone notes
 - `R11-001` opens R11 in repo truth only. It does not implement the controller CLI, resume path, residue guard, Dev adapter, QA gate, controlled cycle, audit packet generation, or closeout.
 - `R11-002` defines the canonical cycle ledger/state machine contract and validator foundation only. It does not build the controller CLI, bootstrap/resume execution, local-only residue automation, Dev execution adapter, QA gate execution, complete controlled cycle, audit packet generation, R11 closeout, or any successor milestone.
-- `R11-003` through `R11-009` remain planned only after this slice.
+- `R11-003` builds the first thin cycle controller CLI only. It can initialize, inspect, advance, block, and stop cycle ledgers while validating through the R11-002 ledger contract. It does not execute Dev tasks, QA tasks, bootstrap/resume across sessions, local-only residue automation, or a complete controlled cycle.
+- `R11-004` through `R11-009` remain planned only after this slice.
 - The approved R10 audit/report content is preserved as an operator report artifact and does not become proof by itself.
 - R10 remains accepted narrowly with cautions and is not reopened.
 - The historical R9 support branch `feature/r5-closeout-remaining-foundations` remains untouched.

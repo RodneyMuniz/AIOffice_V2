@@ -8,7 +8,7 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-002` only. `R11-003` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only. `R11-002` defines the cycle ledger/state machine contract and validator foundation only; no controller CLI, bootstrap/resume execution, local-only residue automation, Dev adapter, QA gate execution, complete controlled cycle, R11 closeout, or successor milestone is opened.
+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now active in repo truth through `R11-003` only. `R11-004` through `R11-009` remain planned only. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08` and is frozen as a controlled cycle-controller pilot only. `R11-002` defines the cycle ledger/state machine contract and validator foundation. `R11-003` builds the thin cycle controller CLI only; no bootstrap/resume execution, local-only residue automation, Dev adapter, QA gate execution, complete controlled cycle, R11 closeout, or successor milestone is opened.
 
 Active branch:
 `release/r10-real-external-runner-proof-foundation`
@@ -55,13 +55,13 @@ Earlier closed milestone:
 - Done when: cycle ledger/state machine contracts define repo-truth authority, allowed transitions, evidence refs, current-step consistency, transition-history validation, non-claims, and fail-closed invalid state handling
 
 ### `R11-003` Build cycle controller CLI
-- Status: planned
+- Status: done
 - Order: 3
 - Milestone: `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`
 - Depends on: `R11-002`
-- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`
-- Durable output: controller commands to initialize, inspect, advance, and refuse cycles from repo truth
-- Done when: the CLI advances and refuses cycle state from committed ledger truth without chat transcript authority
+- Authority: `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`, `contracts/cycle_controller/controller_command.contract.json`, `contracts/cycle_controller/controller_result.contract.json`, `tools/CycleController.psm1`, `tools/invoke_cycle_controller.ps1`, `tests/test_cycle_controller.ps1`
+- Durable output: thin controller commands to initialize, inspect, advance, and refuse cycles from repo truth, plus valid command fixtures under `state/fixtures/valid/cycle_controller/` and invalid command fixtures under `state/fixtures/invalid/cycle_controller/`
+- Done when: the CLI initializes, inspects, advances, blocks, and stops cycle ledger artifacts from committed ledger truth without chat transcript authority, while rejecting illegal transitions, missing evidence, missing actor/reason, missing required refs, terminal-state transitions, outside-root writes, overwrite without explicit flag, wrong repo/branch, malformed Git identity, successor claims, and broad autonomy/productization claims
 
 ### `R11-004` Add bootstrap/resume from repo truth
 - Status: planned

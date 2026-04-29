@@ -1,0 +1,13 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_command",
+  "command": "refuse",
+  "ledger_path": "state/cycle_controller/r11-003/request_recorded_fixture.ledger.json",
+  "target_state": "blocked",
+  "evidence_ref": "state/cycle_controller/r11-003/block.evidence.json",
+  "actor": "R11-003-controller-fixture",
+  "reason": "Block the cycle before execution because required evidence is unavailable.",
+  "refusal_reasons": [
+    "Required cycle evidence is unavailable."
+  ]
+}

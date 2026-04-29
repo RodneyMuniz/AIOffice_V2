@@ -91,7 +91,12 @@ function Test-HasProperty {
         [string]$Name
     )
 
-    return $null -ne $Object -and $Object.PSObject.Properties.Name -contains $Name
+    if ($null -eq $Object) {
+        return $false
+    }
+
+    $propertyNames = @($Object.PSObject.Properties | ForEach-Object { $_.Name })
+    return $propertyNames -contains $Name
 }
 
 function Get-RequiredProperty {

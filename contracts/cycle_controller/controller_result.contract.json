@@ -1,0 +1,46 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_result_contract",
+  "result_artifact_type": "cycle_controller_result",
+  "status_artifact_type": "cycle_controller_status",
+  "source_task": "R11-003",
+  "required_result_fields": [
+    "ArtifactType",
+    "Command",
+    "Status",
+    "LedgerPath",
+    "CycleId",
+    "State",
+    "CurrentStep",
+    "AllowedNextStates",
+    "NonClaims"
+  ],
+  "required_status_fields": [
+    "ArtifactType",
+    "LedgerPath",
+    "CycleId",
+    "Repository",
+    "Branch",
+    "Milestone",
+    "SourceTask",
+    "State",
+    "CurrentStep",
+    "AllowedNextStates",
+    "RequiredRefs",
+    "HeadSha",
+    "TreeSha",
+    "TransitionCount",
+    "NonClaims",
+    "ControllerAuthority"
+  ],
+  "authority_rule": "Controller results report the committed cycle ledger state after validation; they do not become independent cycle state authority.",
+  "non_scope": [
+    "no bootstrap/resume from a new session",
+    "no local-only residue automation",
+    "no Dev execution adapter",
+    "no QA gate execution",
+    "no complete controlled cycle execution",
+    "no R11 closeout",
+    "no successor milestone opening"
+  ]
+}

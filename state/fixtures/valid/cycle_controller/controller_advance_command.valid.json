@@ -1,0 +1,11 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_command",
+  "command": "advance",
+  "ledger_path": "state/cycle_controller/r11-003/initialize_fixture.ledger.json",
+  "target_state": "request_recorded",
+  "evidence_ref": "state/cycle_controller/r11-003/request_recorded.evidence.json",
+  "actor": "R11-003-controller-fixture",
+  "reason": "Record the operator request ref from repo-truth command input.",
+  "operator_request_ref": "state/cycle_controller/r11-003/operator_request.fixture.json"
+}

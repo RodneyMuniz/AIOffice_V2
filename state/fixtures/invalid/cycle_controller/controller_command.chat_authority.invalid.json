@@ -1,0 +1,12 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_controller_command",
+  "command": "initialize",
+  "cycle_id": "cycle-r11-003-chat-authority",
+  "output_path": "state/cycle_controller/r11-003/chat_authority.ledger.json",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "head_sha": "b11d59ba51453aa6b168bd3cd362fbc7f0dc8faf",
+  "tree_sha": "e98f6b96a05772720e0371c649d66751ec400408",
+  "controller_authority": "chat transcript"
+}
