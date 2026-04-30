@@ -1,0 +1,83 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_qa_gate_contract",
+  "gate_artifact_type": "cycle_qa_gate",
+  "source_task": "R11-007",
+  "consumes_artifact_types": [
+    "dev_dispatch_packet",
+    "dev_execution_result_packet"
+  ],
+  "produces_artifact_type": "cycle_qa_signoff_packet",
+  "allowed_dev_result_statuses_for_qa": [
+    "completed",
+    "blocked",
+    "failed"
+  ],
+  "incompatible_dev_result_statuses": [
+    "prepared"
+  ],
+  "required_checks": [
+    "dev_dispatch_packet_validates",
+    "dev_result_packet_validates",
+    "dispatch_result_cycle_identity_matches",
+    "dev_result_status_compatible_with_qa",
+    "completed_dev_result_has_evidence_refs",
+    "changed_files_inside_dispatch_allowed_paths",
+    "produced_artifacts_inside_dispatch_allowed_paths",
+    "dev_result_no_qa_authority",
+    "dev_result_no_qa_verdict",
+    "dev_result_no_complete_controlled_cycle_claim",
+    "dev_result_no_successor_milestone_claim",
+    "qa_actor_independent_or_boundary_explicit",
+    "qa_consumes_dev_evidence_refs"
+  ],
+  "fail_closed_refusals": [
+    "missing or malformed dispatch packet",
+    "missing or malformed Dev result packet",
+    "dispatch/result cycle mismatch",
+    "dispatch/result head/tree contradiction",
+    "completed Dev result without evidence refs",
+    "changed file outside dispatch allowed paths",
+    "produced artifact outside dispatch allowed paths",
+    "Dev result claiming QA authority",
+    "Dev result claiming QA verdict",
+    "Dev result claiming complete controlled cycle",
+    "Dev result claiming successor milestone",
+    "missing QA actor identity",
+    "same QA actor and executor identity without explicit non-self-certification independence boundary",
+    "QA signoff without source evidence refs",
+    "QA signoff accepting executor narration as proof",
+    "QA signoff missing required non-claims",
+    "QA signoff claiming broad autonomy, productization, runtime, orchestration, unattended resume, solved compaction, broad CI/product coverage, production runtime, general Codex reliability, or successor milestone"
+  ],
+  "source_evidence_requirement": "QA signoff packets must consume Dev evidence refs as source evidence. Executor narration, executor self-certification, or Dev result status alone is not QA authority.",
+  "non_scope": [
+    "no complete controlled cycle execution",
+    "no R11 closeout",
+    "no R12 or successor milestone opening",
+    "no real production QA",
+    "no broad QA/product coverage"
+  ],
+  "required_non_claims": [
+    "no executor self-certification as QA",
+    "no Dev result accepted as QA authority",
+    "no complete controlled cycle",
+    "no R11 closeout",
+    "no real production QA",
+    "no QA has run a full controlled cycle",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no destructive rollback",
+    "no broad CI/product coverage",
+    "no productized control-room behavior",
+    "no production runtime",
+    "no general Codex reliability",
+    "no successor milestone without explicit approval"
+  ]
+}

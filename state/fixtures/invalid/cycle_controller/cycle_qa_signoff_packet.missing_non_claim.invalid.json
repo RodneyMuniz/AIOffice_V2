@@ -1,0 +1,171 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_qa_signoff_packet",
+  "qa_signoff_id": "qa-signoff-r11-007-invalid-nonclaim",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-007",
+  "cycle_id": "cycle-r11-006-dev-adapter-fixture",
+  "cycle_ledger_ref": "state/fixtures/valid/cycle_controller/cycle_ledger.dev_dispatch_ready.valid.json",
+  "dispatch_ref": "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json",
+  "dev_result_ref": "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json",
+  "qa_actor_identity": "codex-qa-gate-fixture",
+  "qa_actor_kind": "qa_gate_fixture",
+  "qa_authority_type": "separate_qa_gate",
+  "qa_independence_boundary": "QA actor identity is distinct from Dev executor identity; Dev result is source evidence only and is not accepted as QA authority.",
+  "source_evidence_refs": [
+    "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json",
+    "tests/test_dev_execution_adapter.ps1"
+  ],
+  "qa_checks": [
+    {
+      "check_id": "dev_dispatch_packet_validates",
+      "status": "passed",
+      "summary": "Dev dispatch packet validates against the R11-006 dispatch contract.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_packet_validates",
+      "status": "passed",
+      "summary": "Dev result packet validates against the R11-006 result contract.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dispatch_result_cycle_identity_matches",
+      "status": "passed",
+      "summary": "Dispatch and Dev result cycle identity match.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json",
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_status_compatible_with_qa",
+      "status": "passed",
+      "summary": "Completed Dev result status is compatible with a separate QA signoff.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "completed_dev_result_has_evidence_refs",
+      "status": "passed",
+      "summary": "Completed Dev result carries source evidence refs.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json",
+        "tests/test_dev_execution_adapter.ps1"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "changed_files_inside_dispatch_allowed_paths",
+      "status": "passed",
+      "summary": "Changed files remain inside dispatch allowed paths.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "produced_artifacts_inside_dispatch_allowed_paths",
+      "status": "passed",
+      "summary": "Produced artifacts remain inside dispatch allowed paths.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_no_qa_authority",
+      "status": "passed",
+      "summary": "Dev result does not claim QA authority.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_no_qa_verdict",
+      "status": "passed",
+      "summary": "Dev result does not claim a QA verdict.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_no_complete_controlled_cycle_claim",
+      "status": "passed",
+      "summary": "Dev result does not claim complete controlled cycle execution.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "dev_result_no_successor_milestone_claim",
+      "status": "passed",
+      "summary": "Dev result does not claim a successor milestone.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "qa_actor_independent_or_boundary_explicit",
+      "status": "passed",
+      "summary": "QA actor is distinct from executor identity.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_execution_result_packet.valid.json"
+      ],
+      "refusal_reasons": []
+    },
+    {
+      "check_id": "qa_consumes_dev_evidence_refs",
+      "status": "passed",
+      "summary": "QA signoff consumes Dev evidence refs as source evidence.",
+      "evidence_refs": [
+        "state/fixtures/valid/cycle_controller/dev_dispatch_packet.valid.json",
+        "tests/test_dev_execution_adapter.ps1"
+      ],
+      "refusal_reasons": []
+    }
+  ],
+  "qa_verdict": "passed",
+  "qa_findings": [],
+  "required_followups": [],
+  "head_sha": "03e6983e7f362415899e8ee5c1c7a0e23c9cb15a",
+  "tree_sha": "378b970f885478351beea25e5280b4e29b164079",
+  "created_at_utc": "2026-04-29T00:07:00Z",
+  "refusal_reasons": [],
+  "non_claims": [
+    "no executor self-certification as QA",
+    "no Dev result accepted as QA authority",
+    "no complete controlled cycle",
+    "no R11 closeout",
+    "no real production QA",
+    "no QA has run a full controlled cycle",
+    "no UI or control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no hours-long unattended execution",
+    "no destructive rollback",
+    "no broad CI/product coverage",
+    "no productized control-room behavior",
+    "no production runtime",
+    "no general Codex reliability",
+    "no successor milestone without explicit approval"
+  ]
+}

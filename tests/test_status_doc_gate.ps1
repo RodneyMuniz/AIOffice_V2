@@ -118,8 +118,8 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Opened -or $liveValidation.ActiveMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 6 -or $liveValidation.R11PlannedStart -ne 7 -or $liveValidation.R11PlannedThrough -ne 9) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 active through R11-006 only."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Opened -or $liveValidation.ActiveMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 7 -or $liveValidation.R11PlannedStart -ne 8 -or $liveValidation.R11PlannedThrough -ne 9) {
+        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 active through R11-007 only."
     }
     else {
         Write-Output ("PASS valid current R11 ledger status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, and R11 through R11-{3} active with R11-{4} through R11-{5} planned" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R11PlannedStart.ToString("000"), $liveValidation.R11PlannedThrough.ToString("000"))
@@ -396,6 +396,12 @@ try {
     Invoke-ExpectedRefusal -Label "missing-r11-dev-dispatch-contract-ref" -RequiredFragments @("R11-006 bounded Dev adapter artifact", "dev_dispatch_packet.contract.json") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-dev-dispatch-contract-ref")
         Replace-FileText -Path $scenario.R11AuthorityPath -OldValue "contracts/cycle_controller/dev_dispatch_packet.contract.json" -NewValue "contracts/cycle_controller/dev_dispatch_packet_missing.contract.json"
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "missing-r11-qa-gate-contract-ref" -RequiredFragments @("R11-007 QA gate artifact", "cycle_qa_gate.contract.json") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r11-qa-gate-contract-ref")
+        Replace-FileText -Path $scenario.R11AuthorityPath -OldValue "contracts/cycle_controller/cycle_qa_gate.contract.json" -NewValue "contracts/cycle_controller/cycle_qa_gate_missing.contract.json"
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

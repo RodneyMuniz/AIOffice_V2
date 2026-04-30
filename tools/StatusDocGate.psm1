@@ -553,6 +553,12 @@ function Assert-R11NonClaimsPreserved {
         "no solved Codex context compaction",
         "no hours-long unattended execution",
         "no hours-long unattended milestone execution",
+        "no executor self-certification as QA",
+        "no Dev result accepted as QA authority",
+        "no complete controlled cycle",
+        "no R11 closeout",
+        "no real production QA",
+        "no QA has run a full controlled cycle",
         "no destructive rollback",
         "no broad CI/product coverage",
         "no general Codex reliability",
@@ -713,7 +719,7 @@ function Test-R9ClosedStatus {
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R10 closeout\.' -Message "KANBAN must not open a successor milestone after R10 closeout."
     }
     elseif ($AllowR10Closed -and $AllowR11Active) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-006` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-006 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-007` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-007 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone."
     }
     elseif ($AllowR10Active) {
@@ -924,7 +930,7 @@ function Test-R10ClosedStatus {
 
     Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now closed in repo truth' -Message "README must declare R10 closed in repo truth after Phase 2 support."
     if ($AllowR11Active) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-006` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-006 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-007` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-007 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone after R11 opening."
     }
     else {
@@ -1030,8 +1036,8 @@ function Test-R11OpeningStatus {
         throw "R11 authority does not match KANBAN for the live R11 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 6 -or $kanbanSnapshot.PlannedStart -ne 7 -or $kanbanSnapshot.PlannedThrough -ne 9) {
-        throw "R11 status must keep only R11-001 through R11-006 done and R11-007 through R11-009 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 7 -or $kanbanSnapshot.PlannedStart -ne 8 -or $kanbanSnapshot.PlannedThrough -ne 9) {
+        throw "R11 status must keep only R11-001 through R11-007 done and R11-008 through R11-009 planned."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
@@ -1087,9 +1093,16 @@ function Test-R11OpeningStatus {
     $r11DevModulePath = "tools/DevExecutionAdapter.psm1"
     $r11DevCliPath = "tools/invoke_dev_execution_adapter.ps1"
     $r11DevTestPath = "tests/test_dev_execution_adapter.ps1"
+    $r11QaGateContractPath = "contracts/cycle_controller/cycle_qa_gate.contract.json"
+    $r11QaSignoffContractPath = "contracts/cycle_controller/cycle_qa_signoff_packet.contract.json"
+    $r11QaSignoffFixturePath = "state/fixtures/valid/cycle_controller/cycle_qa_signoff_packet.valid.json"
+    $r11QaInvalidFixturePath = "state/fixtures/invalid/cycle_controller/"
+    $r11QaModulePath = "tools/CycleQaGate.psm1"
+    $r11QaCliPath = "tools/invoke_cycle_qa_gate.ps1"
+    $r11QaTestPath = "tests/test_cycle_qa_gate.ps1"
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now the active milestone in repo truth through `R11-006` only' -Message "README must declare R11 as the active milestone through R11-006 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-006` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-006 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now the active milestone in repo truth through `R11-007` only' -Message "README must declare R11 as the active milestone through R11-007 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-007` only\.' -Message "ACTIVE_STATE must declare R11 as active through R11-007 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must declare R11 as the active milestone."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`' -Message "KANBAN must keep R10 as the most recently closed milestone while R11 is open."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-001 Opened R11 Controlled Cycle Controller Pilot' -Message "DECISION_LOG must record the R11 opening decision."
@@ -1098,8 +1111,9 @@ function Test-R11OpeningStatus {
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-004 Added Bounded Repo-Truth Bootstrap Resume' -Message "DECISION_LOG must record the R11-004 bootstrap/resume decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-005 Added Local Residue Guard' -Message "DECISION_LOG must record the R11-005 local residue guard decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-006 Added Bounded Dev Execution Adapter' -Message "DECISION_LOG must record the R11-006 bounded Dev adapter decision."
-    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-006` only' -Message "R11 authority must declare R11 active through R11-006 only."
-    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11-007`\s+through\s+`R11-009`\s+remain planned only' -Message "R11 authority must keep R11-007 through R11-009 planned only."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R11-007 Added Separate QA Gate' -Message "DECISION_LOG must record the R11-007 separate QA gate decision."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+is now active in repo truth through `R11-007` only' -Message "R11 authority must declare R11 active through R11-007 only."
+    Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R11-008`\s+through\s+`R11-009`\s+remain planned only' -Message "R11 authority must keep R11-008 through R11-009 planned only."
     Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+remains the most recently closed prior milestone' -Message "R11 authority must preserve R10 as the most recently closed prior milestone."
 
     foreach ($entry in @(
@@ -1197,10 +1211,27 @@ function Test-R11OpeningStatus {
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-006.{0,260}(at least two bounded task packet|two bounded task)' -Message "Status docs must preserve that R11-006 represents at least two bounded task packets."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-006.{0,260}(source evidence|not QA authority|no QA authority|not a QA verdict|no QA verdict)' -Message "Status docs must preserve that R11-006 result packets are source evidence only, not QA authority."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-006.{0,260}(does not run a real implementation task|does not execute a real implementation task|no real implementation task|fixture-only)' -Message "Status docs must preserve that R11-006 does not run a real implementation task."
+    foreach ($requiredR11QaRef in @(
+            $r11QaGateContractPath,
+            $r11QaSignoffContractPath,
+            $r11QaSignoffFixturePath,
+            $r11QaInvalidFixturePath,
+            $r11QaModulePath,
+            $r11QaCliPath,
+            $r11QaTestPath
+        )) {
+        Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($requiredR11QaRef)) -Message "Status docs must cite the R11-007 QA gate artifact '$requiredR11QaRef'."
+        Assert-RegexMatch -Text $Texts.R11Authority -Pattern ([regex]::Escape($requiredR11QaRef)) -Message "R11 authority must cite the R11-007 QA gate artifact '$requiredR11QaRef'."
+    }
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-007.{0,320}(separate QA gate|QA gate contracts|QA signoff packet).{0,260}(bounded Dev evidence|Dev evidence|Dev dispatch/result)' -Message "Status docs must describe R11-007 as separate QA gate contracts/tooling over bounded Dev evidence."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-007.{0,360}(consume|consumes).{0,160}(Dev evidence refs|source evidence refs)' -Message "Status docs must state that R11-007 consumes Dev evidence refs."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-007.{0,420}(executor self-certification|Dev-result QA authority|QA verdict)' -Message "Status docs must state that R11-007 rejects executor self-certification and Dev-result QA authority/verdict claims."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R11-007.{0,420}(separate QA actor|distinct QA actor|explicit non-self-certification|independence boundary)' -Message "Status docs must state that R11-007 requires separate QA actor or explicit independence boundary."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)(no|does not|does not yet have|does not build|does not claim|not implemented).{0,160}QA gate execution' -Message "Status docs must preserve that no QA gate execution exists by R11-006."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)(no|does not|does not yet have|does not build|does not claim|does not execute|has not run).{0,160}complete controlled cycle' -Message "Status docs must preserve that no complete controlled cycle has run by R11-006."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)(no|does not|does not claim|not implemented).{0,220}unattended automatic resume' -Message "Status docs must preserve that R11-006 does not claim unattended automatic resume."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)(no|does not|does not yet have|does not build|does not claim|does not close).{0,160}R11 closeout' -Message "Status docs must preserve that R11 has not closed."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)(no|does not|does not claim|not implemented).{0,220}(real production QA|QA over a complete controlled cycle|QA has run over a complete controlled cycle|QA has run a full controlled cycle)' -Message "Status docs must preserve that R11-007 does not claim production QA or QA over a complete controlled cycle."
 
     Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'not another proof-documentation milestone' -Message "R11 authority must reject another proof-documentation milestone."
     Assert-RegexMatch -Text $Texts.R11Authority -Pattern 'not another proof-paperwork milestone' -Message "R11 authority must reject another proof-paperwork milestone."
