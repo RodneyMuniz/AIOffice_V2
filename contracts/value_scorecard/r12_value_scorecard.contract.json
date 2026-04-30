@@ -13,10 +13,10 @@
     "governance_proof_discipline"
   ],
   "dimension_weights": {
-    "product_visible_surface": 15,
-    "operator_workflow_clarity": 25,
+    "product_visible_surface": 25,
+    "operator_workflow_clarity": 20,
     "external_api_execution_independence": 20,
-    "qa_lint_actionability": 20,
+    "qa_lint_actionability": 15,
     "repo_truth_architecture": 10,
     "governance_proof_discipline": 10
   },

@@ -1,0 +1,35 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "remote_head_phase_detection_result",
+  "repository": "AIOffice_V2",
+  "active_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "local_head": "65dab1a85db35a1c5fd853a08c564df9a2ac2e68",
+  "local_tree": "8b0dc744250af62d83b627ec34d78a92dfbc5aee",
+  "remote_head": "65dab1a85db35a1c5fd853a08c564df9a2ac2e68",
+  "remote_ref": "refs/heads/release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_current_head": "65dab1a85db35a1c5fd853a08c564df9a2ac2e68",
+  "allowed_prior_heads": [
+    "5aa08904b02663a5549d2c8a21971544476ae805"
+  ],
+  "allowed_next_heads": [
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "phase_name": "r12_004_phase_match_fixture",
+  "worktree_status": [],
+  "evidence_refs": [
+    "contracts/remote_head_phase/remote_head_phase_detection.contract.json",
+    "tools/RemoteHeadPhaseDetector.psm1"
+  ],
+  "outcome": "phase_match",
+  "fail_closed": false,
+  "exact_next_action": "continue_current_phase_with_matching_local_and_remote_head",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-30T00:00:00Z",
+  "non_claims": [
+    "no broad release automation",
+    "no external runner execution",
+    "no R12 value-gate delivery",
+    "no solved Codex reliability"
+  ]
+}

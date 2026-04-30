@@ -10,7 +10,7 @@ Current posture:
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-003` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 Phase A freezes value gates, adds an honest scorecard foundation, and defines the operating-loop contract. R12 value gates are frozen but not delivered: external/API runner evidence, actionable QA reports, operator control-room status views, and one real useful build/change cycle remain required before closeout. No R13 or successor milestone is opened.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-006` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, and mandatory transition residue preflight. `R12-007` through `R12-021` remain planned only. R12 value gates remain frozen but not delivered: external/API runner evidence, actionable QA reports, operator control-room status views, and one real useful build/change cycle remain required before closeout. No R13 or successor milestone is opened.
 
 Active branch:
 `release/r12-external-api-runner-actionable-qa-control-room-pilot`
@@ -56,8 +56,8 @@ Earlier closed milestone:
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-001`
 - Authority: `contracts/value_scorecard/r12_value_scorecard.contract.json`, `tools/ValueScorecard.psm1`, `tools/update_value_scorecard.ps1`, `state/value_scorecards/r12_baseline.json`, `state/fixtures/valid/value_scorecard/`, `state/fixtures/invalid/value_scorecard/`, `tests/test_value_scorecard.ps1`
-- Durable output: scorecard contract, validator module, CLI wrapper, baseline scorecard, valid fixture, invalid overclaim/missing-proof/target-as-proved fixtures, and focused tests
-- Done when: baseline and valid fixtures validate, invalid overclaim/missing-proof/target-as-proved fixtures fail, and the scorecard separates baseline, target, and proved scores without allowing 10 percent or larger uplift unless all four value gates are proved
+- Durable output: scorecard contract, validator module, CLI wrapper, baseline scorecard, valid fixture, invalid overclaim/missing-proof/target-as-proved/weight-drift fixtures, and focused tests
+- Done when: baseline and valid fixtures validate, invalid overclaim/missing-proof/target-as-proved/weight-drift fixtures fail, corrected weights match the operator-value model, and the scorecard separates baseline, target, and proved scores without allowing 10 percent or larger uplift unless all four value gates are proved
 
 ### `R12-003` Define R12 operating-loop contract
 - Status: done
@@ -69,31 +69,31 @@ Earlier closed milestone:
 - Done when: the validator rejects chat transcript authority, missing refs, illegal transitions, closeout without external evidence, QA pass without actionable QA, operator decision without control-room status, final support before candidate closeout, successor milestone opening, and broad autonomy/product/runtime claims
 
 ### `R12-004` Implement remote-head and stale-phase detector
-- Status: planned
+- Status: done
 - Order: 4
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-003`
-- Authority: planned only
-- Durable output: planned remote-head/stale-phase detector
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/remote_head_phase/remote_head_phase_detection.contract.json`, `tools/RemoteHeadPhaseDetector.psm1`, `tools/invoke_remote_head_phase_detector.ps1`, `state/fixtures/valid/remote_head_phase/`, `state/fixtures/invalid/remote_head_phase/`, `tests/test_remote_head_phase_detector.ps1`
+- Durable output: bounded remote-head/stale-phase detector with phase match, allowed advanced remote head, branch mismatch, dirty worktree, missing remote ref, unknown remote head, missing evidence, and R11-009-like stale-head coverage
+- Done when: phase-match and allowed advanced remote-head fixtures pass; branch mismatch, dirty worktree, unknown remote head, missing remote ref, and missing evidence fail closed; and the R11-009-like stale-head fixture returns controlled `advanced_remote_head` instead of a generic false stop
 
 ### `R12-005` Make fresh-thread bootstrap the default execution protocol
-- Status: planned
+- Status: done
 - Order: 5
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-004`
-- Authority: planned only
-- Durable output: planned fresh-thread bootstrap protocol
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json`, `tools/FreshThreadBootstrap.psm1`, `tools/prepare_fresh_thread_bootstrap.ps1`, `state/fixtures/valid/bootstrap/`, `state/fixtures/invalid/bootstrap/`, `tests/test_fresh_thread_bootstrap.ps1`
+- Durable output: bounded fresh-thread bootstrap packet and compact next-prompt generator from repo truth and explicit inputs
+- Done when: valid packet passes; missing branch/head/tree, chat-memory authority, missing fail-closed rules, missing non-claims, and value-gate claims without proof refs fail; and the generated next prompt includes branch/head/tree truth, current task, exact next action, fail-closed rules, evidence refs, non-claims, and no reliance on prior chat context
 
 ### `R12-006` Integrate residue guard into mandatory transition preflight
-- Status: planned
+- Status: done
 - Order: 6
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-005`
-- Authority: planned only
-- Durable output: planned mandatory residue preflight integration
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/residue_guard/transition_residue_preflight.contract.json`, `tools/TransitionResiduePreflight.psm1`, `tools/invoke_transition_residue_preflight.ps1`, `state/fixtures/valid/residue_guard/`, `state/fixtures/invalid/residue_guard/`, `tests/test_transition_residue_preflight.ps1`
+- Durable output: mandatory transition residue preflight validator/generator for protected R12 operating-loop transitions
+- Done when: clean and expected generated-artifact fixtures pass; dirty tracked files, unexpected untracked files, missing preflight, stale head/tree preflight, broad quarantine candidates, and outside-repo quarantine candidates fail closed; and no deletion, destructive rollback, broad cleanup, or value-gate delivery is claimed
 
 ### `R12-007` Define external runner request/result contracts
 - Status: planned

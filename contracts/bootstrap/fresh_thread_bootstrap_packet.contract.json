@@ -1,0 +1,51 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "fresh_thread_bootstrap_packet_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-005",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "repository",
+    "active_branch",
+    "local_head",
+    "local_tree",
+    "remote_head",
+    "active_milestone",
+    "current_task",
+    "completed_tasks",
+    "planned_next_tasks",
+    "operating_loop_state",
+    "allowed_next_states",
+    "required_evidence_refs",
+    "value_gate_status",
+    "residue_preflight_required",
+    "remote_head_phase_detection_ref",
+    "fail_closed_rules",
+    "explicit_non_claims"
+  ],
+  "next_prompt_requirement": "next_prompt_ref or next_prompt_body",
+  "value_gates": [
+    "external_api_runner",
+    "actionable_qa",
+    "operator_control_room",
+    "real_build_change"
+  ],
+  "required_non_claims": [
+    "this does not solve all Codex reliability",
+    "this does not prove unattended automatic resume",
+    "this does not deliver external/API runner",
+    "this does not deliver control-room UI",
+    "this does not deliver R12 value gates"
+  ],
+  "rules": [
+    "repo_truth_and_explicit_inputs_are_authority",
+    "chat_transcript_is_not_authority",
+    "branch_head_tree_required",
+    "fail_closed_rules_required",
+    "explicit_non_claims_required",
+    "value_gate_delivery_claims_require_proof_refs",
+    "solved_codex_reliability_claims_rejected"
+  ]
+}

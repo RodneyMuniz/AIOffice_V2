@@ -310,7 +310,7 @@ function Test-OperatingLoopObject {
         [string]$SourceLabel = "R12 operating loop"
     )
 
-    Get-R12OperatingLoopContract | Out-Null
+    $contract = Get-R12OperatingLoopContract
 
     foreach ($field in @(
             "contract_version",
@@ -422,6 +422,11 @@ function Test-OperatingLoopObject {
 
     $transitions = Assert-ObjectArray -Value $Loop.transition_history -Context "$SourceLabel transition_history"
     $previousToState = "none"
+    $residueProtectedTransitions = @()
+    if (Test-HasProperty -Object $contract -Name "residue_preflight_protected_transitions") {
+        $residueProtectedTransitions = @($contract.residue_preflight_protected_transitions)
+    }
+    $protectedTransitionObserved = $false
     foreach ($transition in $transitions) {
         foreach ($field in @("from_state", "to_state", "transitioned_at_utc", "evidence_ref", "actor", "reason")) {
             Get-RequiredProperty -Object $transition -Name $field -Context "$SourceLabel transition" | Out-Null
@@ -448,11 +453,17 @@ function Test-OperatingLoopObject {
                 throw "$SourceLabel illegal state transition from '$fromState' to '$toState'."
             }
         }
+        if ($residueProtectedTransitions -contains ("$fromState -> $toState")) {
+            $protectedTransitionObserved = $true
+        }
         $previousToState = $toState
     }
 
     if ($previousToState -ne $state) {
         throw "$SourceLabel transition_history must end at current state '$state'."
+    }
+    if ($protectedTransitionObserved -and [string]::IsNullOrWhiteSpace([string]$evidenceRefs.residue_preflight_ref)) {
+        throw "$SourceLabel protected transitions require transition residue preflight evidence."
     }
 
     $successorOpened = Assert-BooleanValue -Value $Loop.successor_milestone_opened -Context "$SourceLabel successor_milestone_opened"

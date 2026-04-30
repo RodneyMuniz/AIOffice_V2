@@ -1,0 +1,42 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "fresh_thread_bootstrap_packet",
+  "repository": "AIOffice_V2",
+  "active_milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "current_task": "R12-005 make fresh-thread bootstrap the default execution protocol",
+  "completed_tasks": [
+    "R12-001",
+    "R12-002",
+    "R12-003",
+    "R12-004"
+  ],
+  "planned_next_tasks": [
+    "R12-006"
+  ],
+  "operating_loop_state": "fresh_thread_bootstrap_ready",
+  "allowed_next_states": [
+    "residue_preflight_passed"
+  ],
+  "required_evidence_refs": [
+    "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json"
+  ],
+  "value_gate_status": {
+    "external_api_runner": { "status": "not_delivered", "proof_refs": [] },
+    "actionable_qa": { "status": "not_delivered", "proof_refs": [] },
+    "operator_control_room": { "status": "not_delivered", "proof_refs": [] },
+    "real_build_change": { "status": "not_delivered", "proof_refs": [] }
+  },
+  "residue_preflight_required": true,
+  "remote_head_phase_detection_ref": "state/fixtures/valid/remote_head_phase/phase_match.valid.json",
+  "next_prompt_body": "Do not rely on prior chat context. Fail-closed rules: missing branch/head/tree refuses bootstrap. Relevant evidence refs: contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json. Non-claims: this does not solve all Codex reliability.",
+  "fail_closed_rules": [
+    "missing branch/head/tree refuses bootstrap"
+  ],
+  "explicit_non_claims": [
+    "this does not solve all Codex reliability",
+    "this does not prove unattended automatic resume",
+    "this does not deliver external/API runner",
+    "this does not deliver control-room UI",
+    "this does not deliver R12 value gates"
+  ]
+}

@@ -14,13 +14,12 @@
   "measurement_posture": {
     "targets_are_not_proof": true,
     "phase_a_foundation_only": true,
-    "corrected_total_claim_type": "foundation_only",
-    "statement": "Phase A records baseline and target measurement fields without claiming value delivery."
+    "corrected_total_claim_type": "foundation_only"
   },
   "dimensions": [
     {
       "dimension": "product_visible_surface",
-      "weight": 25,
+      "weight": 15,
       "baseline_score": 8,
       "target_score": 18,
       "proved_score": 8,
@@ -29,10 +28,9 @@
         "operator_control_room",
         "real_build_change"
       ],
-      "scoring_basis": "R11 planning baseline; no R12 product-visible value is proved by Phase A.",
+      "scoring_basis": "Invalid fixture: weight intentionally drifts from corrected R12 model.",
       "non_claims": [
-        "targets are not proof",
-        "no productized control-room behavior"
+        "targets are not proof"
       ]
     },
     {
@@ -43,13 +41,11 @@
       "proved_score": 34,
       "proof_refs": [],
       "value_gate_refs": [
-        "operator_control_room",
-        "actionable_qa"
+        "operator_control_room"
       ],
-      "scoring_basis": "R11 planning baseline; R12 Phase A defines contracts but does not prove an operator workflow surface.",
+      "scoring_basis": "Invalid fixture keeps other fields plausible.",
       "non_claims": [
-        "targets are not proof",
-        "no R12 value gates delivered during Phase A"
+        "targets are not proof"
       ]
     },
     {
@@ -62,10 +58,9 @@
       "value_gate_refs": [
         "external_api_runner"
       ],
-      "scoring_basis": "R11 planning baseline; no R12 external/API runner execution is proved by Phase A.",
+      "scoring_basis": "Invalid fixture keeps other fields plausible.",
       "non_claims": [
-        "targets are not proof",
-        "no R12 value gates delivered during Phase A"
+        "targets are not proof"
       ]
     },
     {
@@ -78,10 +73,9 @@
       "value_gate_refs": [
         "actionable_qa"
       ],
-      "scoring_basis": "R11 planning baseline; no R12 actionable QA report is proved by Phase A.",
+      "scoring_basis": "Invalid fixture keeps other fields plausible.",
       "non_claims": [
-        "targets are not proof",
-        "no real production QA"
+        "targets are not proof"
       ]
     },
     {
@@ -92,13 +86,11 @@
       "proved_score": 73,
       "proof_refs": [],
       "value_gate_refs": [
-        "external_api_runner",
-        "operator_control_room"
+        "external_api_runner"
       ],
-      "scoring_basis": "R11 planning baseline; Phase A adds measurement and loop contracts only.",
+      "scoring_basis": "Invalid fixture keeps other fields plausible.",
       "non_claims": [
-        "targets are not proof",
-        "no broad CI/product coverage"
+        "targets are not proof"
       ]
     },
     {
@@ -114,10 +106,9 @@
         "operator_control_room",
         "real_build_change"
       ],
-      "scoring_basis": "R11 planning baseline; governance discipline is already near ceiling and cannot inflate R12 progress alone.",
+      "scoring_basis": "Invalid fixture keeps other fields plausible.",
       "non_claims": [
-        "targets are not proof",
-        "no 10 percent or larger corrected progress uplift during Phase A"
+        "targets are not proof"
       ]
     }
   ],
@@ -128,7 +119,7 @@
     "uplift_from_baseline": 0,
     "major_uplift_claimed": false,
     "target_recorded_as_achieved": false,
-    "calculation_basis": "Operator-value baseline from the R11 audit/R12 planning artifact; target values are recorded separately and are not achieved by Phase A."
+    "calculation_basis": "Invalid fixture preserves baseline total while intentionally drifting one weight."
   },
   "value_gates": [
     {

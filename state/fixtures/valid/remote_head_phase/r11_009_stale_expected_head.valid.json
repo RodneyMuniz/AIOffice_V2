@@ -1,0 +1,35 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "remote_head_phase_detection_result",
+  "repository": "AIOffice_V2",
+  "active_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "local_head": "6f3a9fd000000000000000000000000000000000",
+  "local_tree": "8b0dc744250af62d83b627ec34d78a92dfbc5aee",
+  "remote_head": "545232bfd06df86018917bc677e6ba3374b3b9c4",
+  "remote_ref": "refs/heads/release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_current_head": "6f3a9fd000000000000000000000000000000000",
+  "allowed_prior_heads": [
+    "6f3a9fd000000000000000000000000000000000"
+  ],
+  "allowed_next_heads": [
+    "545232bfd06df86018917bc677e6ba3374b3b9c4"
+  ],
+  "phase_name": "r11_009_like_stale_expected_head_fixture",
+  "worktree_status": [],
+  "evidence_refs": [
+    "governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md",
+    "contracts/remote_head_phase/remote_head_phase_detection.contract.json"
+  ],
+  "outcome": "advanced_remote_head",
+  "fail_closed": false,
+  "exact_next_action": "refresh_bootstrap_from_remote_head_and_continue_at_allowed_next_phase",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-30T00:02:00Z",
+  "non_claims": [
+    "no broad release automation",
+    "no external runner execution",
+    "no R12 value-gate delivery",
+    "no solved Codex reliability"
+  ]
+}

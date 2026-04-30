@@ -21,6 +21,15 @@ $script:R12ValueScorecardBaselines = @{
     governance_proof_discipline = 95
 }
 
+$script:R12ValueScorecardWeights = @{
+    product_visible_surface = 25
+    operator_workflow_clarity = 20
+    external_api_execution_independence = 20
+    qa_lint_actionability = 15
+    repo_truth_architecture = 10
+    governance_proof_discipline = 10
+}
+
 $script:R12ValueScorecardTargets = @{
     product_visible_surface = @(18, 20)
     operator_workflow_clarity = @(50, 50)
@@ -254,7 +263,21 @@ function Test-ValueScorecardObject {
         [string]$SourceLabel = "R12 value scorecard"
     )
 
-    Get-R12ValueScorecardContract | Out-Null
+    $contract = Get-R12ValueScorecardContract
+    $contractWeights = Assert-ObjectValue -Value (Get-RequiredProperty -Object $contract -Name "dimension_weights" -Context "R12 value scorecard contract") -Context "R12 value scorecard contract dimension_weights"
+    $weightTotal = 0
+    foreach ($requiredDimension in $script:R12ValueScorecardDimensions) {
+        $contractWeightValue = Get-RequiredProperty -Object $contractWeights -Name $requiredDimension -Context "R12 value scorecard contract dimension_weights"
+        $contractWeight = Assert-NumberValue -Value $contractWeightValue -Context "R12 value scorecard contract $requiredDimension weight"
+        $expectedWeight = [double]$script:R12ValueScorecardWeights[$requiredDimension]
+        if ([math]::Abs($contractWeight - $expectedWeight) -gt 0.001) {
+            throw "R12 value scorecard contract $requiredDimension weight must be $expectedWeight."
+        }
+        $weightTotal += $contractWeight
+    }
+    if ([math]::Abs($weightTotal - 100) -gt 0.001) {
+        throw "R12 value scorecard contract dimension_weights must total 100."
+    }
 
     foreach ($field in @(
             "contract_version",
@@ -332,6 +355,10 @@ function Test-ValueScorecardObject {
         $weight = Assert-NumberValue -Value $dimension.weight -Context "$SourceLabel $dimensionId weight"
         if ($weight -le 0) {
             throw "$SourceLabel $dimensionId weight must be greater than zero."
+        }
+        $expectedWeight = [double]$script:R12ValueScorecardWeights[$dimensionId]
+        if ([math]::Abs($weight - $expectedWeight) -gt 0.001) {
+            throw "$SourceLabel $dimensionId weight drift is rejected; expected $expectedWeight."
         }
 
         $baselineScore = Assert-NumberValue -Value $dimension.baseline_score -Context "$SourceLabel $dimensionId baseline_score"

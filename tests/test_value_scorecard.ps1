@@ -128,6 +128,10 @@ try {
         }
         & $testValueScorecard -ScorecardPath $path | Out-Null
     }
+
+    Invoke-ExpectedRefusal -Label "invalid-weight-drift" -RequiredFragments @("weight drift", "expected 25") -Action {
+        & $testValueScorecard -ScorecardPath (Join-Path $invalidFixtureRoot "r12_value_scorecard.weight-drift.invalid.json") | Out-Null
+    }
 }
 catch {
     $failures += ("FAIL value scorecard harness: {0}" -f $_.Exception.Message)

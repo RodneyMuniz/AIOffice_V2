@@ -17,7 +17,7 @@
   "dimensions": [
     {
       "dimension": "product_visible_surface",
-      "weight": 15,
+      "weight": 25,
       "baseline_score": 8,
       "target_score": 18,
       "proved_score": 12,
@@ -32,7 +32,7 @@
     },
     {
       "dimension": "operator_workflow_clarity",
-      "weight": 25,
+      "weight": 20,
       "baseline_score": 34,
       "target_score": 50,
       "proved_score": 34,
@@ -62,7 +62,7 @@
     },
     {
       "dimension": "qa_lint_actionability",
-      "weight": 20,
+      "weight": 15,
       "baseline_score": 30,
       "target_score": 52,
       "proved_score": 30,

@@ -1,0 +1,40 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "transition_residue_preflight",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "65dab1a85db35a1c5fd853a08c564df9a2ac2e68",
+  "tree": "8b0dc744250af62d83b627ec34d78a92dfbc5aee",
+  "transition_from": "residue_preflight_passed",
+  "transition_to": "external_runner_requested",
+  "raw_git_status": [
+    "?? scratch/unclassified.tmp"
+  ],
+  "tracked_dirty_files": [],
+  "untracked_files": [
+    "scratch/unclassified.tmp"
+  ],
+  "expected_untracked_path_patterns": [
+    "state/generated/r12/*.json"
+  ],
+  "expected_untracked_files": [],
+  "unexpected_untracked_files": [
+    "scratch/unclassified.tmp"
+  ],
+  "quarantine_candidates": [],
+  "deletion_allowed": false,
+  "preflight_verdict": "fail_closed",
+  "refusal_reasons": [
+    "unexpected untracked files block transition."
+  ],
+  "evidence_refs": [
+    "contracts/residue_guard/transition_residue_preflight.contract.json"
+  ],
+  "created_at_utc": "2026-04-30T00:23:00Z",
+  "non_claims": [
+    "no destructive cleanup",
+    "no destructive rollback",
+    "no broad filesystem cleanup",
+    "no R12 value-gate delivery"
+  ]
+}

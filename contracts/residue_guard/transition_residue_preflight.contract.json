@@ -1,0 +1,55 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "transition_residue_preflight_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-006",
+  "protected_transitions": [
+    "plan_approved -> fresh_thread_bootstrap_ready",
+    "fresh_thread_bootstrap_ready -> residue_preflight_passed",
+    "residue_preflight_passed -> external_runner_requested",
+    "external_runner_evidence_recorded -> dev_result_recorded",
+    "dev_result_recorded -> actionable_qa_ready",
+    "qa_gate_passed -> control_room_status_ready",
+    "operator_decision_pending -> candidate_closeout_ready",
+    "candidate_closeout_ready -> final_head_support_pending"
+  ],
+  "required_result_fields": [
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "transition_from",
+    "transition_to",
+    "raw_git_status",
+    "tracked_dirty_files",
+    "untracked_files",
+    "expected_untracked_files",
+    "unexpected_untracked_files",
+    "quarantine_candidates",
+    "preflight_verdict",
+    "refusal_reasons",
+    "evidence_refs",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "allowed_verdicts": [
+    "pass",
+    "fail_closed"
+  ],
+  "required_non_claims": [
+    "no destructive cleanup",
+    "no destructive rollback",
+    "no broad filesystem cleanup",
+    "no R12 value-gate delivery"
+  ],
+  "rules": [
+    "dirty_tracked_files_block_transition",
+    "unexpected_untracked_files_block_transition",
+    "expected_generated_artifacts_require_exact_path_patterns",
+    "quarantine_candidates_require_dry_run_evidence",
+    "deletion_is_never_allowed",
+    "broad_root_git_or_outside_repo_quarantine_paths_are_refused",
+    "result_must_match_branch_head_tree_transition"
+  ]
+}

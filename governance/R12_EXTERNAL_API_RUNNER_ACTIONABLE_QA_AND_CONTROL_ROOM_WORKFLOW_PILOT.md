@@ -1,12 +1,12 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-003` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-006` only.
 
 ## Purpose
 
 R12 opens a properly named release branch and freezes the next milestone around external/API runner evidence, actionable QA, an operator-readable control-room workflow surface, and one real useful build/change cycle.
 
-R12 is not a documentation-only milestone in intent. Phase A only opens the milestone and adds measurement and operating-loop contract foundations. Phase A does not deliver the four R12 value gates.
+R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, and residue-preflight foundations. It does not deliver the four R12 value gates.
 
 ## Accepted Starting State
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- later R12 work may add stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external runner request/result handling, actionable QA, operator control-room status views, and one real useful build/change cycle;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, and mandatory residue preflight before later external runner, actionable QA, control-room, and real build/change work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -57,14 +57,17 @@ The R12 scorecard uses operator-value-weighted measurement and must keep these c
 
 R12 must not claim a 10 percent or larger corrected progress uplift unless all four value gates are proved with committed evidence. Governance or proof artifacts alone cannot drive a major corrected-total increase.
 
-Phase A may claim only:
+The current R12 foundation slice may claim only:
 
 - R12 opening on the proper release branch;
 - frozen value gates and non-claims;
 - scorecard measurement foundation;
-- operating-loop contract foundation.
+- operating-loop contract foundation;
+- remote-head/stale-phase detection foundation;
+- fresh-thread bootstrap packet and next-prompt foundation;
+- transition residue preflight foundation.
 
-Phase A does not claim R12 value delivery.
+The current R12 foundation slice does not claim R12 value delivery.
 
 ## R12 Task List
 
@@ -81,15 +84,15 @@ Phase A does not claim R12 value delivery.
 - Boundary: adds the operating-loop contract, validator, CLI wrapper, fixtures, and focused tests for the canonical R12 loop without executing the full loop.
 
 ### `R12-004` Implement remote-head and stale-phase detector
-- Status: planned
+- Status: done
 - Boundary: detect stale expected heads and advanced remote heads, then choose the correct phase or fail closed.
 
 ### `R12-005` Make fresh-thread bootstrap the default execution protocol
-- Status: planned
+- Status: done
 - Boundary: emit a compact repo-truth bootstrap packet and next prompt so fresh threads do not rely on chat memory.
 
 ### `R12-006` Integrate residue guard into mandatory transition preflight
-- Status: planned
+- Status: done
 - Boundary: require clean/residue preflight evidence before controlled transitions.
 
 ### `R12-007` Define external runner request/result contracts
@@ -152,9 +155,9 @@ Phase A does not claim R12 value delivery.
 - Status: planned
 - Boundary: close only after all four value gates, candidate package, external evidence, and post-push final-head support exist.
 
-## Phase A Outputs
+## Foundation Outputs
 
-R12-001 through R12-003 are bounded foundation work only:
+R12-001 through R12-006 are bounded foundation work only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -170,10 +173,30 @@ R12-001 through R12-003 are bounded foundation work only:
 - `state/fixtures/valid/operating_loop/`
 - `state/fixtures/invalid/operating_loop/`
 - `tests/test_operating_loop.ps1`
+- `contracts/remote_head_phase/remote_head_phase_detection.contract.json`
+- `tools/RemoteHeadPhaseDetector.psm1`
+- `tools/invoke_remote_head_phase_detector.ps1`
+- `state/fixtures/valid/remote_head_phase/`
+- `state/fixtures/invalid/remote_head_phase/`
+- `tests/test_remote_head_phase_detector.ps1`
+- `contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json`
+- `tools/FreshThreadBootstrap.psm1`
+- `tools/prepare_fresh_thread_bootstrap.ps1`
+- `state/fixtures/valid/bootstrap/`
+- `state/fixtures/invalid/bootstrap/`
+- `tests/test_fresh_thread_bootstrap.ps1`
+- `contracts/residue_guard/transition_residue_preflight.contract.json`
+- `tools/TransitionResiduePreflight.psm1`
+- `tools/invoke_transition_residue_preflight.ps1`
+- `state/fixtures/valid/residue_guard/`
+- `state/fixtures/invalid/residue_guard/`
+- `tests/test_transition_residue_preflight.ps1`
+
+`R12-007` through `R12-021` remain planned only.
 
 ## Required Non-Claims
 
-R12 Phase A does not claim:
+R12 through `R12-006` does not claim:
 
 - no delivered R12 value gates;
 - no 10 percent or larger corrected progress uplift;
@@ -209,4 +232,4 @@ R12 cannot close until:
 
 ## No-Successor Posture
 
-No R13 or successor milestone is opened by R12 Phase A. Any successor requires explicit operator approval and separate repo-truth opening evidence.
+No R13 or successor milestone is opened by R12 through `R12-006`. Any successor requires explicit operator approval and separate repo-truth opening evidence.

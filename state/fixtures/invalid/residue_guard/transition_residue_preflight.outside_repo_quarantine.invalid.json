@@ -1,0 +1,45 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "transition_residue_preflight",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "65dab1a85db35a1c5fd853a08c564df9a2ac2e68",
+  "tree": "8b0dc744250af62d83b627ec34d78a92dfbc5aee",
+  "transition_from": "candidate_closeout_ready",
+  "transition_to": "final_head_support_pending",
+  "raw_git_status": [
+    "?? outside.tmp"
+  ],
+  "tracked_dirty_files": [],
+  "untracked_files": [
+    "outside.tmp"
+  ],
+  "expected_untracked_path_patterns": [],
+  "expected_untracked_files": [],
+  "unexpected_untracked_files": [
+    "outside.tmp"
+  ],
+  "quarantine_candidates": [
+    {
+      "path": "C:/outside-repo/residue.tmp",
+      "dry_run_evidence_ref": "state/fixtures/invalid/residue_guard/dry_run.json",
+      "authorization_status": "candidate",
+      "action": "quarantine_dry_run_only"
+    }
+  ],
+  "deletion_allowed": false,
+  "preflight_verdict": "fail_closed",
+  "refusal_reasons": [
+    "outside-repo quarantine candidate is refused."
+  ],
+  "evidence_refs": [
+    "contracts/residue_guard/transition_residue_preflight.contract.json"
+  ],
+  "created_at_utc": "2026-04-30T00:26:00Z",
+  "non_claims": [
+    "no destructive cleanup",
+    "no destructive rollback",
+    "no broad filesystem cleanup",
+    "no R12 value-gate delivery"
+  ]
+}
