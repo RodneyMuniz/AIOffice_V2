@@ -1,0 +1,26 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "cycle_plan",
+    "cycle_id":  "r12_real_build_cycle",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "planned_steps":  [
+                          "add refresh result contract",
+                          "add ControlRoomRefresh module and refresh_control_room script",
+                          "add focused refresh test and fixtures",
+                          "update bounded R12-017 status posture",
+                          "generate current refresh artifacts",
+                          "record QA/evidence gate as blocked without real external evidence",
+                          "prepare R12-018 handoff only"
+                      ],
+    "out_of_scope":  [
+                         "R12-018 execution",
+                         "R12-019 or later",
+                         "final external replay",
+                         "R12 closeout",
+                         "R13 opening"
+                     ],
+    "created_at_utc":  "2026-04-30T10:56:02Z"
+}

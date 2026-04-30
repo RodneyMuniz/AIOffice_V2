@@ -50,17 +50,6 @@
 - has_external_artifact_evidence: `False`
 - Blocking reason: A real external runner result and external artifact evidence are required before final QA/evidence gate pass or R12 closeout.
 
-## Current Evidence Refs
-- `contracts/actionable_qa/cycle_qa_evidence_gate.contract.json`
-- `contracts/control_room/control_room_status.contract.json`
-- `contracts/control_room/control_room_view.contract.json`
-- `contracts/control_room/operator_decision_queue.contract.json`
-- `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
-- `tools/ActionableQaEvidenceGate.psm1`
-- `tools/export_control_room_status.ps1`
-- `tools/export_operator_decision_queue.ps1`
-- `tools/OperatorDecisionQueue.psm1`
-- `tools/render_control_room_view.psm1`
 
 ## Next Recommended Actions
 - `next-r12-017-018` / `R12-017` [next_slice_authorization] Authorize R12-017 through R12-018 only: Next prompt should run one real useful build/change cycle and prove fresh-thread restart, without opening R12-019 or later. Required before: `starting_real_build_change_cycle`
@@ -88,3 +77,6 @@
 - no full R12 value-gate delivery
 - no final QA pass for R12 closeout
 - no R13 authorization
+- no broad autonomy
+- no solved Codex reliability
+- no broad CI/product coverage

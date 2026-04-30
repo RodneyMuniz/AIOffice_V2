@@ -1,0 +1,17 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "operator_approval",
+    "cycle_id":  "r12_real_build_cycle",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "approved_scope":  "R12-017 only, with R12-018 bootstrap preparation but no R12-018 completion",
+    "approval_source":  "operator prompt in this Codex thread",
+    "approved":  true,
+    "approval_constraints":  [
+                                 "one bounded commit",
+                                 "push only R12 branch",
+                                 "preserve missing real external evidence blocker",
+                                 "preserve explicit non-claims"
+                             ],
+    "created_at_utc":  "2026-04-30T10:56:02Z"
+}

@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$OutputPath = "state/control_room/r12_current/control_room_status.json",
-    [string]$CompletedThroughTask = "R12-016",
+    [string]$CompletedThroughTask = "R12-017",
     [switch]$Overwrite
 )
 

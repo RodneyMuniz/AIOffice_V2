@@ -1,23 +1,22 @@
 {
     "contract_version":  "v1",
     "artifact_type":  "control_room_status",
-    "status_id":  "r12-control-room-status-0fb94790a733467299e48ff1355ec9a3",
+    "status_id":  "r12-control-room-status-eb4b4a4c72bd4523889f37a6997cdd54",
     "repository":  "AIOffice_V2",
     "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
-    "head":  "3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf",
-    "tree":  "baaa0b40fd8ae23d1a268af64d8bb65955272384",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
     "active_milestone":  "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
     "active_scope":  {
-                         "input_completed_through":  "R12-013",
-                         "current_completed_through":  "R12-016",
+                         "input_completed_through":  "R12-016",
+                         "current_completed_through":  "R12-017",
                          "planned_remaining":  [
-                                                   "R12-017",
                                                    "R12-018",
                                                    "R12-019",
                                                    "R12-020",
                                                    "R12-021"
                                                ],
-                         "scope_summary":  "R12 is active through R12-016 only; R12-017 through R12-021 remain planned only when R12-016 is R12-016."
+                         "scope_summary":  "R12 is active through R12-017 only; R12-018 through R12-021 remain planned only."
                      },
     "completed_tasks":  [
                             "R12-001",
@@ -35,21 +34,21 @@
                             "R12-013",
                             "R12-014",
                             "R12-015",
-                            "R12-016"
+                            "R12-016",
+                            "R12-017"
                         ],
     "planned_tasks":  [
-                          "R12-017",
                           "R12-018",
                           "R12-019",
                           "R12-020",
                           "R12-021"
                       ],
-    "current_phase":  "operator_control_room_foundation_slice",
+    "current_phase":  "bounded_control_room_refresh_cycle",
     "value_gate_status":  {
                               "external_api_runner":  "foundation_present",
                               "actionable_qa":  "foundation_present",
                               "operator_control_room":  "foundation_present",
-                              "real_build_change":  "not_started"
+                              "real_build_change":  "partially_evidenced"
                           },
     "external_runner_status":  {
                                    "status":  "blocked",
@@ -78,17 +77,21 @@
                              },
     "control_room_status":  {
                                 "status":  "foundation_present",
-                                "summary":  "Bounded JSON status, Markdown view, and operator decision queue foundations are generated for operator review; this is not productized control-room behavior.",
+                                "summary":  "Bounded JSON status, Markdown view, operator decision queue, and one-command refresh workflow are generated for operator review; this is not productized control-room behavior.",
                                 "status_model_ref":  "state/control_room/r12_current/control_room_status.json",
                                 "markdown_view_ref":  "state/control_room/r12_current/control_room.md",
-                                "decision_queue_ref":  "state/control_room/r12_current/operator_decision_queue.json"
+                                "decision_queue_ref":  "state/control_room/r12_current/operator_decision_queue.json",
+                                "refresh_result_ref":  "state/control_room/r12_current/control_room_refresh_result.json"
                             },
     "real_build_change_status":  {
-                                     "status":  "not_started",
-                                     "summary":  "R12-017 real useful build/change cycle has not started in this prompt.",
-                                     "started":  false,
+                                     "status":  "partially_evidenced",
+                                     "summary":  "R12-017 added and ran one bounded one-command operator control-room refresh workflow that regenerates status, Markdown view, and decision queue artifacts from explicit repo identity.",
+                                     "started":  true,
                                      "evidence_refs":  [
-
+                                                           "contracts/control_room/control_room_refresh_result.contract.json",
+                                                           "tools/ControlRoomRefresh.psm1",
+                                                           "tools/refresh_control_room.ps1",
+                                                           "tests/test_control_room_refresh.ps1"
                                                        ]
                                  },
     "qa_evidence_gate_status":  {
@@ -117,17 +120,6 @@
                                            ],
                          "recommended_next_action":  "Run the authorized external runner/replay slice later and import real artifact evidence before attempting final QA/evidence pass.",
                          "blocking_status":  "blocking"
-                     },
-                     {
-                         "id":  "blocker-r12-real-build-change-not-started",
-                         "severity":  "medium",
-                         "title":  "Real useful build/change gate has not started",
-                         "explanation":  "R12-017 is outside this prompt and remains planned only, so the real build/change value gate is not delivered.",
-                         "evidence_refs":  [
-                                               "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
-                                           ],
-                         "recommended_next_action":  "Require an explicit next prompt for R12-017 through R12-018 before starting a real useful build/change cycle.",
-                         "blocking_status":  "blocking"
                      }
                  ],
     "attention_items":  [
@@ -140,6 +132,18 @@
                                                       "contracts/control_room/control_room_status.contract.json"
                                                   ],
                                 "recommended_next_action":  "Review the generated status/view/queue as static evidence only.",
+                                "blocking_status":  "advisory"
+                            },
+                            {
+                                "id":  "attention-r12-018-pending",
+                                "severity":  "high",
+                                "title":  "R12-018 remains pending for a separate fresh Codex thread",
+                                "explanation":  "R12-018 is not done and must be executed separately from committed repo truth using the generated handoff packet when it exists.",
+                                "evidence_refs":  [
+                                                      "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json",
+                                                      "tools/FreshThreadBootstrap.psm1"
+                                                  ],
+                                "recommended_next_action":  "Use the generated R12-018 prompt in a new Codex thread only.",
                                 "blocking_status":  "advisory"
                             },
                             {
@@ -156,14 +160,15 @@
                         ],
     "next_actions":  [
                          {
-                             "id":  "next-r12-017-018",
-                             "task_id":  "R12-017",
-                             "title":  "Authorize R12-017 through R12-018 only",
-                             "action_type":  "next_slice_authorization",
-                             "description":  "Next prompt should run one real useful build/change cycle and prove fresh-thread restart, without opening R12-019 or later.",
-                             "required_before":  "starting_real_build_change_cycle",
+                             "id":  "next-r12-018-fresh-thread",
+                             "task_id":  "R12-018",
+                             "title":  "Run R12-018 fresh-thread restart proof from committed handoff packet",
+                             "action_type":  "fresh_thread_handoff",
+                             "description":  "Use the generated bootstrap packet and next prompt in a separate fresh Codex thread; do not start R12-019 or later in that thread.",
+                             "required_before":  "starting_R12_018",
                              "evidence_refs":  [
-                                                   "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                   "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json",
+                                                   "tools/FreshThreadBootstrap.psm1"
                                                ]
                          },
                          {
@@ -201,13 +206,14 @@
                                                               ]
                                         },
                                         {
-                                            "id":  "decision-r12-017-018-authorization",
-                                            "title":  "Explicitly authorize only R12-017 through R12-018 next",
+                                            "id":  "decision-r12-018-fresh-thread",
+                                            "title":  "Execute R12-018 only from a separate fresh Codex thread",
                                             "decision_type":  "next_slice_authorization",
-                                            "required_before":  "starting_R12_017",
+                                            "required_before":  "starting_R12_018",
                                             "blocking_status":  "blocking",
                                             "evidence_refs":  [
-                                                                  "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                                  "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json",
+                                                                  "tools/FreshThreadBootstrap.psm1"
                                                               ]
                                         },
                                         {
@@ -223,27 +229,33 @@
                                     ],
     "evidence_refs":  [
                           "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+                          "contracts/control_room/control_room_refresh_result.contract.json",
                           "contracts/control_room/control_room_status.contract.json",
                           "contracts/control_room/control_room_view.contract.json",
                           "contracts/control_room/operator_decision_queue.contract.json",
                           "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md",
+                          "tests/test_control_room_refresh.ps1",
                           "tools/ActionableQaEvidenceGate.psm1",
+                          "tools/ControlRoomRefresh.psm1",
                           "tools/ControlRoomStatus.psm1",
                           "tools/export_control_room_status.ps1",
                           "tools/export_operator_decision_queue.ps1",
                           "tools/OperatorDecisionQueue.psm1",
+                          "tools/refresh_control_room.ps1",
                           "tools/render_control_room_view.psm1"
                       ],
-    "generated_at_utc":  "2026-04-30T08:57:13Z",
+    "generated_at_utc":  "2026-04-30T11:09:45Z",
     "non_claims":  [
                        "no productized control-room behavior",
                        "no full UI app",
                        "no production runtime",
                        "no R12 closeout",
                        "no final-state replay",
-                       "no real build/change gate",
                        "no full R12 value-gate delivery",
                        "no final QA pass for R12 closeout",
-                       "no R13 authorization"
+                       "no R13 authorization",
+                       "no broad autonomy",
+                       "no solved Codex reliability",
+                       "no broad CI/product coverage"
                    ]
 }

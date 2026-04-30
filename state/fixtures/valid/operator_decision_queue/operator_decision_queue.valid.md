@@ -1,6 +1,6 @@
 # R12 Operator Decision Queue
 
-- Generated at UTC: `2026-04-30T08:59:16Z`
+- Generated at UTC: `2026-04-30T10:52:06Z`
 - Source status: `state/fixtures/valid/control_room/control_room_status.foundation.valid.json`
 - Branch: `release/r12-external-api-runner-actionable-qa-control-room-pilot`
 - Head: `3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf`
@@ -11,9 +11,9 @@
 - Blocking decision count: 3
 
 ## Recommended Sequence
-- Review the generated control-room status and Markdown view.
+- Review the generated control-room status, Markdown view, decision queue, and refresh result.
 - Keep final QA/evidence gate blocked until real external runner result and artifact evidence exist.
-- Authorize only R12-017 through R12-018 in the next prompt if the operator wants to continue.
+- Use the generated R12-018 prompt only in a separate fresh Codex thread.
 - Keep R13 or any successor milestone unauthorized.
 
 ## Decisions
@@ -32,14 +32,14 @@
 ### `decision-control-room-review`
 - Type: `approval_required`
 - Blocking status: `non_blocking`
-- Title: Review generated control-room status and Markdown view
-- Context: The static status model and readable Markdown view are generated for operator review as a bounded foundation.
-- Options: `Accept the bounded control-room foundation evidence`, `Request corrections to the generated status/view wording`
-- Recommended option: Accept the bounded control-room foundation evidence
-- Consequence: Acceptance records operator-readable foundation evidence only; it does not create productized control-room behavior.
+- Title: Review generated control-room refresh artifacts
+- Context: The status model, Markdown view, decision queue, and refresh result are generated for operator review as a bounded static workflow.
+- Options: `Accept the bounded control-room refresh evidence`, `Request corrections to generated refresh wording`
+- Recommended option: Accept the bounded control-room refresh evidence
+- Consequence: Acceptance records operator-readable refresh evidence only; it does not create productized control-room behavior.
 - Required before: `next_slice_authorization`
 - Owner role: `operator`
-- Evidence refs: `state/fixtures/valid/control_room/control_room_status.foundation.valid.json`, `contracts/control_room/control_room_status.contract.json`, `contracts/control_room/control_room_view.contract.json`
+- Evidence refs: `state/fixtures/valid/control_room/control_room_status.foundation.valid.json`, `contracts/control_room/control_room_status.contract.json`, `contracts/control_room/control_room_view.contract.json`, `contracts/control_room/control_room_refresh_result.contract.json`
 
 ### `decision-r12-017-018-authorization`
 - Type: `next_slice_authorization`
@@ -70,6 +70,7 @@
 - `contracts/control_room/operator_decision_queue.contract.json`
 - `tools/OperatorDecisionQueue.psm1`
 - `tools/export_operator_decision_queue.ps1`
+- `contracts/control_room/control_room_refresh_result.contract.json`
 
 ## Non-Claims
 - no automatic operator replacement
@@ -77,3 +78,4 @@
 - no final acceptance
 - no R12 closeout
 - no productized workflow UI
+- R12-018 not done

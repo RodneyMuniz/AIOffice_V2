@@ -1,0 +1,48 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "operator_decision_packet",
+    "cycle_id":  "r12_real_build_cycle",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "decision_status":  "operator_attention_required",
+    "decisions":  [
+                      {
+                          "id":  "decision-r12-018-fresh-thread",
+                          "title":  "Run R12-018 in a separate fresh Codex thread",
+                          "blocking_status":  "blocking",
+                          "required_before":  "starting_R12_018",
+                          "evidence_refs":  [
+                                                "state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json",
+                                                "state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md"
+                                            ]
+                      },
+                      {
+                          "id":  "decision-external-evidence-required",
+                          "title":  "Keep final QA/evidence gate blocked until real external evidence exists",
+                          "blocking_status":  "blocking",
+                          "required_before":  "final_qa_evidence_gate_pass",
+                          "evidence_refs":  [
+                                                "state/cycles/r12_real_build_cycle/qa/cycle_qa_evidence_gate.json"
+                                            ]
+                      },
+                      {
+                          "id":  "decision-no-r13",
+                          "title":  "Keep R13 or any successor milestone closed",
+                          "blocking_status":  "blocking",
+                          "required_before":  "any_successor_milestone_opening",
+                          "evidence_refs":  [
+                                                "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                            ]
+                      }
+                  ],
+    "non_claims":  [
+                       "R12-018 not done",
+                       "no final acceptance",
+                       "no R12 closeout",
+                       "no R13 authorization",
+                       "no productized workflow UI"
+                   ],
+    "created_at_utc":  "2026-04-30T10:58:12Z"
+}

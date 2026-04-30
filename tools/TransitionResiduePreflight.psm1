@@ -601,9 +601,9 @@ function New-TransitionResiduePreflight {
 
     Assert-ProtectedTransition -From $TransitionFrom -To $TransitionTo -Context "Transition residue preflight"
 
-    $branch = (Invoke-GitLines -Arguments @("branch", "--show-current"))[0].Trim()
-    $head = (Invoke-GitLines -Arguments @("rev-parse", "HEAD"))[0].Trim()
-    $tree = (Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}"))[0].Trim()
+    $branch = (@(Invoke-GitLines -Arguments @("branch", "--show-current")))[0].Trim()
+    $head = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim()
+    $tree = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim()
     $statusLines = if ($null -eq $RawGitStatus) {
         @(Invoke-GitLines -Arguments @("status", "--short", "--untracked-files=all") | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
     }

@@ -107,6 +107,7 @@
                        "no R13 authorization",
                        "no final acceptance",
                        "no R12 closeout",
-                       "no productized workflow UI"
+                       "no productized workflow UI",
+                       "R12-018 not done"
                    ]
 }

@@ -1,19 +1,19 @@
 # R12 Operator Decision Queue
 
-- Generated at UTC: `2026-04-30T08:57:35Z`
+- Generated at UTC: `2026-04-30T11:09:45Z`
 - Source status: `state/control_room/r12_current/control_room_status.json`
 - Branch: `release/r12-external-api-runner-actionable-qa-control-room-pilot`
-- Head: `3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf`
-- Tree: `baaa0b40fd8ae23d1a268af64d8bb65955272384`
+- Head: `d93a66aa6b757241583fa1c61bb6333b4228d639`
+- Tree: `3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0`
 
 ## Queue Summary
 - Decision count: 4
 - Blocking decision count: 3
 
 ## Recommended Sequence
-- Review the generated control-room status and Markdown view.
+- Review the generated control-room status, Markdown view, decision queue, and refresh result.
 - Keep final QA/evidence gate blocked until real external runner result and artifact evidence exist.
-- Authorize only R12-017 through R12-018 in the next prompt if the operator wants to continue.
+- Use the generated R12-018 prompt only in a separate fresh Codex thread.
 - Keep R13 or any successor milestone unauthorized.
 
 ## Decisions
@@ -32,26 +32,26 @@
 ### `decision-control-room-review`
 - Type: `approval_required`
 - Blocking status: `non_blocking`
-- Title: Review generated control-room status and Markdown view
-- Context: The static status model and readable Markdown view are generated for operator review as a bounded foundation.
-- Options: `Accept the bounded control-room foundation evidence`, `Request corrections to the generated status/view wording`
-- Recommended option: Accept the bounded control-room foundation evidence
-- Consequence: Acceptance records operator-readable foundation evidence only; it does not create productized control-room behavior.
+- Title: Review generated control-room refresh artifacts
+- Context: The status model, Markdown view, decision queue, and refresh result are generated for operator review as a bounded static workflow.
+- Options: `Accept the bounded control-room refresh evidence`, `Request corrections to generated refresh wording`
+- Recommended option: Accept the bounded control-room refresh evidence
+- Consequence: Acceptance records operator-readable refresh evidence only; it does not create productized control-room behavior.
 - Required before: `next_slice_authorization`
 - Owner role: `operator`
-- Evidence refs: `state/control_room/r12_current/control_room_status.json`, `contracts/control_room/control_room_status.contract.json`, `contracts/control_room/control_room_view.contract.json`
+- Evidence refs: `state/control_room/r12_current/control_room_status.json`, `contracts/control_room/control_room_status.contract.json`, `contracts/control_room/control_room_view.contract.json`, `contracts/control_room/control_room_refresh_result.contract.json`
 
-### `decision-r12-017-018-authorization`
+### `decision-r12-018-fresh-thread`
 - Type: `next_slice_authorization`
 - Blocking status: `blocking`
-- Title: Explicit authorization is required for R12-017 through R12-018 only
-- Context: R12-017 and R12-018 remain planned until the operator authorizes one real useful build/change cycle and fresh-thread restart proof.
-- Options: `Authorize R12-017 through R12-018 only in the next prompt`, `Keep R12-017 through R12-018 planned`
-- Recommended option: Authorize R12-017 through R12-018 only in the next prompt
-- Consequence: No real build/change cycle starts unless the next prompt explicitly targets R12-017 through R12-018.
-- Required before: `starting_R12_017`
+- Title: Execute R12-018 only from a separate fresh Codex thread
+- Context: R12-017 prepared a bootstrap packet and next prompt, but R12-018 is not done in this thread.
+- Options: `Use the generated R12-018 prompt in a new Codex thread`, `Keep R12-018 pending`
+- Recommended option: Use the generated R12-018 prompt in a new Codex thread
+- Consequence: R12-018 remains pending until a separate fresh thread verifies repo truth from the committed packet.
+- Required before: `starting_R12_018`
 - Owner role: `operator`
-- Evidence refs: `state/control_room/r12_current/control_room_status.json`, `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
+- Evidence refs: `state/control_room/r12_current/control_room_status.json`, `contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json`, `tools/FreshThreadBootstrap.psm1`
 
 ### `decision-no-r13-successor`
 - Type: `blocked_refusal`
@@ -70,6 +70,7 @@
 - `contracts/control_room/operator_decision_queue.contract.json`
 - `tools/OperatorDecisionQueue.psm1`
 - `tools/export_operator_decision_queue.ps1`
+- `contracts/control_room/control_room_refresh_result.contract.json`
 
 ## Non-Claims
 - no automatic operator replacement
@@ -77,3 +78,4 @@
 - no final acceptance
 - no R12 closeout
 - no productized workflow UI
+- R12-018 not done

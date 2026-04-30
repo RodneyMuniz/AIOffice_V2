@@ -1,0 +1,45 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "actionable_qa_fix_queue",
+    "queue_id":  "r12-actionable-qa-fix-queue-36651e4f93794af1acae7852812e3ce5",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "source_actionable_qa_report_ref":  "state/cycles/r12_real_build_cycle/qa/actionable_qa_report.json",
+    "generated_at_utc":  "2026-04-30T10:55:01Z",
+    "issue_count":  0,
+    "blocking_issue_count":  0,
+    "issues_by_severity":  {
+                               "critical":  0,
+                               "error":  0,
+                               "info":  0,
+                               "warning":  0
+                           },
+    "issues_by_component":  {
+
+                            },
+    "fix_items":  [
+
+                  ],
+    "reproduction_commands":  [
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1",
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_actionable_qa.ps1"
+                              ],
+    "recommended_next_action":  "Keep the final QA/evidence gate blocked until real external runner result and external artifact evidence exist.",
+    "evidence_refs":  [
+                          "contracts/actionable_qa/actionable_qa_fix_queue.contract.json",
+                          "contracts\\control_room\\control_room_refresh_result.contract.json",
+                          "state/cycles/r12_real_build_cycle/qa/actionable_qa_report.json",
+                          "tests\\test_control_room_refresh.ps1",
+                          "tools/ActionableQaFixQueue.psm1",
+                          "tools\\ControlRoomRefresh.psm1"
+                      ],
+    "non_claims":  [
+                       "recommendations are bounded/static",
+                       "no automatic repair claim",
+                       "no production QA",
+                       "no R12 closeout",
+                       "no full value-gate delivery by static recommendations"
+                   ]
+}

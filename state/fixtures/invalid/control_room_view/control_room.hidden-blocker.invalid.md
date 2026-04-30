@@ -29,7 +29,8 @@
 
 ## Blockers and Attention Items
 ### Blockers
-- No blockers recorded.
+- `blocker-r12-real-build-change-not-started` [medium/blocking] Real useful build/change gate has not started: R12-017 is outside this prompt and remains planned only, so the real build/change value gate is not delivered. Recommended next action: Require an explicit next prompt for R12-017 through R12-018 before starting a real useful build/change cycle.
+  Evidence refs: `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 ### Attention Items
 - `attention-control-room-boundary` [medium/advisory] Control-room surface is bounded foundation only: The generated JSON and Markdown make the current posture operator-readable, but they do not constitute a full UI app or productized workflow UI. Recommended next action: Review the generated status/view/queue as static evidence only.
   Evidence refs: `contracts/control_room/control_room_status.contract.json`
@@ -64,7 +65,6 @@
 - `next-r12-017-018` / `R12-017` [next_slice_authorization] Authorize R12-017 through R12-018 only: Next prompt should run one real useful build/change cycle and prove fresh-thread restart, without opening R12-019 or later. Required before: `starting_real_build_change_cycle`
   Evidence refs: `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `next-real-external-evidence` / `R12-019` [external_evidence_required] Capture real external evidence before final QA pass: A later authorized slice must capture real external runner result and artifact evidence tied to exact branch/head/tree before final gate pass or closeout. Required before: `final_qa_evidence_gate_pass`
-  Evidence refs: `contracts/external_runner/external_runner_result.contract.json`, `contracts/external_runner/external_artifact_evidence_packet.contract.json`
 
 ## Operator Decisions Required
 - `decision-external-evidence-required` [external_evidence_required/blocking] Real external evidence is required before final QA/evidence pass. Required before: `final_qa_evidence_gate_pass`
@@ -86,3 +86,6 @@
 - no full R12 value-gate delivery
 - no final QA pass for R12 closeout
 - no R13 authorization
+- no broad autonomy
+- no solved Codex reliability
+- no broad CI/product coverage

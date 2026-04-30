@@ -15,7 +15,8 @@ $script:RequiredQueueNonClaims = @(
     "no R13 authorization",
     "no final acceptance",
     "no R12 closeout",
-    "no productized workflow UI"
+    "no productized workflow UI",
+    "R12-018 not done"
 )
 
 function Get-RepositoryRoot {
@@ -91,7 +92,10 @@ function Write-JsonDocument {
         New-Item -ItemType Directory -Path $parentPath -Force | Out-Null
     }
 
-    $Document | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $Path -Encoding UTF8
+    $json = ($Document | ConvertTo-Json -Depth 100)
+    $content = ($json -replace "`r`n", "`n") + "`n"
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $content, $utf8NoBom)
 }
 
 function Test-HasProperty {
@@ -547,7 +551,9 @@ function Export-OperatorDecisionQueueMarkdown {
         $lines.Add("- $nonClaim") | Out-Null
     }
 
-    Set-Content -LiteralPath $resolvedOutputPath -Value $lines -Encoding UTF8
+    $content = ($lines -join "`n") + "`n"
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($resolvedOutputPath, $content, $utf8NoBom)
     return $resolvedOutputPath
 }
 
@@ -608,6 +614,36 @@ function New-OperatorDecisionQueue {
     & $script:TestControlRoomStatus -StatusPath $ControlRoomStatusPath | Out-Null
     $sourceStatus = Get-JsonDocument -Path (Resolve-RepositoryPath -PathValue $ControlRoomStatusPath) -Label "Control-room status"
     $sourceStatusRef = Convert-ToRepositoryRelativePath -PathValue $ControlRoomStatusPath
+    $nextSliceDecision = if ($sourceStatus.active_scope.current_completed_through -eq "R12-017") {
+        [pscustomobject][ordered]@{
+            decision_id = "decision-r12-018-fresh-thread"
+            decision_type = "next_slice_authorization"
+            title = "Execute R12-018 only from a separate fresh Codex thread"
+            context = "R12-017 prepared a bootstrap packet and next prompt, but R12-018 is not done in this thread."
+            options = @("Use the generated R12-018 prompt in a new Codex thread", "Keep R12-018 pending")
+            recommended_option = "Use the generated R12-018 prompt in a new Codex thread"
+            consequence = "R12-018 remains pending until a separate fresh thread verifies repo truth from the committed packet."
+            required_before = "starting_R12_018"
+            blocking_status = "blocking"
+            evidence_refs = @($sourceStatusRef, "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json", "tools/FreshThreadBootstrap.psm1")
+            owner_role = "operator"
+        }
+    }
+    else {
+        [pscustomobject][ordered]@{
+            decision_id = "decision-r12-017-018-authorization"
+            decision_type = "next_slice_authorization"
+            title = "Explicit authorization is required for R12-017 through R12-018 only"
+            context = "R12-017 and R12-018 remain planned until the operator authorizes one real useful build/change cycle and fresh-thread restart proof."
+            options = @("Authorize R12-017 through R12-018 only in the next prompt", "Keep R12-017 through R12-018 planned")
+            recommended_option = "Authorize R12-017 through R12-018 only in the next prompt"
+            consequence = "No real build/change cycle starts unless the next prompt explicitly targets R12-017 through R12-018."
+            required_before = "starting_R12_017"
+            blocking_status = "blocking"
+            evidence_refs = @($sourceStatusRef, "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md")
+            owner_role = "operator"
+        }
+    }
 
     $decisions = @(
         [pscustomobject][ordered]@{
@@ -626,29 +662,17 @@ function New-OperatorDecisionQueue {
         [pscustomobject][ordered]@{
             decision_id = "decision-control-room-review"
             decision_type = "approval_required"
-            title = "Review generated control-room status and Markdown view"
-            context = "The static status model and readable Markdown view are generated for operator review as a bounded foundation."
-            options = @("Accept the bounded control-room foundation evidence", "Request corrections to the generated status/view wording")
-            recommended_option = "Accept the bounded control-room foundation evidence"
-            consequence = "Acceptance records operator-readable foundation evidence only; it does not create productized control-room behavior."
+            title = "Review generated control-room refresh artifacts"
+            context = "The status model, Markdown view, decision queue, and refresh result are generated for operator review as a bounded static workflow."
+            options = @("Accept the bounded control-room refresh evidence", "Request corrections to generated refresh wording")
+            recommended_option = "Accept the bounded control-room refresh evidence"
+            consequence = "Acceptance records operator-readable refresh evidence only; it does not create productized control-room behavior."
             required_before = "next_slice_authorization"
             blocking_status = "non_blocking"
-            evidence_refs = @($sourceStatusRef, "contracts/control_room/control_room_status.contract.json", "contracts/control_room/control_room_view.contract.json")
+            evidence_refs = @($sourceStatusRef, "contracts/control_room/control_room_status.contract.json", "contracts/control_room/control_room_view.contract.json", "contracts/control_room/control_room_refresh_result.contract.json")
             owner_role = "operator"
         },
-        [pscustomobject][ordered]@{
-            decision_id = "decision-r12-017-018-authorization"
-            decision_type = "next_slice_authorization"
-            title = "Explicit authorization is required for R12-017 through R12-018 only"
-            context = "R12-017 and R12-018 remain planned until the operator authorizes one real useful build/change cycle and fresh-thread restart proof."
-            options = @("Authorize R12-017 through R12-018 only in the next prompt", "Keep R12-017 through R12-018 planned")
-            recommended_option = "Authorize R12-017 through R12-018 only in the next prompt"
-            consequence = "No real build/change cycle starts unless the next prompt explicitly targets R12-017 through R12-018."
-            required_before = "starting_R12_017"
-            blocking_status = "blocking"
-            evidence_refs = @($sourceStatusRef, "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md")
-            owner_role = "operator"
-        },
+        $nextSliceDecision,
         [pscustomobject][ordered]@{
             decision_id = "decision-no-r13-successor"
             decision_type = "blocked_refusal"
@@ -679,16 +703,17 @@ function New-OperatorDecisionQueue {
         decision_count = @($decisions).Count
         blocking_decision_count = @($decisions | Where-Object { $_.blocking_status -eq "blocking" }).Count
         recommended_sequence = @(
-            "Review the generated control-room status and Markdown view.",
+            "Review the generated control-room status, Markdown view, decision queue, and refresh result.",
             "Keep final QA/evidence gate blocked until real external runner result and artifact evidence exist.",
-            "Authorize only R12-017 through R12-018 in the next prompt if the operator wants to continue.",
+            "Use the generated R12-018 prompt only in a separate fresh Codex thread.",
             "Keep R13 or any successor milestone unauthorized."
         )
         evidence_refs = @(
             $sourceStatusRef,
             "contracts/control_room/operator_decision_queue.contract.json",
             "tools/OperatorDecisionQueue.psm1",
-            "tools/export_operator_decision_queue.ps1"
+            "tools/export_operator_decision_queue.ps1",
+            "contracts/control_room/control_room_refresh_result.contract.json"
         )
         non_claims = @($script:RequiredQueueNonClaims)
     }

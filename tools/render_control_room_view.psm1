@@ -176,7 +176,9 @@ function Export-ControlRoomViewMarkdown {
         $lines.Add("- $nonClaim") | Out-Null
     }
 
-    Set-Content -LiteralPath $resolvedOutputPath -Value $lines -Encoding UTF8
+    $content = ($lines -join "`n") + "`n"
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($resolvedOutputPath, $content, $utf8NoBom)
     return $resolvedOutputPath
 }
 

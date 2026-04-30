@@ -1,0 +1,151 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "actionable_qa_report",
+    "report_id":  "r12-actionable-qa-a19894738b094eb5ac8cb9a701a4e1a0",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "qa_scope":  {
+                     "paths":  [
+                                   "tools\\ControlRoomRefresh.psm1",
+                                   "tools\\refresh_control_room.ps1",
+                                   "tests\\test_control_room_refresh.ps1",
+                                   "contracts\\control_room\\control_room_refresh_result.contract.json",
+                                   "state\\fixtures\\valid\\control_room_refresh",
+                                   "state\\fixtures\\invalid\\control_room_refresh",
+                                   "state\\control_room\\r12_current\\control_room_refresh_result.json",
+                                   "state\\control_room\\r12_current\\control_room.md",
+                                   "state\\control_room\\r12_current\\operator_decision_queue.md"
+                               ],
+                     "description":  "Bounded R12 actionable QA foundation checks: PowerShell parse, JSON parse, evidence refs, feasible markdown refs, optional PSScriptAnalyzer, and selected test commands."
+                 },
+    "qa_mode":  "diagnostic_non_strict",
+    "dependency_status":  {
+                              "psscriptanalyzer":  {
+                                                       "name":  "PSScriptAnalyzer",
+                                                       "available":  false,
+                                                       "status":  "unavailable",
+                                                       "strict_required":  false,
+                                                       "checked_at_utc":  "2026-04-30T10:54:52Z",
+                                                       "details":  "PSScriptAnalyzer module was not installed in this environment."
+                                                   }
+                          },
+    "commands_run":  [
+                         {
+                             "command_id":  "powershell-parse",
+                             "command":  "PowerShell Parser.ParseFile over scoped .ps1/.psm1 files",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-04-30T10:54:52Z",
+                             "completed_at_utc":  "2026-04-30T10:54:52Z"
+                         },
+                         {
+                             "command_id":  "json-parse",
+                             "command":  "JsonRoot.Read-SingleJsonObject over scoped .json files",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-04-30T10:54:52Z",
+                             "completed_at_utc":  "2026-04-30T10:54:52Z"
+                         },
+                         {
+                             "command_id":  "psscriptanalyzer",
+                             "command":  "Get-Module -ListAvailable -Name PSScriptAnalyzer",
+                             "exit_code":  0,
+                             "verdict":  "not_run",
+                             "started_at_utc":  "2026-04-30T10:54:52Z",
+                             "completed_at_utc":  "2026-04-30T10:54:52Z"
+                         },
+                         {
+                             "command_id":  "selected-test-001",
+                             "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_control_room_refresh.ps1",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-04-30T10:54:52Z",
+                             "completed_at_utc":  "2026-04-30T10:54:54Z"
+                         }
+                     ],
+    "checks_run":  [
+                       {
+                           "check_id":  "powershell-parse",
+                           "check_type":  "powershell_syntax_parse",
+                           "scope":  "tools\\ControlRoomRefresh.psm1, tools\\refresh_control_room.ps1, tests\\test_control_room_refresh.ps1",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+                       },
+                       {
+                           "check_id":  "json-parse",
+                           "check_type":  "json_parse",
+                           "scope":  "contracts\\control_room\\control_room_refresh_result.contract.json, state\\fixtures\\valid\\control_room_refresh, state\\fixtures\\invalid\\control_room_refresh, state\\control_room\\r12_current\\control_room_refresh_result.json",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+                       },
+                       {
+                           "check_id":  "evidence-ref-exists",
+                           "check_type":  "evidence_ref_existence",
+                           "scope":  "contracts\\control_room\\control_room_refresh_result.contract.json, tools\\ControlRoomRefresh.psm1, tests\\test_control_room_refresh.ps1",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+                       },
+                       {
+                           "check_id":  "markdown-reference-paths",
+                           "check_type":  "markdown_reference_path_check",
+                           "scope":  "state\\control_room\\r12_current\\control_room.md, state\\control_room\\r12_current\\operator_decision_queue.md",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+                       },
+                       {
+                           "check_id":  "psscriptanalyzer",
+                           "check_type":  "psscriptanalyzer",
+                           "scope":  "tools\\ControlRoomRefresh.psm1, tools\\refresh_control_room.ps1, tests\\test_control_room_refresh.ps1",
+                           "verdict":  "skipped",
+                           "issue_count":  0,
+                           "reproduction_command":  "Get-Module -ListAvailable -Name PSScriptAnalyzer"
+                       },
+                       {
+                           "check_id":  "selected-test-001",
+                           "check_type":  "selected_test_command",
+                           "scope":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_control_room_refresh.ps1",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_control_room_refresh.ps1"
+                       }
+                   ],
+    "issues":  [
+
+               ],
+    "summary":  {
+                    "total_issue_count":  0,
+                    "blocking_issue_count":  0,
+                    "critical_count":  0,
+                    "error_count":  0,
+                    "warning_count":  0,
+                    "info_count":  0,
+                    "command_count":  4,
+                    "check_count":  6
+                },
+    "aggregate_verdict":  "passed",
+    "reproduction_commands":  [
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1",
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_actionable_qa.ps1"
+                              ],
+    "evidence_refs":  [
+                          "contracts\\control_room\\control_room_refresh_result.contract.json",
+                          "tools\\ControlRoomRefresh.psm1",
+                          "tests\\test_control_room_refresh.ps1"
+                      ],
+    "created_at_utc":  "2026-04-30T10:54:54Z",
+    "non_claims":  [
+                       "no production QA",
+                       "no real production QA",
+                       "no security audit",
+                       "no full test coverage",
+                       "no external evidence gate pass",
+                       "no R12 closeout",
+                       "no R12 value-gate delivery by this task alone"
+                   ]
+}

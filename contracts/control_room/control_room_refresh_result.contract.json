@@ -1,0 +1,76 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "control_room_refresh_result_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-017",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "refresh_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_status_ref",
+    "generated_status_ref",
+    "generated_view_ref",
+    "generated_decision_queue_ref",
+    "generated_decision_queue_view_ref",
+    "command_results",
+    "validation_results",
+    "value_gate_status",
+    "blockers",
+    "next_actions",
+    "operator_decisions_required",
+    "refresh_verdict",
+    "refusal_reasons",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "allowed_refresh_verdicts": [
+    "passed",
+    "warning",
+    "failed",
+    "blocked",
+    "refused"
+  ],
+  "command_result_required_fields": [
+    "command_name",
+    "status",
+    "details"
+  ],
+  "validation_result_required_fields": [
+    "target",
+    "status",
+    "details"
+  ],
+  "required_non_claims": [
+    "no final QA pass for R12 closeout",
+    "no R12 final-state replay",
+    "no R12 closeout",
+    "no R13 opened",
+    "no productized control-room behavior",
+    "no full UI app",
+    "no production runtime",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no broad CI/product coverage"
+  ],
+  "rules": [
+    "branch_head_tree_required",
+    "repo_identity_check_must_pass",
+    "generated_status_view_and_decision_queue_refs_required",
+    "generated_status_must_validate",
+    "generated_markdown_view_must_validate",
+    "generated_decision_queue_must_validate",
+    "generated_decision_queue_view_must_validate",
+    "missing_external_evidence_blocker_required",
+    "productized_control_room_claim_fails",
+    "final_state_replay_claim_fails",
+    "r12_closeout_claim_fails",
+    "broad_autonomy_claim_fails",
+    "missing_non_claims_fail_validation"
+  ]
+}

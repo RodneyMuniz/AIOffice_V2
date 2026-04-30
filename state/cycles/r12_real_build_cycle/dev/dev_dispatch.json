@@ -1,0 +1,28 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "dev_dispatch",
+    "cycle_id":  "r12_real_build_cycle",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "assigned_task":  "R12-017 real useful build/change cycle",
+    "write_scope":  [
+                        "contracts/control_room/control_room_refresh_result.contract.json",
+                        "tools/ControlRoomRefresh.psm1",
+                        "tools/refresh_control_room.ps1",
+                        "tests/test_control_room_refresh.ps1",
+                        "state/control_room/r12_current/control_room_refresh_result.json",
+                        "state/control_room/r12_current/control_room_status.json",
+                        "state/control_room/r12_current/control_room.md",
+                        "state/control_room/r12_current/operator_decision_queue.json",
+                        "state/control_room/r12_current/operator_decision_queue.md"
+                    ],
+    "instructions":  [
+                         "implement one-command bounded refresh workflow",
+                         "validate generated artifacts",
+                         "fail closed on stale identity and overclaims",
+                         "preserve external evidence blocker"
+                     ],
+    "created_at_utc":  "2026-04-30T10:56:02Z"
+}

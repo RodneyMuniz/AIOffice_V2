@@ -800,9 +800,9 @@ function Invoke-ActionableQaEvidenceGate {
         [switch]$Overwrite
     )
 
-    $branch = (Invoke-GitLines -Arguments @("branch", "--show-current"))[0].Trim()
-    $head = (Invoke-GitLines -Arguments @("rev-parse", "HEAD"))[0].Trim()
-    $tree = (Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}"))[0].Trim()
+    $branch = (@(Invoke-GitLines -Arguments @("branch", "--show-current")))[0].Trim()
+    $head = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim()
+    $tree = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim()
 
     $consumedRefs = [pscustomobject][ordered]@{
         dev_result_ref = $DevResultRef
@@ -822,7 +822,7 @@ function Invoke-ActionableQaEvidenceGate {
     }
 
     $refusalReasons = New-Object System.Collections.Generic.List[string]
-    foreach ($entry in @($validationEntries)) {
+    foreach ($entry in @($validationEntries.ToArray())) {
         if (-not [bool]$entry.present) {
             $refusalReasons.Add("missing required evidence ref '$($entry.ref_name)'.") | Out-Null
         }
@@ -920,7 +920,7 @@ function Invoke-ActionableQaEvidenceGate {
         tree = $tree
         gate_scope = $GateScope
         consumed_refs = $consumedRefs
-        consumed_ref_validation = @($validationEntries | ForEach-Object { $_ })
+        consumed_ref_validation = @($validationEntries.ToArray())
         actionable_qa_verdict = $actionableQaVerdict
         external_evidence_verdict = $externalEvidenceVerdict
         residue_preflight_verdict = $residueVerdict
@@ -928,7 +928,7 @@ function Invoke-ActionableQaEvidenceGate {
         blocking_issue_count = $unresolvedBlockingIssues.Count
         unresolved_blocking_issues = @($unresolvedBlockingIssues)
         gate_verdict = $gateVerdict
-        refusal_reasons = @($refusalReasons)
+        refusal_reasons = @($refusalReasons.ToArray())
         evidence_refs = @($evidenceRefs)
         created_at_utc = Get-UtcTimestamp
         non_claims = @($script:RequiredNonClaims)

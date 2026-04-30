@@ -1,0 +1,95 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "fresh_thread_bootstrap_packet",
+    "repository":  "AIOffice_V2",
+    "active_branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "local_head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "local_tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "remote_head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "active_milestone":  "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+    "current_task":  "R12-018 fresh-thread restart proof only",
+    "completed_tasks":  [
+                            "R12-001",
+                            "R12-002",
+                            "R12-003",
+                            "R12-004",
+                            "R12-005",
+                            "R12-006",
+                            "R12-007",
+                            "R12-008",
+                            "R12-009",
+                            "R12-010",
+                            "R12-011",
+                            "R12-012",
+                            "R12-013",
+                            "R12-014",
+                            "R12-015",
+                            "R12-016",
+                            "R12-017"
+                        ],
+    "planned_next_tasks":  [
+                               "R12-018",
+                               "R12-019",
+                               "R12-020",
+                               "R12-021"
+                           ],
+    "operating_loop_state":  "r12_017_refresh_cycle_done_r12_018_pending",
+    "allowed_next_states":  [
+                                "fresh_thread_restart_proved"
+                            ],
+    "required_evidence_refs":  [
+                                   "state/control_room/r12_current/control_room_refresh_result.json",
+                                   "state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json",
+                                   "state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md",
+                                   "tests/test_control_room_refresh.ps1"
+                               ],
+    "value_gate_status":  {
+                              "external_api_runner":  {
+                                                          "status":  "not_delivered",
+                                                          "proof_refs":  [
+
+                                                                         ]
+                                                      },
+                              "actionable_qa":  {
+                                                    "status":  "not_delivered",
+                                                    "proof_refs":  [
+
+                                                                   ]
+                                                },
+                              "operator_control_room":  {
+                                                            "status":  "not_delivered",
+                                                            "proof_refs":  [
+
+                                                                           ]
+                                                        },
+                              "real_build_change":  {
+                                                        "status":  "not_delivered",
+                                                        "proof_refs":  [
+
+                                                                       ]
+                                                    }
+                          },
+    "residue_preflight_required":  true,
+    "remote_head_phase_detection_ref":  "state/fixtures/valid/remote_head_phase/phase_match.valid.json",
+    "next_prompt_ref":  "state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md",
+    "next_prompt_body":  "You are Codex continuing R12 implementation in `RodneyMuniz/AIOffice_V2` from a new fresh Codex thread.\n\nDo not rely on prior chat context. Use only committed repo truth and this generated bootstrap packet:\n`state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json`\n\nCurrent task: R12-018 fresh-thread restart proof only.\nTarget R12-018 only.\nDo not implement R12-019 or later.\nDo not run final external replay.\nDo not claim R12 closeout.\nDo not open R13.\n\nBootstrap verification required before any change:\n- Confirm repo root is `AIOffice_V2`.\n- Confirm branch is `release/r12-external-api-runner-actionable-qa-control-room-pilot`.\n- Packet creation local head: `d93a66aa6b757241583fa1c61bb6333b4228d639`.\n- Packet creation local tree: `3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0`.\n- Resolve the expected post-R12-017 head from committed repo truth: the remote R12 branch head at fresh-thread start must be the commit containing the R12-017 refresh artifacts and must not equal the pre-R12-017 source head `d93a66aa6b757241583fa1c61bb6333b4228d639`.\n- Confirm local HEAD equals that resolved post-R12-017 remote head.\n- Confirm local tree matches `git rev-parse \u0027HEAD^{tree}\u0027` for that head.\n- Confirm `git status --short --untracked-files=all` is clean.\n- Confirm `state/control_room/r12_current/control_room_refresh_result.json` validates with `tests/test_control_room_refresh.ps1`.\n\nFail-closed rules:\n- Missing branch/head/tree refuses R12-018.\n- Local head must equal the resolved post-R12-017 remote R12 head.\n- The pre-R12-017 head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018.\n- R12-019 or later is out of scope.\n- R12 closeout must not be claimed.\n\nRelevant evidence refs:\n- `state/control_room/r12_current/control_room_refresh_result.json`\n- `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json`\n- `state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md`\n- `tests/test_control_room_refresh.ps1`\n\nR12-018 objective:\nProve fresh-thread restart without operator reconstruction by using only committed repo truth and the bootstrap packet. Produce durable R12-018 evidence that a new thread can recover the active R12 posture, expected branch/head/tree, completed-through state, pending tasks, blockers, and non-claims from repository artifacts.\n\nRequired posture to preserve:\n- R12-001 through R12-017 are done.\n- R12-018 through R12-021 are planned at thread start.\n- External/API runner gate remains not fully delivered because no real external run exists.\n- Final QA/evidence gate remains blocked/refused without real external evidence.\n- Operator control-room remains bounded static tooling, not productized behavior.\n- No final-state replay.\n- No R12 closeout.\n- No R13/successor.\n\nNon-claims:\n- This does not prove R12-018 in the current thread.\n- This does not prove final QA pass.\n- This does not claim R12 closeout.\n- This does not open R13.\n- This does not deliver productized control-room behavior.\n\nStop after R12-018 evidence. Do not advance R12-019.\r\n",
+    "fail_closed_rules":  [
+                              "missing branch/head/tree refuses R12-018",
+                              "local head must equal resolved post-R12-017 remote R12 head",
+                              "pre-R12-017 head is stale for R12-018",
+                              "R12-019 or later is out of scope",
+                              "R12 closeout must not be claimed"
+                          ],
+    "explicit_non_claims":  [
+                                "this does not solve all Codex reliability",
+                                "this does not prove unattended automatic resume",
+                                "this does not deliver external/API runner",
+                                "this does not deliver control-room UI",
+                                "this does not deliver R12 value gates"
+                            ],
+    "source_authority":  "committed repo/status artifacts plus explicit input parameters; chat transcript is not authority",
+    "created_at_utc":  "2026-04-30T10:58:12Z",
+    "pre_r12_017_source_head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "post_r12_017_head_resolution":  "Resolve from the remote R12 branch head at fresh-thread start; it must be the commit containing this packet and the R12-017 refresh artifacts, and it must differ from pre_r12_017_source_head.",
+    "r12_018_done":  false
+}

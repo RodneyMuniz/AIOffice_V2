@@ -78,13 +78,3 @@
   Evidence refs: `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `decision-no-r13-successor` [blocked_refusal/blocking] Keep R13 or successor milestone unauthorized. Required before: `any_successor_milestone_opening`
   Evidence refs: `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
-
-## Explicit Non-Claims
-- no productized control-room behavior
-- no full UI app
-- no production runtime
-- no final-state replay
-- no real build/change gate
-- no full R12 value-gate delivery
-- no final QA pass for R12 closeout
-- no R13 authorization

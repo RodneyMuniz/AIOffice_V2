@@ -89,3 +89,6 @@
 - no full R12 value-gate delivery
 - no final QA pass for R12 closeout
 - no R13 authorization
+- no broad autonomy
+- no solved Codex reliability
+- no broad CI/product coverage

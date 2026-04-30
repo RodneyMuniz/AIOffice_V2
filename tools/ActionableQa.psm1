@@ -854,9 +854,9 @@ function Invoke-ActionableQa {
         [switch]$Overwrite
     )
 
-    $branch = (Invoke-GitLines -Arguments @("branch", "--show-current"))[0].Trim()
-    $head = (Invoke-GitLines -Arguments @("rev-parse", "HEAD"))[0].Trim()
-    $tree = (Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}"))[0].Trim()
+    $branch = (@(Invoke-GitLines -Arguments @("branch", "--show-current")))[0].Trim()
+    $head = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim()
+    $tree = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim()
     $issues = New-Object System.Collections.Generic.List[object]
     $checks = New-Object System.Collections.Generic.List[object]
     $commands = New-Object System.Collections.Generic.List[object]
@@ -1100,18 +1100,18 @@ function Invoke-ActionableQa {
                 details = $psaDetails
             }
         }
-        commands_run = @($commands)
-        checks_run = @($checks)
-        issues = @($issues)
+        commands_run = @($commands.ToArray())
+        checks_run = @($checks.ToArray())
+        issues = @($issues.ToArray())
         summary = [pscustomobject][ordered]@{
-            total_issue_count = @($issues).Count
+            total_issue_count = $issues.Count
             blocking_issue_count = $blockingIssueCount
             critical_count = $criticalCount
             error_count = $errorCount
             warning_count = $warningCount
             info_count = $infoCount
-            command_count = @($commands).Count
-            check_count = @($checks).Count
+            command_count = $commands.Count
+            check_count = $checks.Count
         }
         aggregate_verdict = $aggregateVerdict
         reproduction_commands = @(

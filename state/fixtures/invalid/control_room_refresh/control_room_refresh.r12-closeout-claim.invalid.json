@@ -1,0 +1,227 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "control_room_refresh_result",
+    "refresh_id":  "r12-control-room-refresh-0d23816034d84fb29d2968fa94e2bf4f",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "source_status_ref":  "repo_truth:explicit_repository_branch_head_tree_inputs",
+    "generated_status_ref":  "state/control_room/r12_current/control_room_status.json",
+    "generated_view_ref":  "state/control_room/r12_current/control_room.md",
+    "generated_decision_queue_ref":  "state/control_room/r12_current/operator_decision_queue.json",
+    "generated_decision_queue_view_ref":  "state/control_room/r12_current/operator_decision_queue.md",
+    "command_results":  [
+                            {
+                                "command_name":  "repo_identity_check",
+                                "status":  "passed",
+                                "details":  "Explicit repository/branch/head/tree matched current repo truth.",
+                                "actual_branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+                                "actual_head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+                                "actual_repository":  "AIOffice_V2",
+                                "actual_tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+                                "expected_branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+                                "expected_head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+                                "expected_repository":  "AIOffice_V2",
+                                "expected_tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0"
+                            },
+                            {
+                                "command_name":  "export_control_room_status",
+                                "status":  "passed",
+                                "details":  "Generated control-room status for R12-017.",
+                                "output_ref":  "state/control_room/r12_current/control_room_status.json"
+                            },
+                            {
+                                "command_name":  "export_control_room_view",
+                                "status":  "passed",
+                                "details":  "Generated Markdown control-room view.",
+                                "output_ref":  "state/control_room/r12_current/control_room.md"
+                            },
+                            {
+                                "command_name":  "export_operator_decision_queue",
+                                "status":  "passed",
+                                "details":  "Generated operator decision queue JSON and Markdown.",
+                                "markdown_ref":  "state/control_room/r12_current/operator_decision_queue.md",
+                                "output_ref":  "state/control_room/r12_current/operator_decision_queue.json"
+                            }
+                        ],
+    "validation_results":  [
+                               {
+                                   "target":  "state/control_room/r12_current/control_room_status.json",
+                                   "status":  "passed",
+                                   "details":  "Control-room status contract validation passed."
+                               },
+                               {
+                                   "target":  "state/control_room/r12_current/control_room.md",
+                                   "status":  "passed",
+                                   "details":  "Control-room Markdown view validation passed."
+                               },
+                               {
+                                   "target":  "state/control_room/r12_current/operator_decision_queue.json",
+                                   "status":  "passed",
+                                   "details":  "Operator decision queue validation passed."
+                               },
+                               {
+                                   "target":  "state/control_room/r12_current/operator_decision_queue.md",
+                                   "status":  "passed",
+                                   "details":  "Operator decision queue Markdown validation passed."
+                               }
+                           ],
+    "value_gate_status":  {
+                              "external_api_runner":  "foundation_present",
+                              "actionable_qa":  "foundation_present",
+                              "operator_control_room":  "foundation_present",
+                              "real_build_change":  "partially_evidenced"
+                          },
+    "blockers":  [
+                     {
+                         "id":  "blocker-r12-external-evidence",
+                         "severity":  "high",
+                         "title":  "Real R12 external runner evidence is missing",
+                         "explanation":  "No live R12 external runner result and no external artifact evidence are captured for the current branch/head/tree, so the final QA/evidence gate remains blocked.",
+                         "evidence_refs":  [
+                                               "contracts/external_runner/external_runner_result.contract.json",
+                                               "contracts/external_runner/external_artifact_evidence_packet.contract.json",
+                                               "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json"
+                                           ],
+                         "recommended_next_action":  "Run the authorized external runner/replay slice later and import real artifact evidence before attempting final QA/evidence pass.",
+                         "blocking_status":  "blocking"
+                     }
+                 ],
+    "next_actions":  [
+                         {
+                             "id":  "next-r12-018-fresh-thread",
+                             "task_id":  "R12-018",
+                             "title":  "Run R12-018 fresh-thread restart proof from committed handoff packet",
+                             "action_type":  "fresh_thread_handoff",
+                             "description":  "Use the generated bootstrap packet and next prompt in a separate fresh Codex thread; do not start R12-019 or later in that thread.",
+                             "required_before":  "starting_R12_018",
+                             "evidence_refs":  [
+                                                   "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json",
+                                                   "tools/FreshThreadBootstrap.psm1"
+                                               ]
+                         },
+                         {
+                             "id":  "next-real-external-evidence",
+                             "task_id":  "R12-019",
+                             "title":  "Capture real external evidence before final QA pass",
+                             "action_type":  "external_evidence_required",
+                             "description":  "A later authorized slice must capture real external runner result and artifact evidence tied to exact branch/head/tree before final gate pass or closeout.",
+                             "required_before":  "final_qa_evidence_gate_pass",
+                             "evidence_refs":  [
+                                                   "contracts/external_runner/external_runner_result.contract.json",
+                                                   "contracts/external_runner/external_artifact_evidence_packet.contract.json"
+                                               ]
+                         }
+                     ],
+    "operator_decisions_required":  [
+                                        {
+                                            "decision_id":  "decision-external-evidence-required",
+                                            "decision_type":  "external_evidence_required",
+                                            "title":  "Real external evidence is required before final QA/evidence gate pass",
+                                            "context":  "The control-room status records no live R12 external runner result and no external artifact evidence for the current branch/head/tree.",
+                                            "options":  [
+                                                            "Defer final QA/evidence pass until real external evidence exists",
+                                                            "Authorize a later bounded external evidence capture slice"
+                                                        ],
+                                            "recommended_option":  "Defer final QA/evidence pass until real external evidence exists",
+                                            "consequence":  "Final QA/evidence gate and R12 closeout remain blocked until real external runner result and artifact evidence are committed.",
+                                            "required_before":  "final_qa_evidence_gate_pass",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "state/control_room/r12_current/control_room_status.json",
+                                                                  "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json"
+                                                              ],
+                                            "owner_role":  "operator"
+                                        },
+                                        {
+                                            "decision_id":  "decision-control-room-review",
+                                            "decision_type":  "approval_required",
+                                            "title":  "Review generated control-room refresh artifacts",
+                                            "context":  "The status model, Markdown view, decision queue, and refresh result are generated for operator review as a bounded static workflow.",
+                                            "options":  [
+                                                            "Accept the bounded control-room refresh evidence",
+                                                            "Request corrections to generated refresh wording"
+                                                        ],
+                                            "recommended_option":  "Accept the bounded control-room refresh evidence",
+                                            "consequence":  "Acceptance records operator-readable refresh evidence only; it does not create productized control-room behavior.",
+                                            "required_before":  "next_slice_authorization",
+                                            "blocking_status":  "non_blocking",
+                                            "evidence_refs":  [
+                                                                  "state/control_room/r12_current/control_room_status.json",
+                                                                  "contracts/control_room/control_room_status.contract.json",
+                                                                  "contracts/control_room/control_room_view.contract.json",
+                                                                  "contracts/control_room/control_room_refresh_result.contract.json"
+                                                              ],
+                                            "owner_role":  "operator"
+                                        },
+                                        {
+                                            "decision_id":  "decision-r12-018-fresh-thread",
+                                            "decision_type":  "next_slice_authorization",
+                                            "title":  "Execute R12-018 only from a separate fresh Codex thread",
+                                            "context":  "R12-017 prepared a bootstrap packet and next prompt, but R12-018 is not done in this thread.",
+                                            "options":  [
+                                                            "Use the generated R12-018 prompt in a new Codex thread",
+                                                            "Keep R12-018 pending"
+                                                        ],
+                                            "recommended_option":  "Use the generated R12-018 prompt in a new Codex thread",
+                                            "consequence":  "R12-018 remains pending until a separate fresh thread verifies repo truth from the committed packet.",
+                                            "required_before":  "starting_R12_018",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "state/control_room/r12_current/control_room_status.json",
+                                                                  "contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json",
+                                                                  "tools/FreshThreadBootstrap.psm1"
+                                                              ],
+                                            "owner_role":  "operator"
+                                        },
+                                        {
+                                            "decision_id":  "decision-no-r13-successor",
+                                            "decision_type":  "blocked_refusal",
+                                            "title":  "No R13 or successor milestone is authorized",
+                                            "context":  "R12 remains active and cannot close until all R12 closeout prerequisites exist.",
+                                            "options":  [
+                                                            "Keep R13 unauthorized",
+                                                            "Require a separate future repo-truth opening prompt before any successor"
+                                                        ],
+                                            "recommended_option":  "Keep R13 unauthorized",
+                                            "consequence":  "Any R13 or successor work remains blocked until explicit future authorization and repo-truth opening evidence exist.",
+                                            "required_before":  "any_successor_milestone_opening",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "state/control_room/r12_current/control_room_status.json",
+                                                                  "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                              ],
+                                            "owner_role":  "operator"
+                                        }
+                                    ],
+    "refresh_verdict":  "blocked",
+    "refusal_reasons":  [
+                            "Current real QA/evidence gate cannot pass without real external runner result and external artifact evidence.",
+                            "R12 closeout remains blocked; this refresh only updates bounded operator control-room posture.",
+                            "R12 closeout is complete."
+                        ],
+    "evidence_refs":  [
+                          "contracts/control_room/control_room_refresh_result.contract.json",
+                          "state/control_room/r12_current/control_room.md",
+                          "state/control_room/r12_current/control_room_status.json",
+                          "state/control_room/r12_current/operator_decision_queue.json",
+                          "state/control_room/r12_current/operator_decision_queue.md",
+                          "tests/test_control_room_refresh.ps1",
+                          "tools/ControlRoomRefresh.psm1",
+                          "tools/refresh_control_room.ps1"
+                      ],
+    "generated_at_utc":  "2026-04-30T10:52:15Z",
+    "non_claims":  [
+                       "no final QA pass for R12 closeout",
+                       "no R12 final-state replay",
+                       "no R12 closeout",
+                       "no R13 opened",
+                       "no productized control-room behavior",
+                       "no full UI app",
+                       "no production runtime",
+                       "no broad autonomy",
+                       "no solved Codex reliability",
+                       "no broad CI/product coverage"
+                   ]
+}

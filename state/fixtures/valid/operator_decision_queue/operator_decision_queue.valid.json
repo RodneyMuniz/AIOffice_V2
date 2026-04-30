@@ -1,14 +1,14 @@
 {
     "contract_version":  "v1",
     "artifact_type":  "operator_decision_queue",
-    "queue_id":  "r12-operator-decision-queue-9f9ff69af9ae48929a3f4c6ed940960f",
+    "queue_id":  "r12-operator-decision-queue-a7b2b00a416b4a838405e5bfc5339e8d",
     "repository":  "AIOffice_V2",
     "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
     "head":  "3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf",
     "tree":  "baaa0b40fd8ae23d1a268af64d8bb65955272384",
     "active_milestone":  "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
     "source_control_room_status_ref":  "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
-    "generated_at_utc":  "2026-04-30T08:59:16Z",
+    "generated_at_utc":  "2026-04-30T10:52:06Z",
     "decisions":  [
                       {
                           "decision_id":  "decision-external-evidence-required",
@@ -32,20 +32,21 @@
                       {
                           "decision_id":  "decision-control-room-review",
                           "decision_type":  "approval_required",
-                          "title":  "Review generated control-room status and Markdown view",
-                          "context":  "The static status model and readable Markdown view are generated for operator review as a bounded foundation.",
+                          "title":  "Review generated control-room refresh artifacts",
+                          "context":  "The status model, Markdown view, decision queue, and refresh result are generated for operator review as a bounded static workflow.",
                           "options":  [
-                                          "Accept the bounded control-room foundation evidence",
-                                          "Request corrections to the generated status/view wording"
+                                          "Accept the bounded control-room refresh evidence",
+                                          "Request corrections to generated refresh wording"
                                       ],
-                          "recommended_option":  "Accept the bounded control-room foundation evidence",
-                          "consequence":  "Acceptance records operator-readable foundation evidence only; it does not create productized control-room behavior.",
+                          "recommended_option":  "Accept the bounded control-room refresh evidence",
+                          "consequence":  "Acceptance records operator-readable refresh evidence only; it does not create productized control-room behavior.",
                           "required_before":  "next_slice_authorization",
                           "blocking_status":  "non_blocking",
                           "evidence_refs":  [
                                                 "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
                                                 "contracts/control_room/control_room_status.contract.json",
-                                                "contracts/control_room/control_room_view.contract.json"
+                                                "contracts/control_room/control_room_view.contract.json",
+                                                "contracts/control_room/control_room_refresh_result.contract.json"
                                             ],
                           "owner_role":  "operator"
                       },
@@ -91,22 +92,24 @@
     "decision_count":  4,
     "blocking_decision_count":  3,
     "recommended_sequence":  [
-                                 "Review the generated control-room status and Markdown view.",
+                                 "Review the generated control-room status, Markdown view, decision queue, and refresh result.",
                                  "Keep final QA/evidence gate blocked until real external runner result and artifact evidence exist.",
-                                 "Authorize only R12-017 through R12-018 in the next prompt if the operator wants to continue.",
+                                 "Use the generated R12-018 prompt only in a separate fresh Codex thread.",
                                  "Keep R13 or any successor milestone unauthorized."
                              ],
     "evidence_refs":  [
                           "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
                           "contracts/control_room/operator_decision_queue.contract.json",
                           "tools/OperatorDecisionQueue.psm1",
-                          "tools/export_operator_decision_queue.ps1"
+                          "tools/export_operator_decision_queue.ps1",
+                          "contracts/control_room/control_room_refresh_result.contract.json"
                       ],
     "non_claims":  [
                        "no automatic operator replacement",
                        "no R13 authorization",
                        "no final acceptance",
                        "no R12 closeout",
-                       "no productized workflow UI"
+                       "no productized workflow UI",
+                       "R12-018 not done"
                    ]
 }

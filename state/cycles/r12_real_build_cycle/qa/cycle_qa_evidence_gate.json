@@ -1,0 +1,129 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "cycle_qa_evidence_gate",
+    "gate_id":  "r12-cycle-qa-evidence-gate-ddb7f642b76542bc9600be1ea2e81632",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "tree":  "3f873b3f4e46bc01a2b3299ce5adabbdda99fdd0",
+    "gate_scope":  "r12_017_real_control_room_refresh_cycle",
+    "consumed_refs":  {
+                          "dev_result_ref":  "state\\cycles\\r12_real_build_cycle\\dev\\dev_execution_result.json",
+                          "actionable_qa_report_ref":  "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_report.json",
+                          "actionable_qa_fix_queue_ref":  "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_fix_queue.json",
+                          "external_runner_result_ref":  "",
+                          "external_artifact_evidence_ref":  "",
+                          "residue_preflight_ref":  "state\\cycles\\r12_real_build_cycle\\residue_guard\\preflight_scan.json",
+                          "remote_head_phase_detection_ref":  "",
+                          "operating_loop_ref":  "",
+                          "value_scorecard_ref":  ""
+                      },
+    "consumed_ref_validation":  [
+                                    {
+                                        "ref_name":  "dev_result_ref",
+                                        "ref":  "state\\cycles\\r12_real_build_cycle\\dev\\dev_execution_result.json",
+                                        "present":  true,
+                                        "contract_valid":  true,
+                                        "verdict":  "passed",
+                                        "details":  "Reference exists and validation passed."
+                                    },
+                                    {
+                                        "ref_name":  "actionable_qa_report_ref",
+                                        "ref":  "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_report.json",
+                                        "present":  true,
+                                        "contract_valid":  true,
+                                        "verdict":  "passed",
+                                        "details":  "Reference exists and validation passed."
+                                    },
+                                    {
+                                        "ref_name":  "actionable_qa_fix_queue_ref",
+                                        "ref":  "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_fix_queue.json",
+                                        "present":  true,
+                                        "contract_valid":  true,
+                                        "verdict":  "passed",
+                                        "details":  "Reference exists and validation passed."
+                                    },
+                                    {
+                                        "ref_name":  "external_runner_result_ref",
+                                        "ref":  "",
+                                        "present":  false,
+                                        "contract_valid":  false,
+                                        "verdict":  "missing",
+                                        "details":  "Reference was not supplied."
+                                    },
+                                    {
+                                        "ref_name":  "external_artifact_evidence_ref",
+                                        "ref":  "",
+                                        "present":  false,
+                                        "contract_valid":  false,
+                                        "verdict":  "missing",
+                                        "details":  "Reference was not supplied."
+                                    },
+                                    {
+                                        "ref_name":  "residue_preflight_ref",
+                                        "ref":  "state\\cycles\\r12_real_build_cycle\\residue_guard\\preflight_scan.json",
+                                        "present":  true,
+                                        "contract_valid":  true,
+                                        "verdict":  "passed",
+                                        "details":  "Reference exists and validation passed."
+                                    },
+                                    {
+                                        "ref_name":  "remote_head_phase_detection_ref",
+                                        "ref":  "",
+                                        "present":  false,
+                                        "contract_valid":  false,
+                                        "verdict":  "missing",
+                                        "details":  "Reference was not supplied."
+                                    },
+                                    {
+                                        "ref_name":  "operating_loop_ref",
+                                        "ref":  "",
+                                        "present":  false,
+                                        "contract_valid":  false,
+                                        "verdict":  "missing",
+                                        "details":  "Reference was not supplied."
+                                    },
+                                    {
+                                        "ref_name":  "value_scorecard_ref",
+                                        "ref":  "",
+                                        "present":  false,
+                                        "contract_valid":  false,
+                                        "verdict":  "missing",
+                                        "details":  "Reference was not supplied."
+                                    }
+                                ],
+    "actionable_qa_verdict":  "passed",
+    "external_evidence_verdict":  "blocked",
+    "residue_preflight_verdict":  "passed",
+    "remote_head_verdict":  "missing",
+    "blocking_issue_count":  0,
+    "unresolved_blocking_issues":  [
+
+                                   ],
+    "gate_verdict":  "blocked",
+    "refusal_reasons":  [
+                            "missing required evidence ref \u0027external_runner_result_ref\u0027.",
+                            "missing required evidence ref \u0027external_artifact_evidence_ref\u0027.",
+                            "missing required evidence ref \u0027remote_head_phase_detection_ref\u0027.",
+                            "missing required evidence ref \u0027operating_loop_ref\u0027.",
+                            "missing required evidence ref \u0027value_scorecard_ref\u0027."
+                        ],
+    "evidence_refs":  [
+                          "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+                          "state\\cycles\\r12_real_build_cycle\\dev\\dev_execution_result.json",
+                          "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_fix_queue.json",
+                          "state\\cycles\\r12_real_build_cycle\\qa\\actionable_qa_report.json",
+                          "state\\cycles\\r12_real_build_cycle\\residue_guard\\preflight_scan.json",
+                          "tools/ActionableQaEvidenceGate.psm1"
+                      ],
+    "created_at_utc":  "2026-04-30T10:57:25Z",
+    "non_claims":  [
+                       "no real production QA",
+                       "no final QA pass for R12 closeout",
+                       "no R12 closeout",
+                       "no final-state replay",
+                       "no productized control-room",
+                       "no broad CI/product coverage",
+                       "no R12 value-gate completion by gate fixture alone"
+                   ]
+}

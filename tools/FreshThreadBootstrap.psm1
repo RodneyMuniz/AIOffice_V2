@@ -426,9 +426,9 @@ function New-FreshThreadBootstrapPacket {
         [switch]$Overwrite
     )
 
-    $branchValue = if ([string]::IsNullOrWhiteSpace($ActiveBranch)) { (Invoke-GitLines -Arguments @("branch", "--show-current"))[0].Trim() } else { $ActiveBranch }
-    $headValue = if ([string]::IsNullOrWhiteSpace($LocalHead)) { (Invoke-GitLines -Arguments @("rev-parse", "HEAD"))[0].Trim() } else { $LocalHead }
-    $treeValue = if ([string]::IsNullOrWhiteSpace($LocalTree)) { (Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}"))[0].Trim() } else { $LocalTree }
+    $branchValue = if ([string]::IsNullOrWhiteSpace($ActiveBranch)) { (@(Invoke-GitLines -Arguments @("branch", "--show-current")))[0].Trim() } else { $ActiveBranch }
+    $headValue = if ([string]::IsNullOrWhiteSpace($LocalHead)) { (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim() } else { $LocalHead }
+    $treeValue = if ([string]::IsNullOrWhiteSpace($LocalTree)) { (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim() } else { $LocalTree }
     $remoteHeadValue = $RemoteHead
     if ([string]::IsNullOrWhiteSpace($remoteHeadValue)) {
         $remoteLine = @(Invoke-GitLines -Arguments @("ls-remote", "origin", "refs/heads/release/r12-external-api-runner-actionable-qa-control-room-pilot"))

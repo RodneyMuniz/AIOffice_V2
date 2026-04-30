@@ -440,9 +440,9 @@ function Invoke-RemoteHeadPhaseDetection {
         $inputObject = Read-JsonDocument -Path (Resolve-PathValue -PathValue $DetectionPath) -Label "Remote-head phase detection input"
     }
     else {
-        $activeBranch = (Invoke-GitLines -Arguments @("branch", "--show-current"))[0].Trim()
-        $localHead = (Invoke-GitLines -Arguments @("rev-parse", "HEAD"))[0].Trim()
-        $localTree = (Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}"))[0].Trim()
+    $activeBranch = (@(Invoke-GitLines -Arguments @("branch", "--show-current")))[0].Trim()
+    $localHead = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim()
+    $localTree = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim()
         $remoteLine = @(Invoke-GitLines -Arguments @("ls-remote", "origin", $RemoteRef))
         $remoteHead = ""
         if ($remoteLine.Count -gt 0 -and $remoteLine[0] -match '^([0-9a-f]{40})\s+') {

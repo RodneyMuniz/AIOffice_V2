@@ -44,6 +44,7 @@
 - QA evidence gate status: `blocked` - Current real QA evidence gate cannot pass without real external runner result and external artifact evidence.
 - QA evidence gate passable_current_state: `False`
 
+
 ## Current Evidence Refs
 - `contracts/actionable_qa/cycle_qa_evidence_gate.contract.json`
 - `contracts/control_room/control_room_status.contract.json`
@@ -83,3 +84,6 @@
 - no full R12 value-gate delivery
 - no final QA pass for R12 closeout
 - no R13 authorization
+- no broad autonomy
+- no solved Codex reliability
+- no broad CI/product coverage

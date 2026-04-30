@@ -16,8 +16,12 @@ $script:RequiredStatusNonClaims = @(
     "no production runtime",
     "no R12 closeout",
     "no final-state replay",
-    "no real build/change gate",
-    "no full R12 value-gate delivery"
+    "no full R12 value-gate delivery",
+    "no final QA pass for R12 closeout",
+    "no R13 authorization",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no broad CI/product coverage"
 )
 
 function Get-RepositoryRoot {
@@ -85,7 +89,10 @@ function Write-JsonDocument {
         New-Item -ItemType Directory -Path $parentPath -Force | Out-Null
     }
 
-    $Document | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $Path -Encoding UTF8
+    $json = ($Document | ConvertTo-Json -Depth 100)
+    $content = ($json -replace "`r`n", "`n") + "`n"
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $content, $utf8NoBom)
 }
 
 function Test-HasProperty {
@@ -401,13 +408,14 @@ function Assert-R12TaskLists {
         throw "$Context completed_tasks must not be empty."
     }
 
-    if ($ActiveScope.input_completed_through -ne "R12-013") {
-        throw "$Context active_scope.input_completed_through must be R12-013."
+    $currentNumber = Get-R12TaskNumber -TaskId ([string]$ActiveScope.current_completed_through) -Context "$Context active_scope.current_completed_through"
+    if ($currentNumber -lt 14 -or $currentNumber -gt 17) {
+        throw "$Context must show R12 active at least through R12-014 and no later than R12-017 in this slice."
     }
 
-    $currentNumber = Get-R12TaskNumber -TaskId ([string]$ActiveScope.current_completed_through) -Context "$Context active_scope.current_completed_through"
-    if ($currentNumber -lt 14 -or $currentNumber -gt 16) {
-        throw "$Context must show R12 active at least through R12-014 and no later than R12-016 in this slice."
+    $expectedInputCompletedThrough = if ($currentNumber -ge 17) { "R12-016" } else { "R12-013" }
+    if ($ActiveScope.input_completed_through -ne $expectedInputCompletedThrough) {
+        throw "$Context active_scope.input_completed_through must be $expectedInputCompletedThrough."
     }
 
     for ($taskNumber = 1; $taskNumber -le $currentNumber; $taskNumber += 1) {
@@ -506,11 +514,29 @@ function Test-ControlRoomStatusObject {
         Get-RequiredProperty -Object $Status.$statusField -Name "status" -Context "$SourceLabel $statusField" | Out-Null
         Get-RequiredProperty -Object $Status.$statusField -Name "summary" -Context "$SourceLabel $statusField" | Out-Null
     }
-    if ($Status.real_build_change_status.status -ne "not_started") {
-        throw "$SourceLabel cannot claim real build/change started in R12-014 through R12-016."
+    $statusCurrentNumber = Get-R12TaskNumber -TaskId ([string]$activeScope.current_completed_through) -Context "$SourceLabel active_scope.current_completed_through"
+    if ($statusCurrentNumber -le 16) {
+        if ($Status.real_build_change_status.status -ne "not_started") {
+            throw "$SourceLabel cannot claim real build/change started in R12-014 through R12-016."
+        }
+        if ((Test-HasProperty -Object $Status.real_build_change_status -Name "started") -and [bool]$Status.real_build_change_status.started) {
+            throw "$SourceLabel cannot claim real build/change started."
+        }
     }
-    if ((Test-HasProperty -Object $Status.real_build_change_status -Name "started") -and [bool]$Status.real_build_change_status.started) {
-        throw "$SourceLabel cannot claim real build/change started."
+    else {
+        if ($Status.real_build_change_status.status -ne "partially_evidenced") {
+            throw "$SourceLabel R12-017 must record bounded real build/change evidence as partially_evidenced."
+        }
+        if (-not (Test-HasProperty -Object $Status.real_build_change_status -Name "started") -or -not [bool]$Status.real_build_change_status.started) {
+            throw "$SourceLabel R12-017 real_build_change_status.started must be true."
+        }
+        $realBuildEvidenceRefs = Assert-StringArray -Value $Status.real_build_change_status.evidence_refs -Context "$SourceLabel real_build_change_status.evidence_refs"
+        foreach ($evidenceRef in $realBuildEvidenceRefs) {
+            Assert-ExistingEvidenceRef -Ref $evidenceRef -Context "$SourceLabel real_build_change_status.evidence_refs"
+        }
+        if ($valueGateStatus.real_build_change -ne "partially_evidenced") {
+            throw "$SourceLabel R12-017 value_gate_status.real_build_change must be partially_evidenced."
+        }
     }
 
     if (-not (Test-HasProperty -Object $Status.qa_evidence_gate_status -Name "passable_current_state")) {
@@ -677,7 +703,7 @@ function New-ControlRoomStatus {
     [CmdletBinding()]
     param(
         [string]$OutputPath = "",
-        [string]$CompletedThroughTask = "R12-016",
+        [string]$CompletedThroughTask = "R12-017",
         [switch]$Overwrite
     )
 
@@ -685,8 +711,8 @@ function New-ControlRoomStatus {
     $head = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD")))[0].Trim()
     $tree = (@(Invoke-GitLines -Arguments @("rev-parse", "HEAD^{tree}")))[0].Trim()
     $completedThroughNumber = Get-R12TaskNumber -TaskId $CompletedThroughTask -Context "CompletedThroughTask"
-    if ($completedThroughNumber -lt 14 -or $completedThroughNumber -gt 16) {
-        throw "CompletedThroughTask must be R12-014, R12-015, or R12-016 for this slice."
+    if ($completedThroughNumber -lt 14 -or $completedThroughNumber -gt 17) {
+        throw "CompletedThroughTask must be R12-014, R12-015, R12-016, or R12-017 for this slice."
     }
 
     $completedTasks = New-R12TaskArray -Start 1 -End $completedThroughNumber
@@ -701,10 +727,43 @@ function New-ControlRoomStatus {
         "contracts/control_room/operator_decision_queue.contract.json",
         "tools/OperatorDecisionQueue.psm1",
         "tools/export_operator_decision_queue.ps1",
+        "contracts/control_room/control_room_refresh_result.contract.json",
+        "tools/ControlRoomRefresh.psm1",
+        "tools/refresh_control_room.ps1",
+        "tests/test_control_room_refresh.ps1",
         "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
         "tools/ActionableQaEvidenceGate.psm1",
         "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
     )
+
+    $inputCompletedThrough = if ($completedThroughNumber -ge 17) { "R12-016" } else { "R12-013" }
+    $plannedSummary = if ($CompletedThroughTask -eq "R12-017") {
+        "R12-018 through R12-021 remain planned only."
+    }
+    else {
+        "R12-017 through R12-021 remain planned only when $CompletedThroughTask is R12-016."
+    }
+    $currentPhase = if ($CompletedThroughTask -eq "R12-017") { "bounded_control_room_refresh_cycle" } else { "operator_control_room_foundation_slice" }
+    $realBuildGateStatus = if ($CompletedThroughTask -eq "R12-017") { "partially_evidenced" } else { "not_started" }
+    $realBuildStatus = if ($CompletedThroughTask -eq "R12-017") { "partially_evidenced" } else { "not_started" }
+    $realBuildStarted = $CompletedThroughTask -eq "R12-017"
+    $realBuildSummary = if ($CompletedThroughTask -eq "R12-017") {
+        "R12-017 added and ran one bounded one-command operator control-room refresh workflow that regenerates status, Markdown view, and decision queue artifacts from explicit repo identity."
+    }
+    else {
+        "R12-017 real useful build/change cycle has not started in this prompt."
+    }
+    $realBuildEvidenceRefs = if ($CompletedThroughTask -eq "R12-017") {
+        @(
+            "contracts/control_room/control_room_refresh_result.contract.json",
+            "tools/ControlRoomRefresh.psm1",
+            "tools/refresh_control_room.ps1",
+            "tests/test_control_room_refresh.ps1"
+        )
+    }
+    else {
+        @()
+    }
 
     $status = [pscustomobject][ordered]@{
         contract_version = "v1"
@@ -716,19 +775,19 @@ function New-ControlRoomStatus {
         tree = $tree
         active_milestone = $script:R12Milestone
         active_scope = [pscustomobject][ordered]@{
-            input_completed_through = "R12-013"
+            input_completed_through = $inputCompletedThrough
             current_completed_through = $CompletedThroughTask
             planned_remaining = @($plannedTasks)
-            scope_summary = "R12 is active through $CompletedThroughTask only; R12-017 through R12-021 remain planned only when $CompletedThroughTask is R12-016."
+            scope_summary = "R12 is active through $CompletedThroughTask only; $plannedSummary"
         }
         completed_tasks = @($completedTasks)
         planned_tasks = @($plannedTasks)
-        current_phase = "operator_control_room_foundation_slice"
+        current_phase = $currentPhase
         value_gate_status = [pscustomobject][ordered]@{
             external_api_runner = "foundation_present"
             actionable_qa = "foundation_present"
             operator_control_room = "foundation_present"
-            real_build_change = "not_started"
+            real_build_change = $realBuildGateStatus
         }
         external_runner_status = [pscustomobject][ordered]@{
             status = "blocked"
@@ -757,16 +816,17 @@ function New-ControlRoomStatus {
         }
         control_room_status = [pscustomobject][ordered]@{
             status = "foundation_present"
-            summary = "Bounded JSON status, Markdown view, and operator decision queue foundations are generated for operator review; this is not productized control-room behavior."
+            summary = "Bounded JSON status, Markdown view, operator decision queue, and one-command refresh workflow are generated for operator review; this is not productized control-room behavior."
             status_model_ref = "state/control_room/r12_current/control_room_status.json"
             markdown_view_ref = "state/control_room/r12_current/control_room.md"
             decision_queue_ref = "state/control_room/r12_current/operator_decision_queue.json"
+            refresh_result_ref = "state/control_room/r12_current/control_room_refresh_result.json"
         }
         real_build_change_status = [pscustomobject][ordered]@{
-            status = "not_started"
-            summary = "R12-017 real useful build/change cycle has not started in this prompt."
-            started = $false
-            evidence_refs = @()
+            status = $realBuildStatus
+            summary = $realBuildSummary
+            started = $realBuildStarted
+            evidence_refs = @($realBuildEvidenceRefs)
         }
         qa_evidence_gate_status = [pscustomobject][ordered]@{
             status = "blocked"
@@ -791,15 +851,6 @@ function New-ControlRoomStatus {
                 )
                 recommended_next_action = "Run the authorized external runner/replay slice later and import real artifact evidence before attempting final QA/evidence pass."
                 blocking_status = "blocking"
-            },
-            [pscustomobject][ordered]@{
-                id = "blocker-r12-real-build-change-not-started"
-                severity = "medium"
-                title = "Real useful build/change gate has not started"
-                explanation = "R12-017 is outside this prompt and remains planned only, so the real build/change value gate is not delivered."
-                evidence_refs = @("governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md")
-                recommended_next_action = "Require an explicit next prompt for R12-017 through R12-018 before starting a real useful build/change cycle."
-                blocking_status = "blocking"
             }
         )
         attention_items = @(
@@ -810,6 +861,15 @@ function New-ControlRoomStatus {
                 explanation = "The generated JSON and Markdown make the current posture operator-readable, but they do not constitute a full UI app or productized workflow UI."
                 evidence_refs = @("contracts/control_room/control_room_status.contract.json")
                 recommended_next_action = "Review the generated status/view/queue as static evidence only."
+                blocking_status = "advisory"
+            },
+            [pscustomobject][ordered]@{
+                id = "attention-r12-018-pending"
+                severity = "high"
+                title = "R12-018 remains pending for a separate fresh Codex thread"
+                explanation = "R12-018 is not done and must be executed separately from committed repo truth using the generated handoff packet when it exists."
+                evidence_refs = @("contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json", "tools/FreshThreadBootstrap.psm1")
+                recommended_next_action = "Use the generated R12-018 prompt in a new Codex thread only."
                 blocking_status = "advisory"
             },
             [pscustomobject][ordered]@{
@@ -824,13 +884,13 @@ function New-ControlRoomStatus {
         )
         next_actions = @(
             [pscustomobject][ordered]@{
-                id = "next-r12-017-018"
-                task_id = "R12-017"
-                title = "Authorize R12-017 through R12-018 only"
-                action_type = "next_slice_authorization"
-                description = "Next prompt should run one real useful build/change cycle and prove fresh-thread restart, without opening R12-019 or later."
-                required_before = "starting_real_build_change_cycle"
-                evidence_refs = @("governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md")
+                id = "next-r12-018-fresh-thread"
+                task_id = "R12-018"
+                title = "Run R12-018 fresh-thread restart proof from committed handoff packet"
+                action_type = "fresh_thread_handoff"
+                description = "Use the generated bootstrap packet and next prompt in a separate fresh Codex thread; do not start R12-019 or later in that thread."
+                required_before = "starting_R12_018"
+                evidence_refs = @("contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json", "tools/FreshThreadBootstrap.psm1")
             },
             [pscustomobject][ordered]@{
                 id = "next-real-external-evidence"
@@ -863,12 +923,12 @@ function New-ControlRoomStatus {
                 evidence_refs = @("contracts/control_room/control_room_status.contract.json")
             },
             [pscustomobject][ordered]@{
-                id = "decision-r12-017-018-authorization"
-                title = "Explicitly authorize only R12-017 through R12-018 next"
+                id = "decision-r12-018-fresh-thread"
+                title = "Execute R12-018 only from a separate fresh Codex thread"
                 decision_type = "next_slice_authorization"
-                required_before = "starting_R12_017"
+                required_before = "starting_R12_018"
                 blocking_status = "blocking"
-                evidence_refs = @("governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md")
+                evidence_refs = @("contracts/bootstrap/fresh_thread_bootstrap_packet.contract.json", "tools/FreshThreadBootstrap.psm1")
             },
             [pscustomobject][ordered]@{
                 id = "decision-no-r13-successor"
@@ -887,10 +947,12 @@ function New-ControlRoomStatus {
             "no production runtime",
             "no R12 closeout",
             "no final-state replay",
-            "no real build/change gate",
             "no full R12 value-gate delivery",
             "no final QA pass for R12 closeout",
-            "no R13 authorization"
+            "no R13 authorization",
+            "no broad autonomy",
+            "no solved Codex reliability",
+            "no broad CI/product coverage"
         )
     }
 

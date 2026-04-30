@@ -59,8 +59,8 @@ try {
     }
 
     $currentStatus = & $testStatus -StatusPath $currentStatusPath
-    if ($currentStatus.CurrentCompletedThrough -ne "R12-016" -or $currentStatus.OperatorControlRoomGate -ne "foundation_present") {
-        $failures += "FAIL valid: current generated status did not validate as R12 active through R12-016 with operator control-room foundation present."
+    if ($currentStatus.CurrentCompletedThrough -ne "R12-017" -or $currentStatus.OperatorControlRoomGate -ne "foundation_present" -or $currentStatus.RealBuildChangeGate -ne "partially_evidenced") {
+        $failures += "FAIL valid: current generated status did not validate as R12 active through R12-017 with bounded refresh evidence present."
     }
     else {
         Write-Output ("PASS valid current generated control-room status: {0}" -f $currentStatus.StatusId)
