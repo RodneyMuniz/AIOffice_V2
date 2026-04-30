@@ -1,0 +1,143 @@
+name: R12 External Replay
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: R12 branch to verify.
+        required: true
+        type: string
+      expected_head:
+        description: Exact expected commit SHA.
+        required: true
+        type: string
+      expected_tree:
+        description: Exact expected tree SHA.
+        required: true
+        type: string
+      replay_scope:
+        description: Bounded replay scope label.
+        required: true
+        default: foundation
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  r12-external-replay:
+    name: R12 External Replay
+    runs-on: ubuntu-latest
+    env:
+      R12_ARTIFACT_NAME: r12-external-replay-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Check out exact requested head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.expected_head }}
+          fetch-depth: 0
+
+      - name: Configure Git checkout behavior
+        shell: pwsh
+        run: |
+          git config --global core.autocrlf false
+
+      - name: Capture R12 replay command logs
+        id: replay
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Continue"
+          $outputRoot = Join-Path $env:RUNNER_TEMP "r12-external-replay"
+          $commandRoot = Join-Path $outputRoot "command_logs"
+          New-Item -ItemType Directory -Path $commandRoot -Force | Out-Null
+
+          $cleanBeforeRef = Join-Path $commandRoot "clean_status_before.log"
+          git status --short --untracked-files=all | Set-Content -LiteralPath $cleanBeforeRef -Encoding UTF8
+
+          $commands = @(
+            @{ id = "test_value_scorecard"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_value_scorecard.ps1" },
+            @{ id = "test_operating_loop"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_operating_loop.ps1" },
+            @{ id = "test_remote_head_phase_detector"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_remote_head_phase_detector.ps1" },
+            @{ id = "test_fresh_thread_bootstrap"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_fresh_thread_bootstrap.ps1" },
+            @{ id = "test_transition_residue_preflight"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_transition_residue_preflight.ps1" },
+            @{ id = "test_external_runner_contracts"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_contracts.ps1" },
+            @{ id = "test_external_runner_github_actions"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_github_actions.ps1" },
+            @{ id = "test_r12_external_replay_bundle"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_r12_external_replay_bundle.ps1" },
+            @{ id = "test_status_doc_gate"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_status_doc_gate.ps1" },
+            @{ id = "validate_status_doc_gate"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1" }
+          )
+
+          $commandResults = @()
+          foreach ($entry in $commands) {
+            $stdoutRef = "command_logs/$($entry.id).stdout.log"
+            $stderrRef = "command_logs/$($entry.id).stderr.log"
+            $exitCodeRef = "command_logs/$($entry.id).exit_code.txt"
+            $stdoutPath = Join-Path $outputRoot $stdoutRef
+            $stderrPath = Join-Path $outputRoot $stderrRef
+            $exitCodePath = Join-Path $outputRoot $exitCodeRef
+
+            $result = Invoke-Expression "$($entry.command) 2>&1"
+            $exitCode = $LASTEXITCODE
+            if ($null -eq $exitCode) {
+              $exitCode = 0
+            }
+            $result | Set-Content -LiteralPath $stdoutPath -Encoding UTF8
+            "" | Set-Content -LiteralPath $stderrPath -Encoding UTF8
+            [string]$exitCode | Set-Content -LiteralPath $exitCodePath -Encoding UTF8
+
+            $commandResults += [pscustomobject]@{
+              command_id = $entry.id
+              command = $entry.command
+              exit_code = [int]$exitCode
+              verdict = $(if ($exitCode -eq 0) { "passed" } else { "failed" })
+              stdout_ref = $stdoutRef
+              stderr_ref = $stderrRef
+              exit_code_ref = $exitCodeRef
+            }
+          }
+
+          $cleanAfterRef = Join-Path $commandRoot "clean_status_after.log"
+          git status --short --untracked-files=all | Set-Content -LiteralPath $cleanAfterRef -Encoding UTF8
+          $commandResults | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $outputRoot "command_results.json") -Encoding UTF8
+          "output_root=$outputRoot" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Generate and validate R12 replay bundle
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $outputRoot = "${{ steps.replay.outputs.output_root }}"
+          $observedHead = (git rev-parse HEAD).Trim()
+          $observedTree = (git rev-parse 'HEAD^{tree}').Trim()
+          $runUrl = "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          $bundlePath = Join-Path $outputRoot "r12_external_replay_bundle.json"
+
+          pwsh -NoProfile -ExecutionPolicy Bypass -File tools/new_r12_external_replay_bundle.ps1 `
+            -Repository "AIOffice_V2" `
+            -Branch "${{ inputs.branch }}" `
+            -ExpectedHead "${{ inputs.expected_head }}" `
+            -ExpectedTree "${{ inputs.expected_tree }}" `
+            -ObservedHead $observedHead `
+            -ObservedTree $observedTree `
+            -WorkflowName "R12 External Replay" `
+            -RunId "${{ github.run_id }}" `
+            -RunUrl $runUrl `
+            -RunnerOs "${{ runner.os }}" `
+            -RunnerNameOrKind "${{ runner.name }}" `
+            -ReplayScope "${{ inputs.replay_scope }}" `
+            -CleanStatusBefore "clean_status_before.log" `
+            -CleanStatusAfter "clean_status_after.log" `
+            -CommandResultsPath (Join-Path $outputRoot "command_results.json") `
+            -ArtifactName $env:R12_ARTIFACT_NAME `
+            -ArtifactFilesJson '["r12_external_replay_bundle.json","command_results.json"]' `
+            -OutputPath $bundlePath
+
+          pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r12_external_replay_bundle.ps1 -BundlePath $bundlePath
+
+      - name: Upload R12 external replay artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.R12_ARTIFACT_NAME }}
+          path: ${{ runner.temp }}/r12-external-replay
+          if-no-files-found: error
