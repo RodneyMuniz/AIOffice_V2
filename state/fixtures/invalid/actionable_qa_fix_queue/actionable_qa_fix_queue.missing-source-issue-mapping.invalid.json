@@ -1,0 +1,57 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_fix_queue",
+  "queue_id": "r12-012-actionable-qa-fix-queue-missing-source-map-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "source_actionable_qa_report_ref": "state/fixtures/valid/actionable_qa/actionable_qa_report.warning.valid.json",
+  "generated_at_utc": "2026-04-30T00:42:00Z",
+  "issue_count": 1,
+  "blocking_issue_count": 0,
+  "issues_by_severity": {
+    "critical": 0,
+    "error": 0,
+    "warning": 1,
+    "info": 0
+  },
+  "issues_by_component": {
+    "governance_markdown_refs": 1
+  },
+  "fix_items": [
+    {
+      "fix_id": "fix-unknown",
+      "source_issue_id": "unknown-source-issue",
+      "severity": "warning",
+      "component": "governance_markdown_refs",
+      "file_path": "README.md",
+      "line": 19,
+      "failed_rule": "markdown_reference_path_exists",
+      "recommended_fix": "Update the stale markdown reference or add the referenced artifact.",
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1",
+      "blocking_status": "advisory",
+      "owner_role": "repository_maintainer",
+      "suggested_order": 1,
+      "evidence": {
+        "details": "Invalid source mapping."
+      }
+    }
+  ],
+  "reproduction_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+  ],
+  "recommended_next_action": "review_non_blocking_issues_and_rerun_actionable_qa",
+  "evidence_refs": [
+    "state/fixtures/valid/actionable_qa/actionable_qa_report.warning.valid.json",
+    "contracts/actionable_qa/actionable_qa_fix_queue.contract.json",
+    "tools/ActionableQaFixQueue.psm1"
+  ],
+  "non_claims": [
+    "recommendations are bounded/static",
+    "no automatic repair claim",
+    "no production QA",
+    "no R12 closeout",
+    "no full value-gate delivery by static recommendations"
+  ]
+}

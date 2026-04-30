@@ -1,0 +1,94 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_report",
+  "report_id": "r12-011-actionable-qa-psscriptanalyzer-unavailable-valid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "qa_scope": {
+    "paths": [
+      "contracts/actionable_qa",
+      "tools/ActionableQa.psm1"
+    ],
+    "description": "Validator fixture showing missing PSScriptAnalyzer recorded explicitly in non-strict mode."
+  },
+  "qa_mode": "diagnostic_non_strict",
+  "dependency_status": {
+    "psscriptanalyzer": {
+      "name": "PSScriptAnalyzer",
+      "available": false,
+      "status": "unavailable",
+      "strict_required": false,
+      "checked_at_utc": "2026-04-30T00:31:00Z",
+      "details": "PSScriptAnalyzer module was not installed in this fixture environment."
+    }
+  },
+  "commands_run": [
+    {
+      "command_id": "powershell-parse",
+      "command": "PowerShell Parser.ParseFile over scoped .ps1/.psm1 files",
+      "exit_code": 0,
+      "verdict": "passed",
+      "started_at_utc": "2026-04-30T00:31:01Z",
+      "completed_at_utc": "2026-04-30T00:31:02Z"
+    },
+    {
+      "command_id": "psscriptanalyzer",
+      "command": "Get-Module -ListAvailable -Name PSScriptAnalyzer",
+      "exit_code": 0,
+      "verdict": "not_run",
+      "started_at_utc": "2026-04-30T00:31:03Z",
+      "completed_at_utc": "2026-04-30T00:31:04Z"
+    }
+  ],
+  "checks_run": [
+    {
+      "check_id": "powershell-parse",
+      "check_type": "powershell_syntax_parse",
+      "scope": "tools/ActionableQa.psm1",
+      "verdict": "passed",
+      "issue_count": 0,
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+    },
+    {
+      "check_id": "psscriptanalyzer",
+      "check_type": "psscriptanalyzer",
+      "scope": "tools/ActionableQa.psm1",
+      "verdict": "skipped",
+      "issue_count": 0,
+      "reproduction_command": "Get-Module -ListAvailable -Name PSScriptAnalyzer"
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "total_issue_count": 0,
+    "blocking_issue_count": 0,
+    "critical_count": 0,
+    "error_count": 0,
+    "warning_count": 0,
+    "info_count": 0,
+    "command_count": 2,
+    "check_count": 2
+  },
+  "aggregate_verdict": "passed",
+  "reproduction_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_actionable_qa.ps1"
+  ],
+  "evidence_refs": [
+    "contracts/actionable_qa/actionable_qa_report.contract.json",
+    "contracts/actionable_qa/actionable_qa_issue.contract.json",
+    "tools/ActionableQa.psm1"
+  ],
+  "created_at_utc": "2026-04-30T00:31:05Z",
+  "non_claims": [
+    "no production QA",
+    "no real production QA",
+    "no security audit",
+    "no full test coverage",
+    "no external evidence gate pass",
+    "no R12 closeout",
+    "no R12 value-gate delivery by this task alone"
+  ]
+}

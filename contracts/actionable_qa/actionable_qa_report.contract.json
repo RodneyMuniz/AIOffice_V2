@@ -1,0 +1,119 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_report_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-011",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "report_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "qa_scope",
+    "qa_mode",
+    "dependency_status",
+    "commands_run",
+    "checks_run",
+    "issues",
+    "summary",
+    "aggregate_verdict",
+    "reproduction_commands",
+    "evidence_refs",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "qa_scope_required_fields": [
+    "paths",
+    "description"
+  ],
+  "dependency_status_required_fields": [
+    "psscriptanalyzer"
+  ],
+  "psscriptanalyzer_required_fields": [
+    "name",
+    "available",
+    "status",
+    "strict_required",
+    "checked_at_utc",
+    "details"
+  ],
+  "command_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "check_required_fields": [
+    "check_id",
+    "check_type",
+    "scope",
+    "verdict",
+    "issue_count",
+    "reproduction_command"
+  ],
+  "summary_required_fields": [
+    "total_issue_count",
+    "blocking_issue_count",
+    "critical_count",
+    "error_count",
+    "warning_count",
+    "info_count",
+    "command_count",
+    "check_count"
+  ],
+  "allowed_qa_modes": [
+    "diagnostic_non_strict",
+    "strict",
+    "fixture"
+  ],
+  "allowed_dependency_statuses": [
+    "available",
+    "unavailable",
+    "skipped"
+  ],
+  "allowed_check_verdicts": [
+    "passed",
+    "warning",
+    "failed",
+    "blocked",
+    "skipped"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked",
+    "not_run"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "warning",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "no production QA",
+    "no real production QA",
+    "no security audit",
+    "no full test coverage",
+    "no external evidence gate pass",
+    "no R12 closeout",
+    "no R12 value-gate delivery by this task alone"
+  ],
+  "rules": [
+    "report_must_include_branch_head_tree",
+    "report_must_include_dependency_status",
+    "report_must_record_commands_and_checks_actually_run",
+    "report_must_include_reproduction_commands",
+    "each_issue_must_include_file_path_or_not_applicable_reason",
+    "blocking_issues_cannot_produce_passed_aggregate",
+    "evidence_refs_must_exist",
+    "missing_non_claims_fail_validation",
+    "dependency_absence_cannot_be_silently_ignored",
+    "report_cannot_claim_production_qa_or_real_production_qa"
+  ]
+}

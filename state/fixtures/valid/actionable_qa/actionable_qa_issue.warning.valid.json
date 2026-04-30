@@ -1,0 +1,16 @@
+{
+  "id": "aqa-warning-md-ref-001",
+  "severity": "warning",
+  "component": "governance_markdown_refs",
+  "file_path": "README.md",
+  "line": 19,
+  "failed_rule": "markdown_reference_path_exists",
+  "evidence": {
+    "missing_ref": "state/example/missing.json",
+    "details": "Validator fixture showing an actionable warning shape."
+  },
+  "recommended_fix": "Update the stale markdown reference or add the referenced artifact.",
+  "blocking_status": "advisory",
+  "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1",
+  "source_check": "markdown_reference_path_exists"
+}

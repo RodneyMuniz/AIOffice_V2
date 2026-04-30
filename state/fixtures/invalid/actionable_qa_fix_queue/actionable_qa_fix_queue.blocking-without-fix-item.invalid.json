@@ -1,0 +1,39 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_fix_queue",
+  "queue_id": "r12-012-actionable-qa-fix-queue-blocking-without-fix-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "source_actionable_qa_report_ref": "state/fixtures/valid/actionable_qa/actionable_qa_report.blocking.valid.json",
+  "generated_at_utc": "2026-04-30T00:43:00Z",
+  "issue_count": 1,
+  "blocking_issue_count": 1,
+  "issues_by_severity": {
+    "critical": 0,
+    "error": 1,
+    "warning": 0,
+    "info": 0
+  },
+  "issues_by_component": {
+    "powershell_syntax": 1
+  },
+  "fix_items": [],
+  "reproduction_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+  ],
+  "recommended_next_action": "resolve_blocking_issues_before_rerunning_gate",
+  "evidence_refs": [
+    "state/fixtures/valid/actionable_qa/actionable_qa_report.blocking.valid.json",
+    "contracts/actionable_qa/actionable_qa_fix_queue.contract.json",
+    "tools/ActionableQaFixQueue.psm1"
+  ],
+  "non_claims": [
+    "recommendations are bounded/static",
+    "no automatic repair claim",
+    "no production QA",
+    "no R12 closeout",
+    "no full value-gate delivery by static recommendations"
+  ]
+}

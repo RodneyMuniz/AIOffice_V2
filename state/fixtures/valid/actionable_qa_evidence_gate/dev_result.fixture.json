@@ -1,0 +1,8 @@
+{
+  "artifact_type": "dev_execution_result_fixture",
+  "result_id": "r12-013-dev-result-fixture",
+  "non_claims": [
+    "fixture only",
+    "not executor narration as QA evidence"
+  ]
+}

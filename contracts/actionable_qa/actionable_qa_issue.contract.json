@@ -1,0 +1,38 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_issue_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-011",
+  "required_fields": [
+    "id",
+    "severity",
+    "component",
+    "file_path",
+    "line",
+    "failed_rule",
+    "evidence",
+    "recommended_fix",
+    "blocking_status",
+    "reproduction_command",
+    "source_check"
+  ],
+  "allowed_severities": [
+    "info",
+    "warning",
+    "error",
+    "critical"
+  ],
+  "allowed_blocking_statuses": [
+    "non_blocking",
+    "blocking",
+    "advisory"
+  ],
+  "rules": [
+    "issue_must_include_file_path_or_not_applicable_reason",
+    "issue_must_include_reproduction_command",
+    "issue_must_include_recommended_fix",
+    "blocking_status_must_be_explicit",
+    "severity_must_be_allowed"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "transition_residue_preflight",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "transition_from": "dev_result_recorded",
+  "transition_to": "actionable_qa_ready",
+  "raw_git_status": [],
+  "tracked_dirty_files": [],
+  "untracked_files": [],
+  "expected_untracked_path_patterns": [],
+  "expected_untracked_files": [],
+  "unexpected_untracked_files": [],
+  "quarantine_candidates": [],
+  "deletion_allowed": false,
+  "preflight_verdict": "pass",
+  "refusal_reasons": [],
+  "evidence_refs": [
+    "contracts/residue_guard/transition_residue_preflight.contract.json",
+    "tools/TransitionResiduePreflight.psm1"
+  ],
+  "created_at_utc": "2026-04-30T00:48:00Z",
+  "non_claims": [
+    "no destructive cleanup",
+    "no destructive rollback",
+    "no broad filesystem cleanup",
+    "no R12 value-gate delivery"
+  ]
+}

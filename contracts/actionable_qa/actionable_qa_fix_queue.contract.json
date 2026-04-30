@@ -1,0 +1,70 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_fix_queue_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-012",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "queue_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_actionable_qa_report_ref",
+    "generated_at_utc",
+    "issue_count",
+    "blocking_issue_count",
+    "issues_by_severity",
+    "issues_by_component",
+    "fix_items",
+    "reproduction_commands",
+    "recommended_next_action",
+    "evidence_refs",
+    "non_claims"
+  ],
+  "fix_item_required_fields": [
+    "fix_id",
+    "source_issue_id",
+    "severity",
+    "component",
+    "file_path",
+    "line",
+    "failed_rule",
+    "recommended_fix",
+    "reproduction_command",
+    "blocking_status",
+    "owner_role",
+    "suggested_order",
+    "evidence"
+  ],
+  "allowed_severities": [
+    "info",
+    "warning",
+    "error",
+    "critical"
+  ],
+  "allowed_blocking_statuses": [
+    "non_blocking",
+    "blocking",
+    "advisory"
+  ],
+  "required_non_claims": [
+    "recommendations are bounded/static",
+    "no automatic repair claim",
+    "no production QA",
+    "no R12 closeout",
+    "no full value-gate delivery by static recommendations"
+  ],
+  "rules": [
+    "every_blocking_issue_must_have_a_fix_item",
+    "every_fix_item_must_map_to_source_issue",
+    "every_fix_item_must_include_reproduction_command",
+    "every_fix_item_must_include_recommended_fix",
+    "every_fix_item_must_include_file_path_or_not_applicable_reason",
+    "queue_cannot_hide_blocking_issues",
+    "markdown_export_must_include_issue_count_blocking_count_commands_and_next_action",
+    "missing_non_claims_fail_validation"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "actionable_qa_report",
+  "report_id": "r12-011-actionable-qa-missing-dependency-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "qa_scope": {
+    "paths": [
+      "tools/ActionableQa.psm1"
+    ],
+    "description": "Invalid fixture missing dependency_status."
+  },
+  "qa_mode": "fixture",
+  "commands_run": [
+    {
+      "command_id": "powershell-parse",
+      "command": "PowerShell Parser.ParseFile",
+      "exit_code": 0,
+      "verdict": "passed",
+      "started_at_utc": "2026-04-30T00:34:01Z",
+      "completed_at_utc": "2026-04-30T00:34:02Z"
+    }
+  ],
+  "checks_run": [
+    {
+      "check_id": "powershell-parse",
+      "check_type": "powershell_syntax_parse",
+      "scope": "tools/ActionableQa.psm1",
+      "verdict": "passed",
+      "issue_count": 0,
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "total_issue_count": 0,
+    "blocking_issue_count": 0,
+    "critical_count": 0,
+    "error_count": 0,
+    "warning_count": 0,
+    "info_count": 0,
+    "command_count": 1,
+    "check_count": 1
+  },
+  "aggregate_verdict": "passed",
+  "reproduction_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_actionable_qa.ps1"
+  ],
+  "evidence_refs": [
+    "contracts/actionable_qa/actionable_qa_report.contract.json"
+  ],
+  "created_at_utc": "2026-04-30T00:34:03Z",
+  "non_claims": [
+    "no production QA",
+    "no real production QA",
+    "no security audit",
+    "no full test coverage",
+    "no external evidence gate pass",
+    "no R12 closeout",
+    "no R12 value-gate delivery by this task alone"
+  ]
+}

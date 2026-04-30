@@ -1,0 +1,66 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_qa_evidence_gate",
+  "gate_id": "r12-013-cycle-qa-evidence-gate-missing-external-blocked-valid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "gate_scope": "fixture_missing_external_evidence",
+  "consumed_refs": {
+    "dev_result_ref": "state/fixtures/valid/actionable_qa_evidence_gate/dev_result.fixture.json",
+    "actionable_qa_report_ref": "state/fixtures/valid/actionable_qa/actionable_qa_report.warning.valid.json",
+    "actionable_qa_fix_queue_ref": "state/fixtures/valid/actionable_qa_fix_queue/actionable_qa_fix_queue.warning.valid.json",
+    "external_runner_result_ref": "",
+    "external_artifact_evidence_ref": "",
+    "residue_preflight_ref": "state/fixtures/valid/actionable_qa_evidence_gate/residue_preflight.pass.valid.json",
+    "remote_head_phase_detection_ref": "state/fixtures/valid/actionable_qa_evidence_gate/remote_head_phase.phase-match.valid.json",
+    "operating_loop_ref": "state/fixtures/valid/operating_loop/r12_operating_loop.valid.json",
+    "value_scorecard_ref": "state/fixtures/valid/value_scorecard/r12_value_scorecard.valid.json"
+  },
+  "consumed_ref_validation": [
+    {
+      "ref_name": "external_runner_result_ref",
+      "ref": "",
+      "present": false,
+      "contract_valid": false,
+      "verdict": "missing",
+      "details": "No real external runner result evidence was supplied."
+    },
+    {
+      "ref_name": "external_artifact_evidence_ref",
+      "ref": "",
+      "present": false,
+      "contract_valid": false,
+      "verdict": "missing",
+      "details": "No real external artifact evidence was supplied."
+    }
+  ],
+  "actionable_qa_verdict": "warning",
+  "external_evidence_verdict": "blocked",
+  "residue_preflight_verdict": "passed",
+  "remote_head_verdict": "passed",
+  "blocking_issue_count": 0,
+  "unresolved_blocking_issues": [],
+  "gate_verdict": "blocked",
+  "refusal_reasons": [
+    "missing required evidence ref 'external_runner_result_ref'.",
+    "missing required evidence ref 'external_artifact_evidence_ref'."
+  ],
+  "evidence_refs": [
+    "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+    "tools/ActionableQaEvidenceGate.psm1",
+    "state/fixtures/valid/actionable_qa/actionable_qa_report.warning.valid.json",
+    "state/fixtures/valid/actionable_qa_fix_queue/actionable_qa_fix_queue.warning.valid.json"
+  ],
+  "created_at_utc": "2026-04-30T00:51:00Z",
+  "non_claims": [
+    "no real production QA",
+    "no final QA pass for R12 closeout",
+    "no R12 closeout",
+    "no final-state replay",
+    "no productized control-room",
+    "no broad CI/product coverage",
+    "no R12 value-gate completion by gate fixture alone"
+  ]
+}

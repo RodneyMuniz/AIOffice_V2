@@ -791,7 +791,7 @@ function Test-R9ClosedStatus {
     }
 
     if ($AllowR10Closed -and $AllowR11Closed -and $AllowR12Active) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-010` only\.' -Message "ACTIVE_STATE must declare R12 as active through R12-010 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-013` only\.' -Message "ACTIVE_STATE must declare R12 as active through R12-013 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must declare R12 as the active milestone."
     }
     elseif ($AllowR10Closed -and $AllowR11Closed) {
@@ -1016,7 +1016,7 @@ function Test-R10ClosedStatus {
 
     Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now closed in repo truth' -Message "README must declare R10 closed in repo truth after Phase 2 support."
     if ($AllowR12Active) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-010` only\.' -Message "ACTIVE_STATE must declare R12 as active through R12-010 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-013` only\.' -Message "ACTIVE_STATE must declare R12 as active through R12-013 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must declare R12 as the active milestone after R12 opening."
     }
     elseif ($AllowR11Active) {
@@ -1135,8 +1135,8 @@ function Test-R11OpeningStatus {
     }
 
     if ($Closed -and $AllowR12Active) {
-        Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-010` only' -Message "README must declare R12 active through R12-010 only."
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-010` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-010 only."
+        Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-013` only' -Message "README must declare R12 active through R12-013 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-013` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-013 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must declare R12 as the active milestone."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must keep R11 as the most recently closed milestone while R12 is open."
     }
@@ -1218,8 +1218,8 @@ function Test-R11OpeningStatus {
     $r11PilotTestPath = "tests/test_r11_controlled_cycle_pilot.ps1"
 
     if ($Closed -and $AllowR12Active) {
-        Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-010` only' -Message "README must declare R12 active through R12-010 only."
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-010` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-010 only."
+        Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-013` only' -Message "README must declare R12 active through R12-013 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-013` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-013 only."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must declare R12 as the active milestone."
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must mark R11 as the most recently closed milestone."
     }
@@ -1449,8 +1449,8 @@ function Test-R12OpeningStatus {
         throw "R12 authority does not match KANBAN for the live R12 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 10 -or $kanbanSnapshot.PlannedStart -ne 11 -or $kanbanSnapshot.PlannedThrough -ne 21) {
-        throw "R12 open status must keep only R12-001 through R12-010 done and R12-011 through R12-021 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 13 -or $kanbanSnapshot.PlannedStart -ne 14 -or $kanbanSnapshot.PlannedThrough -ne 21) {
+        throw "R12 open status must keep only R12-001 through R12-013 done and R12-014 through R12-021 planned."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
@@ -1468,11 +1468,12 @@ function Test-R12OpeningStatus {
     $startingTree = "ac324d20d4538e50bfdcb92fe192185a824a2f48"
     $r9Head = "3c225f863add07f64a9026661d9465d02024a83d"
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-010` only' -Message "README must declare R12 active through R12-010 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-010` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-010 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now the active milestone in repo truth through `R12-013` only' -Message "README must declare R12 active through R12-013 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now active in repo truth through `R12-013` only\.' -Message "ACTIVE_STATE must declare R12 active through R12-013 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must declare R12 as active."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`' -Message "KANBAN must keep R11 as most recently closed while R12 is active."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R12-007 Through R12-010 Added External Runner Replay Evidence Foundations' -Message "DECISION_LOG must record the R12-007 through R12-010 foundation decision."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R12-011 Through R12-013 Added Actionable QA Evidence Gate Foundations' -Message "DECISION_LOG must record the R12-011 through R12-013 foundation decision."
 
     foreach ($entry in @(
             @{ Text = $Texts.Readme; Context = "README" },
@@ -1519,8 +1520,22 @@ function Test-R12OpeningStatus {
     Assert-RegexMatch -Text $combinedText -Pattern 'contracts/external_runner/external_artifact_evidence_packet\.contract\.json' -Message "Status docs must cite the R12 external artifact evidence packet contract."
     Assert-RegexMatch -Text $combinedText -Pattern 'tools/ExternalArtifactEvidence\.psm1' -Message "Status docs must cite the R12 external artifact evidence module."
     Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_external_artifact_evidence\.ps1' -Message "Status docs must cite the R12 external artifact evidence tests."
+    Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/actionable_qa_report\.contract\.json' -Message "Status docs must cite the R12 actionable QA report contract."
+    Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/actionable_qa_issue\.contract\.json' -Message "Status docs must cite the R12 actionable QA issue contract."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/ActionableQa\.psm1' -Message "Status docs must cite the R12 actionable QA module."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/invoke_actionable_qa\.ps1' -Message "Status docs must cite the R12 actionable QA runner."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_actionable_qa\.ps1' -Message "Status docs must cite the R12 actionable QA tests."
+    Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/actionable_qa_fix_queue\.contract\.json' -Message "Status docs must cite the R12 actionable QA fix queue contract."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/ActionableQaFixQueue\.psm1' -Message "Status docs must cite the R12 actionable QA fix queue module."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/export_actionable_qa_fix_queue\.ps1' -Message "Status docs must cite the R12 actionable QA fix queue exporter."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_actionable_qa_fix_queue\.ps1' -Message "Status docs must cite the R12 actionable QA fix queue tests."
+    Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/cycle_qa_evidence_gate\.contract\.json' -Message "Status docs must cite the R12 cycle QA evidence gate contract."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/ActionableQaEvidenceGate\.psm1' -Message "Status docs must cite the R12 actionable QA evidence gate module."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/invoke_actionable_qa_evidence_gate\.ps1' -Message "Status docs must cite the R12 actionable QA evidence gate runner."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_actionable_qa_evidence_gate\.ps1' -Message "Status docs must cite the R12 actionable QA evidence gate tests."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)current real QA evidence gate cannot pass without real external runner result and external artifact evidence' -Message "Status docs must state that the current real QA evidence gate cannot pass without real external evidence."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R12 cannot close unless all four value gates|R12 cannot close without all four value gates' -Message "Status docs must state that R12 cannot close without all four value gates."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R12-011` through `R12-021` remain planned only|R12-011` through `R12-021` remain planned only' -Message "Status docs must preserve that R12-011 through R12-021 are planned only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R12-014` through `R12-021` remain planned only|R12-014` through `R12-021` remain planned only' -Message "Status docs must preserve that R12-014 through R12-021 are planned only."
     Assert-RegexMatch -Text $Texts.BranchingConvention -Pattern 'R12 branch: `release/r12-external-api-runner-actionable-qa-control-room-pilot`' -Message "Branching convention must record the R12 branch."
     Assert-R12NonClaimsPreserved -Text $Texts.R12Authority -Context "R12 authority"
 

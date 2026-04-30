@@ -1,0 +1,86 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_qa_evidence_gate_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-013",
+  "required_input_refs": [
+    "dev_result_ref",
+    "actionable_qa_report_ref",
+    "actionable_qa_fix_queue_ref",
+    "external_runner_result_ref",
+    "external_artifact_evidence_ref",
+    "residue_preflight_ref",
+    "remote_head_phase_detection_ref",
+    "operating_loop_ref",
+    "value_scorecard_ref"
+  ],
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "gate_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "gate_scope",
+    "consumed_refs",
+    "consumed_ref_validation",
+    "actionable_qa_verdict",
+    "external_evidence_verdict",
+    "residue_preflight_verdict",
+    "remote_head_verdict",
+    "blocking_issue_count",
+    "unresolved_blocking_issues",
+    "gate_verdict",
+    "refusal_reasons",
+    "evidence_refs",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "consumed_ref_validation_required_fields": [
+    "ref_name",
+    "ref",
+    "present",
+    "contract_valid",
+    "verdict",
+    "details"
+  ],
+  "allowed_gate_verdicts": [
+    "passed",
+    "failed",
+    "refused",
+    "blocked"
+  ],
+  "allowed_component_verdicts": [
+    "passed",
+    "warning",
+    "failed",
+    "refused",
+    "blocked",
+    "missing"
+  ],
+  "required_non_claims": [
+    "no real production QA",
+    "no final QA pass for R12 closeout",
+    "no R12 closeout",
+    "no final-state replay",
+    "no productized control-room",
+    "no broad CI/product coverage",
+    "no R12 value-gate completion by gate fixture alone"
+  ],
+  "rules": [
+    "gate_cannot_pass_without_actionable_qa_report",
+    "gate_cannot_pass_without_actionable_qa_fix_queue",
+    "gate_cannot_pass_with_unresolved_blocking_qa_issues",
+    "gate_cannot_pass_without_external_runner_result_evidence",
+    "gate_cannot_pass_without_external_artifact_evidence",
+    "gate_cannot_pass_if_external_evidence_is_local_only_while_claiming_external_proof",
+    "gate_cannot_pass_if_external_head_tree_mismatch_current_branch_head_tree",
+    "gate_cannot_pass_without_residue_preflight",
+    "gate_cannot_pass_without_remote_head_phase_detection",
+    "gate_cannot_consume_executor_narration_as_qa_evidence",
+    "gate_cannot_claim_real_production_qa",
+    "gate_cannot_claim_r12_closeout"
+  ]
+}

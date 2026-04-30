@@ -1,0 +1,44 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "cycle_qa_evidence_gate",
+  "gate_id": "r12-013-cycle-qa-evidence-gate-missing-report-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "gate_scope": "invalid_missing_actionable_report",
+  "consumed_refs": {
+    "dev_result_ref": "state/fixtures/valid/actionable_qa_evidence_gate/dev_result.fixture.json",
+    "actionable_qa_report_ref": "",
+    "actionable_qa_fix_queue_ref": "state/fixtures/valid/actionable_qa_fix_queue/actionable_qa_fix_queue.warning.valid.json",
+    "external_runner_result_ref": "state/fixtures/valid/external_runner/external_runner_result.success.valid.json",
+    "external_artifact_evidence_ref": "state/fixtures/valid/external_artifact_evidence/external_artifact_evidence.github.valid.json",
+    "residue_preflight_ref": "state/fixtures/valid/actionable_qa_evidence_gate/residue_preflight.pass.valid.json",
+    "remote_head_phase_detection_ref": "state/fixtures/valid/actionable_qa_evidence_gate/remote_head_phase.phase-match.valid.json",
+    "operating_loop_ref": "state/fixtures/valid/operating_loop/r12_operating_loop.valid.json",
+    "value_scorecard_ref": "state/fixtures/valid/value_scorecard/r12_value_scorecard.valid.json"
+  },
+  "consumed_ref_validation": [],
+  "actionable_qa_verdict": "passed",
+  "external_evidence_verdict": "passed",
+  "residue_preflight_verdict": "passed",
+  "remote_head_verdict": "passed",
+  "blocking_issue_count": 0,
+  "unresolved_blocking_issues": [],
+  "gate_verdict": "passed",
+  "refusal_reasons": [],
+  "evidence_refs": [
+    "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+    "tools/ActionableQaEvidenceGate.psm1"
+  ],
+  "created_at_utc": "2026-04-30T00:53:00Z",
+  "non_claims": [
+    "no real production QA",
+    "no final QA pass for R12 closeout",
+    "no R12 closeout",
+    "no final-state replay",
+    "no productized control-room",
+    "no broad CI/product coverage",
+    "no R12 value-gate completion by gate fixture alone"
+  ]
+}
