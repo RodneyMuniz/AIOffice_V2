@@ -1,0 +1,47 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_artifact_evidence_packet",
+  "evidence_packet_id": "r12-010-evidence-failed-as-pass",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "run_id": "26000000001",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/26000000001",
+  "artifact_id": "6700000001",
+  "artifact_name": "r12-external-replay-26000000001-1",
+  "artifact_digest_or_hash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "artifact_source_kind": "github_actions_artifact",
+  "requested_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "requested_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "observed_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "observed_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "imported_at_utc": "2026-04-30T00:07:00Z",
+  "source_artifact_path_or_url": "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6700000001/zip",
+  "extraction_root": "state/external_runs/r12_external_runner/26000000001/artifact",
+  "contained_files": [
+    {
+      "path": "r12_external_replay_bundle.json",
+      "size_bytes": 8192,
+      "digest_or_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "replay_bundle_ref": "state/fixtures/invalid/external_replay/r12_external_replay_bundle.failed-command-as-pass.invalid.json",
+  "external_runner_result_ref": "state/fixtures/valid/external_runner/external_runner_result.success.valid.json",
+  "command_results_summary": {
+    "total_count": 10,
+    "passed_count": 9,
+    "failed_count": 1,
+    "blocked_count": 0
+  },
+  "aggregate_verdict": "passed",
+  "evidence_refs": [
+    "state/fixtures/invalid/external_replay/r12_external_replay_bundle.failed-command-as-pass.invalid.json"
+  ],
+  "refusal_reasons": [],
+  "non_claims": [
+    "no final-state replay",
+    "no R12 closeout",
+    "no broad CI/product coverage",
+    "no production evidence pipeline",
+    "no R12 value-gate delivery yet"
+  ]
+}

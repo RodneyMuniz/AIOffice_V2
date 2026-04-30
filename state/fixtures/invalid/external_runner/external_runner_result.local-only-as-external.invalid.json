@@ -1,0 +1,46 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_result",
+  "result_id": "r12-007-result-local-only",
+  "request_id": "r12-007-request-valid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "requested_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "requested_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "observed_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "observed_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "workflow_name": "R12 External Replay",
+  "runner_kind": "github_actions",
+  "run_id": "26000000001",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/26000000001",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "started_at_utc": "2026-04-30T00:01:00Z",
+  "completed_at_utc": "2026-04-30T00:05:00Z",
+  "artifact_manifest_ref": "local-only/artifact_manifest.json",
+  "command_results": [
+    {
+      "command_id": "test-value-scorecard",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_value_scorecard.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "local-only/stdout.log",
+      "stderr_ref": "local-only/stderr.log"
+    }
+  ],
+  "raw_log_refs": [
+    "local-only/stdout.log"
+  ],
+  "evidence_refs": [
+    "local-only/evidence.json"
+  ],
+  "refusal_reasons": [],
+  "non_claims": [
+    "no full external orchestrator product",
+    "no final-state replay",
+    "no broad CI/product coverage",
+    "no R12 value-gate delivery yet"
+  ]
+}

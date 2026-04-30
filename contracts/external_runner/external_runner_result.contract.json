@@ -1,0 +1,74 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_result",
+  "required_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "result_id",
+    "request_id",
+    "repository",
+    "branch",
+    "requested_head",
+    "requested_tree",
+    "observed_head",
+    "observed_tree",
+    "workflow_ref",
+    "workflow_name",
+    "runner_kind",
+    "run_id",
+    "run_url",
+    "run_attempt",
+    "status",
+    "conclusion",
+    "started_at_utc",
+    "completed_at_utc",
+    "artifact_manifest_ref",
+    "command_results",
+    "raw_log_refs",
+    "evidence_refs",
+    "refusal_reasons",
+    "non_claims"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "stdout_ref",
+    "stderr_ref"
+  ],
+  "allowed_runner_kinds": [
+    "github_actions",
+    "external_api_runner",
+    "manual_observed"
+  ],
+  "allowed_statuses": [
+    "queued",
+    "in_progress",
+    "completed",
+    "missing",
+    "unavailable"
+  ],
+  "allowed_conclusions": [
+    "success",
+    "failure",
+    "cancelled",
+    "timed_out",
+    "skipped",
+    "missing",
+    "unavailable"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked",
+    "not_run"
+  ],
+  "required_non_claims": [
+    "no full external orchestrator product",
+    "no final-state replay",
+    "no broad CI/product coverage",
+    "no R12 value-gate delivery yet"
+  ]
+}

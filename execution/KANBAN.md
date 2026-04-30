@@ -10,7 +10,7 @@ Current posture:
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-006` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, and mandatory transition residue preflight. `R12-007` through `R12-021` remain planned only. R12 value gates remain frozen but not delivered: external/API runner evidence, actionable QA reports, operator control-room status views, and one real useful build/change cycle remain required before closeout. No R13 or successor milestone is opened.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-010` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, and external artifact evidence normalization. `R12-011` through `R12-021` remain planned only. R12 value gates remain frozen but not fully delivered: external/API runner evidence, actionable QA reports, operator control-room status views, and one real useful build/change cycle remain required before closeout. No final-state replay is completed. No R13 or successor milestone is opened.
 
 Active branch:
 `release/r12-external-api-runner-actionable-qa-control-room-pilot`
@@ -96,40 +96,40 @@ Earlier closed milestone:
 - Done when: clean and expected generated-artifact fixtures pass; dirty tracked files, unexpected untracked files, missing preflight, stale head/tree preflight, broad quarantine candidates, and outside-repo quarantine candidates fail closed; and no deletion, destructive rollback, broad cleanup, or value-gate delivery is claimed
 
 ### `R12-007` Define external runner request/result contracts
-- Status: planned
+- Status: done
 - Order: 7
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-006`
-- Authority: planned only
-- Durable output: planned external runner request/result contracts
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/external_runner/external_runner_request.contract.json`, `contracts/external_runner/external_runner_result.contract.json`, `contracts/external_runner/external_runner_artifact_manifest.contract.json`, `tools/ExternalRunnerContract.psm1`, `tools/validate_external_runner_request.ps1`, `tools/validate_external_runner_result.ps1`, `tools/validate_external_runner_artifact_manifest.ps1`, fixtures under `state/fixtures/valid/external_runner/` and `state/fixtures/invalid/external_runner/`, `tests/test_external_runner_contracts.ps1`
+- Durable output: external runner request/result/artifact manifest contracts, validators, fixtures, and focused tests
+- Done when: valid request/result/manifest fixtures pass; missing run id, head mismatch, success without artifact manifest, failed run as pass, local-only evidence as external proof, and missing non-claims fail closed
 
 ### `R12-008` Implement GitHub Actions external runner invoker/monitor
-- Status: planned
+- Status: done
 - Order: 8
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-007`
-- Authority: planned only
-- Durable output: planned external runner invoker/monitor
-- Done when: planned only; not implemented in Phase A
+- Authority: `tools/ExternalRunnerGitHubActions.psm1`, `tools/invoke_external_runner_github_actions.ps1`, `tools/watch_external_runner_github_actions.ps1`, `tools/capture_external_runner_github_actions.ps1`, fixtures under `state/fixtures/valid/external_runner_github_actions/` and `state/fixtures/invalid/external_runner_github_actions/`, `tests/test_external_runner_github_actions.ps1`
+- Durable output: bounded GitHub Actions dependency/dispatch/watch/capture/summarize/manual-dispatch substrate with fail-closed dependency and ambiguous-run handling
+- Done when: dependency, dispatch, capture, and manual fixtures pass; missing `gh`, missing auth, ambiguous run selection, and manual dispatch mislabeled as API-controlled fail closed
 
 ### `R12-009` Add R12 external replay workflow
-- Status: planned
+- Status: done
 - Order: 9
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-008`
-- Authority: planned only
-- Durable output: planned external replay workflow
-- Done when: planned only; not implemented in Phase A
+- Authority: `.github/workflows/r12-external-replay.yml`, `contracts/external_replay/r12_external_replay_bundle.contract.json`, `tools/new_r12_external_replay_bundle.ps1`, `tools/validate_r12_external_replay_bundle.ps1`, fixtures under `state/fixtures/valid/external_replay/` and `state/fixtures/invalid/external_replay/`, `tests/test_r12_external_replay_bundle.ps1`, `tests/test_r12_external_replay_workflow.ps1`
+- Durable output: bounded workflow_dispatch replay workflow, replay bundle generator/validator, fixtures, and workflow structure test
+- Done when: valid bundle passes; head mismatch, missing logs, failed command as pass, local-only bundle as external proof fail; workflow structure includes exact branch/head/tree inputs and artifact upload wiring
 
 ### `R12-010` Implement external artifact retrieval and evidence normalization
-- Status: planned
+- Status: done
 - Order: 10
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-009`
-- Authority: planned only
-- Durable output: planned artifact retrieval and evidence normalization
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/external_runner/external_artifact_evidence_packet.contract.json`, `tools/ExternalArtifactEvidence.psm1`, `tools/import_external_runner_artifact.ps1`, fixtures under `state/fixtures/valid/external_artifact_evidence/` and `state/fixtures/invalid/external_artifact_evidence/`, `tests/test_external_artifact_evidence.ps1`
+- Durable output: artifact evidence packet contract, validator/import tooling, local-only normalization handling, fixtures, and focused tests
+- Done when: external and local-only valid fixtures pass; head mismatch, failed replay as pass, path traversal, missing run/artifact identity for external claim, and missing non-claims fail closed
 
 ### `R12-011` Add QA/linter suite foundation
 - Status: planned

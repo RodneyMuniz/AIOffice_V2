@@ -1,0 +1,67 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_external_replay_bundle",
+  "required_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "repository",
+    "branch",
+    "expected_head",
+    "expected_tree",
+    "observed_head",
+    "observed_tree",
+    "workflow_name",
+    "run_id",
+    "run_url",
+    "runner_os",
+    "runner_name_or_kind",
+    "replay_scope",
+    "clean_status_before",
+    "clean_status_after",
+    "command_results",
+    "artifact_name",
+    "artifact_files",
+    "aggregate_verdict",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "clean_status_required_fields": [
+    "status",
+    "evidence_ref"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "stdout_ref",
+    "stderr_ref",
+    "exit_code_ref"
+  ],
+  "required_command_ids": [
+    "test_value_scorecard",
+    "test_operating_loop",
+    "test_remote_head_phase_detector",
+    "test_fresh_thread_bootstrap",
+    "test_transition_residue_preflight",
+    "test_external_runner_contracts",
+    "test_external_runner_github_actions",
+    "test_r12_external_replay_bundle",
+    "test_status_doc_gate",
+    "validate_status_doc_gate"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "no broad CI/product coverage",
+    "no production CI",
+    "no R12 final-state replay",
+    "no R12 closeout",
+    "no R12 value-gate delivery yet"
+  ]
+}

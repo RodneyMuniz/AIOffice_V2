@@ -1,0 +1,65 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_artifact_evidence_packet",
+  "required_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "evidence_packet_id",
+    "repository",
+    "branch",
+    "run_id",
+    "run_url",
+    "artifact_id",
+    "artifact_name",
+    "artifact_digest_or_hash",
+    "artifact_source_kind",
+    "requested_head",
+    "requested_tree",
+    "observed_head",
+    "observed_tree",
+    "imported_at_utc",
+    "source_artifact_path_or_url",
+    "extraction_root",
+    "contained_files",
+    "replay_bundle_ref",
+    "external_runner_result_ref",
+    "command_results_summary",
+    "aggregate_verdict",
+    "evidence_refs",
+    "refusal_reasons",
+    "non_claims"
+  ],
+  "contained_file_required_fields": [
+    "path",
+    "size_bytes",
+    "digest_or_hash"
+  ],
+  "command_results_summary_required_fields": [
+    "total_count",
+    "passed_count",
+    "failed_count",
+    "blocked_count"
+  ],
+  "allowed_artifact_source_kinds": [
+    "github_actions_artifact",
+    "github_artifact_metadata",
+    "local_artifact_zip",
+    "extracted_artifact_directory"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "no final-state replay",
+    "no R12 closeout",
+    "no broad CI/product coverage",
+    "no production evidence pipeline",
+    "no R12 value-gate delivery yet"
+  ],
+  "local_only_required_non_claims": [
+    "local-only normalization is not external API evidence"
+  ]
+}

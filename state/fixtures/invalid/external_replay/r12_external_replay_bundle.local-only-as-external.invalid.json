@@ -1,0 +1,31 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_external_replay_bundle",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "expected_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "observed_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "observed_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "workflow_name": "R12 External Replay",
+  "run_id": "",
+  "run_url": "file:///local/replay",
+  "runner_os": "Windows",
+  "runner_name_or_kind": "local-only",
+  "replay_scope": "foundation",
+  "clean_status_before": { "status": "clean", "evidence_ref": "command_logs/clean_status_before.log" },
+  "clean_status_after": { "status": "clean", "evidence_ref": "command_logs/clean_status_after.log" },
+  "command_results": [],
+  "artifact_name": "r12-external-replay-local",
+  "artifact_files": [ "r12_external_replay_bundle.json" ],
+  "aggregate_verdict": "passed",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-30T00:06:00Z",
+  "non_claims": [
+    "no broad CI/product coverage",
+    "no production CI",
+    "no R12 final-state replay",
+    "no R12 closeout",
+    "no R12 value-gate delivery yet"
+  ]
+}

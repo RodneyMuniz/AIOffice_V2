@@ -1,0 +1,132 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_external_replay_bundle",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "expected_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "observed_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "observed_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "workflow_name": "R12 External Replay",
+  "run_id": "26000000001",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/26000000001",
+  "runner_os": "Linux",
+  "runner_name_or_kind": "GitHub Actions hosted runner",
+  "replay_scope": "foundation",
+  "clean_status_before": {
+    "status": "clean",
+    "evidence_ref": "command_logs/clean_status_before.log"
+  },
+  "clean_status_after": {
+    "status": "clean",
+    "evidence_ref": "command_logs/clean_status_after.log"
+  },
+  "command_results": [
+    {
+      "command_id": "test_value_scorecard",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_value_scorecard.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_value_scorecard.stdout.log",
+      "stderr_ref": "command_logs/test_value_scorecard.stderr.log",
+      "exit_code_ref": "command_logs/test_value_scorecard.exit_code.txt"
+    },
+    {
+      "command_id": "test_operating_loop",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_operating_loop.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_operating_loop.stdout.log",
+      "stderr_ref": "command_logs/test_operating_loop.stderr.log",
+      "exit_code_ref": "command_logs/test_operating_loop.exit_code.txt"
+    },
+    {
+      "command_id": "test_remote_head_phase_detector",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_remote_head_phase_detector.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_remote_head_phase_detector.stdout.log",
+      "stderr_ref": "command_logs/test_remote_head_phase_detector.stderr.log",
+      "exit_code_ref": "command_logs/test_remote_head_phase_detector.exit_code.txt"
+    },
+    {
+      "command_id": "test_fresh_thread_bootstrap",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_fresh_thread_bootstrap.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_fresh_thread_bootstrap.stdout.log",
+      "stderr_ref": "command_logs/test_fresh_thread_bootstrap.stderr.log",
+      "exit_code_ref": "command_logs/test_fresh_thread_bootstrap.exit_code.txt"
+    },
+    {
+      "command_id": "test_transition_residue_preflight",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_transition_residue_preflight.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_transition_residue_preflight.stdout.log",
+      "stderr_ref": "command_logs/test_transition_residue_preflight.stderr.log",
+      "exit_code_ref": "command_logs/test_transition_residue_preflight.exit_code.txt"
+    },
+    {
+      "command_id": "test_external_runner_contracts",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_external_runner_contracts.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_external_runner_contracts.stdout.log",
+      "stderr_ref": "command_logs/test_external_runner_contracts.stderr.log",
+      "exit_code_ref": "command_logs/test_external_runner_contracts.exit_code.txt"
+    },
+    {
+      "command_id": "test_external_runner_github_actions",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_external_runner_github_actions.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_external_runner_github_actions.stdout.log",
+      "stderr_ref": "command_logs/test_external_runner_github_actions.stderr.log",
+      "exit_code_ref": "command_logs/test_external_runner_github_actions.exit_code.txt"
+    },
+    {
+      "command_id": "test_r12_external_replay_bundle",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r12_external_replay_bundle.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_r12_external_replay_bundle.stdout.log",
+      "stderr_ref": "command_logs/test_r12_external_replay_bundle.stderr.log",
+      "exit_code_ref": "command_logs/test_r12_external_replay_bundle.exit_code.txt"
+    },
+    {
+      "command_id": "test_status_doc_gate",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/test_status_doc_gate.stdout.log",
+      "stderr_ref": "command_logs/test_status_doc_gate.stderr.log",
+      "exit_code_ref": "command_logs/test_status_doc_gate.exit_code.txt"
+    },
+    {
+      "command_id": "validate_status_doc_gate",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "command_logs/validate_status_doc_gate.stdout.log",
+      "stderr_ref": "command_logs/validate_status_doc_gate.stderr.log",
+      "exit_code_ref": "command_logs/validate_status_doc_gate.exit_code.txt"
+    }
+  ],
+  "artifact_name": "r12-external-replay-26000000001-1",
+  "artifact_files": [
+    "r12_external_replay_bundle.json",
+    "command_results.json",
+    "command_logs/test_value_scorecard.stdout.log"
+  ],
+  "aggregate_verdict": "passed",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-04-30T00:06:00Z",
+  "non_claims": [
+    "no broad CI/product coverage",
+    "no production CI",
+    "no R12 final-state replay",
+    "no R12 closeout",
+    "no R12 value-gate delivery yet"
+  ]
+}

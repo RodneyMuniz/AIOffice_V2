@@ -1,0 +1,54 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_request",
+  "required_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "request_id",
+    "repository",
+    "branch",
+    "requested_head",
+    "requested_tree",
+    "workflow_ref",
+    "workflow_name",
+    "dispatch_mode",
+    "runner_kind",
+    "commands",
+    "expected_artifacts",
+    "timeout_seconds",
+    "caller_identity",
+    "residue_preflight_ref",
+    "remote_head_phase_detection_ref",
+    "created_at_utc",
+    "evidence_refs",
+    "non_claims"
+  ],
+  "command_required_fields": [
+    "command_id",
+    "command",
+    "purpose"
+  ],
+  "expected_artifact_required_fields": [
+    "artifact_name",
+    "required",
+    "description"
+  ],
+  "allowed_dispatch_modes": [
+    "api_dispatch",
+    "manual_dispatch",
+    "diagnostic",
+    "dry_run"
+  ],
+  "allowed_runner_kinds": [
+    "github_actions",
+    "external_api_runner",
+    "manual_observed"
+  ],
+  "required_non_claims": [
+    "no full external orchestrator product",
+    "no final-state replay",
+    "no broad CI/product coverage",
+    "no R12 value-gate delivery yet"
+  ]
+}

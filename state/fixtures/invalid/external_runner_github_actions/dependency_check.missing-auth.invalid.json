@@ -1,0 +1,20 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_github_actions_dependency_check",
+  "mode": "check_dependencies",
+  "gh_available": true,
+  "auth_available": false,
+  "workflow_dispatch_permission": false,
+  "verdict": "fail_closed",
+  "dependency_reason": "token unavailable",
+  "checked_at_utc": "2026-04-30T00:00:00Z",
+  "raw_log_root": "state/external_runs/r12_external_runner/raw_logs",
+  "evidence_refs": [],
+  "non_claims": [
+    "no external final-state replay",
+    "no broad CI/product coverage",
+    "no production runner",
+    "no R12 value-gate delivery yet",
+    "no solved Codex reliability"
+  ]
+}

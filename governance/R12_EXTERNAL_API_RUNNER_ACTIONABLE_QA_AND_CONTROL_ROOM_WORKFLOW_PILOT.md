@@ -1,12 +1,12 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-006` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-010` only.
 
 ## Purpose
 
 R12 opens a properly named release branch and freezes the next milestone around external/API runner evidence, actionable QA, an operator-readable control-room workflow surface, and one real useful build/change cycle.
 
-R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, and residue-preflight foundations. It does not deliver the four R12 value gates.
+R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, and artifact-normalization foundations. It does not deliver the four R12 value gates.
 
 ## Accepted Starting State
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, and mandatory residue preflight before later external runner, actionable QA, control-room, and real build/change work;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, and artifact-normalization foundations before later actionable QA, control-room, real build/change, final-state replay, and closeout work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -65,7 +65,11 @@ The current R12 foundation slice may claim only:
 - operating-loop contract foundation;
 - remote-head/stale-phase detection foundation;
 - fresh-thread bootstrap packet and next-prompt foundation;
-- transition residue preflight foundation.
+- transition residue preflight foundation;
+- external runner request/result/artifact manifest contract foundation;
+- bounded GitHub Actions external-runner invoker/monitor/capture substrate;
+- R12 external replay workflow and bundle-shape foundation;
+- external artifact evidence normalization foundation.
 
 The current R12 foundation slice does not claim R12 value delivery.
 
@@ -96,20 +100,20 @@ The current R12 foundation slice does not claim R12 value delivery.
 - Boundary: require clean/residue preflight evidence before controlled transitions.
 
 ### `R12-007` Define external runner request/result contracts
-- Status: planned
-- Boundary: define branch/head/tree-bound request, result, and artifact manifest contracts.
+- Status: done
+- Boundary: define branch/head/tree-bound request, result, and artifact manifest contracts through `contracts/external_runner/external_runner_request.contract.json`, `contracts/external_runner/external_runner_result.contract.json`, `contracts/external_runner/external_runner_artifact_manifest.contract.json`, `tools/ExternalRunnerContract.psm1`, validator wrappers, fixtures, and `tests/test_external_runner_contracts.ps1`.
 
 ### `R12-008` Implement GitHub Actions external runner invoker/monitor
-- Status: planned
-- Boundary: invoke and monitor one external runner path with exact fail-closed dependency handling.
+- Status: done
+- Boundary: add bounded GitHub Actions dependency/dispatch/watch/capture/summarize/manual-dispatch substrate through `tools/ExternalRunnerGitHubActions.psm1`, `tools/invoke_external_runner_github_actions.ps1`, `tools/watch_external_runner_github_actions.ps1`, `tools/capture_external_runner_github_actions.ps1`, fixtures, and `tests/test_external_runner_github_actions.ps1`.
 
 ### `R12-009` Add R12 external replay workflow
-- Status: planned
-- Boundary: add one workflow for R12 replay evidence and artifact upload.
+- Status: done
+- Boundary: add one bounded workflow for R12 replay evidence and artifact upload through `.github/workflows/r12-external-replay.yml`, `contracts/external_replay/r12_external_replay_bundle.contract.json`, `tools/new_r12_external_replay_bundle.ps1`, `tools/validate_r12_external_replay_bundle.ps1`, fixtures, `tests/test_r12_external_replay_bundle.ps1`, and `tests/test_r12_external_replay_workflow.ps1`.
 
 ### `R12-010` Implement external artifact retrieval and evidence normalization
-- Status: planned
-- Boundary: normalize external run artifacts into repo-consumable evidence packets.
+- Status: done
+- Boundary: normalize external run artifacts into repo-consumable evidence packets through `contracts/external_runner/external_artifact_evidence_packet.contract.json`, `tools/ExternalArtifactEvidence.psm1`, `tools/import_external_runner_artifact.ps1`, fixtures, and `tests/test_external_artifact_evidence.ps1`.
 
 ### `R12-011` Add QA/linter suite foundation
 - Status: planned
@@ -157,7 +161,7 @@ The current R12 foundation slice does not claim R12 value delivery.
 
 ## Foundation Outputs
 
-R12-001 through R12-006 are bounded foundation work only:
+R12-001 through R12-010 are bounded foundation work only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -191,14 +195,46 @@ R12-001 through R12-006 are bounded foundation work only:
 - `state/fixtures/valid/residue_guard/`
 - `state/fixtures/invalid/residue_guard/`
 - `tests/test_transition_residue_preflight.ps1`
+- `contracts/external_runner/external_runner_request.contract.json`
+- `contracts/external_runner/external_runner_result.contract.json`
+- `contracts/external_runner/external_runner_artifact_manifest.contract.json`
+- `tools/ExternalRunnerContract.psm1`
+- `tools/validate_external_runner_request.ps1`
+- `tools/validate_external_runner_result.ps1`
+- `tools/validate_external_runner_artifact_manifest.ps1`
+- `state/fixtures/valid/external_runner/`
+- `state/fixtures/invalid/external_runner/`
+- `tests/test_external_runner_contracts.ps1`
+- `tools/ExternalRunnerGitHubActions.psm1`
+- `tools/invoke_external_runner_github_actions.ps1`
+- `tools/watch_external_runner_github_actions.ps1`
+- `tools/capture_external_runner_github_actions.ps1`
+- `state/fixtures/valid/external_runner_github_actions/`
+- `state/fixtures/invalid/external_runner_github_actions/`
+- `tests/test_external_runner_github_actions.ps1`
+- `.github/workflows/r12-external-replay.yml`
+- `contracts/external_replay/r12_external_replay_bundle.contract.json`
+- `tools/new_r12_external_replay_bundle.ps1`
+- `tools/validate_r12_external_replay_bundle.ps1`
+- `state/fixtures/valid/external_replay/`
+- `state/fixtures/invalid/external_replay/`
+- `tests/test_r12_external_replay_bundle.ps1`
+- `tests/test_r12_external_replay_workflow.ps1`
+- `contracts/external_runner/external_artifact_evidence_packet.contract.json`
+- `tools/ExternalArtifactEvidence.psm1`
+- `tools/import_external_runner_artifact.ps1`
+- `state/fixtures/valid/external_artifact_evidence/`
+- `state/fixtures/invalid/external_artifact_evidence/`
+- `tests/test_external_artifact_evidence.ps1`
 
-`R12-007` through `R12-021` remain planned only.
+`R12-011` through `R12-021` remain planned only.
 
 ## Required Non-Claims
 
-R12 through `R12-006` does not claim:
+R12 through `R12-010` does not claim:
 
 - no delivered R12 value gates;
+- no R12 final-state replay;
 - no 10 percent or larger corrected progress uplift;
 - no broad autonomous milestone execution;
 - no unattended automatic resume;
@@ -232,4 +268,4 @@ R12 cannot close until:
 
 ## No-Successor Posture
 
-No R13 or successor milestone is opened by R12 through `R12-006`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
+No R13 or successor milestone is opened by R12 through `R12-010`. Any successor requires explicit operator approval and separate repo-truth opening evidence.

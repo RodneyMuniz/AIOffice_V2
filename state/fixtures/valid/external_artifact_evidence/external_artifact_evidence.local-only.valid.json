@@ -1,0 +1,48 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_artifact_evidence_packet",
+  "evidence_packet_id": "r12-010-evidence-local-valid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "run_id": "",
+  "run_url": "",
+  "artifact_id": "local-artifact-fixture",
+  "artifact_name": "local-r12-replay-fixture.zip",
+  "artifact_digest_or_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "artifact_source_kind": "local_artifact_zip",
+  "requested_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "requested_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "observed_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "observed_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "imported_at_utc": "2026-04-30T00:07:00Z",
+  "source_artifact_path_or_url": "state/fixtures/valid/external_artifact_evidence/local-r12-replay-fixture.zip",
+  "extraction_root": "state/fixtures/valid/external_artifact_evidence/extracted",
+  "contained_files": [
+    {
+      "path": "r12_external_replay_bundle.json",
+      "size_bytes": 8192,
+      "digest_or_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  ],
+  "replay_bundle_ref": "",
+  "external_runner_result_ref": "",
+  "command_results_summary": {
+    "total_count": 0,
+    "passed_count": 0,
+    "failed_count": 0,
+    "blocked_count": 0
+  },
+  "aggregate_verdict": "passed",
+  "evidence_refs": [
+    "state/fixtures/valid/external_artifact_evidence/local-r12-replay-fixture.zip"
+  ],
+  "refusal_reasons": [],
+  "non_claims": [
+    "no final-state replay",
+    "no R12 closeout",
+    "no broad CI/product coverage",
+    "no production evidence pipeline",
+    "no R12 value-gate delivery yet",
+    "local-only normalization is not external API evidence"
+  ]
+}

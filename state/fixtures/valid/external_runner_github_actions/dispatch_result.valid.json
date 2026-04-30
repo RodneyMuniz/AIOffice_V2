@@ -1,0 +1,77 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_github_actions_dispatch_result",
+  "mode": "dispatch",
+  "request_ref": "state/fixtures/valid/external_runner/external_runner_request.valid.json",
+  "request_packet": {
+    "contract_version": "v1",
+    "artifact_type": "external_runner_request",
+    "request_id": "r12-007-request-valid",
+    "repository": "AIOffice_V2",
+    "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "requested_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+    "requested_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+    "workflow_ref": ".github/workflows/r12-external-replay.yml",
+    "workflow_name": "R12 External Replay",
+    "dispatch_mode": "api_dispatch",
+    "runner_kind": "github_actions",
+    "commands": [
+      {
+        "command_id": "test-value-scorecard",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_value_scorecard.ps1",
+        "purpose": "Validate existing R12 value scorecard foundation."
+      }
+    ],
+    "expected_artifacts": [
+      {
+        "artifact_name": "r12-external-replay-bundle",
+        "required": true,
+        "description": "Standard bounded R12 replay evidence bundle."
+      }
+    ],
+    "timeout_seconds": 900,
+    "caller_identity": "codex-r12-slice",
+    "residue_preflight_ref": "state/fixtures/valid/residue_guard/transition_residue_preflight.clean.valid.json",
+    "remote_head_phase_detection_ref": "state/fixtures/valid/remote_head_phase/phase_match.valid.json",
+    "created_at_utc": "2026-04-30T00:00:00Z",
+    "evidence_refs": [
+      "contracts/external_runner/external_runner_request.contract.json"
+    ],
+    "non_claims": [
+      "no full external orchestrator product",
+      "no final-state replay",
+      "no broad CI/product coverage",
+      "no R12 value-gate delivery yet"
+    ]
+  },
+  "api_controlled": true,
+  "dispatch_mode": "api_dispatch",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "workflow_name": "R12 External Replay",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "requested_head": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+  "requested_tree": "242432575b8ee571514a7559ff31478c73fa2663",
+  "run_id": "26000000001",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/26000000001",
+  "candidate_runs": [
+    {
+      "run_id": "26000000001",
+      "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/26000000001",
+      "head_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+      "head_sha": "03d82720ed15411847f958c7d6e32e5c3d7355c9",
+      "workflow_name": "R12 External Replay",
+      "created_at_utc": "2026-04-30T00:01:00Z"
+    }
+  ],
+  "status": "dispatched",
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/raw_logs/gh-workflow-run.stdout.log"
+  ],
+  "non_claims": [
+    "no external final-state replay",
+    "no broad CI/product coverage",
+    "no production runner",
+    "no R12 value-gate delivery yet",
+    "no solved Codex reliability"
+  ]
+}
