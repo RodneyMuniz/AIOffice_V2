@@ -1,0 +1,95 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "control_room_status_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-014",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "status_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "active_milestone",
+    "active_scope",
+    "completed_tasks",
+    "planned_tasks",
+    "current_phase",
+    "value_gate_status",
+    "external_runner_status",
+    "actionable_qa_status",
+    "control_room_status",
+    "real_build_change_status",
+    "qa_evidence_gate_status",
+    "blockers",
+    "attention_items",
+    "next_actions",
+    "operator_decisions_required",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "active_scope_required_fields": [
+    "input_completed_through",
+    "current_completed_through",
+    "planned_remaining",
+    "scope_summary"
+  ],
+  "value_gate_names": [
+    "external_api_runner",
+    "actionable_qa",
+    "operator_control_room",
+    "real_build_change"
+  ],
+  "allowed_gate_statuses": [
+    "not_started",
+    "foundation_present",
+    "diagnostic_only",
+    "blocked",
+    "partially_evidenced",
+    "evidenced",
+    "refused"
+  ],
+  "blocker_required_fields": [
+    "id",
+    "severity",
+    "title",
+    "explanation",
+    "evidence_refs",
+    "recommended_next_action",
+    "blocking_status"
+  ],
+  "next_action_required_fields": [
+    "id",
+    "task_id",
+    "title",
+    "action_type",
+    "description",
+    "required_before",
+    "evidence_refs"
+  ],
+  "required_non_claims": [
+    "no productized control-room behavior",
+    "no full UI app",
+    "no production runtime",
+    "no R12 closeout",
+    "no final-state replay",
+    "no real build/change gate",
+    "no full R12 value-gate delivery"
+  ],
+  "rules": [
+    "status_must_include_branch_head_tree",
+    "status_must_include_all_four_value_gates",
+    "status_must_include_completed_and_planned_r12_task_lists",
+    "status_must_record_input_r12_013_and_current_at_least_r12_014",
+    "external_runner_evidence_cannot_be_claimed_without_real_external_refs",
+    "qa_evidence_gate_cannot_pass_without_real_external_evidence",
+    "real_build_change_cannot_be_started_in_this_slice",
+    "productized_control_room_behavior_cannot_be_claimed",
+    "r12_closeout_cannot_be_claimed",
+    "blocked_or_refused_gate_requires_blocker",
+    "missing_non_claims_fail_validation"
+  ]
+}

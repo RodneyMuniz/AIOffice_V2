@@ -1,0 +1,40 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "control_room_view_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-015",
+  "required_sections": [
+    "Title and Generated Timestamp",
+    "Current Branch/Head/Tree",
+    "Active Milestone and Scope",
+    "R12 Task Status Summary",
+    "Value Gate Status",
+    "Blockers and Attention Items",
+    "QA/Actionability Posture",
+    "External Runner Posture",
+    "Current Evidence Refs",
+    "Next Recommended Actions",
+    "Operator Decisions Required",
+    "Explicit Non-Claims"
+  ],
+  "rules": [
+    "view_must_be_generated_from_valid_control_room_status_json",
+    "view_must_contain_all_required_sections",
+    "view_must_preserve_branch_head_tree",
+    "view_must_include_all_blockers_from_status",
+    "view_must_include_non_claims",
+    "view_must_include_exact_evidence_refs",
+    "view_must_not_claim_productized_control_room_behavior",
+    "view_must_not_hide_blocked_external_evidence",
+    "view_must_not_hide_blocked_qa_evidence_gate"
+  ],
+  "explicit_non_claims": [
+    "not a full UI app",
+    "not productized control-room behavior",
+    "no production runtime",
+    "no R12 closeout",
+    "no final-state replay",
+    "no real build/change gate"
+  ]
+}

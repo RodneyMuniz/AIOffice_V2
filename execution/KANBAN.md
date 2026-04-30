@@ -10,7 +10,7 @@ Current posture:
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-013` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, and cycle QA evidence gate tooling. `R12-014` through `R12-021` remain planned only. R12 value gates remain frozen but not fully delivered: external/API runner evidence, actionable QA reports and fix queues tied to real evidence, operator control-room status views, and one real useful build/change cycle remain required before closeout. The current real QA evidence gate cannot pass without real external runner result and external artifact evidence. No final-state replay is completed. No R13 or successor milestone is opened.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-016` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, and an operator decision queue. `R12-017` through `R12-021` remain planned only. R12 value gates remain frozen but not fully delivered: external/API runner evidence, actionable QA reports and fix queues tied to real evidence, operator-readable control-room evidence, and one real useful build/change cycle remain required before closeout. The current real QA evidence gate cannot pass without real external runner result and external artifact evidence. No final-state replay is completed. No R13 or successor milestone is opened.
 
 Active branch:
 `release/r12-external-api-runner-actionable-qa-control-room-pilot`
@@ -159,31 +159,31 @@ Earlier closed milestone:
 - Done when: the gate refuses pass without actionable QA report, fix queue, external runner result, external artifact evidence, residue preflight, remote-head detection, and no unresolved blocking QA issues; local-only evidence and head/tree mismatch cannot pass
 
 ### `R12-014` Generate operator control-room status model
-- Status: planned
+- Status: done
 - Order: 14
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-013`
-- Authority: planned only
-- Durable output: planned control-room status model
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/control_room/control_room_status.contract.json`, `tools/ControlRoomStatus.psm1`, `tools/export_control_room_status.ps1`, fixtures under `state/fixtures/valid/control_room/` and `state/fixtures/invalid/control_room/`, `state/control_room/r12_current/control_room_status.json`, `tests/test_control_room_status.ps1`
+- Durable output: machine-readable current R12 control-room status model with branch/head/tree, task posture, value gates, blockers, attention items, next actions, operator decisions, evidence refs, and explicit non-claims
+- Done when: valid fixture and current generated status validate; missing identity, missing value gate, external evidence overclaim, QA pass without external evidence, missing blocker, closeout claim, and missing non-claims fail closed
 
 ### `R12-015` Generate human-readable control-room view
-- Status: planned
+- Status: done
 - Order: 15
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-014`
-- Authority: planned only
-- Durable output: planned Markdown/HTML control-room view
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/control_room/control_room_view.contract.json`, `tools/render_control_room_view.psm1`, fixtures under `state/fixtures/valid/control_room_view/` and `state/fixtures/invalid/control_room_view/`, `state/control_room/r12_current/control_room.md`, `tests/test_control_room_view.ps1`
+- Durable output: static Markdown control-room view generated from the status model with exact evidence refs, blockers, QA posture, external-runner posture, next actions, operator decisions, and non-claims
+- Done when: valid fixture and current Markdown view validate; missing section, missing non-claims, productized UI wording, hidden blocker, and missing evidence refs fail closed
 
 ### `R12-016` Add approval/decision queue foundation
-- Status: planned
+- Status: done
 - Order: 16
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-015`
-- Authority: planned only
-- Durable output: planned operator approval/decision queue
-- Done when: planned only; not implemented in Phase A
+- Authority: `contracts/control_room/operator_decision_queue.contract.json`, `tools/OperatorDecisionQueue.psm1`, `tools/export_operator_decision_queue.ps1`, fixtures under `state/fixtures/valid/operator_decision_queue/` and `state/fixtures/invalid/operator_decision_queue/`, `state/control_room/r12_current/operator_decision_queue.json`, `state/control_room/r12_current/operator_decision_queue.md`, `tests/test_operator_decision_queue.ps1`
+- Durable output: bounded operator decision queue that makes external evidence, control-room review, next-slice authorization, and no-successor posture explicit
+- Done when: valid fixture and current JSON/Markdown queue validate; missing consequence, missing evidence refs, implicit successor authorization, premature final acceptance, hidden blocking decision, and missing non-claims fail closed
 
 ### `R12-017` Run one real useful build/change through the cycle
 - Status: planned

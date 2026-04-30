@@ -1,0 +1,111 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "operator_decision_queue",
+    "queue_id":  "r12-operator-decision-queue-9f9ff69af9ae48929a3f4c6ed940960f",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf",
+    "tree":  "baaa0b40fd8ae23d1a268af64d8bb65955272384",
+    "active_milestone":  "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+    "source_control_room_status_ref":  "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+    "generated_at_utc":  "2026-04-30T08:59:16Z",
+    "decisions":  [
+                      {
+                          "decision_id":  "decision-external-evidence-required",
+                          "decision_type":  "external_evidence_required",
+                          "title":  "Real external evidence is required before final QA/evidence gate pass",
+                          "context":  "The control-room status records no live R12 external runner result and no external artifact evidence for the current branch/head/tree.",
+                          "options":  [
+                                          "Defer final QA/evidence pass until real external evidence exists",
+                                          "Authorize a later bounded external evidence capture slice"
+                                      ],
+                          "recommended_option":  "Defer final QA/evidence pass until real external evidence exists",
+                          "required_before":  "final_qa_evidence_gate_pass",
+                          "blocking_status":  "blocking",
+                          "evidence_refs":  [
+                                                "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+                                                "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json"
+                                            ],
+                          "owner_role":  "operator"
+                      },
+                      {
+                          "decision_id":  "decision-control-room-review",
+                          "decision_type":  "approval_required",
+                          "title":  "Review generated control-room status and Markdown view",
+                          "context":  "The static status model and readable Markdown view are generated for operator review as a bounded foundation.",
+                          "options":  [
+                                          "Accept the bounded control-room foundation evidence",
+                                          "Request corrections to the generated status/view wording"
+                                      ],
+                          "recommended_option":  "Accept the bounded control-room foundation evidence",
+                          "consequence":  "Acceptance records operator-readable foundation evidence only; it does not create productized control-room behavior.",
+                          "required_before":  "next_slice_authorization",
+                          "blocking_status":  "non_blocking",
+                          "evidence_refs":  [
+                                                "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+                                                "contracts/control_room/control_room_status.contract.json",
+                                                "contracts/control_room/control_room_view.contract.json"
+                                            ],
+                          "owner_role":  "operator"
+                      },
+                      {
+                          "decision_id":  "decision-r12-017-018-authorization",
+                          "decision_type":  "next_slice_authorization",
+                          "title":  "Explicit authorization is required for R12-017 through R12-018 only",
+                          "context":  "R12-017 and R12-018 remain planned until the operator authorizes one real useful build/change cycle and fresh-thread restart proof.",
+                          "options":  [
+                                          "Authorize R12-017 through R12-018 only in the next prompt",
+                                          "Keep R12-017 through R12-018 planned"
+                                      ],
+                          "recommended_option":  "Authorize R12-017 through R12-018 only in the next prompt",
+                          "consequence":  "No real build/change cycle starts unless the next prompt explicitly targets R12-017 through R12-018.",
+                          "required_before":  "starting_R12_017",
+                          "blocking_status":  "blocking",
+                          "evidence_refs":  [
+                                                "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+                                                "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                            ],
+                          "owner_role":  "operator"
+                      },
+                      {
+                          "decision_id":  "decision-no-r13-successor",
+                          "decision_type":  "blocked_refusal",
+                          "title":  "No R13 or successor milestone is authorized",
+                          "context":  "R12 remains active and cannot close until all R12 closeout prerequisites exist.",
+                          "options":  [
+                                          "Keep R13 unauthorized",
+                                          "Require a separate future repo-truth opening prompt before any successor"
+                                      ],
+                          "recommended_option":  "Keep R13 unauthorized",
+                          "consequence":  "Any R13 or successor work remains blocked until explicit future authorization and repo-truth opening evidence exist.",
+                          "required_before":  "any_successor_milestone_opening",
+                          "blocking_status":  "blocking",
+                          "evidence_refs":  [
+                                                "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+                                                "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                            ],
+                          "owner_role":  "operator"
+                      }
+                  ],
+    "decision_count":  4,
+    "blocking_decision_count":  3,
+    "recommended_sequence":  [
+                                 "Review the generated control-room status and Markdown view.",
+                                 "Keep final QA/evidence gate blocked until real external runner result and artifact evidence exist.",
+                                 "Authorize only R12-017 through R12-018 in the next prompt if the operator wants to continue.",
+                                 "Keep R13 or any successor milestone unauthorized."
+                             ],
+    "evidence_refs":  [
+                          "state/fixtures/valid/control_room/control_room_status.foundation.valid.json",
+                          "contracts/control_room/operator_decision_queue.contract.json",
+                          "tools/OperatorDecisionQueue.psm1",
+                          "tools/export_operator_decision_queue.ps1"
+                      ],
+    "non_claims":  [
+                       "no automatic operator replacement",
+                       "no R13 authorization",
+                       "no final acceptance",
+                       "no R12 closeout",
+                       "no productized workflow UI"
+                   ]
+}

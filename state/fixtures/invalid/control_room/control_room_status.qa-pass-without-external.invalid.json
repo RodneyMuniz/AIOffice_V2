@@ -1,0 +1,251 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "control_room_status",
+    "status_id":  "r12-control-room-status-e26bf85fd34b4fdfb6279723bec3c4f7",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "head":  "3c2dcd42a9cb64d5acda8de51e0d579eeaca34bf",
+    "tree":  "baaa0b40fd8ae23d1a268af64d8bb65955272384",
+    "active_milestone":  "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+    "active_scope":  {
+                         "input_completed_through":  "R12-013",
+                         "current_completed_through":  "R12-014",
+                         "planned_remaining":  [
+                                                   "R12-015",
+                                                   "R12-016",
+                                                   "R12-017",
+                                                   "R12-018",
+                                                   "R12-019",
+                                                   "R12-020",
+                                                   "R12-021"
+                                               ],
+                         "scope_summary":  "R12 is active through R12-014 only; R12-017 through R12-021 remain planned only when R12-014 is R12-016."
+                     },
+    "completed_tasks":  [
+                            "R12-001",
+                            "R12-002",
+                            "R12-003",
+                            "R12-004",
+                            "R12-005",
+                            "R12-006",
+                            "R12-007",
+                            "R12-008",
+                            "R12-009",
+                            "R12-010",
+                            "R12-011",
+                            "R12-012",
+                            "R12-013",
+                            "R12-014"
+                        ],
+    "planned_tasks":  [
+                          "R12-015",
+                          "R12-016",
+                          "R12-017",
+                          "R12-018",
+                          "R12-019",
+                          "R12-020",
+                          "R12-021"
+                      ],
+    "current_phase":  "operator_control_room_foundation_slice",
+    "value_gate_status":  {
+                              "external_api_runner":  "foundation_present",
+                              "actionable_qa":  "foundation_present",
+                              "operator_control_room":  "foundation_present",
+                              "real_build_change":  "not_started"
+                          },
+    "external_runner_status":  {
+                                   "status":  "blocked",
+                                   "summary":  "External runner foundations exist, but no live R12 external run/result and no external artifact evidence are captured for the current R12 state.",
+                                   "has_live_r12_external_run":  false,
+                                   "has_external_artifact_evidence":  false,
+                                   "evidence_refs":  [
+                                                         "contracts/external_runner/external_runner_result.contract.json",
+                                                         "contracts/external_runner/external_artifact_evidence_packet.contract.json",
+                                                         "tools/ExternalRunnerGitHubActions.psm1",
+                                                         "tools/ExternalArtifactEvidence.psm1"
+                                                     ],
+                                   "blocking_reason":  "A real external runner result and external artifact evidence are required before final QA/evidence gate pass or R12 closeout."
+                               },
+    "actionable_qa_status":  {
+                                 "status":  "foundation_present",
+                                 "summary":  "Actionable QA report, fix queue, and cycle QA evidence gate foundations exist; current final gate remains blocked on real external evidence.",
+                                 "evidence_refs":  [
+                                                       "contracts/actionable_qa/actionable_qa_report.contract.json",
+                                                       "contracts/actionable_qa/actionable_qa_fix_queue.contract.json",
+                                                       "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+                                                       "tools/ActionableQa.psm1",
+                                                       "tools/ActionableQaFixQueue.psm1",
+                                                       "tools/ActionableQaEvidenceGate.psm1"
+                                                   ]
+                             },
+    "control_room_status":  {
+                                "status":  "foundation_present",
+                                "summary":  "Bounded JSON status, Markdown view, and operator decision queue foundations are generated for operator review; this is not productized control-room behavior.",
+                                "status_model_ref":  "state/control_room/r12_current/control_room_status.json",
+                                "markdown_view_ref":  "state/control_room/r12_current/control_room.md",
+                                "decision_queue_ref":  "state/control_room/r12_current/operator_decision_queue.json"
+                            },
+    "real_build_change_status":  {
+                                     "status":  "not_started",
+                                     "summary":  "R12-017 real useful build/change cycle has not started in this prompt.",
+                                     "started":  false,
+                                     "evidence_refs":  [
+
+                                                       ]
+                                 },
+    "qa_evidence_gate_status":  {
+                                    "status":  "passed",
+                                    "summary":  "Current real QA evidence gate cannot pass without real external runner result and external artifact evidence.",
+                                    "passable_current_state":  true,
+                                    "missing_required_evidence":  [
+                                                                      "external_runner_result_ref",
+                                                                      "external_artifact_evidence_ref"
+                                                                  ],
+                                    "evidence_refs":  [
+                                                          "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+                                                          "tools/ActionableQaEvidenceGate.psm1"
+                                                      ]
+                                },
+    "blockers":  [
+                     {
+                         "id":  "blocker-r12-external-evidence",
+                         "severity":  "high",
+                         "title":  "Real R12 external runner evidence is missing",
+                         "explanation":  "No live R12 external runner result and no external artifact evidence are captured for the current branch/head/tree, so the final QA/evidence gate remains blocked.",
+                         "evidence_refs":  [
+                                               "contracts/external_runner/external_runner_result.contract.json",
+                                               "contracts/external_runner/external_artifact_evidence_packet.contract.json",
+                                               "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json"
+                                           ],
+                         "recommended_next_action":  "Run the authorized external runner/replay slice later and import real artifact evidence before attempting final QA/evidence pass.",
+                         "blocking_status":  "blocking"
+                     },
+                     {
+                         "id":  "blocker-r12-real-build-change-not-started",
+                         "severity":  "medium",
+                         "title":  "Real useful build/change gate has not started",
+                         "explanation":  "R12-017 is outside this prompt and remains planned only, so the real build/change value gate is not delivered.",
+                         "evidence_refs":  [
+                                               "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                           ],
+                         "recommended_next_action":  "Require an explicit next prompt for R12-017 through R12-018 before starting a real useful build/change cycle.",
+                         "blocking_status":  "blocking"
+                     }
+                 ],
+    "attention_items":  [
+                            {
+                                "id":  "attention-control-room-boundary",
+                                "severity":  "medium",
+                                "title":  "Control-room surface is bounded foundation only",
+                                "explanation":  "The generated JSON and Markdown make the current posture operator-readable, but they do not constitute a full UI app or productized workflow UI.",
+                                "evidence_refs":  [
+                                                      "contracts/control_room/control_room_status.contract.json"
+                                                  ],
+                                "recommended_next_action":  "Review the generated status/view/queue as static evidence only.",
+                                "blocking_status":  "advisory"
+                            },
+                            {
+                                "id":  "attention-no-successor",
+                                "severity":  "high",
+                                "title":  "No R13 or successor milestone is authorized",
+                                "explanation":  "R12 remains active, R12 closeout is not claimed, and no successor milestone is opened.",
+                                "evidence_refs":  [
+                                                      "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                  ],
+                                "recommended_next_action":  "Keep successor work blocked until explicit future authorization exists.",
+                                "blocking_status":  "advisory"
+                            }
+                        ],
+    "next_actions":  [
+                         {
+                             "id":  "next-r12-017-018",
+                             "task_id":  "R12-017",
+                             "title":  "Authorize R12-017 through R12-018 only",
+                             "action_type":  "next_slice_authorization",
+                             "description":  "Next prompt should run one real useful build/change cycle and prove fresh-thread restart, without opening R12-019 or later.",
+                             "required_before":  "starting_real_build_change_cycle",
+                             "evidence_refs":  [
+                                                   "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                               ]
+                         },
+                         {
+                             "id":  "next-real-external-evidence",
+                             "task_id":  "R12-019",
+                             "title":  "Capture real external evidence before final QA pass",
+                             "action_type":  "external_evidence_required",
+                             "description":  "A later authorized slice must capture real external runner result and artifact evidence tied to exact branch/head/tree before final gate pass or closeout.",
+                             "required_before":  "final_qa_evidence_gate_pass",
+                             "evidence_refs":  [
+                                                   "contracts/external_runner/external_runner_result.contract.json",
+                                                   "contracts/external_runner/external_artifact_evidence_packet.contract.json"
+                                               ]
+                         }
+                     ],
+    "operator_decisions_required":  [
+                                        {
+                                            "id":  "decision-external-evidence-required",
+                                            "title":  "Real external evidence is required before final QA/evidence pass",
+                                            "decision_type":  "external_evidence_required",
+                                            "required_before":  "final_qa_evidence_gate_pass",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json"
+                                                              ]
+                                        },
+                                        {
+                                            "id":  "decision-control-room-review",
+                                            "title":  "Review generated control-room status and Markdown view",
+                                            "decision_type":  "approval_required",
+                                            "required_before":  "next_slice_authorization",
+                                            "blocking_status":  "non_blocking",
+                                            "evidence_refs":  [
+                                                                  "contracts/control_room/control_room_status.contract.json"
+                                                              ]
+                                        },
+                                        {
+                                            "id":  "decision-r12-017-018-authorization",
+                                            "title":  "Explicitly authorize only R12-017 through R12-018 next",
+                                            "decision_type":  "next_slice_authorization",
+                                            "required_before":  "starting_R12_017",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                              ]
+                                        },
+                                        {
+                                            "id":  "decision-no-r13-successor",
+                                            "title":  "Keep R13 or successor milestone unauthorized",
+                                            "decision_type":  "blocked_refusal",
+                                            "required_before":  "any_successor_milestone_opening",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
+                                                              ]
+                                        }
+                                    ],
+    "evidence_refs":  [
+                          "contracts/actionable_qa/cycle_qa_evidence_gate.contract.json",
+                          "contracts/control_room/control_room_status.contract.json",
+                          "contracts/control_room/control_room_view.contract.json",
+                          "contracts/control_room/operator_decision_queue.contract.json",
+                          "governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md",
+                          "tools/ActionableQaEvidenceGate.psm1",
+                          "tools/ControlRoomStatus.psm1",
+                          "tools/export_control_room_status.ps1",
+                          "tools/export_operator_decision_queue.ps1",
+                          "tools/OperatorDecisionQueue.psm1",
+                          "tools/render_control_room_view.psm1"
+                      ],
+    "generated_at_utc":  "2026-04-30T08:59:16Z",
+    "non_claims":  [
+                       "no productized control-room behavior",
+                       "no full UI app",
+                       "no production runtime",
+                       "no R12 closeout",
+                       "no final-state replay",
+                       "no real build/change gate",
+                       "no full R12 value-gate delivery",
+                       "no final QA pass for R12 closeout",
+                       "no R13 authorization"
+                   ]
+}

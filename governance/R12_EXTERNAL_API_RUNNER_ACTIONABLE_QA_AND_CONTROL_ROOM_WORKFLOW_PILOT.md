@@ -1,12 +1,12 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-013` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-016` only.
 
 ## Purpose
 
 R12 opens a properly named release branch and freezes the next milestone around external/API runner evidence, actionable QA, an operator-readable control-room workflow surface, and one real useful build/change cycle.
 
-R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, and cycle QA evidence gate foundations. It does not deliver all four R12 value gates.
+R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, cycle QA evidence gate, static control-room status/view, and operator decision queue foundations. It does not deliver all four R12 value gates.
 
 ## Accepted Starting State
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, and cycle QA evidence gate tooling before later control-room, real build/change, final-state replay, and closeout work;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, and operator decision queue tooling before later real build/change, final-state replay, and closeout work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -70,6 +70,7 @@ The current R12 foundation slice may claim only:
 - bounded GitHub Actions external-runner invoker/monitor/capture substrate;
 - R12 external replay workflow and bundle-shape foundation;
 - external artifact evidence normalization foundation.
+- bounded operator-readable control-room foundation evidence through static JSON/Markdown status and decision queue artifacts.
 
 The current R12 foundation slice does not claim R12 value delivery.
 
@@ -128,16 +129,16 @@ The current R12 foundation slice does not claim R12 value delivery.
 - Boundary: refuse QA pass and closeout transitions without actionable QA, fix queue, external runner result, external artifact evidence, residue preflight, remote-head detection, operating-loop, and scorecard refs through `contracts/actionable_qa/cycle_qa_evidence_gate.contract.json`, `tools/ActionableQaEvidenceGate.psm1`, `tools/invoke_actionable_qa_evidence_gate.ps1`, fixtures, and `tests/test_actionable_qa_evidence_gate.ps1`.
 
 ### `R12-014` Generate operator control-room status model
-- Status: planned
-- Boundary: generate a machine-readable cycle/control-room status model.
+- Status: done
+- Boundary: generate a machine-readable cycle/control-room status model through `contracts/control_room/control_room_status.contract.json`, `tools/ControlRoomStatus.psm1`, `tools/export_control_room_status.ps1`, fixtures, `state/control_room/r12_current/control_room_status.json`, and `tests/test_control_room_status.ps1`.
 
 ### `R12-015` Generate human-readable control-room view
-- Status: planned
-- Boundary: generate Markdown or static HTML so the operator can read status, blockers, QA issues, external runs, and next action.
+- Status: done
+- Boundary: generate static Markdown so the operator can read status, blockers, QA posture, external-runner posture, evidence refs, next action, decisions, and non-claims through `contracts/control_room/control_room_view.contract.json`, `tools/render_control_room_view.psm1`, fixtures, `state/control_room/r12_current/control_room.md`, and `tests/test_control_room_view.ps1`.
 
 ### `R12-016` Add approval/decision queue foundation
-- Status: planned
-- Boundary: expose pending operator decisions and consequences without auto-approval.
+- Status: done
+- Boundary: expose pending operator decisions and consequences without auto-approval through `contracts/control_room/operator_decision_queue.contract.json`, `tools/OperatorDecisionQueue.psm1`, `tools/export_operator_decision_queue.ps1`, fixtures, `state/control_room/r12_current/operator_decision_queue.json`, `state/control_room/r12_current/operator_decision_queue.md`, and `tests/test_operator_decision_queue.ps1`.
 
 ### `R12-017` Run one real useful build/change through the cycle
 - Status: planned
@@ -161,7 +162,7 @@ The current R12 foundation slice does not claim R12 value delivery.
 
 ## Foundation Outputs
 
-R12-001 through R12-013 are bounded foundation work only:
+R12-001 through R12-016 are bounded foundation work only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -245,12 +246,33 @@ R12-001 through R12-013 are bounded foundation work only:
 - `state/fixtures/valid/actionable_qa_evidence_gate/`
 - `state/fixtures/invalid/actionable_qa_evidence_gate/`
 - `tests/test_actionable_qa_evidence_gate.ps1`
+- `contracts/control_room/control_room_status.contract.json`
+- `tools/ControlRoomStatus.psm1`
+- `tools/export_control_room_status.ps1`
+- `state/fixtures/valid/control_room/`
+- `state/fixtures/invalid/control_room/`
+- `tests/test_control_room_status.ps1`
+- `contracts/control_room/control_room_view.contract.json`
+- `tools/render_control_room_view.psm1`
+- `state/fixtures/valid/control_room_view/`
+- `state/fixtures/invalid/control_room_view/`
+- `tests/test_control_room_view.ps1`
+- `contracts/control_room/operator_decision_queue.contract.json`
+- `tools/OperatorDecisionQueue.psm1`
+- `tools/export_operator_decision_queue.ps1`
+- `state/fixtures/valid/operator_decision_queue/`
+- `state/fixtures/invalid/operator_decision_queue/`
+- `tests/test_operator_decision_queue.ps1`
+- `state/control_room/r12_current/control_room_status.json`
+- `state/control_room/r12_current/control_room.md`
+- `state/control_room/r12_current/operator_decision_queue.json`
+- `state/control_room/r12_current/operator_decision_queue.md`
 
-`R12-014` through `R12-021` remain planned only.
+`R12-017` through `R12-021` remain planned only.
 
 ## Required Non-Claims
 
-R12 through `R12-013` does not claim:
+R12 through `R12-016` does not claim:
 
 - no delivered R12 value gates;
 - no R12 final-state replay;
@@ -264,6 +286,7 @@ R12 through `R12-013` does not claim:
 - no production runtime;
 - no real production QA;
 - no full UI/control-room productization;
+- no full UI app;
 - no productized control-room behavior;
 - no Standard runtime;
 - no multi-repo orchestration;
@@ -289,4 +312,4 @@ R12 cannot close until:
 
 ## No-Successor Posture
 
-No R13 or successor milestone is opened by R12 through `R12-013`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
+No R13 or successor milestone is opened by R12 through `R12-016`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
