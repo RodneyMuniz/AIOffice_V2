@@ -1,0 +1,5 @@
+545232b Prepare R11 candidate closeout package
+6f3a9fd Run R11 controlled cycle pilot
+a42d9d8 Add R11 separate QA gate
+ec5f6aa Add R11 bounded Dev execution adapter
+03e6983 Add R11 local residue guard

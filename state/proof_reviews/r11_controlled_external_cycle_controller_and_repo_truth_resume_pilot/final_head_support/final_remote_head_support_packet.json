@@ -1,0 +1,77 @@
+{
+  "contract_version": "v1",
+  "packet_type": "r11_final_remote_head_support_packet",
+  "packet_id": "r11-009-phase-2-final-remote-head-support",
+  "repository": "AIOffice_V2",
+  "branch": "release/r10-real-external-runner-proof-foundation",
+  "milestone": "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+  "source_task": "R11-009",
+  "phase": "phase_2_post_push_final_head_support",
+  "status": "final_head_support_recorded_after_candidate_closeout_push",
+  "candidate_closeout_commit_sha": "545232bfd06df86018917bc677e6ba3374b3b9c4",
+  "candidate_closeout_tree_sha": "6deeba6a4204146ec94192027af327909f65abb0",
+  "verified_remote_head_sha": "545232bfd06df86018917bc677e6ba3374b3b9c4",
+  "verified_remote_ref": "refs/heads/release/r10-real-external-runner-proof-foundation",
+  "verification_timing": "after_candidate_closeout_push",
+  "verified_condition": "origin/release/r10-real-external-runner-proof-foundation remote head equals the already-pushed R11-009 Phase 1 candidate closeout commit",
+  "support_packet_path": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json",
+  "support_evidence_relationship": "This support evidence is not inside the same candidate closeout commit it verifies. It is produced only after the candidate closeout commit was pushed and observed as the remote branch head.",
+  "follow_up_final_support_commit_posture": "This packet is follow-up Phase 2 final support evidence to be committed after the candidate closeout commit it verifies.",
+  "raw_evidence_refs": {
+    "git_rev_parse_head": {
+      "command": "git rev-parse HEAD",
+      "exit_code": 0,
+      "stdout": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_rev_parse_head.stdout.log",
+      "stderr": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_rev_parse_head.stderr.log"
+    },
+    "git_rev_parse_head_tree": {
+      "command": "git rev-parse HEAD^{tree}",
+      "exit_code": 0,
+      "stdout": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_rev_parse_head_tree.stdout.log",
+      "stderr": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_rev_parse_head_tree.stderr.log"
+    },
+    "git_ls_remote_release_branch": {
+      "command": "git ls-remote origin refs/heads/release/r10-real-external-runner-proof-foundation",
+      "exit_code": 0,
+      "stdout": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_ls_remote_release_branch.stdout.log",
+      "stderr": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_ls_remote_release_branch.stderr.log"
+    },
+    "git_status_short": {
+      "command": "git status --short",
+      "exit_code": 0,
+      "stdout": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_status_short.stdout.log",
+      "stderr": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_status_short.stderr.log",
+      "interpretation": "empty stdout confirms the worktree was clean before Phase 2 support files were written"
+    },
+    "git_log_oneline_n5": {
+      "command": "git log --oneline -n 5",
+      "exit_code": 0,
+      "stdout": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_log_oneline_n5.stdout.log",
+      "stderr": "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/git_log_oneline_n5.stderr.log"
+    }
+  },
+  "accepted_claims": [
+    "R11 is closed narrowly only after Phase 2 post-push final-head support exists",
+    "the R11-009 Phase 1 candidate closeout commit was pushed before this final-head support was produced",
+    "the verified remote release branch head equals the R11-009 Phase 1 candidate closeout commit",
+    "R11 closeout is limited to one bounded controlled-cycle pilot and its committed support evidence"
+  ],
+  "explicit_non_claims": [
+    "no R12 or successor milestone opened",
+    "no production runtime",
+    "no real production QA",
+    "no UI/control-room productization",
+    "no Standard runtime",
+    "no multi-repo orchestration",
+    "no swarms",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no hours-long unattended execution",
+    "no destructive rollback",
+    "no broad CI/product coverage",
+    "no productized control-room behavior",
+    "no general Codex reliability",
+    "no claim beyond one bounded R11 controlled-cycle pilot"
+  ]
+}

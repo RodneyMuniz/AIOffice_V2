@@ -809,3 +809,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R11 is not accepted as closed by this candidate package; Phase 2 post-push final-head support must verify the pushed candidate closeout commit from outside that same candidate commit.
 - Consequence: no R12 or successor milestone is opened, and `R11-009` remains candidate-only until Phase 2 support exists.
 - Consequence: this candidate decision does not widen R11 beyond one bounded controlled-cycle pilot and does not claim real production QA, production runtime, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, external CI/replay without real committed run evidence, or general Codex reliability.
+
+## D-0089 R11-009 Added Final-Head Support And Closed R11 Narrowly
+- Date: 2026-04-30
+- Status: accepted
+- Decision: Phase 2 of `R11-009` records post-push final-head support and closes `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` narrowly.
+- Consequence: the Phase 2 support packet is recorded at `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json` with raw evidence logs under `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/raw_logs/`.
+- Consequence: the support packet verifies candidate closeout commit `545232bfd06df86018917bc677e6ba3374b3b9c4` and tree `6deeba6a4204146ec94192027af327909f65abb0` only after the candidate closeout commit was pushed and observed as the remote branch head.
+- Consequence: this support evidence is not inside the same candidate closeout commit it verifies.
+- Consequence: `R11-001` through `R11-009` are complete, R10 remains the prior closed milestone, and no R12 or successor milestone is opened.
+- Consequence: R11 closeout is limited to one bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet.
+- Consequence: this final closeout does not claim real production QA, production runtime, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, external CI/replay without real committed run evidence, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot.
