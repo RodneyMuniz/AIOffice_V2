@@ -1,0 +1,23 @@
+PASS valid: dispatch with at least two bounded task packets validates and preserves cycle identity.
+PASS invalid: dispatch-fewer-than-two-tasks -> Dev dispatch task_packets must contain at least 2 item(s).
+PASS invalid: dispatch-empty-scope -> Dev dispatch task_packets[0].bounded_scope must not be empty.
+PASS invalid: dispatch-missing-expected-outputs -> Dev dispatch task_packets[0] is missing required field 'expected_outputs'.
+PASS invalid: dispatch-missing-evidence -> Dev dispatch task_packets[0].evidence_required must not be empty.
+PASS invalid: dispatch-root-path -> Dev dispatch task_packets[0].allowed_paths item '.' is unbounded or unsafe.
+PASS invalid: dispatch-dotgit-path -> Dev dispatch task_packets[0].allowed_paths item '.git/config' is unbounded or unsafe.
+PASS invalid: dispatch-wildcard-path -> Dev dispatch task_packets[0].allowed_paths item 'tools/*' is unbounded or unsafe.
+PASS invalid: dispatch-broad-path -> Dev dispatch task_packets[0].allowed_paths item 'tools' is a broad root-level path and is refused.
+PASS invalid: dispatch-unsupported-ledger-state -> Cycle ledger state 'initialized' is not compatible with Dev dispatch. Allowed states: dev_dispatch_ready.
+PASS valid: completed result validates with evidence refs and preserves dispatch/cycle identity.
+PASS invalid: completed-result-without-evidence -> Dev execution result task_results[0].evidence_refs are required for completed task results.
+PASS invalid: blocked-result-without-refusal -> Dev execution result task_results[0].refusal_reasons are required for blocked or failed task results.
+PASS invalid: failed-result-without-refusal -> Dev execution result task_results[0].refusal_reasons are required for blocked or failed task results.
+PASS invalid: result-claiming-qa-authority -> Dev execution result task_results[0].summary must not claim QA authority. Offending text: Executor certifies QA passed for this task.
+PASS invalid: result-claiming-complete-cycle -> Dev execution result task_results[0].summary must not claim complete controlled cycle. Offending text: The complete controlled cycle ran and is accepted.
+PASS invalid: result-executor-kind-qa -> Dev execution result executor_kind must be one of: codex, human, adapter_fixture, external_executor.
+PASS invalid: result-mismatched-dispatch-id -> Dev execution result packet.dispatch_id does not match the dispatch packet.
+PASS invalid: result-mismatched-cycle-id -> Dev execution result packet.cycle_id does not match the dispatch packet.
+PASS invalid: invalid-dispatch-fixture -> Dev dispatch packet.task_packets[0].allowed_paths item '.' is unbounded or unsafe.
+PASS invalid: invalid-result-fixture -> Dev execution result packet.task_results[0].summary must not claim QA authority. Offending text: Executor certifies QA passed for this bounded task.
+PASS valid: dispatch and result non-claims are preserved.
+All dev execution adapter tests passed. Valid passed: 3. Invalid rejected: 19.

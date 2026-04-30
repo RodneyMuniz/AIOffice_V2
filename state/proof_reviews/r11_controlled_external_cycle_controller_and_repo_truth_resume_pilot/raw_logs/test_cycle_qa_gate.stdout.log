@@ -1,0 +1,26 @@
+PASS valid: QA signoff over valid Dev dispatch/result passes.
+PASS valid: QA signoff validates against contract.
+PASS valid: QA signoff preserves cycle/dispatch/dev-result refs.
+PASS valid: QA signoff consumes Dev evidence refs.
+PASS valid: valid QA signoff fixture validates.
+PASS valid: inspect-signoff validates and summarizes the packet.
+PASS invalid: missing-dispatch -> Dev dispatch packet 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-cycle-qa-9c112339\missing-dispatch.json' does not exist.
+PASS invalid: malformed-dispatch -> Dev dispatch packet at 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-cycle-qa-9c112339\malformed-dispatch.json' is not valid JSON. Invalid object passed in, ':' or '}' expected. (12): { not-json
+
+PASS invalid: missing-dev-result -> Dev result packet 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-cycle-qa-9c112339\missing-result.json' does not exist.
+PASS invalid: malformed-dev-result -> Dev execution result packet at 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-cycle-qa-9c112339\malformed-result.json' is not valid JSON. Invalid object passed in, ':' or '}' expected. (12): { not-json
+
+PASS invalid: dispatch-result-cycle-mismatch -> Dev execution result packet.cycle_id does not match the dispatch packet.
+PASS invalid: completed-dev-result-without-evidence -> Dev execution result packet.task_results[0].evidence_refs are required for completed task results.
+PASS invalid: changed-file-outside-dispatch-scope -> Dev execution result packet.task_results[0].changed_files item 'README.md' is outside the dispatch allowed paths.
+PASS invalid: produced-artifact-outside-dispatch-scope -> Dev execution result packet.task_results[0].produced_artifacts item 'README.md' is outside the dispatch allowed paths.
+PASS invalid: dev-result-claiming-qa-authority -> Dev execution result packet.task_results[0].summary must not claim QA authority. Offending text: Executor certifies QA passed for this bounded task.
+PASS invalid: dev-result-claiming-qa-verdict -> Dev result packet must not claim QA authority or QA verdict through field 'qa_verdict'.
+PASS invalid: dev-result-claiming-complete-controlled-cycle -> Dev execution result packet.task_results[0].summary must not claim complete controlled cycle. Offending text: The complete controlled cycle ran and is accepted.
+PASS invalid: qa-actor-missing -> Cannot bind argument to parameter 'QaActorIdentity' because it is an empty string.
+PASS invalid: same-qa-actor-as-executor-without-boundary -> QA actor identity matches executor identity; qa_independence_boundary must explicitly state why executor self-certification is not being accepted.
+PASS invalid: qa-signoff-without-source-evidence-refs -> Cycle QA signoff packet.source_evidence_refs must not be empty.
+PASS invalid: qa-signoff-missing-non-claim -> Cycle QA signoff packet.non_claims must include 'no solved Codex context compaction'.
+PASS invalid: invalid-fixture-cycle_qa_signoff_packet.executor_narration.invalid.json -> Cycle QA signoff packet must not claim executor narration accepted as proof. Offending text: Executor narration is accepted as proof for this QA signoff.
+PASS invalid: invalid-fixture-cycle_qa_signoff_packet.missing_non_claim.invalid.json -> Cycle QA signoff packet.non_claims must include 'no solved Codex context compaction'.
+All cycle QA gate tests passed. Valid passed: 6. Invalid rejected: 17.

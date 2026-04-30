@@ -1,0 +1,35 @@
+PASS valid initialized cycle ledger: cycle-r11-002-validator-fixture -> initialized
+PASS valid later-state cycle ledger: cycle-r11-002-validator-fixture -> operator_decision_pending
+PASS invalid: missing-required-field -> missing-required-field is missing required field 'contract_version'.
+PASS invalid: wrong-repository -> wrong-repository.repository must be 'AIOffice_V2'.
+PASS invalid: wrong-branch -> wrong-branch.branch must be 'release/r10-real-external-runner-proof-foundation'.
+PASS invalid: wrong-milestone -> wrong-milestone.milestone must be 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot'.
+PASS invalid: wrong-source-task -> wrong-source-task.source_task must be 'R11-002'.
+PASS invalid: unknown-state -> unknown-state.state must be one of: initialized, request_recorded, plan_prepared, plan_approved, dev_dispatch_ready, dev_in_progress, dev_evidence_recorded, qa_pending, qa_passed, qa_failed, audit_packet_ready, operator_decision_pending, accepted, blocked, stopped.
+PASS invalid: illegal-transition -> Cycle ledger.transition_history contains impossible jump from 'dev_dispatch_ready' to 'qa_pending'.
+PASS invalid: transition-history-gap -> Cycle ledger.transition_history[4].from_state does not match prior to_state 'plan_approved'.
+PASS invalid: transition-timestamp-regression -> Cycle ledger.transition_history timestamps must not regress.
+PASS invalid: terminal-state-with-allowed-next-states -> Cycle ledger terminal state 'accepted' must not have allowed_next_states.
+PASS invalid: non-terminal-empty-allowed-next-states -> Cycle ledger non-terminal state 'initialized' must not have empty allowed_next_states.
+PASS invalid: chat-transcript-authority -> Cycle ledger.controller_authority.state_authority must be 'cycle_ledger_artifact' and must not imply chat transcript, memory, narration, or manual assertion authority.
+PASS invalid: missing-required-non-claim -> missing-required-non-claim.non_claims must include 'no Standard runtime'.
+PASS invalid: required-state-refs-missing -> Cycle ledger.baseline_ref is required for the current cycle state.
+PASS invalid: updated-earlier-than-created -> updated-earlier-than-created.updated_at_utc must not be earlier than created_at_utc.
+PASS invalid: transition-history-does-not-end-at-current-state -> Cycle ledger.transition_history must end at current state 'request_recorded'.
+PASS invalid: current-step-contradicts-state -> current-step-contradicts-state.current_step 'run_separate_qa_gate' contradicts current state 'initialized'. Expected 'initialize_cycle_ledger'.
+PASS invalid: invalid-fixture:controller_command.chat_authority.invalid.json -> Cycle ledger is missing required field 'milestone'.
+PASS invalid: invalid-fixture:controller_command.successor_claim.invalid.json -> Cycle ledger is missing required field 'cycle_id'.
+PASS invalid: invalid-fixture:cycle_bootstrap_packet.chat_authority.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:cycle_ledger.chat_authority.invalid.json -> Cycle ledger.controller_authority.state_authority must be 'cycle_ledger_artifact' and must not imply chat transcript, memory, narration, or manual assertion authority.
+PASS invalid: invalid-fixture:cycle_ledger.illegal_transition.invalid.json -> Cycle ledger.transition_history contains impossible jump from 'initialized' to 'plan_prepared'.
+PASS invalid: invalid-fixture:cycle_ledger.missing_non_claim.invalid.json -> Cycle ledger.non_claims must include 'no Standard runtime'.
+PASS invalid: invalid-fixture:cycle_ledger.required_refs_missing.invalid.json -> Cycle ledger.cycle_plan_ref is required for the current cycle state.
+PASS invalid: invalid-fixture:cycle_next_action_packet.outside_allowed.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:cycle_qa_signoff_packet.executor_narration.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:cycle_qa_signoff_packet.missing_non_claim.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:dev_dispatch_packet.unbounded_path.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:dev_execution_result_packet.qa_claim.invalid.json -> Cycle ledger is missing required field 'controller_authority'.
+PASS invalid: invalid-fixture:local_residue_quarantine_result.authorized_without_dry_run.invalid.json -> Cycle ledger is missing required field 'cycle_id'.
+PASS invalid: invalid-fixture:local_residue_scan_result.local_residue_as_evidence.invalid.json -> Cycle ledger is missing required field 'cycle_id'.
+PASS invalid: invalid-fixture:local_residue_scan_result.missing_non_claim.invalid.json -> Cycle ledger is missing required field 'cycle_id'.
+All cycle ledger tests passed. Valid passed: 2. Invalid rejected: 32.

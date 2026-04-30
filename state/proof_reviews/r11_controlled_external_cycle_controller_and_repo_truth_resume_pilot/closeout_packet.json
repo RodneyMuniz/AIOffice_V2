@@ -1,0 +1,122 @@
+{
+    "contract_version":  "v1",
+    "packet_type":  "r11_candidate_closeout_packet",
+    "packet_id":  "r11-009-phase-1-candidate-closeout",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "source_milestone":  "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+    "source_task":  "R11-009",
+    "phase":  "phase_1_candidate_closeout",
+    "status":  "candidate_prepared_pending_post_push_final_head_support",
+    "starting_remote_head":  "6f3a9fdb42141f23feb19b81f278d16d01a62129",
+    "starting_tree":  "f1b035d578f65c75558dd0fed0d5ec3f7528d42d",
+    "r11_opening_ref":  "governance/DECISION_LOG.md#d-0080-r11-001-opened-r11-controlled-cycle-controller-pilot",
+    "r11_authority_ref":  "governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md",
+    "r11_002_cycle_ledger_refs":  [
+                                      "contracts/cycle_controller/cycle_ledger.contract.json",
+                                      "tools/CycleLedger.psm1",
+                                      "tests/test_cycle_ledger.ps1"
+                                  ],
+    "r11_003_controller_refs":  [
+                                    "tools/CycleController.psm1",
+                                    "tools/invoke_cycle_controller.ps1",
+                                    "tests/test_cycle_controller.ps1"
+                                ],
+    "r11_004_bootstrap_refs":  [
+                                   "tools/CycleBootstrap.psm1",
+                                   "tools/prepare_cycle_bootstrap.ps1",
+                                   "tests/test_cycle_bootstrap_resume.ps1"
+                               ],
+    "r11_005_residue_refs":  [
+                                 "tools/LocalResidueGuard.psm1",
+                                 "tools/invoke_local_residue_guard.ps1",
+                                 "tests/test_local_residue_guard.ps1"
+                             ],
+    "r11_006_dev_adapter_refs":  [
+                                     "tools/DevExecutionAdapter.psm1",
+                                     "tools/invoke_dev_execution_adapter.ps1",
+                                     "tests/test_dev_execution_adapter.ps1"
+                                 ],
+    "r11_007_qa_gate_refs":  [
+                                 "tools/CycleQaGate.psm1",
+                                 "tools/invoke_cycle_qa_gate.ps1",
+                                 "tests/test_cycle_qa_gate.ps1"
+                             ],
+    "r11_008_pilot_root_ref":  "state/cycles/r11_008_controlled_cycle_pilot/",
+    "r11_008_cycle_id":  "cycle-r11-008-controlled-cycle-pilot",
+    "r11_008_audit_packet_ref":  "state/cycles/r11_008_controlled_cycle_pilot/audit/cycle_audit_packet.json",
+    "r11_008_decision_packet_ref":  "state/cycles/r11_008_controlled_cycle_pilot/decision/operator_decision_packet.json",
+    "r11_008_pilot_test_ref":  "tests/test_r11_controlled_cycle_pilot.ps1",
+    "candidate_closeout_commit_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/candidate_closeout_head_ref.md",
+    "candidate_closeout_tree_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/candidate_closeout_tree_ref.md",
+    "post_push_final_head_support_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json",
+    "evidence_inventory_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/evidence_inventory.md",
+    "validation_manifest_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/validation_manifest.md",
+    "raw_logs_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/",
+    "accepted_claims":  [
+                            "one bounded controlled-cycle pilot exists",
+                            "one operator-approved request artifact exists",
+                            "one cycle ledger progressed through the controlled-cycle states",
+                            "one bootstrap and next-action packet set was produced from repo truth",
+                            "one clean local-residue preflight exists",
+                            "one Dev dispatch with two bounded task packets exists",
+                            "one Dev result packet exists as source evidence only",
+                            "one separate QA signoff over Dev evidence exists",
+                            "one audit packet exists",
+                            "one operator decision packet exists",
+                            "operator intervention count is 2",
+                            "manual bootstrap count is 0 after initial approval",
+                            "R11-009 closeout package is candidate only until Phase 2 final support exists"
+                        ],
+    "rejected_claims":  [
+                            "R11 closeout before Phase 2 support",
+                            "R12 or successor milestone opening",
+                            "production runtime",
+                            "real production QA",
+                            "UI/control-room productization",
+                            "Standard runtime",
+                            "multi-repo orchestration",
+                            "swarms",
+                            "broad autonomous milestone execution",
+                            "unattended automatic resume",
+                            "solved Codex context compaction",
+                            "hours-long unattended execution",
+                            "destructive rollback",
+                            "broad CI/product coverage",
+                            "productized control-room behavior",
+                            "general Codex reliability",
+                            "any claim beyond one bounded R11 controlled-cycle pilot"
+                        ],
+    "candidate_acceptance_conditions":  [
+                                            "R11-008 pilot artifacts are present and validate",
+                                            "R11-008 audit and decision packets preserve cycle identity",
+                                            "R11-008 decision packet rejects R11 closeout and successor claims before Phase 2",
+                                            "Phase 1 validation commands pass",
+                                            "post-push final-head support remains required after this candidate commit is pushed"
+                                        ],
+    "verdict":  "candidate_ready_pending_phase_2",
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-04-30T03:30:35Z",
+    "non_claims":  [
+                       "no R11 closeout acceptance before post-push final-head support",
+                       "no R12 or successor milestone opening",
+                       "no production runtime",
+                       "no real production QA",
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended execution",
+                       "no destructive rollback",
+                       "no broad CI/product coverage",
+                       "no productized control-room behavior",
+                       "no general Codex reliability",
+                       "no external CI/replay claim without committed real external run evidence",
+                       "no claim beyond one bounded R11 controlled-cycle pilot"
+                   ]
+}

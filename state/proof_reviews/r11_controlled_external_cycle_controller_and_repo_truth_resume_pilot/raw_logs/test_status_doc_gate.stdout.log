@@ -1,0 +1,53 @@
+PASS valid current R11 ledger status: R8 through R8-009 complete, 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation' most recently closed, R10 through R10-008 closed, and R11 through R11-008 active with R11-009 through R11-009 planned
+PASS invalid: r8-closeout-without-qa-packet-ref -> R8 closeout claims require a referenced QA packet.
+PASS invalid: r8-closeout-without-remote-head-ref -> R8 closeout claims require a referenced remote-head verification artifact.
+PASS invalid: r8-closeout-without-post-push-limitation -> R8 closeout claims require either a post-push verification artifact reference or an explicit exact-final post-push verification limitation.
+PASS invalid: external-proof-claim-without-run-identity -> Status docs claims a concrete CI or external proof artifact without a concrete reference.
+PASS invalid: r10-external-proof-claim-without-run-identity -> Status docs claims a concrete CI or external proof artifact without a concrete reference.
+PASS invalid: post-push-artifact-claim-without-artifact-ref -> Status docs claims a post-push verification artifact without a concrete reference.
+PASS invalid: successor-opened-after-r11-opening -> Status docs claims unapproved successor milestone. Offending line: `R12 Next Milestone` is now active in repo truth.
+PASS invalid: r10-closeout-without-phase-2-support-ref -> README must cite the R10 Phase 2 final-head support packet.
+PASS invalid: missing-r10-closeout-identity-contract-ref -> R10 authority must cite the R10-002 closeout identity contract.
+PASS invalid: missing-r10-validator-only-fixture-nonproof -> R10 authority must keep the R10-002 fixture from being treated as real external proof.
+PASS invalid: missing-r10-external-proof-bundle-contract-ref -> R10 authority must cite the R10-003 external proof artifact bundle contract.
+PASS invalid: missing-r10-external-proof-bundle-fixture-nonproof -> R10 authority must keep the R10-003 fixture from being treated as real external proof.
+PASS invalid: missing-r10-external-proof-workflow-ref -> R10 authority must cite the R10-004 workflow.
+PASS invalid: missing-r10-external-runner-consuming-qa-contract-ref -> R10 authority must cite the R10-006 QA signoff contract.
+PASS invalid: missing-r10-external-runner-consuming-qa-packet-ref -> R10 authority must cite the R10-006 QA signoff packet.
+PASS invalid: missing-r10-two-phase-procedure-ref -> R10 authority must cite the R10-007 procedure document.
+PASS invalid: missing-r10-two-phase-contract-ref -> R10 authority must cite the R10-007 procedure contract.
+PASS invalid: missing-r10-two-phase-validator-ref -> R10 authority must cite the R10-007 validator module.
+PASS invalid: missing-r10-two-phase-fixture-ref -> R10 authority must cite the R10-007 valid fixture.
+PASS invalid: missing-r10-external-proof-runner-script-ref -> R10 authority must cite the R10-004 runner script.
+PASS invalid: missing-r10-workflow-existence-nonproof -> R10 authority must keep Workflow existence from being treated as successful external proof.
+PASS invalid: r10-failed-run-treated-as-successful-proof -> R10 authority must distinguish the failed identity capture from successful external proof.
+PASS invalid: missing-r10-limitation-only-closeout-block -> R10 authority must reject limitation-only external-runner closeout.
+PASS invalid: missing-r10-branch-convention -> Branching convention must record the R10 branch.
+PASS invalid: stale-r10-authority-branch -> R10 authority must record the active R10 release branch.
+PASS invalid: missing-r9-004-limitation -> R9 authority must preserve the R9-004 no-concrete-run-identity limitation.
+PASS invalid: missing-r9-005-segment-model-ref -> R9 authority must cite the R9-005 execution segment dispatch contract.
+PASS invalid: missing-r9-006-pilot-ref -> R9 authority must cite the R9-006 pilot request artifact.
+PASS invalid: missing-r9-proof-package-ref -> R9 authority must cite the R9 proof-review package path.
+PASS invalid: stale-r8-most-recent-after-r9-closeout -> ActiveState contains a stale most recently closed milestone claim for 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner'.
+PASS invalid: stale-most-recently-closed-after-r8-closeout -> ActiveState contains a stale most recently closed milestone claim for 'R7 Fault-Managed Continuity and Rollback Drill'.
+PASS invalid: missing-r8-non-claims -> R8 authority must preserve the R8 non-claim 'unattended automatic resume'.
+PASS invalid: missing-r9-non-claims -> R9 authority must preserve the R9 non-claim 'no claim that Codex context compaction is solved'.
+PASS invalid: missing-r10-non-claims -> R10 authority must preserve the R10 non-claim 'no solved Codex context compaction'.
+PASS invalid: r11-open-without-r10-closeout-head -> R11 authority must cite the R10 closeout head required before R11 opens.
+PASS invalid: r11-claims-broad-autonomy -> Status docs claims broad autonomous milestone execution. Offending line: R11 now proves broad autonomous milestone execution.
+PASS invalid: r11-claims-solved-compaction -> Status docs claims solved Codex context compaction. Offending line: R11 proves solved Codex context compaction.
+PASS invalid: r11-claims-unattended-automatic-resume -> Status docs claims unattended automatic resume. Offending line: R11 now provides unattended automatic resume.
+PASS invalid: r11-claims-ui-control-room -> Status docs claims UI/control-room productization. Offending line: R11 now ships UI/control-room productization.
+PASS invalid: r11-claims-standard-multirepo-swarms -> Status docs claims Standard runtime. Offending line: R11 now ships Standard runtime, multi-repo orchestration, and swarms.
+PASS invalid: r11-missing-non-claim -> R11 authority must preserve the R11 non-claim 'no solved Codex context compaction'.
+PASS invalid: missing-r11-cycle-ledger-contract-ref -> R11 authority must cite the R11-002 ledger artifact 'contracts/cycle_controller/cycle_ledger.contract.json'.
+PASS invalid: missing-r11-local-residue-contract-ref -> R11 authority must cite the R11-005 local residue artifact 'contracts/cycle_controller/local_residue_policy.contract.json'.
+PASS invalid: missing-r11-dev-dispatch-contract-ref -> R11 authority must cite the R11-006 bounded Dev adapter artifact 'contracts/cycle_controller/dev_dispatch_packet.contract.json'.
+PASS invalid: missing-r11-qa-gate-contract-ref -> R11 authority must cite the R11 artifact 'contracts/cycle_controller/cycle_qa_gate.contract.json'.
+PASS invalid: r11-002-claims-controller-cli -> Status docs claims R11-002 controller CLI implementation. Offending line: R11-002 now includes the controller CLI.
+PASS invalid: stale-r10-active-contradiction -> Current status docs contain a stale R10 active contradiction after R11 opening.
+PASS invalid: task-status-mismatch -> R8 authority does not match KANBAN for status 'R8-009'.
+PASS invalid: r9-task-status-mismatch -> R9 authority does not match KANBAN for status 'R9-007'.
+PASS invalid: r10-task-status-mismatch -> R10 authority does not match KANBAN for status 'R10-008'.
+PASS invalid: r11-task-status-mismatch -> R11 authority does not match KANBAN for status 'R11-002'.
+All status-doc gate tests passed. Valid passed: 1. Invalid rejected: 51.

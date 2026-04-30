@@ -1,0 +1,98 @@
+[
+    {
+        "label":  "test_cycle_ledger",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_cycle_ledger.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_ledger.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_ledger.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_ledger.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "validate_cycle_ledger",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_cycle_ledger.ps1 -LedgerPath state\\fixtures\\valid\\cycle_controller\\cycle_ledger.valid.json",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_cycle_ledger.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_cycle_ledger.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_cycle_ledger.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_cycle_controller",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_cycle_controller.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_controller.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_controller.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_controller.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_cycle_bootstrap_resume",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_cycle_bootstrap_resume.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_bootstrap_resume.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_bootstrap_resume.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_bootstrap_resume.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_local_residue_guard",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_local_residue_guard.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_local_residue_guard.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_local_residue_guard.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_local_residue_guard.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_dev_execution_adapter",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_dev_execution_adapter.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_dev_execution_adapter.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_dev_execution_adapter.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_dev_execution_adapter.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_cycle_qa_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_cycle_qa_gate.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_qa_gate.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_qa_gate.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_cycle_qa_gate.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_r11_controlled_cycle_pilot",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r11_controlled_cycle_pilot.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_r11_controlled_cycle_pilot.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_r11_controlled_cycle_pilot.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_r11_controlled_cycle_pilot.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "test_status_doc_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_status_doc_gate.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_status_doc_gate.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/test_status_doc_gate.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "validate_status_doc_gate",
+        "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_status_doc_gate.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_status_doc_gate.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/validate_status_doc_gate.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "git_diff_check",
+        "command":  "git diff --check",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_check.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_check.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_check.exit_code.txt",
+        "exit_code":  0
+    },
+    {
+        "label":  "git_diff_cached_check",
+        "command":  "git diff --cached --check",
+        "stdout_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_cached_check.stdout.log",
+        "stderr_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_cached_check.stderr.log",
+        "exit_code_ref":  "state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/raw_logs/git_diff_cached_check.exit_code.txt",
+        "exit_code":  0
+    }
+]

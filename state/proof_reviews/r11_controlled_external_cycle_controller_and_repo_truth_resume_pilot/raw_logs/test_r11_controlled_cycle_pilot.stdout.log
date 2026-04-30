@@ -1,0 +1,6 @@
+PASS invalid: missing-qa-signoff -> required artifact missing: qa_signoff
+PASS invalid: missing-audit-packet -> required artifact missing: audit_packet
+PASS invalid: missing-decision-packet -> required artifact missing: decision_packet
+PASS invalid: successor-claim -> operator_decision_packet.accepted_claims[3] claims successor milestone opening: R12 successor milestone opened.
+PASS invalid: r11-closeout-claim -> operator_decision_packet.accepted_claims[3] claims R11 closeout: R11 closeout complete.
+All R11 controlled-cycle pilot tests passed. Valid passed: 28. Invalid rejected: 5.

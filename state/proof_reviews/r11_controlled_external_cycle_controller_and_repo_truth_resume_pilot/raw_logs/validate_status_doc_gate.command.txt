@@ -1,0 +1,1 @@
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1

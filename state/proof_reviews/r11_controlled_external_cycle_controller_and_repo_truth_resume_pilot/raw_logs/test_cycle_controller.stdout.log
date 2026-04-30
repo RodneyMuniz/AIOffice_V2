@@ -1,0 +1,26 @@
+PASS valid: initialize creates valid initialized ledger -> initialized
+PASS valid: initialize with operator request ref creates valid request_recorded ledger -> request_recorded
+PASS valid: inspect reports initialized ledger status -> initialize_cycle_ledger
+PASS valid: advance initialized -> request_recorded -> request_recorded
+PASS valid: sequence advances to plan_approved -> plan_approved
+PASS valid: refuse to blocked succeeds with no allowed next states -> blocked
+PASS valid: refuse to stopped succeeds with no allowed next states -> stopped
+PASS valid: CLI initialize and inspect return JSON status -> initialized
+PASS invalid: illegal-transition -> Illegal transition from 'initialized' to 'plan_prepared'. Allowed next states: request_recorded, stopped.
+PASS invalid: missing-evidence-ref -> Controller evidence_ref must be a non-empty string.
+PASS invalid: missing-actor -> Controller actor must be a non-empty string.
+PASS invalid: missing-reason -> Controller reason must be a non-empty string.
+PASS invalid: required-refs-missing -> Transition target state 'request_recorded' is missing required refs: operator_request_ref.
+PASS invalid: unknown-target-state -> Controller target state must be one of: initialized, request_recorded, plan_prepared, plan_approved, dev_dispatch_ready, dev_in_progress, dev_evidence_recorded, qa_pending, qa_passed, qa_failed, audit_packet_ready, operator_decision_pending, accepted, blocked, stopped.
+PASS invalid: transition-from-terminal-state -> Cannot transition from terminal state 'stopped'.
+PASS invalid: overwrite-existing-without-flag -> Cycle ledger 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-r11-003-dcf93f84\overwrite.ledger.json' already exists. Use -Overwrite to replace it explicitly.
+PASS invalid: chat-authority-ledger-refused -> Cycle ledger.controller_authority.state_authority must be 'cycle_ledger_artifact' and must not imply chat transcript, memory, narration, or manual assertion authority.
+PASS invalid: outside-governed-root -> Controller output path 'C:\Users\rodne\AppData\Local\Temp\r11-controller-outside-21c4a317f97d4679b0cdfcc8916b8ba1.json' is outside governed output root 'state/cycle_controller'.
+PASS invalid: wrong-repository -> Controller repository must be 'AIOffice_V2'.
+PASS invalid: wrong-branch -> Controller branch must be 'release/r10-real-external-runner-proof-foundation'.
+PASS invalid: malformed-git-head -> Controller head_sha does not match required pattern '^[0-9a-f]{40}$'.
+PASS invalid: malformed-ledger -> Cycle ledger is missing required field 'contract_version'.
+PASS invalid: successor-claim-input -> Advance controller input must not inject successor milestone, broad autonomy, productization, runtime, orchestration, unattended resume, compaction, production, or general reliability claims.
+PASS invalid: unknown-cli-command -> Unknown cycle controller command 'dance'.
+PASS invalid: cli-missing-ledger-path -> LedgerPath is required for cycle controller command 'inspect'.
+All cycle controller tests passed. Valid passed: 8. Invalid rejected: 17.

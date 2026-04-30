@@ -1,0 +1,18 @@
+PASS valid: checked-in bootstrap and next-action fixtures validate.
+PASS valid: bootstrap from initialized ledger succeeds -> advance_to_request_recorded
+PASS valid: next-action packet uses ledger allowed states -> request_recorded, stopped
+PASS valid: generated bootstrap and next-action packets validate against contracts.
+PASS valid: generated bootstrap packet uses repo-truth ledger authority, not chat transcript memory.
+PASS valid: CLI prepares bootstrap JSON -> advance_to_request_recorded
+PASS invalid: missing-ledger -> Cycle ledger 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-r11-004-d488e658\missing.ledger.json' does not exist.
+PASS invalid: malformed-ledger -> Cycle ledger at 'C:\Users\rodne\OneDrive\Documentos\AIOffice_V2\state\cycle_controller\test-r11-004-d488e658\malformed.ledger.json' is not valid JSON. Invalid object passed in, ':' or '}' expected. (12): { not-json
+
+PASS invalid: chat-memory-authority -> Cycle ledger.controller_authority.state_authority must be 'cycle_ledger_artifact' and must not imply chat transcript, memory, narration, or manual assertion authority.
+PASS invalid: branch-mismatch -> Cycle bootstrap ledger branch 'release/r10-real-external-runner-proof-foundation' contradicts expected branch 'feature/not-r11-branch'.
+PASS invalid: head-mismatch -> Cycle bootstrap ledger head '6f3a9fdb42141f23feb19b81f278d16d01a62129' contradicts expected head 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'.
+PASS invalid: tree-mismatch -> Cycle bootstrap ledger tree 'f1b035d578f65c75558dd0fed0d5ec3f7528d42d' contradicts expected tree 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'.
+PASS invalid: next-action-outside-allowed-states -> Next-action target state 'plan_prepared' is outside allowed_next_states: request_recorded, stopped.
+PASS invalid: missing-non-claim -> Cycle ledger.non_claims must include 'no solved Codex context compaction'.
+PASS invalid: invalid-fixture-chat-authority -> Cycle bootstrap packet.bootstrap_source must be 'repo_truth_cycle_ledger'.
+PASS invalid: invalid-fixture-next-action-outside-allowed -> Cycle next-action packet.allowed_target_states must match ledger.allowed_next_states.
+All cycle bootstrap resume tests passed. Valid passed: 6. Invalid rejected: 10.

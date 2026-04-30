@@ -1,0 +1,18 @@
+PASS valid: clean worktree scan produces clean valid scan result.
+PASS valid: synthetic untracked residue is detected and never marked as evidence.
+PASS valid: untracked residue dry-run succeeds only for the exact candidate path.
+PASS valid: authorized quarantine moves only the exact untracked candidate outside the repo and validates.
+PASS invalid: dirty tracked file causes refusal.
+PASS invalid: tracked file candidate cannot be quarantined.
+PASS invalid/valid: missing candidate refuses unless explicitly marked already absent.
+PASS invalid: path outside repository refuses.
+PASS invalid: repo root, .git, and broad root-level paths refuse.
+PASS invalid: quarantine-without-dry-run -> Local residue quarantine result draft.dry_run_ref is required when quarantine is authorized.
+PASS invalid: quarantine without explicit authorization refuses and moves nothing.
+PASS invalid: ambiguous status classification refuses.
+PASS valid: generated result packets preserve required non-claims.
+PASS valid: checked-in local residue fixtures validate.
+PASS invalid: invalid-scan-residue-as-evidence -> Local residue scan result entries must never mark local-only residue as evidence.
+PASS invalid: invalid-scan-missing-non-claim -> Local residue scan result.non_claims must include 'no deletion without dry-run and explicit authorization'.
+PASS invalid: invalid-quarantine-authorized-without-dry-run -> Local residue quarantine result.dry_run_ref is required when quarantine is authorized.
+All local residue guard tests passed. Valid passed: 7. Invalid rejected: 13.
