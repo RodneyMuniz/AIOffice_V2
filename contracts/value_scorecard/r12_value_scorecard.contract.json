@@ -1,0 +1,87 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_value_scorecard_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-002",
+  "required_dimensions": [
+    "product_visible_surface",
+    "operator_workflow_clarity",
+    "external_api_execution_independence",
+    "qa_lint_actionability",
+    "repo_truth_architecture",
+    "governance_proof_discipline"
+  ],
+  "dimension_weights": {
+    "product_visible_surface": 15,
+    "operator_workflow_clarity": 25,
+    "external_api_execution_independence": 20,
+    "qa_lint_actionability": 20,
+    "repo_truth_architecture": 10,
+    "governance_proof_discipline": 10
+  },
+  "baseline_scores": {
+    "product_visible_surface": 8,
+    "operator_workflow_clarity": 34,
+    "external_api_execution_independence": 30,
+    "qa_lint_actionability": 30,
+    "repo_truth_architecture": 73,
+    "governance_proof_discipline": 95,
+    "corrected_total": 39
+  },
+  "target_ranges": {
+    "product_visible_surface": {
+      "minimum": 18,
+      "maximum": 20
+    },
+    "operator_workflow_clarity": {
+      "minimum": 50,
+      "maximum": 50
+    },
+    "external_api_execution_independence": {
+      "minimum": 50,
+      "maximum": 50
+    },
+    "qa_lint_actionability": {
+      "minimum": 50,
+      "maximum": 55
+    },
+    "repo_truth_architecture": {
+      "minimum": 78,
+      "maximum": 78
+    },
+    "governance_proof_discipline": {
+      "minimum": 95,
+      "maximum": 95
+    },
+    "corrected_total": {
+      "minimum": 50,
+      "maximum": 54
+    }
+  },
+  "required_value_gates": [
+    "external_api_runner",
+    "actionable_qa",
+    "operator_control_room",
+    "real_build_change"
+  ],
+  "required_score_fields": [
+    "baseline_score",
+    "target_score",
+    "proved_score",
+    "proof_refs",
+    "value_gate_refs",
+    "scoring_basis",
+    "non_claims"
+  ],
+  "rules": [
+    "targets_are_not_proof",
+    "proved_uplift_requires_proof_refs",
+    "planning_reports_are_not_proof_refs_for_uplift",
+    "corrected_total_10_percent_uplift_requires_all_value_gates_proved",
+    "governance_proof_increase_alone_cannot_drive_major_corrected_total_increase",
+    "all_dimensions_required",
+    "target_as_achieved_is_rejected",
+    "non_claims_required"
+  ]
+}

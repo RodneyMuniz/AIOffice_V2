@@ -1,0 +1,152 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_value_scorecard",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "source_task": "R12-002",
+  "source_planning_artifact": {
+    "path": "governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md",
+    "commit": "5aa08904b02663a5549d2c8a21971544476ae805",
+    "proof_authority": false
+  },
+  "measurement_posture": {
+    "targets_are_not_proof": true,
+    "phase_a_foundation_only": true
+  },
+  "dimensions": [
+    {
+      "dimension": "product_visible_surface",
+      "weight": 15,
+      "baseline_score": 8,
+      "target_score": 18,
+      "proved_score": 8,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "operator_control_room"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    },
+    {
+      "dimension": "operator_workflow_clarity",
+      "weight": 25,
+      "baseline_score": 34,
+      "target_score": 50,
+      "proved_score": 34,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "operator_control_room"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    },
+    {
+      "dimension": "external_api_execution_independence",
+      "weight": 20,
+      "baseline_score": 30,
+      "target_score": 50,
+      "proved_score": 30,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "external_api_runner"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    },
+    {
+      "dimension": "qa_lint_actionability",
+      "weight": 20,
+      "baseline_score": 30,
+      "target_score": 52,
+      "proved_score": 30,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "actionable_qa"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    },
+    {
+      "dimension": "repo_truth_architecture",
+      "weight": 10,
+      "baseline_score": 73,
+      "target_score": 78,
+      "proved_score": 73,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "external_api_runner"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    },
+    {
+      "dimension": "governance_proof_discipline",
+      "weight": 10,
+      "baseline_score": 95,
+      "target_score": 95,
+      "proved_score": 95,
+      "proof_refs": [],
+      "value_gate_refs": [
+        "real_build_change"
+      ],
+      "scoring_basis": "No uplift.",
+      "non_claims": [
+        "targets are not proof"
+      ]
+    }
+  ],
+  "corrected_total": {
+    "baseline_score": 39,
+    "target_score": 53,
+    "proved_score": 51,
+    "uplift_from_baseline": 12,
+    "major_uplift_claimed": true,
+    "target_recorded_as_achieved": false,
+    "calculation_basis": "Invalid overclaim without value gates."
+  },
+  "value_gates": [
+    {
+      "gate_id": "external_api_runner",
+      "status": "not_proved",
+      "proof_refs": []
+    },
+    {
+      "gate_id": "actionable_qa",
+      "status": "not_proved",
+      "proof_refs": []
+    },
+    {
+      "gate_id": "operator_control_room",
+      "status": "not_proved",
+      "proof_refs": []
+    },
+    {
+      "gate_id": "real_build_change",
+      "status": "not_proved",
+      "proof_refs": []
+    }
+  ],
+  "non_claims": [
+    "targets are not proof",
+    "no R12 value gates delivered during Phase A",
+    "no 10 percent or larger corrected progress uplift during Phase A",
+    "no production runtime",
+    "no real production QA",
+    "no productized control-room behavior",
+    "no broad CI/product coverage",
+    "no broad autonomous milestone execution",
+    "no solved Codex reliability",
+    "no R13 or successor opened"
+  ]
+}

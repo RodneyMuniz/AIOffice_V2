@@ -820,3 +820,16 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: `R11-001` through `R11-009` are complete, R10 remains the prior closed milestone, and no R12 or successor milestone is opened.
 - Consequence: R11 closeout is limited to one bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet.
 - Consequence: this final closeout does not claim real production QA, production runtime, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, external CI/replay without real committed run evidence, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot.
+
+## D-0090 R12-001 Through R12-003 Opened Phase A Foundation
+- Date: 2026-04-30
+- Status: accepted
+- Decision: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` opens on `release/r12-external-api-runner-actionable-qa-control-room-pilot` through `R12-003` only.
+- Consequence: R12 starts only after verifying R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2`, planning-report commit `5aa08904b02663a5549d2c8a21971544476ae805`, starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, and historical R9 support head `3c225f863add07f64a9026661d9465d02024a83d`.
+- Consequence: the R11 audit/R12 planning report at `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` remains a narrative planning artifact only. It is not milestone proof and does not widen R11.
+- Consequence: `R12-001` freezes the strict R12 boundary and four value gates in `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`.
+- Consequence: `R12-002` adds the honest KPI/value scorecard foundation through `contracts/value_scorecard/r12_value_scorecard.contract.json`, `tools/ValueScorecard.psm1`, `tools/update_value_scorecard.ps1`, `state/value_scorecards/r12_baseline.json`, `state/fixtures/valid/value_scorecard/`, `state/fixtures/invalid/value_scorecard/`, and `tests/test_value_scorecard.ps1`.
+- Consequence: `R12-003` adds the canonical operating-loop contract foundation through `contracts/operating_loop/r12_operating_loop.contract.json`, `tools/OperatingLoop.psm1`, `tools/validate_operating_loop.ps1`, `state/fixtures/valid/operating_loop/`, `state/fixtures/invalid/operating_loop/`, and `tests/test_operating_loop.ps1`.
+- Consequence: `R12-004` through `R12-021` remain planned only.
+- Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
+- Consequence: R12 Phase A does not claim delivered value gates, 10 percent or larger corrected progress uplift, external/API runner execution, actionable QA delivery, operator control-room delivery, real build/change execution, production runtime, real production QA, productized control-room behavior, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, or successor opening.

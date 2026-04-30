@@ -1,0 +1,63 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_operating_loop",
+  "loop_id": "r12-operating-loop-invalid-decision-without-control-room",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "source_task": "R12-003",
+  "loop_authority": {
+    "state_authority": "committed_operating_loop_artifact",
+    "committed_state_required": true,
+    "chat_transcript_authority_allowed": false,
+    "narrative_authority_allowed": false,
+    "statement": "Committed operating-loop artifact is state authority."
+  },
+  "state": "operator_decision_pending",
+  "allowed_next_states": [
+    "candidate_closeout_ready"
+  ],
+  "evidence_refs": {
+    "operator_request_ref": "state/fixtures/invalid/operating_loop/operator_request.json",
+    "cycle_plan_ref": "state/fixtures/invalid/operating_loop/cycle_plan.json",
+    "operator_approval_ref": "state/fixtures/invalid/operating_loop/operator_approval.json",
+    "fresh_thread_bootstrap_ref": "state/fixtures/invalid/operating_loop/fresh_thread_bootstrap.json",
+    "residue_preflight_ref": "state/fixtures/invalid/operating_loop/residue_preflight.json",
+    "external_runner_request_ref": "state/fixtures/invalid/operating_loop/external_runner_request.json",
+    "external_runner_result_ref": "state/fixtures/invalid/operating_loop/external_runner_result.json",
+    "external_artifact_manifest_ref": "state/fixtures/invalid/operating_loop/external_artifact_manifest.json",
+    "dev_result_ref": "state/fixtures/invalid/operating_loop/dev_result.json",
+    "actionable_qa_report_ref": "state/fixtures/invalid/operating_loop/actionable_qa_report.json",
+    "qa_gate_ref": "state/fixtures/invalid/operating_loop/qa_gate.json",
+    "control_room_status_ref": "",
+    "operator_decision_ref": "state/fixtures/invalid/operating_loop/operator_decision.json",
+    "audit_packet_ref": "",
+    "candidate_closeout_ref": "",
+    "final_head_support_ref": ""
+  },
+  "transition_history": [
+    {
+      "from_state": "none",
+      "to_state": "initialized",
+      "transitioned_at_utc": "2026-04-30T00:00:00Z",
+      "evidence_ref": "state/fixtures/invalid/operating_loop/r12_operating_loop.operator-decision-without-control-room.invalid.json",
+      "actor": "R12-003-invalid-fixture",
+      "reason": "Invalid missing control-room status fixture."
+    }
+  ],
+  "successor_milestone_opened": false,
+  "successor_milestone_ref": "",
+  "claims": [],
+  "non_claims": [
+    "chat transcript is not authority",
+    "narrative is not proof",
+    "no R12 value gates delivered during Phase A",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no production runtime",
+    "no real production QA",
+    "no productized control-room behavior",
+    "no R13 or successor opened"
+  ]
+}

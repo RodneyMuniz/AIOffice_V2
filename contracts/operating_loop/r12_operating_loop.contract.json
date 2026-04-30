@@ -1,0 +1,58 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_operating_loop_contract",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_task": "R12-003",
+  "required_states": [
+    "initialized",
+    "request_recorded",
+    "plan_prepared",
+    "plan_approved",
+    "fresh_thread_bootstrap_ready",
+    "residue_preflight_passed",
+    "external_runner_requested",
+    "external_runner_evidence_recorded",
+    "dev_result_recorded",
+    "actionable_qa_ready",
+    "qa_gate_passed",
+    "control_room_status_ready",
+    "operator_decision_pending",
+    "candidate_closeout_ready",
+    "final_head_support_pending",
+    "closed"
+  ],
+  "required_evidence_refs": [
+    "operator_request_ref",
+    "cycle_plan_ref",
+    "operator_approval_ref",
+    "fresh_thread_bootstrap_ref",
+    "residue_preflight_ref",
+    "external_runner_request_ref",
+    "external_runner_result_ref",
+    "external_artifact_manifest_ref",
+    "dev_result_ref",
+    "actionable_qa_report_ref",
+    "qa_gate_ref",
+    "control_room_status_ref",
+    "operator_decision_ref",
+    "audit_packet_ref",
+    "candidate_closeout_ref",
+    "final_head_support_ref"
+  ],
+  "authority_rules": [
+    "chat_transcript_is_not_authority",
+    "committed_operating_loop_artifact_is_state_authority",
+    "narrative_is_not_proof"
+  ],
+  "fail_closed_rules": [
+    "missing_evidence_refs_rejected",
+    "illegal_state_transitions_rejected",
+    "final_closeout_without_external_runner_evidence_rejected",
+    "qa_gate_pass_without_actionable_qa_report_rejected",
+    "operator_decision_without_control_room_status_rejected",
+    "final_support_before_candidate_closeout_rejected",
+    "successor_milestone_opening_rejected",
+    "broad_autonomy_product_runtime_claims_rejected"
+  ]
+}

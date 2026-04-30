@@ -20,7 +20,8 @@ function New-StatusDocHarness {
         "governance\R8_REMOTE_GATED_QA_SUBAGENT_AND_CLEAN_CHECKOUT_PROOF_RUNNER.md",
         "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md",
         "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md",
-        "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md"
+        "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md",
+        "governance\R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
     )
 
     foreach ($relativePath in $paths) {
@@ -42,6 +43,7 @@ function New-StatusDocHarness {
         R9AuthorityPath = Join-Path $Root "governance\R9_ISOLATED_QA_AND_CONTINUITY_MANAGED_MILESTONE_EXECUTION_PILOT.md"
         R10AuthorityPath = Join-Path $Root "governance\R10_REAL_EXTERNAL_RUNNER_ARTIFACT_IDENTITY_AND_FINAL_HEAD_CLEAN_REPLAY_FOUNDATION.md"
         R11AuthorityPath = Join-Path $Root "governance\R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md"
+        R12AuthorityPath = Join-Path $Root "governance\R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md"
     }
 }
 
@@ -118,11 +120,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Closed -or $liveValidation.ActiveMilestone -ne "none" -or $liveValidation.MostRecentlyClosedMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 9 -or $liveValidation.R11PlannedStart -ne $null -or $liveValidation.R11PlannedThrough -ne $null) {
-        $failures += "FAIL valid: live repo truth did not validate as R8 closed, R9 narrowly closed, R10 narrowly closed, and R11 narrowly closed with no active successor milestone."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Closed -or -not $liveValidation.R12Opened -or $liveValidation.ActiveMilestone -ne "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" -or $liveValidation.MostRecentlyClosedMilestone -ne "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 9 -or $liveValidation.R11PlannedStart -ne $null -or $liveValidation.R11PlannedThrough -ne $null -or $liveValidation.R12DoneThrough -ne 3 -or $liveValidation.R12PlannedStart -ne 4 -or $liveValidation.R12PlannedThrough -ne 21) {
+        $failures += "FAIL valid: live repo truth did not validate as R8/R9/R10/R11 closed and R12 active through R12-003 only."
     }
     else {
-        Write-Output ("PASS valid current R11 closeout status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, and R11 through R11-{3} closed with no active successor milestone" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"))
+        Write-Output ("PASS valid current R12 Phase A status: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, R11 through R11-{3} closed, and R12 through R12-{4} active" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R12DoneThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -170,9 +172,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "successor-opened-after-r11-closeout" -RequiredFragments @("unapproved successor milestone") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r12-successor-opened")
-        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R12 Next Milestone` is now active in repo truth.') -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "successor-opened-after-r12-opening" -RequiredFragments @("R13 successor opening") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r13-successor-opened")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R13 Next Milestone` is now active in repo truth.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

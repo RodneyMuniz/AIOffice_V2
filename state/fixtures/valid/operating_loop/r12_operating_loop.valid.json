@@ -1,0 +1,184 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_operating_loop",
+  "loop_id": "r12-operating-loop-validator-fixture",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "source_task": "R12-003",
+  "loop_authority": {
+    "state_authority": "committed_operating_loop_artifact",
+    "committed_state_required": true,
+    "chat_transcript_authority_allowed": false,
+    "narrative_authority_allowed": false,
+    "statement": "The committed operating-loop artifact is state authority. Chat transcripts, Codex narration, and operator memory are not authority."
+  },
+  "state": "closed",
+  "allowed_next_states": [],
+  "evidence_refs": {
+    "operator_request_ref": "state/fixtures/valid/operating_loop/artifacts/operator_request.json",
+    "cycle_plan_ref": "state/fixtures/valid/operating_loop/artifacts/cycle_plan.json",
+    "operator_approval_ref": "state/fixtures/valid/operating_loop/artifacts/operator_approval.json",
+    "fresh_thread_bootstrap_ref": "state/fixtures/valid/operating_loop/artifacts/fresh_thread_bootstrap.json",
+    "residue_preflight_ref": "state/fixtures/valid/operating_loop/artifacts/residue_preflight.json",
+    "external_runner_request_ref": "state/fixtures/valid/operating_loop/artifacts/external_runner_request.json",
+    "external_runner_result_ref": "state/fixtures/valid/operating_loop/artifacts/external_runner_result.json",
+    "external_artifact_manifest_ref": "state/fixtures/valid/operating_loop/artifacts/external_artifact_manifest.json",
+    "dev_result_ref": "state/fixtures/valid/operating_loop/artifacts/dev_result.json",
+    "actionable_qa_report_ref": "state/fixtures/valid/operating_loop/artifacts/actionable_qa_report.json",
+    "qa_gate_ref": "state/fixtures/valid/operating_loop/artifacts/qa_gate.json",
+    "control_room_status_ref": "state/fixtures/valid/operating_loop/artifacts/control_room_status.json",
+    "operator_decision_ref": "state/fixtures/valid/operating_loop/artifacts/operator_decision.json",
+    "audit_packet_ref": "state/fixtures/valid/operating_loop/artifacts/audit_packet.json",
+    "candidate_closeout_ref": "state/fixtures/valid/operating_loop/artifacts/candidate_closeout.json",
+    "final_head_support_ref": "state/fixtures/valid/operating_loop/artifacts/final_head_support.json"
+  },
+  "transition_history": [
+    {
+      "from_state": "none",
+      "to_state": "initialized",
+      "transitioned_at_utc": "2026-04-30T00:00:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/r12_operating_loop.valid.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Initialize validator-only operating-loop fixture."
+    },
+    {
+      "from_state": "initialized",
+      "to_state": "request_recorded",
+      "transitioned_at_utc": "2026-04-30T00:01:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/operator_request.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record operator request ref."
+    },
+    {
+      "from_state": "request_recorded",
+      "to_state": "plan_prepared",
+      "transitioned_at_utc": "2026-04-30T00:02:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/cycle_plan.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record cycle plan ref."
+    },
+    {
+      "from_state": "plan_prepared",
+      "to_state": "plan_approved",
+      "transitioned_at_utc": "2026-04-30T00:03:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/operator_approval.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record operator approval ref."
+    },
+    {
+      "from_state": "plan_approved",
+      "to_state": "fresh_thread_bootstrap_ready",
+      "transitioned_at_utc": "2026-04-30T00:04:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/fresh_thread_bootstrap.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record fresh-thread bootstrap ref."
+    },
+    {
+      "from_state": "fresh_thread_bootstrap_ready",
+      "to_state": "residue_preflight_passed",
+      "transitioned_at_utc": "2026-04-30T00:05:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/residue_preflight.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record residue preflight ref."
+    },
+    {
+      "from_state": "residue_preflight_passed",
+      "to_state": "external_runner_requested",
+      "transitioned_at_utc": "2026-04-30T00:06:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/external_runner_request.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record external runner request ref."
+    },
+    {
+      "from_state": "external_runner_requested",
+      "to_state": "external_runner_evidence_recorded",
+      "transitioned_at_utc": "2026-04-30T00:07:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/external_runner_result.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record external runner result and artifact manifest refs."
+    },
+    {
+      "from_state": "external_runner_evidence_recorded",
+      "to_state": "dev_result_recorded",
+      "transitioned_at_utc": "2026-04-30T00:08:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/dev_result.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record Dev result ref."
+    },
+    {
+      "from_state": "dev_result_recorded",
+      "to_state": "actionable_qa_ready",
+      "transitioned_at_utc": "2026-04-30T00:09:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/actionable_qa_report.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record actionable QA report ref."
+    },
+    {
+      "from_state": "actionable_qa_ready",
+      "to_state": "qa_gate_passed",
+      "transitioned_at_utc": "2026-04-30T00:10:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/qa_gate.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record QA gate ref."
+    },
+    {
+      "from_state": "qa_gate_passed",
+      "to_state": "control_room_status_ready",
+      "transitioned_at_utc": "2026-04-30T00:11:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/control_room_status.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record control-room status ref."
+    },
+    {
+      "from_state": "control_room_status_ready",
+      "to_state": "operator_decision_pending",
+      "transitioned_at_utc": "2026-04-30T00:12:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/operator_decision.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record operator decision ref."
+    },
+    {
+      "from_state": "operator_decision_pending",
+      "to_state": "candidate_closeout_ready",
+      "transitioned_at_utc": "2026-04-30T00:13:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/candidate_closeout.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record audit and candidate closeout refs."
+    },
+    {
+      "from_state": "candidate_closeout_ready",
+      "to_state": "final_head_support_pending",
+      "transitioned_at_utc": "2026-04-30T00:14:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/final_head_support.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Record final-head support ref."
+    },
+    {
+      "from_state": "final_head_support_pending",
+      "to_state": "closed",
+      "transitioned_at_utc": "2026-04-30T00:15:00Z",
+      "evidence_ref": "state/fixtures/valid/operating_loop/artifacts/final_head_support.json",
+      "actor": "R12-003-validator-fixture",
+      "reason": "Close validator-only operating-loop shape."
+    }
+  ],
+  "successor_milestone_opened": false,
+  "successor_milestone_ref": "",
+  "claims": [
+    "validator-only operating-loop shape"
+  ],
+  "non_claims": [
+    "chat transcript is not authority",
+    "narrative is not proof",
+    "no R12 value gates delivered during Phase A",
+    "no broad autonomous milestone execution",
+    "no unattended automatic resume",
+    "no solved Codex context compaction",
+    "no production runtime",
+    "no real production QA",
+    "no productized control-room behavior",
+    "no R13 or successor opened",
+    "validator fixture is not R12 execution proof"
+  ]
+}
