@@ -1,0 +1,204 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "dev_execution_result_packet",
+    "result_id":  "dev-result-e46052632e0b",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "milestone":  "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+    "source_task":  "R11-006",
+    "cycle_id":  "cycle-r11-008-controlled-cycle-pilot",
+    "dispatch_id":  "dev-dispatch-602b85956bc6",
+    "cycle_ledger_ref":  "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+    "executor_identity":  "codex-r11-008-dev-adapter",
+    "executor_kind":  "codex",
+    "status":  "completed",
+    "task_results":  [
+                         {
+                             "task_id":  "r11-008-cycle-ledger-evidence",
+                             "status":  "completed",
+                             "summary":  "Recorded cycle-control evidence refs for the bounded pilot without accepting Dev narration as QA authority.",
+                             "changed_files":  [
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/baseline.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json"
+                                               ],
+                             "produced_artifacts":  [
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/baseline.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json"
+                                                    ],
+                             "command_logs":  [
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/01_controller_initialize.json",
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/02_controller_plan_prepared.json",
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/03_controller_plan_approved.json",
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/04_bootstrap_resume.json",
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/05_controller_dev_dispatch_ready.json"
+                                              ],
+                             "evidence_refs":  [
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json"
+                                               ],
+                             "refusal_reasons":  [
+
+                                                 ],
+                             "non_claims":  [
+                                                "no QA authority",
+                                                "no QA verdict",
+                                                "no executor self-certification as QA",
+                                                "no complete controlled cycle",
+                                                "no R11 closeout",
+                                                "no real Dev execution beyond bounded adapter fixtures/results generated by tests",
+                                                "no UI or control-room productization",
+                                                "no Standard runtime",
+                                                "no multi-repo orchestration",
+                                                "no swarms",
+                                                "no broad autonomous milestone execution",
+                                                "no unattended automatic resume",
+                                                "no solved Codex context compaction",
+                                                "no hours-long unattended execution",
+                                                "no destructive rollback",
+                                                "no broad CI/product coverage",
+                                                "no productized control-room behavior",
+                                                "no production runtime",
+                                                "no general Codex reliability",
+                                                "no successor milestone without explicit approval"
+                                            ]
+                         },
+                         {
+                             "task_id":  "r11-008-dev-and-qa-evidence",
+                             "status":  "completed",
+                             "summary":  "Recorded bounded Dev source evidence for later independent review.",
+                             "changed_files":  [
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/dev/task_packets.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                               ],
+                             "produced_artifacts":  [
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/dev/task_packets.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                        "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                                    ],
+                             "command_logs":  [
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/06_dev_dispatch.json",
+                                                  "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/08_dev_result.json"
+                                              ],
+                             "evidence_refs":  [
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                   "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                               ],
+                             "refusal_reasons":  [
+
+                                                 ],
+                             "non_claims":  [
+                                                "no QA authority",
+                                                "no QA verdict",
+                                                "no executor self-certification as QA",
+                                                "no complete controlled cycle",
+                                                "no R11 closeout",
+                                                "no real Dev execution beyond bounded adapter fixtures/results generated by tests",
+                                                "no UI or control-room productization",
+                                                "no Standard runtime",
+                                                "no multi-repo orchestration",
+                                                "no swarms",
+                                                "no broad autonomous milestone execution",
+                                                "no unattended automatic resume",
+                                                "no solved Codex context compaction",
+                                                "no hours-long unattended execution",
+                                                "no destructive rollback",
+                                                "no broad CI/product coverage",
+                                                "no productized control-room behavior",
+                                                "no production runtime",
+                                                "no general Codex reliability",
+                                                "no successor milestone without explicit approval"
+                                            ]
+                         }
+                     ],
+    "changed_files":  [
+                          "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/baseline.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/task_packets.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                      ],
+    "produced_artifacts":  [
+                               "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/baseline.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/dev/task_packets.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                               "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                           ],
+    "command_logs":  [
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/06_dev_dispatch.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/08_dev_result.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/01_controller_initialize.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/02_controller_plan_prepared.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/03_controller_plan_approved.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/04_bootstrap_resume.json",
+                         "state/cycles/r11_008_controlled_cycle_pilot/raw_logs/05_controller_dev_dispatch_ready.json"
+                     ],
+    "evidence_refs":  [
+                          "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                      ],
+    "head_before":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "tree_before":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "head_after":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "tree_after":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "created_at_utc":  "2026-04-30T02:07:22Z",
+    "refusal_reasons":  [
+
+                        ],
+    "non_claims":  [
+                       "no QA authority",
+                       "no QA verdict",
+                       "no executor self-certification as QA",
+                       "no complete controlled cycle",
+                       "no R11 closeout",
+                       "no real Dev execution beyond bounded adapter fixtures/results generated by tests",
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended execution",
+                       "no destructive rollback",
+                       "no broad CI/product coverage",
+                       "no productized control-room behavior",
+                       "no production runtime",
+                       "no general Codex reliability",
+                       "no successor milestone without explicit approval",
+                       "no R12 or successor milestone",
+                       "no real production QA",
+                       "no claim beyond one bounded R11-008 controlled-cycle pilot"
+                   ]
+}

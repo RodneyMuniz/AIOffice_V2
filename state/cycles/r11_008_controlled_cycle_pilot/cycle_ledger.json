@@ -1,0 +1,171 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "cycle_controller_ledger",
+    "cycle_id":  "cycle-r11-008-controlled-cycle-pilot",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "milestone":  "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+    "source_task":  "R11-002",
+    "controller_authority":  {
+                                 "authority_type":  "repo_truth_cycle_ledger",
+                                 "state_authority":  "cycle_ledger_artifact",
+                                 "committed_state_required":  true,
+                                 "chat_memory_authority_allowed":  false,
+                                 "statement":  "The committed cycle ledger artifact is the authority for cycle state. Chat transcripts, Codex narration, operator memory, and manual assertions are not cycle state authority."
+                             },
+    "state":  "accepted",
+    "allowed_next_states":  [
+
+                            ],
+    "current_step":  "cycle_accepted",
+    "operator_request_ref":  "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+    "cycle_plan_ref":  "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+    "baseline_ref":  "state/cycles/r11_008_controlled_cycle_pilot/baseline.json",
+    "dispatch_refs":  [
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json"
+                      ],
+    "execution_result_refs":  [
+                                  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                              ],
+    "qa_refs":  [
+                    "state/cycles/r11_008_controlled_cycle_pilot/qa/cycle_qa_signoff.json"
+                ],
+    "audit_packet_ref":  "state/cycles/r11_008_controlled_cycle_pilot/audit/cycle_audit_packet.json",
+    "decision_packet_ref":  "state/cycles/r11_008_controlled_cycle_pilot/decision/operator_decision_packet.json",
+    "head_sha":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "tree_sha":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "created_at_utc":  "2026-04-30T02:07:17Z",
+    "updated_at_utc":  "2026-04-30T02:07:27Z",
+    "transition_history":  [
+                               {
+                                   "from_state":  "none",
+                                   "to_state":  "initialized",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:17Z",
+                                   "evidence_ref":  "state/cycle_controller/cycle-r11-008-controlled-cycle-pilot/controller_initialize.evidence.json",
+                                   "actor":  "R11-003-cycle-controller",
+                                   "reason":  "Initialize the cycle ledger from repo-truth controller input."
+                               },
+                               {
+                                   "from_state":  "initialized",
+                                   "to_state":  "request_recorded",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:17Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                                   "actor":  "R11-003-cycle-controller",
+                                   "reason":  "Record the operator request ref during cycle initialization."
+                               },
+                               {
+                                   "from_state":  "request_recorded",
+                                   "to_state":  "plan_prepared",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:18Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                                   "actor":  "R11-008-cycle-controller",
+                                   "reason":  "Prepare the bounded pilot cycle plan from repo-truth request artifacts."
+                               },
+                               {
+                                   "from_state":  "plan_prepared",
+                                   "to_state":  "plan_approved",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:19Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                                   "actor":  "R11-008-operator-approval",
+                                   "reason":  "Record operator approval for this bounded R11-008 pilot only."
+                               },
+                               {
+                                   "from_state":  "plan_approved",
+                                   "to_state":  "dev_dispatch_ready",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:20Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                   "actor":  "R11-008-cycle-controller",
+                                   "reason":  "Prepare bounded Dev dispatch after approved plan, bootstrap packet, and clean residue preflight."
+                               },
+                               {
+                                   "from_state":  "dev_dispatch_ready",
+                                   "to_state":  "dev_in_progress",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:22Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                   "actor":  "R11-008-dev-dispatch",
+                                   "reason":  "Record bounded Dev dispatch handoff for the pilot cycle."
+                               },
+                               {
+                                   "from_state":  "dev_in_progress",
+                                   "to_state":  "dev_evidence_recorded",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:23Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json",
+                                   "actor":  "R11-008-dev-adapter",
+                                   "reason":  "Record bounded Dev execution result packet as source evidence only."
+                               },
+                               {
+                                   "from_state":  "dev_evidence_recorded",
+                                   "to_state":  "qa_pending",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:24Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json",
+                                   "actor":  "R11-008-cycle-controller",
+                                   "reason":  "Move to separate QA gate over Dev source evidence."
+                               },
+                               {
+                                   "from_state":  "qa_pending",
+                                   "to_state":  "qa_passed",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:25Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/qa/cycle_qa_signoff.json",
+                                   "actor":  "R11-008-separate-qa-gate",
+                                   "reason":  "Record separate QA signoff over Dev source evidence."
+                               },
+                               {
+                                   "from_state":  "qa_passed",
+                                   "to_state":  "audit_packet_ready",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:26Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/audit/cycle_audit_packet.json",
+                                   "actor":  "R11-008-cycle-audit",
+                                   "reason":  "Record bounded pilot audit packet from ledger and evidence refs."
+                               },
+                               {
+                                   "from_state":  "audit_packet_ready",
+                                   "to_state":  "operator_decision_pending",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:27Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/decision/operator_decision_packet.json",
+                                   "actor":  "R11-008-operator-decision",
+                                   "reason":  "Record operator decision packet for the bounded pilot only."
+                               },
+                               {
+                                   "from_state":  "operator_decision_pending",
+                                   "to_state":  "accepted",
+                                   "transitioned_at_utc":  "2026-04-30T02:07:27Z",
+                                   "evidence_ref":  "state/cycles/r11_008_controlled_cycle_pilot/decision/operator_decision_packet.json",
+                                   "actor":  "R11-008-operator-decision",
+                                   "reason":  "Accept the bounded R11-008 pilot cycle evidence only; this is not R11 closeout."
+                               }
+                           ],
+    "evidence_refs":  [
+                          "state/cycles/r11_008_controlled_cycle_pilot/operator_request.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/cycle_plan.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/operator_approval.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/qa/cycle_qa_signoff.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/audit/cycle_audit_packet.json",
+                          "state/cycles/r11_008_controlled_cycle_pilot/decision/operator_decision_packet.json"
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "non_claims":  [
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended execution",
+                       "no destructive rollback",
+                       "no broad CI/product coverage",
+                       "no general Codex reliability",
+                       "no productized control-room behavior",
+                       "no production runtime",
+                       "no successor milestone without explicit approval",
+                       "no R11 closeout",
+                       "no R12 or successor milestone",
+                       "no real production QA",
+                       "no claim beyond one bounded R11-008 controlled-cycle pilot"
+                   ]
+}

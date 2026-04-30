@@ -1,0 +1,218 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "cycle_qa_signoff_packet",
+    "qa_signoff_id":  "qa-signoff-7cbcd4c2eaa2",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "milestone":  "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+    "source_task":  "R11-007",
+    "cycle_id":  "cycle-r11-008-controlled-cycle-pilot",
+    "cycle_ledger_ref":  "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+    "dispatch_ref":  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+    "dev_result_ref":  "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json",
+    "qa_actor_identity":  "codex-r11-008-separate-qa-gate",
+    "qa_actor_kind":  "codex",
+    "qa_authority_type":  "separate_qa_gate",
+    "qa_independence_boundary":  "QA actor identity is distinct from Dev executor identity; Dev result is source evidence only and is not accepted as QA authority.",
+    "source_evidence_refs":  [
+                                 "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                 "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                 "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                 "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                                 "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                 "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                             ],
+    "qa_checks":  [
+                      {
+                          "check_id":  "dev_dispatch_packet_validates",
+                          "status":  "passed",
+                          "summary":  "Dev dispatch packet validates against the R11-006 dispatch contract.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_packet_validates",
+                          "status":  "passed",
+                          "summary":  "Dev result packet validates against the R11-006 result contract.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dispatch_result_cycle_identity_matches",
+                          "status":  "passed",
+                          "summary":  "Dispatch and Dev result cycle identity match.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_status_compatible_with_qa",
+                          "status":  "passed",
+                          "summary":  "Completed Dev result status is compatible with a separate QA signoff.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "completed_dev_result_has_evidence_refs",
+                          "status":  "passed",
+                          "summary":  "Completed Dev result carries source evidence refs.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "changed_files_inside_dispatch_allowed_paths",
+                          "status":  "passed",
+                          "summary":  "Changed files remain inside dispatch allowed paths.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "produced_artifacts_inside_dispatch_allowed_paths",
+                          "status":  "passed",
+                          "summary":  "Produced artifacts remain inside dispatch allowed paths.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_no_qa_authority",
+                          "status":  "passed",
+                          "summary":  "Dev result does not claim QA authority.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_no_qa_verdict",
+                          "status":  "passed",
+                          "summary":  "Dev result does not claim a QA verdict.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_no_complete_controlled_cycle_claim",
+                          "status":  "passed",
+                          "summary":  "Dev result does not claim complete controlled cycle execution.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "dev_result_no_successor_milestone_claim",
+                          "status":  "passed",
+                          "summary":  "Dev result does not claim a successor milestone.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "qa_actor_independent_or_boundary_explicit",
+                          "status":  "passed",
+                          "summary":  "QA actor is distinct from executor identity.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      },
+                      {
+                          "check_id":  "qa_consumes_dev_evidence_refs",
+                          "status":  "passed",
+                          "summary":  "QA signoff consumes Dev evidence refs as source evidence.",
+                          "evidence_refs":  [
+                                                "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/bootstrap_packet.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/bootstrap/next_action_packet.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/residue_guard/preflight_scan.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_dispatch.json",
+                                                "state/cycles/r11_008_controlled_cycle_pilot/dev/dev_execution_result.json"
+                                            ],
+                          "refusal_reasons":  [
+
+                                              ]
+                      }
+                  ],
+    "qa_verdict":  "passed",
+    "qa_findings":  [
+                        "Separate QA gate consumed Dev source evidence refs for the bounded R11-008 pilot."
+                    ],
+    "required_followups":  [
+
+                           ],
+    "head_sha":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "tree_sha":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "created_at_utc":  "2026-04-30T02:07:25Z",
+    "refusal_reasons":  [
+
+                        ],
+    "non_claims":  [
+                       "no executor self-certification as QA",
+                       "no Dev result accepted as QA authority",
+                       "no complete controlled cycle",
+                       "no R11 closeout",
+                       "no real production QA",
+                       "no QA has run a full controlled cycle",
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended execution",
+                       "no destructive rollback",
+                       "no broad CI/product coverage",
+                       "no productized control-room behavior",
+                       "no production runtime",
+                       "no general Codex reliability",
+                       "no successor milestone without explicit approval",
+                       "no R12 or successor milestone",
+                       "no claim beyond one bounded R11-008 controlled-cycle pilot"
+                   ]
+}

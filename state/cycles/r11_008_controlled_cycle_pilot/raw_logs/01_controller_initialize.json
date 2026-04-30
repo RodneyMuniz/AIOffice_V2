@@ -1,0 +1,32 @@
+{
+    "ArtifactType":  "cycle_controller_result",
+    "Command":  "initialize",
+    "Status":  "succeeded",
+    "LedgerPath":  "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\cycles\\r11_008_controlled_cycle_pilot\\cycle_ledger.json",
+    "CycleId":  "cycle-r11-008-controlled-cycle-pilot",
+    "State":  "request_recorded",
+    "CurrentStep":  "record_operator_request",
+    "AllowedNextStates":  [
+                              "plan_prepared",
+                              "blocked",
+                              "stopped"
+                          ],
+    "HeadSha":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "TreeSha":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "NonClaims":  [
+                      "no UI or control-room productization",
+                      "no Standard runtime",
+                      "no multi-repo orchestration",
+                      "no swarms",
+                      "no broad autonomous milestone execution",
+                      "no unattended automatic resume",
+                      "no solved Codex context compaction",
+                      "no hours-long unattended execution",
+                      "no destructive rollback",
+                      "no broad CI/product coverage",
+                      "no general Codex reliability",
+                      "no productized control-room behavior",
+                      "no production runtime",
+                      "no successor milestone without explicit approval"
+                  ]
+}

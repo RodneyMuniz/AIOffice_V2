@@ -1,0 +1,56 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "cycle_next_action_packet",
+    "next_action_id":  "next-action-r11-008-controlled-cycle-pilot",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r10-real-external-runner-proof-foundation",
+    "milestone":  "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot",
+    "source_task":  "R11-004",
+    "cycle_id":  "cycle-r11-008-controlled-cycle-pilot",
+    "cycle_ledger_ref":  "state/cycles/r11_008_controlled_cycle_pilot/cycle_ledger.json",
+    "ledger_state":  "plan_approved",
+    "ledger_current_step":  "record_operator_approval",
+    "recommended_action":  "advance_to_dev_dispatch_ready",
+    "allowed_target_states":  [
+                                  "dev_dispatch_ready",
+                                  "blocked",
+                                  "stopped"
+                              ],
+    "required_inputs":  [
+                            "operator_request_ref",
+                            "cycle_plan_ref",
+                            "baseline_ref",
+                            "dispatch_refs",
+                            "operator_approval_evidence_ref",
+                            "evidence_ref",
+                            "actor",
+                            "reason"
+                        ],
+    "blocked_reasons":  [
+
+                        ],
+    "operator_decision_required":  false,
+    "head_sha":  "a42d9d8a57c64c0d77344df3eb0c18e5c90bacc9",
+    "tree_sha":  "9c1347d894f485b79dee2616854b30c7d954d04b",
+    "created_at_utc":  "2026-04-30T02:07:19Z",
+    "non_claims":  [
+                       "no UI or control-room productization",
+                       "no Standard runtime",
+                       "no multi-repo orchestration",
+                       "no swarms",
+                       "no broad autonomous milestone execution",
+                       "no unattended automatic resume",
+                       "no solved Codex context compaction",
+                       "no hours-long unattended execution",
+                       "no destructive rollback",
+                       "no broad CI/product coverage",
+                       "no general Codex reliability",
+                       "no productized control-room behavior",
+                       "no production runtime",
+                       "no successor milestone without explicit approval",
+                       "no R11 closeout",
+                       "no R12 or successor milestone",
+                       "no real production QA",
+                       "no claim beyond one bounded R11-008 controlled-cycle pilot"
+                   ]
+}
