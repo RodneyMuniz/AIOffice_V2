@@ -1,0 +1,9 @@
+{
+  "fixture_type": "fresh_thread_restart_proof_invalid_case",
+  "case_id": "dirty_worktree",
+  "base_fixture_ref": "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+  "expected_error_fragments": [
+    "dirty worktree",
+    "initial_status_short"
+  ]
+}

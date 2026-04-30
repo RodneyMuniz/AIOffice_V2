@@ -1,0 +1,9 @@
+{
+  "fixture_type": "fresh_thread_restart_proof_invalid_case",
+  "case_id": "missing_control_room_refresh_result",
+  "base_fixture_ref": "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+  "expected_error_fragments": [
+    "control_room_refresh_result_ref",
+    "does not exist"
+  ]
+}

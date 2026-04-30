@@ -899,3 +899,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R12 is active through `R12-017` only, and `R12-018` through `R12-021` remain planned only. The generated R12-018 prompt is a handoff artifact, not R12-018 proof.
 - Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
 - Consequence: this decision does not claim final QA pass for R12 closeout, final-state replay, R12 closeout, productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, unattended automatic resume, or successor opening.
+
+## D-0096 R12-018 Added Fresh-Thread Restart Proof
+- Date: 2026-04-30
+- Status: accepted
+- Decision: `R12-018` is done as a bounded fresh-thread restart proof for `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`.
+- Consequence: `R12-018` adds the restart proof contract, validator module, recording wrapper, valid fixture, invalid fixtures, focused proof test, and actual proof packet through `contracts/bootstrap/fresh_thread_restart_proof.contract.json`, `tools/FreshThreadRestartProof.psm1`, `tools/record_fresh_thread_restart_proof.ps1`, `state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json`, `state/fixtures/invalid/bootstrap/`, `tests/test_fresh_thread_restart_proof.ps1`, and `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`.
+- Consequence: the proof resolves the post-R12-017 remote R12 head `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` and tree `0ce853ffd37ece19c202e9731b27335ae0cc1756` from repo truth, records pre-R12-017 source head `d93a66aa6b757241583fa1c61bb6333b4228d639` as stale only, and verifies that the thread recovered active branch, completed-through state, planned tasks, blockers, value-gate posture, control-room refresh result, non-claims, and next legal scope without prior chat context.
+- Consequence: the proof preserves the missing external evidence blocker: no real R12 external runner result and no external artifact evidence exist, so the final QA/evidence gate and R12 closeout remain blocked.
+- Consequence: R12 is active through `R12-018` only, and `R12-019` through `R12-021` remain planned only.
+- Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
+- Consequence: this decision does not claim R12-019 or later completion, final QA pass for R12 closeout, final-state replay, R12 closeout, productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, unattended automatic resume, or successor opening.

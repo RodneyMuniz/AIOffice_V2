@@ -1,0 +1,9 @@
+{
+  "fixture_type": "fresh_thread_restart_proof_invalid_case",
+  "case_id": "missing_restart_non_claims",
+  "base_fixture_ref": "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+  "expected_error_fragments": [
+    "non_claims",
+    "must not be empty"
+  ]
+}

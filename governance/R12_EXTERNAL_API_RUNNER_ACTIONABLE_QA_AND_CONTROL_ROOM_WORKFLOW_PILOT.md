@@ -1,12 +1,12 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-017` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-018` only.
 
 ## Purpose
 
 R12 opens a properly named release branch and freezes the next milestone around external/API runner evidence, actionable QA, an operator-readable control-room workflow surface, and one real useful build/change cycle.
 
-R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, cycle QA evidence gate, static control-room status/view, operator decision queue foundations, and one bounded executable control-room refresh workflow. It does not deliver all four R12 value gates.
+R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, cycle QA evidence gate, static control-room status/view, operator decision queue foundations, one bounded executable control-room refresh workflow, and one durable fresh-thread restart proof. It does not deliver all four R12 value gates.
 
 ## Accepted Starting State
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, and a bounded one-command refresh workflow before later fresh-thread proof, final-state replay, and closeout work;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, a bounded one-command refresh workflow, and fresh-thread restart proof before later final-state replay and closeout work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -72,6 +72,7 @@ The current R12 foundation slice may claim only:
 - external artifact evidence normalization foundation.
 - bounded operator-readable control-room foundation evidence through static JSON/Markdown status and decision queue artifacts.
 - bounded real build/change evidence through one executable control-room refresh command and cycle evidence under `state/cycles/r12_real_build_cycle/`.
+- bounded fresh-thread restart proof evidence through `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`.
 
 The current R12 foundation slice does not claim R12 value delivery.
 
@@ -146,8 +147,8 @@ The current R12 foundation slice does not claim R12 value delivery.
 - Boundary: add one executable operator control-room refresh workflow through `contracts/control_room/control_room_refresh_result.contract.json`, `tools/ControlRoomRefresh.psm1`, `tools/refresh_control_room.ps1`, valid and invalid fixtures under `state/fixtures/valid/control_room_refresh/` and `state/fixtures/invalid/control_room_refresh/`, focused proof `tests/test_control_room_refresh.ps1`, current refresh artifact `state/control_room/r12_current/control_room_refresh_result.json`, refreshed control-room artifacts, and bounded cycle evidence under `state/cycles/r12_real_build_cycle/`.
 
 ### `R12-018` Demonstrate fresh-thread restart without operator reconstruction
-- Status: planned
-- Boundary: prove one restart from repo-state bootstrap without manually reconstructing chat context.
+- Status: done
+- Boundary: prove one restart from repo-state bootstrap without manually reconstructing chat context through `contracts/bootstrap/fresh_thread_restart_proof.contract.json`, `tools/FreshThreadRestartProof.psm1`, `tools/record_fresh_thread_restart_proof.ps1`, valid and invalid fixtures under `state/fixtures/valid/bootstrap/` and `state/fixtures/invalid/bootstrap/`, focused proof `tests/test_fresh_thread_restart_proof.ps1`, and actual proof packet `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`.
 
 ### `R12-019` Run external final-state replay
 - Status: planned
@@ -163,7 +164,7 @@ The current R12 foundation slice does not claim R12 value delivery.
 
 ## Foundation Outputs
 
-R12-001 through R12-017 are bounded foundation work plus one useful executable refresh workflow only:
+R12-001 through R12-018 are bounded foundation work plus one useful executable refresh workflow and one fresh-thread restart proof only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -276,15 +277,22 @@ R12-001 through R12-017 are bounded foundation work plus one useful executable r
 - `state/control_room/r12_current/operator_decision_queue.md`
 - `state/control_room/r12_current/control_room_refresh_result.json`
 - `state/cycles/r12_real_build_cycle/`
+- `contracts/bootstrap/fresh_thread_restart_proof.contract.json`
+- `tools/FreshThreadRestartProof.psm1`
+- `tools/record_fresh_thread_restart_proof.ps1`
+- `tests/test_fresh_thread_restart_proof.ps1`
+- `state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json`
+- `state/fixtures/invalid/bootstrap/`
+- `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`
 
-`R12-018` through `R12-021` remain planned only. The R12-018 bootstrap prompt under `state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md` is a handoff artifact only and does not mark R12-018 done.
+`R12-019` through `R12-021` remain planned only. The R12-018 proof packet records that the bootstrap packet creation head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018 and that the accepted post-R12-017 remote head is `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` with tree `0ce853ffd37ece19c202e9731b27335ae0cc1756`.
 
 ## Required Non-Claims
 
-R12 through `R12-017` does not claim:
+R12 through `R12-018` does not claim:
 
 - no delivered R12 value gates;
-- no R12-018 completion;
+- no R12-019 or later completion;
 - no R12 final-state replay;
 - no final QA pass for R12 closeout;
 - no current real QA evidence gate pass without real external evidence;
@@ -322,4 +330,4 @@ R12 cannot close until:
 
 ## No-Successor Posture
 
-No R13 or successor milestone is opened by R12 through `R12-016`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
+No R13 or successor milestone is opened by R12 through `R12-018`. Any successor requires explicit operator approval and separate repo-truth opening evidence.

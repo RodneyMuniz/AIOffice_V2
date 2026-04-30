@@ -1,0 +1,168 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "fresh_thread_restart_proof",
+  "proof_id": "r12-018-fresh-thread-restart-proof-3629d0e8a665",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "resolved_remote_head": "3629d0e8a6659bb31db69b8dd2f25ffaa277ca14",
+  "resolved_remote_tree": "0ce853ffd37ece19c202e9731b27335ae0cc1756",
+  "local_head": "3629d0e8a6659bb31db69b8dd2f25ffaa277ca14",
+  "local_tree": "0ce853ffd37ece19c202e9731b27335ae0cc1756",
+  "pre_r12_017_source_head": "d93a66aa6b757241583fa1c61bb6333b4228d639",
+  "bootstrap_packet_ref": "state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json",
+  "handoff_prompt_ref": "state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md",
+  "control_room_refresh_result_ref": "state/control_room/r12_current/control_room_refresh_result.json",
+  "completed_tasks_at_thread_start": [
+    "R12-001",
+    "R12-002",
+    "R12-003",
+    "R12-004",
+    "R12-005",
+    "R12-006",
+    "R12-007",
+    "R12-008",
+    "R12-009",
+    "R12-010",
+    "R12-011",
+    "R12-012",
+    "R12-013",
+    "R12-014",
+    "R12-015",
+    "R12-016",
+    "R12-017"
+  ],
+  "planned_tasks_at_thread_start": [
+    "R12-018",
+    "R12-019",
+    "R12-020",
+    "R12-021"
+  ],
+  "recovered_active_scope": {
+    "active_milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+    "active_branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "completed_through_task": "R12-017",
+    "current_task": "R12-018 fresh-thread restart proof only",
+    "next_legal_scope_at_thread_start": "R12-018 only",
+    "source_authority": "committed repo truth plus bootstrap packet and handoff artifacts; prior chat context is not authority"
+  },
+  "recovered_value_gate_status": {
+    "external_api_runner": {
+      "status": "not_fully_delivered",
+      "recovered_from": "state/control_room/r12_current/control_room_refresh_result.json",
+      "blocker": "missing real external runner result and external artifact evidence"
+    },
+    "actionable_qa": {
+      "status": "not_fully_delivered",
+      "recovered_from": "state/control_room/r12_current/control_room_refresh_result.json",
+      "blocker": "cycle QA evidence gate cannot pass without real external evidence"
+    },
+    "operator_control_room": {
+      "status": "bounded_static_tooling_only",
+      "recovered_from": "state/control_room/r12_current/control_room_refresh_result.json",
+      "blocker": "not productized control-room behavior"
+    },
+    "real_build_change": {
+      "status": "partially_evidenced_by_r12_017_refresh_only",
+      "recovered_from": "state/control_room/r12_current/control_room_refresh_result.json",
+      "blocker": "does not establish final-state replay or closeout"
+    }
+  },
+  "recovered_blockers": [
+    {
+      "id": "blocker-r12-external-evidence",
+      "severity": "high",
+      "title": "Real R12 external runner evidence is missing",
+      "explanation": "No live R12 external runner result and no external artifact evidence are captured for the current branch/head/tree, so the final QA/evidence gate remains blocked.",
+      "blocking_status": "blocking"
+    }
+  ],
+  "recovered_next_actions": [
+    {
+      "scope": "thread_start",
+      "task_id": "R12-018",
+      "status": "current_only",
+      "action": "Produce fresh-thread restart proof without prior chat context."
+    },
+    {
+      "scope": "after_r12_018",
+      "task_id": "R12-019",
+      "status": "next recommended only",
+      "action": "Run real external final-state replay in a later prompt using exact head and tree evidence."
+    }
+  ],
+  "verification_commands": [
+    "pwd",
+    "git rev-parse --show-toplevel",
+    "git remote -v",
+    "git branch --show-current",
+    "git status --short --untracked-files=all",
+    "git rev-parse HEAD",
+    "git rev-parse HEAD^{tree}",
+    "git ls-remote origin refs/heads/release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "git ls-remote origin refs/heads/release/r10-real-external-runner-proof-foundation",
+    "git ls-remote origin refs/heads/feature/r5-closeout-remaining-foundations"
+  ],
+  "verification_results": {
+    "pwd": "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2",
+    "git_toplevel": "C:/Users/rodne/OneDrive/Documentos/AIOffice_V2",
+    "remote_origin_fetch": "https://github.com/RodneyMuniz/AIOffice_V2.git",
+    "remote_origin_push": "https://github.com/RodneyMuniz/AIOffice_V2.git",
+    "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "initial_status_short": "",
+    "local_head": "3629d0e8a6659bb31db69b8dd2f25ffaa277ca14",
+    "local_tree": "0ce853ffd37ece19c202e9731b27335ae0cc1756",
+    "resolved_remote_r12_head": "3629d0e8a6659bb31db69b8dd2f25ffaa277ca14",
+    "remote_r10_head": "5aa08904b02663a5549d2c8a21971544476ae805",
+    "remote_r9_head": "3c225f863add07f64a9026661d9465d02024a83d",
+    "bootstrap_packet_exists": true,
+    "handoff_prompt_exists": true,
+    "control_room_refresh_result_exists": true,
+    "status_docs_completed_through_task": "R12-017",
+    "status_docs_planned_tasks": [
+      "R12-018",
+      "R12-019",
+      "R12-020",
+      "R12-021"
+    ],
+    "bootstrap_packet_created_head": "d93a66aa6b757241583fa1c61bb6333b4228d639",
+    "bootstrap_packet_created_head_disposition": "stale_pre_r12_017_source_head_rejected_as_current",
+    "control_room_refresh_verdict": "blocked",
+    "missing_external_evidence_blocker_preserved": true
+  },
+  "proof_verdict": "passed",
+  "refusal_reasons": [],
+  "evidence_refs": [
+    "contracts/bootstrap/fresh_thread_restart_proof.contract.json",
+    "tools/FreshThreadRestartProof.psm1",
+    "tools/record_fresh_thread_restart_proof.ps1",
+    "tests/test_fresh_thread_restart_proof.ps1",
+    "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+    "state/fixtures/invalid/bootstrap/missing_bootstrap_packet.invalid.json",
+    "state/fixtures/invalid/bootstrap/missing_handoff_prompt.invalid.json",
+    "state/fixtures/invalid/bootstrap/stale_pre_r12_017_head_used_as_current.invalid.json",
+    "state/fixtures/invalid/bootstrap/local_head_mismatch.invalid.json",
+    "state/fixtures/invalid/bootstrap/dirty_worktree.invalid.json",
+    "state/fixtures/invalid/bootstrap/missing_control_room_refresh_result.invalid.json",
+    "state/fixtures/invalid/bootstrap/r12_019_or_later_claimed.invalid.json",
+    "state/fixtures/invalid/bootstrap/r12_closeout_claimed.invalid.json",
+    "state/fixtures/invalid/bootstrap/missing_restart_non_claims.invalid.json",
+    "state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_bootstrap_packet.json",
+    "state/cycles/r12_real_build_cycle/bootstrap/codex_next_prompt_for_r12_018.md",
+    "state/control_room/r12_current/control_room_refresh_result.json",
+    "state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json"
+  ],
+  "created_at_utc": "2026-04-30T20:40:00Z",
+  "non_claims": [
+    "no R12-019 or later",
+    "no final QA pass for R12 closeout",
+    "no R12 final-state replay",
+    "no R12 closeout",
+    "no R13 opened",
+    "no productized control-room behavior",
+    "no full UI app",
+    "no production runtime",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no broad CI/product coverage"
+  ]
+}

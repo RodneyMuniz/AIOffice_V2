@@ -1,0 +1,8 @@
+{
+  "fixture_type": "fresh_thread_restart_proof_invalid_case",
+  "case_id": "r12_closeout_claimed",
+  "base_fixture_ref": "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+  "expected_error_fragments": [
+    "R12 closeout claimed"
+  ]
+}

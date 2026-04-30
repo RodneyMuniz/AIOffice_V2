@@ -1,0 +1,9 @@
+{
+  "fixture_type": "fresh_thread_restart_proof_invalid_case",
+  "case_id": "stale_pre_r12_017_head_used_as_current",
+  "base_fixture_ref": "state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json",
+  "expected_error_fragments": [
+    "resolved_remote_head",
+    "post-R12-017"
+  ]
+}
