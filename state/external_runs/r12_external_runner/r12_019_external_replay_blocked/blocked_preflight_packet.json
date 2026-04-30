@@ -1,0 +1,63 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r12_external_replay_blocked_preflight",
+  "scope": "r12-019-final-state-replay",
+  "blocked_at_utc": "2026-04-30T21:19:54Z",
+  "repository": "AIOffice_V2",
+  "remote": "https://github.com/RodneyMuniz/AIOffice_V2.git",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "expected_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "expected_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "workflow_name": "R12 External Replay",
+  "workflow_file": ".github/workflows/r12-external-replay.yml",
+  "dependency_check": {
+    "gh_available": false,
+    "auth_available": false,
+    "workflow_dispatch_permission": false,
+    "missing_dependency": "gh CLI unavailable",
+    "dispatch_attempted": false,
+    "run_watch_attempted": false,
+    "artifact_download_attempted": false,
+    "artifact_import_attempted": false
+  },
+  "manual_dispatch_inputs": {
+    "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "expected_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+    "expected_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+    "replay_scope": "r12-019-final-state-replay"
+  },
+  "required_result": "successful GitHub Actions run with uploaded artifact, followed by import and validation of external artifact evidence",
+  "r12_status_posture": {
+    "r12_active_through": "R12-018",
+    "r12_019": "blocked_not_done",
+    "r12_020": "planned_only",
+    "r12_021": "planned_only",
+    "r12_closeout_claimed": false,
+    "r13_opened": false
+  },
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/external_runner_request.json",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/github_actions_dependency_check.json",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/manual_dispatch_instructions.json",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/manual_dispatch_instructions.md",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/raw_logs/get-command-gh.exit_code.txt",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/raw_logs/gh-version.stdout.log",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/raw_logs/gh-auth-status.stdout.log",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/raw_logs/gh-workflow-list.stdout.log",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/raw_logs/gh-workflow-view.stdout.log"
+  ],
+  "non_claims": [
+    "no external final-state replay",
+    "no real GitHub Actions workflow run evidence",
+    "no external artifact evidence",
+    "no R12-019 completion",
+    "no R12-020 or R12-021",
+    "no R12 closeout",
+    "no R13 opened",
+    "no broad CI/product coverage",
+    "no production runtime",
+    "no productized control-room behavior",
+    "no solved Codex reliability",
+    "no final audit/report"
+  ]
+}

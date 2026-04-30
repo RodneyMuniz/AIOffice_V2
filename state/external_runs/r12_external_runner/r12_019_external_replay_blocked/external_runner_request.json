@@ -1,0 +1,95 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_request",
+  "request_id": "r12-019-final-state-replay-request",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "requested_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "requested_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "workflow_name": "R12 External Replay",
+  "dispatch_mode": "manual_dispatch",
+  "runner_kind": "github_actions",
+  "replay_scope": "r12-019-final-state-replay",
+  "commands": [
+    {
+      "command_id": "test-value-scorecard",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_value_scorecard.ps1",
+      "purpose": "Validate the committed R12 value scorecard foundation in the external runner."
+    },
+    {
+      "command_id": "test-operating-loop",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_operating_loop.ps1",
+      "purpose": "Validate the committed operating-loop foundation in the external runner."
+    },
+    {
+      "command_id": "test-remote-head-phase-detector",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_remote_head_phase_detector.ps1",
+      "purpose": "Validate remote-head phase detection in the external runner."
+    },
+    {
+      "command_id": "test-fresh-thread-bootstrap",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_fresh_thread_bootstrap.ps1",
+      "purpose": "Validate fresh-thread bootstrap contracts in the external runner."
+    },
+    {
+      "command_id": "test-transition-residue-preflight",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_transition_residue_preflight.ps1",
+      "purpose": "Validate transition residue preflight in the external runner."
+    },
+    {
+      "command_id": "test-external-runner-contracts",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_contracts.ps1",
+      "purpose": "Validate external runner request, result, and artifact manifest contracts."
+    },
+    {
+      "command_id": "test-external-runner-github-actions",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_github_actions.ps1",
+      "purpose": "Validate GitHub Actions external-runner dispatch/capture contract shapes."
+    },
+    {
+      "command_id": "test-r12-external-replay-bundle",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_r12_external_replay_bundle.ps1",
+      "purpose": "Validate the R12 external replay bundle contract."
+    },
+    {
+      "command_id": "test-status-doc-gate",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_status_doc_gate.ps1",
+      "purpose": "Validate status-doc gate tests without claiming R12 closeout."
+    },
+    {
+      "command_id": "validate-status-doc-gate",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+      "purpose": "Validate current status documents without advancing R12 beyond R12-018."
+    }
+  ],
+  "expected_artifacts": [
+    {
+      "artifact_name": "r12-external-replay-<run_id>-<run_attempt>",
+      "required": true,
+      "description": "GitHub Actions artifact uploaded by .github/workflows/r12-external-replay.yml containing r12_external_replay_bundle.json, command_results.json, and command logs."
+    }
+  ],
+  "timeout_seconds": 900,
+  "caller_identity": "codex-r12-019-blocked-preflight",
+  "residue_preflight_ref": "state/cycles/r12_real_build_cycle/qa/cycle_qa_evidence_gate.json",
+  "remote_head_phase_detection_ref": "state/control_room/r12_current/control_room_status.json",
+  "created_at_utc": "2026-04-30T21:19:54Z",
+  "evidence_refs": [
+    ".github/workflows/r12-external-replay.yml",
+    "contracts/external_runner/external_runner_request.contract.json",
+    "contracts/external_replay/r12_external_replay_bundle.contract.json",
+    "state/external_runs/r12_external_runner/r12_019_external_replay_blocked/manual_dispatch_instructions.md"
+  ],
+  "non_claims": [
+    "no full external orchestrator product",
+    "no final-state replay",
+    "no broad CI/product coverage",
+    "no R12 value-gate delivery yet",
+    "no R12 closeout",
+    "no R13 opened",
+    "no production runtime",
+    "no productized control-room behavior",
+    "no solved Codex reliability"
+  ]
+}
