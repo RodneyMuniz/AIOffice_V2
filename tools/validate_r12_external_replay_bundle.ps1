@@ -11,7 +11,8 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $contractPath = Join-Path $repoRoot "contracts\external_replay\r12_external_replay_bundle.contract.json"
 $contract = Read-SingleJsonObject -Path $contractPath -Label "R12 external replay bundle contract"
 $bundle = Read-SingleJsonObject -Path $BundlePath -Label "R12 external replay bundle"
-$anchorPath = Split-Path -Parent (Resolve-Path -LiteralPath $BundlePath).Path
+$bundlePathResolved = (Resolve-Path -LiteralPath $BundlePath).Path
+$bundleRoot = [System.IO.Path]::GetFullPath((Split-Path -Parent $bundlePathResolved))
 $gitObjectPattern = "^[a-f0-9]{40}$"
 $timestampPattern = "^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
 
@@ -71,12 +72,18 @@ function Assert-ObjectArray {
 function Resolve-BundleRef {
     param([string]$Reference, [string]$Context)
     Assert-NonEmptyString -Value $Reference -Context $Context | Out-Null
-    if ($Reference -match '(^|[\\/])\.\.([\\/]|$)' -or [System.IO.Path]::IsPathRooted($Reference)) {
+    if ([System.IO.Path]::IsPathRooted($Reference)) {
+        throw "$Context must be a relative path bounded inside the bundle root; absolute paths are not allowed."
+    }
+    if ($Reference -match '(^|[\\/])\.\.([\\/]|$)') {
         throw "$Context must be bounded inside the bundle root."
     }
-    $resolved = [System.IO.Path]::GetFullPath((Join-Path $anchorPath $Reference))
-    $resolvedAnchor = [System.IO.Path]::GetFullPath($anchorPath)
-    if (-not $resolved.StartsWith($resolvedAnchor, [System.StringComparison]::OrdinalIgnoreCase)) {
+    $resolved = [System.IO.Path]::GetFullPath((Join-Path $bundleRoot $Reference))
+    $rootForPrefix = $bundleRoot.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+    $rootWithSeparator = $rootForPrefix + [System.IO.Path]::DirectorySeparatorChar
+    $isBundleRoot = $resolved.Equals($rootForPrefix, [System.StringComparison]::OrdinalIgnoreCase)
+    $isInsideBundleRoot = $resolved.StartsWith($rootWithSeparator, [System.StringComparison]::OrdinalIgnoreCase)
+    if (-not ($isBundleRoot -or $isInsideBundleRoot)) {
         throw "$Context must stay inside the bundle root."
     }
     if (-not (Test-Path -LiteralPath $resolved)) {

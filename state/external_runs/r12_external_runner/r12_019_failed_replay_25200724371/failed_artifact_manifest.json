@@ -1,0 +1,55 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "failed_external_replay_artifact_manifest_diagnostic",
+  "manifest_id": "r12-019-failed-replay-25200724371-artifact",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "workflow_name": "R12 External Replay",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "run_id": "25200724371",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25200724371",
+  "run_attempt": 1,
+  "run_conclusion": "failure",
+  "artifact_id": "6744584299",
+  "artifact_name": "r12-external-replay-25200724371-1",
+  "artifact_url_or_path": "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6744584299/zip",
+  "artifact_digest_or_hash": "sha256:c861490a962433e2cba1b86cadeddb33d651432eeadaf6c491f1591add59c238",
+  "artifact_exists": true,
+  "artifact_imported": false,
+  "artifact_diagnostic_only": true,
+  "requested_head": "874eedbd6f72b95fec4c00fd199cba216cc23718",
+  "requested_tree": "8766b4d8b29a9e61e038b08d50829e1073db36b6",
+  "observed_head": "874eedbd6f72b95fec4c00fd199cba216cc23718",
+  "observed_tree": "8766b4d8b29a9e61e038b08d50829e1073db36b6",
+  "recorded_at_utc": "2026-05-01T03:47:47Z",
+  "failure_summary": "Generate and validate R12 replay bundle failed because the validator resolved artifact-relative evidence refs from outside the bundle root.",
+  "diagnostic_files_expected_from_workflow": [
+    "r12_external_replay_bundle.json",
+    "command_results.json",
+    "command_logs/clean_status_before.log",
+    "command_logs/clean_status_after.log"
+  ],
+  "artifact_relative_refs": [
+    "command_logs/clean_status_before.log",
+    "command_logs/clean_status_after.log",
+    "command_logs/<command>.stdout.log",
+    "command_logs/<command>.stderr.log",
+    "command_logs/<command>.exit_code.txt"
+  ],
+  "correct_validator_root": "the directory containing r12_external_replay_bundle.json",
+  "incorrect_validator_root": "repository working directory",
+  "direct_validator_error": "R12 external replay bundle clean_status_before.evidence_ref 'command_logs/clean_status_before.log' does not exist.",
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25200724371/failed_external_runner_result.json",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25200724371/failed_replay_analysis.md",
+    "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25200724371"
+  ],
+  "non_claims": [
+    "no external final-state replay evidence",
+    "no external artifact evidence accepted",
+    "no R12-019 completion",
+    "no R12 closeout",
+    "no R13 opened",
+    "diagnostic failed artifact metadata only"
+  ]
+}
