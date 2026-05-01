@@ -1,0 +1,152 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_bounded_fix_execution_packet_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-005",
+  "source_fix_queue_task": "R13-004",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "execution_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "source_issue_report_ref",
+    "source_fix_queue_ref",
+    "selected_fix_item_ids",
+    "selected_source_issue_ids",
+    "execution_mode",
+    "execution_status",
+    "authorization",
+    "planned_changes",
+    "actual_changes",
+    "allowed_commands",
+    "commands_run",
+    "validation_commands",
+    "validation_results",
+    "rollback_plan",
+    "expected_evidence_refs",
+    "produced_evidence_refs",
+    "execution_summary",
+    "aggregate_verdict",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "authorization_required_fields": [
+    "authorized_by",
+    "authority_kind",
+    "authorization_scope",
+    "allow_broad_scope",
+    "broad_scope_justification",
+    "executor_self_certification_disallowed",
+    "qa_authority_kind"
+  ],
+  "planned_change_required_fields": [
+    "fix_item_id",
+    "source_issue_ids",
+    "target_files",
+    "bounded_scope",
+    "proposed_change_summary",
+    "allowed_commands",
+    "validation_commands",
+    "rollback_plan",
+    "expected_evidence_refs"
+  ],
+  "actual_change_required_fields": [
+    "change_kind",
+    "fix_item_ids",
+    "changed_files",
+    "mutation_performed",
+    "summary"
+  ],
+  "rollback_plan_required_fields": [
+    "fix_item_id",
+    "source_issue_ids",
+    "target_files",
+    "rollback_note"
+  ],
+  "expected_evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope",
+    "status"
+  ],
+  "produced_evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_execution_modes": [
+    "authorization_only",
+    "dry_run",
+    "executed"
+  ],
+  "allowed_execution_statuses": [
+    "authorized",
+    "blocked",
+    "dry_run_complete",
+    "executed_pending_validation",
+    "validation_passed",
+    "validation_failed"
+  ],
+  "allowed_aggregate_verdicts": [
+    "authorized_for_future_execution",
+    "blocked",
+    "dry_run_complete",
+    "execution_recorded",
+    "validation_failed",
+    "validation_passed"
+  ],
+  "required_non_claims": [
+    "R13-005 implements the bounded fix execution packet model only",
+    "no actual fix execution has occurred",
+    "no target file mutation has occurred",
+    "no QA rerun has occurred",
+    "no before/after comparison has occurred",
+    "no external replay has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-005",
+    "no meaningful QA loop delivered yet",
+    "no production QA delivered by R13-005",
+    "no executor self-certification as QA or execution authority",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "source_fix_queue_must_validate_as_r13_004_ready_for_fix_execution",
+    "selected_fix_item_ids_must_exist_in_source_fix_queue",
+    "selected_source_issue_ids_must_be_mapped_by_selected_fix_items",
+    "target_files_must_be_repo_relative_and_inside_repo",
+    "broad_repo_scope_requires_explicit_authorization_and_justification",
+    "validation_commands_are_required",
+    "rollback_plan_is_required",
+    "expected_evidence_refs_must_exist_or_be_marked_expected_future_evidence",
+    "commands_run_must_be_subset_of_allowed_commands",
+    "authorization_only_packets_must_have_no_actual_changes",
+    "dry_run_packets_must_record_no_mutation",
+    "executed_packets_require_changed_file_evidence_validation_results_and_produced_evidence",
+    "executor_self_certification_cannot_be_execution_or_qa_authority",
+    "local_only_evidence_cannot_be_external_proof",
+    "r13_005_cannot_claim_rerun_comparison_external_replay_signoff_hard_gate_or_production_qa",
+    "successor_milestone_opening_claims_are_rejected",
+    "required_non_claims_must_be_preserved"
+  ]
+}

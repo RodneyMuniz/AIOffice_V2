@@ -701,7 +701,7 @@ function Assert-R13NonClaimsPreserved {
     $nonClaimsSectionText = $nonClaimsSectionMatch.Groups[1].Value
 
     $requiredPhrases = @(
-        'no R13 hard value gate delivered by `R13-004`',
+        'no R13 hard value gate delivered by `R13-005`',
         "no meaningful QA loop gate delivered yet",
         "no API/custom-runner bypass gate delivered yet",
         "no current operator control-room gate delivered yet",
@@ -735,7 +735,7 @@ function Assert-R13ActiveStatusDocs {
         [System.Collections.IDictionary]$Texts
     )
 
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-004` only\.' -Message "ACTIVE_STATE must declare R13 active through R13-004 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-005` only\.' -Message "ACTIVE_STATE must declare R13 active through R13-005 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`' -Message "KANBAN must declare R13 as the active milestone."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must keep R12 as the most recently closed milestone while R13 is active."
 }
@@ -1796,8 +1796,8 @@ function Test-R13OpeningStatus {
         throw "R13 authority does not match KANBAN for the live R13 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 4 -or $kanbanSnapshot.PlannedStart -ne 5 -or $kanbanSnapshot.PlannedThrough -ne 18) {
-        throw "R13 status must keep only R13-001 through R13-004 done and R13-005 through R13-018 planned."
+    if ($kanbanSnapshot.DoneThrough -ne 5 -or $kanbanSnapshot.PlannedStart -ne 6 -or $kanbanSnapshot.PlannedThrough -ne 18) {
+        throw "R13 status must keep only R13-001 through R13-005 done and R13-006 through R13-018 planned."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
@@ -1815,11 +1815,11 @@ function Test-R13OpeningStatus {
     $r12CandidateCommit = "4873068faef918608f9f4d74ecbf6ee779ba2ad4"
     $r12CandidateTree = "bb2f95efdaa194f2cae03a57ed29461c32eb5df8"
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now the active milestone in repo truth through `R13-004` only' -Message "README must declare R13 active through R13-004 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now the active milestone in repo truth through `R13-005` only' -Message "README must declare R13 active through R13-005 only."
     Assert-R13ActiveStatusDocs -Texts $Texts
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R13-001 Opened API-First QA Pipeline And Control-Room Product Slice' -Message "DECISION_LOG must record the R13-001 opening decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R13-002 Defined Ideal QA Lifecycle Contract' -Message "DECISION_LOG must record the R13-002 lifecycle contract decision."
-    Assert-RegexMatch -Text $Texts.R13Authority -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-004` only' -Message "R13 authority must declare R13 active through R13-004 only."
+    Assert-RegexMatch -Text $Texts.R13Authority -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-005` only' -Message "R13 authority must declare R13 active through R13-005 only."
 
     foreach ($entry in @(
             @{ Text = $Texts.Readme; Context = "README" },
@@ -1838,7 +1838,7 @@ function Test-R13OpeningStatus {
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)planning authority' -Message "Status docs must say the R12/R13 report is planning authority."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)not product proof by itself' -Message "Status docs must say the R12/R13 report is not product proof by itself."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R12 remains closed narrowly' -Message "Status docs must preserve that R12 remains closed narrowly."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R13-005`\s+through\s+`R13-018`\s+remain planned only|R13-005` through `R13-018` remain planned only' -Message "Status docs must keep R13-005 through R13-018 planned only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R13-006`\s+through\s+`R13-018`\s+remain planned only|R13-006` through `R13-018` remain planned only' -Message "Status docs must keep R13-006 through R13-018 planned only."
     Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/r13_qa_lifecycle\.contract\.json' -Message "Status docs must cite the R13 QA lifecycle contract."
     Assert-RegexMatch -Text $combinedText -Pattern 'tools/R13QaLifecycle\.psm1' -Message "Status docs must cite the R13 QA lifecycle validator module."
     Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_r13_qa_lifecycle\.ps1' -Message "Status docs must cite the R13 QA lifecycle tests."
@@ -1854,6 +1854,13 @@ function Test-R13OpeningStatus {
     Assert-RegexMatch -Text $combinedText -Pattern 'tools/validate_r13_qa_fix_queue\.ps1' -Message "Status docs must cite the R13 QA fix queue validator."
     Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_r13_qa_fix_queue\.ps1' -Message "Status docs must cite the R13 QA fix queue tests."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue\.json' -Message "Status docs must cite the R13-004 fix queue evidence artifact."
+    Assert-RegexMatch -Text $combinedText -Pattern 'contracts/actionable_qa/r13_bounded_fix_execution\.contract\.json' -Message "Status docs must cite the R13 bounded fix execution contract."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/R13BoundedFixExecution\.psm1' -Message "Status docs must cite the R13 bounded fix execution module."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/new_r13_bounded_fix_execution_packet\.ps1' -Message "Status docs must cite the R13 bounded fix execution packet generator."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tools/validate_r13_bounded_fix_execution\.ps1' -Message "Status docs must cite the R13 bounded fix execution validator."
+    Assert-RegexMatch -Text $combinedText -Pattern 'tests/test_r13_bounded_fix_execution\.ps1' -Message "Status docs must cite the R13 bounded fix execution tests."
+    Assert-RegexMatch -Text $combinedText -Pattern 'state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet\.json' -Message "Status docs must cite the R13-005 bounded fix execution packet evidence artifact."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)bounded fix execution packet model only|bounded fix execution packet model' -Message "Status docs must state R13-005 is the bounded fix execution packet model only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)fix queue and fix-plan generator v2 only|fix queue.*slice only' -Message "Status docs must state R13-004 is the fix queue slice only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)source-mapped issue detector v2 only|detector slice only' -Message "Status docs must state R13-003 is the detector slice only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)contract/foundation|contract-only|contract only' -Message "Status docs must state R13-002 is contract/foundation only."
