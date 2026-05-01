@@ -1,0 +1,195 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_qa_fix_queue",
+    "queue_id":  "r13-004-invalid-missing-expected-evidence-refs-invalid-json",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "9bf0205e28e2e3e35470add9076f0a5c1ccdbcdd",
+    "tree":  "1b6ff3659467727a7dd81ca63275b90ad1b19b7a",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-004",
+    "source_issue_report_ref":  "state/fixtures/valid/actionable_qa/r13_qa_issue_detection_report.with_issues.valid.json",
+    "queue_status":  "ready_for_fix_execution",
+    "issue_summary":  {
+                          "source_issue_count":  1,
+                          "blocking_issue_count":  1,
+                          "mapped_blocking_issue_count":  1,
+                          "fix_item_count":  1,
+                          "no_fix_item_count":  0,
+                          "unmapped_blocking_issue_count":  0,
+                          "issue_types":  [
+                                              "missing_reproduction_command"
+                                          ]
+                      },
+    "fix_items":  [
+                      {
+                          "fix_item_id":  "r13qf-5029176ce1ff8d77",
+                          "source_issue_ids":  [
+                                                   "r13qi-fixture-with-issues-001"
+                                               ],
+                          "issue_types":  [
+                                              "missing_reproduction_command"
+                                          ],
+                          "severity":  "error",
+                          "blocking_status":  "blocking",
+                          "component":  "qa_issue_evidence",
+                          "target_files":  [
+                                               "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json"
+                                           ],
+                          "bounded_scope":  {
+                                                "scope_kind":  "single_source_file",
+                                                "allow_broad_scope":  false,
+                                                "description":  "Modify only the listed target file(s) and directly related evidence refs for the preserved source issue.",
+                                                "explicitly_related_paths":  [
+
+                                                                             ],
+                                                "broad_scope_justification":  ""
+                                            },
+                          "proposed_change_summary":  "Apply the source recommended fix for missing_reproduction_command in state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json.",
+                          "reproduction_commands":  [
+                                                        "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs -OutputPath scratch\\r13_detector.json -FixtureMode"
+                                                    ],
+                          "recommended_fix":  "Add the exact command that reproduces or validates the issue.",
+                          "allowed_commands":  [
+                                                   "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs -OutputPath scratch\\r13_detector.json -FixtureMode",
+                                                   "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_fix_queue.ps1 -QueuePath state/fixtures/invalid/actionable_qa/r13_qa_fix_queue/missing_expected_evidence_refs.invalid.json",
+                                                   "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_fix_queue.ps1"
+                                               ],
+                          "validation_commands":  [
+                                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_fix_queue.ps1 -QueuePath state/fixtures/invalid/actionable_qa/r13_qa_fix_queue/missing_expected_evidence_refs.invalid.json",
+                                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_fix_queue.ps1"
+                                                  ],
+                          "risk_level":  "low",
+                          "rollback_note":  "Restore the listed target file(s) from git and rerun the validation commands before accepting any later fix execution evidence.",
+                          "expected_evidence_refs":  [
+
+                                                     ],
+                          "status":  "queued",
+                          "owner_role":  "repository_maintainer",
+                          "authority_kind":  "repo_fix_plan_generator",
+                          "non_claims":  [
+                                             "R13-004 is a fix queue and fix-plan generator only",
+                                             "no R13 hard value gate delivered by R13-004",
+                                             "no meaningful QA loop delivered yet",
+                                             "no fix execution delivered by R13-004",
+                                             "no rerun delivered by R13-004",
+                                             "no before/after comparison delivered by R13-004",
+                                             "no external replay proof delivered by R13-004",
+                                             "no current operator control-room delivered by R13-004",
+                                             "no final QA signoff delivered by R13-004",
+                                             "no real production QA",
+                                             "no executor self-certification as QA",
+                                             "no R14 or successor opening"
+                                         ]
+                      }
+                  ],
+    "unmapped_blocking_issues":  [
+
+                                 ],
+    "no_fix_items":  [
+
+                     ],
+    "allowed_scope":  {
+                          "scope_kind":  "bounded_source_issue_targets",
+                          "allow_broad_scope":  false,
+                          "allowed_roots":  [
+                                                "contracts",
+                                                "tools",
+                                                "tests",
+                                                "state",
+                                                "governance",
+                                                "execution"
+                                            ],
+                          "disallowed_patterns":  [
+                                                      "..",
+                                                      "absolute_paths",
+                                                      "external_proof_claims",
+                                                      "executor_self_certification"
+                                                  ],
+                          "broad_scope_justification":  ""
+                      },
+    "commands_required":  [
+                              "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_fix_queue.ps1",
+                              "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs -OutputPath scratch\\r13_detector.json -FixtureMode",
+                              "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_fix_queue.ps1 -QueuePath state/fixtures/invalid/actionable_qa/r13_qa_fix_queue/missing_expected_evidence_refs.invalid.json"
+                          ],
+    "validation_commands":  [
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_fix_queue.ps1 -QueuePath state/fixtures/invalid/actionable_qa/r13_qa_fix_queue/missing_expected_evidence_refs.invalid.json",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_fix_queue.ps1"
+                            ],
+    "expected_evidence_refs":  [
+                                   {
+                                       "ref_id":  "r13-005-fix-execution-packet",
+                                       "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_fix_execution_packet.json",
+                                       "evidence_kind":  "fix_execution",
+                                       "authority_kind":  "future_repo_evidence",
+                                       "scope":  "repo",
+                                       "status":  "expected_future_evidence"
+                                   },
+                                   {
+                                       "ref_id":  "r13-006-rerun-issue-detection-report",
+                                       "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_006_rerun_issue_detection_report.json",
+                                       "evidence_kind":  "rerun_issue_detection",
+                                       "authority_kind":  "future_repo_evidence",
+                                       "scope":  "repo",
+                                       "status":  "expected_future_evidence"
+                                   },
+                                   {
+                                       "ref_id":  "r13-006-before-after-comparison",
+                                       "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_006_before_after_comparison.json",
+                                       "evidence_kind":  "before_after_comparison",
+                                       "authority_kind":  "future_repo_evidence",
+                                       "scope":  "repo",
+                                       "status":  "expected_future_evidence"
+                                   }
+                               ],
+    "aggregate_verdict":  "ready_for_fix_execution",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "source-r13-003-issue-report",
+                              "ref":  "state/fixtures/valid/actionable_qa/r13_qa_issue_detection_report.with_issues.valid.json",
+                              "evidence_kind":  "source_issue_report",
+                              "authority_kind":  "repo_detector",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-qa-fix-queue-contract",
+                              "ref":  "contracts/actionable_qa/r13_qa_fix_queue.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-qa-fix-queue-module",
+                              "ref":  "tools/R13QaFixQueue.psm1",
+                              "evidence_kind":  "fix_queue_module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-qa-fix-queue-tests",
+                              "ref":  "tests/test_r13_qa_fix_queue.ps1",
+                              "evidence_kind":  "test_harness",
+                              "authority_kind":  "repo_tests",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "generated_at_utc":  "2026-05-01T11:04:18Z",
+    "non_claims":  [
+                       "R13-004 is a fix queue and fix-plan generator only",
+                       "no R13 hard value gate delivered by R13-004",
+                       "no meaningful QA loop delivered yet",
+                       "no fix execution delivered by R13-004",
+                       "no rerun delivered by R13-004",
+                       "no before/after comparison delivered by R13-004",
+                       "no external replay proof delivered by R13-004",
+                       "no current operator control-room delivered by R13-004",
+                       "no final QA signoff delivered by R13-004",
+                       "no real production QA",
+                       "no executor self-certification as QA",
+                       "no R14 or successor opening"
+                   ]
+}
