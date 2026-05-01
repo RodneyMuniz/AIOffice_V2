@@ -1,0 +1,81 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_control_room_refresh_result_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-009",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "refresh_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_status_ref",
+    "generated_status_ref",
+    "generated_view_ref",
+    "command_results",
+    "validation_results",
+    "stale_state_checks",
+    "hard_gate_status",
+    "blockers",
+    "next_actions",
+    "operator_decisions_required",
+    "refresh_verdict",
+    "refusal_reasons",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "allowed_refresh_verdicts": [
+    "current",
+    "blocked"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "summary"
+  ],
+  "validation_result_required_fields": [
+    "artifact_id",
+    "ref",
+    "validator",
+    "verdict",
+    "summary"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "required_non_claims": [
+    "R13-009 adds current cycle-aware repo-generated control-room JSON, Markdown view, refresh result, and validation manifest only",
+    "R13 active through R13-009 only",
+    "R13-010 through R13-018 remain planned only",
+    "current operator control-room gate is partially evidenced only; not fully delivered as a hard gate",
+    "no external replay has occurred",
+    "no operator demo delivered by R13-009",
+    "no final QA signoff delivered by R13-009",
+    "no R13 hard value gate fully delivered by R13-009",
+    "no productized control-room behavior",
+    "no full UI app",
+    "no production runtime",
+    "no real production QA",
+    "no hard gate overclaim",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "current_refresh_requires_generated_status_and_view_to_validate",
+    "blocked_refresh_requires_refusal_reasons",
+    "stale_branch_head_or_tree_expectations_must_block_refresh",
+    "hard_gates_must_not_be_marked_delivered_or_complete",
+    "external_replay_operator_demo_final_signoff_productized_ui_r14_and_successor_claims_are_rejected"
+  ]
+}

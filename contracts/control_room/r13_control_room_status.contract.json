@@ -1,0 +1,118 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_control_room_status_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-009",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "status_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "active_scope",
+    "completed_tasks",
+    "planned_tasks",
+    "hard_gate_status",
+    "qa_pipeline_status",
+    "runner_status",
+    "skill_status",
+    "external_replay_status",
+    "control_room_status",
+    "blockers",
+    "attention_items",
+    "next_actions",
+    "operator_decisions_required",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "optional_fields": [
+    "stale_state_checks"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "task_status_required_fields": [
+    "task_id",
+    "status",
+    "summary",
+    "evidence_refs"
+  ],
+  "work_item_required_fields": [
+    "id",
+    "severity",
+    "title",
+    "explanation",
+    "evidence_refs",
+    "recommended_next_action",
+    "blocking_status"
+  ],
+  "next_action_required_fields": [
+    "id",
+    "task_id",
+    "title",
+    "action_type",
+    "description",
+    "required_before",
+    "evidence_refs"
+  ],
+  "operator_decision_required_fields": [
+    "id",
+    "title",
+    "decision_type",
+    "required_before",
+    "blocking_status",
+    "evidence_refs"
+  ],
+  "hard_gate_names": [
+    "meaningful_qa_loop",
+    "api_custom_runner_bypass",
+    "current_operator_control_room",
+    "skill_invocation_evidence",
+    "operator_demo"
+  ],
+  "allowed_gate_statuses": [
+    "not_delivered",
+    "partial_local_only",
+    "partially_evidenced",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "R13-009 adds current cycle-aware repo-generated control-room JSON, Markdown view, refresh result, and validation manifest only",
+    "R13 active through R13-009 only",
+    "R13-010 through R13-018 remain planned only",
+    "current operator control-room gate is partially evidenced only; not fully delivered as a hard gate",
+    "no external replay has occurred",
+    "no operator demo delivered by R13-009",
+    "no final QA signoff delivered by R13-009",
+    "no R13 hard value gate fully delivered by R13-009",
+    "no productized control-room behavior",
+    "no full UI app",
+    "no production runtime",
+    "no real production QA",
+    "no hard gate overclaim",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "status_must_bind_to_r13_branch_milestone_and_r13_009",
+    "status_must_render_completed_tasks_r13_001_through_r13_009_only",
+    "status_must_render_planned_tasks_r13_010_through_r13_018_only",
+    "head_and_tree_must_be_40_character_git_object_ids",
+    "required_major_evidence_refs_must_exist_in_repo",
+    "stale_state_checks_must_pass_for_current_refresh_outputs",
+    "hard_gates_must_not_be_marked_delivered_or_complete",
+    "external_replay_operator_demo_and_final_signoff_must_not_be_claimed",
+    "productized_ui_r14_and_successor_claims_are_rejected"
+  ]
+}

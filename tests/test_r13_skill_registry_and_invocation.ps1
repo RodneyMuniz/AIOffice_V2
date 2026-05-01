@@ -50,6 +50,14 @@ function ConvertTo-RepoRef {
     return $full.Substring($repoRoot.Length + 1).Replace("\", "/")
 }
 
+function Get-CurrentGitIdentity {
+    return [pscustomobject]@{
+        Branch = ([string](& git -C $repoRoot branch --show-current)).Trim()
+        Head = ([string](& git -C $repoRoot rev-parse HEAD)).Trim()
+        Tree = ([string](& git -C $repoRoot rev-parse "HEAD^{tree}")).Trim()
+    }
+}
+
 function Invoke-PowerShellFile {
     param(
         [Parameter(Mandatory = $true)]
@@ -130,6 +138,10 @@ function Update-TestRequestOutput {
     )
 
     $Request.invocation_id = $InvocationId
+    $gitIdentity = Get-CurrentGitIdentity
+    $Request.branch = $gitIdentity.Branch
+    $Request.head = $gitIdentity.Head
+    $Request.tree = $gitIdentity.Tree
     $Request.expected_result_ref = $ResultRef
     $Request.requested_outputs[0].ref = $ResultRef
     $Request.requested_outputs[1].ref = $RawLogRef

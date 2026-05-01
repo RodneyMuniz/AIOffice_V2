@@ -1,0 +1,423 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_control_room_refresh_result",
+    "refresh_id":  "r13crr-5ac85aec51ff52a4",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
+    "tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-009",
+    "source_status_ref":  "state/control_room/r13_current/control_room_status.json",
+    "generated_status_ref":  "state/control_room/r13_current/control_room_status.json",
+    "generated_view_ref":  "state/control_room/r13_current/control_room.md",
+    "generated_manifest_ref":  "state/control_room/r13_current/validation_manifest.md",
+    "command_results":  [
+                            {
+                                "command_id":  "generate-status",
+                                "command":  "New-R13ControlRoomStatusObject",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "summary":  "Generated current R13 control-room status from repo evidence."
+                            },
+                            {
+                                "command_id":  "render-view",
+                                "command":  "tools/render_r13_control_room_view.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "summary":  "Rendered human-readable control-room Markdown view."
+                            }
+                        ],
+    "validation_results":  [
+                               {
+                                   "artifact_id":  "r13-control-room-status",
+                                   "ref":  "state/control_room/r13_current/control_room_status.json",
+                                   "validator":  "tools/validate_r13_control_room_status.ps1",
+                                   "verdict":  "passed",
+                                   "summary":  "Generated status validates."
+                               },
+                               {
+                                   "artifact_id":  "r13-control-room-view",
+                                   "ref":  "state/control_room/r13_current/control_room.md",
+                                   "validator":  "tools/validate_r13_control_room_view.ps1",
+                                   "verdict":  "passed",
+                                   "summary":  "Generated Markdown view validates."
+                               }
+                           ],
+    "stale_state_checks":  {
+                               "expected_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+                               "expected_head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
+                               "expected_tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+                               "observed_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+                               "observed_head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
+                               "observed_tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+                               "branch_matches_expected":  true,
+                               "head_matches_expected":  true,
+                               "tree_matches_expected":  true,
+                               "required_evidence_refs_present":  true,
+                               "hard_gate_overclaim_absent":  true,
+                               "external_replay_not_claimed":  true,
+                               "final_signoff_not_claimed":  true,
+                               "operator_demo_not_claimed":  true,
+                               "r14_successor_not_opened":  true,
+                               "productized_ui_not_claimed":  true,
+                               "stale_state_checks_passed":  true
+                           },
+    "hard_gate_status":  {
+                             "meaningful_qa_loop":  {
+                                                        "status":  "partial_local_only",
+                                                        "hard_gate_delivered":  false,
+                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, and local skill invocations exist, but the loop is not complete until external replay, current control-room evidence, and final QA signoff all exist.",
+                                                        "missing_required_evidence":  [
+                                                                                          "external_replay",
+                                                                                          "final_qa_signoff"
+                                                                                      ],
+                                                        "evidence_refs":  [
+                                                                              "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                                                              "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                                                                              "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json"
+                                                                          ]
+                                                    },
+                             "api_custom_runner_bypass":  {
+                                                              "status":  "partial_local_only",
+                                                              "hard_gate_delivered":  false,
+                                                              "summary":  "R13-007 adds a local API-shaped/custom-runner foundation with bounded validation command results only; the bypass gate is not fully delivered.",
+                                                              "missing_required_evidence":  [
+                                                                                                "external_replay_or_operator_approved_bypass_proof",
+                                                                                                "final_signoff"
+                                                                                            ],
+                                                              "evidence_refs":  [
+                                                                                    "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json"
+                                                                                ]
+                                                          },
+                             "current_operator_control_room":  {
+                                                                   "status":  "partially_evidenced",
+                                                                   "hard_gate_delivered":  false,
+                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; this is partial operator-control-room evidence only, not a full hard-gate delivery.",
+                                                                   "missing_required_evidence":  [
+                                                                                                     "operator_demo",
+                                                                                                     "external_replay",
+                                                                                                     "final_qa_signoff"
+                                                                                                 ],
+                                                                   "evidence_refs":  [
+                                                                                         "contracts/control_room/r13_control_room_status.contract.json",
+                                                                                         "contracts/control_room/r13_control_room_view.contract.json",
+                                                                                         "contracts/control_room/r13_control_room_refresh_result.contract.json",
+                                                                                         "tools/R13ControlRoomStatus.psm1",
+                                                                                         "tools/render_r13_control_room_view.ps1",
+                                                                                         "tools/refresh_r13_control_room.ps1",
+                                                                                         "tools/validate_r13_control_room_status.ps1",
+                                                                                         "tools/validate_r13_control_room_view.ps1",
+                                                                                         "tools/validate_r13_control_room_refresh_result.ps1",
+                                                                                         "tests/test_r13_control_room_status.ps1",
+                                                                                         "state/control_room/r13_current/control_room_status.json",
+                                                                                         "state/control_room/r13_current/control_room.md",
+                                                                                         "state/control_room/r13_current/control_room_refresh_result.json",
+                                                                                         "state/control_room/r13_current/validation_manifest.md"
+                                                                                     ]
+                                                               },
+                             "skill_invocation_evidence":  {
+                                                               "status":  "partially_evidenced",
+                                                               "hard_gate_delivered":  false,
+                                                               "summary":  "R13-008 registers four skills and invokes qa.detect plus qa.fix_plan locally with one passed validation command each; runner.external_replay and control_room.refresh are registered but not invoked as R13-008 skills.",
+                                                               "missing_required_evidence":  [
+                                                                                                 "external_replay_skill_invocation",
+                                                                                                 "control_room_refresh_skill_invocation_if_required_by_later_gate"
+                                                                                             ],
+                                                               "evidence_refs":  [
+                                                                                     "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                                                                                     "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                                                                                     "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json"
+                                                                                 ]
+                                                           },
+                             "operator_demo":  {
+                                                   "status":  "not_delivered",
+                                                   "hard_gate_delivered":  false,
+                                                   "summary":  "R13-010 remains planned only; no operator demo artifact exists in R13-009.",
+                                                   "missing_required_evidence":  [
+                                                                                     "state/control_room/r13_current/operator_demo.md"
+                                                                                 ],
+                                                   "evidence_refs":  [
+                                                                         "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                                     ]
+                                               },
+                             "overall":  {
+                                             "status":  "blocked",
+                                             "any_hard_gate_delivered":  false,
+                                             "summary":  "No R13 hard value gate is fully delivered by R13-009."
+                                         }
+                         },
+    "blockers":  [
+                     {
+                         "id":  "blocker-r13-external-replay-missing",
+                         "severity":  "high",
+                         "title":  "External replay is missing",
+                         "explanation":  "No R13 external replay evidence exists, so the meaningful QA loop and final signoff remain blocked.",
+                         "evidence_refs":  [
+                                               "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                           ],
+                         "recommended_next_action":  "Keep external replay planned until its authorized R13 task is reached.",
+                         "blocking_status":  "blocking"
+                     },
+                     {
+                         "id":  "blocker-r13-final-signoff-missing",
+                         "severity":  "high",
+                         "title":  "Final QA signoff is missing",
+                         "explanation":  "No final QA signoff artifact exists in R13-009.",
+                         "evidence_refs":  [
+                                               "contracts/actionable_qa/r13_qa_lifecycle.contract.json"
+                                           ],
+                         "recommended_next_action":  "Do not sign off until external replay and current operator evidence are available.",
+                         "blocking_status":  "blocking"
+                     },
+                     {
+                         "id":  "blocker-r13-operator-demo-missing",
+                         "severity":  "medium",
+                         "title":  "Operator demo is missing",
+                         "explanation":  "R13-010 remains planned only; no operator demo artifact is produced by R13-009.",
+                         "evidence_refs":  [
+                                               "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                           ],
+                         "recommended_next_action":  "Use R13-010 as the next legal action.",
+                         "blocking_status":  "blocking"
+                     },
+                     {
+                         "id":  "blocker-r13-hard-gates-not-delivered",
+                         "severity":  "high",
+                         "title":  "R13 hard gates are not fully delivered",
+                         "explanation":  "Meaningful QA loop, API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo are not fully delivered as hard gates.",
+                         "evidence_refs":  [
+                                               "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                           ],
+                         "recommended_next_action":  "Preserve partial statuses and continue through the official R13 task order.",
+                         "blocking_status":  "blocking"
+                     }
+                 ],
+    "next_actions":  [
+                         {
+                             "id":  "next-r13-010-operator-demo",
+                             "task_id":  "R13-010",
+                             "title":  "Add operator demo artifact",
+                             "action_type":  "next_legal_task",
+                             "description":  "Generate the operator demo artifact from actual QA failure-to-fix cycle evidence and current pipeline refs.",
+                             "required_before":  "R13-011 external replay or later signoff",
+                             "evidence_refs":  [
+                                                   "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                               ]
+                         },
+                         {
+                             "id":  "next-r13-011-external-replay-after-demo",
+                             "task_id":  "R13-011",
+                             "title":  "Planned external replay after QA fix loop",
+                             "action_type":  "later_planned_task",
+                             "description":  "External replay remains planned after the operator demo boundary unless the authority is changed by explicit repo-truth approval.",
+                             "required_before":  "R13-012 meaningful QA signoff gate",
+                             "evidence_refs":  [
+                                                   "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                               ]
+                         }
+                     ],
+    "operator_decisions_required":  [
+                                        {
+                                            "id":  "decision-review-r13-009-control-room",
+                                            "title":  "Review R13-009 generated control-room status and Markdown view",
+                                            "decision_type":  "operator_review",
+                                            "required_before":  "authorizing_R13_010",
+                                            "blocking_status":  "non_blocking",
+                                            "evidence_refs":  [
+                                                                  "state/control_room/r13_current/control_room_status.json",
+                                                                  "state/control_room/r13_current/control_room.md"
+                                                              ]
+                                        },
+                                        {
+                                            "id":  "decision-authorize-r13-010-only",
+                                            "title":  "Authorize R13-010 only as the next implementation slice",
+                                            "decision_type":  "next_task_authorization",
+                                            "required_before":  "starting_any_R13_010_work",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                              ]
+                                        },
+                                        {
+                                            "id":  "decision-refuse-successor",
+                                            "title":  "Refuse R14 or successor opening",
+                                            "decision_type":  "blocked_refusal",
+                                            "required_before":  "any_successor_milestone_opening",
+                                            "blocking_status":  "blocking",
+                                            "evidence_refs":  [
+                                                                  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                              ]
+                                        }
+                                    ],
+    "refresh_verdict":  "current",
+    "refusal_reasons":  [
+
+                        ],
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-control-room-status-contract",
+                              "ref":  "contracts/control_room/r13_control_room_status.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-view-contract",
+                              "ref":  "contracts/control_room/r13_control_room_view.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-refresh-result-contract",
+                              "ref":  "contracts/control_room/r13_control_room_refresh_result.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-module",
+                              "ref":  "tools/R13ControlRoomStatus.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-renderer",
+                              "ref":  "tools/render_r13_control_room_view.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-refresh-cli",
+                              "ref":  "tools/refresh_r13_control_room.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-status-validator",
+                              "ref":  "tools/validate_r13_control_room_status.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-view-validator",
+                              "ref":  "tools/validate_r13_control_room_view.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-refresh-validator",
+                              "ref":  "tools/validate_r13_control_room_refresh_result.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-test",
+                              "ref":  "tests/test_r13_control_room_status.ps1",
+                              "evidence_kind":  "test",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-authority",
+                              "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                              "evidence_kind":  "authority",
+                              "authority_kind":  "repo_governance",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-003-issue-report",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                              "evidence_kind":  "issue_detection_report",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-004-fix-queue",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                              "evidence_kind":  "fix_queue",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-005-bounded-fix-execution",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+                              "evidence_kind":  "bounded_fix_execution_packet",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-006-fix-execution-result",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/fix_execution_result.json",
+                              "evidence_kind":  "fix_execution_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-006-before-after-comparison",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                              "evidence_kind":  "before_after_comparison",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-006-failure-fix-cycle",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                              "evidence_kind":  "failure_fix_cycle",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-007-custom-runner-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                              "evidence_kind":  "custom_runner_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-skill-registry",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                              "evidence_kind":  "skill_registry",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-qa-detect-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                              "evidence_kind":  "skill_invocation_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-qa-fix-plan-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+                              "evidence_kind":  "skill_invocation_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          }
+                      ],
+    "generated_at_utc":  "2026-05-01T14:13:37Z",
+    "non_claims":  [
+                       "R13-009 adds current cycle-aware repo-generated control-room JSON, Markdown view, refresh result, and validation manifest only",
+                       "R13 active through R13-009 only",
+                       "R13-010 through R13-018 remain planned only",
+                       "current operator control-room gate is partially evidenced only; not fully delivered as a hard gate",
+                       "no external replay has occurred",
+                       "no operator demo delivered by R13-009",
+                       "no final QA signoff delivered by R13-009",
+                       "no R13 hard value gate fully delivered by R13-009",
+                       "no productized control-room behavior",
+                       "no full UI app",
+                       "no production runtime",
+                       "no real production QA",
+                       "no hard gate overclaim",
+                       "no R14 or successor opening"
+                   ]
+}

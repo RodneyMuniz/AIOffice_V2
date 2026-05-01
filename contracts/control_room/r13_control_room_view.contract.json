@@ -1,0 +1,42 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_control_room_view_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-009",
+  "view_artifact_type": "r13_control_room_view",
+  "source_status_ref": "required_markdown_metadata",
+  "required_sections": [
+    "Current branch/head/tree",
+    "Active milestone and scope",
+    "R13 task status summary",
+    "Hard gate posture",
+    "QA pipeline posture",
+    "Runner/API-custom-runner posture",
+    "Skill invocation posture",
+    "External replay posture",
+    "Blockers and attention items",
+    "Next legal actions",
+    "Operator decisions required",
+    "Evidence refs",
+    "Explicit non-claims"
+  ],
+  "stale_state_rejection_rules": [
+    "view_must_reference_a_valid_r13_control_room_status",
+    "view_branch_head_tree_must_match_source_status",
+    "view_must_include_stale_state_checks_passed",
+    "view_must_not_hide_blocked_or_partial_gate_statuses"
+  ],
+  "evidence_ref_rules": [
+    "all_source_status_evidence_refs_must_be_rendered",
+    "evidence_refs_must_be_exact_repository_relative_refs",
+    "missing_source_status_evidence_refs_are_invalid"
+  ],
+  "non_claim_rules": [
+    "all_source_status_non_claims_must_be_rendered",
+    "external_replay_operator_demo_final_signoff_hard_gate_productized_ui_r14_and_successor_claims_are_rejected",
+    "current_operator_control_room_may_be_partially_evidenced_only_not_fully_delivered"
+  ]
+}
