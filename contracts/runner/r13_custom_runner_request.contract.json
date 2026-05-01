@@ -1,0 +1,102 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_custom_runner_request_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-007",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "request_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "requested_operation",
+    "execution_profile",
+    "input_refs",
+    "allowed_paths",
+    "allowed_commands",
+    "output_root",
+    "expected_result_ref",
+    "operator_approval",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "input_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_command_required_fields": [
+    "command_id",
+    "command"
+  ],
+  "operator_approval_required_fields": [
+    "approval_status",
+    "approved_by",
+    "approved_at_utc",
+    "approval_scope"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_requested_operations": [
+    "validate_artifacts",
+    "run_bounded_validation_commands",
+    "summarize_existing_evidence",
+    "dry_run_only"
+  ],
+  "allowed_command_families": [
+    "powershell_test_scripts",
+    "powershell_validator_scripts",
+    "git_identity_status_and_diff_check_commands"
+  ],
+  "disallowed_command_families": [
+    "file_mutation_commands",
+    "git_commit_push_reset_clean_rm_commands",
+    "outside_repo_path_access",
+    "root_or_broad_scan_commands"
+  ],
+  "allowed_output_roots": [
+    "state/cycles/",
+    "state/runner/"
+  ],
+  "required_non_claims": [
+    "R13-007 adds a local API-shaped/custom-runner foundation only",
+    "no production API server delivered by R13-007",
+    "no mutation commands are authorized or executed by R13-007 evidence",
+    "no external replay has occurred",
+    "no skill invocation has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-007",
+    "no API/custom-runner bypass gate fully delivered by R13-007",
+    "no current operator control-room gate delivered by R13-007",
+    "no operator demo gate delivered by R13-007",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "request_must_bind_to_r13_branch_milestone_and_task",
+    "head_and_tree_must_be_40_character_git_object_ids",
+    "strict_runner_invocation_must_match_current_branch_head_and_tree",
+    "input_refs_must_exist_when_repo_relative",
+    "allowed_paths_must_be_repo_relative_and_inside_repo",
+    "output_root_must_be_inside_state_cycles_or_state_runner",
+    "allowed_commands_must_be_non_destructive_validation_or_git_identity_commands",
+    "mutation_commands_are_not_allowed_in_r13_007",
+    "operator_approval_must_scope_only_local_non_mutating_validation",
+    "external_replay_skill_invocation_signoff_hard_gate_and_successor_claims_are_rejected"
+  ]
+}

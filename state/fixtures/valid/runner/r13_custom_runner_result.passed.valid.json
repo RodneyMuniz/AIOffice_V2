@@ -1,0 +1,104 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_custom_runner_result",
+  "result_id": "r13crr-passed-fixture",
+  "request_id": "r13crq-valid-fixture",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "eb826803bab79805bc943a6ef73b5f2700c80ef9",
+  "tree": "c5a03cd17a2a26bd0bbc934767a4d55fef42a5b0",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-007",
+  "requested_operation": "run_bounded_validation_commands",
+  "execution_profile": {
+    "profile_id": "r13-007-local-bounded-validation",
+    "runner_kind": "local_custom_runner_cli",
+    "mutation_allowed": false,
+    "destructive_commands_allowed": false,
+    "strict_repo_identity": true
+  },
+  "execution_status": "completed",
+  "command_results": [
+    {
+      "command_id": "validate-r13-006-cycle",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_failure_fix_cycle.ps1 -CyclePath state\\cycles\\r13_qa_cycle_demo\\qa_failure_fix_cycle.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "state/fixtures/valid/runner/r13_custom_runner_logs/passed_command_001_stdout.log",
+      "stderr_ref": "state/fixtures/valid/runner/r13_custom_runner_logs/passed_command_001_stderr.log",
+      "started_at_utc": "2026-05-01T13:00:00Z",
+      "completed_at_utc": "2026-05-01T13:00:01Z"
+    }
+  ],
+  "artifact_results": [
+    {
+      "artifact_id": "r13-006-cycle",
+      "ref": "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+      "evidence_kind": "r13_006_cycle_artifact",
+      "validation_status": "available"
+    }
+  ],
+  "output_refs": [
+    {
+      "ref_id": "stdout-validate-r13-006-cycle",
+      "ref": "state/fixtures/valid/runner/r13_custom_runner_logs/passed_command_001_stdout.log",
+      "evidence_kind": "stdout_log",
+      "authority_kind": "repo_fixture",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "stderr-validate-r13-006-cycle",
+      "ref": "state/fixtures/valid/runner/r13_custom_runner_logs/passed_command_001_stderr.log",
+      "evidence_kind": "stderr_log",
+      "authority_kind": "repo_fixture",
+      "scope": "repo"
+    }
+  ],
+  "aggregate_verdict": "passed",
+  "evidence_refs": [
+    {
+      "ref_id": "result-contract",
+      "ref": "contracts/runner/r13_custom_runner_result.contract.json",
+      "evidence_kind": "contract",
+      "authority_kind": "repo_contract",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "runner-module",
+      "ref": "tools/R13CustomRunner.psm1",
+      "evidence_kind": "module",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "runner-cli",
+      "ref": "tools/invoke_r13_custom_runner.ps1",
+      "evidence_kind": "cli",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "runner-request",
+      "ref": "state/fixtures/valid/runner/r13_custom_runner_request.valid.json",
+      "evidence_kind": "runner_request",
+      "authority_kind": "repo_fixture",
+      "scope": "repo"
+    }
+  ],
+  "refusal_reasons": [],
+  "started_at_utc": "2026-05-01T13:00:00Z",
+  "completed_at_utc": "2026-05-01T13:00:01Z",
+  "non_claims": [
+    "R13-007 adds a local API-shaped/custom-runner foundation only",
+    "no production API server delivered by R13-007",
+    "no mutation commands are authorized or executed by R13-007 evidence",
+    "no external replay has occurred",
+    "no skill invocation has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-007",
+    "no API/custom-runner bypass gate fully delivered by R13-007",
+    "no current operator control-room gate delivered by R13-007",
+    "no operator demo gate delivered by R13-007",
+    "no R14 or successor opening"
+  ]
+}

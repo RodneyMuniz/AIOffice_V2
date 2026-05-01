@@ -1,0 +1,59 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_custom_runner_result",
+  "result_id": "r13crr-blocked-fixture",
+  "request_id": "r13crq-blocked-fixture",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "eb826803bab79805bc943a6ef73b5f2700c80ef9",
+  "tree": "c5a03cd17a2a26bd0bbc934767a4d55fef42a5b0",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-007",
+  "requested_operation": "run_bounded_validation_commands",
+  "execution_profile": {
+    "profile_id": "r13-007-local-bounded-validation",
+    "runner_kind": "local_custom_runner_cli",
+    "mutation_allowed": false,
+    "destructive_commands_allowed": false,
+    "strict_repo_identity": true
+  },
+  "execution_status": "blocked",
+  "command_results": [],
+  "artifact_results": [],
+  "output_refs": [],
+  "aggregate_verdict": "blocked",
+  "evidence_refs": [
+    {
+      "ref_id": "result-contract",
+      "ref": "contracts/runner/r13_custom_runner_result.contract.json",
+      "evidence_kind": "contract",
+      "authority_kind": "repo_contract",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "runner-module",
+      "ref": "tools/R13CustomRunner.psm1",
+      "evidence_kind": "module",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    }
+  ],
+  "refusal_reasons": [
+    "Unsafe or unavailable dependency condition was refused before any command execution."
+  ],
+  "started_at_utc": "2026-05-01T13:00:00Z",
+  "completed_at_utc": "2026-05-01T13:00:01Z",
+  "non_claims": [
+    "R13-007 adds a local API-shaped/custom-runner foundation only",
+    "no production API server delivered by R13-007",
+    "no mutation commands are authorized or executed by R13-007 evidence",
+    "no external replay has occurred",
+    "no skill invocation has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-007",
+    "no API/custom-runner bypass gate fully delivered by R13-007",
+    "no current operator control-room gate delivered by R13-007",
+    "no operator demo gate delivered by R13-007",
+    "no R14 or successor opening"
+  ]
+}

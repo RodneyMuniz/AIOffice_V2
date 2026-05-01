@@ -1,0 +1,103 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_custom_runner_result_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-007",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "result_id",
+    "request_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "requested_operation",
+    "execution_profile",
+    "execution_status",
+    "command_results",
+    "artifact_results",
+    "output_refs",
+    "aggregate_verdict",
+    "evidence_refs",
+    "refusal_reasons",
+    "started_at_utc",
+    "completed_at_utc",
+    "non_claims"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "stdout_ref",
+    "stderr_ref",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "artifact_result_required_fields": [
+    "artifact_id",
+    "ref",
+    "evidence_kind",
+    "validation_status"
+  ],
+  "output_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_execution_statuses": [
+    "completed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "R13-007 adds a local API-shaped/custom-runner foundation only",
+    "no production API server delivered by R13-007",
+    "no mutation commands are authorized or executed by R13-007 evidence",
+    "no external replay has occurred",
+    "no skill invocation has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-007",
+    "no API/custom-runner bypass gate fully delivered by R13-007",
+    "no current operator control-room gate delivered by R13-007",
+    "no operator demo gate delivered by R13-007",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "result_must_bind_to_r13_branch_milestone_and_task",
+    "head_and_tree_must_be_40_character_git_object_ids",
+    "completed_results_must_record_command_results",
+    "command_results_must_include_exit_code_verdict_stdout_ref_stderr_ref_and_timestamps",
+    "passed_results_require_all_command_results_to_pass",
+    "failed_results_require_at_least_one_failed_command_result",
+    "blocked_results_require_refusal_reasons",
+    "output_refs_and_evidence_refs_must_resolve_inside_repo",
+    "mutation_commands_are_rejected_in_result_records",
+    "external_replay_skill_invocation_signoff_hard_gate_and_successor_claims_are_rejected"
+  ]
+}
