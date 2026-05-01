@@ -1,0 +1,5 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "authority_kind": "executor_self_certification",
+  "qa_summary": "The executor says this is QA approved."
+}

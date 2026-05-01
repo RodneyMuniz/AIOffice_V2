@@ -1,0 +1,6 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "branch": "stale/wrong-branch",
+  "head": "0000000000000000000000000000000000000000",
+  "tree": "1111111111111111111111111111111111111111"
+}

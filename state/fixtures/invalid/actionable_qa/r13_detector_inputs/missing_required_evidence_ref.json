@@ -1,0 +1,7 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "required_evidence_refs": [
+    "required-external-proof"
+  ],
+  "evidence_refs": []
+}

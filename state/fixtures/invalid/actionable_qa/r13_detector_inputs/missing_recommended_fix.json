@@ -1,0 +1,18 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "issues": [
+    {
+      "issue_id": "missing-fix",
+      "severity": "error",
+      "blocking_status": "blocking",
+      "status": "unresolved",
+      "title": "Missing recommended fix",
+      "observed_behavior": "The issue has no recommended fix.",
+      "expected_behavior": "Actionable QA issues include recommended_fix.",
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_issue_detector.ps1",
+      "evidence_refs": [
+        "missing-fix-evidence"
+      ]
+    }
+  ]
+}

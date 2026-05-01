@@ -1,0 +1,538 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_qa_issue_detection_report",
+    "report_id":  "r13-003-qa-issue-detection-2d8fdb4d962547fab7338a1882da79d1",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "1ad9553672e5d3f06bc75bcfd6f2096ffe704588",
+    "tree":  "348d9f46ea200d500186e752c7efa06e3cce391e",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-003",
+    "detector_version":  "r13-qa-issue-detector-v2",
+    "detection_scope":  {
+                            "paths":  [
+                                          "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs"
+                                      ],
+                            "resolved_paths":  [
+                                                   "C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs"
+                                               ],
+                            "allow_repo_root_scan":  false,
+                            "fixture_mode":  true,
+                            "description":  "R13-003 source-mapped detector over explicitly scoped repository paths."
+                        },
+    "dependency_status":  {
+                              "json_root_reader":  {
+                                                       "name":  "JsonRoot.Read-SingleJsonObject",
+                                                       "available":  true,
+                                                       "status":  "available",
+                                                       "checked_at_utc":  "2026-05-01T10:38:47Z",
+                                                       "details":  "JSON inputs are read through the repository JsonRoot.Read-SingleJsonObject helper."
+                                                   },
+                              "powershell_parser":  {
+                                                        "name":  "System.Management.Automation.Language.Parser.ParseFile",
+                                                        "available":  true,
+                                                        "status":  "available",
+                                                        "checked_at_utc":  "2026-05-01T10:38:47Z",
+                                                        "details":  "PowerShell files are parsed with Parser.ParseFile before any optional linting."
+                                                    },
+                              "psscriptanalyzer":  {
+                                                       "name":  "PSScriptAnalyzer",
+                                                       "available":  false,
+                                                       "status":  "unavailable",
+                                                       "checked_at_utc":  "2026-05-01T10:38:47Z",
+                                                       "details":  "PSScriptAnalyzer unavailable/not installed; detector did not run full lint and only PowerShell parser checks are claimed."
+                                                   }
+                          },
+    "commands_run":  [
+                         {
+                             "command_id":  "git-identity",
+                             "command":  "git branch --show-current; git rev-parse HEAD; git rev-parse HEAD^{tree}",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-05-01T10:38:46Z",
+                             "completed_at_utc":  "2026-05-01T10:38:46Z"
+                         },
+                         {
+                             "command_id":  "scope-resolution",
+                             "command":  "Resolve detector scope: state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-05-01T10:38:47Z",
+                             "completed_at_utc":  "2026-05-01T10:38:47Z"
+                         },
+                         {
+                             "command_id":  "json-root-reader",
+                             "command":  "JsonRoot.Read-SingleJsonObject over scoped .json files",
+                             "exit_code":  1,
+                             "verdict":  "failed",
+                             "started_at_utc":  "2026-05-01T10:38:47Z",
+                             "completed_at_utc":  "2026-05-01T10:38:47Z"
+                         },
+                         {
+                             "command_id":  "powershell-parse",
+                             "command":  "Parser.ParseFile over scoped .ps1/.psm1 files",
+                             "exit_code":  0,
+                             "verdict":  "passed",
+                             "started_at_utc":  "2026-05-01T10:38:47Z",
+                             "completed_at_utc":  "2026-05-01T10:38:47Z"
+                         },
+                         {
+                             "command_id":  "psscriptanalyzer",
+                             "command":  "Get-Module -ListAvailable -Name PSScriptAnalyzer",
+                             "exit_code":  0,
+                             "verdict":  "not_run",
+                             "started_at_utc":  "2026-05-01T10:38:47Z",
+                             "completed_at_utc":  "2026-05-01T10:38:47Z"
+                         }
+                     ],
+    "checks_run":  [
+                       {
+                           "check_id":  "scope-validation",
+                           "check_type":  "scope_validation",
+                           "scope":  "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath \u003cpath\u003e -OutputPath \u003creport\u003e"
+                       },
+                       {
+                           "check_id":  "json-input-inspection",
+                           "check_type":  "json_input_inspection",
+                           "scope":  "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                           "verdict":  "failed",
+                           "issue_count":  13,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath \u003cpath\u003e -OutputPath \u003creport\u003e -FixtureMode"
+                       },
+                       {
+                           "check_id":  "markdown-fixture-inspection",
+                           "check_type":  "markdown_fixture_inspection",
+                           "scope":  "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                           "verdict":  "failed",
+                           "issue_count":  1,
+                           "reproduction_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath \u003cpath\u003e -OutputPath \u003creport\u003e -FixtureMode"
+                       },
+                       {
+                           "check_id":  "powershell-parse",
+                           "check_type":  "powershell_parse",
+                           "scope":  "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                           "verdict":  "passed",
+                           "issue_count":  0,
+                           "reproduction_command":  "PowerShell Parser.ParseFile over scoped .ps1/.psm1 files"
+                       },
+                       {
+                           "check_id":  "psscriptanalyzer",
+                           "check_type":  "psscriptanalyzer",
+                           "scope":  "state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs",
+                           "verdict":  "skipped",
+                           "issue_count":  0,
+                           "reproduction_command":  "Get-Module -ListAvailable -Name PSScriptAnalyzer"
+                       }
+                   ],
+    "issues":  [
+                   {
+                       "issue_id":  "r13qi-6bcb25574055335a",
+                       "severity":  "critical",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_authority",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/executor_self_certification.json",
+                       "line":  3,
+                       "issue_type":  "executor_self_certification_qa_authority",
+                       "title":  "Executor self-certification was used as QA authority",
+                       "observed_behavior":  "authority_kind indicates executor self-certification.",
+                       "expected_behavior":  "QA authority must be separate from executor self-certification.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/executor_self_certification.json\u0027\"",
+                       "recommended_fix":  "Replace the self-certifying authority with separate QA evidence or mark the artifact blocked.",
+                       "evidence_refs":  [
+                                             "evidence-ededf5cc2269844d"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-ba94d9393f54ed3d",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_issue_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/hidden_blocking_issue.json",
+                       "line":  6,
+                       "issue_type":  "missing_required_evidence_ref",
+                       "title":  "QA issue is missing required evidence refs",
+                       "observed_behavior":  "An issue-like object has no evidence_refs.",
+                       "expected_behavior":  "Each actionable issue should preserve at least one evidence ref.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/hidden_blocking_issue.json\u0027\"",
+                       "recommended_fix":  "Attach the source evidence ref for the issue.",
+                       "evidence_refs":  [
+                                             "evidence-a2e617b88cd81d84"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-7f8617388f96d57c",
+                       "severity":  "critical",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "aggregate_verdict",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/hidden_blocking_issue.json",
+                       "line":  3,
+                       "issue_type":  "aggregate_passed_with_unresolved_blocking_issue",
+                       "title":  "Aggregate passed hides an unresolved blocking issue",
+                       "observed_behavior":  "aggregate_verdict is passed while a nested blocking issue remains unresolved.",
+                       "expected_behavior":  "Passed aggregate verdicts must not hide unresolved blocking issues.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/hidden_blocking_issue.json\u0027\"",
+                       "recommended_fix":  "Change aggregate_verdict to failed or resolve the blocking issue with evidence before passing.",
+                       "evidence_refs":  [
+                                             "evidence-a2e617b88cd81d84"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-64ab364f68e2857b",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "external_proof",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/local_only_external_claim.json",
+                       "line":  7,
+                       "issue_type":  "local_only_evidence_as_external_proof",
+                       "title":  "Local-only evidence was claimed as external proof",
+                       "observed_behavior":  "The artifact describes external proof but its evidence scope is local.",
+                       "expected_behavior":  "External proof must come from external runner/artifact evidence, or the artifact must remain blocked.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/local_only_external_claim.json\u0027\"",
+                       "recommended_fix":  "Replace the local-only proof claim with actual external evidence or change the verdict/refusal posture.",
+                       "evidence_refs":  [
+                                             "evidence-bc3138f9ad1ea9ed"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-4da79bc524d40d09",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "json_parse",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/malformed_json_input.json",
+                       "line":  0,
+                       "issue_type":  "malformed_json",
+                       "title":  "Malformed JSON input cannot be inspected",
+                       "observed_behavior":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/malformed_json_input.json at \u0027C:\\Users\\rodne\\OneDrive\\Documentos\\AIOffice_V2\\state\\fixtures\\invalid\\actionable_qa\\r13_detector_inputs\\malformed_json_input.json\u0027 is not valid JSON. Invalid object passed in, \u0027:\u0027 or \u0027}\u0027 expected. (75): {\n  \"artifact_type\": \"seeded_bad_qa_input\",\n  \"issue\": \"malformed JSON\"\n  \"missing_comma\": true\n}\n",
+                       "expected_behavior":  "Detector JSON inputs should parse as a single JSON object through JsonRoot.Read-SingleJsonObject.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/malformed_json_input.json\u0027\"",
+                       "recommended_fix":  "Repair the JSON syntax and ensure the root is one JSON object.",
+                       "evidence_refs":  [
+                                             "evidence-78e368b07e0b38f2"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-3d80963aaa4b14b4",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_issue_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_recommended_fix.json",
+                       "line":  5,
+                       "issue_type":  "missing_recommended_fix",
+                       "title":  "QA issue is missing a recommended fix",
+                       "observed_behavior":  "An issue-like object does not provide recommended_fix.",
+                       "expected_behavior":  "Every actionable QA issue should tell the fix executor what to repair.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_recommended_fix.json\u0027\"",
+                       "recommended_fix":  "Add a bounded recommended_fix that identifies the expected repair.",
+                       "evidence_refs":  [
+                                             "evidence-7ac8555817f7d650"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-81b843af9371ee94",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_issue_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_recommended_fix.json",
+                       "line":  5,
+                       "issue_type":  "missing_required_evidence_ref",
+                       "title":  "QA issue is missing required evidence refs",
+                       "observed_behavior":  "An issue-like object has no evidence_refs.",
+                       "expected_behavior":  "Each actionable issue should preserve at least one evidence ref.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_recommended_fix.json\u0027\"",
+                       "recommended_fix":  "Attach the source evidence ref for the issue.",
+                       "evidence_refs":  [
+                                             "evidence-7ac8555817f7d650"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-4e25ab286aa0fb16",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_issue_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json",
+                       "line":  5,
+                       "issue_type":  "missing_reproduction_command",
+                       "title":  "QA issue is missing a reproduction command",
+                       "observed_behavior":  "An issue-like object does not provide a runnable reproduction_command.",
+                       "expected_behavior":  "Every actionable QA issue should include a concrete reproduction command.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json\u0027\"",
+                       "recommended_fix":  "Add the exact command that reproduces or validates the issue.",
+                       "evidence_refs":  [
+                                             "evidence-6283ae0715dcd50e"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-7cc23e7130e3b310",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_issue_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json",
+                       "line":  5,
+                       "issue_type":  "missing_required_evidence_ref",
+                       "title":  "QA issue is missing required evidence refs",
+                       "observed_behavior":  "An issue-like object has no evidence_refs.",
+                       "expected_behavior":  "Each actionable issue should preserve at least one evidence ref.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json\u0027\"",
+                       "recommended_fix":  "Attach the source evidence ref for the issue.",
+                       "evidence_refs":  [
+                                             "evidence-6283ae0715dcd50e"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-2e285c45abe9a025",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "json_parse",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_required_evidence_ref.json",
+                       "line":  0,
+                       "issue_type":  "malformed_json",
+                       "title":  "Malformed JSON input cannot be inspected",
+                       "observed_behavior":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_required_evidence_ref.json required_evidence_refs must be an array.",
+                       "expected_behavior":  "Detector JSON inputs should parse as a single JSON object through JsonRoot.Read-SingleJsonObject.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_required_evidence_ref.json\u0027\"",
+                       "recommended_fix":  "Repair the JSON syntax and ensure the root is one JSON object.",
+                       "evidence_refs":  [
+                                             "evidence-8afd53b3ed856080"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-d1ddb6bd091d15cb",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "repo_identity",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json",
+                       "line":  3,
+                       "issue_type":  "stale_or_wrong_branch_head_tree_identity",
+                       "title":  "Stale or wrong repo identity was supplied",
+                       "observed_behavior":  "branch was \u0027stale/wrong-branch\u0027.",
+                       "expected_behavior":  "branch should match expected value \u0027release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice\u0027 when provided.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json\u0027\"",
+                       "recommended_fix":  "Regenerate the QA evidence from the current branch/head/tree or remove the stale identity claim.",
+                       "evidence_refs":  [
+                                             "evidence-0c5911a44b3ae965"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-121d062a44b241de",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "repo_identity",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json",
+                       "line":  4,
+                       "issue_type":  "stale_or_wrong_branch_head_tree_identity",
+                       "title":  "Stale or wrong repo identity was supplied",
+                       "observed_behavior":  "head was \u00270000000000000000000000000000000000000000\u0027.",
+                       "expected_behavior":  "head should match expected value \u00271ad9553672e5d3f06bc75bcfd6f2096ffe704588\u0027 when provided.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json\u0027\"",
+                       "recommended_fix":  "Regenerate the QA evidence from the current branch/head/tree or remove the stale identity claim.",
+                       "evidence_refs":  [
+                                             "evidence-0c5911a44b3ae965"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-3930d8c94e256c65",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "repo_identity",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json",
+                       "line":  5,
+                       "issue_type":  "stale_or_wrong_branch_head_tree_identity",
+                       "title":  "Stale or wrong repo identity was supplied",
+                       "observed_behavior":  "tree was \u00271111111111111111111111111111111111111111\u0027.",
+                       "expected_behavior":  "tree should match expected value \u0027348d9f46ea200d500186e752c7efa06e3cce391e\u0027 when provided.",
+                       "reproduction_command":  "powershell -NoProfile -Command \"Import-Module .\\tools\\JsonRoot.psm1 -Force; Read-SingleJsonObject -Path \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json\u0027\"",
+                       "recommended_fix":  "Regenerate the QA evidence from the current branch/head/tree or remove the stale identity claim.",
+                       "evidence_refs":  [
+                                             "evidence-0c5911a44b3ae965"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   },
+                   {
+                       "issue_id":  "r13qi-d2da758fe81fa1a6",
+                       "severity":  "error",
+                       "blocking_status":  "blocking",
+                       "status":  "unresolved",
+                       "component":  "qa_evidence",
+                       "file_path":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md",
+                       "line":  1,
+                       "issue_type":  "narrative_only_qa_evidence",
+                       "title":  "Narrative-only QA was presented as evidence",
+                       "observed_behavior":  "The Markdown input contains narrative-only QA pass language.",
+                       "expected_behavior":  "QA evidence should be backed by machine-readable checks, commands, and refs.",
+                       "reproduction_command":  "Get-Content -Raw -LiteralPath \u0027state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md\u0027",
+                       "recommended_fix":  "Replace narrative-only QA prose with structured evidence or mark the detector input as blocked.",
+                       "evidence_refs":  [
+                                             "evidence-c79791947b98edea"
+                                         ],
+                       "lifecycle_stage":  "detected",
+                       "detected_by":  "r13-qa-issue-detector-v2",
+                       "authority_kind":  "repo_detector"
+                   }
+               ],
+    "summary":  {
+                    "total_issue_count":  14,
+                    "blocking_issue_count":  14,
+                    "critical_count":  2,
+                    "error_count":  12,
+                    "warning_count":  0,
+                    "info_count":  0,
+                    "command_count":  5,
+                    "check_count":  5
+                },
+    "aggregate_verdict":  "failed",
+    "reproduction_commands":  [
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\invoke_r13_qa_issue_detector.ps1 -ScopePath \u003cpath\u003e -OutputPath \u003creport\u003e",
+                                  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_issue_detector.ps1"
+                              ],
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "evidence-c003b7711073479e",
+                              "ref":  "contracts/actionable_qa/r13_qa_issue_detection_report.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-e537bb78d5a5c246",
+                              "ref":  "tools/R13QaIssueDetector.psm1",
+                              "evidence_kind":  "detector_module",
+                              "authority_kind":  "repo_detector",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-ededf5cc2269844d",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/executor_self_certification.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-a2e617b88cd81d84",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/hidden_blocking_issue.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-bc3138f9ad1ea9ed",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/local_only_external_claim.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-78e368b07e0b38f2",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/malformed_json_input.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-7ac8555817f7d650",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_recommended_fix.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-6283ae0715dcd50e",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_reproduction_command.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-8afd53b3ed856080",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/missing_required_evidence_ref.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-0c5911a44b3ae965",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/stale_identity.json",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "evidence-c79791947b98edea",
+                              "ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md",
+                              "evidence_kind":  "scoped_input",
+                              "authority_kind":  "repo_fixture",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-05-01T10:38:47Z",
+    "non_claims":  [
+                       "no R13 hard value gate delivered by R13-003",
+                       "no meaningful QA loop gate delivered yet",
+                       "no fix queue delivered by R13-003",
+                       "no bounded fix execution delivered by R13-003",
+                       "no rerun delivered by R13-003",
+                       "no before/after comparison delivered by R13-003",
+                       "no external replay proof delivered by R13-003",
+                       "no current operator control-room delivered by R13-003",
+                       "no final QA signoff delivered by R13-003",
+                       "no real production QA",
+                       "no executor self-certification as QA",
+                       "no R14 or successor opening"
+                   ]
+}

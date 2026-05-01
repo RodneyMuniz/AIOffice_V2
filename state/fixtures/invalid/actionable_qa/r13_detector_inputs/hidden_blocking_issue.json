@@ -1,0 +1,20 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "aggregate_verdict": "passed",
+  "issues": [
+    {
+      "issue_id": "hidden-blocking",
+      "severity": "critical",
+      "blocking_status": "blocking",
+      "status": "unresolved",
+      "title": "Hidden blocking issue",
+      "observed_behavior": "A blocking issue remains unresolved.",
+      "expected_behavior": "Passed reports should not contain unresolved blocking issues.",
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_issue_detector.ps1",
+      "recommended_fix": "Set aggregate_verdict to failed until the blocking issue is resolved.",
+      "evidence_refs": [
+        "hidden-blocking-evidence"
+      ]
+    }
+  ]
+}

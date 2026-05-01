@@ -1,0 +1,192 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_issue_detection_report_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-003",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "report_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "detector_version",
+    "detection_scope",
+    "dependency_status",
+    "commands_run",
+    "checks_run",
+    "issues",
+    "summary",
+    "aggregate_verdict",
+    "reproduction_commands",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "detection_scope_required_fields": [
+    "paths",
+    "resolved_paths",
+    "allow_repo_root_scan",
+    "fixture_mode",
+    "description"
+  ],
+  "dependency_status_required_fields": [
+    "json_root_reader",
+    "powershell_parser",
+    "psscriptanalyzer"
+  ],
+  "dependency_value_required_fields": [
+    "name",
+    "available",
+    "status",
+    "checked_at_utc",
+    "details"
+  ],
+  "command_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "check_required_fields": [
+    "check_id",
+    "check_type",
+    "scope",
+    "verdict",
+    "issue_count",
+    "reproduction_command"
+  ],
+  "issue_required_fields": [
+    "issue_id",
+    "severity",
+    "blocking_status",
+    "status",
+    "component",
+    "file_path",
+    "line",
+    "issue_type",
+    "title",
+    "observed_behavior",
+    "expected_behavior",
+    "reproduction_command",
+    "recommended_fix",
+    "evidence_refs",
+    "lifecycle_stage",
+    "detected_by",
+    "authority_kind"
+  ],
+  "summary_required_fields": [
+    "total_issue_count",
+    "blocking_issue_count",
+    "critical_count",
+    "error_count",
+    "warning_count",
+    "info_count",
+    "command_count",
+    "check_count"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_issue_severities": [
+    "critical",
+    "error",
+    "warning",
+    "info"
+  ],
+  "allowed_issue_blocking_statuses": [
+    "blocking",
+    "non_blocking",
+    "advisory"
+  ],
+  "allowed_issue_statuses": [
+    "detected",
+    "unresolved",
+    "resolved",
+    "fixed",
+    "advisory"
+  ],
+  "allowed_lifecycle_stages": [
+    "detected",
+    "blocked"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_check_verdicts": [
+    "passed",
+    "failed",
+    "blocked",
+    "skipped"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked",
+    "not_run"
+  ],
+  "allowed_dependency_statuses": [
+    "available",
+    "unavailable",
+    "skipped"
+  ],
+  "allowed_issue_types": [
+    "malformed_json",
+    "missing_required_evidence_ref",
+    "missing_reproduction_command",
+    "narrative_only_qa_evidence",
+    "executor_self_certification_qa_authority",
+    "local_only_evidence_as_external_proof",
+    "missing_recommended_fix",
+    "aggregate_passed_with_unresolved_blocking_issue",
+    "stale_or_wrong_branch_head_tree_identity",
+    "powershell_parse_error",
+    "psscriptanalyzer_finding"
+  ],
+  "required_non_claims": [
+    "no R13 hard value gate delivered by R13-003",
+    "no meaningful QA loop gate delivered yet",
+    "no fix queue delivered by R13-003",
+    "no bounded fix execution delivered by R13-003",
+    "no rerun delivered by R13-003",
+    "no before/after comparison delivered by R13-003",
+    "no external replay proof delivered by R13-003",
+    "no current operator control-room delivered by R13-003",
+    "no final QA signoff delivered by R13-003",
+    "no real production QA",
+    "no executor self-certification as QA",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "detector_must_accept_explicit_scope_paths",
+    "repo_root_scan_requires_allow_repo_root_scan",
+    "json_files_use_json_root_reader",
+    "powershell_files_use_parser_parsefile",
+    "psscriptanalyzer_absence_must_be_explicit",
+    "issue_ids_are_stable_by_file_path_issue_type_and_key",
+    "blocking_or_critical_or_error_issues_make_report_failed",
+    "unsafe_scope_or_missing_scope_makes_report_blocked",
+    "passed_reports_cannot_hide_unresolved_blocking_issues",
+    "issue_evidence_refs_must_resolve_to_report_evidence_refs",
+    "repo_relative_evidence_refs_must_exist",
+    "narrative_only_qa_cannot_be_authoritative_evidence",
+    "executor_self_certification_cannot_be_qa_authority",
+    "local_only_evidence_cannot_be_external_proof",
+    "successor_milestone_opening_claims_are_rejected"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_issue_detection_report",
+  "report_id": "r13-003-invalid-narrative-only-pass",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "1ad9553672e5d3f06bc75bcfd6f2096ffe704588",
+  "tree": "348d9f46ea200d500186e752c7efa06e3cce391e",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-003",
+  "detector_version": "r13-qa-issue-detector-v2",
+  "detection_scope": {
+    "paths": [
+      "state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md"
+    ],
+    "resolved_paths": [
+      "C:/repo/state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md"
+    ],
+    "allow_repo_root_scan": false,
+    "fixture_mode": true,
+    "description": "Invalid report treating narrative-only QA as pass."
+  },
+  "dependency_status": {
+    "json_root_reader": {
+      "name": "JsonRoot.Read-SingleJsonObject",
+      "available": true,
+      "status": "available",
+      "checked_at_utc": "2026-05-01T00:00:00Z",
+      "details": "available"
+    },
+    "powershell_parser": {
+      "name": "System.Management.Automation.Language.Parser.ParseFile",
+      "available": true,
+      "status": "available",
+      "checked_at_utc": "2026-05-01T00:00:00Z",
+      "details": "available"
+    },
+    "psscriptanalyzer": {
+      "name": "PSScriptAnalyzer",
+      "available": false,
+      "status": "unavailable",
+      "checked_at_utc": "2026-05-01T00:00:00Z",
+      "details": "PSScriptAnalyzer unavailable/not installed; detector did not run full lint."
+    }
+  },
+  "commands_run": [
+    {
+      "command_id": "invalid",
+      "command": "fixture",
+      "exit_code": 0,
+      "verdict": "passed",
+      "started_at_utc": "2026-05-01T00:00:00Z",
+      "completed_at_utc": "2026-05-01T00:00:00Z"
+    }
+  ],
+  "checks_run": [
+    {
+      "check_id": "invalid",
+      "check_type": "fixture",
+      "scope": "fixture",
+      "verdict": "passed",
+      "issue_count": 0,
+      "reproduction_command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_issue_detector.ps1"
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "total_issue_count": 0,
+    "blocking_issue_count": 0,
+    "critical_count": 0,
+    "error_count": 0,
+    "warning_count": 0,
+    "info_count": 0,
+    "command_count": 1,
+    "check_count": 1
+  },
+  "aggregate_verdict": "passed",
+  "reproduction_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r13_qa_issue_detector.ps1"
+  ],
+  "evidence_refs": [
+    {
+      "ref_id": "narrative-qa",
+      "ref": "state/fixtures/invalid/actionable_qa/r13_detector_inputs/narrative_only_qa.md",
+      "evidence_kind": "narrative_only_qa",
+      "authority_kind": "chat_transcript",
+      "scope": "repo"
+    }
+  ],
+  "refusal_reasons": [],
+  "created_at_utc": "2026-05-01T00:00:00Z",
+  "non_claims": [
+    "no R13 hard value gate delivered by R13-003",
+    "no meaningful QA loop gate delivered yet",
+    "no fix queue delivered by R13-003",
+    "no bounded fix execution delivered by R13-003",
+    "no rerun delivered by R13-003",
+    "no before/after comparison delivered by R13-003",
+    "no external replay proof delivered by R13-003",
+    "no current operator control-room delivered by R13-003",
+    "no final QA signoff delivered by R13-003",
+    "no real production QA",
+    "no executor self-certification as QA",
+    "no R14 or successor opening"
+  ]
+}

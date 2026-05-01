@@ -1,0 +1,11 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "evidence_refs": [
+    {
+      "ref_id": "local-proof",
+      "ref": "state/fixtures/invalid/actionable_qa/r13_detector_inputs/local_only_external_claim.json",
+      "evidence_kind": "external_replay",
+      "scope": "local"
+    }
+  ]
+}

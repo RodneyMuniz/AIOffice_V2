@@ -1,0 +1,18 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "issues": [
+    {
+      "issue_id": "missing-repro",
+      "severity": "error",
+      "blocking_status": "blocking",
+      "status": "unresolved",
+      "title": "Missing reproduction command",
+      "observed_behavior": "The issue has no reproduction command.",
+      "expected_behavior": "Actionable QA issues include reproduction_command.",
+      "recommended_fix": "Add a reproduction command.",
+      "evidence_refs": [
+        "missing-repro-evidence"
+      ]
+    }
+  ]
+}
