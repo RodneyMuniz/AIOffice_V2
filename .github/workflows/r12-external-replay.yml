@@ -125,8 +125,8 @@ jobs:
             -RunnerOs "${{ runner.os }}" `
             -RunnerNameOrKind "${{ runner.name }}" `
             -ReplayScope "${{ inputs.replay_scope }}" `
-            -CleanStatusBefore "clean_status_before.log" `
-            -CleanStatusAfter "clean_status_after.log" `
+            -CleanStatusBefore "command_logs/clean_status_before.log" `
+            -CleanStatusAfter "command_logs/clean_status_after.log" `
             -CommandResultsPath (Join-Path $outputRoot "command_results.json") `
             -ArtifactName $env:R12_ARTIFACT_NAME `
             -ArtifactFilesJson '["r12_external_replay_bundle.json","command_results.json"]' `
