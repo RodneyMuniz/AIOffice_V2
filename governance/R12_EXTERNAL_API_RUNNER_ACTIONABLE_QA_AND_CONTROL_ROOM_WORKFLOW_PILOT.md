@@ -1,12 +1,12 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-019` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-020` only.
 
 ## Purpose
 
 R12 opens a properly named release branch and freezes the next milestone around external/API runner evidence, actionable QA, an operator-readable control-room workflow surface, and one real useful build/change cycle.
 
-R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, cycle QA evidence gate, static control-room status/view, operator decision queue foundations, one bounded executable control-room refresh workflow, and one durable fresh-thread restart proof. It does not deliver all four R12 value gates.
+R12 is not a documentation-only milestone in intent. The current completed slice adds measurement, operating-loop, stale-head, fresh-thread bootstrap, residue-preflight, external-runner contract, GitHub Actions substrate, external replay workflow, artifact-normalization, actionable QA report/fix queue, cycle QA evidence gate, static control-room status/view, operator decision queue foundations, one bounded executable control-room refresh workflow, one durable fresh-thread restart proof, imported external final-state replay evidence, and the R12 final audit/report. It does not close R12.
 
 ## Accepted Starting State
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, a bounded one-command refresh workflow, fresh-thread restart proof, and imported external final-state replay evidence before later final audit/report and closeout work;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, a bounded one-command refresh workflow, fresh-thread restart proof, imported external final-state replay evidence, and the R12 final audit/report before later closeout work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -155,8 +155,8 @@ The current R12 foundation slice does not claim R12 value delivery.
 - Boundary: record imported passing external final-state replay evidence from `R12 External Replay` run `25204481986` for exact head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591` and tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a` under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`.
 
 ### `R12-020` Generate final audit/report from repo truth
-- Status: planned
-- Boundary: generate an audit packet and report from committed evidence, not manual narration.
+- Status: done
+- Boundary: generate an audit/report from committed evidence, not manual narration, through `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`.
 
 ### `R12-021` Close R12 narrowly with two-phase final-head support
 - Status: planned
@@ -164,7 +164,7 @@ The current R12 foundation slice does not claim R12 value delivery.
 
 ## Foundation Outputs
 
-R12-001 through R12-019 are bounded foundation work plus one useful executable refresh workflow, one fresh-thread restart proof, and one imported passing external final-state replay evidence packet only:
+R12-001 through R12-020 are bounded foundation work plus one useful executable refresh workflow, one fresh-thread restart proof, one imported passing external final-state replay evidence packet, and one final audit/report artifact only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -291,14 +291,14 @@ R12-001 through R12-019 are bounded foundation work plus one useful executable r
 - `state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/`
 - `state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/`
 
-`R12-020` and `R12-021` remain planned only. The R12-018 proof packet records that the bootstrap packet creation head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018 and that the accepted post-R12-017 remote head is `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` with tree `0ce853ffd37ece19c202e9731b27335ae0cc1756`. The R12-019 evidence root records run `25204481986`, artifact `6745869087`, artifact digest/hash `sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735`, observed head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591`, observed tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a`, and replay bundle aggregate verdict `passed`.
+`R12-020` is done as the final audit/report artifact at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`. `R12-021` remains planned only. The R12-018 proof packet records that the bootstrap packet creation head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018 and that the accepted post-R12-017 remote head is `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` with tree `0ce853ffd37ece19c202e9731b27335ae0cc1756`. The R12-019 evidence root records run `25204481986`, artifact `6745869087`, artifact digest/hash `sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735`, observed head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591`, observed tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a`, and replay bundle aggregate verdict `passed`.
 
 ## Required Non-Claims
 
-R12 through `R12-019` does not claim:
+R12 through `R12-020` does not claim:
 
 - no fully delivered R12 value gates;
-- no R12-020 or R12-021 completion;
+- no R12-021 completion;
 - no R12 closeout;
 - no final QA pass for R12 closeout;
 - no 10 percent or larger corrected progress uplift;
@@ -335,4 +335,4 @@ R12 cannot close until:
 
 ## No-Successor Posture
 
-No R13 or successor milestone is opened by R12 through `R12-018`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
+No R13 or successor milestone is opened by R12 through `R12-020`. Any successor requires explicit operator approval and separate repo-truth opening evidence.
