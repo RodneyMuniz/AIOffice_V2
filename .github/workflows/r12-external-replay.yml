@@ -53,7 +53,12 @@ jobs:
           New-Item -ItemType Directory -Path $commandRoot -Force | Out-Null
 
           $cleanBeforeRef = Join-Path $commandRoot "clean_status_before.log"
-          git status --short --untracked-files=all | Set-Content -LiteralPath $cleanBeforeRef -Encoding UTF8
+          $cleanBeforeLines = @(git status --short --untracked-files=all)
+          if ($cleanBeforeLines.Count -eq 0) {
+            "" | Set-Content -LiteralPath $cleanBeforeRef -Encoding UTF8
+          } else {
+            $cleanBeforeLines | Set-Content -LiteralPath $cleanBeforeRef -Encoding UTF8
+          }
 
           $commands = @(
             @{ id = "test_value_scorecard"; command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_value_scorecard.ps1" },
@@ -98,7 +103,12 @@ jobs:
           }
 
           $cleanAfterRef = Join-Path $commandRoot "clean_status_after.log"
-          git status --short --untracked-files=all | Set-Content -LiteralPath $cleanAfterRef -Encoding UTF8
+          $cleanAfterLines = @(git status --short --untracked-files=all)
+          if ($cleanAfterLines.Count -eq 0) {
+            "" | Set-Content -LiteralPath $cleanAfterRef -Encoding UTF8
+          } else {
+            $cleanAfterLines | Set-Content -LiteralPath $cleanAfterRef -Encoding UTF8
+          }
           $commandResults | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $outputRoot "command_results.json") -Encoding UTF8
           "output_root=$outputRoot" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
