@@ -61,6 +61,27 @@ if ($workflow -notmatch '-CleanStatusBefore\s+"command_logs/clean_status_before\
 if ($workflow -notmatch '-CleanStatusAfter\s+"command_logs/clean_status_after\.log"') {
     $failures += "Workflow must pass command_logs/clean_status_after.log into the replay bundle."
 }
+if ($workflow -notmatch '\$cleanBeforeLines\s*=\s*@\(git status --short --untracked-files=all\)') {
+    $failures += "Workflow must capture clean_status_before lines before writing the evidence file."
+}
+if ($workflow -notmatch '\$cleanBeforeLines\.Count\s+-eq\s+0') {
+    $failures += "Workflow must explicitly handle empty clean_status_before output."
+}
+if ($workflow -notmatch '""\s*\|\s*Set-Content\s+-LiteralPath\s+\$cleanBeforeRef\s+-Encoding\s+UTF8') {
+    $failures += "Workflow must create clean_status_before.log even when git status emits no lines."
+}
+if ($workflow -notmatch '\$cleanAfterLines\s*=\s*@\(git status --short --untracked-files=all\)') {
+    $failures += "Workflow must capture clean_status_after lines before writing the evidence file."
+}
+if ($workflow -notmatch '\$cleanAfterLines\.Count\s+-eq\s+0') {
+    $failures += "Workflow must explicitly handle empty clean_status_after output."
+}
+if ($workflow -notmatch '""\s*\|\s*Set-Content\s+-LiteralPath\s+\$cleanAfterRef\s+-Encoding\s+UTF8') {
+    $failures += "Workflow must create clean_status_after.log even when git status emits no lines."
+}
+if ($workflow -match 'git status --short --untracked-files=all\s*\|\s*Set-Content\s+-LiteralPath\s+\$clean(?:Before|After)Ref') {
+    $failures += "Workflow must not pipe empty git status output directly into clean-status Set-Content."
+}
 
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Output $_ }

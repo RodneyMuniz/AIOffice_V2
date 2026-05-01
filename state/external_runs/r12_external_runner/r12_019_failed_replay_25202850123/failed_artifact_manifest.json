@@ -1,0 +1,53 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "failed_external_replay_artifact_manifest_diagnostic",
+  "manifest_id": "r12-019-failed-replay-25202850123-artifact",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "workflow_name": "R12 External Replay",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "run_id": "25202850123",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25202850123",
+  "run_attempt": 1,
+  "run_conclusion": "failure",
+  "artifact_id": "6745298859",
+  "artifact_name": "r12-external-replay-25202850123-1",
+  "artifact_url_or_path": "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6745298859/zip",
+  "artifact_digest_or_hash": "sha256:6dcff00363825286462e0f059aa4ed3c4d8a6c92ba477f553868bdb90eb6c9c8",
+  "artifact_exists": true,
+  "artifact_imported": false,
+  "artifact_diagnostic_only": true,
+  "requested_head": "82c32d9da7b4df3bbeac93aa83b06b5d4327519b",
+  "requested_tree": "a65babfd032bc694161286bd5da99c44fbc77a43",
+  "observed_head": "82c32d9da7b4df3bbeac93aa83b06b5d4327519b",
+  "observed_tree": "a65babfd032bc694161286bd5da99c44fbc77a43",
+  "recorded_at_utc": "2026-05-01T05:21:24Z",
+  "failure_summary": "Generate and validate R12 replay bundle failed because an empty clean-status evidence file was not created.",
+  "diagnostic_files_expected_from_workflow": [
+    "r12_external_replay_bundle.json",
+    "command_results.json",
+    "command_logs/clean_status_before.log",
+    "command_logs/clean_status_after.log"
+  ],
+  "missing_required_evidence_ref": "command_logs/clean_status_before.log",
+  "root_cause": "git status --short --untracked-files=all emitted no pipeline output for a clean worktree, so Set-Content did not create the referenced clean-status evidence file.",
+  "corrected_workflow_behavior": [
+    "Capture git status output into an array.",
+    "Write an explicit empty string to clean_status_before.log when the array is empty.",
+    "Write an explicit empty string to clean_status_after.log when the array is empty."
+  ],
+  "direct_validator_error": "R12 external replay bundle clean_status_before.evidence_ref 'command_logs/clean_status_before.log' does not exist.",
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25202850123/failed_external_runner_result.json",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25202850123/failed_replay_analysis.md",
+    "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25202850123"
+  ],
+  "non_claims": [
+    "no external final-state replay evidence",
+    "no external artifact evidence accepted",
+    "no R12-019 completion",
+    "no R12 closeout",
+    "no R13 opened",
+    "diagnostic failed artifact metadata only"
+  ]
+}
