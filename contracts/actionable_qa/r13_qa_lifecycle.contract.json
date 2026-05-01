@@ -1,0 +1,262 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_lifecycle",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-002",
+  "lifecycle_id": "r13-qa-lifecycle-contract-v1",
+  "qa_scope": {
+    "description": "Canonical R13 QA lifecycle for one meaningful QA cycle.",
+    "cycle_goal": "detect -> classify -> queue -> fix -> rerun -> compare -> signoff",
+    "required_boundary": "R13-002 defines the model only; later tasks must produce actual detector, queue, fix, rerun, comparison, external replay, control-room, and signoff evidence."
+  },
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "lifecycle_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "qa_scope",
+    "lifecycle_stage",
+    "lifecycle_transitions",
+    "aggregate_verdict",
+    "actors",
+    "qa_checks",
+    "detected_issues",
+    "classified_issues",
+    "fix_queue_ref",
+    "fix_execution_ref",
+    "rerun_ref",
+    "before_after_comparison_ref",
+    "external_replay_ref",
+    "signoff_ref",
+    "operator_summary_ref",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "qa_scope_required_fields": [
+    "paths",
+    "description",
+    "cycle_goal"
+  ],
+  "actor_required_fields": [
+    "detector",
+    "classifier",
+    "queue_authority",
+    "fix_authority",
+    "fix_executor",
+    "rerun_authority",
+    "comparison_authority",
+    "signoff_authority",
+    "operator"
+  ],
+  "actor_value_required_fields": [
+    "actor_id",
+    "actor_kind",
+    "authority_kind"
+  ],
+  "transition_required_fields": [
+    "from_stage",
+    "to_stage",
+    "evidence_ref"
+  ],
+  "qa_check_required_fields": [
+    "check_id",
+    "check_type",
+    "authority_kind",
+    "verdict",
+    "evidence_ref",
+    "issue_refs"
+  ],
+  "issue_required_fields": [
+    "issue_id",
+    "severity",
+    "blocking_status",
+    "status",
+    "evidence_ref"
+  ],
+  "classified_issue_required_fields": [
+    "issue_id",
+    "classification",
+    "blocking_status",
+    "status",
+    "detection_ref",
+    "classification_evidence_ref"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "lifecycle_stage": [
+    "initialized",
+    "detected",
+    "classified",
+    "queued",
+    "fix_authorized",
+    "fix_executed",
+    "rerun",
+    "compared",
+    "signoff_ready",
+    "signed_off",
+    "blocked"
+  ],
+  "lifecycle_transitions": [
+    {
+      "from_stage": "initialized",
+      "to_stage": "detected",
+      "required_refs": [
+        "detection_evidence"
+      ]
+    },
+    {
+      "from_stage": "detected",
+      "to_stage": "classified",
+      "required_refs": [
+        "classification_evidence"
+      ]
+    },
+    {
+      "from_stage": "classified",
+      "to_stage": "queued",
+      "required_refs": [
+        "fix_queue_ref"
+      ]
+    },
+    {
+      "from_stage": "queued",
+      "to_stage": "fix_authorized",
+      "required_refs": [
+        "fix_authorization_ref"
+      ]
+    },
+    {
+      "from_stage": "fix_authorized",
+      "to_stage": "fix_executed",
+      "required_refs": [
+        "fix_execution_ref"
+      ]
+    },
+    {
+      "from_stage": "fix_executed",
+      "to_stage": "rerun",
+      "required_refs": [
+        "rerun_ref"
+      ]
+    },
+    {
+      "from_stage": "rerun",
+      "to_stage": "compared",
+      "required_refs": [
+        "before_after_comparison_ref"
+      ]
+    },
+    {
+      "from_stage": "compared",
+      "to_stage": "signoff_ready",
+      "required_refs": [
+        "external_replay_ref",
+        "operator_summary_ref"
+      ]
+    },
+    {
+      "from_stage": "signoff_ready",
+      "to_stage": "signed_off",
+      "required_refs": [
+        "signoff_ref"
+      ]
+    },
+    {
+      "from_stage": "*",
+      "to_stage": "blocked",
+      "required_refs": [
+        "refusal_reasons"
+      ]
+    }
+  ],
+  "qa_checks": {
+    "meaningful_check_types": [
+      "detection",
+      "classification",
+      "fix_queue",
+      "fix_execution",
+      "rerun",
+      "before_after_comparison",
+      "external_replay",
+      "operator_summary",
+      "signoff_gate"
+    ],
+    "forbidden_as_qa_authority": [
+      "schema_only",
+      "narrative_only_qa",
+      "chat_transcript",
+      "executor_self_certification",
+      "local_only_external_replay"
+    ]
+  },
+  "allowed_aggregate_verdicts": [
+    "not_ready",
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_check_verdicts": [
+    "passed",
+    "failed",
+    "blocked",
+    "not_run"
+  ],
+  "allowed_issue_blocking_statuses": [
+    "blocking",
+    "non_blocking",
+    "advisory"
+  ],
+  "allowed_issue_statuses": [
+    "detected",
+    "classified",
+    "queued",
+    "authorized",
+    "fixed",
+    "resolved",
+    "unresolved",
+    "wont_fix"
+  ],
+  "required_non_claims": [
+    "no R13 hard value gate delivered by R13-002",
+    "no meaningful QA loop gate delivered yet",
+    "no detector implementation delivered by R13-002",
+    "no fix queue execution delivered by R13-002",
+    "no bounded fix execution delivered by R13-002",
+    "no external replay proof delivered by R13-002",
+    "no current operator control-room delivered by R13-002",
+    "no final QA signoff delivered by R13-002",
+    "no real production QA",
+    "no executor self-certification as QA",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "schema_only_qa_is_not_meaningful_qa",
+    "narrative_only_qa_is_not_evidence",
+    "passed_aggregate_verdict_requires_no_unresolved_blocking_issues",
+    "queued_stage_requires_fix_queue_ref",
+    "fix_executed_stage_requires_fix_execution_ref",
+    "rerun_stage_requires_rerun_ref",
+    "compared_stage_requires_rerun_ref_and_before_after_comparison_ref",
+    "signed_off_stage_requires_fix_queue_fix_execution_rerun_comparison_external_replay_operator_summary_and_signoff_refs",
+    "signed_off_stage_requires_external_replay_scope_external",
+    "signed_off_stage_requires_operator_summary_ref",
+    "executor_self_certification_cannot_be_qa_authority",
+    "local_only_evidence_cannot_be_external_replay_proof",
+    "successor_milestone_opening_claims_are_rejected"
+  ]
+}

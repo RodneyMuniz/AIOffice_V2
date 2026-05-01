@@ -1,0 +1,64 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_lifecycle",
+  "lifecycle_id": "r13-002-narrative-only-qa-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "4dd4e2b276d4f16a83eb8658be80be07fba8a185",
+  "tree": "c48b4183d5ccce08bc17da97bfaef0de34963b58",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-002",
+  "qa_scope": {
+    "paths": [
+      "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+    ],
+    "description": "Invalid lifecycle that treats narrative-only QA as evidence.",
+    "cycle_goal": "detect -> classify -> queue -> fix -> rerun -> compare -> signoff"
+  },
+  "lifecycle_stage": "initialized",
+  "lifecycle_transitions": [],
+  "aggregate_verdict": "not_ready",
+  "actors": {
+    "detector": { "actor_id": "qa-detector", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "classifier": { "actor_id": "qa-classifier", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "queue_authority": { "actor_id": "qa-queue", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "fix_authority": { "actor_id": "fix-authority", "actor_kind": "operator_gate", "authority_kind": "operator_authorized" },
+    "fix_executor": { "actor_id": "bounded-fix-executor", "actor_kind": "executor", "authority_kind": "executor" },
+    "rerun_authority": { "actor_id": "qa-rerun", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "comparison_authority": { "actor_id": "qa-comparison", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "signoff_authority": { "actor_id": "qa-signoff", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "operator": { "actor_id": "operator", "actor_kind": "human_operator", "authority_kind": "operator" }
+  },
+  "qa_checks": [
+    { "check_id": "narrative", "check_type": "narrative_only_qa", "authority_kind": "chat_narrative", "verdict": "passed", "evidence_ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md", "issue_refs": [] }
+  ],
+  "detected_issues": [],
+  "classified_issues": [],
+  "fix_queue_ref": "",
+  "fix_execution_ref": "",
+  "rerun_ref": "",
+  "before_after_comparison_ref": "",
+  "external_replay_ref": "",
+  "signoff_ref": "",
+  "operator_summary_ref": "",
+  "evidence_refs": [
+    { "ref_id": "narrative-only", "ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md", "evidence_kind": "narrative_only_qa", "authority_kind": "chat_narrative", "scope": "local" }
+  ],
+  "refusal_reasons": [
+    "Fixture tries to treat narrative-only QA as evidence."
+  ],
+  "created_at_utc": "2026-05-01T00:13:00Z",
+  "non_claims": [
+    "no R13 hard value gate delivered by R13-002",
+    "no meaningful QA loop gate delivered yet",
+    "no detector implementation delivered by R13-002",
+    "no fix queue execution delivered by R13-002",
+    "no bounded fix execution delivered by R13-002",
+    "no external replay proof delivered by R13-002",
+    "no current operator control-room delivered by R13-002",
+    "no final QA signoff delivered by R13-002",
+    "no real production QA",
+    "no executor self-certification as QA",
+    "no R14 or successor opening"
+  ]
+}

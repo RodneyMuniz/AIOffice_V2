@@ -1,0 +1,52 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_lifecycle",
+  "lifecycle_id": "r13-002-missing-non-claims-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "4dd4e2b276d4f16a83eb8658be80be07fba8a185",
+  "tree": "c48b4183d5ccce08bc17da97bfaef0de34963b58",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-002",
+  "qa_scope": {
+    "paths": [
+      "contracts/actionable_qa/r13_qa_lifecycle.contract.json",
+      "tools/R13QaLifecycle.psm1"
+    ],
+    "description": "Invalid initialized lifecycle that omits explicit non-claims.",
+    "cycle_goal": "detect -> classify -> queue -> fix -> rerun -> compare -> signoff"
+  },
+  "lifecycle_stage": "initialized",
+  "lifecycle_transitions": [],
+  "aggregate_verdict": "not_ready",
+  "actors": {
+    "detector": { "actor_id": "r13-contract-detector-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "classifier": { "actor_id": "r13-contract-classifier-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "queue_authority": { "actor_id": "r13-contract-queue-authority-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "fix_authority": { "actor_id": "r13-contract-fix-authority-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "fix_executor": { "actor_id": "r13-contract-fix-executor-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "executor" },
+    "rerun_authority": { "actor_id": "r13-contract-rerun-authority-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "comparison_authority": { "actor_id": "r13-contract-comparison-authority-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "none_yet" },
+    "signoff_authority": { "actor_id": "r13-contract-signoff-authority-placeholder", "actor_kind": "contract_placeholder", "authority_kind": "separate_qa" },
+    "operator": { "actor_id": "operator", "actor_kind": "human_operator", "authority_kind": "operator" }
+  },
+  "qa_checks": [],
+  "detected_issues": [],
+  "classified_issues": [],
+  "fix_queue_ref": "",
+  "fix_execution_ref": "",
+  "rerun_ref": "",
+  "before_after_comparison_ref": "",
+  "external_replay_ref": "",
+  "signoff_ref": "",
+  "operator_summary_ref": "",
+  "evidence_refs": [
+    { "ref_id": "r13-lifecycle-contract", "ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json", "evidence_kind": "contract", "authority_kind": "repo_contract", "scope": "repo" },
+    { "ref_id": "r13-lifecycle-validator", "ref": "tools/R13QaLifecycle.psm1", "evidence_kind": "validator", "authority_kind": "repo_validator", "scope": "repo" }
+  ],
+  "refusal_reasons": [
+    "Lifecycle is initialized only."
+  ],
+  "created_at_utc": "2026-05-01T00:19:00Z",
+  "non_claims": []
+}

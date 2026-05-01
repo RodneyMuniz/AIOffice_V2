@@ -1,12 +1,12 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-001` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-002` only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. It does not deliver any R13 value gate.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. Neither task delivers any R13 value gate.
 
 ## Accepted Starting State
 
@@ -30,13 +30,14 @@ R13 is bounded to one release branch and one milestone:
 - freeze hard value gates and non-claims;
 - define the R13 task plan from `R13-001` through `R13-018`;
 - keep `R13-001` as opening/status work only;
+- keep `R13-002` as contract/foundation work only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-All R13 gates are planned and not yet delivered at `R13-001`.
+All R13 gates are planned and not yet delivered at `R13-002`.
 
 1. Meaningful QA loop gate: planned, not yet delivered.
 2. API/custom-runner bypass gate: planned, not yet delivered.
@@ -53,8 +54,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: opens R13 on `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`, records the report-committed R12 source head, freezes hard gates, preserves non-claims, updates status surfaces, and does not claim any gate delivered.
 
 ### `R13-002` Define ideal QA lifecycle contract
-- Status: planned
-- Boundary: define the QA lifecycle contract from detect to signoff, including invalid fixtures for pass-without-rerun, pass-without-fix, pass-without-evidence, and narrative-only QA.
+- Status: done
+- Boundary: defines the canonical QA lifecycle contract from detect to signoff through `contracts/actionable_qa/r13_qa_lifecycle.contract.json`, `tools/R13QaLifecycle.psm1`, `tools/validate_r13_qa_lifecycle.ps1`, valid initialized fixture `state/fixtures/valid/actionable_qa/r13_qa_lifecycle.valid.json`, invalid fixtures under `state/fixtures/invalid/actionable_qa/r13_qa_lifecycle/`, and `tests/test_r13_qa_lifecycle.ps1`. This is a contract/foundation task only; it does not implement the detector, fix queue, bounded fix execution, rerun, comparison, external replay, control-room demo, or final signoff.
 
 ### `R13-003` Build actionable QA issue detector v2
 - Status: planned
@@ -122,7 +123,7 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 ## Required Non-Claims
 
-- no R13 hard value gate delivered by `R13-001`
+- no R13 hard value gate delivered by `R13-002`
 - no meaningful QA loop gate delivered yet
 - no API/custom-runner bypass gate delivered yet
 - no current operator control-room gate delivered yet
@@ -142,6 +143,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-001 Claim
+## Current R13-002 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
+
+`R13-002` claims only that the ideal QA lifecycle contract is defined and locally validated as a contract/foundation surface. It makes schema-only QA, narrative-only QA, pass-without-rerun, pass-without-fix, pass-without-evidence, executor self-certification, local-only evidence as external replay proof, missing operator summary, unresolved blocking issues as pass, missing non-claims, and R14 successor opening fail closed. It does not claim the meaningful QA loop gate is delivered. The meaningful QA loop remains undelivered until later tasks prove detector, queue, fix, rerun, comparison, external replay, current control room, and signoff with committed evidence.

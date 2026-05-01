@@ -1,0 +1,85 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_qa_lifecycle",
+  "lifecycle_id": "r13-002-local-only-as-external-invalid",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "head": "4dd4e2b276d4f16a83eb8658be80be07fba8a185",
+  "tree": "c48b4183d5ccce08bc17da97bfaef0de34963b58",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-002",
+  "qa_scope": {
+    "paths": [
+      "contracts/actionable_qa/r13_qa_lifecycle.contract.json"
+    ],
+    "description": "Invalid signed-off lifecycle that labels a local ref as external replay proof.",
+    "cycle_goal": "detect -> classify -> queue -> fix -> rerun -> compare -> signoff"
+  },
+  "lifecycle_stage": "signed_off",
+  "lifecycle_transitions": [
+    { "from_stage": "initialized", "to_stage": "detected", "evidence_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json" },
+    { "from_stage": "detected", "to_stage": "classified", "evidence_ref": "tools/R13QaLifecycle.psm1" },
+    { "from_stage": "classified", "to_stage": "queued", "evidence_ref": "contracts/actionable_qa/actionable_qa_fix_queue.contract.json" },
+    { "from_stage": "queued", "to_stage": "fix_authorized", "evidence_ref": "contracts/actionable_qa/actionable_qa_fix_queue.contract.json" },
+    { "from_stage": "fix_authorized", "to_stage": "fix_executed", "evidence_ref": "tools/R13QaLifecycle.psm1" },
+    { "from_stage": "fix_executed", "to_stage": "rerun", "evidence_ref": "tests/test_r13_qa_lifecycle.ps1" },
+    { "from_stage": "rerun", "to_stage": "compared", "evidence_ref": "tools/validate_r13_qa_lifecycle.ps1" },
+    { "from_stage": "compared", "to_stage": "signoff_ready", "evidence_ref": "tools/validate_r13_qa_lifecycle.ps1" },
+    { "from_stage": "signoff_ready", "to_stage": "signed_off", "evidence_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json" }
+  ],
+  "aggregate_verdict": "passed",
+  "actors": {
+    "detector": { "actor_id": "qa-detector", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "classifier": { "actor_id": "qa-classifier", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "queue_authority": { "actor_id": "qa-queue", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "fix_authority": { "actor_id": "fix-authority", "actor_kind": "operator_gate", "authority_kind": "operator_authorized" },
+    "fix_executor": { "actor_id": "bounded-fix-executor", "actor_kind": "executor", "authority_kind": "executor" },
+    "rerun_authority": { "actor_id": "qa-rerun", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "comparison_authority": { "actor_id": "qa-comparison", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "signoff_authority": { "actor_id": "qa-signoff", "actor_kind": "tool", "authority_kind": "separate_qa" },
+    "operator": { "actor_id": "operator", "actor_kind": "human_operator", "authority_kind": "operator" }
+  },
+  "qa_checks": [
+    { "check_id": "detect", "check_type": "detection", "authority_kind": "separate_qa", "verdict": "passed", "evidence_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json", "issue_refs": [ "issue-001" ] },
+    { "check_id": "external", "check_type": "external_replay", "authority_kind": "local_runner", "verdict": "passed", "evidence_ref": "tools/validate_r13_qa_lifecycle.ps1", "issue_refs": [ "issue-001" ] }
+  ],
+  "detected_issues": [
+    { "issue_id": "issue-001", "severity": "error", "blocking_status": "blocking", "status": "fixed", "evidence_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json" }
+  ],
+  "classified_issues": [
+    { "issue_id": "issue-001", "classification": "blocking_lifecycle_issue", "blocking_status": "blocking", "status": "fixed", "detection_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json", "classification_evidence_ref": "tools/R13QaLifecycle.psm1" }
+  ],
+  "fix_queue_ref": "contracts/actionable_qa/actionable_qa_fix_queue.contract.json",
+  "fix_execution_ref": "tools/R13QaLifecycle.psm1",
+  "rerun_ref": "tests/test_r13_qa_lifecycle.ps1",
+  "before_after_comparison_ref": "tools/validate_r13_qa_lifecycle.ps1",
+  "external_replay_ref": "tools/validate_r13_qa_lifecycle.ps1",
+  "signoff_ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json",
+  "operator_summary_ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+  "evidence_refs": [
+    { "ref_id": "detect-evidence", "ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json", "evidence_kind": "detection", "authority_kind": "separate_qa", "scope": "repo" },
+    { "ref_id": "classify-evidence", "ref": "tools/R13QaLifecycle.psm1", "evidence_kind": "classification", "authority_kind": "separate_qa", "scope": "repo" },
+    { "ref_id": "fix-queue", "ref": "contracts/actionable_qa/actionable_qa_fix_queue.contract.json", "evidence_kind": "fix_queue", "authority_kind": "separate_qa", "scope": "repo" },
+    { "ref_id": "fix-execution", "ref": "tools/R13QaLifecycle.psm1", "evidence_kind": "fix_execution", "authority_kind": "operator_authorized", "scope": "repo" },
+    { "ref_id": "rerun", "ref": "tests/test_r13_qa_lifecycle.ps1", "evidence_kind": "rerun", "authority_kind": "separate_qa", "scope": "repo" },
+    { "ref_id": "comparison", "ref": "tools/validate_r13_qa_lifecycle.ps1", "evidence_kind": "before_after_comparison", "authority_kind": "separate_qa", "scope": "repo" },
+    { "ref_id": "local-external", "ref": "tools/validate_r13_qa_lifecycle.ps1", "evidence_kind": "external_replay", "authority_kind": "local_runner", "scope": "local" },
+    { "ref_id": "operator-summary", "ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md", "evidence_kind": "operator_summary", "authority_kind": "operator", "scope": "repo" },
+    { "ref_id": "signoff", "ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json", "evidence_kind": "signoff", "authority_kind": "separate_qa", "scope": "repo" }
+  ],
+  "refusal_reasons": [],
+  "created_at_utc": "2026-05-01T00:15:00Z",
+  "non_claims": [
+    "no R13 hard value gate delivered by R13-002",
+    "no meaningful QA loop gate delivered yet",
+    "no detector implementation delivered by R13-002",
+    "no fix queue execution delivered by R13-002",
+    "no bounded fix execution delivered by R13-002",
+    "no external replay proof delivered by R13-002",
+    "no current operator control-room delivered by R13-002",
+    "no final QA signoff delivered by R13-002",
+    "no real production QA",
+    "no executor self-certification as QA",
+    "no R14 or successor opening"
+  ]
+}
