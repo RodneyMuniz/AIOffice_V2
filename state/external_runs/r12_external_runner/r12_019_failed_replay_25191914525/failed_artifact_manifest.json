@@ -1,0 +1,53 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "failed_external_replay_artifact_manifest_diagnostic",
+  "manifest_id": "r12-019-failed-replay-25191914525-artifact",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "workflow_name": "R12 External Replay",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "run_id": "25191914525",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25191914525",
+  "run_attempt": 1,
+  "run_conclusion": "failure",
+  "artifact_id": "6741265940",
+  "artifact_name": "r12-external-replay-25191914525-1",
+  "artifact_url_or_path": "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6741265940/zip",
+  "artifact_digest_or_hash": "sha256:dbf774ef7b373a8afca576e1f9e6298ab0a86eb003c69931413e4cead378dd78",
+  "artifact_exists": true,
+  "artifact_imported": false,
+  "artifact_diagnostic_only": true,
+  "requested_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "requested_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "observed_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "observed_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "recorded_at_utc": "2026-05-01T01:50:18Z",
+  "failure_summary": "Generate and validate R12 replay bundle failed because clean-status evidence refs omitted the command_logs/ prefix.",
+  "diagnostic_files_expected_from_workflow": [
+    "r12_external_replay_bundle.json",
+    "command_results.json",
+    "command_logs/clean_status_before.log",
+    "command_logs/clean_status_after.log"
+  ],
+  "invalid_bundle_refs": [
+    "clean_status_before.log",
+    "clean_status_after.log"
+  ],
+  "corrected_bundle_refs": [
+    "command_logs/clean_status_before.log",
+    "command_logs/clean_status_after.log"
+  ],
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_external_runner_result.json",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_replay_analysis.md",
+    "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25191914525"
+  ],
+  "non_claims": [
+    "no external final-state replay evidence",
+    "no external artifact evidence accepted",
+    "no R12-019 completion",
+    "no R12 closeout",
+    "no R13 opened",
+    "diagnostic failed artifact metadata only"
+  ]
+}

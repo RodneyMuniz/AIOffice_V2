@@ -1,0 +1,56 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "external_runner_result",
+  "result_id": "r12-019-failed-replay-25191914525",
+  "request_id": "r12-019-final-state-replay-request",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "requested_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "requested_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "observed_head": "e6db53682fa79cae04c65d6fa56383580e54555f",
+  "observed_tree": "c622e001edb60214d4050c2d125678a2e514bfa6",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "workflow_name": "R12 External Replay",
+  "runner_kind": "github_actions",
+  "run_id": "25191914525",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25191914525",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "started_at_utc": "2026-05-01T00:00:00Z",
+  "completed_at_utc": "2026-05-01T00:00:00Z",
+  "artifact_manifest_ref": "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_artifact_manifest.json",
+  "command_results": [
+    {
+      "command_id": "generate_validate_r12_replay_bundle",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/new_r12_external_replay_bundle.ps1 ...; pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r12_external_replay_bundle.ps1 -BundlePath $bundlePath",
+      "exit_code": 1,
+      "verdict": "failed",
+      "stdout_ref": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25191914525",
+      "stderr_ref": "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_replay_analysis.md"
+    }
+  ],
+  "raw_log_refs": [
+    "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25191914525",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_replay_analysis.md"
+  ],
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_artifact_manifest.json",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25191914525/failed_replay_analysis.md"
+  ],
+  "refusal_reasons": [
+    "GitHub Actions run conclusion was failure.",
+    "The Generate and validate R12 replay bundle step failed because clean_status_before.evidence_ref was clean_status_before.log instead of command_logs/clean_status_before.log.",
+    "The uploaded artifact is diagnostic only and is not accepted as external final-state replay evidence."
+  ],
+  "non_claims": [
+    "no full external orchestrator product",
+    "no final-state replay",
+    "no broad CI/product coverage",
+    "no R12 value-gate delivery yet",
+    "no R12-019 completion",
+    "no R12 closeout",
+    "no R13 opened",
+    "diagnostic failed run only"
+  ]
+}

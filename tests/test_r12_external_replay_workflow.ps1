@@ -39,6 +39,29 @@ if ($workflow -match 'R12 closeout|final-state replay completed|R13') {
     $failures += "Workflow text must not claim R12 closeout, completed final-state replay, or R13."
 }
 
+$writesCleanBeforeUnderCommandLogs = $workflow -match '\$cleanBeforeRef\s*=\s*Join-Path\s+\$commandRoot\s+"clean_status_before\.log"'
+$writesCleanAfterUnderCommandLogs = $workflow -match '\$cleanAfterRef\s*=\s*Join-Path\s+\$commandRoot\s+"clean_status_after\.log"'
+
+if (-not $writesCleanBeforeUnderCommandLogs) {
+    $failures += "Workflow must write clean_status_before.log under command_logs."
+}
+if (-not $writesCleanAfterUnderCommandLogs) {
+    $failures += "Workflow must write clean_status_after.log under command_logs."
+}
+
+if ($writesCleanBeforeUnderCommandLogs -and $workflow -match '-CleanStatusBefore\s+"clean_status_before\.log"') {
+    $failures += "Workflow writes clean_status_before.log under command_logs but passes clean_status_before.log without the command_logs/ prefix."
+}
+if ($writesCleanAfterUnderCommandLogs -and $workflow -match '-CleanStatusAfter\s+"clean_status_after\.log"') {
+    $failures += "Workflow writes clean_status_after.log under command_logs but passes clean_status_after.log without the command_logs/ prefix."
+}
+if ($workflow -notmatch '-CleanStatusBefore\s+"command_logs/clean_status_before\.log"') {
+    $failures += "Workflow must pass command_logs/clean_status_before.log into the replay bundle."
+}
+if ($workflow -notmatch '-CleanStatusAfter\s+"command_logs/clean_status_after\.log"') {
+    $failures += "Workflow must pass command_logs/clean_status_after.log into the replay bundle."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Output $_ }
     throw ("R12 external replay workflow structure tests failed with {0} failure(s)." -f $failures.Count)
