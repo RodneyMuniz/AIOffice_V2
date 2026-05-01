@@ -1,0 +1,440 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_skill_registry",
+    "registry_id":  "r13-008-invalid-duplicate-skill-id",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "0c3951289df09c69b8a1367fe71cd7b629494e4b",
+    "tree":  "6f9f87038e8d7f9946d94c963833a8796d23373c",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-008",
+    "skills":  [
+                   {
+                       "skill_id":  "qa.detect",
+                       "skill_name":  "QA Detect",
+                       "skill_version":  "v1",
+                       "purpose":  "Validate existing R13-003 source-mapped issue detector evidence over explicit repo refs.",
+                       "allowed_inputs":  [
+                                              "r13_qa_issue_detection_report",
+                                              "repo_contract",
+                                              "validator_cli"
+                                          ],
+                       "required_input_refs":  [
+                                                   "r13-003-issue-detection-report"
+                                               ],
+                       "allowed_commands":  [
+                                                {
+                                                    "command_id":  "validate-r13-003-issue-detection-report",
+                                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_issue_detection_report.ps1 -ReportPath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\qa\\r13_003_issue_detection_report.json"
+                                                }
+                                            ],
+                       "allowed_tools":  [
+                                             "tools/validate_r13_qa_issue_detection_report.ps1"
+                                         ],
+                       "forbidden_operations":  [
+                                                    "mutation_commands",
+                                                    "git_commit_push_reset_clean_rm",
+                                                    "external_replay_execution",
+                                                    "final_signoff",
+                                                    "hard_gate_claim"
+                                                ],
+                       "output_contract_ref":  "contracts/actionable_qa/r13_qa_issue_detection_report.contract.json",
+                       "expected_output_artifact_type":  "r13_qa_issue_detection_report_validation",
+                       "owner_role":  "qa_automation_operator",
+                       "authority_kind":  "repo_skill_registry",
+                       "evidence_refs":  [
+                                             {
+                                                 "ref_id":  "r13-003-contract",
+                                                 "ref":  "contracts/actionable_qa/r13_qa_issue_detection_report.contract.json",
+                                                 "evidence_kind":  "contract",
+                                                 "authority_kind":  "repo_contract",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-003-validator",
+                                                 "ref":  "tools/validate_r13_qa_issue_detection_report.ps1",
+                                                 "evidence_kind":  "validator",
+                                                 "authority_kind":  "repo_tooling",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-003-report",
+                                                 "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                                 "evidence_kind":  "issue_detection_report",
+                                                 "authority_kind":  "repo_evidence",
+                                                 "scope":  "repo"
+                                             }
+                                         ],
+                       "non_claims":  [
+                                          "R13-008 adds bounded skill registry and invocation evidence only",
+                                          "no external replay executed by R13-008",
+                                          "runner.external_replay is registered but not executed by R13-008",
+                                          "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                                          "no current operator control-room gate delivered by R13-008",
+                                          "no operator demo delivered by R13-008",
+                                          "no final QA signoff delivered by R13-008",
+                                          "no R13 hard value gate delivered by R13-008",
+                                          "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                                          "no API/custom-runner bypass gate fully delivered by R13-008",
+                                          "no production runtime",
+                                          "no real production QA",
+                                          "no R14 or successor opening"
+                                      ]
+                   },
+                   {
+                       "skill_id":  "qa.fix_plan",
+                       "skill_name":  "QA Fix Plan",
+                       "skill_version":  "v1",
+                       "purpose":  "Validate existing R13-004 fix queue and fix-plan evidence over a validated issue report.",
+                       "allowed_inputs":  [
+                                              "r13_qa_fix_queue",
+                                              "r13_qa_issue_detection_report",
+                                              "repo_contract",
+                                              "validator_cli"
+                                          ],
+                       "required_input_refs":  [
+                                                   "r13-004-fix-queue"
+                                               ],
+                       "allowed_commands":  [
+                                                {
+                                                    "command_id":  "validate-r13-004-fix-queue",
+                                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_fix_queue.ps1 -QueuePath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\qa\\r13_004_fix_queue.json"
+                                                }
+                                            ],
+                       "allowed_tools":  [
+                                             "tools/validate_r13_qa_fix_queue.ps1"
+                                         ],
+                       "forbidden_operations":  [
+                                                    "mutation_commands",
+                                                    "git_commit_push_reset_clean_rm",
+                                                    "external_replay_execution",
+                                                    "final_signoff",
+                                                    "hard_gate_claim"
+                                                ],
+                       "output_contract_ref":  "contracts/actionable_qa/r13_qa_fix_queue.contract.json",
+                       "expected_output_artifact_type":  "r13_qa_fix_queue_validation",
+                       "owner_role":  "qa_automation_operator",
+                       "authority_kind":  "repo_skill_registry",
+                       "evidence_refs":  [
+                                             {
+                                                 "ref_id":  "r13-004-contract",
+                                                 "ref":  "contracts/actionable_qa/r13_qa_fix_queue.contract.json",
+                                                 "evidence_kind":  "contract",
+                                                 "authority_kind":  "repo_contract",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-004-validator",
+                                                 "ref":  "tools/validate_r13_qa_fix_queue.ps1",
+                                                 "evidence_kind":  "validator",
+                                                 "authority_kind":  "repo_tooling",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-004-queue",
+                                                 "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                                                 "evidence_kind":  "fix_queue",
+                                                 "authority_kind":  "repo_evidence",
+                                                 "scope":  "repo"
+                                             }
+                                         ],
+                       "non_claims":  [
+                                          "R13-008 adds bounded skill registry and invocation evidence only",
+                                          "no external replay executed by R13-008",
+                                          "runner.external_replay is registered but not executed by R13-008",
+                                          "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                                          "no current operator control-room gate delivered by R13-008",
+                                          "no operator demo delivered by R13-008",
+                                          "no final QA signoff delivered by R13-008",
+                                          "no R13 hard value gate delivered by R13-008",
+                                          "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                                          "no API/custom-runner bypass gate fully delivered by R13-008",
+                                          "no production runtime",
+                                          "no real production QA",
+                                          "no R14 or successor opening"
+                                      ]
+                   },
+                   {
+                       "skill_id":  "runner.external_replay",
+                       "skill_name":  "Runner External Replay",
+                       "skill_version":  "v1",
+                       "purpose":  "Register the future external replay skill boundary and allow only local validation of existing runner artifacts in R13-008.",
+                       "allowed_inputs":  [
+                                              "r13_custom_runner_result",
+                                              "external_replay_request_draft",
+                                              "repo_contract"
+                                          ],
+                       "required_input_refs":  [
+                                                   "r13-007-custom-runner-result"
+                                               ],
+                       "allowed_commands":  [
+                                                {
+                                                    "command_id":  "validate-r13-007-custom-runner-result",
+                                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_custom_runner_result.ps1 -ResultPath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\runner\\r13_007_custom_runner_result.json"
+                                                }
+                                            ],
+                       "allowed_tools":  [
+                                             "tools/validate_r13_custom_runner_result.ps1"
+                                         ],
+                       "forbidden_operations":  [
+                                                    "external_replay_execution",
+                                                    "workflow_dispatch",
+                                                    "network_runner_invocation",
+                                                    "mutation_commands",
+                                                    "git_commit_push_reset_clean_rm",
+                                                    "final_signoff",
+                                                    "hard_gate_claim"
+                                                ],
+                       "output_contract_ref":  "contracts/external_replay/r12_external_replay_bundle.contract.json",
+                       "expected_output_artifact_type":  "external_replay_request_or_validation_only",
+                       "owner_role":  "runner_operator",
+                       "authority_kind":  "repo_skill_registry",
+                       "evidence_refs":  [
+                                             {
+                                                 "ref_id":  "r13-007-result",
+                                                 "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                                                 "evidence_kind":  "custom_runner_result",
+                                                 "authority_kind":  "repo_evidence",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-007-result-contract",
+                                                 "ref":  "contracts/runner/r13_custom_runner_result.contract.json",
+                                                 "evidence_kind":  "contract",
+                                                 "authority_kind":  "repo_contract",
+                                                 "scope":  "repo"
+                                             }
+                                         ],
+                       "non_claims":  [
+                                          "R13-008 adds bounded skill registry and invocation evidence only",
+                                          "no external replay executed by R13-008",
+                                          "runner.external_replay is registered but not executed by R13-008",
+                                          "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                                          "no current operator control-room gate delivered by R13-008",
+                                          "no operator demo delivered by R13-008",
+                                          "no final QA signoff delivered by R13-008",
+                                          "no R13 hard value gate delivered by R13-008",
+                                          "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                                          "no API/custom-runner bypass gate fully delivered by R13-008",
+                                          "no production runtime",
+                                          "no real production QA",
+                                          "no R14 or successor opening"
+                                      ]
+                   },
+                   {
+                       "skill_id":  "control_room.refresh",
+                       "skill_name":  "Control Room Refresh",
+                       "skill_version":  "v1",
+                       "purpose":  "Register the future current control-room refresh skill boundary without delivering the current control-room gate in R13-008.",
+                       "allowed_inputs":  [
+                                              "status_surface",
+                                              "qa_evidence_refs",
+                                              "operator_decision_refs"
+                                          ],
+                       "required_input_refs":  [
+                                                   "r13-status-surfaces"
+                                               ],
+                       "allowed_commands":  [
+
+                                            ],
+                       "allowed_tools":  [
+                                             "registered_only_in_r13_008"
+                                         ],
+                       "forbidden_operations":  [
+                                                    "current_control_room_gate_delivery",
+                                                    "productized_control_room_behavior",
+                                                    "mutation_commands",
+                                                    "git_commit_push_reset_clean_rm",
+                                                    "external_replay_execution",
+                                                    "final_signoff",
+                                                    "hard_gate_claim"
+                                                ],
+                       "output_contract_ref":  "contracts/control_room/control_room_refresh_result.contract.json",
+                       "expected_output_artifact_type":  "control_room_refresh_registration_only",
+                       "owner_role":  "operator_control_room_owner",
+                       "authority_kind":  "repo_skill_registry",
+                       "evidence_refs":  [
+                                             {
+                                                 "ref_id":  "r12-control-room-refresh-contract",
+                                                 "ref":  "contracts/control_room/control_room_refresh_result.contract.json",
+                                                 "evidence_kind":  "prior_contract",
+                                                 "authority_kind":  "repo_contract",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-authority",
+                                                 "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                                                 "evidence_kind":  "authority",
+                                                 "authority_kind":  "repo_governance",
+                                                 "scope":  "repo"
+                                             }
+                                         ],
+                       "non_claims":  [
+                                          "R13-008 adds bounded skill registry and invocation evidence only",
+                                          "no external replay executed by R13-008",
+                                          "runner.external_replay is registered but not executed by R13-008",
+                                          "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                                          "no current operator control-room gate delivered by R13-008",
+                                          "no operator demo delivered by R13-008",
+                                          "no final QA signoff delivered by R13-008",
+                                          "no R13 hard value gate delivered by R13-008",
+                                          "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                                          "no API/custom-runner bypass gate fully delivered by R13-008",
+                                          "no production runtime",
+                                          "no real production QA",
+                                          "no R14 or successor opening"
+                                      ]
+                   },
+                   {
+                       "skill_id":  "qa.detect",
+                       "skill_name":  "QA Detect",
+                       "skill_version":  "v1",
+                       "purpose":  "Validate existing R13-003 source-mapped issue detector evidence over explicit repo refs.",
+                       "allowed_inputs":  [
+                                              "r13_qa_issue_detection_report",
+                                              "repo_contract",
+                                              "validator_cli"
+                                          ],
+                       "required_input_refs":  [
+                                                   "r13-003-issue-detection-report"
+                                               ],
+                       "allowed_commands":  [
+                                                {
+                                                    "command_id":  "validate-r13-003-issue-detection-report",
+                                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_issue_detection_report.ps1 -ReportPath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\qa\\r13_003_issue_detection_report.json"
+                                                }
+                                            ],
+                       "allowed_tools":  [
+                                             "tools/validate_r13_qa_issue_detection_report.ps1"
+                                         ],
+                       "forbidden_operations":  [
+                                                    "mutation_commands",
+                                                    "git_commit_push_reset_clean_rm",
+                                                    "external_replay_execution",
+                                                    "final_signoff",
+                                                    "hard_gate_claim"
+                                                ],
+                       "output_contract_ref":  "contracts/actionable_qa/r13_qa_issue_detection_report.contract.json",
+                       "expected_output_artifact_type":  "r13_qa_issue_detection_report_validation",
+                       "owner_role":  "qa_automation_operator",
+                       "authority_kind":  "repo_skill_registry",
+                       "evidence_refs":  [
+                                             {
+                                                 "ref_id":  "r13-003-contract",
+                                                 "ref":  "contracts/actionable_qa/r13_qa_issue_detection_report.contract.json",
+                                                 "evidence_kind":  "contract",
+                                                 "authority_kind":  "repo_contract",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-003-validator",
+                                                 "ref":  "tools/validate_r13_qa_issue_detection_report.ps1",
+                                                 "evidence_kind":  "validator",
+                                                 "authority_kind":  "repo_tooling",
+                                                 "scope":  "repo"
+                                             },
+                                             {
+                                                 "ref_id":  "r13-003-report",
+                                                 "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                                 "evidence_kind":  "issue_detection_report",
+                                                 "authority_kind":  "repo_evidence",
+                                                 "scope":  "repo"
+                                             }
+                                         ],
+                       "non_claims":  [
+                                          "R13-008 adds bounded skill registry and invocation evidence only",
+                                          "no external replay executed by R13-008",
+                                          "runner.external_replay is registered but not executed by R13-008",
+                                          "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                                          "no current operator control-room gate delivered by R13-008",
+                                          "no operator demo delivered by R13-008",
+                                          "no final QA signoff delivered by R13-008",
+                                          "no R13 hard value gate delivered by R13-008",
+                                          "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                                          "no API/custom-runner bypass gate fully delivered by R13-008",
+                                          "no production runtime",
+                                          "no real production QA",
+                                          "no R14 or successor opening"
+                                      ]
+                   }
+               ],
+    "allowed_invocation_modes":  [
+                                     "validate_existing_evidence",
+                                     "generate_artifact",
+                                     "dry_run_only"
+                                 ],
+    "global_forbidden_operations":  [
+                                        "mutation_commands",
+                                        "git_commit_push_reset_clean_rm",
+                                        "outside_repo_paths",
+                                        "external_replay_execution_in_r13_008",
+                                        "current_control_room_gate_delivery",
+                                        "operator_demo_delivery",
+                                        "final_signoff",
+                                        "hard_gate_delivery",
+                                        "r14_or_successor_opening"
+                                    ],
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "skill-registry-contract",
+                              "ref":  "contracts/skills/r13_skill_registry.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-request-contract",
+                              "ref":  "contracts/skills/r13_skill_invocation_request.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-result-contract",
+                              "ref":  "contracts/skills/r13_skill_invocation_result.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-registry-module",
+                              "ref":  "tools/R13SkillRegistry.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-module",
+                              "ref":  "tools/R13SkillInvocation.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-007-runner-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                              "evidence_kind":  "custom_runner_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-05-01T15:00:00Z",
+    "non_claims":  [
+                       "R13-008 adds bounded skill registry and invocation evidence only",
+                       "no external replay executed by R13-008",
+                       "runner.external_replay is registered but not executed by R13-008",
+                       "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                       "no current operator control-room gate delivered by R13-008",
+                       "no operator demo delivered by R13-008",
+                       "no final QA signoff delivered by R13-008",
+                       "no R13 hard value gate delivered by R13-008",
+                       "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                       "no API/custom-runner bypass gate fully delivered by R13-008",
+                       "no production runtime",
+                       "no real production QA",
+                       "no R14 or successor opening"
+                   ]
+}

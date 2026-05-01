@@ -1,0 +1,102 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_skill_invocation_result",
+    "result_id":  "r13sir-fixture-qa-detect",
+    "invocation_id":  "r13-008-qa-detect-fixture",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "0c3951289df09c69b8a1367fe71cd7b629494e4b",
+    "tree":  "6f9f87038e8d7f9946d94c963833a8796d23373c",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-008",
+    "skill_id":  "qa.detect",
+    "skill_version":  "v1",
+    "invocation_mode":  "validate_existing_evidence",
+    "execution_status":  "completed",
+    "command_results":  [
+                            {
+                                "command_id":  "validate-r13-003-issue-detection-report",
+                                "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_issue_detection_report.ps1 -ReportPath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\qa\\r13_003_issue_detection_report.json",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/fixtures/valid/skills/raw_logs/qa_detect_stdout.log",
+                                "stderr_ref":  "state/fixtures/valid/skills/raw_logs/qa_detect_stderr.log",
+                                "started_at_utc":  "2026-05-01T15:00:00Z",
+                                "completed_at_utc":  "2026-05-01T15:00:00Z"
+                            }
+                        ],
+    "output_artifacts":  [
+                             {
+                                 "artifact_id":  "stdout-validate-r13-003-issue-detection-report",
+                                 "ref":  "state/fixtures/valid/skills/raw_logs/qa_detect_stdout.log",
+                                 "artifact_type":  "raw_log",
+                                 "evidence_kind":  "stdout_log",
+                                 "validation_status":  "created"
+                             },
+                             {
+                                 "artifact_id":  "stderr-validate-r13-003-issue-detection-report",
+                                 "ref":  "state/fixtures/valid/skills/raw_logs/qa_detect_stderr.log",
+                                 "artifact_type":  "raw_log",
+                                 "evidence_kind":  "stderr_log",
+                                 "validation_status":  "created"
+                             },
+                             {
+                                 "artifact_id":  "input-r13-003-issue-detection-report",
+                                 "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                 "artifact_type":  "input_evidence",
+                                 "evidence_kind":  "issue_detection_report",
+                                 "validation_status":  "available"
+                             },
+                             {
+                                 "artifact_id":  "skill-invocation-result",
+                                 "ref":  "state/fixtures/valid/skills/r13_skill_invocation_result.qa_detect.passed.valid.json",
+                                 "artifact_type":  "r13_skill_invocation_result",
+                                 "evidence_kind":  "skill_invocation_result",
+                                 "validation_status":  "created"
+                             }
+                         ],
+    "aggregate_verdict":  "passed",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "skill-registry",
+                              "ref":  "state/fixtures/valid/skills/r13_skill_registry.valid.json",
+                              "evidence_kind":  "skill_registry",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-result-contract",
+                              "ref":  "contracts/skills/r13_skill_invocation_result.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-module",
+                              "ref":  "tools/R13SkillInvocation.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "started_at_utc":  "2026-05-01T15:00:00Z",
+    "completed_at_utc":  "2026-05-01T15:00:00Z",
+    "non_claims":  [
+                       "R13-008 adds bounded skill registry and invocation evidence only",
+                       "no external replay executed by R13-008",
+                       "runner.external_replay is registered but not executed by R13-008",
+                       "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                       "no current operator control-room gate delivered by R13-008",
+                       "no operator demo delivered by R13-008",
+                       "no final QA signoff delivered by R13-008",
+                       "no R13 hard value gate delivered by R13-008",
+                       "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                       "no API/custom-runner bypass gate fully delivered by R13-008",
+                       "no production runtime",
+                       "no real production QA",
+                       "no R14 or successor opening"
+                   ]
+}

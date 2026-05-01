@@ -1,0 +1,84 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_skill_invocation_request_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-008",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "invocation_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "skill_id",
+    "skill_version",
+    "invocation_mode",
+    "input_refs",
+    "requested_outputs",
+    "allowed_paths",
+    "allowed_commands",
+    "operator_approval",
+    "expected_result_ref",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "input_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "requested_output_required_fields": [
+    "output_id",
+    "ref",
+    "artifact_type",
+    "contract_ref"
+  ],
+  "allowed_command_required_fields": [
+    "command_id",
+    "command"
+  ],
+  "operator_approval_required_fields": [
+    "approval_status",
+    "approved_by",
+    "approved_at_utc",
+    "approval_scope"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_invocation_modes": [
+    "validate_existing_evidence",
+    "generate_artifact",
+    "dry_run_only"
+  ],
+  "allowed_output_roots": [
+    "state/cycles/",
+    "state/skills/"
+  ],
+  "rules": [
+    "request_must_bind_to_r13_branch_milestone_and_task",
+    "skill_id_must_exist_in_registry",
+    "skill_version_must_match_registry",
+    "input_refs_must_exist_when_repo_relative",
+    "allowed_paths_must_be_repo_relative_and_inside_repo",
+    "requested_output_refs_must_be_inside_state_cycles_or_state_skills",
+    "allowed_commands_must_be_subset_of_the_registered_skill_boundary",
+    "mutation_git_push_clean_reset_rm_outside_repo_and_external_replay_execution_are_rejected",
+    "operator_approval_must_scope_only_local_non_mutating_skill_invocation",
+    "final_signoff_hard_gate_control_room_gate_and_successor_claims_are_rejected"
+  ]
+}

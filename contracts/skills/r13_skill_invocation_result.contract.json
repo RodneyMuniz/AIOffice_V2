@@ -1,0 +1,83 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_skill_invocation_result_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-008",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "result_id",
+    "invocation_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "skill_id",
+    "skill_version",
+    "invocation_mode",
+    "execution_status",
+    "command_results",
+    "output_artifacts",
+    "aggregate_verdict",
+    "evidence_refs",
+    "refusal_reasons",
+    "started_at_utc",
+    "completed_at_utc",
+    "non_claims"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "stdout_ref",
+    "stderr_ref",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "output_artifact_required_fields": [
+    "artifact_id",
+    "ref",
+    "artifact_type",
+    "evidence_kind",
+    "validation_status"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_execution_statuses": [
+    "completed",
+    "blocked",
+    "failed"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "rules": [
+    "result_must_bind_to_r13_branch_milestone_and_task",
+    "skill_id_must_exist_in_registry",
+    "skill_version_must_match_registry",
+    "completed_passed_results_require_at_least_one_command_and_all_commands_passing",
+    "failed_results_require_at_least_one_failed_command_result",
+    "blocked_results_require_refusal_reasons",
+    "command_results_must_preserve_stdout_and_stderr_refs",
+    "output_artifacts_and_evidence_refs_must_resolve_inside_repo_when_created",
+    "mutation_git_push_clean_reset_rm_external_replay_final_signoff_hard_gate_and_successor_claims_are_rejected"
+  ]
+}

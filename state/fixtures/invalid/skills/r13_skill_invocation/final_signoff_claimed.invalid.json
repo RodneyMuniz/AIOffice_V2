@@ -1,0 +1,115 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_skill_invocation_request",
+    "invocation_id":  "r13-008-invalid-final_signoff_claimed",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "0c3951289df09c69b8a1367fe71cd7b629494e4b",
+    "tree":  "6f9f87038e8d7f9946d94c963833a8796d23373c",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-008",
+    "skill_id":  "qa.detect",
+    "skill_version":  "v1",
+    "invocation_mode":  "validate_existing_evidence",
+    "input_refs":  [
+                       {
+                           "ref_id":  "r13-003-issue-detection-report",
+                           "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                           "evidence_kind":  "issue_detection_report",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-003-validator",
+                           "ref":  "tools/validate_r13_qa_issue_detection_report.ps1",
+                           "evidence_kind":  "validator",
+                           "authority_kind":  "repo_tooling",
+                           "scope":  "repo"
+                       }
+                   ],
+    "requested_outputs":  [
+                              {
+                                  "output_id":  "result",
+                                  "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                                  "artifact_type":  "r13_skill_invocation_result",
+                                  "contract_ref":  "contracts/skills/r13_skill_invocation_result.contract.json"
+                              },
+                              {
+                                  "output_id":  "raw_logs",
+                                  "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_raw_logs/qa_detect",
+                                  "artifact_type":  "raw_log_root",
+                                  "contract_ref":  "contracts/skills/r13_skill_invocation_result.contract.json"
+                              }
+                          ],
+    "allowed_paths":  [
+                          [
+                              "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                              "tools/validate_r13_qa_issue_detection_report.ps1"
+                          ],
+                          "contracts/skills/r13_skill_invocation_result.contract.json",
+                          "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                          "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_raw_logs/qa_detect"
+                      ],
+    "allowed_commands":  [
+                             {
+                                 "command_id":  "validate-r13-003-issue-detection-report",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r13_qa_issue_detection_report.ps1 -ReportPath state\\cycles\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\qa\\r13_003_issue_detection_report.json"
+                             }
+                         ],
+    "operator_approval":  {
+                              "approval_status":  "approved_for_local_non_mutating_skill_invocation",
+                              "approved_by":  "operator",
+                              "approved_at_utc":  "2026-05-01T15:00:00Z",
+                              "approval_scope":  "R13-008 local non-mutating repo skill invocation over committed evidence only"
+                          },
+    "expected_result_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "skill-registry",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                              "evidence_kind":  "skill_registry",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-request-contract",
+                              "ref":  "contracts/skills/r13_skill_invocation_request.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "skill-invocation-module",
+                              "ref":  "tools/R13SkillInvocation.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-007-runner-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                              "evidence_kind":  "custom_runner_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+                            "final QA signoff accepted by R13-008"
+                        ],
+    "created_at_utc":  "2026-05-01T15:00:00Z",
+    "non_claims":  [
+                       "R13-008 adds bounded skill registry and invocation evidence only",
+                       "no external replay executed by R13-008",
+                       "runner.external_replay is registered but not executed by R13-008",
+                       "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+                       "no current operator control-room gate delivered by R13-008",
+                       "no operator demo delivered by R13-008",
+                       "no final QA signoff delivered by R13-008",
+                       "no R13 hard value gate delivered by R13-008",
+                       "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+                       "no API/custom-runner bypass gate fully delivered by R13-008",
+                       "no production runtime",
+                       "no real production QA",
+                       "no R14 or successor opening"
+                   ]
+}

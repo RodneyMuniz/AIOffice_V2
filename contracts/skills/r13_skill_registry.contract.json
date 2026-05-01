@@ -1,0 +1,92 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_skill_registry_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-008",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "registry_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "skills",
+    "allowed_invocation_modes",
+    "global_forbidden_operations",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "skill_required_fields": [
+    "skill_id",
+    "skill_name",
+    "skill_version",
+    "purpose",
+    "allowed_inputs",
+    "required_input_refs",
+    "allowed_commands",
+    "allowed_tools",
+    "forbidden_operations",
+    "output_contract_ref",
+    "expected_output_artifact_type",
+    "owner_role",
+    "authority_kind",
+    "evidence_refs",
+    "non_claims"
+  ],
+  "allowed_command_required_fields": [
+    "command_id",
+    "command"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "required_skill_ids": [
+    "qa.detect",
+    "qa.fix_plan",
+    "runner.external_replay",
+    "control_room.refresh"
+  ],
+  "allowed_invocation_modes": [
+    "validate_existing_evidence",
+    "generate_artifact",
+    "dry_run_only"
+  ],
+  "required_non_claims": [
+    "R13-008 adds bounded skill registry and invocation evidence only",
+    "no external replay executed by R13-008",
+    "runner.external_replay is registered but not executed by R13-008",
+    "control_room.refresh is registered but current control-room gate is not delivered by R13-008",
+    "no current operator control-room gate delivered by R13-008",
+    "no operator demo delivered by R13-008",
+    "no final QA signoff delivered by R13-008",
+    "no R13 hard value gate delivered by R13-008",
+    "skill invocation evidence gate is partially evidenced only; not fully delivered by R13-008",
+    "no API/custom-runner bypass gate fully delivered by R13-008",
+    "no production runtime",
+    "no real production QA",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "registry_must_bind_to_r13_branch_milestone_and_task",
+    "head_and_tree_must_be_40_character_git_object_ids",
+    "required_skill_ids_must_exist_once",
+    "skill_ids_must_be_unique",
+    "each_skill_must_define_allowed_inputs_output_contract_forbidden_operations_and_non_claims",
+    "allowed_commands_must_be_non_mutating_validation_or_dry_run_commands",
+    "runner_external_replay_must_not_execute_external_replay_in_r13_008",
+    "control_room_refresh_is_registered_only_unless_safe_non_productized_refresh_is_explicitly_bounded",
+    "external_replay_current_control_room_operator_demo_final_signoff_hard_gate_and_successor_claims_are_rejected"
+  ]
+}
