@@ -80,6 +80,44 @@ function Test-PathUnderRepositoryRoot {
     return $fullPath.StartsWith($fullRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)
 }
 
+function Test-PortableAbsolutePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PathValue
+    )
+
+    $normalized = $PathValue.Trim().Replace("\", "/")
+    return (
+        [System.IO.Path]::IsPathRooted($PathValue) -or
+        $normalized -match '^[A-Za-z]:/' -or
+        $normalized.StartsWith("/", [System.StringComparison]::Ordinal)
+    )
+}
+
+function Test-PortablePathEscapesRepository {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PathValue
+    )
+
+    $normalized = $PathValue.Trim().Replace("\", "/")
+    if ($normalized -match '^[A-Za-z]:/' -and -not [System.IO.Path]::IsPathRooted($PathValue)) {
+        return $true
+    }
+    if ($normalized.StartsWith("//", [System.StringComparison]::Ordinal) -and -not [System.IO.Path]::IsPathRooted($PathValue)) {
+        return $true
+    }
+
+    $resolvedPath = if (Test-PortableAbsolutePath -PathValue $PathValue) {
+        [System.IO.Path]::GetFullPath($PathValue)
+    }
+    else {
+        [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) $PathValue))
+    }
+
+    return -not (Test-PathUnderRepositoryRoot -PathValue $resolvedPath)
+}
+
 function Read-JsonDocument {
     [CmdletBinding()]
     param(
@@ -424,7 +462,7 @@ function Assert-QuarantineCandidate {
     if ($normalized.StartsWith(".git/", [System.StringComparison]::OrdinalIgnoreCase)) {
         throw "$Context .git quarantine candidate '$path' is refused."
     }
-    if ([System.IO.Path]::IsPathRooted($path) -and -not (Test-PathUnderRepositoryRoot -PathValue $path)) {
+    if (Test-PortablePathEscapesRepository -PathValue $path) {
         throw "$Context outside-repo quarantine candidate '$path' is refused."
     }
 

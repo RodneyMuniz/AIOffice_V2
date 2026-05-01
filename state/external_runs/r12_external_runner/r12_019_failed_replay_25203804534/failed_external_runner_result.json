@@ -1,0 +1,55 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "failed_but_externally_valid_replay_diagnostic",
+  "result_id": "r12-019-failed-replay-25203804534",
+  "request_id": "r12-019-final-state-replay-request",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "requested_head": "076a696cc9bcc7632e0c8cea66265da53a549842",
+  "requested_tree": "ef930ff75870a83bfbc79bcb3e455f2a70e94693",
+  "observed_head": "076a696cc9bcc7632e0c8cea66265da53a549842",
+  "observed_tree": "ef930ff75870a83bfbc79bcb3e455f2a70e94693",
+  "workflow_ref": ".github/workflows/r12-external-replay.yml",
+  "workflow_name": "R12 External Replay",
+  "runner_kind": "github_actions",
+  "run_id": "25203804534",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25203804534",
+  "run_attempt": 1,
+  "github_job_status": "completed",
+  "github_job_conclusion": "success",
+  "replay_bundle_structurally_valid": true,
+  "replay_bundle_aggregate_verdict": "failed",
+  "artifact_manifest_ref": "state/external_runs/r12_external_runner/r12_019_failed_replay_25203804534/failed_artifact_manifest.json",
+  "failed_command": {
+    "command_id": "test_transition_residue_preflight",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_transition_residue_preflight.ps1",
+    "exit_code": 1,
+    "verdict": "failed",
+    "stdout_summary": "The transition residue preflight test accepted invalid-outside-repo-quarantine-candidate unexpectedly.",
+    "stderr_summary": "No stderr content was recorded for the failed command."
+  },
+  "failure_classification": "Linux compatibility issue in portable absolute path detection for residue-preflight quarantine candidates.",
+  "root_cause": "The residue preflight module used System.IO.Path.IsPathRooted, which does not treat Windows drive-rooted paths such as C:/outside-repo/residue.tmp as rooted on Linux.",
+  "raw_log_refs": [
+    "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25203804534",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25203804534/failed_replay_analysis.md"
+  ],
+  "evidence_refs": [
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25203804534/failed_artifact_manifest.json",
+    "state/external_runs/r12_external_runner/r12_019_failed_replay_25203804534/failed_replay_analysis.md"
+  ],
+  "refusal_reasons": [
+    "Replay bundle aggregate verdict was failed.",
+    "The failed command was test_transition_residue_preflight.",
+    "The uploaded artifact is diagnostic only and is not accepted as passing external final-state replay evidence."
+  ],
+  "non_claims": [
+    "no external final-state replay completion",
+    "no passing external replay evidence",
+    "no external artifact evidence accepted as passing",
+    "no R12-019 completion",
+    "no R12 closeout",
+    "no R13 opened",
+    "diagnostic failed replay only"
+  ]
+}

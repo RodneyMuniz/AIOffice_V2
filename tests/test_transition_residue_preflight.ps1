@@ -14,6 +14,46 @@ $expectedTree = "8b0dc744250af62d83b627ec34d78a92dfbc5aee"
 $validPassed = 0
 $invalidRejected = 0
 $failures = @()
+$tempRoots = @()
+
+function New-MutatedPreflightFixture {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$SourcePath,
+        [Parameter(Mandatory = $true)]
+        [string]$Label,
+        [Parameter(Mandatory = $true)]
+        [scriptblock]$Mutation
+    )
+
+    $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("transition_residue_preflight_{0}_{1}" -f $Label, [System.Guid]::NewGuid().ToString("N"))
+    New-Item -ItemType Directory -Path $tempRoot -Force | Out-Null
+    $document = Get-Content -LiteralPath $SourcePath -Raw | ConvertFrom-Json
+    & $Mutation $document
+    $targetPath = Join-Path $tempRoot ("{0}.json" -f $Label)
+    $document | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $targetPath -Encoding UTF8
+    $script:tempRoots += $tempRoot
+    return $targetPath
+}
+
+function Set-QuarantineCandidatePath {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Document,
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    $Document.quarantine_candidates = @(
+        [pscustomobject]@{
+            path = $Path
+            dry_run_evidence_ref = "state/fixtures/invalid/residue_guard/dry_run.json"
+            authorization_status = "candidate"
+            action = "quarantine_dry_run_only"
+        }
+    )
+    $Document.deletion_allowed = $false
+}
 
 function Invoke-ExpectedRefusal {
     param(
@@ -55,6 +95,14 @@ try {
     Write-Output ("PASS valid expected generated artifact fixture: {0}" -f $expectedResult.Transition)
     $validPassed += 1
 
+    $validInRepoCandidatePath = New-MutatedPreflightFixture -SourcePath $cleanPath -Label "valid-in-repo-quarantine-candidate" -Mutation {
+        param($Document)
+        Set-QuarantineCandidatePath -Document $Document -Path "state/fixtures/valid/residue_guard/dry_run.json"
+    }
+    & $testPreflight -PreflightPath $validInRepoCandidatePath | Out-Null
+    Write-Output "PASS valid in-repo quarantine candidate remains dry-run and non-destructive"
+    $validPassed += 1
+
     Invoke-ExpectedRefusal -Label "invalid-dirty-tracked-file" -RequiredFragments @("verdict", "fail_closed", "blocks transition") -Action {
         & $assertReady -PreflightPath (Join-Path $invalidRoot "transition_residue_preflight.dirty_tracked.invalid.json") -ExpectedBranch $expectedBranch -ExpectedHead $expectedHead -ExpectedTree $expectedTree -TransitionFrom "fresh_thread_bootstrap_ready" -TransitionTo "residue_preflight_passed" | Out-Null
     }
@@ -78,9 +126,32 @@ try {
     Invoke-ExpectedRefusal -Label "invalid-outside-repo-quarantine-candidate" -RequiredFragments @("outside-repo quarantine candidate", "refused") -Action {
         & $testPreflight -PreflightPath (Join-Path $invalidRoot "transition_residue_preflight.outside_repo_quarantine.invalid.json") | Out-Null
     }
+
+    foreach ($case in @(
+            [pscustomobject]@{ Label = "invalid-windows-drive-forward-slash-quarantine-candidate"; Path = "C:/outside-repo/residue.tmp" },
+            [pscustomobject]@{ Label = "invalid-windows-drive-backslash-quarantine-candidate"; Path = "C:\outside-repo\residue.tmp" },
+            [pscustomobject]@{ Label = "invalid-posix-absolute-quarantine-candidate"; Path = "/outside-repo/residue.tmp" },
+            [pscustomobject]@{ Label = "invalid-unc-backslash-quarantine-candidate"; Path = "\\server\share\residue.tmp" },
+            [pscustomobject]@{ Label = "invalid-unc-forward-slash-quarantine-candidate"; Path = "//server/share/residue.tmp" },
+            [pscustomobject]@{ Label = "invalid-relative-traversal-quarantine-candidate"; Path = "../outside-repo/residue.tmp" }
+        )) {
+        Invoke-ExpectedRefusal -Label $case.Label -RequiredFragments @("outside-repo quarantine candidate", "refused") -Action {
+            $fixturePath = New-MutatedPreflightFixture -SourcePath (Join-Path $invalidRoot "transition_residue_preflight.outside_repo_quarantine.invalid.json") -Label $case.Label -Mutation {
+                param($Document)
+                Set-QuarantineCandidatePath -Document $Document -Path $case.Path
+            }
+            & $testPreflight -PreflightPath $fixturePath | Out-Null
+        }
+    }
 }
 catch {
     $failures += ("FAIL transition residue preflight harness: {0}" -f $_.Exception.Message)
+}
+
+foreach ($tempRoot in $tempRoots) {
+    if (Test-Path -LiteralPath $tempRoot) {
+        Remove-Item -LiteralPath $tempRoot -Recurse -Force
+    }
 }
 
 if ($failures.Count -gt 0) {
