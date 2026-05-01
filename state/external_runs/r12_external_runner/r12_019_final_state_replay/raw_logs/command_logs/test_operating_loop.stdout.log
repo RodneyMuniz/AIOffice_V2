@@ -1,0 +1,10 @@
+PASS valid operating loop fixture: r12-operating-loop-validator-fixture -> closed with 16 transition(s)
+PASS invalid: invalid-missing-external-runner-evidence -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/operating_loop/r12_operating_loop.missing-external-runner-evidence.invalid.json evidence_refs.external_runner_result_ref must be a non-empty string.
+PASS invalid: invalid-qa-without-actionable-report -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/operating_loop/r12_operating_loop.qa-without-actionable-report.invalid.json evidence_refs.actionable_qa_report_ref must be a non-empty string.
+PASS invalid: invalid-operator-decision-without-control-room -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/operating_loop/r12_operating_loop.operator-decision-without-control-room.invalid.json evidence_refs.control_room_status_ref must be a non-empty string.
+PASS invalid: invalid-successor-milestone -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/operating_loop/r12_operating_loop.successor-milestone.invalid.json successor milestone opening is rejected.
+PASS invalid: invalid-chat-memory-authority -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/operating_loop/r12_operating_loop.chat-memory-authority.invalid.json chat transcript cannot be state authority.
+PASS invalid: invalid-illegal-state-transition -> /tmp/r12operatingloopebfff437/illegal-transition.json illegal state transition from 'actionable_qa_ready' to 'control_room_status_ready'.
+PASS invalid: invalid-final-support-before-candidate -> /tmp/r12operatingloopebfff437/final-support-before-candidate.json final support before candidate closeout is rejected.
+PASS invalid: invalid-broad-runtime-claim -> /tmp/r12operatingloopebfff437/broad-runtime-claim.json broad autonomy/product/runtime claim is rejected: production runtime
+All operating-loop tests passed. Valid passed: 1. Invalid rejected: 8.

@@ -1,0 +1,129 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "external_runner_result",
+    "result_id":  "r12-019-final-state-replay-25204481986",
+    "request_id":  "r12-019-final-state-replay",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "requested_head":  "09b7fbc6e1946ec7e915ec235b9bf9bd934a5591",
+    "requested_tree":  "9c4f51b9c0312bb47ed21f3af96a9179cf24809a",
+    "observed_head":  "09b7fbc6e1946ec7e915ec235b9bf9bd934a5591",
+    "observed_tree":  "9c4f51b9c0312bb47ed21f3af96a9179cf24809a",
+    "workflow_ref":  ".github/workflows/r12-external-replay.yml",
+    "workflow_name":  "R12 External Replay",
+    "runner_kind":  "github_actions",
+    "run_id":  "25204481986",
+    "run_url":  "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986",
+    "run_attempt":  1,
+    "status":  "completed",
+    "conclusion":  "success",
+    "started_at_utc":  "2026-05-01T06:03:40Z",
+    "completed_at_utc":  "2026-05-01T06:04:09Z",
+    "artifact_manifest_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/external_runner_artifact_manifest.json",
+    "command_results":  [
+                            {
+                                "command_id":  "test_value_scorecard",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_value_scorecard.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_value_scorecard.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_value_scorecard.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_operating_loop",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_operating_loop.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_operating_loop.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_operating_loop.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_remote_head_phase_detector",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_remote_head_phase_detector.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_remote_head_phase_detector.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_remote_head_phase_detector.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_fresh_thread_bootstrap",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_fresh_thread_bootstrap.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_fresh_thread_bootstrap.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_fresh_thread_bootstrap.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_transition_residue_preflight",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_transition_residue_preflight.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_transition_residue_preflight.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_transition_residue_preflight.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_external_runner_contracts",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_contracts.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_external_runner_contracts.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_external_runner_contracts.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_external_runner_github_actions",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_external_runner_github_actions.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_external_runner_github_actions.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_external_runner_github_actions.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_r12_external_replay_bundle",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_r12_external_replay_bundle.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_r12_external_replay_bundle.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_r12_external_replay_bundle.stderr.log"
+                            },
+                            {
+                                "command_id":  "test_status_doc_gate",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tests/test_status_doc_gate.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_status_doc_gate.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/test_status_doc_gate.stderr.log"
+                            },
+                            {
+                                "command_id":  "validate_status_doc_gate",
+                                "command":  "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+                                "exit_code":  0,
+                                "verdict":  "passed",
+                                "stdout_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/validate_status_doc_gate.stdout.log",
+                                "stderr_ref":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_logs/validate_status_doc_gate.stderr.log"
+                            }
+                        ],
+    "raw_log_refs":  [
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/github_workflow_run_artifacts.json",
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/github_workflow_run_jobs.json",
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/artifact_download_attempts.json",
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/command_results.json",
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/r12_external_replay_bundle.json",
+                         "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/command_logs"
+                     ],
+    "evidence_refs":  [
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/external_runner_artifact_manifest.json",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/r12_external_replay_bundle.json",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_results.json",
+                          "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986",
+                          "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986/artifacts/6745869087"
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "non_claims":  [
+                       "no full external orchestrator product",
+                       "no final-state replay",
+                       "no broad CI/product coverage",
+                       "no R12 value-gate delivery yet"
+                   ]
+}

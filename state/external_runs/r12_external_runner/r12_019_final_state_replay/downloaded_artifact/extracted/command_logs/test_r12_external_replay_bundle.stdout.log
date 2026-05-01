@@ -1,0 +1,13 @@
+PASS valid R12 external replay bundle fixture
+PASS valid temp-root R12 external replay bundle fixture
+PASS invalid: invalid-missing-clean-status-before-temp-root -> R12 external replay bundle clean_status_before.evidence_ref 'command_logs/clean_status_before.log' does not exist.
+PASS invalid: invalid-missing-command-stdout-temp-root -> R12 external replay bundle command_result.stdout_ref 'command_logs/test_value_scorecard.stdout.log' does not exist.
+PASS invalid: invalid-missing-command-stderr-temp-root -> R12 external replay bundle command_result.stderr_ref 'command_logs/test_value_scorecard.stderr.log' does not exist.
+PASS invalid: invalid-missing-command-exit-code-temp-root -> R12 external replay bundle command_result.exit_code_ref 'command_logs/test_value_scorecard.exit_code.txt' does not exist.
+PASS invalid: invalid-path-traversal-evidence-ref -> R12 external replay bundle clean_status_before.evidence_ref must be bounded inside the bundle root.
+PASS invalid: invalid-absolute-evidence-ref -> R12 external replay bundle clean_status_before.evidence_ref must be a relative path bounded inside the bundle root; absolute paths are not allowed.
+PASS invalid: invalid-head-mismatch -> R12 external replay bundle observed head/tree must match expected head/tree for pass.
+PASS invalid: invalid-missing-command-logs -> R12 external replay bundle clean_status_before.evidence_ref 'missing-clean-before.log' does not exist.
+PASS invalid: invalid-failed-command-as-pass -> R12 external replay bundle failed command cannot be presented as pass.
+PASS invalid: invalid-local-only-as-external-proof -> R12 external replay bundle local-only bundle cannot be presented as external run proof without concrete run_id/run_url.
+All R12 external replay bundle tests passed. Valid passed: 2. Invalid rejected: 10.

@@ -1,0 +1,8 @@
+PASS valid fresh-thread bootstrap fixture: R12-005 make fresh-thread bootstrap the default execution protocol with 3 evidence ref(s)
+PASS invalid: invalid-missing-branch-head-tree -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/bootstrap/missing_branch_head_tree.invalid.json is missing required field 'active_branch'.
+PASS invalid: invalid-chat-memory-authority -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/bootstrap/chat_memory_authority.invalid.json source_authority treats chat transcript as authority.
+PASS invalid: invalid-missing-fail-closed-rules -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/bootstrap/missing_fail_closed_rules.invalid.json fail_closed_rules must not be empty.
+PASS invalid: invalid-missing-non-claims -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/bootstrap/missing_non_claims.invalid.json explicit_non_claims must not be empty.
+PASS invalid: invalid-value-gate-claim-without-proof -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/bootstrap/value_gate_claim_without_proof.invalid.json claims value gates delivered without proof refs for external_api_runner.
+PASS generated next prompt: 1314 chars
+All fresh-thread bootstrap tests passed. Valid passed: 2. Invalid rejected: 5.

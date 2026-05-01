@@ -1,6 +1,6 @@
 # R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-018` only.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-019` only.
 
 ## Purpose
 
@@ -29,7 +29,7 @@ R12 is bounded to one release branch and one milestone:
 - freeze value gates and non-claims;
 - add an honest value scorecard foundation that separates baseline, target, and proved scores;
 - define the canonical operating-loop contract;
-- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, a bounded one-command refresh workflow, and fresh-thread restart proof before later final-state replay and closeout work;
+- completed R12 foundation work adds stale-head detection, fresh-thread bootstrap, mandatory residue preflight, external-runner contracts, GitHub Actions substrate tooling, replay workflow/bundle wiring, artifact-normalization foundations, actionable QA report/fix queue tooling, cycle QA evidence gate tooling, static control-room status/view artifacts, operator decision queue tooling, a bounded one-command refresh workflow, fresh-thread restart proof, and imported external final-state replay evidence before later final audit/report and closeout work;
 - closeout is prohibited until all four R12 value gates are implemented, exercised, and backed by committed evidence.
 
 R10 and R11 remain closed. R9 remains historical. R13 or any successor milestone is not opened.
@@ -151,8 +151,8 @@ The current R12 foundation slice does not claim R12 value delivery.
 - Boundary: prove one restart from repo-state bootstrap without manually reconstructing chat context through `contracts/bootstrap/fresh_thread_restart_proof.contract.json`, `tools/FreshThreadRestartProof.psm1`, `tools/record_fresh_thread_restart_proof.ps1`, valid and invalid fixtures under `state/fixtures/valid/bootstrap/` and `state/fixtures/invalid/bootstrap/`, focused proof `tests/test_fresh_thread_restart_proof.ps1`, and actual proof packet `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`.
 
 ### `R12-019` Run external final-state replay
-- Status: planned
-- Boundary: attach external runner evidence to the R12 final or candidate state.
+- Status: done
+- Boundary: record imported passing external final-state replay evidence from `R12 External Replay` run `25204481986` for exact head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591` and tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a` under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`.
 
 ### `R12-020` Generate final audit/report from repo truth
 - Status: planned
@@ -164,7 +164,7 @@ The current R12 foundation slice does not claim R12 value delivery.
 
 ## Foundation Outputs
 
-R12-001 through R12-018 are bounded foundation work plus one useful executable refresh workflow and one fresh-thread restart proof only:
+R12-001 through R12-019 are bounded foundation work plus one useful executable refresh workflow, one fresh-thread restart proof, and one imported passing external final-state replay evidence packet only:
 
 - `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`
 - `contracts/value_scorecard/r12_value_scorecard.contract.json`
@@ -284,18 +284,23 @@ R12-001 through R12-018 are bounded foundation work plus one useful executable r
 - `state/fixtures/valid/bootstrap/fresh_thread_restart_proof.valid.json`
 - `state/fixtures/invalid/bootstrap/`
 - `state/cycles/r12_real_build_cycle/bootstrap/fresh_thread_restart_proof.json`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/external_runner_result.json`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/external_runner_artifact_manifest.json`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/external_artifact_evidence_packet.json`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/validation_manifest.md`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/`
+- `state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/`
 
-`R12-019` through `R12-021` remain planned only. The R12-018 proof packet records that the bootstrap packet creation head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018 and that the accepted post-R12-017 remote head is `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` with tree `0ce853ffd37ece19c202e9731b27335ae0cc1756`.
+`R12-020` and `R12-021` remain planned only. The R12-018 proof packet records that the bootstrap packet creation head `d93a66aa6b757241583fa1c61bb6333b4228d639` is stale for R12-018 and that the accepted post-R12-017 remote head is `3629d0e8a6659bb31db69b8dd2f25ffaa277ca14` with tree `0ce853ffd37ece19c202e9731b27335ae0cc1756`. The R12-019 evidence root records run `25204481986`, artifact `6745869087`, artifact digest/hash `sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735`, observed head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591`, observed tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a`, and replay bundle aggregate verdict `passed`.
 
 ## Required Non-Claims
 
-R12 through `R12-018` does not claim:
+R12 through `R12-019` does not claim:
 
-- no delivered R12 value gates;
-- no R12-019 or later completion;
-- no R12 final-state replay;
+- no fully delivered R12 value gates;
+- no R12-020 or R12-021 completion;
+- no R12 closeout;
 - no final QA pass for R12 closeout;
-- no current real QA evidence gate pass without real external evidence;
 - no 10 percent or larger corrected progress uplift;
 - no broad autonomous milestone execution;
 - no unattended automatic resume;

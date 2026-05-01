@@ -1,0 +1,207 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "external_runner_artifact_manifest",
+    "manifest_id":  "r12-019-final-state-replay-25204481986-artifact",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+    "run_id":  "25204481986",
+    "run_url":  "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986",
+    "artifact_id":  "6745869087",
+    "artifact_name":  "r12-external-replay-25204481986-1",
+    "artifact_url_or_path":  "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986/artifacts/6745869087",
+    "artifact_digest_or_hash":  "sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735",
+    "artifact_size_bytes":  14074,
+    "requested_head":  "09b7fbc6e1946ec7e915ec235b9bf9bd934a5591",
+    "requested_tree":  "9c4f51b9c0312bb47ed21f3af96a9179cf24809a",
+    "observed_head":  "09b7fbc6e1946ec7e915ec235b9bf9bd934a5591",
+    "observed_tree":  "9c4f51b9c0312bb47ed21f3af96a9179cf24809a",
+    "downloaded_at_utc":  "2026-05-01T06:16:40Z",
+    "extraction_root":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted",
+    "contained_files":  [
+                            {
+                                "path":  "command_logs/clean_status_after.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/clean_status_before.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_contracts.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_contracts.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_contracts.stdout.log",
+                                "size_bytes":  1141,
+                                "digest_or_hash":  "sha256:24fc832011ad5c919a673097e7a4d93f9ab888f5646936d1f204b867979bcddb"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_github_actions.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_github_actions.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_external_runner_github_actions.stdout.log",
+                                "size_bytes":  1192,
+                                "digest_or_hash":  "sha256:5f01bfe29a5eda4a461ddfd7dcd5e4204523acda7b16aa2b2b5e1b9d0a9589d8"
+                            },
+                            {
+                                "path":  "command_logs/test_fresh_thread_bootstrap.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_fresh_thread_bootstrap.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_fresh_thread_bootstrap.stdout.log",
+                                "size_bytes":  1308,
+                                "digest_or_hash":  "sha256:441091b8d04bc627b5454cfd270324dcd3f9207bbe626b363f3fbc77fe285ed4"
+                            },
+                            {
+                                "path":  "command_logs/test_operating_loop.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_operating_loop.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_operating_loop.stdout.log",
+                                "size_bytes":  1964,
+                                "digest_or_hash":  "sha256:43f0d2642e164dd38331c6dd670ebaf7003f3ff2cc9353e1816c55d75ff05028"
+                            },
+                            {
+                                "path":  "command_logs/test_r12_external_replay_bundle.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_r12_external_replay_bundle.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_r12_external_replay_bundle.stdout.log",
+                                "size_bytes":  1810,
+                                "digest_or_hash":  "sha256:0eb8d74e9cbefbcc0778e9e7c4267ed049b2b74fd44eafb82588c82d22c15211"
+                            },
+                            {
+                                "path":  "command_logs/test_remote_head_phase_detector.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_remote_head_phase_detector.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_remote_head_phase_detector.stdout.log",
+                                "size_bytes":  961,
+                                "digest_or_hash":  "sha256:209e21ea9150524eb05000e1801acd23f345289a983f65c4e60bea24511257bc"
+                            },
+                            {
+                                "path":  "command_logs/test_status_doc_gate.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_status_doc_gate.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_status_doc_gate.stdout.log",
+                                "size_bytes":  7180,
+                                "digest_or_hash":  "sha256:7c4fd38aa2d0090bb3212469026ea22d89f5c762695f28cb4c82bf560102b0d8"
+                            },
+                            {
+                                "path":  "command_logs/test_transition_residue_preflight.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_transition_residue_preflight.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_transition_residue_preflight.stdout.log",
+                                "size_bytes":  3571,
+                                "digest_or_hash":  "sha256:c4a725bb1131f242d5f31cdbd628e5df7a9899d03277daeb76198054c80ab60d"
+                            },
+                            {
+                                "path":  "command_logs/test_value_scorecard.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/test_value_scorecard.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/test_value_scorecard.stdout.log",
+                                "size_bytes":  1674,
+                                "digest_or_hash":  "sha256:326b223f4c77261e6c2f938a4886202bcc2ea6c3713340a5a1cd378966bf827a"
+                            },
+                            {
+                                "path":  "command_logs/validate_status_doc_gate.exit_code.txt",
+                                "size_bytes":  2,
+                                "digest_or_hash":  "sha256:9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+                            },
+                            {
+                                "path":  "command_logs/validate_status_doc_gate.stderr.log",
+                                "size_bytes":  1,
+                                "digest_or_hash":  "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+                            },
+                            {
+                                "path":  "command_logs/validate_status_doc_gate.stdout.log",
+                                "size_bytes":  394,
+                                "digest_or_hash":  "sha256:ba97e5190326959f454d11994c628da9ac56e9828654652e7c8657121cc6bd60"
+                            },
+                            {
+                                "path":  "command_results.json",
+                                "size_bytes":  4293,
+                                "digest_or_hash":  "sha256:89b745ba42e6e24cbd0730d2b5cdf19cb5bb3cceaa6e8280af56973536ee2838"
+                            },
+                            {
+                                "path":  "r12_external_replay_bundle.json",
+                                "size_bytes":  5872,
+                                "digest_or_hash":  "sha256:e80ebe1e4cdf042a8a1ff7a2e627033f33728eb4b77dbb35a1f018860e85cfc0"
+                            }
+                        ],
+    "evidence_refs":  [
+                          "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986",
+                          "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986/artifacts/6745869087",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/r12-external-replay-25204481986-1.zip",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/r12_external_replay_bundle.json",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/extracted/command_results.json",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/github_workflow_run_artifacts.json",
+                          "state/external_runs/r12_external_runner/r12_019_final_state_replay/raw_logs/github_workflow_run_jobs.json"
+                      ],
+    "non_claims":  [
+                       "no full external orchestrator product",
+                       "no final-state replay",
+                       "no broad CI/product coverage",
+                       "no R12 value-gate delivery yet"
+                   ]
+}

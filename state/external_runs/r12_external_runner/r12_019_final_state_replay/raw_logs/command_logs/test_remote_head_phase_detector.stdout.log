@@ -1,0 +1,9 @@
+PASS valid: phase_match -> phase_match
+PASS valid: advanced_remote_head -> advanced_remote_head
+PASS valid: r11_009_like_stale_head -> advanced_remote_head
+PASS invalid: invalid-branch-mismatch -> branch_mismatch failed closed with outcome 'branch_mismatch'.
+PASS invalid: invalid-dirty-worktree -> dirty_worktree failed closed with outcome 'dirty_worktree_blocked'.
+PASS invalid: invalid-unknown-remote-head -> unknown_remote_head failed closed with outcome 'unknown_remote_head'.
+PASS invalid: invalid-missing-evidence-refs -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/remote_head_phase/missing_evidence_refs.invalid.json evidence_refs must not be empty.
+PASS invalid: invalid-missing-remote-ref -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/remote_head_phase/missing_remote_ref.invalid.json remote_ref must be a non-empty string.
+All remote-head phase detector tests passed. Valid passed: 3. Invalid rejected: 5.

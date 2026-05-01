@@ -1,0 +1,11 @@
+PASS valid dependency check fixture
+PASS valid mocked dispatch fixture: 26000000001
+PASS valid mocked capture fixture: r12-008-capture-result-valid
+PASS valid manual dispatch fixture is manual, not API-controlled
+PASS valid unique run selection
+PASS invalid: invalid-missing-gh -> External runner GitHub Actions dependency check missing gh CLI must fail closed with exact dependency reason.
+PASS invalid: invalid-missing-auth -> External runner GitHub Actions dependency check missing auth must fail closed with exact dependency reason.
+PASS invalid: invalid-ambiguous-run-selection-packet -> External runner GitHub Actions dispatch result ambiguous run selection failed closed because multiple candidate runs exist and no unique run id was selected.
+PASS invalid: invalid-manual-mislabeled-api-controlled -> External runner GitHub Actions manual dispatch instructions manual dispatch path must not be described as API-controlled.
+PASS invalid: invalid-ambiguous-selection-function -> GitHub Actions run selection failed closed because multiple candidate runs are ambiguous for branch/head/workflow/time.
+All external runner GitHub Actions tests passed. Valid passed: 5. Invalid rejected: 5.

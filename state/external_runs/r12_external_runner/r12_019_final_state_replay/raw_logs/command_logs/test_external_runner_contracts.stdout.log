@@ -1,0 +1,11 @@
+PASS valid request fixture: r12-007-request-valid
+PASS valid successful result fixture: r12-007-result-valid
+PASS valid artifact manifest fixture: r12-007-manifest-valid
+PASS invalid: invalid-missing-run-id -> External runner result run_id must be a non-empty string.
+PASS invalid: invalid-head-mismatch -> External runner result successful result requires matching requested/observed head and tree.
+PASS invalid: invalid-success-without-artifact-manifest -> External runner result artifact_manifest_ref must be a non-empty string.
+PASS invalid: invalid-failed-run-presented-as-pass -> External runner result failed or missing run cannot be presented as pass evidence.
+PASS invalid: invalid-local-only-as-external-proof -> External runner result local-only evidence cannot be used for an external runner claim.
+PASS invalid: invalid-missing-non-claims -> External runner request non_claims must include 'no R12 value-gate delivery yet'.
+PASS invalid: invalid-artifact-manifest-head-mismatch -> External runner artifact manifest head/tree mismatch is rejected.
+All external runner contract tests passed. Valid passed: 3. Invalid rejected: 7.

@@ -910,3 +910,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R12 is active through `R12-018` only, and `R12-019` through `R12-021` remain planned only.
 - Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
 - Consequence: this decision does not claim R12-019 or later completion, final QA pass for R12 closeout, final-state replay, R12 closeout, productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, unattended automatic resume, or successor opening.
+
+## D-0097 R12-019 Recorded Passing External Final-State Replay Evidence
+- Date: 2026-05-01
+- Status: accepted
+- Decision: `R12-019` is done as an evidence-import step for a passing `R12 External Replay` run against the R12 branch.
+- Consequence: `R12-019` records external runner result, artifact manifest, external artifact evidence packet, validation manifest, raw logs, and downloaded artifact evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`.
+- Consequence: the imported run identity is `25204481986`, run URL `https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986`, workflow `R12 External Replay`, artifact ID `6745869087`, artifact name `r12-external-replay-25204481986-1`, artifact digest/hash `sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735`, observed head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591`, observed tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a`, and replay bundle aggregate verdict `passed`.
+- Consequence: R12 is active through `R12-019` only, and `R12-020` and `R12-021` remain planned only.
+- Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
+- Consequence: this decision does not claim R12-020 or R12-021 completion, R12 closeout, final QA pass for R12 closeout, productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, unattended automatic resume, or successor opening.

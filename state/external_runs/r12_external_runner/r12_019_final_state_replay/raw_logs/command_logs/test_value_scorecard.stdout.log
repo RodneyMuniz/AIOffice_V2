@@ -1,0 +1,10 @@
+PASS valid baseline scorecard: baseline 39, target 53, proved 39
+PASS valid fixture scorecard: dimensions 6, uplift 0
+PASS invalid: invalid-overclaim-without-value-gates -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/value_scorecard/r12_value_scorecard.overclaim.invalid.json corrected_total claims 10 percent or larger uplift without all four value gates proved.
+PASS invalid: invalid-missing-proof-refs -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/value_scorecard/r12_value_scorecard.missing-proof-refs.invalid.json product_visible_surface proved_score increased without proof_refs.
+PASS invalid: invalid-target-as-proved -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/value_scorecard/r12_value_scorecard.target-as-proved.invalid.json target-as-proved posture is invalid because targets are not proof.
+PASS invalid: invalid-missing-dimension -> /tmp/r12valuescorecard1393a697/missing-dimension.json is missing required dimension 'governance_proof_discipline'.
+PASS invalid: invalid-planning-report-as-proof -> /tmp/r12valuescorecard1393a697/planning-report-as-proof.json product_visible_surface proved uplift cannot rely on the planning report as proof.
+PASS invalid: invalid-missing-non-claims -> /tmp/r12valuescorecard1393a697/missing-non-claims.json non_claims must include 'no R13 or successor opened'.
+PASS invalid: invalid-weight-drift -> /home/runner/work/AIOffice_V2/AIOffice_V2/state/fixtures/invalid/value_scorecard/r12_value_scorecard.weight-drift.invalid.json product_visible_surface weight drift is rejected; expected 25.
+All value scorecard tests passed. Valid passed: 2. Invalid rejected: 7.

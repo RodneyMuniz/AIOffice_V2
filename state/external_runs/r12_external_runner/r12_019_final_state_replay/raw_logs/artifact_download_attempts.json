@@ -1,0 +1,14 @@
+{
+    "unauthenticated_api_download":  {
+                                         "url":  "https://api.github.com/repos/RodneyMuniz/AIOffice_V2/actions/artifacts/6745869087/zip",
+                                         "result":  "401 Unauthorized",
+                                         "note":  "Direct unauthenticated API download was not accepted; GitHub connector authenticated download was used."
+                                     },
+    "connector_download":  {
+                               "artifact_id":  6745869087,
+                               "file_name":  "r12-external-replay-25204481986-1.zip",
+                               "local_path":  "state/external_runs/r12_external_runner/r12_019_final_state_replay/downloaded_artifact/r12-external-replay-25204481986-1.zip",
+                               "size_bytes":  14074,
+                               "digest_or_hash":  "sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735"
+                           }
+}
