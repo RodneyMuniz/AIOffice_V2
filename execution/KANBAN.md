@@ -3,14 +3,14 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
+No active implementation milestone is open after R12 closeout.
 
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now active in repo truth through `R12-020` only. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work now includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, an operator decision queue, a bounded one-command control-room refresh workflow, fresh-thread restart proof tooling, imported passing R12-019 external final-state replay evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`, and final audit/report evidence at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`. `R12-021` remains planned only. R12 value gates remain not fully delivered until closeout support is completed from repo truth. R12 is not closed. No R13 or successor milestone is opened.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now closed narrowly in repo truth after `R12-021`. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, an operator decision queue, a bounded one-command control-room refresh workflow, fresh-thread restart proof tooling, imported passing R12-019 external final-state replay evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`, final audit/report evidence at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`, and closeout/final-head support at `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/`. R12's strongest proof is the R12-019 external replay, not the report itself. R12-020 is a report artifact, not product proof by itself. R12-021 is closeout/final-head support only. No R13 or successor milestone is opened.
 
 Active branch:
 `release/r12-external-api-runner-actionable-qa-control-room-pilot`
@@ -19,9 +19,12 @@ Previous branch:
 `feature/r5-closeout-remaining-foundations` remains the historical R9 closed/support line and should not be used for new R10+ milestone implementation.
 
 ## Most Recently Closed Milestone
-`R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 
 Closeout summary:
+`R12-001` through `R12-021` are complete and formally closed narrowly in repo truth. The closeout authority is `governance/R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md`, the closeout proof-review package is `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/`, the candidate closeout commit is `4873068faef918608f9f4d74ecbf6ee779ba2ad4`, the candidate tree is `bb2f95efdaa194f2cae03a57ed29461c32eb5df8`, and the Phase 2 final-head support packet is `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/final_remote_head_support_packet.json`. R12 closeout remains bounded to R12-001 through R12-021 only and does not open R13 or any successor milestone.
+
+Prior closed milestone:
 `R11-001` through `R11-009` are complete and formally closed narrowly in repo truth. The closeout authority is `governance/R11_CONTROLLED_EXTERNAL_CYCLE_CONTROLLER_AND_REPO_TRUTH_RESUME_PILOT.md`, the Phase 1 candidate package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the Phase 2 final-head support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`, and the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`. R11 closeout remains bounded to one controlled-cycle pilot and its final support evidence. The R11 closeout did not open a successor; R12 opens later only through the verified R12 branch action recorded above.
 
 Prior closed milestone:
@@ -219,16 +222,16 @@ Earlier closed milestone:
 - Depends on: `R12-019`
 - Authority: `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`
 - Durable output: final audit/report from repo truth
-- Done when: report exists in committed repo truth and status docs record `R12-021` as planned only
+- Done when: report exists in committed repo truth and does not claim product proof by itself
 
 ### `R12-021` Close R12 narrowly with two-phase final-head support
-- Status: planned
+- Status: done
 - Order: 21
 - Milestone: `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`
 - Depends on: `R12-020`
-- Authority: planned only
-- Durable output: planned closeout and final-head support
-- Done when: planned only; R12 cannot close without all four value gates and two-phase final-head support
+- Authority: `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/closeout_packet.json`, `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/closeout_review.md`, `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/final_remote_head_support_packet.json`, `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/validation_manifest.md`
+- Durable output: narrow R12 closeout package and Phase 2 final-head support evidence
+- Done when: R12 is closed narrowly after R12-021, R12 includes R12-001 through R12-021 only, R12-019 remains the strongest proof, R12-020 remains a report artifact rather than product proof, non-claims remain explicit, and no R13 or successor milestone is opened
 
 ### `R11-001` Open R11 and freeze boundary
 - Status: done

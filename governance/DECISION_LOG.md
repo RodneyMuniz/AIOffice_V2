@@ -930,3 +930,15 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R12 is active through `R12-020` only, and `R12-021` remains planned only.
 - Consequence: R10 and R11 remain closed and are not widened, the historical R9 support branch remains unchanged, and no R13 or successor milestone is opened.
 - Consequence: this decision does not claim R12-021 completion, R12 closeout, final QA pass for R12 closeout, productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, unattended automatic resume, or successor opening.
+
+## D-0099 R12-021 Added Closeout Support And Closed R12 Narrowly
+- Date: 2026-05-01
+- Status: accepted
+- Decision: `R12-021` is done as narrow R12 closeout and final-head support for `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`.
+- Consequence: the closeout package is recorded at `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/` with `closeout_packet.json`, `closeout_review.md`, `final_remote_head_support_packet.json`, `validation_manifest.md`, and raw validation logs.
+- Consequence: the Phase 1 candidate closeout commit is `4873068faef918608f9f4d74ecbf6ee779ba2ad4` with tree `bb2f95efdaa194f2cae03a57ed29461c32eb5df8`; the Phase 2 support packet verifies that candidate after it was pushed and observed as the remote branch head.
+- Consequence: R12's strongest proof remains the bounded R12-019 external final-state replay: workflow `R12 External Replay`, run `25204481986`, artifact `6745869087`, artifact name `r12-external-replay-25204481986-1`, digest/hash `sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735`, observed head `09b7fbc6e1946ec7e915ec235b9bf9bd934a5591`, observed tree `9c4f51b9c0312bb47ed21f3af96a9179cf24809a`, aggregate verdict `passed`, and command results 10 total, 10 passed, 0 failed.
+- Consequence: `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md` is the R12-020 final audit/report artifact, not product proof by itself.
+- Consequence: `R12-001` through `R12-021` are complete and R12 is closed narrowly; R12-021 is closeout/final-head support only.
+- Consequence: no R13 or successor milestone is opened; any successor milestone requires explicit operator approval and separate repo-truth opening evidence.
+- Consequence: this decision does not claim productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, that Codex can run long milestones unattended, that external replay equals production-grade CI, that main contains the R12 implementation, or any claim beyond the narrow R12 closeout.

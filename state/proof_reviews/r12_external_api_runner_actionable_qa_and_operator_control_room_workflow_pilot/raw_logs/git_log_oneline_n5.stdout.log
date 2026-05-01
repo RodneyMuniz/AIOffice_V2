@@ -1,0 +1,5 @@
+﻿4873068 Prepare R12 candidate closeout package
+50e6e8b Record R12 final audit report
+a87fafa Record R12 external final-state replay evidence
+09b7fbc Fix residue preflight portable path validation
+076a696 Fix R12 replay clean status log creation
