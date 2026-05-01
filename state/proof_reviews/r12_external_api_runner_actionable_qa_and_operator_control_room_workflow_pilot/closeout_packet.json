@@ -1,0 +1,91 @@
+{
+  "contract_version": "v1",
+  "packet_type": "r12_candidate_closeout_packet",
+  "packet_id": "r12-021-phase-1-candidate-closeout",
+  "repository": "AIOffice_V2",
+  "branch": "release/r12-external-api-runner-actionable-qa-control-room-pilot",
+  "source_milestone": "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot",
+  "source_task": "R12-021",
+  "phase": "phase_1_candidate_closeout",
+  "status": "candidate_prepared_pending_post_push_final_head_support",
+  "candidate_base_head": "50e6e8bcfaf8a0d792511b1f859aeae6717d6a5f",
+  "candidate_base_tree": "5b5caa6364a59e0a23034ff54501129ef4461550",
+  "r12_scope": {
+    "included_tasks": "R12-001 through R12-021 only",
+    "r12_021_role": "closeout/final-head support only",
+    "successor_opened": false,
+    "successor_posture": "No R13 or successor milestone is opened by this package. Any successor requires explicit operator approval and separate repo-truth opening evidence."
+  },
+  "r12_019_external_replay_evidence": {
+    "workflow": "R12 External Replay",
+    "run_id": "25204481986",
+    "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25204481986",
+    "artifact_id": "6745869087",
+    "artifact_name": "r12-external-replay-25204481986-1",
+    "artifact_digest_or_hash": "sha256:eb808da3ff6097a07628fa22f41882489e71a7346200dfac0e8a5b5f02372735",
+    "observed_head": "09b7fbc6e1946ec7e915ec235b9bf9bd934a5591",
+    "observed_tree": "9c4f51b9c0312bb47ed21f3af96a9179cf24809a",
+    "aggregate_verdict": "passed",
+    "command_results": {
+      "total_count": 10,
+      "passed_count": 10,
+      "failed_count": 0
+    },
+    "evidence_root": "state/external_runs/r12_external_runner/r12_019_final_state_replay/"
+  },
+  "r12_020_report_artifact": {
+    "path": "governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md",
+    "role": "final audit/report artifact, not product proof by itself"
+  },
+  "candidate_closeout_commit_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/candidate_closeout_head_ref.md",
+  "candidate_closeout_tree_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/candidate_closeout_tree_ref.md",
+  "post_push_final_head_support_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/final_remote_head_support_packet.json",
+  "evidence_inventory_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/evidence_inventory.md",
+  "validation_manifest_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/validation_manifest.md",
+  "raw_logs_ref": "state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/raw_logs/",
+  "accepted_candidate_claims": [
+    "R12 has committed evidence for R12-001 through R12-020 before closeout support",
+    "R12-019 is the strongest R12 proof and records a bounded external final-state replay with aggregate verdict passed",
+    "R12-020 is a final audit/report artifact and not product proof by itself",
+    "R12-021 may close R12 only after final-head support verifies the pushed candidate closeout head from outside that same candidate commit"
+  ],
+  "rejected_claims": [
+    "R12 closeout before Phase 2 support",
+    "R13 or successor milestone opening",
+    "production runtime",
+    "real production QA",
+    "broad CI/product coverage",
+    "productized control-room behavior",
+    "full UI app",
+    "broad autonomy",
+    "solved Codex reliability",
+    "Codex can run long milestones unattended",
+    "external replay equals production-grade CI",
+    "main contains the R12 implementation"
+  ],
+  "candidate_acceptance_conditions": [
+    "candidate closeout commit is created",
+    "candidate closeout commit is pushed to the R12 release branch",
+    "remote branch head is observed to equal the candidate closeout commit",
+    "Phase 2 final-head support packet records the candidate commit and tree from outside the candidate commit",
+    "status docs close R12 narrowly only after Phase 2 support exists"
+  ],
+  "verdict": "candidate_ready_pending_phase_2",
+  "refusal_reasons": [],
+  "created_at_utc": "2026-05-01T07:10:00Z",
+  "non_claims": [
+    "no R12 closeout acceptance before post-push final-head support",
+    "no R13 or successor milestone opening",
+    "no production runtime",
+    "no real production QA",
+    "no broad CI/product coverage",
+    "no productized control-room behavior",
+    "no full UI app",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no claim that Codex can run long milestones unattended",
+    "no claim that external replay equals production-grade CI",
+    "no claim that main contains the R12 implementation",
+    "no successor milestone opening"
+  ]
+}
