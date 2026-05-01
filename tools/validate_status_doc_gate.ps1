@@ -24,7 +24,10 @@ else {
     ("R8-{0} through R8-{1} planned" -f $validation.PlannedStart.ToString("000"), $validation.PlannedThrough.ToString("000"))
 }
 
-if ($validation.R12Closed) {
+if ($validation.R13Opened) {
+    Write-Output ("VALID: status-doc gate records R8 closed with tasks through R8-{0} complete, most recently closed milestone '{1}', R10 through R10-{2} closed, R11 through R11-{3} closed, R12 through R12-{4} closed, and active milestone '{5}' through R13-{6} with R13-{7} through R13-{8} planned." -f $validation.DoneThrough.ToString("000"), $validation.MostRecentlyClosedMilestone, $validation.R10DoneThrough.ToString("000"), $validation.R11DoneThrough.ToString("000"), $validation.R12DoneThrough.ToString("000"), $validation.ActiveMilestone, $validation.R13DoneThrough.ToString("000"), $validation.R13PlannedStart.ToString("000"), $validation.R13PlannedThrough.ToString("000"))
+}
+elseif ($validation.R12Closed) {
     Write-Output ("VALID: status-doc gate records R8 closed with tasks through R8-{0} complete, most recently closed milestone '{1}', no active successor milestone, R10 through R10-{2} closed, R11 through R11-{3} closed, and R12 through R12-{4} closed." -f $validation.DoneThrough.ToString("000"), $validation.MostRecentlyClosedMilestone, $validation.R10DoneThrough.ToString("000"), $validation.R11DoneThrough.ToString("000"), $validation.R12DoneThrough.ToString("000"))
 }
 elseif ($validation.R12Opened) {

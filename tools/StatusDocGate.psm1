@@ -214,6 +214,33 @@ function Get-R12TaskStatusMap {
     return $statusMap
 }
 
+function Get-R13TaskStatusMap {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $matches = [regex]::Matches($Text, '(?ms)^###\s+`(R13-\d{3})`.*?^\-\s+Status:\s+(done|planned)\s*$')
+    if ($matches.Count -eq 0) {
+        throw "$Context does not define any R13 task status headings."
+    }
+
+    $statusMap = @{}
+    foreach ($match in $matches) {
+        $taskId = $match.Groups[1].Value
+        $status = $match.Groups[2].Value
+        if ($statusMap.ContainsKey($taskId)) {
+            throw "$Context defines duplicate task status entries for '$taskId'."
+        }
+
+        $statusMap[$taskId] = $status
+    }
+
+    return $statusMap
+}
+
 function Get-ContiguousDoneThroughFromStatusMap {
     param(
         [Parameter(Mandatory = $true)]
@@ -658,6 +685,61 @@ function Assert-R12NonClaimsPreserved {
     }
 }
 
+function Assert-R13NonClaimsPreserved {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $nonClaimsSectionMatch = [regex]::Match($Text, '(?ms)^##\s+Required Non-Claims\s*\r?\n(.*?)(?=^##\s+|\z)')
+    if (-not $nonClaimsSectionMatch.Success) {
+        throw "$Context must preserve a 'Required Non-Claims' section."
+    }
+
+    $nonClaimsSectionText = $nonClaimsSectionMatch.Groups[1].Value
+
+    $requiredPhrases = @(
+        'no R13 hard value gate delivered by `R13-001`',
+        "no meaningful QA loop gate delivered yet",
+        "no API/custom-runner bypass gate delivered yet",
+        "no current operator control-room gate delivered yet",
+        "no skill invocation evidence gate delivered yet",
+        "no operator demo gate delivered yet",
+        "no productized control-room behavior",
+        "no full UI app",
+        "no production runtime",
+        "no real production QA",
+        "no broad CI/product coverage",
+        "no broad autonomous milestone execution",
+        "no unattended automatic resume",
+        "no solved Codex reliability",
+        "no solved Codex context compaction",
+        "no claim that Codex can run long milestones unattended",
+        "no external replay proof until actual external run evidence exists",
+        "no executor self-certification as QA",
+        "no R14 or successor opening"
+    )
+
+    foreach ($requiredPhrase in $requiredPhrases) {
+        if ($nonClaimsSectionText -notmatch [regex]::Escape($requiredPhrase)) {
+            throw "$Context must preserve the R13 non-claim '$requiredPhrase'."
+        }
+    }
+}
+
+function Assert-R13ActiveStatusDocs {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-001` only\.' -Message "ACTIVE_STATE must declare R13 active through R13-001 only."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`' -Message "KANBAN must declare R13 as the active milestone."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must keep R12 as the most recently closed milestone while R13 is active."
+}
+
 function Test-LineHasNegation {
     param(
         [Parameter(Mandatory = $true)]
@@ -767,7 +849,8 @@ function Test-R9ClosedStatus {
         [bool]$AllowR11Active = $false,
         [bool]$AllowR11Closed = $false,
         [bool]$AllowR12Active = $false,
-        [bool]$AllowR12Closed = $false
+        [bool]$AllowR12Closed = $false,
+        [bool]$AllowR13Active = $false
     )
 
     if (-not $Texts.Contains("R9Authority")) {
@@ -802,8 +885,13 @@ function Test-R9ClosedStatus {
     }
 
     if ($AllowR10Closed -and $AllowR11Closed -and $AllowR12Closed) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
-        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        if ($AllowR13Active) {
+            Assert-R13ActiveStatusDocs -Texts $Texts
+        }
+        else {
+            Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
+            Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        }
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must mark R12 as the most recently closed milestone."
     }
     elseif ($AllowR10Closed -and $AllowR11Closed -and $AllowR12Active) {
@@ -999,7 +1087,8 @@ function Test-R10ClosedStatus {
         [bool]$AllowR11Active = $false,
         [bool]$AllowR11Closed = $false,
         [bool]$AllowR12Active = $false,
-        [bool]$AllowR12Closed = $false
+        [bool]$AllowR12Closed = $false,
+        [bool]$AllowR13Active = $false
     )
 
     if (-not $Texts.Contains("R10Authority")) {
@@ -1033,8 +1122,13 @@ function Test-R10ClosedStatus {
 
     Assert-RegexMatch -Text $Texts.Readme -Pattern 'R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation`\s+is now closed in repo truth' -Message "README must declare R10 closed in repo truth after Phase 2 support."
     if ($AllowR12Closed) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
-        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        if ($AllowR13Active) {
+            Assert-R13ActiveStatusDocs -Texts $Texts
+        }
+        else {
+            Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
+            Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        }
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must mark R12 as the most recently closed milestone."
     }
     elseif ($AllowR12Active) {
@@ -1134,7 +1228,8 @@ function Test-R11OpeningStatus {
         [System.Collections.IDictionary]$Texts,
         [bool]$Closed = $false,
         [bool]$AllowR12Active = $false,
-        [bool]$AllowR12Closed = $false
+        [bool]$AllowR12Closed = $false,
+        [bool]$AllowR13Active = $false
     )
 
     if (-not $Texts.Contains("R11Authority")) {
@@ -1158,8 +1253,13 @@ function Test-R11OpeningStatus {
     }
 
     if ($Closed -and $AllowR12Closed) {
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
-        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        if ($AllowR13Active) {
+            Assert-R13ActiveStatusDocs -Texts $Texts
+        }
+        else {
+            Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
+            Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        }
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must mark R12 as the most recently closed milestone."
     }
     elseif ($Closed -and $AllowR12Active) {
@@ -1247,8 +1347,13 @@ function Test-R11OpeningStatus {
 
     if ($Closed -and $AllowR12Closed) {
         Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now closed narrowly in repo truth after `R12-021`' -Message "README must declare R12 closed narrowly after R12-021 support."
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
-        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        if ($AllowR13Active) {
+            Assert-R13ActiveStatusDocs -Texts $Texts
+        }
+        else {
+            Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must not open a successor milestone after R12 closeout."
+            Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must not open a successor milestone after R12 closeout."
+        }
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must mark R12 as the most recently closed milestone."
     }
     elseif ($Closed -and $AllowR12Active) {
@@ -1461,7 +1566,8 @@ function Test-R12OpeningStatus {
     param(
         [Parameter(Mandatory = $true)]
         [System.Collections.IDictionary]$Texts,
-        [bool]$Closed = $false
+        [bool]$Closed = $false,
+        [bool]$AllowR13Active = $false
     )
 
     if (-not $Texts.Contains("R12Authority")) {
@@ -1510,8 +1616,13 @@ function Test-R12OpeningStatus {
 
     if ($Closed) {
         Assert-RegexMatch -Text $Texts.Readme -Pattern 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now closed narrowly in repo truth after `R12-021`' -Message "README must declare R12 closed narrowly after R12-021."
-        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must declare no active milestone after R12 closeout."
-        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must declare no active milestone after R12 closeout."
+        if ($AllowR13Active) {
+            Assert-R13ActiveStatusDocs -Texts $Texts
+        }
+        else {
+            Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "ACTIVE_STATE must declare no active milestone after R12 closeout."
+            Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+No active implementation milestone is open after R12 closeout\.' -Message "KANBAN must declare no active milestone after R12 closeout."
+        }
         Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Most Recently Closed Milestone\s+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`' -Message "KANBAN must mark R12 as most recently closed after R12 closeout."
     }
     else {
@@ -1647,12 +1758,102 @@ function Test-R12OpeningStatus {
 
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "delivered R12 value gates" -Pattern '(?i)\bR12\b.{0,120}\b(value gates?|external/API runner gate|actionable QA gate|operator control-room gate|real build/change gate)\b.{0,120}\b(delivered|proved|implemented and exercised|complete)\b'
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "10 percent corrected progress uplift" -Pattern '(?i)\b10 percent\b.{0,120}\b(corrected progress uplift|improvement|progress)\b.{0,120}\b(claimed|proved|delivered|achieved)\b'
-    Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "R13 successor opening" -Pattern '(?i)\bR13\b.*\b(active|open|opened)\b|\bsuccessor milestone\b.*\b(active|open|opened)\b'
+    if (-not $AllowR13Active) {
+        Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "R13 successor opening" -Pattern '(?i)\bR13\b.*\b(active|open|opened)\b|\bsuccessor milestone\b.*\b(active|open|opened)\b'
+    }
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "production runtime" -Pattern '(?i)\bproduction runtime\b'
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "real production QA" -Pattern '(?i)\breal production QA\b'
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "productized control-room behavior" -Pattern '(?i)\bproductized control-room behavior\b|\bfull UI/control-room productization\b'
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "broad autonomy" -Pattern '(?i)\bbroad autonomous milestone execution\b|\bbroad autonomy\b'
     Assert-NoForbiddenPositiveClaim -Text $r12CurrentText -Context "Status docs" -ClaimLabel "solved Codex reliability" -Pattern '(?i)\bsolved Codex reliability\b|\bsolved Codex context compaction\b'
+
+    return $kanbanSnapshot
+}
+
+function Test-R13OpeningStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    if (-not $Texts.Contains("R13Authority")) {
+        throw "R13 authority document must exist when R13 is open."
+    }
+
+    $kanbanTaskStatuses = Get-R13TaskStatusMap -Text $Texts.Kanban -Context "KANBAN"
+    $authorityTaskStatuses = Get-R13TaskStatusMap -Text $Texts.R13Authority -Context "R13 authority"
+
+    foreach ($taskId in $kanbanTaskStatuses.Keys) {
+        if ($authorityTaskStatuses[$taskId] -ne $kanbanTaskStatuses[$taskId]) {
+            throw "R13 authority does not match KANBAN for status '$taskId'."
+        }
+    }
+
+    $kanbanSnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanTaskStatuses -Context "KANBAN" -TaskPrefix "R13" -TaskCount 18
+    $authoritySnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $authorityTaskStatuses -Context "R13 authority" -TaskPrefix "R13" -TaskCount 18
+
+    if ($authoritySnapshot.DoneThrough -ne $kanbanSnapshot.DoneThrough -or $authoritySnapshot.PlannedStart -ne $kanbanSnapshot.PlannedStart -or $authoritySnapshot.PlannedThrough -ne $kanbanSnapshot.PlannedThrough) {
+        throw "R13 authority does not match KANBAN for the live R13 task status boundary."
+    }
+
+    if ($kanbanSnapshot.DoneThrough -ne 1 -or $kanbanSnapshot.PlannedStart -ne 2 -or $kanbanSnapshot.PlannedThrough -ne 18) {
+        throw "R13 opening status must keep only R13-001 done and R13-002 through R13-018 planned."
+    }
+
+    $combinedText = [string]::Join([Environment]::NewLine, @($Texts.Values))
+    $r13CurrentText = [string]::Join([Environment]::NewLine, @(
+            $Texts.Readme,
+            $Texts.ActiveState,
+            $Texts.Kanban,
+            $Texts.DecisionLog,
+            $Texts.R13Authority
+        ))
+
+    $r13Branch = "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice"
+    $reportCommit = "9ad475faa87746cb3d6ef074545e4b703e77e786"
+    $reportPath = "governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md"
+    $r12CandidateCommit = "4873068faef918608f9f4d74ecbf6ee779ba2ad4"
+    $r12CandidateTree = "bb2f95efdaa194f2cae03a57ed29461c32eb5df8"
+
+    Assert-RegexMatch -Text $Texts.Readme -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now the active milestone in repo truth through `R13-001` only' -Message "README must declare R13 active through R13-001 only."
+    Assert-R13ActiveStatusDocs -Texts $Texts
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R13-001 Opened API-First QA Pipeline And Control-Room Product Slice' -Message "DECISION_LOG must record the R13-001 opening decision."
+    Assert-RegexMatch -Text $Texts.R13Authority -Pattern 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now active in repo truth through `R13-001` only' -Message "R13 authority must declare R13 active through R13-001 only."
+
+    foreach ($entry in @(
+            @{ Text = $Texts.Readme; Context = "README" },
+            @{ Text = $Texts.ActiveState; Context = "ACTIVE_STATE" },
+            @{ Text = $Texts.Kanban; Context = "KANBAN" },
+            @{ Text = $Texts.R13Authority; Context = "R13 authority" }
+        )) {
+        Assert-RegexMatch -Text $entry.Text -Pattern ([regex]::Escape($r13Branch)) -Message "$($entry.Context) must cite the R13 branch."
+        Assert-RegexMatch -Text $entry.Text -Pattern ([regex]::Escape($reportCommit)) -Message "$($entry.Context) must cite the R12/R13 report commit."
+        Assert-RegexMatch -Text $entry.Text -Pattern ([regex]::Escape($reportPath)) -Message "$($entry.Context) must cite the R12/R13 planning report."
+    }
+
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r12CandidateCommit)) -Message "Status docs must cite the R12 candidate closeout commit."
+    Assert-RegexMatch -Text $combinedText -Pattern ([regex]::Escape($r12CandidateTree)) -Message "Status docs must cite the R12 candidate closeout tree."
+    Assert-RegexMatch -Text $combinedText -Pattern 'governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE\.md' -Message "Status docs must cite the R13 governance authority."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)planning authority' -Message "Status docs must say the R12/R13 report is planning authority."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)not product proof by itself' -Message "Status docs must say the R12/R13 report is not product proof by itself."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R12 remains closed narrowly' -Message "Status docs must preserve that R12 remains closed narrowly."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R13-002`\s+through\s+`R13-018`\s+remain planned only|R13-002` through `R13-018` remain planned only' -Message "Status docs must keep R13-002 through R13-018 planned only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)planned and not yet delivered' -Message "Status docs must mark R13 gates planned and not yet delivered."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)meaningful QA loop' -Message "Status docs must cite the meaningful QA loop gate."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)API/custom-runner bypass' -Message "Status docs must cite the API/custom-runner bypass gate."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)current operator control-room' -Message "Status docs must cite the current operator control-room gate."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)skill invocation evidence' -Message "Status docs must cite the skill invocation evidence gate."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)operator demo' -Message "Status docs must cite the operator demo gate."
+
+    Assert-R13NonClaimsPreserved -Text $Texts.R13Authority -Context "R13 authority"
+
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "delivered R13 hard value gate" -Pattern '(?i)\bR13\b.{0,120}\b(hard value gate|meaningful QA loop|API/custom-runner bypass|current operator control-room|skill invocation evidence|operator demo)\b.{0,120}\b(delivered|proved|implemented and exercised|complete)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "production runtime" -Pattern '(?i)\bproduction runtime\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "real production QA" -Pattern '(?i)\breal production QA\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "productized control-room behavior" -Pattern '(?i)\bproductized control-room behavior\b|\bfull UI app\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "broad autonomy" -Pattern '(?i)\bbroad autonomous milestone execution\b|\bbroad autonomy\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "solved Codex reliability" -Pattern '(?i)\bsolved Codex reliability\b|\bsolved Codex context compaction\b'
+    Assert-NoForbiddenPositiveClaim -Text $r13CurrentText -Context "Status docs" -ClaimLabel "R14 successor opening" -Pattern '(?i)\bR14\b.*\b(active|open|opened)\b|\bsuccessor milestone\b.*\b(active|open|opened)\b'
 
     return $kanbanSnapshot
 }
@@ -1692,6 +1893,11 @@ function Test-StatusDocGate {
     $r12AuthorityPath = Resolve-PathValue -PathValue "governance\R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md" -AnchorPath $resolvedRepositoryRoot
     if (Test-Path -LiteralPath $r12AuthorityPath) {
         $paths["R12Authority"] = (Resolve-Path -LiteralPath $r12AuthorityPath).Path
+    }
+
+    $r13AuthorityPath = Resolve-PathValue -PathValue "governance\R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md" -AnchorPath $resolvedRepositoryRoot
+    if (Test-Path -LiteralPath $r13AuthorityPath) {
+        $paths["R13Authority"] = (Resolve-Path -LiteralPath $r13AuthorityPath).Path
     }
 
     $texts = [ordered]@{}
@@ -1756,11 +1962,13 @@ function Test-StatusDocGate {
     $r11Closed = $combinedText -match 'R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot`\s+(?:is now closed narrowly in repo truth|is closed narrowly in repo truth|is formally closed)'
     $r12Opened = $combinedText -match 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+is now (?:the )?active'
     $r12Closed = $combinedText -match 'R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot`\s+(?:is now closed narrowly in repo truth|is closed narrowly in repo truth|is formally closed)'
+    $r13Opened = $combinedText -match 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now (?:the )?active'
     Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed -R9Closed $r9Closed -R10Closed $r10Closed -R11Closed $r11Closed -R12Closed $r12Closed
     $r9Snapshot = $null
     $r10Snapshot = $null
     $r11Snapshot = $null
     $r12Snapshot = $null
+    $r13Snapshot = $null
 
     if (-not $r8Closed) {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
@@ -1774,13 +1982,16 @@ function Test-StatusDocGate {
     }
     else {
         if ($r9Closed) {
-            $r9Snapshot = Test-R9ClosedStatus -Texts $texts -AllowR10Active:$r10Opened -AllowR10Closed:$r10Closed -AllowR11Active:$r11Opened -AllowR11Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed
+            $r9Snapshot = Test-R9ClosedStatus -Texts $texts -AllowR10Active:$r10Opened -AllowR10Closed:$r10Closed -AllowR11Active:$r11Opened -AllowR11Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed -AllowR13Active:$r13Opened
             if ($r10Closed) {
-                $r10Snapshot = Test-R10ClosedStatus -Texts $texts -AllowR11Active:$r11Opened -AllowR11Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed
+                $r10Snapshot = Test-R10ClosedStatus -Texts $texts -AllowR11Active:$r11Opened -AllowR11Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed -AllowR13Active:$r13Opened
                 if ($r11Opened -or $r11Closed) {
-                    $r11Snapshot = Test-R11OpeningStatus -Texts $texts -Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed
+                    $r11Snapshot = Test-R11OpeningStatus -Texts $texts -Closed:$r11Closed -AllowR12Active:$r12Opened -AllowR12Closed:$r12Closed -AllowR13Active:$r13Opened
                     if ($r12Opened -or $r12Closed) {
-                        $r12Snapshot = Test-R12OpeningStatus -Texts $texts -Closed:$r12Closed
+                        $r12Snapshot = Test-R12OpeningStatus -Texts $texts -Closed:$r12Closed -AllowR13Active:$r13Opened
+                        if ($r13Opened) {
+                            $r13Snapshot = Test-R13OpeningStatus -Texts $texts
+                        }
                     }
                 }
             }
@@ -1844,7 +2055,7 @@ function Test-StatusDocGate {
         throw "Status docs must not open a successor milestone after R10 opening."
     }
 
-    $activeMilestone = if ($r12Opened) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r12Closed) { "none" } elseif ($r11Opened) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
+    $activeMilestone = if ($r13Opened) { "R13 API-First QA Pipeline and Operator Control-Room Product Slice" } elseif ($r12Opened) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r12Closed) { "none" } elseif ($r11Opened) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
     $mostRecentlyClosedMilestone = if ($r12Closed) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r11Closed) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Closed) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
 
     return [pscustomobject]@{
@@ -1865,6 +2076,9 @@ function Test-StatusDocGate {
         R12DoneThrough = if ($null -eq $r12Snapshot) { $null } else { $r12Snapshot.DoneThrough }
         R12PlannedStart = if ($null -eq $r12Snapshot) { $null } else { $r12Snapshot.PlannedStart }
         R12PlannedThrough = if ($null -eq $r12Snapshot) { $null } else { $r12Snapshot.PlannedThrough }
+        R13DoneThrough = if ($null -eq $r13Snapshot) { $null } else { $r13Snapshot.DoneThrough }
+        R13PlannedStart = if ($null -eq $r13Snapshot) { $null } else { $r13Snapshot.PlannedStart }
+        R13PlannedThrough = if ($null -eq $r13Snapshot) { $null } else { $r13Snapshot.PlannedThrough }
         R8RemainsOpen = (-not $r8Closed)
         R8Closed = $r8Closed
         R9Opened = $r9Opened
@@ -1875,6 +2089,7 @@ function Test-StatusDocGate {
         R11Closed = $r11Closed
         R12Opened = $r12Opened
         R12Closed = $r12Closed
+        R13Opened = $r13Opened
     }
 }
 

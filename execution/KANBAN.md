@@ -3,16 +3,21 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-No active implementation milestone is open after R12 closeout.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice`
 
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
 
-`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now closed narrowly in repo truth after `R12-021`. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, an operator decision queue, a bounded one-command control-room refresh workflow, fresh-thread restart proof tooling, imported passing R12-019 external final-state replay evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`, final audit/report evidence at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`, and closeout/final-head support at `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/`. R12's strongest proof is the R12-019 external replay, not the report itself. R12-020 is a report artifact, not product proof by itself. R12-021 is closeout/final-head support only. No R13 or successor milestone is opened.
+`R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now closed narrowly in repo truth after `R12-021`. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, an operator decision queue, a bounded one-command control-room refresh workflow, fresh-thread restart proof tooling, imported passing R12-019 external final-state replay evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`, final audit/report evidence at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`, and closeout/final-head support at `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/`. R12's strongest proof is the R12-019 external replay, not the report itself. R12-020 is a report artifact, not product proof by itself. R12-021 is closeout/final-head support only. R12 itself did not open R13 or any successor.
+
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-001` only. R13 starts from the report-committed R12 branch head `9ad475faa87746cb3d6ef074545e4b703e77e786` on branch `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`. The planning authority is `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`, committed at `9ad475faa87746cb3d6ef074545e4b703e77e786`; it is not product proof by itself. R13-001 opens the milestone and freezes the hard gates only. R13-002 through R13-018 remain planned only, no R13 hard gate is delivered yet, and no R14 or successor milestone is opened.
 
 Active branch:
+`release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
+
+R12 closed branch:
 `release/r12-external-api-runner-actionable-qa-control-room-pilot`
 
 Previous branch:
@@ -43,6 +48,168 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R13-001` Open R13 and freeze hard value gates
+- Status: done
+- Order: 1
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: report-committed R12 head `9ad475faa87746cb3d6ef074545e4b703e77e786`, planning report `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`, and verified clean branch truth
+- Authority: `governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md`, `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`
+- Durable output: R13 release branch, frozen hard gates, R13 task plan, explicit non-claims, and no-successor posture
+- Done when: R13 is active only through `R13-001`, R12 remains closed narrowly, R13-002 through R13-018 remain planned only, no R13 hard value gate is delivered, and no R14 or successor milestone is opened
+
+### `R13-002` Define ideal QA lifecycle contract
+- Status: planned
+- Order: 2
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-001`
+- Authority: planned contracts and fixtures for the detect -> classify -> queue -> fix -> rerun -> compare -> signoff lifecycle
+- Durable output: QA lifecycle contract plus invalid fixtures for pass-without-rerun, pass-without-fix, pass-without-evidence, and narrative-only QA
+- Done when: schema validation, static lint, test execution, external replay, and operator usefulness are distinct, and invalid narrative-only or no-evidence QA states fail closed
+
+### `R13-003` Build actionable QA issue detector v2
+- Status: planned
+- Order: 3
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-002`
+- Authority: planned actionable QA detector v2 contracts/tooling/tests
+- Durable output: source-mapped issue detector with severity, file path, reproduction command, expected behavior, and recommended fix
+- Done when: selected repo paths are inspected, PSScriptAnalyzer absence is explicit, and the QA process cannot silently downgrade to superficial checks
+
+### `R13-004` Build QA fix queue and fix-plan generator v2
+- Status: planned
+- Order: 4
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-003`
+- Authority: planned fix queue and fix-plan generator v2 contracts/tooling/tests
+- Durable output: blocking issue to bounded fix item mapping with target files, allowed commands, validation commands, risk, and expected evidence
+- Done when: orphan fix items and hidden blocking issues are rejected
+
+### `R13-005` Implement bounded fix execution packet model
+- Status: planned
+- Order: 5
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-004`
+- Authority: planned bounded fix execution packet contract and fixtures
+- Durable output: authorization, execution, and returned-evidence packet model for bounded fixes
+- Done when: executor self-certification and scope drift are rejected
+
+### `R13-006` Run one real seeded QA failure through the full loop
+- Status: planned
+- Order: 6
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-005`
+- Authority: planned evidence under `state/cycles/r13_qa_cycle_demo/`
+- Durable output: controlled seeded defect or failing fixture detected, queued, fixed, rerun, compared, and summarized
+- Done when: before/after QA movement is proved with committed evidence
+
+### `R13-007` Add API/custom-runner execution path foundation
+- Status: planned
+- Order: 7
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-006`
+- Authority: planned local API/custom-runner command surface contracts/tooling/tests
+- Durable output: request packet in, bounded command or skill execution, result packet out, and preserved evidence refs
+- Done when: unavailable credentials or external APIs fail closed and no production runtime is claimed
+
+### `R13-008` Add skill registry and skill invocation evidence
+- Status: planned
+- Order: 8
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-007`
+- Authority: planned skill registry and invocation evidence packets
+- Durable output: `qa.detect`, `qa.fix_plan`, `runner.external_replay`, and `control_room.refresh` skill contracts plus at least two real invocation evidence packets
+- Done when: skill invocations produce durable evidence refs and no broad autonomous agent claim is made
+
+### `R13-009` Make control room current and cycle-aware
+- Status: planned
+- Order: 9
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-008`
+- Authority: planned R13 control-room current state artifacts
+- Durable output: current branch/head/tree, current task, QA issues, fix queue, before/after QA status, external replay status, skill invocation status, blockers, next legal action, and operator decisions
+- Done when: stale source state is refused
+
+### `R13-010` Add operator demo artifact
+- Status: planned
+- Order: 10
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-009`
+- Authority: planned `state/control_room/r13_current/operator_demo.md`
+- Durable output: human-readable demo report with actual QA failure-to-fix cycle evidence and exact commands
+- Done when: the operator can understand the current pipeline without reading raw JSON first
+
+### `R13-011` Run external replay after QA fix loop
+- Status: planned
+- Order: 11
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-010`
+- Authority: planned external replay evidence and artifact import
+- Durable output: exact run ID, artifact ID, digest, head, tree, command results, and validated imported artifact evidence
+- Done when: actual external run evidence exists, or unavailable dispatch fails closed without claiming external proof
+
+### `R13-012` Add meaningful QA signoff gate
+- Status: planned
+- Order: 12
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-011`
+- Authority: planned meaningful QA signoff gate contract/tooling/tests
+- Durable output: signoff gate requiring detector, fix queue, bounded fix evidence, rerun, comparison, external replay evidence, current control-room status, and no blocking issues
+- Done when: schema-only QA, narrative QA, stale control-room state, and local-only evidence as external proof are rejected
+
+### `R13-013` Add Codex-compaction mitigation proof
+- Status: planned
+- Order: 13
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-012`
+- Authority: planned restart proof from committed R13 repo truth
+- Durable output: fresh-thread recovery of current task, QA state, fix queue, external runner state, control-room state, and next legal action
+- Done when: the proof does not depend on prior chat context and does not claim solved Codex reliability
+
+### `R13-014` Produce R13 cycle evidence package
+- Status: planned
+- Order: 14
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-013`
+- Authority: planned `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/`
+- Durable output: consolidated QA lifecycle, issue report, fix queue, bounded fix packet, rerun, comparison, skill invocations, runner packets, external replay evidence, control-room demo, restart proof, and operator decision packet
+- Done when: all evidence refs are committed under the R13 cycle package
+
+### `R13-015` Update Vision Control scoring with calculable evidence
+- Status: planned
+- Order: 15
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-014`
+- Authority: approved formula from `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`
+- Durable output: R13 scoring with evidence-backed dimensions and penalties
+- Done when: scoring is calculable and not inflated beyond committed evidence
+
+### `R13-016` Generate R13 final audit candidate packet
+- Status: planned
+- Order: 16
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-015`
+- Authority: planned candidate audit packet from evidence
+- Durable output: passed gates, blocked gates, exact evidence refs, non-claims, operator demo usefulness, and manual copy/paste burden assessment
+- Done when: the packet is candidate-only and does not close R13 by itself
+
+### `R13-017` Close R13 narrowly only if all hard gates pass
+- Status: planned
+- Order: 17
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-016`
+- Authority: planned two-phase final-head support
+- Durable output: narrow closeout only if all R13 hard gates pass
+- Done when: all hard gates pass, two-phase final-head support exists, and no R14 is opened
+
+### `R13-018` Produce R13 final report and R14 recommendation only after closeout evidence
+- Status: planned
+- Order: 18
+- Milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+- Depends on: `R13-017`
+- Authority: planned final report generated from committed evidence
+- Durable output: R13 final report with Vision Control Table R6 through R13 and explicit 10 to 15 percent progress assessment or failure statement
+- Done when: report exists only after closeout evidence and does not open R14 by itself
 
 ### `R12-001` Open R12 on a proper release branch and freeze value gates
 - Status: done

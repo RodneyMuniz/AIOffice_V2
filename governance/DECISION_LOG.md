@@ -942,3 +942,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: `R12-001` through `R12-021` are complete and R12 is closed narrowly; R12-021 is closeout/final-head support only.
 - Consequence: no R13 or successor milestone is opened; any successor milestone requires explicit operator approval and separate repo-truth opening evidence.
 - Consequence: this decision does not claim productized control-room behavior, a full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, that Codex can run long milestones unattended, that external replay equals production-grade CI, that main contains the R12 implementation, or any claim beyond the narrow R12 closeout.
+
+## D-0100 R13-001 Opened API-First QA Pipeline And Control-Room Product Slice
+- Date: 2026-05-01
+- Status: accepted
+- Decision: `R13-001` opens `R13 API-First QA Pipeline and Operator Control-Room Product Slice` narrowly on branch `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`.
+- Consequence: the approved R12/R13 planning report is committed at `9ad475faa87746cb3d6ef074545e4b703e77e786` as `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`; it is planning authority for R13 direction only, not product proof by itself.
+- Consequence: the R13 governance authority is `governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md`.
+- Consequence: R12 remains closed narrowly; the R12 candidate closeout commit remains `4873068faef918608f9f4d74ecbf6ee779ba2ad4` with tree `bb2f95efdaa194f2cae03a57ed29461c32eb5df8`.
+- Consequence: R13 is active through `R13-001` only. `R13-002` through `R13-018` remain planned only.
+- Consequence: the R13 hard gates are frozen as meaningful QA loop, API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo. All are planned and not yet delivered.
+- Consequence: this decision does not claim a meaningful QA loop, API/custom-runner bypass, current operator control-room, skill invocation evidence, operator demo, productized control-room behavior, full UI app, production runtime, real production QA, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, solved Codex context compaction, unattended automatic resume, external replay proof without actual run evidence, or any R14/successor milestone opening.
