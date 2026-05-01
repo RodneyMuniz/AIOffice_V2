@@ -1,12 +1,12 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-005` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-006` only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. None of these tasks delivers any R13 hard value gate.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. None of these tasks delivers any R13 hard value gate.
 
 ## Accepted Starting State
 
@@ -34,13 +34,14 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-003` as source-mapped issue detector v2 only;
 - keep `R13-004` as QA fix queue and fix-plan generator v2 only;
 - keep `R13-005` as bounded fix execution packet model only;
+- keep `R13-006` as one controlled demo-workspace QA failure-to-fix cycle only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-All R13 gates are planned and not yet delivered at `R13-005`.
+All R13 gates are planned and not yet delivered at `R13-006`.
 
 1. Meaningful QA loop gate: planned, not yet delivered.
 2. API/custom-runner bypass gate: planned, not yet delivered.
@@ -73,8 +74,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: implements the bounded fix execution packet model only through `contracts/actionable_qa/r13_bounded_fix_execution.contract.json`, `tools/R13BoundedFixExecution.psm1`, `tools/new_r13_bounded_fix_execution_packet.ps1`, `tools/validate_r13_bounded_fix_execution.ps1`, valid fixtures `state/fixtures/valid/actionable_qa/r13_bounded_fix_execution.authorization.valid.json` and `state/fixtures/valid/actionable_qa/r13_bounded_fix_execution.dry_run.valid.json`, invalid fixtures under `state/fixtures/invalid/actionable_qa/r13_bounded_fix_execution/`, focused proof in `tests/test_r13_bounded_fix_execution.ps1`, and authorization evidence at `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json`. It authorizes future bounded execution without actual target-file mutation and rejects unqueued fixes, source/fix ID mismatch, outside-repo targets, broad scope without explicit authorization, missing rollback or validation evidence, executor self-certification, local-only external proof, premature rerun/comparison/external replay/signoff/hard-gate claims, and R14 successor opening.
 
 ### `R13-006` Run one real seeded QA failure through the full loop
-- Status: planned
-- Boundary: run one controlled failure-to-fix QA cycle and commit before/after evidence under `state/cycles/r13_qa_cycle_demo/`.
+- Status: done
+- Boundary: runs one controlled seeded QA failure-to-fix cycle in `state/cycles/r13_qa_cycle_demo/` only, using the R13-005 bounded fix authorization for `r13qf-5efcc675b9ec2995` / `r13qi-4da79bc524d40d09` / `malformed_json`. It copies the bad input into a demo before file, writes a repaired demo after file, reruns detector before and after, records `target_issue_resolved`, preserves the canonical invalid fixture unchanged, and does not claim external replay, final signoff, current control-room delivery, or any hard gate.
 
 ### `R13-007` Add API/custom-runner execution path foundation
 - Status: planned
@@ -126,7 +127,7 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 ## Required Non-Claims
 
-- no R13 hard value gate delivered by `R13-005`
+- no R13 hard value gate delivered by `R13-006`
 - no meaningful QA loop gate delivered yet
 - no API/custom-runner bypass gate delivered yet
 - no current operator control-room gate delivered yet
@@ -146,7 +147,7 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-005 Claim
+## Current R13-006 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
 
@@ -156,4 +157,6 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 `R13-004` claims only that the QA fix queue and fix-plan generator v2 is implemented and locally validated. It records a queue at `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json` that consumes the R13-003 issue detection report, maps all 14 R13-003 blocking issues to bounded fix items, preserves source issue IDs, reproduction commands, recommended fixes, validation commands, rollback notes, and expected future evidence refs, and records aggregate verdict `ready_for_fix_execution`.
 
-`R13-005` claims only that the bounded fix execution packet model is implemented and locally validated. It records an authorization-only packet at `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json` that consumes the R13-004 fix queue, selects all 14 queued fix items, preserves all 14 selected source issue IDs, bounds 9 unique target files, preserves allowed commands, validation commands, rollback plans, and expected future evidence refs, and records aggregate verdict `authorized_for_future_execution`. `R13-006` through `R13-018` remain planned only. No R13 hard value gate is delivered yet. The meaningful QA loop remains undelivered until later tasks prove actual fix execution, rerun, comparison, external replay, current control room, and signoff with committed evidence. No actual fix execution, rerun, before/after comparison, external replay, signoff, R13 closeout, R14, or successor milestone is opened.
+`R13-005` claims only that the bounded fix execution packet model is implemented and locally validated. It records an authorization-only packet at `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json` that consumes the R13-004 fix queue, selects all 14 queued fix items, preserves all 14 selected source issue IDs, bounds 9 unique target files, preserves allowed commands, validation commands, rollback plans, and expected future evidence refs, and records aggregate verdict `authorized_for_future_execution`.
+
+`R13-006` claims only that one controlled seeded QA failure-to-fix cycle ran in the demo workspace `state/cycles/r13_qa_cycle_demo/`. It adds `contracts/actionable_qa/r13_qa_failure_fix_cycle.contract.json`, `contracts/actionable_qa/r13_fix_execution_result.contract.json`, `contracts/actionable_qa/r13_qa_before_after_comparison.contract.json`, `tools/R13QaFailureFixCycle.psm1`, `tools/run_r13_qa_failure_fix_cycle.ps1`, `tools/validate_r13_fix_execution_result.ps1`, `tools/validate_r13_qa_before_after_comparison.ps1`, `tools/validate_r13_qa_failure_fix_cycle.ps1`, valid and invalid fixtures under `state/fixtures/`, focused proof in `tests/test_r13_qa_failure_fix_cycle.ps1`, and committed demo evidence under `state/cycles/r13_qa_cycle_demo/`. The selected fix item is `r13qf-5efcc675b9ec2995`, the selected source issue is `r13qi-4da79bc524d40d09`, and the selected issue type is `malformed_json`. The before detector report contains the selected issue type, the after detector report has zero issues for the demo after file, the comparison verdict is `target_issue_resolved`, and the cycle aggregate verdict is `fixed_pending_external_replay`. Canonical invalid detector fixtures remain unchanged. `R13-007` through `R13-018` remain planned only. No R13 hard value gate is delivered yet. The meaningful QA loop gate is still not complete because external replay, current control-room delivery, and final QA signoff are not delivered. No external replay, final signoff, R13 closeout, R14, or successor milestone is opened.

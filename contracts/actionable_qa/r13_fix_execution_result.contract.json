@@ -1,0 +1,103 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_fix_execution_result_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-006",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "execution_result_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "source_issue_report_ref",
+    "source_fix_queue_ref",
+    "source_bounded_fix_execution_ref",
+    "selected_fix_item_id",
+    "selected_source_issue_id",
+    "selected_issue_type",
+    "source_file_ref",
+    "demo_before_ref",
+    "demo_after_ref",
+    "changed_files",
+    "mutation_scope",
+    "commands_run",
+    "validation_results",
+    "rollback_note",
+    "aggregate_verdict",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "mutation_scope_required_fields": [
+    "scope_kind",
+    "demo_workspace",
+    "allowed_roots",
+    "canonical_source_modified"
+  ],
+  "command_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "validation_result_required_fields": [
+    "validation_id",
+    "scope",
+    "verdict",
+    "details"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_aggregate_verdicts": [
+    "executed_pending_rerun",
+    "blocked"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_validation_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "R13-006 runs one controlled demo workspace QA failure-to-fix cycle only",
+    "no canonical invalid detector fixture mutation",
+    "no external replay has occurred",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate delivered by R13-006",
+    "no meaningful QA loop gate delivered yet",
+    "no current operator control-room gate delivered by R13-006",
+    "no API/custom-runner bypass gate delivered by R13-006",
+    "no skill invocation evidence gate delivered by R13-006",
+    "no operator demo gate delivered by R13-006",
+    "no production QA delivered by R13-006",
+    "no productized control-room behavior",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "changed_files_must_be_repo_relative_and_inside_the_demo_workspace",
+    "canonical_invalid_detector_fixtures_must_not_be_listed_as_changed_files",
+    "mutation_scope_must_be_controlled_demo_workspace_only",
+    "executed_pending_rerun_does_not_claim_qa_rerun_pass_signoff_external_replay_or_hard_gate_delivery",
+    "evidence_refs_must_exist",
+    "external_replay_signoff_hard_gate_and_successor_claims_are_rejected"
+  ]
+}

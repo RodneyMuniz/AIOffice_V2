@@ -1,0 +1,123 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_qa_failure_fix_cycle",
+    "cycle_id":  "r13qffc-c64143d51d136490",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "7a3d27fb98899cd85a0f8c6a9aabffcb53d7ad74",
+    "tree":  "08e61e1aa874ea9a01f01130508d653436c2d0e9",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-006",
+    "source_issue_report_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+    "source_fix_queue_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+    "source_bounded_fix_execution_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+    "selected_fix_item_id":  "r13qf-5efcc675b9ec2995",
+    "selected_source_issue_id":  "r13qi-4da79bc524d40d09",
+    "selected_issue_type":  "malformed_json",
+    "demo_workspace":  "state/cycles/r13_qa_cycle_demo",
+    "before_input_ref":  "state/cycles/r13_qa_cycle_demo/before/malformed_json_input.json",
+    "after_input_ref":  "state/cycles/r13_qa_cycle_demo/after/malformed_json_input.json",
+    "fix_execution_ref":  "state/cycles/r13_qa_cycle_demo/fix_execution_result.json",
+    "before_detection_report_ref":  "state/cycles/r13_qa_cycle_demo/before_detection_report.json",
+    "after_detection_report_ref":  "state/cycles/r13_qa_cycle_demo/after_detection_report.json",
+    "before_after_comparison_ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+    "qa_rerun_ref":  "state/cycles/r13_qa_cycle_demo/after_detection_report.json",
+    "cycle_status":  "fixed_locally_pending_external_replay",
+    "safety_checks":  {
+                          "selected_fix_item_authorized":  true,
+                          "canonical_fixture_preserved":  true,
+                          "before_report_contains_selected_issue":  true,
+                          "after_report_contains_selected_blocking_issue":  false,
+                          "new_blocking_issue_count":  0,
+                          "external_replay_claimed":  false,
+                          "final_signoff_claimed":  false,
+                          "hard_gate_claimed":  false
+                      },
+    "aggregate_verdict":  "fixed_pending_external_replay",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-qa-failure-fix-cycle-contract",
+                              "ref":  "contracts/actionable_qa/r13_qa_failure_fix_cycle.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-qa-failure-fix-cycle-module",
+                              "ref":  "tools/R13QaFailureFixCycle.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-qa-failure-fix-cycle-cli",
+                              "ref":  "tools/run_r13_qa_failure_fix_cycle.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "source-r13-003-issue-report",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                              "evidence_kind":  "source_issue_report",
+                              "authority_kind":  "repo_detector",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "source-r13-004-fix-queue",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                              "evidence_kind":  "source_fix_queue",
+                              "authority_kind":  "repo_fix_queue",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "source-r13-005-bounded-fix-execution",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+                              "evidence_kind":  "source_bounded_fix_execution",
+                              "authority_kind":  "repo_authorization",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-fix-execution-result",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/fix_execution_result.json",
+                              "evidence_kind":  "fix_execution_result",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-before-detection-report",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/before_detection_report.json",
+                              "evidence_kind":  "before_detection_report",
+                              "authority_kind":  "repo_detector",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-after-detection-report",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/after_detection_report.json",
+                              "evidence_kind":  "after_detection_report",
+                              "authority_kind":  "repo_detector",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-before-after-comparison",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                              "evidence_kind":  "before_after_comparison",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-validation-manifest",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-05-01T12:02:56Z",
+    "non_claims":  [
+
+                   ]
+}

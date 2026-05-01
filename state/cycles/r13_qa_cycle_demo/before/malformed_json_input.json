@@ -1,0 +1,5 @@
+{
+  "artifact_type": "seeded_bad_qa_input",
+  "issue": "malformed JSON"
+  "missing_comma": true
+}

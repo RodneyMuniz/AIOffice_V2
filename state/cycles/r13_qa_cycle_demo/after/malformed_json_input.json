@@ -1,0 +1,10 @@
+{
+    "artifact_type":  "r13_006_controlled_demo_input",
+    "source_artifact_type":  "seeded_bad_qa_input",
+    "selected_issue":  "malformed JSON",
+    "repair_status":  "json_root_repaired",
+    "source_fixture_ref":  "state/fixtures/invalid/actionable_qa/r13_detector_inputs/malformed_json_input.json",
+    "selected_fix_item_ref":  "r13qf-5efcc675b9ec2995",
+    "selected_source_issue_ref":  "r13qi-4da79bc524d40d09",
+    "repair_note":  "R13-006 demo copy repaired by adding the missing comma and preserving a single JSON object root."
+}
