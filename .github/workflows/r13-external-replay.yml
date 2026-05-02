@@ -200,7 +200,7 @@ jobs:
             ""
           )
           foreach ($result in $commandResults) {
-            $manifestLines += "- $($result.command_id): $($result.verdict) (exit $($result.exit_code)); stdout `$($result.stdout_ref)`; stderr `$($result.stderr_ref)`"
+            $manifestLines += ("- {0}: {1} (exit {2}); stdout {3}; stderr {4}" -f $result.command_id, $result.verdict, $result.exit_code, $result.stdout_ref, $result.stderr_ref)
           }
           $manifestLines += @(
             "",
