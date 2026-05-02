@@ -106,7 +106,7 @@ jobs:
           $commands = @(
             @{
               id = "assert_requested_identity"
-              command = "if ((git rev-parse HEAD).Trim() -ne `$env:R13_EXPECTED_HEAD) { Write-Error 'Observed head does not match expected head.'; exit 1 }; if ((git rev-parse 'HEAD^{tree}').Trim() -ne `$env:R13_EXPECTED_TREE) { Write-Error 'Observed tree does not match expected tree.'; exit 1 }; Write-Output `"Requested R13 branch/head/tree identity validated for `$env:R13_EXPECTED_BRANCH.`"; exit 0"
+              command = 'if ((git rev-parse HEAD).Trim() -ne $env:R13_EXPECTED_HEAD) { Write-Error "Observed head does not match expected head."; exit 1 }; if ((git rev-parse ''HEAD^{tree}'').Trim() -ne $env:R13_EXPECTED_TREE) { Write-Error "Observed tree does not match expected tree."; exit 1 }; Write-Output "Requested R13 branch/head/tree identity validated for $env:R13_EXPECTED_BRANCH."; exit 0'
             },
             @{
               id = "validate_r13_failure_fix_cycle"
