@@ -1,0 +1,158 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_external_replay_result",
+  "result_id": "r13err-github-25241730946-1",
+  "request_id": "r13errq-6f4decf18a466337",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "requested_head": "4787d5a59c67d5312ed72231f7a5571b435c1528",
+  "requested_tree": "f76567051d8b830a6153374b7d60376cf923e7bd",
+  "observed_head": "4787d5a59c67d5312ed72231f7a5571b435c1528",
+  "observed_tree": "f76567051d8b830a6153374b7d60376cf923e7bd",
+  "workflow_name": "R13 External Replay",
+  "run_id": "25241730946",
+  "run_url": "https://github.com/RodneyMuniz/AIOffice_V2/actions/runs/25241730946",
+  "run_attempt": "1",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "artifact_id": "assigned_by_github_actions_after_upload",
+  "artifact_name": "r13-external-replay-25241730946-1",
+  "artifact_digest": "assigned_by_github_actions_after_upload",
+  "command_results": [
+    {
+      "command_id": "assert_requested_identity",
+      "command": "if ((git rev-parse HEAD).Trim() -ne $env:R13_EXPECTED_HEAD) { Write-Error \"Observed head does not match expected head.\"; exit 1 }; if ((git rev-parse 'HEAD^{tree}').Trim() -ne $env:R13_EXPECTED_TREE) { Write-Error \"Observed tree does not match expected tree.\"; exit 1 }; Write-Output \"Requested R13 branch/head/tree identity validated for $env:R13_EXPECTED_BRANCH.\"; exit 0",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/assert_requested_identity.stdout.log",
+      "stderr_ref": "raw_logs/assert_requested_identity.stderr.log",
+      "started_at_utc": "2026-05-02T02:37:59Z",
+      "completed_at_utc": "2026-05-02T02:37:59Z"
+    },
+    {
+      "command_id": "validate_r13_failure_fix_cycle",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_failure_fix_cycle.ps1 -CyclePath state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_failure_fix_cycle.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_failure_fix_cycle.stderr.log",
+      "started_at_utc": "2026-05-02T02:37:59Z",
+      "completed_at_utc": "2026-05-02T02:38:02Z"
+    },
+    {
+      "command_id": "validate_r13_before_after_comparison",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_before_after_comparison.ps1 -ComparisonPath state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_before_after_comparison.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_before_after_comparison.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:02Z",
+      "completed_at_utc": "2026-05-02T02:38:04Z"
+    },
+    {
+      "command_id": "validate_r13_operator_demo",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_operator_demo.ps1 -DemoPath state/control_room/r13_current/operator_demo.md",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_operator_demo.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_operator_demo.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:04Z",
+      "completed_at_utc": "2026-05-02T02:38:05Z"
+    },
+    {
+      "command_id": "validate_r13_control_room_status",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_status.ps1 -StatusPath state/control_room/r13_current/control_room_status.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_control_room_status.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_control_room_status.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:05Z",
+      "completed_at_utc": "2026-05-02T02:38:06Z"
+    },
+    {
+      "command_id": "validate_r13_control_room_view",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_view.ps1 -ViewPath state/control_room/r13_current/control_room.md",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_control_room_view.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_control_room_view.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:06Z",
+      "completed_at_utc": "2026-05-02T02:38:08Z"
+    },
+    {
+      "command_id": "validate_r13_control_room_refresh_result",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_refresh_result.ps1 -RefreshResultPath state/control_room/r13_current/control_room_refresh_result.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_control_room_refresh_result.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_control_room_refresh_result.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:08Z",
+      "completed_at_utc": "2026-05-02T02:38:10Z"
+    },
+    {
+      "command_id": "validate_r13_external_replay_request",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_request.ps1 -RequestPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_external_replay_request.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_external_replay_request.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:10Z",
+      "completed_at_utc": "2026-05-02T02:38:11Z"
+    },
+    {
+      "command_id": "validate_r13_external_replay_blocked_result",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_result.ps1 -ResultPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_r13_external_replay_blocked_result.stdout.log",
+      "stderr_ref": "raw_logs/validate_r13_external_replay_blocked_result.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:11Z",
+      "completed_at_utc": "2026-05-02T02:38:12Z"
+    },
+    {
+      "command_id": "validate_status_doc_gate",
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+      "exit_code": 0,
+      "verdict": "passed",
+      "stdout_ref": "raw_logs/validate_status_doc_gate.stdout.log",
+      "stderr_ref": "raw_logs/validate_status_doc_gate.stderr.log",
+      "started_at_utc": "2026-05-02T02:38:12Z",
+      "completed_at_utc": "2026-05-02T02:38:13Z"
+    }
+  ],
+  "aggregate_verdict": "passed",
+  "imported_artifact_ref": "pending_import_after_artifact_identity_capture",
+  "evidence_refs": [
+    {
+      "ref_id": "observed-identity",
+      "evidence_kind": "git_identity",
+      "ref": "observed_identity.json",
+      "authority_kind": "github_actions_external_runner",
+      "scope": "artifact"
+    },
+    {
+      "ref_id": "command-results",
+      "evidence_kind": "command_results",
+      "ref": "command_results.json",
+      "authority_kind": "github_actions_external_runner",
+      "scope": "artifact"
+    },
+    {
+      "ref_id": "validation-manifest",
+      "evidence_kind": "validation_manifest",
+      "ref": "validation_manifest.md",
+      "authority_kind": "github_actions_external_runner",
+      "scope": "artifact"
+    }
+  ],
+  "refusal_reasons": [],
+  "started_at_utc": "2026-05-02T02:37:59Z",
+  "completed_at_utc": "2026-05-02T02:38:13Z",
+  "non_claims": [
+    "R13-011 records external replay status only",
+    "GitHub artifact ID and digest must be captured from the completed workflow run before importing or claiming proof",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate fully delivered by R13-011",
+    "no R14 or successor opening"
+  ]
+}

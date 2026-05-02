@@ -1,0 +1,8 @@
+{
+  "observed_head": "4787d5a59c67d5312ed72231f7a5571b435c1528",
+  "observed_tree": "f76567051d8b830a6153374b7d60376cf923e7bd",
+  "expected_head": "4787d5a59c67d5312ed72231f7a5571b435c1528",
+  "expected_tree": "f76567051d8b830a6153374b7d60376cf923e7bd",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "replay_scope": "r13_011_external_replay_after_operator_demo"
+}

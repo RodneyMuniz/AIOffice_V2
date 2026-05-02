@@ -1,0 +1,1 @@
+VALID: R13 QA failure-fix cycle 'r13qffc-c64143d51d136490' selected fix item 'r13qf-5efcc675b9ec2995', source issue 'r13qi-4da79bc524d40d09', issue type 'malformed_json', before issue count 1, after issue count 0, comparison verdict 'target_issue_resolved', and aggregate verdict 'fixed_pending_external_replay'.

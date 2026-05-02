@@ -1,11 +1,11 @@
 {
     "contract_version":  "v1",
     "artifact_type":  "r13_control_room_refresh_result",
-    "refresh_id":  "r13crr-53b96d58fad5d40e",
+    "refresh_id":  "r13crr-96c07307e9083de3",
     "repository":  "AIOffice_V2",
     "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-    "head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
-    "tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+    "head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
+    "tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
     "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
     "source_task":  "R13-011",
     "source_status_ref":  "state/control_room/r13_current/control_room_status.json",
@@ -46,11 +46,11 @@
                            ],
     "stale_state_checks":  {
                                "expected_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "expected_head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
-                               "expected_tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+                               "expected_head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
+                               "expected_tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
                                "observed_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "observed_head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
-                               "observed_tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+                               "observed_head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
+                               "observed_tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
                                "branch_matches_expected":  true,
                                "head_matches_expected":  true,
                                "tree_matches_expected":  true,
@@ -65,18 +65,18 @@
                            },
     "hard_gate_status":  {
                              "meaningful_qa_loop":  {
-                                                        "status":  "partial_local_only",
+                                                        "status":  "partially_evidenced",
                                                         "hard_gate_delivered":  false,
-                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, an operator demo artifact, and a blocked external replay dispatch packet exist, but the loop is not complete until passed external replay and final QA signoff exist.",
+                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, an operator demo artifact, and passed external replay/import evidence exist, but the loop is not complete until final QA signoff exists.",
                                                         "missing_required_evidence":  [
-                                                                                          "passed_external_replay",
                                                                                           "final_qa_signoff"
                                                                                       ],
                                                         "evidence_refs":  [
                                                                               "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
                                                                               "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
                                                                               "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
-                                                                              "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json"
+                                                                              "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                                                              "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json"
                                                                           ]
                                                     },
                              "api_custom_runner_bypass":  {
@@ -94,9 +94,8 @@
                              "current_operator_control_room":  {
                                                                    "status":  "partially_evidenced",
                                                                    "hard_gate_delivered":  false,
-                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records blocked external replay/manual dispatch evidence. This remains partial operator-control-room evidence only, not a full hard-gate delivery.",
+                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence. This remains partial operator-control-room evidence only, not a full hard-gate delivery.",
                                                                    "missing_required_evidence":  [
-                                                                                                     "passed_external_replay",
                                                                                                      "final_qa_signoff"
                                                                                                  ],
                                                                    "evidence_refs":  [
@@ -130,6 +129,9 @@
                                                                                          "tools/validate_r13_external_replay_result.ps1",
                                                                                          "tools/validate_r13_external_replay_import.ps1",
                                                                                          "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                                                                                         "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                                                                         "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                                                                                         "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
                                                                                          "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
                                                                                          "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
                                                                                          "state/external_runs/r13_external_replay/r13_011/validation_manifest.md"
@@ -154,7 +156,6 @@
                                                    "hard_gate_delivered":  false,
                                                    "summary":  "R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; this is partial operator-demo evidence only, not a full hard-gate delivery.",
                                                    "missing_required_evidence":  [
-                                                                                     "passed_external_replay",
                                                                                      "final_qa_signoff"
                                                                                  ],
                                                    "evidence_refs":  [
@@ -174,18 +175,6 @@
                          },
     "blockers":  [
                      {
-                         "id":  "blocker-r13-external-replay-blocked",
-                         "severity":  "high",
-                         "title":  "External replay is blocked",
-                         "explanation":  "R13-011 generated a request and blocked/manual-dispatch packet, but no authenticated external run was dispatched and no external replay proof exists.",
-                         "evidence_refs":  [
-                                               "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
-                                               "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json"
-                                           ],
-                         "recommended_next_action":  "Complete the manual external dispatch/import path before any R13-012 final QA signoff.",
-                         "blocking_status":  "blocking"
-                     },
-                     {
                          "id":  "blocker-r13-final-signoff-missing",
                          "severity":  "high",
                          "title":  "Final QA signoff is missing",
@@ -193,7 +182,7 @@
                          "evidence_refs":  [
                                                "contracts/actionable_qa/r13_qa_lifecycle.contract.json"
                                            ],
-                         "recommended_next_action":  "Do not sign off until passed external replay/import evidence and final signoff evidence are available.",
+                         "recommended_next_action":  "Do not sign off until R13-012 explicitly consumes the imported external replay evidence and creates final signoff evidence.",
                          "blocking_status":  "blocking"
                      },
                      {
@@ -210,37 +199,27 @@
                  ],
     "next_actions":  [
                          {
-                             "id":  "next-r13-011-manual-external-replay-dispatch",
+                             "id":  "next-r13-011-hold-imported-external-replay-evidence-boundary",
                              "task_id":  "R13-011",
-                             "title":  "Manual external replay dispatch/import",
-                             "action_type":  "blocked_prerequisite",
-                             "description":  "Use the R13-011 manual dispatch packet for authenticated external replay dispatch or an equivalent external-runner handoff, then import and validate the artifact evidence before any R13-012 signoff.",
-                             "required_before":  "R13-012 meaningful QA signoff gate",
+                             "title":  "Hold R13-011 imported external replay evidence boundary",
+                             "action_type":  "status_boundary",
+                             "description":  "R13-011 external replay/import evidence is passed and recorded; do not start R13-012 or final QA signoff inside R13-011.",
+                             "required_before":  "any explicitly authorized R13-012 signoff work",
                              "evidence_refs":  [
-                                                   "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json"
-                                               ]
-                         },
-                         {
-                             "id":  "next-r13-012-meaningful-qa-signoff-after-replay",
-                             "task_id":  "R13-012",
-                             "title":  "Planned meaningful QA signoff gate after external replay is unblocked",
-                             "action_type":  "later_planned_task",
-                             "description":  "Final QA signoff remains planned and blocked until external replay evidence exists.",
-                             "required_before":  "later R13 signoff work",
-                             "evidence_refs":  [
-                                                   "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                   "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                                   "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json"
                                                ]
                          }
                      ],
     "operator_decisions_required":  [
                                         {
-                                            "id":  "decision-complete-r13-011-manual-dispatch",
-                                            "title":  "Complete R13-011 manual dispatch/import before signoff",
-                                            "decision_type":  "operator_manual_dispatch",
+                                            "id":  "decision-refuse-premature-signoff",
+                                            "title":  "Refuse final QA signoff until R13-012 is explicitly started",
+                                            "decision_type":  "signoff_boundary",
                                             "required_before":  "starting_R13_012_signoff_work",
                                             "blocking_status":  "blocking",
                                             "evidence_refs":  [
-                                                                  "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json"
+                                                                  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
                                                               ]
                                         },
                                         {
@@ -519,6 +498,27 @@
                               "scope":  "repo"
                           },
                           {
+                              "ref_id":  "r13-011-external-replay-result",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                              "evidence_kind":  "external_replay_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-import",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                              "evidence_kind":  "external_replay_import",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-imported-artifact",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                              "evidence_kind":  "imported_artifact_manifest",
+                              "authority_kind":  "github_actions_external_runner",
+                              "scope":  "repo"
+                          },
+                          {
                               "ref_id":  "r13-011-external-replay-blocked",
                               "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
                               "evidence_kind":  "blocked_result",
@@ -540,14 +540,14 @@
                               "scope":  "repo"
                           }
                       ],
-    "generated_at_utc":  "2026-05-02T00:49:39Z",
+    "generated_at_utc":  "2026-05-02T06:47:53Z",
     "non_claims":  [
-                       "R13-011 records a blocked external replay/manual dispatch packet only",
+                       "R13-011 records external replay evidence only",
                        "R13 active through R13-011 only",
                        "R13-012 through R13-018 remain planned only",
                        "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
                        "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
-                       "external replay is blocked; no external replay proof is claimed",
+                       "external replay evidence is imported; final QA signoff is still missing",
                        "no final QA signoff delivered by R13-011",
                        "no R13 hard value gate fully delivered by R13-011",
                        "no productized control-room behavior",

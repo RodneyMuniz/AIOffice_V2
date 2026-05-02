@@ -2,12 +2,12 @@
 
 - artifact_type: `r13_control_room_validation_manifest`
 - source_refresh_result_ref: `state/control_room/r13_current/control_room_refresh_result.json`
-- generated_at_utc: `2026-05-02T00:49:40Z`
+- generated_at_utc: `2026-05-02T06:47:54Z`
 
 ## Repository Identity
 - Branch: `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
-- Head: `e9e8b4e21147d7c0906b4916297e3162690dbf64`
-- Tree: `520e2adf5e5fcbce2f81b23c872206d746e6b9c2`
+- Head: `10539c1e9648a10b6ad2c53896779e93db5059bd`
+- Tree: `97c5c0998cfe22e5650614d8d1f08da28bf8257f`
 - Stale-state checks passed: `True`
 
 ## Generated Artifacts
@@ -28,24 +28,24 @@
 - Completed: `R13-001 through R13-011`
 - Planned: `R13-012 through R13-018`
 - Next legal action: `R13-011`
-- Blockers: `3`
+- Blockers: `2`
 - Attention items: `5`
 
 ## Hard Gate Posture
 - Overall: `blocked`; any hard gate delivered: `False`
-- `meaningful_qa_loop`: `partial_local_only`; hard gate delivered `False`
+- `meaningful_qa_loop`: `partially_evidenced`; hard gate delivered `False`
 - `api_custom_runner_bypass`: `partial_local_only`; hard gate delivered `False`
 - `current_operator_control_room`: `partially_evidenced`; hard gate delivered `False`
 - `skill_invocation_evidence`: `partially_evidenced`; hard gate delivered `False`
 - `operator_demo`: `partially_evidenced`; hard gate delivered `False`
 
 ## Explicit Non-Claims
-- R13-011 records a blocked external replay/manual dispatch packet only
+- R13-011 records external replay evidence only
 - R13 active through R13-011 only
 - R13-012 through R13-018 remain planned only
 - operator demo gate is partially evidenced only; not fully delivered as a hard gate
 - current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate
-- external replay is blocked; no external replay proof is claimed
+- external replay evidence is imported; final QA signoff is still missing
 - no final QA signoff delivered by R13-011
 - no R13 hard value gate fully delivered by R13-011
 - no productized control-room behavior

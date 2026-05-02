@@ -1,0 +1,96 @@
+﻿{
+    "artifact_type":  "r13_external_replay_import",
+    "imported_artifact_id":  "r13erimp-25241730946-6759970924",
+    "source_run_id":  "25241730946",
+    "source_artifact_id":  "6759970924",
+    "source_artifact_name":  "r13-external-replay-25241730946-1",
+    "source_artifact_digest":  "sha256:50bc3e28d47c5aca5c4ff6a5e595a967c3aa4153c6611dd20e09f47864ee3769",
+    "imported_paths":  [
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/observed_identity.json",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/command_results.json",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/r13_external_replay_result_packet.json",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/assert_requested_identity.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/assert_requested_identity.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/clean_status_after.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/clean_status_before.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_before_after_comparison.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_before_after_comparison.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_refresh_result.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_refresh_result.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_status.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_status.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_view.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_control_room_view.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_external_replay_blocked_result.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_external_replay_blocked_result.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_external_replay_request.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_external_replay_request.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_failure_fix_cycle.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_failure_fix_cycle.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_operator_demo.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_r13_operator_demo.stdout.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_status_doc_gate.stderr.log",
+                           "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/raw_logs/validate_status_doc_gate.stdout.log"
+                       ],
+    "validation_results":  [
+                               {
+                                   "artifact_id":  "6759970924",
+                                   "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/observed_identity.json",
+                                   "validator":  "observed_identity_matches_requested_head_tree",
+                                   "verdict":  "passed",
+                                   "summary":  "Observed head and tree match the requested R13-011 replay head and tree."
+                               },
+                               {
+                                   "artifact_id":  "6759970924",
+                                   "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/command_results.json",
+                                   "validator":  "all_command_results_passed",
+                                   "verdict":  "passed",
+                                   "summary":  "Command results passed: 10 passed, 0 failed, 0 blocked."
+                               },
+                               {
+                                   "artifact_id":  "6759970924",
+                                   "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                                   "validator":  "validation_manifest_present",
+                                   "verdict":  "passed",
+                                   "summary":  "Validation manifest records run identity, artifact name, observed identity, command results, limitations, and non-claims."
+                               },
+                               {
+                                   "artifact_id":  "6759970924",
+                                   "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                   "validator":  "r13_external_replay_result_validator",
+                                   "verdict":  "passed",
+                                   "summary":  "Imported external replay result validates after binding GitHub run and artifact identity."
+                               }
+                           ],
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-external-replay-result",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                              "evidence_kind":  "external_replay_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "imported-command-results",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/command_results.json",
+                              "evidence_kind":  "command_results",
+                              "authority_kind":  "github_actions_external_runner",
+                              "scope":  "artifact"
+                          },
+                          {
+                              "ref_id":  "imported-validation-manifest",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "github_actions_external_runner",
+                              "scope":  "artifact"
+                          }
+                      ],
+    "aggregate_verdict":  "passed",
+    "non_claims":  [
+                       "R13-011 imported artifact validation is external replay evidence only",
+                       "no final QA signoff has occurred",
+                       "no R13 hard value gate fully delivered by R13-011",
+                       "no R14 or successor opening"
+                   ]
+}

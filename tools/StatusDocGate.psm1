@@ -717,7 +717,7 @@ function Assert-R13NonClaimsPreserved {
         "no solved Codex reliability",
         "no solved Codex context compaction",
         "no claim that Codex can run long milestones unattended",
-        "no external replay proof until actual external run evidence exists",
+        "external replay evidence is passed/imported for `R13-011`, but no final QA signoff has occurred",
         "no executor self-certification as QA",
         "no R14 or successor opening"
     )
@@ -1946,14 +1946,17 @@ function Test-R13OpeningStatus {
     Assert-RegexMatch -Text $combinedText -Pattern 'tools/validate_r13_external_replay_result\.ps1' -Message "Status docs must cite the R13 external replay result validator."
     Assert-RegexMatch -Text $combinedText -Pattern 'tools/validate_r13_external_replay_import\.ps1' -Message "Status docs must cite the R13 external replay import validator."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request\.json' -Message "Status docs must cite the R13-011 external replay request artifact."
+    Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result\.json' -Message "Status docs must cite the R13-011 external replay result artifact."
+    Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import\.json' -Message "Status docs must cite the R13-011 external replay import artifact."
+    Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/' -Message "Status docs must cite the R13-011 imported external replay artifact root."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked\.json' -Message "Status docs must cite the R13-011 blocked replay result."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet\.json' -Message "Status docs must cite the R13-011 manual dispatch packet."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/validation_manifest\.md' -Message "Status docs must cite the R13-011 external replay validation manifest."
     Assert-RegexMatch -Text $combinedText -Pattern 'state/external_runs/r13_external_replay/r13_011/raw_logs/' -Message "Status docs must cite the R13-011 external replay raw logs."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)current cycle-aware control-room JSON/Markdown/refresh result|cycle-aware control-room status.*Markdown view.*refresh result' -Message "Status docs must state R13-009 adds current cycle-aware control-room JSON/Markdown/refresh result."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)operator demo artifact|human-readable operator demo' -Message "Status docs must state R13-010 adds the operator demo artifact."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)external replay.*blocked|blocked.*external replay' -Message "Status docs must state R13-011 external replay is blocked."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)no external replay proof|external replay proof.*not.*claimed' -Message "Status docs must not claim external replay proof for blocked R13-011."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)external replay.*(passed|imported)|imported.*external replay' -Message "Status docs must state R13-011 external replay evidence is passed/imported."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)final QA signoff.*(missing|not delivered|has not occurred)|no final QA signoff' -Message "Status docs must keep final QA signoff missing after R13-011 external replay."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)current operator control-room gate.*partially evidenced.*not fully delivered|partially evidenced.*current operator control-room gate.*not fully delivered' -Message "Status docs must state the current operator control-room gate is partially evidenced only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)operator demo gate.*partially evidenced.*not fully delivered|partially evidenced.*operator demo gate.*not fully delivered' -Message "Status docs must state the operator demo gate is partially evidenced only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)API/custom-runner bypass gate is not fully delivered yet|API/custom-runner bypass gate.*not fully delivered' -Message "Status docs must keep the API/custom-runner bypass gate not fully delivered."

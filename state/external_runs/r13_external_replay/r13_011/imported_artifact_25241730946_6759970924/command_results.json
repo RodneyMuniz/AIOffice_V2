@@ -1,0 +1,102 @@
+[
+  {
+    "command_id": "assert_requested_identity",
+    "command": "if ((git rev-parse HEAD).Trim() -ne $env:R13_EXPECTED_HEAD) { Write-Error \"Observed head does not match expected head.\"; exit 1 }; if ((git rev-parse 'HEAD^{tree}').Trim() -ne $env:R13_EXPECTED_TREE) { Write-Error \"Observed tree does not match expected tree.\"; exit 1 }; Write-Output \"Requested R13 branch/head/tree identity validated for $env:R13_EXPECTED_BRANCH.\"; exit 0",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/assert_requested_identity.stdout.log",
+    "stderr_ref": "raw_logs/assert_requested_identity.stderr.log",
+    "started_at_utc": "2026-05-02T02:37:59Z",
+    "completed_at_utc": "2026-05-02T02:37:59Z"
+  },
+  {
+    "command_id": "validate_r13_failure_fix_cycle",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_failure_fix_cycle.ps1 -CyclePath state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_failure_fix_cycle.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_failure_fix_cycle.stderr.log",
+    "started_at_utc": "2026-05-02T02:37:59Z",
+    "completed_at_utc": "2026-05-02T02:38:02Z"
+  },
+  {
+    "command_id": "validate_r13_before_after_comparison",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_before_after_comparison.ps1 -ComparisonPath state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_before_after_comparison.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_before_after_comparison.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:02Z",
+    "completed_at_utc": "2026-05-02T02:38:04Z"
+  },
+  {
+    "command_id": "validate_r13_operator_demo",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_operator_demo.ps1 -DemoPath state/control_room/r13_current/operator_demo.md",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_operator_demo.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_operator_demo.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:04Z",
+    "completed_at_utc": "2026-05-02T02:38:05Z"
+  },
+  {
+    "command_id": "validate_r13_control_room_status",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_status.ps1 -StatusPath state/control_room/r13_current/control_room_status.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_control_room_status.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_control_room_status.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:05Z",
+    "completed_at_utc": "2026-05-02T02:38:06Z"
+  },
+  {
+    "command_id": "validate_r13_control_room_view",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_view.ps1 -ViewPath state/control_room/r13_current/control_room.md",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_control_room_view.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_control_room_view.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:06Z",
+    "completed_at_utc": "2026-05-02T02:38:08Z"
+  },
+  {
+    "command_id": "validate_r13_control_room_refresh_result",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_refresh_result.ps1 -RefreshResultPath state/control_room/r13_current/control_room_refresh_result.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_control_room_refresh_result.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_control_room_refresh_result.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:08Z",
+    "completed_at_utc": "2026-05-02T02:38:10Z"
+  },
+  {
+    "command_id": "validate_r13_external_replay_request",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_request.ps1 -RequestPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_external_replay_request.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_external_replay_request.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:10Z",
+    "completed_at_utc": "2026-05-02T02:38:11Z"
+  },
+  {
+    "command_id": "validate_r13_external_replay_blocked_result",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_result.ps1 -ResultPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_r13_external_replay_blocked_result.stdout.log",
+    "stderr_ref": "raw_logs/validate_r13_external_replay_blocked_result.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:11Z",
+    "completed_at_utc": "2026-05-02T02:38:12Z"
+  },
+  {
+    "command_id": "validate_status_doc_gate",
+    "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+    "exit_code": 0,
+    "verdict": "passed",
+    "stdout_ref": "raw_logs/validate_status_doc_gate.stdout.log",
+    "stderr_ref": "raw_logs/validate_status_doc_gate.stderr.log",
+    "started_at_utc": "2026-05-02T02:38:12Z",
+    "completed_at_utc": "2026-05-02T02:38:13Z"
+  }
+]
