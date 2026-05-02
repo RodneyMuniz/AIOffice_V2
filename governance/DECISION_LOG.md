@@ -1123,5 +1123,16 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: `R13-017` adds `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json`, evaluated from committed head `7870ac390a1233d2e10679c7646581abc71311b9` and tree `b92d607c209893be8367bc79b94e79300f8aaa78`.
 - Consequence: the decision packet treats `state/vision_control/r13_015_vision_control_scorecard.json` as the primary machine-readable gate assessment and treats `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md` as an operator artifact only, not proof by itself.
 - Consequence: closeout is blocked under the all-hard-gates-pass rule because API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial in committed evidence.
-- Consequence: R13 is active through `R13-017` only, and `R13-018` remains planned only.
-- Consequence: this decision does not close R13, does not start R13-018, does not run two-phase final-head support, does not merge to main, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.
+- Consequence: at the R13-017 acceptance boundary, R13 was active through `R13-017` only and `R13-018` remained planned only; the later R13-018 decision advances the current boundary.
+- Consequence: this decision did not close R13, did not start R13-018, did not run two-phase final-head support, did not merge to main, did not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and did not open R14 or any successor milestone.
+
+## D-0117 R13-018 Produced Final Failed/Partial Report
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R13-018` is done as final failed/partial report and conditional successor recommendation only for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-018` adds `governance/reports/AIOffice_V2_R13_Final_Failed_Partial_Report_and_Conditional_Successor_Recommendation_v1.md`.
+- Consequence: the report is an operator artifact only. It preserves the R13-017 fail-closed closeout decision, keeps API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo partial, and treats generated Markdown/reports as not proof by themselves.
+- Consequence: the report records the Vision Control Table R6 through R13 from `state/vision_control/r13_015_vision_control_scorecard.json`, including R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate, uplift `5.7` from the recomputed R12 item-row aggregate, and no 10 to 15 percent progress claim.
+- Consequence: the conditional successor recommendation does not open R14 or any successor; any successor requires separate explicit operator approval and repo-truth opening evidence.
+- Consequence: R13 is active through `R13-018` only and remains not closed.
+- Consequence: this decision does not close R13, does not run final-head support, does not create a closeout package, does not merge to main, does not convert partial gates into passed gates, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.
