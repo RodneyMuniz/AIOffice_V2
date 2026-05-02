@@ -1115,3 +1115,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the current candidate posture records that R13 closeout is blocked under the all-hard-gates-pass rule because API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial.
 - Consequence: R13 is active through `R13-016` only, and `R13-017` through `R13-018` remain planned only.
 - Consequence: this decision does not close R13, does not start R13-017 or R13-018, does not merge to main, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.
+
+## D-0116 R13-017 Recorded Fail-Closed Closeout Decision
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R13-017` is done as closeout eligibility evaluation and fail-closed decision recording only for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-017` adds `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json`, evaluated from committed head `7870ac390a1233d2e10679c7646581abc71311b9` and tree `b92d607c209893be8367bc79b94e79300f8aaa78`.
+- Consequence: the decision packet treats `state/vision_control/r13_015_vision_control_scorecard.json` as the primary machine-readable gate assessment and treats `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md` as an operator artifact only, not proof by itself.
+- Consequence: closeout is blocked under the all-hard-gates-pass rule because API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial in committed evidence.
+- Consequence: R13 is active through `R13-017` only, and `R13-018` remains planned only.
+- Consequence: this decision does not close R13, does not start R13-018, does not run two-phase final-head support, does not merge to main, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.

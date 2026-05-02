@@ -1,0 +1,181 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_closeout_decision_packet",
+  "decision_packet_id": "r13cdp-017-7870ac390a1233d2",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "evaluated_head": "7870ac390a1233d2e10679c7646581abc71311b9",
+  "evaluated_tree": "b92d607c209893be8367bc79b94e79300f8aaa78",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-017",
+  "created_at_utc": "2026-05-02T14:33:01Z",
+  "decision": "fail_closed_closeout_blocked",
+  "closeout_eligible": false,
+  "r13_closed": false,
+  "r13_018_started": false,
+  "r14_or_successor_opened": false,
+  "closeout_rule": {
+    "all_hard_gates_must_pass_from_committed_evidence": true,
+    "generated_markdown_and_reports_are_operator_artifacts_only": true,
+    "narrative_without_committed_evidence_is_not_proof": true,
+    "partial_gates_cannot_be_converted_to_passed_gates": true
+  },
+  "primary_machine_evidence_ref": "state/vision_control/r13_015_vision_control_scorecard.json",
+  "hard_gate_results": [
+    {
+      "gate_id": "meaningful_qa_loop",
+      "status": "bounded_delivered",
+      "closeout_blocker": false,
+      "evidence_refs": [
+        "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+        "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+        "state/vision_control/r13_015_vision_control_scorecard.json"
+      ],
+      "non_claims": [
+        "bounded representative scope only",
+        "no full product QA coverage",
+        "no production QA"
+      ]
+    },
+    {
+      "gate_id": "api_custom_runner_bypass",
+      "status": "partial",
+      "closeout_blocker": true,
+      "evidence_refs": [
+        "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+        "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
+        "state/vision_control/r13_015_vision_control_scorecard.json"
+      ],
+      "non_claims": [
+        "API/custom-runner bypass gate remains partial",
+        "no production runtime"
+      ]
+    },
+    {
+      "gate_id": "current_operator_control_room",
+      "status": "partial",
+      "closeout_blocker": true,
+      "evidence_refs": [
+        "state/control_room/r13_current/control_room_status.json",
+        "state/control_room/r13_current/control_room_refresh_result.json",
+        "state/control_room/r13_current/control_room.md",
+        "state/vision_control/r13_015_vision_control_scorecard.json"
+      ],
+      "non_claims": [
+        "current operator control-room gate remains partial",
+        "no productized control-room behavior",
+        "no full UI app"
+      ]
+    },
+    {
+      "gate_id": "skill_invocation_evidence",
+      "status": "partial",
+      "closeout_blocker": true,
+      "evidence_refs": [
+        "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+        "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+        "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+        "state/vision_control/r13_015_vision_control_scorecard.json"
+      ],
+      "non_claims": [
+        "skill invocation evidence gate remains partial",
+        "runner.external_replay is registered but not executed by R13-008",
+        "control_room.refresh is registered but not executed by R13-008",
+        "no broad autonomy"
+      ]
+    },
+    {
+      "gate_id": "operator_demo",
+      "status": "partial",
+      "closeout_blocker": true,
+      "evidence_refs": [
+        "state/control_room/r13_current/operator_demo.md",
+        "state/control_room/r13_current/operator_demo_validation_manifest.md",
+        "state/vision_control/r13_015_vision_control_scorecard.json"
+      ],
+      "non_claims": [
+        "operator demo gate remains partial",
+        "generated Markdown is not proof by itself",
+        "no productized operator demo"
+      ]
+    }
+  ],
+  "blocking_gate_ids": [
+    "api_custom_runner_bypass",
+    "current_operator_control_room",
+    "skill_invocation_evidence",
+    "operator_demo"
+  ],
+  "evidence_refs": [
+    {
+      "ref_id": "r13-015-scorecard",
+      "ref": "state/vision_control/r13_015_vision_control_scorecard.json",
+      "evidence_kind": "machine_readable_gate_assessment",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-014-cycle-evidence-package",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json",
+      "evidence_kind": "machine_readable_evidence_index",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-016-final-audit-candidate-packet",
+      "ref": "governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md",
+      "evidence_kind": "operator_artifact_only",
+      "authority_kind": "not_proof_by_itself",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-authority",
+      "ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+      "evidence_kind": "governance_status",
+      "authority_kind": "status_boundary",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "status-doc-gate",
+      "ref": "tools/StatusDocGate.psm1",
+      "evidence_kind": "status_surface_validator",
+      "authority_kind": "fail_closed_guard",
+      "scope": "repo"
+    }
+  ],
+  "rejected_closeout_claims": [
+    "R13 closeout",
+    "all R13 hard gates pass",
+    "API/custom-runner bypass gate fully delivered",
+    "current operator control-room gate fully delivered",
+    "skill invocation evidence gate fully delivered",
+    "operator demo gate fully delivered",
+    "production runtime",
+    "production QA",
+    "full product QA coverage",
+    "productized UI",
+    "productized control-room behavior",
+    "broad autonomy",
+    "solved Codex reliability",
+    "solved Codex compaction",
+    "R14 or successor milestone opening"
+  ],
+  "allowed_next_action": {
+    "task_id": "R13-018",
+    "status": "planned_only",
+    "condition": "do not start from this R13-017 fail-closed decision; separate operator direction is required and cannot convert partial gates to passed gates"
+  },
+  "non_claims": [
+    "R13-017 records closeout ineligibility only",
+    "R13 is not closed",
+    "R13-018 is not started",
+    "no R14 or successor milestone is opened",
+    "no merge to main",
+    "no production runtime",
+    "no production QA",
+    "no full product QA coverage",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no solved Codex compaction"
+  ]
+}

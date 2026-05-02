@@ -1,14 +1,14 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-016` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-017` only.
 
-R13 active through R13-016 only; R13-016 is done as a final audit candidate packet only. R13-017 through R13-018 remain planned only.
+R13 active through R13-017 only; R13-017 is done as a fail-closed closeout eligibility decision only. R13-018 remains planned only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally. `R13-014` adds a cycle evidence package only; it consolidates committed refs and categorizes evidence without starting R13-015, closing R13, or opening R14 or any successor. `R13-015` adds calculable Vision Control scoring only; it records a machine-readable scorecard and validator from committed evidence refs without claiming R13 closeout, R14, or 10 to 15 percent progress. `R13-016` adds a final audit candidate packet only; it identifies the current gate posture, exact refs, operator usefulness, manual burden reduction, and non-claims without closing R13, starting R13-017, opening R13-018, or opening R14 or any successor.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally. `R13-014` adds a cycle evidence package only; it consolidates committed refs and categorizes evidence without starting R13-015, closing R13, or opening R14 or any successor. `R13-015` adds calculable Vision Control scoring only; it records a machine-readable scorecard and validator from committed evidence refs without claiming R13 closeout, R14, or 10 to 15 percent progress. `R13-016` adds a final audit candidate packet only; it identifies the current gate posture, exact refs, operator usefulness, manual burden reduction, and non-claims without closing R13, starting R13-017, opening R13-018, or opening R14 or any successor. `R13-017` evaluates closeout eligibility only and records a fail-closed decision packet because committed evidence still shows four hard gates partial; it does not close R13, start R13-018, merge to main, or open R14 or any successor.
 
 ## Accepted Starting State
 
@@ -47,13 +47,14 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-014` as cycle evidence consolidation only;
 - keep `R13-015` as calculable Vision Control scoring only;
 - keep `R13-016` as final audit candidate packet generation only;
+- keep `R13-017` as closeout eligibility evaluation and fail-closed decision recording only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-R13 gates remain conservative at `R13-016`.
+R13 gates remain conservative at `R13-017`.
 
 1. Meaningful QA loop gate: delivered only for the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice accepted by `R13-012`; not delivered for full product QA coverage or production QA.
 2. API/custom-runner bypass gate: foundation added, not fully delivered.
@@ -63,7 +64,7 @@ R13 gates remain conservative at `R13-016`.
 
 No gate can pass from narrative, schema-only validation, stale artifacts, local-only evidence claimed as external proof, executor self-certification, or chat-memory continuity.
 
-`R13-015` scoring is not a hard-gate delivery by itself. It calculates the current evidence posture as R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate and `5.7` from the recomputed R12 item-row aggregate, with no 10 to 15 percent progress claim. `R13-016` is an operator-readable candidate packet only and does not change the hard-gate status.
+`R13-015` scoring is not a hard-gate delivery by itself. It calculates the current evidence posture as R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate and `5.7` from the recomputed R12 item-row aggregate, with no 10 to 15 percent progress claim. `R13-016` is an operator-readable candidate packet only and does not change the hard-gate status. `R13-017` records closeout ineligibility from committed evidence and does not change the hard-gate status.
 
 ## R13 Task List
 
@@ -132,8 +133,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: generates `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md` from committed evidence. It identifies the bounded meaningful QA pass, partial/blocked gates, exact refs, non-claims, operator demo usefulness, manual burden reduction, and current closeout block without closing R13, starting R13-017, opening R13-018, merging to main, or opening R14 or any successor.
 
 ### `R13-017` Close R13 narrowly only if all hard gates pass
-- Status: planned
-- Boundary: use two-phase final-head support only if all hard gates pass; do not open R14.
+- Status: done
+- Boundary: evaluates closeout eligibility against committed evidence and records fail-closed decision packet `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json`. Because `state/vision_control/r13_015_vision_control_scorecard.json` records API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo as `partial`, R13 closeout remains blocked. It does not run two-phase final-head support, start R13-018, merge to main, close R13, or open R14 or any successor.
 
 ### `R13-018` Produce R13 final report and R14 recommendation only after closeout evidence
 - Status: planned
@@ -162,11 +163,12 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - R13-014 evidence package is consolidation only
 - R13-015 Vision Control scorecard is calculable evidence only
 - R13-016 final audit candidate packet is an operator artifact only
+- R13-017 closeout decision is fail-closed only
 - no R13 closeout
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-016 Claim
+## Current R13-017 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
 
@@ -198,4 +200,6 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 `R13-015` claims only that calculable Vision Control scoring exists at `state/vision_control/r13_015_vision_control_scorecard.json` with validation support at `state/vision_control/r13_015_validation_manifest.md`, `contracts/vision_control/r13_vision_control_scorecard.contract.json`, `tools/R13VisionControlScorecard.psm1`, `tools/validate_r13_vision_control_scorecard.ps1`, and `tests/test_r13_vision_control_scorecard.ps1`. The scorecard records R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate, uplift `5.7` from the recomputed R12 item-row aggregate, and no 10 to 15 percent progress claim. It is calculable evidence only, not hard-gate delivery, R13 closeout, R14, or successor authorization.
 
-`R13-016` claims only that the final audit candidate packet exists at `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md`. The packet is an operator artifact that summarizes committed evidence refs, bounded/partial gate posture, operator demo usefulness, manual burden reduction, Vision Control score posture, and non-claims. It records that closeout is currently blocked under the all-hard-gates-pass rule because API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. `R13-017` and `R13-018` remain planned only. R13 is not closed. No productized UI, production runtime, real production QA, full product QA coverage, broad autonomy, solved Codex reliability, solved Codex compaction, R14, or successor milestone is opened.
+`R13-016` claims only that the final audit candidate packet exists at `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md`. The packet is an operator artifact that summarizes committed evidence refs, bounded/partial gate posture, operator demo usefulness, manual burden reduction, Vision Control score posture, and non-claims. It records that closeout is currently blocked under the all-hard-gates-pass rule because API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial.
+
+`R13-017` claims only that closeout eligibility was evaluated against committed evidence and failed closed. It adds `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json`, evaluated from head `7870ac390a1233d2e10679c7646581abc71311b9` and tree `b92d607c209893be8367bc79b94e79300f8aaa78`. The decision packet uses `state/vision_control/r13_015_vision_control_scorecard.json` as the primary machine-readable gate assessment: meaningful QA loop is `bounded_delivered`, while API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain `partial`. Therefore R13 closeout remains blocked, `R13-018` remains planned only, R13 is not closed, and no productized UI, production runtime, real production QA, full product QA coverage, broad autonomy, solved Codex reliability, solved Codex compaction, R14, or successor milestone is opened.
