@@ -1,14 +1,14 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-014` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-015` only.
 
-R13 active through R13-014 only; R13-014 is done as cycle evidence consolidation only. R13-015 through R13-018 remain planned only.
+R13 active through R13-015 only; R13-015 is done as calculable Vision Control scoring only. R13-016 through R13-018 remain planned only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally. `R13-014` adds a cycle evidence package only; it consolidates committed refs and categorizes evidence without starting R13-015, closing R13, or opening R14 or any successor.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally. `R13-014` adds a cycle evidence package only; it consolidates committed refs and categorizes evidence without starting R13-015, closing R13, or opening R14 or any successor. `R13-015` adds calculable Vision Control scoring only; it records a machine-readable scorecard and validator from committed evidence refs without claiming R13 closeout, R14, or 10 to 15 percent progress.
 
 ## Accepted Starting State
 
@@ -45,13 +45,14 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-012` as bounded meaningful QA signoff only;
 - keep `R13-013` as bounded repo-truth continuity and compaction mitigation proof only;
 - keep `R13-014` as cycle evidence consolidation only;
+- keep `R13-015` as calculable Vision Control scoring only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-R13 gates remain conservative at `R13-014`.
+R13 gates remain conservative at `R13-015`.
 
 1. Meaningful QA loop gate: delivered only for the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice accepted by `R13-012`; not delivered for full product QA coverage or production QA.
 2. API/custom-runner bypass gate: foundation added, not fully delivered.
@@ -60,6 +61,8 @@ R13 gates remain conservative at `R13-014`.
 5. Operator demo gate: partially evidenced by `R13-010`, not fully delivered as a hard gate.
 
 No gate can pass from narrative, schema-only validation, stale artifacts, local-only evidence claimed as external proof, executor self-certification, or chat-memory continuity.
+
+`R13-015` scoring is not a hard-gate delivery by itself. It calculates the current evidence posture as R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate and `5.7` from the recomputed R12 item-row aggregate, with no 10 to 15 percent progress claim.
 
 ## R13 Task List
 
@@ -120,8 +123,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: consolidates R13 evidence refs under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/` through `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json`. It distinguishes implemented code, committed machine evidence, generated artifacts, external replay evidence, operator/bootstrap narrative, and non-claims. It does not start R13-015, close R13, open R14, or open any successor.
 
 ### `R13-015` Update Vision Control scoring with calculable evidence
-- Status: planned
-- Boundary: apply the approved formula and penalties from the R12/R13 report without inflating beyond committed evidence.
+- Status: done
+- Boundary: applies the approved formula and penalties from the R12/R13 report without inflating beyond committed evidence through `contracts/vision_control/r13_vision_control_scorecard.contract.json`, `tools/R13VisionControlScorecard.psm1`, `tools/validate_r13_vision_control_scorecard.ps1`, `tests/test_r13_vision_control_scorecard.ps1`, `state/vision_control/r13_015_vision_control_scorecard.json`, and `state/vision_control/r13_015_validation_manifest.md`. The scorecard records R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate and `5.7` from the recomputed R12 item-row aggregate, and no 10 to 15 percent progress claim. It does not close R13, open R14, or start R13-016.
 
 ### `R13-016` Generate R13 final audit candidate packet
 - Status: planned
@@ -156,6 +159,7 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - R13-012 signoff is accepted for bounded scope only
 - R13-013 compaction mitigation is bounded repo-truth continuity mitigation only
 - R13-014 evidence package is consolidation only
+- R13-015 Vision Control scorecard is calculable evidence only
 - no R13 closeout
 - no executor self-certification as QA
 - no R14 or successor opening

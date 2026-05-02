@@ -1,0 +1,69 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_vision_control_scorecard_contract",
+  "milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_task": "R13-015",
+  "methodology_source": "governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md",
+  "methodology_source_is_product_proof": false,
+  "sub_score_weights": {
+    "intent_defined": 10,
+    "contract_or_design": 15,
+    "implemented_tooling": 20,
+    "execution_evidence": 25,
+    "operator_usable": 20,
+    "current_integrated": 10
+  },
+  "segment_weights": {
+    "Product": 30,
+    "Workflow": 30,
+    "Architecture": 25,
+    "Governance / Proof": 15
+  },
+  "penalty_values": {
+    "stale_at_final_closeout": -10,
+    "manual_chat_bridge": -10,
+    "no_defect_fix_retest_cycle": -10,
+    "manual_external_dispatch_import": -10,
+    "local_only_where_external_planned": -5,
+    "inconsistent_score_math": -5
+  },
+  "accepted_uplift_evidence_kinds": [
+    "implemented_code",
+    "committed_machine_evidence",
+    "external_replay_evidence"
+  ],
+  "non_uplift_evidence_kinds": [
+    "planning_methodology",
+    "generated_artifact",
+    "operator_bootstrap_narrative",
+    "non_claim"
+  ],
+  "rules": [
+    "planning_reports_are_methodology_only_not_product_proof",
+    "generated_markdown_is_operator_readable_not_proof_by_itself",
+    "score_uplift_requires_committed_evidence_refs",
+    "item_scores_must_recompute_from_sub_scores_and_penalties",
+    "segment_kpis_must_recompute_from_item_scores",
+    "weighted_aggregate_must_recompute_from_segment_kpis",
+    "penalty_values_must_match_approved_methodology",
+    "ten_to_fifteen_percent_progress_claim_must_be_explicit_and_calculable",
+    "r13_015_must_not_close_r13_or_open_r14"
+  ],
+  "required_non_claims": [
+    "R13 is not closed",
+    "R14 or successor is not opened",
+    "no production runtime",
+    "no production QA",
+    "no full product QA coverage",
+    "no productized UI",
+    "no productized control-room behavior",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no solved Codex context compaction",
+    "generated Markdown and reports are not proof by themselves",
+    "planning reports are methodology only, not product proof",
+    "score uplift requires committed evidence refs",
+    "no 10 to 15 percent progress claim from R13-015 scorecard"
+  ]
+}

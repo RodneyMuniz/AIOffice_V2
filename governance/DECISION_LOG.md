@@ -1093,3 +1093,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the package distinguishes implemented code, committed machine evidence, generated artifacts, external replay evidence, operator/bootstrap narrative, and non-claims; generated Markdown and reports are not treated as proof by themselves.
 - Consequence: R13 is active through `R13-014` only, and `R13-015` through `R13-018` remain planned only.
 - Consequence: this decision does not start R13-015, does not close R13, does not merge to main, does not claim production runtime, production QA, full product QA coverage, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.
+
+## D-0114 R13-015 Added Calculable Vision Control Scorecard
+- Date: 2026-05-02
+- Status: accepted
+- Decision: `R13-015` is done as calculable Vision Control scoring only for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-015` adds `contracts/vision_control/r13_vision_control_scorecard.contract.json`, `tools/R13VisionControlScorecard.psm1`, `tools/validate_r13_vision_control_scorecard.ps1`, `tests/test_r13_vision_control_scorecard.ps1`, `state/vision_control/r13_015_vision_control_scorecard.json`, and `state/vision_control/r13_015_validation_manifest.md`.
+- Consequence: the scorecard treats `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md` as scoring methodology and prior context only, not product proof; generated Markdown remains operator-readable artifact only, not proof by itself.
+- Consequence: the scorecard recomputes Vision Control item scores from the approved six sub-scores, approved penalties, evidence refs, segment KPIs, and aggregate weights. It records R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate, and uplift `5.7` from the recomputed R12 item-row aggregate.
+- Consequence: no 10 to 15 percent progress claim is made by R13-015.
+- Consequence: R13 is active through `R13-015` only, and `R13-016` through `R13-018` remain planned only.
+- Consequence: this decision does not close R13, does not start R13-016, does not merge to main, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.

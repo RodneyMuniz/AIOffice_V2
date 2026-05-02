@@ -1,0 +1,1402 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_vision_control_scorecard",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-015",
+  "generated_from_head": "74135c3937cff33fa86d07e16d495822e1918799",
+  "generated_from_tree": "b363732a430b555ed89d9efe379e3c54676fb2b2",
+  "created_at_utc": "2026-05-02T13:04:49Z",
+  "source_methodology_artifact": {
+    "path": "governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md",
+    "commit": "9ad475faa87746cb3d6ef074545e4b703e77e786",
+    "proof_authority": false,
+    "statement": "The report provides the approved scoring formula and prior table context only; it is not product proof by itself."
+  },
+  "evidence_source_package": {
+    "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json",
+    "accepted_as": "committed R13 evidence index through R13-014, not proof beyond the refs it cites"
+  },
+  "measurement_posture": {
+    "targets_are_not_proof": true,
+    "planning_reports_methodology_only": true,
+    "generated_markdown_not_proof_by_itself": true,
+    "committed_evidence_required_for_uplift": true,
+    "current_scorecard_is_machine_calculated": true,
+    "r13_closed": false,
+    "r14_or_successor_opened": false
+  },
+  "scoring_formula": {
+    "sub_score_weights": {
+      "intent_defined": 10,
+      "contract_or_design": 15,
+      "implemented_tooling": 20,
+      "execution_evidence": 25,
+      "operator_usable": 20,
+      "current_integrated": 10
+    },
+    "formula": "raw_score = sum(sub_score * weight / 100); r13_score = clamp(raw_score + penalty_total, 0, 100)"
+  },
+  "r12_report_math_context": {
+    "r12_reported_weighted_aggregate": 48.2,
+    "r12_recomputed_from_item_rows": 46.2,
+    "r12_reported_product_segment_average": 8.0,
+    "r12_recomputed_product_segment_average": 9.2,
+    "accepted_as": "planning context only; R13-015 uses recomputed item and segment math for calculable scoring"
+  },
+  "evidence_refs": [
+    {
+      "ref_id": "r13-methodology-report",
+      "ref": "governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md",
+      "evidence_kind": "planning_methodology",
+      "authority_kind": "planning_context",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-authority-doc",
+      "ref": "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+      "evidence_kind": "non_claim",
+      "authority_kind": "governance_boundary",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "active-state",
+      "ref": "governance/ACTIVE_STATE.md",
+      "evidence_kind": "non_claim",
+      "authority_kind": "status_boundary",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "kanban",
+      "ref": "execution/KANBAN.md",
+      "evidence_kind": "non_claim",
+      "authority_kind": "task_status_boundary",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-external-replay-workflow",
+      "ref": ".github/workflows/r13-external-replay.yml",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_workflow",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-015-vision-control-contract",
+      "ref": "contracts/vision_control/r13_vision_control_scorecard.contract.json",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_contract",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-015-vision-control-validator",
+      "ref": "tools/R13VisionControlScorecard.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-015-vision-control-tests",
+      "ref": "tests/test_r13_vision_control_scorecard.ps1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "focused_test",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-014-cycle-evidence-package",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "repo_evidence_package",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-014-validation-manifest",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md",
+      "evidence_kind": "generated_artifact",
+      "authority_kind": "validation_manifest",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-014-operator-decision-packet",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "operator_decision_packet",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-qa-lifecycle-contract",
+      "ref": "contracts/actionable_qa/r13_qa_lifecycle.contract.json",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_contract",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-qa-issue-detector-tool",
+      "ref": "tools/R13QaIssueDetector.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-qa-fix-queue-tool",
+      "ref": "tools/R13QaFixQueue.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-qa-failure-fix-cycle-tool",
+      "ref": "tools/R13QaFailureFixCycle.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-qa-failure-fix-cycle-test",
+      "ref": "tests/test_r13_qa_failure_fix_cycle.ps1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "focused_test",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-003-issue-report",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "qa_issue_report",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-004-fix-queue",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "qa_fix_queue",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-005-bounded-fix-packet",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "bounded_fix_packet",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-006-failure-fix-cycle",
+      "ref": "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "qa_failure_fix_cycle",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-006-before-after-comparison",
+      "ref": "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "qa_before_after_comparison",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-custom-runner-tool",
+      "ref": "tools/R13CustomRunner.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-007-custom-runner-result",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "custom_runner_result",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-skill-registry-tool",
+      "ref": "tools/R13SkillRegistry.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-skill-invocation-tool",
+      "ref": "tools/R13SkillInvocation.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-008-skill-registry",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "skill_registry",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-008-qa-detect-result",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "skill_invocation_result",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-008-qa-fix-plan-result",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "skill_invocation_result",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-control-room-status-tool",
+      "ref": "tools/R13ControlRoomStatus.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-control-room-status",
+      "ref": "state/control_room/r13_current/control_room_status.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "control_room_status",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-control-room-refresh-result",
+      "ref": "state/control_room/r13_current/control_room_refresh_result.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "control_room_refresh_result",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-control-room-md",
+      "ref": "state/control_room/r13_current/control_room.md",
+      "evidence_kind": "generated_artifact",
+      "authority_kind": "operator_readable_view",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-operator-demo-md",
+      "ref": "state/control_room/r13_current/operator_demo.md",
+      "evidence_kind": "generated_artifact",
+      "authority_kind": "operator_readable_demo",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-operator-demo-tool",
+      "ref": "tools/render_r13_operator_demo.ps1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-external-replay-result",
+      "ref": "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+      "evidence_kind": "external_replay_evidence",
+      "authority_kind": "github_actions_replay_result",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-external-replay-import",
+      "ref": "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+      "evidence_kind": "external_replay_evidence",
+      "authority_kind": "github_actions_replay_import",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-observed-identity",
+      "ref": "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/observed_identity.json",
+      "evidence_kind": "external_replay_evidence",
+      "authority_kind": "github_actions_observed_identity",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-command-results",
+      "ref": "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/command_results.json",
+      "evidence_kind": "external_replay_evidence",
+      "authority_kind": "github_actions_command_results",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-manual-dispatch-packet",
+      "ref": "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "manual_dispatch_packet",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-012-signoff",
+      "ref": "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "bounded_meaningful_qa_signoff",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-012-evidence-matrix",
+      "ref": "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "bounded_meaningful_qa_evidence_matrix",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-continuity-tool",
+      "ref": "tools/R13CompactionMitigation.psm1",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "repo_tooling",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-013-identity-reconciliation",
+      "ref": "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "identity_reconciliation",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-013-compaction-mitigation-packet",
+      "ref": "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "continuity_mitigation_packet",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-013-restart-prompt",
+      "ref": "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+      "evidence_kind": "operator_bootstrap_narrative",
+      "authority_kind": "restart_prompt",
+      "scope": "repo"
+    }
+  ],
+  "items": [
+    {
+      "item_id": "product_unified_workspace",
+      "segment": "Product",
+      "vision_category": "Unified workspace",
+      "r6_score": 8,
+      "r7_score": 8,
+      "r8_score": 8,
+      "r9_score": 8,
+      "r10_score": 8,
+      "r11_score": 8,
+      "r12_score": 9,
+      "sub_scores": {
+        "intent_defined": 50,
+        "contract_or_design": 0,
+        "implemented_tooling": 5,
+        "execution_evidence": 0,
+        "operator_usable": 10,
+        "current_integrated": 10
+      },
+      "penalties": [],
+      "raw_score": 9.0,
+      "penalty_total": 0.0,
+      "r13_score": 9.0,
+      "uplift_from_r12": 0.0,
+      "evidence_ref_ids": [
+        "r13-methodology-report",
+        "r13-authority-doc",
+        "active-state",
+        "r13-control-room-status"
+      ],
+      "scoring_basis": "R13 has current control-room artifacts, but no unified product workspace is implemented.",
+      "rejected_claims": [
+        "productized workspace",
+        "full UI app"
+      ],
+      "non_claims": [
+        "generated Markdown is not a workspace",
+        "no productized UI"
+      ]
+    },
+    {
+      "item_id": "product_chat_intake_view",
+      "segment": "Product",
+      "vision_category": "Chat/intake view",
+      "r6_score": 7,
+      "r7_score": 7,
+      "r8_score": 7,
+      "r9_score": 7,
+      "r10_score": 7,
+      "r11_score": 7,
+      "r12_score": 7,
+      "sub_scores": {
+        "intent_defined": 50,
+        "contract_or_design": 0,
+        "implemented_tooling": 0,
+        "execution_evidence": 0,
+        "operator_usable": 10,
+        "current_integrated": 0
+      },
+      "penalties": [],
+      "raw_score": 7.0,
+      "penalty_total": 0.0,
+      "r13_score": 7.0,
+      "uplift_from_r12": 0.0,
+      "evidence_ref_ids": [
+        "r13-methodology-report",
+        "r13-authority-doc",
+        "active-state"
+      ],
+      "scoring_basis": "R13 still has no product intake surface; operator interaction remains outside a product chat view.",
+      "rejected_claims": [
+        "product intake surface",
+        "chat UI"
+      ],
+      "non_claims": [
+        "no productized UI",
+        "no chat/intake product surface"
+      ]
+    },
+    {
+      "item_id": "product_kanban_product_board",
+      "segment": "Product",
+      "vision_category": "Kanban/product board",
+      "r6_score": 6,
+      "r7_score": 6,
+      "r8_score": 6,
+      "r9_score": 6,
+      "r10_score": 6,
+      "r11_score": 6,
+      "r12_score": 7,
+      "sub_scores": {
+        "intent_defined": 50,
+        "contract_or_design": 0,
+        "implemented_tooling": 0,
+        "execution_evidence": 0,
+        "operator_usable": 10,
+        "current_integrated": 0
+      },
+      "penalties": [],
+      "raw_score": 7.0,
+      "penalty_total": 0.0,
+      "r13_score": 7.0,
+      "uplift_from_r12": 0.0,
+      "evidence_ref_ids": [
+        "kanban",
+        "r13-authority-doc"
+      ],
+      "scoring_basis": "Markdown KANBAN remains governance status, not a product board.",
+      "rejected_claims": [
+        "operational product board",
+        "live Kanban UI"
+      ],
+      "non_claims": [
+        "Markdown governance board only",
+        "no productized UI"
+      ]
+    },
+    {
+      "item_id": "product_approvals_decision_queue",
+      "segment": "Product",
+      "vision_category": "Approvals/decision queue",
+      "r6_score": 20,
+      "r7_score": 22,
+      "r8_score": 22,
+      "r9_score": 23,
+      "r10_score": 24,
+      "r11_score": 27,
+      "r12_score": 30,
+      "sub_scores": {
+        "intent_defined": 70,
+        "contract_or_design": 45,
+        "implemented_tooling": 35,
+        "execution_evidence": 30,
+        "operator_usable": 40,
+        "current_integrated": 40
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_chat_bridge",
+          "value": -10,
+          "reason": "Decision flow still relies on operator-mediated chat/Codex bridging rather than a product queue.",
+          "evidence_ref_ids": [
+            "r13-authority-doc",
+            "active-state"
+          ]
+        }
+      ],
+      "raw_score": 40.3,
+      "penalty_total": -10.0,
+      "r13_score": 30.3,
+      "uplift_from_r12": 0.3,
+      "evidence_ref_ids": [
+        "r13-014-operator-decision-packet",
+        "r13-control-room-status",
+        "r13-authority-doc"
+      ],
+      "scoring_basis": "R13 adds current operator decision evidence, but the queue is not live or productized.",
+      "rejected_claims": [
+        "live product decision queue",
+        "operator-control hard gate fully delivered"
+      ],
+      "non_claims": [
+        "no productized control-room behavior",
+        "current operator control-room gate remains partial"
+      ]
+    },
+    {
+      "item_id": "product_cost_dashboard",
+      "segment": "Product",
+      "vision_category": "Cost dashboard",
+      "r6_score": 0,
+      "r7_score": 0,
+      "r8_score": 0,
+      "r9_score": 0,
+      "r10_score": 0,
+      "r11_score": 0,
+      "r12_score": 0,
+      "sub_scores": {
+        "intent_defined": 0,
+        "contract_or_design": 0,
+        "implemented_tooling": 0,
+        "execution_evidence": 0,
+        "operator_usable": 0,
+        "current_integrated": 0
+      },
+      "penalties": [],
+      "raw_score": 0.0,
+      "penalty_total": 0.0,
+      "r13_score": 0.0,
+      "uplift_from_r12": 0.0,
+      "evidence_ref_ids": [
+        "r13-methodology-report",
+        "r13-authority-doc"
+      ],
+      "scoring_basis": "No committed R13 cost dashboard evidence exists.",
+      "rejected_claims": [
+        "cost dashboard"
+      ],
+      "non_claims": [
+        "cost dashboard remains absent"
+      ]
+    },
+    {
+      "item_id": "product_agent_skill_use_surface",
+      "segment": "Product",
+      "vision_category": "Agent/skill use surface",
+      "r6_score": 0,
+      "r7_score": 0,
+      "r8_score": 0,
+      "r9_score": 0,
+      "r10_score": 0,
+      "r11_score": 0,
+      "r12_score": 2,
+      "sub_scores": {
+        "intent_defined": 40,
+        "contract_or_design": 35,
+        "implemented_tooling": 25,
+        "execution_evidence": 20,
+        "operator_usable": 5,
+        "current_integrated": 20
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_chat_bridge",
+          "value": -10,
+          "reason": "Skill use is not exposed as a product surface and still requires operator/Codex mediation.",
+          "evidence_ref_ids": [
+            "r13-authority-doc"
+          ]
+        },
+        {
+          "penalty_id": "local_only_where_external_planned",
+          "value": -5,
+          "reason": "Only two local skill invocations are evidenced; external skill execution remains registered but not invoked.",
+          "evidence_ref_ids": [
+            "r13-008-skill-registry"
+          ]
+        }
+      ],
+      "raw_score": 22.3,
+      "penalty_total": -15.0,
+      "r13_score": 7.3,
+      "uplift_from_r12": 5.3,
+      "evidence_ref_ids": [
+        "r13-skill-registry-tool",
+        "r13-skill-invocation-tool",
+        "r13-008-skill-registry",
+        "r13-008-qa-detect-result",
+        "r13-008-qa-fix-plan-result"
+      ],
+      "scoring_basis": "R13 proves bounded local skill registry and invocation evidence, but not a product skill-use surface.",
+      "rejected_claims": [
+        "productized skill surface",
+        "full skill invocation evidence gate"
+      ],
+      "non_claims": [
+        "no productized UI",
+        "skill invocation evidence gate remains partial"
+      ]
+    },
+    {
+      "item_id": "workflow_request_tasking_execution_qa_loop",
+      "segment": "Workflow",
+      "vision_category": "Request -> tasking -> execution -> QA loop",
+      "r6_score": 35,
+      "r7_score": 38,
+      "r8_score": 42,
+      "r9_score": 45,
+      "r10_score": 48,
+      "r11_score": 52,
+      "r12_score": 55,
+      "sub_scores": {
+        "intent_defined": 85,
+        "contract_or_design": 80,
+        "implemented_tooling": 75,
+        "execution_evidence": 75,
+        "operator_usable": 50,
+        "current_integrated": 70
+      },
+      "penalties": [],
+      "raw_score": 71.3,
+      "penalty_total": 0.0,
+      "r13_score": 71.3,
+      "uplift_from_r12": 16.3,
+      "evidence_ref_ids": [
+        "r13-qa-lifecycle-contract",
+        "r13-qa-issue-detector-tool",
+        "r13-qa-fix-queue-tool",
+        "r13-qa-failure-fix-cycle-tool",
+        "r13-006-failure-fix-cycle",
+        "r13-006-before-after-comparison",
+        "r13-011-command-results",
+        "r13-012-signoff"
+      ],
+      "scoring_basis": "R13 proves one bounded representative failure-to-fix-to-retest loop with external replay and bounded signoff.",
+      "rejected_claims": [
+        "full product QA loop",
+        "production QA"
+      ],
+      "non_claims": [
+        "bounded representative scope only",
+        "no full product QA coverage"
+      ]
+    },
+    {
+      "item_id": "workflow_operator_approval_discipline",
+      "segment": "Workflow",
+      "vision_category": "Operator approval discipline",
+      "r6_score": 45,
+      "r7_score": 48,
+      "r8_score": 52,
+      "r9_score": 55,
+      "r10_score": 57,
+      "r11_score": 60,
+      "r12_score": 62,
+      "sub_scores": {
+        "intent_defined": 85,
+        "contract_or_design": 80,
+        "implemented_tooling": 70,
+        "execution_evidence": 60,
+        "operator_usable": 55,
+        "current_integrated": 65
+      },
+      "penalties": [],
+      "raw_score": 67.0,
+      "penalty_total": 0.0,
+      "r13_score": 67.0,
+      "uplift_from_r12": 5.0,
+      "evidence_ref_ids": [
+        "r13-014-operator-decision-packet",
+        "r13-control-room-status",
+        "r13-control-room-refresh-result",
+        "r13-012-signoff"
+      ],
+      "scoring_basis": "R13 keeps explicit operator decision and approval boundaries current through R13-014 evidence.",
+      "rejected_claims": [
+        "unattended approval",
+        "broad autonomy"
+      ],
+      "non_claims": [
+        "no broad autonomy",
+        "operator approval remains required"
+      ]
+    },
+    {
+      "item_id": "workflow_qa_audit_loop",
+      "segment": "Workflow",
+      "vision_category": "QA/audit loop",
+      "r6_score": 45,
+      "r7_score": 50,
+      "r8_score": 58,
+      "r9_score": 60,
+      "r10_score": 64,
+      "r11_score": 65,
+      "r12_score": 67,
+      "sub_scores": {
+        "intent_defined": 90,
+        "contract_or_design": 90,
+        "implemented_tooling": 85,
+        "execution_evidence": 85,
+        "operator_usable": 60,
+        "current_integrated": 75
+      },
+      "penalties": [],
+      "raw_score": 80.3,
+      "penalty_total": 0.0,
+      "r13_score": 80.3,
+      "uplift_from_r12": 13.3,
+      "evidence_ref_ids": [
+        "r13-003-issue-report",
+        "r13-004-fix-queue",
+        "r13-005-bounded-fix-packet",
+        "r13-006-failure-fix-cycle",
+        "r13-006-before-after-comparison",
+        "r13-011-external-replay-result",
+        "r13-012-signoff",
+        "r13-012-evidence-matrix"
+      ],
+      "scoring_basis": "R13 materially improves QA/audit evidence with source-mapped detection, fix queue, bounded fix, retest, external replay, and bounded signoff.",
+      "rejected_claims": [
+        "production QA",
+        "full product QA"
+      ],
+      "non_claims": [
+        "no production QA",
+        "no full product QA coverage"
+      ]
+    },
+    {
+      "item_id": "workflow_copy_paste_reduction_low_touch_cycle",
+      "segment": "Workflow",
+      "vision_category": "Copy/paste reduction / low-touch cycle",
+      "r6_score": 5,
+      "r7_score": 8,
+      "r8_score": 10,
+      "r9_score": 12,
+      "r10_score": 15,
+      "r11_score": 18,
+      "r12_score": 20,
+      "sub_scores": {
+        "intent_defined": 75,
+        "contract_or_design": 50,
+        "implemented_tooling": 45,
+        "execution_evidence": 35,
+        "operator_usable": 30,
+        "current_integrated": 45
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_chat_bridge",
+          "value": -10,
+          "reason": "The current demonstrated path still depends on operator-mediated Codex/chat handoff.",
+          "evidence_ref_ids": [
+            "active-state",
+            "r13-authority-doc"
+          ]
+        },
+        {
+          "penalty_id": "manual_external_dispatch_import",
+          "value": -10,
+          "reason": "External replay still records manual dispatch/import evidence for the demonstrated path.",
+          "evidence_ref_ids": [
+            "r13-011-manual-dispatch-packet"
+          ]
+        }
+      ],
+      "raw_score": 43.3,
+      "penalty_total": -20.0,
+      "r13_score": 23.3,
+      "uplift_from_r12": 3.3,
+      "evidence_ref_ids": [
+        "r13-custom-runner-tool",
+        "r13-007-custom-runner-result",
+        "r13-control-room-refresh-result",
+        "r13-013-restart-prompt",
+        "r13-011-manual-dispatch-packet"
+      ],
+      "scoring_basis": "R13 adds runner, refresh, and restart aids, but manual chat and external dispatch/import remain material.",
+      "rejected_claims": [
+        "low-touch product pipeline",
+        "Codex bypass solved"
+      ],
+      "non_claims": [
+        "no solved Codex reliability",
+        "no solved Codex context compaction"
+      ]
+    },
+    {
+      "item_id": "architecture_persisted_state_truth_substrates",
+      "segment": "Architecture",
+      "vision_category": "Persisted state/truth substrates",
+      "r6_score": 80,
+      "r7_score": 84,
+      "r8_score": 88,
+      "r9_score": 90,
+      "r10_score": 92,
+      "r11_score": 93,
+      "r12_score": 95,
+      "sub_scores": {
+        "intent_defined": 100,
+        "contract_or_design": 100,
+        "implemented_tooling": 100,
+        "execution_evidence": 95,
+        "operator_usable": 90,
+        "current_integrated": 100
+      },
+      "penalties": [],
+      "raw_score": 96.8,
+      "penalty_total": 0.0,
+      "r13_score": 96.8,
+      "uplift_from_r12": 1.8,
+      "evidence_ref_ids": [
+        "r13-014-cycle-evidence-package",
+        "r13-003-issue-report",
+        "r13-004-fix-queue",
+        "r13-006-failure-fix-cycle",
+        "r13-012-signoff",
+        "r13-013-compaction-mitigation-packet"
+      ],
+      "scoring_basis": "R13 preserves strong repo-truth state and adds a consolidated evidence package.",
+      "rejected_claims": [
+        "drift-proof future operation"
+      ],
+      "non_claims": [
+        "repo truth is strong but not a product UI",
+        "no solved Codex reliability"
+      ]
+    },
+    {
+      "item_id": "architecture_git_backed_remote_truth_final_head_support",
+      "segment": "Architecture",
+      "vision_category": "Git-backed remote truth/final-head support",
+      "r6_score": 45,
+      "r7_score": 52,
+      "r8_score": 58,
+      "r9_score": 60,
+      "r10_score": 65,
+      "r11_score": 67,
+      "r12_score": 70,
+      "sub_scores": {
+        "intent_defined": 90,
+        "contract_or_design": 85,
+        "implemented_tooling": 75,
+        "execution_evidence": 70,
+        "operator_usable": 60,
+        "current_integrated": 65
+      },
+      "penalties": [],
+      "raw_score": 72.8,
+      "penalty_total": 0.0,
+      "r13_score": 72.8,
+      "uplift_from_r12": 2.8,
+      "evidence_ref_ids": [
+        "r13-011-external-replay-result",
+        "r13-011-external-replay-import",
+        "r13-011-observed-identity",
+        "r13-014-cycle-evidence-package"
+      ],
+      "scoring_basis": "R13 records external replay identity, but final-head support is still a later planned task.",
+      "rejected_claims": [
+        "R13 final-head support complete",
+        "R13 closeout"
+      ],
+      "non_claims": [
+        "R13 is not closed",
+        "final-head support is not complete in R13-015"
+      ]
+    },
+    {
+      "item_id": "architecture_baton_resume_continuity",
+      "segment": "Architecture",
+      "vision_category": "Baton/resume/continuity",
+      "r6_score": 45,
+      "r7_score": 55,
+      "r8_score": 57,
+      "r9_score": 60,
+      "r10_score": 62,
+      "r11_score": 66,
+      "r12_score": 68,
+      "sub_scores": {
+        "intent_defined": 90,
+        "contract_or_design": 90,
+        "implemented_tooling": 80,
+        "execution_evidence": 70,
+        "operator_usable": 55,
+        "current_integrated": 70
+      },
+      "penalties": [],
+      "raw_score": 74.0,
+      "penalty_total": 0.0,
+      "r13_score": 74.0,
+      "uplift_from_r12": 6.0,
+      "evidence_ref_ids": [
+        "r13-continuity-tool",
+        "r13-013-identity-reconciliation",
+        "r13-013-compaction-mitigation-packet",
+        "r13-013-restart-prompt"
+      ],
+      "scoring_basis": "R13 adds bounded repo-truth continuity mitigation and restart prompt evidence without solving compaction generally.",
+      "rejected_claims": [
+        "solved Codex compaction",
+        "unattended automatic resume"
+      ],
+      "non_claims": [
+        "no solved Codex context compaction",
+        "bounded repo-truth continuity only"
+      ]
+    },
+    {
+      "item_id": "architecture_ci_cd_external_proof",
+      "segment": "Architecture",
+      "vision_category": "CI/CD/external proof",
+      "r6_score": 35,
+      "r7_score": 40,
+      "r8_score": 50,
+      "r9_score": 52,
+      "r10_score": 65,
+      "r11_score": 66,
+      "r12_score": 72,
+      "sub_scores": {
+        "intent_defined": 95,
+        "contract_or_design": 90,
+        "implemented_tooling": 90,
+        "execution_evidence": 95,
+        "operator_usable": 70,
+        "current_integrated": 85
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_external_dispatch_import",
+          "value": -10,
+          "reason": "The demonstrated external replay path still required manual dispatch/import evidence.",
+          "evidence_ref_ids": [
+            "r13-011-manual-dispatch-packet"
+          ]
+        }
+      ],
+      "raw_score": 87.3,
+      "penalty_total": -10.0,
+      "r13_score": 77.3,
+      "uplift_from_r12": 5.3,
+      "evidence_ref_ids": [
+        "r13-external-replay-workflow",
+        "r13-011-external-replay-result",
+        "r13-011-external-replay-import",
+        "r13-011-observed-identity",
+        "r13-011-command-results"
+      ],
+      "scoring_basis": "R13 has passed bounded GitHub Actions external replay evidence, with manual dispatch/import still penalized.",
+      "rejected_claims": [
+        "production-grade CI",
+        "broad CI/product coverage"
+      ],
+      "non_claims": [
+        "external replay is bounded",
+        "no broad CI/product coverage"
+      ]
+    },
+    {
+      "item_id": "architecture_api_custom_app_execution_plane",
+      "segment": "Architecture",
+      "vision_category": "API/custom-app execution plane",
+      "r6_score": 5,
+      "r7_score": 5,
+      "r8_score": 8,
+      "r9_score": 10,
+      "r10_score": 18,
+      "r11_score": 20,
+      "r12_score": 25,
+      "sub_scores": {
+        "intent_defined": 85,
+        "contract_or_design": 75,
+        "implemented_tooling": 65,
+        "execution_evidence": 55,
+        "operator_usable": 45,
+        "current_integrated": 60
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_chat_bridge",
+          "value": -10,
+          "reason": "The API/custom-runner plane remains a local foundation and not the control plane replacing chat.",
+          "evidence_ref_ids": [
+            "r13-authority-doc"
+          ]
+        },
+        {
+          "penalty_id": "manual_external_dispatch_import",
+          "value": -10,
+          "reason": "External replay is still manually dispatched/imported for the demonstrated path.",
+          "evidence_ref_ids": [
+            "r13-011-manual-dispatch-packet"
+          ]
+        },
+        {
+          "penalty_id": "local_only_where_external_planned",
+          "value": -5,
+          "reason": "Custom runner execution evidence is local for the R13-007 path.",
+          "evidence_ref_ids": [
+            "r13-007-custom-runner-result"
+          ]
+        }
+      ],
+      "raw_score": 61.5,
+      "penalty_total": -25.0,
+      "r13_score": 36.5,
+      "uplift_from_r12": 11.5,
+      "evidence_ref_ids": [
+        "r13-custom-runner-tool",
+        "r13-007-custom-runner-result",
+        "r13-011-external-replay-result",
+        "r13-011-manual-dispatch-packet"
+      ],
+      "scoring_basis": "R13 adds a local API-shaped runner and passed external replay evidence, but does not yet deliver an external/custom-app control plane.",
+      "rejected_claims": [
+        "API/custom-runner bypass gate fully delivered",
+        "production API server"
+      ],
+      "non_claims": [
+        "API/custom-runner bypass gate remains partial",
+        "no production runtime"
+      ]
+    },
+    {
+      "item_id": "architecture_agent_skill_execution_architecture",
+      "segment": "Architecture",
+      "vision_category": "Agent/skill execution architecture",
+      "r6_score": 0,
+      "r7_score": 0,
+      "r8_score": 0,
+      "r9_score": 0,
+      "r10_score": 2,
+      "r11_score": 4,
+      "r12_score": 6,
+      "sub_scores": {
+        "intent_defined": 70,
+        "contract_or_design": 70,
+        "implemented_tooling": 55,
+        "execution_evidence": 40,
+        "operator_usable": 25,
+        "current_integrated": 45
+      },
+      "penalties": [
+        {
+          "penalty_id": "manual_chat_bridge",
+          "value": -10,
+          "reason": "Skill invocation is not yet product/API-operated as the main execution substrate.",
+          "evidence_ref_ids": [
+            "r13-authority-doc"
+          ]
+        },
+        {
+          "penalty_id": "local_only_where_external_planned",
+          "value": -5,
+          "reason": "Only local qa.detect and qa.fix_plan invocations are evidenced.",
+          "evidence_ref_ids": [
+            "r13-008-qa-detect-result",
+            "r13-008-qa-fix-plan-result"
+          ]
+        }
+      ],
+      "raw_score": 48.0,
+      "penalty_total": -15.0,
+      "r13_score": 33.0,
+      "uplift_from_r12": 27.0,
+      "evidence_ref_ids": [
+        "r13-skill-registry-tool",
+        "r13-skill-invocation-tool",
+        "r13-008-skill-registry",
+        "r13-008-qa-detect-result",
+        "r13-008-qa-fix-plan-result"
+      ],
+      "scoring_basis": "R13 establishes concrete skill registry and local invocation architecture; the gate remains partial because only two local invocations are proved.",
+      "rejected_claims": [
+        "full skill execution platform",
+        "skill invocation evidence gate fully delivered"
+      ],
+      "non_claims": [
+        "skill invocation evidence gate remains partial",
+        "no broad autonomy"
+      ]
+    },
+    {
+      "item_id": "governance_fail_closed_control_model",
+      "segment": "Governance / Proof",
+      "vision_category": "Fail-closed control model",
+      "r6_score": 80,
+      "r7_score": 84,
+      "r8_score": 88,
+      "r9_score": 90,
+      "r10_score": 92,
+      "r11_score": 94,
+      "r12_score": 95,
+      "sub_scores": {
+        "intent_defined": 100,
+        "contract_or_design": 100,
+        "implemented_tooling": 100,
+        "execution_evidence": 95,
+        "operator_usable": 85,
+        "current_integrated": 95
+      },
+      "penalties": [],
+      "raw_score": 95.3,
+      "penalty_total": 0.0,
+      "r13_score": 95.3,
+      "uplift_from_r12": 0.3,
+      "evidence_ref_ids": [
+        "r13-qa-lifecycle-contract",
+        "r13-qa-issue-detector-tool",
+        "r13-qa-fix-queue-tool",
+        "r13-custom-runner-tool",
+        "r13-014-cycle-evidence-package"
+      ],
+      "scoring_basis": "Fail-closed contracts and validators remain strong, with R13 adding more scoped validators.",
+      "rejected_claims": [
+        "governance equals product progress"
+      ],
+      "non_claims": [
+        "governance proof does not equal productized UI",
+        "no production runtime"
+      ]
+    },
+    {
+      "item_id": "governance_traceable_artifacts_evidence",
+      "segment": "Governance / Proof",
+      "vision_category": "Traceable artifacts/evidence",
+      "r6_score": 82,
+      "r7_score": 86,
+      "r8_score": 90,
+      "r9_score": 92,
+      "r10_score": 94,
+      "r11_score": 95,
+      "r12_score": 96,
+      "sub_scores": {
+        "intent_defined": 100,
+        "contract_or_design": 100,
+        "implemented_tooling": 95,
+        "execution_evidence": 100,
+        "operator_usable": 90,
+        "current_integrated": 95
+      },
+      "penalties": [],
+      "raw_score": 96.5,
+      "penalty_total": 0.0,
+      "r13_score": 96.5,
+      "uplift_from_r12": 0.5,
+      "evidence_ref_ids": [
+        "r13-014-cycle-evidence-package",
+        "r13-014-operator-decision-packet",
+        "r13-011-command-results",
+        "r13-012-evidence-matrix"
+      ],
+      "scoring_basis": "R13-014 consolidates evidence categories and preserves exact committed refs.",
+      "rejected_claims": [
+        "generated report as proof by itself"
+      ],
+      "non_claims": [
+        "generated Markdown and reports are not proof by themselves"
+      ]
+    },
+    {
+      "item_id": "governance_anti_narration_discipline",
+      "segment": "Governance / Proof",
+      "vision_category": "Anti-narration discipline",
+      "r6_score": 75,
+      "r7_score": 80,
+      "r8_score": 84,
+      "r9_score": 86,
+      "r10_score": 88,
+      "r11_score": 90,
+      "r12_score": 92,
+      "sub_scores": {
+        "intent_defined": 100,
+        "contract_or_design": 100,
+        "implemented_tooling": 95,
+        "execution_evidence": 95,
+        "operator_usable": 95,
+        "current_integrated": 100
+      },
+      "penalties": [],
+      "raw_score": 96.8,
+      "penalty_total": 0.0,
+      "r13_score": 96.8,
+      "uplift_from_r12": 4.8,
+      "evidence_ref_ids": [
+        "r13-015-vision-control-contract",
+        "r13-015-vision-control-validator",
+        "r13-015-vision-control-tests",
+        "r13-014-cycle-evidence-package"
+      ],
+      "scoring_basis": "R13-015 turns the prior narrative Vision Control table into a machine-calculated scorecard with evidence-ref enforcement and overclaim rejection.",
+      "rejected_claims": [
+        "planning report as product proof",
+        "score uplift without committed evidence"
+      ],
+      "non_claims": [
+        "planning reports are methodology only, not product proof",
+        "generated Markdown and reports are not proof by themselves"
+      ]
+    },
+    {
+      "item_id": "governance_replayable_audit_records",
+      "segment": "Governance / Proof",
+      "vision_category": "Replayable audit records",
+      "r6_score": 78,
+      "r7_score": 82,
+      "r8_score": 86,
+      "r9_score": 88,
+      "r10_score": 91,
+      "r11_score": 92,
+      "r12_score": 94,
+      "sub_scores": {
+        "intent_defined": 100,
+        "contract_or_design": 100,
+        "implemented_tooling": 100,
+        "execution_evidence": 100,
+        "operator_usable": 90,
+        "current_integrated": 95
+      },
+      "penalties": [],
+      "raw_score": 97.5,
+      "penalty_total": 0.0,
+      "r13_score": 97.5,
+      "uplift_from_r12": 3.5,
+      "evidence_ref_ids": [
+        "r13-external-replay-workflow",
+        "r13-011-external-replay-result",
+        "r13-011-command-results",
+        "r13-014-validation-manifest"
+      ],
+      "scoring_basis": "R13 includes replayable external command results and validation manifests for bounded evidence.",
+      "rejected_claims": [
+        "production-grade CI",
+        "R13 closeout"
+      ],
+      "non_claims": [
+        "external replay is bounded",
+        "R13 is not closed"
+      ]
+    }
+  ],
+  "segment_kpis": [
+    {
+      "segment": "Product",
+      "weight": 30,
+      "item_count": 6,
+      "r12_reported_average": 8.0,
+      "r12_recomputed_average": 9.2,
+      "r13_average": 10.1,
+      "uplift_from_recomputed_r12": 0.9,
+      "basis": "No productized UI; only small evidence-backed movement in decision and skill-adjacent product surfaces."
+    },
+    {
+      "segment": "Workflow",
+      "weight": 30,
+      "item_count": 4,
+      "r12_reported_average": 51.0,
+      "r12_recomputed_average": 51.0,
+      "r13_average": 60.5,
+      "uplift_from_recomputed_r12": 9.5,
+      "basis": "Bounded QA failure-to-fix-to-retest and signoff improve workflow, while copy/paste burden remains weak."
+    },
+    {
+      "segment": "Architecture",
+      "weight": 25,
+      "item_count": 6,
+      "r12_reported_average": 56.0,
+      "r12_recomputed_average": 56.0,
+      "r13_average": 65.1,
+      "uplift_from_recomputed_r12": 9.1,
+      "basis": "Custom runner, skill registry, external replay, and continuity proof improve architecture, with manual dispatch/import penalties preserved."
+    },
+    {
+      "segment": "Governance / Proof",
+      "weight": 15,
+      "item_count": 4,
+      "r12_reported_average": 94.3,
+      "r12_recomputed_average": 94.3,
+      "r13_average": 96.5,
+      "uplift_from_recomputed_r12": 2.2,
+      "basis": "Governance/proof remains near ceiling and cannot alone justify a major product progress claim."
+    }
+  ],
+  "weighted_aggregate": {
+    "r12_reported_weighted_aggregate": 48.2,
+    "r12_recomputed_weighted_aggregate": 46.2,
+    "r13_weighted_aggregate": 51.9,
+    "uplift_from_reported_r12": 3.7,
+    "uplift_from_recomputed_r12": 5.7,
+    "ten_to_fifteen_percent_progress_claimed": false,
+    "calculation_basis": "Segment KPI uses unweighted item averages; aggregate uses Product 30%, Workflow 30%, Architecture 25%, Governance / Proof 15%. R13-015 does not claim 10 to 15 percent progress under either the prior reported R12 aggregate or the recomputed item-row baseline."
+  },
+  "gate_assessment": [
+    {
+      "gate_id": "meaningful_qa_loop",
+      "status": "bounded_delivered",
+      "evidence_ref_ids": [
+        "r13-006-failure-fix-cycle",
+        "r13-006-before-after-comparison",
+        "r13-011-command-results",
+        "r13-012-signoff"
+      ],
+      "non_claims": [
+        "bounded representative scope only",
+        "no full product QA coverage",
+        "no production QA"
+      ]
+    },
+    {
+      "gate_id": "api_custom_runner_bypass",
+      "status": "partial",
+      "evidence_ref_ids": [
+        "r13-custom-runner-tool",
+        "r13-007-custom-runner-result",
+        "r13-011-manual-dispatch-packet"
+      ],
+      "non_claims": [
+        "API/custom-runner bypass gate remains partial",
+        "no production runtime"
+      ]
+    },
+    {
+      "gate_id": "current_operator_control_room",
+      "status": "partial",
+      "evidence_ref_ids": [
+        "r13-control-room-status",
+        "r13-control-room-refresh-result",
+        "r13-control-room-md"
+      ],
+      "non_claims": [
+        "current operator control-room gate remains partial",
+        "no productized control-room behavior"
+      ]
+    },
+    {
+      "gate_id": "skill_invocation_evidence",
+      "status": "partial",
+      "evidence_ref_ids": [
+        "r13-008-skill-registry",
+        "r13-008-qa-detect-result",
+        "r13-008-qa-fix-plan-result"
+      ],
+      "non_claims": [
+        "skill invocation evidence gate remains partial",
+        "no broad autonomy"
+      ]
+    },
+    {
+      "gate_id": "operator_demo",
+      "status": "partial",
+      "evidence_ref_ids": [
+        "r13-operator-demo-tool",
+        "r13-operator-demo-md"
+      ],
+      "non_claims": [
+        "operator demo gate remains partial",
+        "generated Markdown is not proof by itself"
+      ]
+    }
+  ],
+  "non_claims": [
+    "R13 is not closed",
+    "R14 or successor is not opened",
+    "no production runtime",
+    "no production QA",
+    "no full product QA coverage",
+    "no productized UI",
+    "no productized control-room behavior",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no solved Codex context compaction",
+    "generated Markdown and reports are not proof by themselves",
+    "planning reports are methodology only, not product proof",
+    "score uplift requires committed evidence refs",
+    "no 10 to 15 percent progress claim from R13-015 scorecard"
+  ]
+}
