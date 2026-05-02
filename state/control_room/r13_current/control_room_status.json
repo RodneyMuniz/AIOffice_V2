@@ -1,20 +1,20 @@
 {
     "contract_version":  "v1",
     "artifact_type":  "r13_control_room_status",
-    "status_id":  "r13crs-e179f11be87ee616",
+    "status_id":  "r13crs-61eb3826f968a505",
     "repository":  "AIOffice_V2",
     "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-    "head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
-    "tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+    "head":  "b1d31fc3503804cbca6526e74cd39ca999375410",
+    "tree":  "92bc0361ecc9b55c7011f4a18bd86592121519db",
     "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
-    "source_task":  "R13-009",
+    "source_task":  "R13-010",
     "active_scope":  {
                          "active_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
-                         "active_through_task":  "R13-009",
-                         "completed_range":  "R13-001 through R13-009",
-                         "planned_range":  "R13-010 through R13-018",
-                         "scope_summary":  "R13 is active through R13-009 only; R13-010 through R13-018 remain planned only.",
-                         "current_task_boundary":  "R13-009 complete; no R13-010 implementation is included.",
+                         "active_through_task":  "R13-010",
+                         "completed_range":  "R13-001 through R13-010",
+                         "planned_range":  "R13-011 through R13-018",
+                         "scope_summary":  "R13 is active through R13-010 only; R13-011 through R13-018 remain planned only.",
+                         "current_task_boundary":  "R13-010 complete; no R13-011 implementation is included.",
                          "productized_ui_claimed":  false,
                          "r14_or_successor_opened":  false
                      },
@@ -96,17 +96,22 @@
                                                       "tools/refresh_r13_control_room.ps1",
                                                       "tests/test_r13_control_room_status.ps1"
                                                   ]
+                            },
+                            {
+                                "task_id":  "R13-010",
+                                "status":  "done",
+                                "summary":  "Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence.",
+                                "evidence_refs":  [
+                                                      "contracts/control_room/r13_operator_demo.contract.json",
+                                                      "tools/render_r13_operator_demo.ps1",
+                                                      "tools/validate_r13_operator_demo.ps1",
+                                                      "tests/test_r13_operator_demo.ps1",
+                                                      "state/control_room/r13_current/operator_demo.md",
+                                                      "state/control_room/r13_current/operator_demo_validation_manifest.md"
+                                                  ]
                             }
                         ],
     "planned_tasks":  [
-                          {
-                              "task_id":  "R13-010",
-                              "status":  "planned_only",
-                              "summary":  "R13-010 remains planned only under the R13 authority task order.",
-                              "evidence_refs":  [
-                                                    "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
-                                                ]
-                          },
                           {
                               "task_id":  "R13-011",
                               "status":  "planned_only",
@@ -176,7 +181,7 @@
                              "meaningful_qa_loop":  {
                                                         "status":  "partial_local_only",
                                                         "hard_gate_delivered":  false,
-                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, and local skill invocations exist, but the loop is not complete until external replay, current control-room evidence, and final QA signoff all exist.",
+                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, and an operator demo artifact exist, but the loop is not complete until external replay and final QA signoff exist.",
                                                         "missing_required_evidence":  [
                                                                                           "external_replay",
                                                                                           "final_qa_signoff"
@@ -202,9 +207,8 @@
                              "current_operator_control_room":  {
                                                                    "status":  "partially_evidenced",
                                                                    "hard_gate_delivered":  false,
-                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; this is partial operator-control-room evidence only, not a full hard-gate delivery.",
+                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact. This remains partial operator-control-room evidence only, not a full hard-gate delivery.",
                                                                    "missing_required_evidence":  [
-                                                                                                     "operator_demo",
                                                                                                      "external_replay",
                                                                                                      "final_qa_signoff"
                                                                                                  ],
@@ -219,10 +223,16 @@
                                                                                          "tools/validate_r13_control_room_view.ps1",
                                                                                          "tools/validate_r13_control_room_refresh_result.ps1",
                                                                                          "tests/test_r13_control_room_status.ps1",
+                                                                                         "contracts/control_room/r13_operator_demo.contract.json",
+                                                                                         "tools/render_r13_operator_demo.ps1",
+                                                                                         "tools/validate_r13_operator_demo.ps1",
+                                                                                         "tests/test_r13_operator_demo.ps1",
                                                                                          "state/control_room/r13_current/control_room_status.json",
                                                                                          "state/control_room/r13_current/control_room.md",
                                                                                          "state/control_room/r13_current/control_room_refresh_result.json",
-                                                                                         "state/control_room/r13_current/validation_manifest.md"
+                                                                                         "state/control_room/r13_current/validation_manifest.md",
+                                                                                         "state/control_room/r13_current/operator_demo.md",
+                                                                                         "state/control_room/r13_current/operator_demo_validation_manifest.md"
                                                                                      ]
                                                                },
                              "skill_invocation_evidence":  {
@@ -240,20 +250,26 @@
                                                                                  ]
                                                            },
                              "operator_demo":  {
-                                                   "status":  "not_delivered",
+                                                   "status":  "partially_evidenced",
                                                    "hard_gate_delivered":  false,
-                                                   "summary":  "R13-010 remains planned only; no operator demo artifact exists in R13-009.",
+                                                   "summary":  "R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; this is partial operator-demo evidence only, not a full hard-gate delivery.",
                                                    "missing_required_evidence":  [
-                                                                                     "state/control_room/r13_current/operator_demo.md"
+                                                                                     "external_replay",
+                                                                                     "final_qa_signoff"
                                                                                  ],
                                                    "evidence_refs":  [
-                                                                         "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                                         "contracts/control_room/r13_operator_demo.contract.json",
+                                                                         "tools/render_r13_operator_demo.ps1",
+                                                                         "tools/validate_r13_operator_demo.ps1",
+                                                                         "tests/test_r13_operator_demo.ps1",
+                                                                         "state/control_room/r13_current/operator_demo.md",
+                                                                         "state/control_room/r13_current/operator_demo_validation_manifest.md"
                                                                      ]
                                                },
                              "overall":  {
                                              "status":  "blocked",
                                              "any_hard_gate_delivered":  false,
-                                             "summary":  "No R13 hard value gate is fully delivered by R13-009."
+                                             "summary":  "No R13 hard value gate is fully delivered by R13-010."
                                          }
                          },
     "qa_pipeline_status":  {
@@ -364,7 +380,7 @@
     "external_replay_status":  {
                                    "status":  "not_delivered",
                                    "executed":  false,
-                                   "summary":  "No R13 external replay has occurred by R13-009.",
+                                   "summary":  "No R13 external replay has occurred by R13-010.",
                                    "required_before":  "meaningful_qa_loop_gate_or_final_signoff",
                                    "evidence_refs":  [
                                                          "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
@@ -376,10 +392,12 @@
                                 "markdown_view_ref":  "state/control_room/r13_current/control_room.md",
                                 "refresh_result_ref":  "state/control_room/r13_current/control_room_refresh_result.json",
                                 "validation_manifest_ref":  "state/control_room/r13_current/validation_manifest.md",
+                                "operator_demo_ref":  "state/control_room/r13_current/operator_demo.md",
+                                "operator_demo_validation_manifest_ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
                                 "stale_state_checks_passed":  true,
                                 "productized_ui_claimed":  false,
                                 "hard_gate_delivered":  false,
-                                "summary":  "R13-009 generates a repo-backed JSON status model, Markdown view, refresh result, and validation manifest; this is not a productized UI and not a fully delivered hard gate.",
+                                "summary":  "R13-009 generates a repo-backed JSON status model, Markdown view, refresh result, and validation manifest; R13-010 adds a human-readable operator demo artifact. This remains not a productized UI and not a fully delivered hard gate.",
                                 "evidence_refs":  [
                                                       "contracts/control_room/r13_control_room_status.contract.json",
                                                       "contracts/control_room/r13_control_room_view.contract.json",
@@ -391,10 +409,16 @@
                                                       "tools/validate_r13_control_room_view.ps1",
                                                       "tools/validate_r13_control_room_refresh_result.ps1",
                                                       "tests/test_r13_control_room_status.ps1",
+                                                      "contracts/control_room/r13_operator_demo.contract.json",
+                                                      "tools/render_r13_operator_demo.ps1",
+                                                      "tools/validate_r13_operator_demo.ps1",
+                                                      "tests/test_r13_operator_demo.ps1",
                                                       "state/control_room/r13_current/control_room_status.json",
                                                       "state/control_room/r13_current/control_room.md",
                                                       "state/control_room/r13_current/control_room_refresh_result.json",
-                                                      "state/control_room/r13_current/validation_manifest.md"
+                                                      "state/control_room/r13_current/validation_manifest.md",
+                                                      "state/control_room/r13_current/operator_demo.md",
+                                                      "state/control_room/r13_current/operator_demo_validation_manifest.md"
                                                   ]
                             },
     "blockers":  [
@@ -413,22 +437,11 @@
                          "id":  "blocker-r13-final-signoff-missing",
                          "severity":  "high",
                          "title":  "Final QA signoff is missing",
-                         "explanation":  "No final QA signoff artifact exists in R13-009.",
+                         "explanation":  "No final QA signoff artifact exists in R13-010.",
                          "evidence_refs":  [
                                                "contracts/actionable_qa/r13_qa_lifecycle.contract.json"
                                            ],
-                         "recommended_next_action":  "Do not sign off until external replay and current operator evidence are available.",
-                         "blocking_status":  "blocking"
-                     },
-                     {
-                         "id":  "blocker-r13-operator-demo-missing",
-                         "severity":  "medium",
-                         "title":  "Operator demo is missing",
-                         "explanation":  "R13-010 remains planned only; no operator demo artifact is produced by R13-009.",
-                         "evidence_refs":  [
-                                               "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
-                                           ],
-                         "recommended_next_action":  "Use R13-010 as the next legal action.",
+                         "recommended_next_action":  "Do not sign off until external replay and final signoff evidence are available.",
                          "blocking_status":  "blocking"
                      },
                      {
@@ -448,7 +461,7 @@
                                 "id":  "attention-r13-current-control-room-partial",
                                 "severity":  "medium",
                                 "title":  "Current control-room evidence is partial",
-                                "explanation":  "The JSON status and Markdown view are current and evidence-backed, but they are not productized control-room behavior.",
+                                "explanation":  "The JSON status, Markdown view, refresh result, validation manifest, and operator demo artifact are evidence-backed, but they are not productized control-room behavior.",
                                 "evidence_refs":  [
                                                       "contracts/control_room/r13_control_room_status.contract.json",
                                                       "contracts/control_room/r13_control_room_view.contract.json"
@@ -459,12 +472,24 @@
                             {
                                 "id":  "attention-r13-task-boundary",
                                 "severity":  "high",
-                                "title":  "R13 stops at R13-009",
-                                "explanation":  "R13-010 through R13-018 remain planned only.",
+                                "title":  "R13 stops at R13-010",
+                                "explanation":  "R13-011 through R13-018 remain planned only.",
                                 "evidence_refs":  [
                                                       "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
                                                   ],
-                                "recommended_next_action":  "Do not implement R13-010 or later inside R13-009.",
+                                "recommended_next_action":  "Do not implement R13-011 or later inside R13-010.",
+                                "blocking_status":  "advisory"
+                            },
+                            {
+                                "id":  "attention-r13-operator-demo-partial",
+                                "severity":  "medium",
+                                "title":  "Operator demo evidence is partial",
+                                "explanation":  "The operator demo artifact is a human-readable Markdown guide from repo evidence, not a productized UI or hard gate.",
+                                "evidence_refs":  [
+                                                      "state/control_room/r13_current/operator_demo.md",
+                                                      "state/control_room/r13_current/operator_demo_validation_manifest.md"
+                                                  ],
+                                "recommended_next_action":  "Use the demo as operator context before the planned external replay task.",
                                 "blocking_status":  "advisory"
                             },
                             {
@@ -492,23 +517,23 @@
                         ],
     "next_actions":  [
                          {
-                             "id":  "next-r13-010-operator-demo",
-                             "task_id":  "R13-010",
-                             "title":  "Add operator demo artifact",
+                             "id":  "next-r13-011-external-replay-after-demo",
+                             "task_id":  "R13-011",
+                             "title":  "External replay after operator demo",
                              "action_type":  "next_legal_task",
-                             "description":  "Generate the operator demo artifact from actual QA failure-to-fix cycle evidence and current pipeline refs.",
-                             "required_before":  "R13-011 external replay or later signoff",
+                             "description":  "Run the planned external replay after the operator demo artifact, unless the R13 authority/status changes by explicit repo-truth approval.",
+                             "required_before":  "R13-012 meaningful QA signoff gate",
                              "evidence_refs":  [
                                                    "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
                                                ]
                          },
                          {
-                             "id":  "next-r13-011-external-replay-after-demo",
-                             "task_id":  "R13-011",
-                             "title":  "Planned external replay after QA fix loop",
+                             "id":  "next-r13-012-meaningful-qa-signoff-after-replay",
+                             "task_id":  "R13-012",
+                             "title":  "Planned meaningful QA signoff gate after external replay",
                              "action_type":  "later_planned_task",
-                             "description":  "External replay remains planned after the operator demo boundary unless the authority is changed by explicit repo-truth approval.",
-                             "required_before":  "R13-012 meaningful QA signoff gate",
+                             "description":  "Final QA signoff remains planned after external replay evidence exists.",
+                             "required_before":  "later R13 signoff work",
                              "evidence_refs":  [
                                                    "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
                                                ]
@@ -516,21 +541,22 @@
                      ],
     "operator_decisions_required":  [
                                         {
-                                            "id":  "decision-review-r13-009-control-room",
-                                            "title":  "Review R13-009 generated control-room status and Markdown view",
+                                            "id":  "decision-review-r13-010-operator-demo",
+                                            "title":  "Review R13-010 operator demo artifact",
                                             "decision_type":  "operator_review",
-                                            "required_before":  "authorizing_R13_010",
+                                            "required_before":  "authorizing_R13_011",
                                             "blocking_status":  "non_blocking",
                                             "evidence_refs":  [
+                                                                  "state/control_room/r13_current/operator_demo.md",
                                                                   "state/control_room/r13_current/control_room_status.json",
                                                                   "state/control_room/r13_current/control_room.md"
                                                               ]
                                         },
                                         {
-                                            "id":  "decision-authorize-r13-010-only",
-                                            "title":  "Authorize R13-010 only as the next implementation slice",
+                                            "id":  "decision-authorize-r13-011-only",
+                                            "title":  "Authorize R13-011 only as the next implementation slice",
                                             "decision_type":  "next_task_authorization",
-                                            "required_before":  "starting_any_R13_010_work",
+                                            "required_before":  "starting_any_R13_011_work",
                                             "blocking_status":  "blocking",
                                             "evidence_refs":  [
                                                                   "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
@@ -619,6 +645,48 @@
                               "scope":  "repo"
                           },
                           {
+                              "ref_id":  "r13-operator-demo-contract",
+                              "ref":  "contracts/control_room/r13_operator_demo.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-renderer",
+                              "ref":  "tools/render_r13_operator_demo.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-validator",
+                              "ref":  "tools/validate_r13_operator_demo.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-test",
+                              "ref":  "tests/test_r13_operator_demo.ps1",
+                              "evidence_kind":  "test",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-artifact",
+                              "ref":  "state/control_room/r13_current/operator_demo.md",
+                              "evidence_kind":  "operator_demo",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-validation-manifest",
+                              "ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
                               "ref_id":  "r13-authority",
                               "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
                               "evidence_kind":  "authority",
@@ -698,11 +766,11 @@
                       ],
     "stale_state_checks":  {
                                "expected_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "expected_head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
-                               "expected_tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+                               "expected_head":  "b1d31fc3503804cbca6526e74cd39ca999375410",
+                               "expected_tree":  "92bc0361ecc9b55c7011f4a18bd86592121519db",
                                "observed_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "observed_head":  "909cf746f438a0d785616dd37b24b1f095f4b674",
-                               "observed_tree":  "65b0b471a59d860882ca1d1fe4c74db5b58e84b8",
+                               "observed_head":  "b1d31fc3503804cbca6526e74cd39ca999375410",
+                               "observed_tree":  "92bc0361ecc9b55c7011f4a18bd86592121519db",
                                "branch_matches_expected":  true,
                                "head_matches_expected":  true,
                                "tree_matches_expected":  true,
@@ -715,16 +783,16 @@
                                "productized_ui_not_claimed":  true,
                                "stale_state_checks_passed":  true
                            },
-    "generated_at_utc":  "2026-05-01T14:13:37Z",
+    "generated_at_utc":  "2026-05-01T14:50:43Z",
     "non_claims":  [
-                       "R13-009 adds current cycle-aware repo-generated control-room JSON, Markdown view, refresh result, and validation manifest only",
-                       "R13 active through R13-009 only",
-                       "R13-010 through R13-018 remain planned only",
-                       "current operator control-room gate is partially evidenced only; not fully delivered as a hard gate",
+                       "R13-010 adds human-readable operator demo artifact only",
+                       "R13 active through R13-010 only",
+                       "R13-011 through R13-018 remain planned only",
+                       "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
+                       "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
                        "no external replay has occurred",
-                       "no operator demo delivered by R13-009",
-                       "no final QA signoff delivered by R13-009",
-                       "no R13 hard value gate fully delivered by R13-009",
+                       "no final QA signoff delivered by R13-010",
+                       "no R13 hard value gate fully delivered by R13-010",
                        "no productized control-room behavior",
                        "no full UI app",
                        "no production runtime",

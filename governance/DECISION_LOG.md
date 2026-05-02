@@ -1041,3 +1041,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R13 is active through `R13-009` only, and `R13-010` through `R13-018` remain planned only.
 - Consequence: the current operator control-room gate is partially evidenced only after the generated status, view, and refresh result validate; it is not fully delivered as a hard gate. No R13 hard value gate is fully delivered by R13-009.
 - Consequence: this decision does not claim external replay, operator demo, final QA signoff, R13 closeout, productized control-room behavior, full UI app, production runtime, real production QA, hard gate delivery, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, solved Codex context compaction, unattended automatic resume, R14, or any successor milestone opening.
+
+## D-0109 R13-010 Added Operator Demo Artifact
+- Date: 2026-05-01
+- Status: accepted
+- Decision: `R13-010` is done as the human-readable operator demo artifact slice for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-010` adds `contracts/control_room/r13_operator_demo.contract.json`, `tools/render_r13_operator_demo.ps1`, `tools/validate_r13_operator_demo.ps1`, focused proof through `tests/test_r13_operator_demo.ps1`, generated artifact `state/control_room/r13_current/operator_demo.md`, and validation manifest `state/control_room/r13_current/operator_demo_validation_manifest.md`.
+- Consequence: the operator demo explains the local QA failure-to-fix proof, before/after evidence, current control-room posture, custom-runner posture, skill invocation posture, blockers, next legal action, exact evidence refs, and explicit non-claims without requiring raw JSON first.
+- Consequence: R13 is active through `R13-010` only, and `R13-011` through `R13-018` remain planned only.
+- Consequence: the operator demo gate is partially evidenced only after the generated demo validates; it is not fully delivered as a hard gate. The current operator control-room gate remains partially evidenced only, and no R13 hard value gate is fully delivered by R13-010.
+- Consequence: this decision does not claim external replay, final QA signoff, R13 closeout, productized control-room behavior, full UI app, production runtime, real production QA, hard gate delivery, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, solved Codex context compaction, unattended automatic resume, R14, or any successor milestone opening.

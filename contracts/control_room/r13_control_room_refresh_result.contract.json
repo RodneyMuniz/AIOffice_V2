@@ -5,7 +5,7 @@
   "repository": "AIOffice_V2",
   "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
   "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
-  "source_task": "R13-009",
+  "source_task": "R13-010",
   "required_fields": [
     "contract_version",
     "artifact_type",
@@ -56,14 +56,14 @@
     "scope"
   ],
   "required_non_claims": [
-    "R13-009 adds current cycle-aware repo-generated control-room JSON, Markdown view, refresh result, and validation manifest only",
-    "R13 active through R13-009 only",
-    "R13-010 through R13-018 remain planned only",
-    "current operator control-room gate is partially evidenced only; not fully delivered as a hard gate",
+    "R13-010 adds human-readable operator demo artifact only",
+    "R13 active through R13-010 only",
+    "R13-011 through R13-018 remain planned only",
+    "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
+    "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
     "no external replay has occurred",
-    "no operator demo delivered by R13-009",
-    "no final QA signoff delivered by R13-009",
-    "no R13 hard value gate fully delivered by R13-009",
+    "no final QA signoff delivered by R13-010",
+    "no R13 hard value gate fully delivered by R13-010",
     "no productized control-room behavior",
     "no full UI app",
     "no production runtime",
@@ -76,6 +76,6 @@
     "blocked_refresh_requires_refusal_reasons",
     "stale_branch_head_or_tree_expectations_must_block_refresh",
     "hard_gates_must_not_be_marked_delivered_or_complete",
-    "external_replay_operator_demo_final_signoff_productized_ui_r14_and_successor_claims_are_rejected"
+    "external_replay_final_signoff_productized_ui_r14_and_successor_claims_are_rejected"
   ]
 }

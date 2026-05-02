@@ -151,11 +151,11 @@ try {
     $generatedManifestPath = Join-Path $generatedRoot "validation_manifest.md"
 
     $statusValidation = & $testStatus -StatusPath $generatedStatusPath
-    if ($statusValidation.CompletedTaskCount -ne 9 -or $statusValidation.PlannedTaskCount -ne 9 -or $statusValidation.NextLegalAction -ne "R13-010") {
-        $failures += "FAIL generated status: status did not preserve R13-009 boundary."
+    if ($statusValidation.CompletedTaskCount -ne 10 -or $statusValidation.PlannedTaskCount -ne 8 -or $statusValidation.NextLegalAction -ne "R13-011") {
+        $failures += "FAIL generated status: status did not preserve R13-010 boundary."
     }
     else {
-        Write-Output "PASS generated status: R13-009 boundary validates."
+        Write-Output "PASS generated status: R13-010 boundary validates."
         $validPassed += 1
     }
 
@@ -172,7 +172,7 @@ try {
     }
     else {
         $manifestText = Get-Content -LiteralPath $generatedManifestPath -Raw
-        if ($manifestText -notmatch "Stale-state checks passed: ``True``" -or $manifestText -notmatch "R13-010") {
+        if ($manifestText -notmatch "Stale-state checks passed: ``True``" -or $manifestText -notmatch "R13-011") {
             $failures += "FAIL generated manifest: expected stale-state and next-action evidence was missing."
         }
         else {
@@ -239,18 +239,18 @@ try {
     $generatedStatus = Read-JsonObject -Path $generatedStatusPath
     $completedTaskIds = @($generatedStatus.completed_tasks | ForEach-Object { [string]$_.task_id })
     $plannedTaskIds = @($generatedStatus.planned_tasks | ForEach-Object { [string]$_.task_id })
-    if (($completedTaskIds -join "|") -ne ((1..9 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-009 only."
+    if (($completedTaskIds -join "|") -ne ((1..10 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-010 only."
     }
     else {
-        Write-Output "PASS generated status: R13 active through R13-009 only."
+        Write-Output "PASS generated status: R13 active through R13-010 only."
         $validPassed += 1
     }
-    if (($plannedTaskIds -join "|") -ne ((10..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: planned tasks are not R13-010 through R13-018 only."
+    if (($plannedTaskIds -join "|") -ne ((11..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: planned tasks are not R13-011 through R13-018 only."
     }
     else {
-        Write-Output "PASS generated status: R13-010 through R13-018 planned only."
+        Write-Output "PASS generated status: R13-011 through R13-018 planned only."
         $validPassed += 1
     }
     if ($generatedStatus.hard_gate_status.current_operator_control_room.status -ne "partially_evidenced" -or [bool]$generatedStatus.hard_gate_status.current_operator_control_room.hard_gate_delivered) {
@@ -258,6 +258,13 @@ try {
     }
     else {
         Write-Output "PASS generated status: current control-room gate is partial only."
+        $validPassed += 1
+    }
+    if ($generatedStatus.hard_gate_status.operator_demo.status -ne "partially_evidenced" -or [bool]$generatedStatus.hard_gate_status.operator_demo.hard_gate_delivered) {
+        $failures += "FAIL generated status: operator demo gate was not partial only."
+    }
+    else {
+        Write-Output "PASS generated status: operator demo gate is partial only."
         $validPassed += 1
     }
     if ([bool]$generatedStatus.control_room_status.productized_ui_claimed) {

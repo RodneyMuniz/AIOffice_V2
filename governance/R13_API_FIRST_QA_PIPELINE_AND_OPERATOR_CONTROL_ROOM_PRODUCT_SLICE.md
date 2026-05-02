@@ -1,12 +1,12 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-009` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-010` only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. None of these tasks delivers any R13 hard value gate.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. None of these tasks delivers any R13 hard value gate.
 
 ## Accepted Starting State
 
@@ -38,19 +38,20 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-007` as a local API-shaped/custom-runner foundation only;
 - keep `R13-008` as a bounded skill registry and local skill invocation evidence slice only;
 - keep `R13-009` as a current cycle-aware control-room JSON/Markdown/refresh result slice only;
+- keep `R13-010` as a human-readable operator demo artifact slice only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-All R13 gates are planned or partial and not yet fully delivered at `R13-009`.
+All R13 gates are planned or partial and not yet fully delivered at `R13-010`.
 
 1. Meaningful QA loop gate: planned, not yet delivered.
 2. API/custom-runner bypass gate: foundation added, not fully delivered.
 3. Current operator control-room gate: partially evidenced by `R13-009`, not fully delivered as a hard gate.
 4. Skill invocation evidence gate: partially evidenced by `R13-008`, not fully delivered as a hard gate.
-5. Operator demo gate: planned, not yet delivered.
+5. Operator demo gate: partially evidenced by `R13-010`, not fully delivered as a hard gate.
 
 No gate can pass from narrative, schema-only validation, stale artifacts, local-only evidence claimed as external proof, executor self-certification, or chat-memory continuity.
 
@@ -93,8 +94,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: adds current cycle-aware control-room JSON/Markdown/refresh result through `contracts/control_room/r13_control_room_status.contract.json`, `contracts/control_room/r13_control_room_view.contract.json`, `contracts/control_room/r13_control_room_refresh_result.contract.json`, `tools/R13ControlRoomStatus.psm1`, `tools/render_r13_control_room_view.ps1`, `tools/refresh_r13_control_room.ps1`, `tools/validate_r13_control_room_status.ps1`, `tools/validate_r13_control_room_view.ps1`, `tools/validate_r13_control_room_refresh_result.ps1`, focused proof in `tests/test_r13_control_room_status.ps1`, and generated current artifacts at `state/control_room/r13_current/control_room_status.json`, `state/control_room/r13_current/control_room.md`, `state/control_room/r13_current/control_room_refresh_result.json`, and `state/control_room/r13_current/validation_manifest.md`. This is partial current operator control-room evidence only; it does not deliver external replay, operator demo, final signoff, productized UI, a full hard gate, R13 closeout, R14, or any successor.
 
 ### `R13-010` Add operator demo artifact
-- Status: planned
-- Boundary: generate `state/control_room/r13_current/operator_demo.md` from actual QA failure-to-fix cycle evidence and current pipeline refs.
+- Status: done
+- Boundary: adds a human-readable operator demo through `contracts/control_room/r13_operator_demo.contract.json`, `tools/render_r13_operator_demo.ps1`, `tools/validate_r13_operator_demo.ps1`, focused proof in `tests/test_r13_operator_demo.ps1`, generated artifact `state/control_room/r13_current/operator_demo.md`, and validation manifest `state/control_room/r13_current/operator_demo_validation_manifest.md`. This is partial operator-demo evidence only; it does not deliver external replay, final signoff, productized UI, a full hard gate, R13 closeout, R14, or any successor.
 
 ### `R13-011` Run external replay after QA fix loop
 - Status: planned
@@ -130,12 +131,12 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 ## Required Non-Claims
 
-- no R13 hard value gate delivered by `R13-009`
+- no R13 hard value gate fully delivered by `R13-010`
 - no meaningful QA loop gate delivered yet
 - no API/custom-runner bypass gate fully delivered yet
-- current operator control-room gate is partially evidenced only, not fully delivered as a hard gate
+- current operator control-room gate remains partially evidenced only, not fully delivered as a hard gate
 - no skill invocation evidence gate fully delivered yet
-- no operator demo gate delivered yet
+- operator demo gate is partially evidenced only, not fully delivered as a hard gate
 - no productized control-room behavior
 - no full UI app
 - no production runtime
@@ -150,7 +151,7 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-009 Claim
+## Current R13-010 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
 
@@ -168,4 +169,6 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 `R13-008` claims only that a bounded repo skill registry and two local skill invocations exist. It adds `contracts/skills/r13_skill_registry.contract.json`, `contracts/skills/r13_skill_invocation_request.contract.json`, `contracts/skills/r13_skill_invocation_result.contract.json`, `tools/R13SkillRegistry.psm1`, `tools/R13SkillInvocation.psm1`, `tools/validate_r13_skill_registry.ps1`, `tools/validate_r13_skill_invocation_request.ps1`, `tools/validate_r13_skill_invocation_result.ps1`, `tools/invoke_r13_skill.ps1`, fixtures under `state/fixtures/valid/skills/` and `state/fixtures/invalid/skills/r13_skill_invocation/`, focused proof in `tests/test_r13_skill_registry_and_invocation.ps1`, and committed registry/invocation evidence under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/`. The committed registry is `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json`. The committed request/result artifacts are `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_request.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_request.json`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json`; the validation manifest is `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_validation_manifest.md`. `qa.detect` ran 1 bounded validation command over the existing R13-003 issue report, recorded 1 passed command, 0 failed commands, and aggregate verdict `passed`. `qa.fix_plan` ran 1 bounded validation command over the existing R13-004 fix queue, recorded 1 passed command, 0 failed commands, and aggregate verdict `passed`. Raw logs are under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_raw_logs/`. No mutation command ran. `runner.external_replay` is registered but not executed. `control_room.refresh` is registered but not executed.
 
-`R13-009` claims only that current cycle-aware control-room JSON/Markdown/refresh result artifacts exist and validate from repo truth. It adds `contracts/control_room/r13_control_room_status.contract.json`, `contracts/control_room/r13_control_room_view.contract.json`, `contracts/control_room/r13_control_room_refresh_result.contract.json`, `tools/R13ControlRoomStatus.psm1`, `tools/render_r13_control_room_view.ps1`, `tools/refresh_r13_control_room.ps1`, `tools/validate_r13_control_room_status.ps1`, `tools/validate_r13_control_room_view.ps1`, `tools/validate_r13_control_room_refresh_result.ps1`, focused proof in `tests/test_r13_control_room_status.ps1`, and generated current artifacts at `state/control_room/r13_current/control_room_status.json`, `state/control_room/r13_current/control_room.md`, `state/control_room/r13_current/control_room_refresh_result.json`, and `state/control_room/r13_current/validation_manifest.md`. `R13-010` through `R13-018` remain planned only. No R13 hard value gate is delivered yet. The current operator control-room gate is partially evidenced only and not fully delivered as a hard gate. The meaningful QA loop gate remains partial/local only because external replay, operator demo, and final QA signoff are not delivered. The API/custom-runner bypass gate and skill invocation evidence gate remain partial only. No external replay, operator demo, final signoff, productized UI, R13 closeout, R14, or successor milestone is opened.
+`R13-009` claims only that current cycle-aware control-room JSON/Markdown/refresh result artifacts exist and validate from repo truth. It adds `contracts/control_room/r13_control_room_status.contract.json`, `contracts/control_room/r13_control_room_view.contract.json`, `contracts/control_room/r13_control_room_refresh_result.contract.json`, `tools/R13ControlRoomStatus.psm1`, `tools/render_r13_control_room_view.ps1`, `tools/refresh_r13_control_room.ps1`, `tools/validate_r13_control_room_status.ps1`, `tools/validate_r13_control_room_view.ps1`, `tools/validate_r13_control_room_refresh_result.ps1`, focused proof in `tests/test_r13_control_room_status.ps1`, and generated current artifacts at `state/control_room/r13_current/control_room_status.json`, `state/control_room/r13_current/control_room.md`, `state/control_room/r13_current/control_room_refresh_result.json`, and `state/control_room/r13_current/validation_manifest.md`.
+
+`R13-010` claims only that a human-readable operator demo artifact exists and validates from actual R13 evidence. It adds `contracts/control_room/r13_operator_demo.contract.json`, `tools/render_r13_operator_demo.ps1`, `tools/validate_r13_operator_demo.ps1`, focused proof in `tests/test_r13_operator_demo.ps1`, generated artifact `state/control_room/r13_current/operator_demo.md`, and validation manifest `state/control_room/r13_current/operator_demo_validation_manifest.md`. `R13-011` through `R13-018` remain planned only. No R13 hard value gate is fully delivered yet. The current operator control-room gate remains partially evidenced only and not fully delivered as a hard gate. The operator demo gate is partially evidenced only and not fully delivered as a hard gate. The meaningful QA loop gate remains partial/local only because external replay and final QA signoff are not delivered. The API/custom-runner bypass gate and skill invocation evidence gate remain partial only. No external replay, final signoff, productized UI, R13 closeout, R14, or successor milestone is opened.
