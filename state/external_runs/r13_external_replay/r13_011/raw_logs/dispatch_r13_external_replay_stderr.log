@@ -1,0 +1,2 @@
+Dispatch command not executed because authenticated dispatch prerequisites were unavailable.
+Attempted command: gh workflow run r13-external-replay.yml --repo RodneyMuniz/AIOffice_V2 --ref release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f branch=release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f expected_head=e9e8b4e21147d7c0906b4916297e3162690dbf64 -f expected_tree=520e2adf5e5fcbce2f81b23c872206d746e6b9c2 -f replay_scope=r13_011_external_replay_after_operator_demo

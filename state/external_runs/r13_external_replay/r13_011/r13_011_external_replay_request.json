@@ -1,0 +1,168 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_external_replay_request",
+    "request_id":  "r13errq-6f4decf18a466337",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
+    "tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-011",
+    "replay_scope":  "r13_011_external_replay_after_operator_demo",
+    "input_refs":  [
+                       {
+                           "ref_id":  "r13-006-failure-fix-cycle",
+                           "ref":  "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                           "evidence_kind":  "failure_fix_cycle",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-006-before-after-comparison",
+                           "ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                           "evidence_kind":  "before_after_comparison",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-010-control-room-status",
+                           "ref":  "state/control_room/r13_current/control_room_status.json",
+                           "evidence_kind":  "control_room_status",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-010-control-room-view",
+                           "ref":  "state/control_room/r13_current/control_room.md",
+                           "evidence_kind":  "control_room_view",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-010-control-room-refresh-result",
+                           "ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                           "evidence_kind":  "control_room_refresh_result",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-010-operator-demo",
+                           "ref":  "state/control_room/r13_current/operator_demo.md",
+                           "evidence_kind":  "operator_demo",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-010-operator-demo-validation-manifest",
+                           "ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                           "evidence_kind":  "validation_manifest",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-007-custom-runner-result",
+                           "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                           "evidence_kind":  "custom_runner_result",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       },
+                       {
+                           "ref_id":  "r13-008-skill-registry",
+                           "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                           "evidence_kind":  "skill_registry",
+                           "authority_kind":  "repo_evidence",
+                           "scope":  "repo"
+                       }
+                   ],
+    "workflow_ref":  "github_actions_manual_dispatch_or_equivalent_external_runner_required",
+    "allowed_commands":  [
+                             {
+                                 "command_id":  "validate-r13-006-cycle",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_qa_failure_fix_cycle.ps1 -CyclePath state\\\\cycles\\\\r13_qa_cycle_demo\\\\qa_failure_fix_cycle.json"
+                             },
+                             {
+                                 "command_id":  "validate-r13-006-comparison",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_qa_before_after_comparison.ps1 -ComparisonPath state\\\\cycles\\\\r13_qa_cycle_demo\\\\before_after_comparison.json"
+                             },
+                             {
+                                 "command_id":  "validate-r13-control-room-status",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_control_room_status.ps1 -StatusPath state\\\\control_room\\\\r13_current\\\\control_room_status.json"
+                             },
+                             {
+                                 "command_id":  "validate-r13-control-room-view",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_control_room_view.ps1 -ViewPath state\\\\control_room\\\\r13_current\\\\control_room.md"
+                             },
+                             {
+                                 "command_id":  "validate-r13-control-room-refresh-result",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_control_room_refresh_result.ps1 -RefreshResultPath state\\\\control_room\\\\r13_current\\\\control_room_refresh_result.json"
+                             },
+                             {
+                                 "command_id":  "validate-r13-operator-demo",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_operator_demo.ps1 -DemoPath state\\\\control_room\\\\r13_current\\\\operator_demo.md"
+                             },
+                             {
+                                 "command_id":  "validate-r13-custom-runner-result",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_custom_runner_result.ps1 -ResultPath state\\\\cycles\\\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\\\runner\\\\r13_007_custom_runner_result.json"
+                             },
+                             {
+                                 "command_id":  "validate-r13-skill-registry",
+                                 "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\\\validate_r13_skill_registry.ps1 -RegistryPath state\\\\cycles\\\\r13_api_first_qa_pipeline_and_operator_control_room_product_slice\\\\skills\\\\r13_008_skill_registry.json"
+                             }
+                         ],
+    "expected_artifact_name":  "r13-external-replay-\u003crun_id\u003e-\u003crun_attempt\u003e",
+    "expected_result_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+    "operator_approval":  {
+                              "approval_status":  "authorized_by_operator_task",
+                              "approved_by":  "operator_task_request",
+                              "approved_at_utc":  "2026-05-02T00:44:28Z",
+                              "approval_scope":  "R13-011 external replay after operator demo, or fail closed with manual dispatch packet if authenticated dispatch is unavailable."
+                          },
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-external-replay-request-contract",
+                              "ref":  "contracts/external_replay/r13_external_replay_request.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-result-contract",
+                              "ref":  "contracts/external_replay/r13_external_replay_result.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-module",
+                              "ref":  "tools/R13ExternalReplay.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-request-generator",
+                              "ref":  "tools/new_r13_external_replay_request.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-authority",
+                              "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                              "evidence_kind":  "authority",
+                              "authority_kind":  "repo_governance",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+
+                        ],
+    "created_at_utc":  "2026-05-02T00:44:28Z",
+    "non_claims":  [
+                       "R13-011 may record passed external replay only with actual external-runner evidence",
+                       "no external replay proof is claimed without run ID, artifact ID, artifact digest, and external-runner evidence",
+                       "no final QA signoff has occurred",
+                       "no R13 hard value gate fully delivered by R13-011",
+                       "no R14 or successor opening"
+                   ]
+}

@@ -1,0 +1,80 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_external_replay_result_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-011",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "result_id",
+    "request_id",
+    "repository",
+    "branch",
+    "requested_head",
+    "requested_tree",
+    "observed_head",
+    "observed_tree",
+    "workflow_name",
+    "run_id",
+    "run_url",
+    "run_attempt",
+    "run_status",
+    "run_conclusion",
+    "artifact_id",
+    "artifact_name",
+    "artifact_digest",
+    "command_results",
+    "aggregate_verdict",
+    "imported_artifact_ref",
+    "evidence_refs",
+    "refusal_reasons",
+    "started_at_utc",
+    "completed_at_utc",
+    "non_claims"
+  ],
+  "command_result_required_fields": [
+    "command_id",
+    "command",
+    "exit_code",
+    "verdict",
+    "stdout_ref",
+    "stderr_ref",
+    "started_at_utc",
+    "completed_at_utc"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "allowed_command_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "R13-011 records external replay status only",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate fully delivered by R13-011",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "passed_results_require_external_runner_identity",
+    "passed_results_require_run_id_run_url_artifact_id_artifact_digest_and_imported_artifact_ref",
+    "passed_results_require_github_actions_or_equivalent_external_runner_evidence",
+    "local_only_evidence_cannot_be_presented_as_external_proof",
+    "blocked_results_require_refusal_reasons",
+    "failed_results_require_failed_or_non_success_external_run_evidence",
+    "final_signoff_hard_gate_delivery_and_successor_claims_are_rejected"
+  ]
+}

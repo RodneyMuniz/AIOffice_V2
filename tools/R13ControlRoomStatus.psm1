@@ -6,21 +6,21 @@ Import-Module (Join-Path $PSScriptRoot "JsonRoot.psm1") -Force
 $script:R13RepositoryName = "AIOffice_V2"
 $script:R13Branch = "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice"
 $script:R13Milestone = "R13 API-First QA Pipeline and Operator Control-Room Product Slice"
-$script:R13SourceTask = "R13-010"
+$script:R13SourceTask = "R13-011"
 $script:GitObjectPattern = "^[a-f0-9]{40}$"
 $script:TimestampPattern = "^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
 $script:AllowedGateStatuses = @("not_delivered", "partial_local_only", "partially_evidenced", "blocked")
 $script:AllowedBlockingStatuses = @("blocking", "non_blocking", "advisory")
 $script:AllowedRefreshVerdicts = @("current", "blocked")
 $script:RequiredNonClaims = @(
-    "R13-010 adds human-readable operator demo artifact only",
-    "R13 active through R13-010 only",
-    "R13-011 through R13-018 remain planned only",
+    "R13-011 records a blocked external replay/manual dispatch packet only",
+    "R13 active through R13-011 only",
+    "R13-012 through R13-018 remain planned only",
     "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
     "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
-    "no external replay has occurred",
-    "no final QA signoff delivered by R13-010",
-    "no R13 hard value gate fully delivered by R13-010",
+    "external replay is blocked; no external replay proof is claimed",
+    "no final QA signoff delivered by R13-011",
+    "no R13 hard value gate fully delivered by R13-011",
     "no productized control-room behavior",
     "no full UI app",
     "no production runtime",
@@ -489,7 +489,7 @@ function Test-LineHasNegation {
         [string]$Line
     )
 
-    return ($Line -match '(?i)\b(no|not|without|cannot|must not|does not|do not|is not|are not|did not|non-claim|non_claim|refuse|refuses|blocked|planned|planned only|not yet delivered|not fully delivered|partial|partially|missing|required before|not executed|not delivered|future|pending|rejects|rejected)\b')
+    return ($Line -match '(?i)\b(no|not|without|cannot|must not|does not|do not|is not|are not|did not|non-claim|non_claim|refuse|refuses|blocked|planned|planned only|not yet delivered|not fully delivered|partial|partially|missing|required before|before|prior to|not executed|not delivered|future|pending|rejects|rejected)\b')
 }
 
 function Assert-NoForbiddenR13ControlRoomClaims {
@@ -614,7 +614,20 @@ function Get-R13RequiredMajorEvidenceRefs {
         (New-EvidenceRef -RefId "r13-007-custom-runner-result" -Ref "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json" -EvidenceKind "custom_runner_result" -AuthorityKind "repo_evidence"),
         (New-EvidenceRef -RefId "r13-008-skill-registry" -Ref "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json" -EvidenceKind "skill_registry" -AuthorityKind "repo_evidence"),
         (New-EvidenceRef -RefId "r13-008-qa-detect-result" -Ref "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json" -EvidenceKind "skill_invocation_result" -AuthorityKind "repo_evidence"),
-        (New-EvidenceRef -RefId "r13-008-qa-fix-plan-result" -Ref "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json" -EvidenceKind "skill_invocation_result" -AuthorityKind "repo_evidence")
+        (New-EvidenceRef -RefId "r13-008-qa-fix-plan-result" -Ref "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json" -EvidenceKind "skill_invocation_result" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-request-contract" -Ref "contracts/external_replay/r13_external_replay_request.contract.json" -EvidenceKind "contract" -AuthorityKind "repo_contract"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-result-contract" -Ref "contracts/external_replay/r13_external_replay_result.contract.json" -EvidenceKind "contract" -AuthorityKind "repo_contract"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-import-contract" -Ref "contracts/external_replay/r13_external_replay_import.contract.json" -EvidenceKind "contract" -AuthorityKind "repo_contract"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-module" -Ref "tools/R13ExternalReplay.psm1" -EvidenceKind "module" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-request-generator" -Ref "tools/new_r13_external_replay_request.ps1" -EvidenceKind "cli" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-invoker" -Ref "tools/invoke_r13_external_replay.ps1" -EvidenceKind "cli" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-request-validator" -Ref "tools/validate_r13_external_replay_request.ps1" -EvidenceKind "validator" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-result-validator" -Ref "tools/validate_r13_external_replay_result.ps1" -EvidenceKind "validator" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-import-validator" -Ref "tools/validate_r13_external_replay_import.ps1" -EvidenceKind "validator" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-request" -Ref "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json" -EvidenceKind "external_replay_request" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-blocked" -Ref "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json" -EvidenceKind "blocked_result" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-manual-dispatch" -Ref "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json" -EvidenceKind "manual_dispatch_packet" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-011-external-replay-validation-manifest" -Ref "state/external_runs/r13_external_replay/r13_011/validation_manifest.md" -EvidenceKind "validation_manifest" -AuthorityKind "repo_evidence")
     )
 }
 
@@ -694,13 +707,30 @@ function Get-CommandCounts {
 
 function New-R13TaskStatusLists {
     $completed = @()
-    foreach ($taskNumber in 1..10) {
+    foreach ($taskNumber in 1..11) {
         $taskId = "R13-{0}" -f $taskNumber.ToString("000")
         $completed += [pscustomobject][ordered]@{
             task_id = $taskId
             status = "done"
-            summary = if ($taskId -eq "R13-010") { "Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-009") { "Current cycle-aware control-room status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest." } else { "$taskId completed in prior R13 repo evidence." }
-            evidence_refs = [string[]]$(if ($taskId -eq "R13-010") {
+            summary = if ($taskId -eq "R13-011") { "External replay request, blocked dispatch result, manual dispatch packet, raw logs, and validation manifest generated without claiming external proof." } elseif ($taskId -eq "R13-010") { "Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-009") { "Current cycle-aware control-room status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest." } else { "$taskId completed in prior R13 repo evidence." }
+            evidence_refs = [string[]]$(if ($taskId -eq "R13-011") {
+                @(
+                    "contracts/external_replay/r13_external_replay_request.contract.json",
+                    "contracts/external_replay/r13_external_replay_result.contract.json",
+                    "contracts/external_replay/r13_external_replay_import.contract.json",
+                    "tools/R13ExternalReplay.psm1",
+                    "tools/new_r13_external_replay_request.ps1",
+                    "tools/invoke_r13_external_replay.ps1",
+                    "tools/validate_r13_external_replay_request.ps1",
+                    "tools/validate_r13_external_replay_result.ps1",
+                    "tools/validate_r13_external_replay_import.ps1",
+                    "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                    "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+                    "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
+                    "state/external_runs/r13_external_replay/r13_011/validation_manifest.md"
+                )
+            }
+            elseif ($taskId -eq "R13-010") {
                 @(
                     "contracts/control_room/r13_operator_demo.contract.json",
                     "tools/render_r13_operator_demo.ps1",
@@ -728,7 +758,7 @@ function New-R13TaskStatusLists {
     }
 
     $planned = @()
-    foreach ($taskNumber in 11..18) {
+    foreach ($taskNumber in 12..18) {
         $taskId = "R13-{0}" -f $taskNumber.ToString("000")
         $planned += [pscustomobject][ordered]@{
             task_id = $taskId
@@ -824,26 +854,27 @@ function New-R13HardGateStatus {
         meaningful_qa_loop = [pscustomobject][ordered]@{
             status = "partial_local_only"
             hard_gate_delivered = $false
-            summary = "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, and an operator demo artifact exist, but the loop is not complete until external replay and final QA signoff exist."
-            missing_required_evidence = @("external_replay", "final_qa_signoff")
+            summary = "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, an operator demo artifact, and a blocked external replay dispatch packet exist, but the loop is not complete until passed external replay and final QA signoff exist."
+            missing_required_evidence = @("passed_external_replay", "final_qa_signoff")
             evidence_refs = @(
                 "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
                 "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
-                "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json"
+                "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json"
             )
         }
         api_custom_runner_bypass = [pscustomobject][ordered]@{
             status = "partial_local_only"
             hard_gate_delivered = $false
             summary = "R13-007 adds a local API-shaped/custom-runner foundation with bounded validation command results only; the bypass gate is not fully delivered."
-            missing_required_evidence = @("external_replay_or_operator_approved_bypass_proof", "final_signoff")
+            missing_required_evidence = @("passed_external_replay_or_operator_approved_bypass_proof", "final_signoff")
             evidence_refs = @("state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json")
         }
         current_operator_control_room = [pscustomobject][ordered]@{
             status = "partially_evidenced"
             hard_gate_delivered = $false
-            summary = "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact. This remains partial operator-control-room evidence only, not a full hard-gate delivery."
-            missing_required_evidence = @("external_replay", "final_qa_signoff")
+            summary = "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records blocked external replay/manual dispatch evidence. This remains partial operator-control-room evidence only, not a full hard-gate delivery."
+            missing_required_evidence = @("passed_external_replay", "final_qa_signoff")
             evidence_refs = @($ControlRoomEvidenceRefs)
         }
         skill_invocation_evidence = [pscustomobject][ordered]@{
@@ -861,7 +892,7 @@ function New-R13HardGateStatus {
             status = "partially_evidenced"
             hard_gate_delivered = $false
             summary = "R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; this is partial operator-demo evidence only, not a full hard-gate delivery."
-            missing_required_evidence = @("external_replay", "final_qa_signoff")
+            missing_required_evidence = @("passed_external_replay", "final_qa_signoff")
             evidence_refs = @(
                 "contracts/control_room/r13_operator_demo.contract.json",
                 "tools/render_r13_operator_demo.ps1",
@@ -874,7 +905,7 @@ function New-R13HardGateStatus {
         overall = [pscustomobject][ordered]@{
             status = "blocked"
             any_hard_gate_delivered = $false
-            summary = "No R13 hard value gate is fully delivered by R13-010."
+            summary = "No R13 hard value gate is fully delivered by R13-011."
         }
     }
 }
@@ -908,6 +939,8 @@ function New-R13ControlRoomStatusObject {
     $skillRegistry = $documents["r13-008-skill-registry"]
     $qaDetectResult = $documents["r13-008-qa-detect-result"]
     $qaFixPlanResult = $documents["r13-008-qa-fix-plan-result"]
+    $externalReplayRequest = $documents["r13-011-external-replay-request"]
+    $externalReplayBlocked = $documents["r13-011-external-replay-blocked"]
 
     $taskLists = New-R13TaskStatusLists
     $controlRoomEvidenceRefs = @(
@@ -930,7 +963,20 @@ function New-R13ControlRoomStatusObject {
         $RefreshResultRef.Replace("\", "/"),
         $ValidationManifestRef.Replace("\", "/"),
         "state/control_room/r13_current/operator_demo.md",
-        "state/control_room/r13_current/operator_demo_validation_manifest.md"
+        "state/control_room/r13_current/operator_demo_validation_manifest.md",
+        "contracts/external_replay/r13_external_replay_request.contract.json",
+        "contracts/external_replay/r13_external_replay_result.contract.json",
+        "contracts/external_replay/r13_external_replay_import.contract.json",
+        "tools/R13ExternalReplay.psm1",
+        "tools/new_r13_external_replay_request.ps1",
+        "tools/invoke_r13_external_replay.ps1",
+        "tools/validate_r13_external_replay_request.ps1",
+        "tools/validate_r13_external_replay_result.ps1",
+        "tools/validate_r13_external_replay_import.ps1",
+        "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+        "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+        "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
+        "state/external_runs/r13_external_replay/r13_011/validation_manifest.md"
     )
     $hardGateStatus = New-R13HardGateStatus -ControlRoomEvidenceRefs $controlRoomEvidenceRefs
     $runnerCounts = Get-CommandCounts -CommandResults $runnerResult.command_results
@@ -952,11 +998,11 @@ function New-R13ControlRoomStatusObject {
         source_task = $script:R13SourceTask
         active_scope = [pscustomobject][ordered]@{
             active_milestone = $script:R13Milestone
-            active_through_task = "R13-010"
-            completed_range = "R13-001 through R13-010"
-            planned_range = "R13-011 through R13-018"
-            scope_summary = "R13 is active through R13-010 only; R13-011 through R13-018 remain planned only."
-            current_task_boundary = "R13-010 complete; no R13-011 implementation is included."
+            active_through_task = "R13-011"
+            completed_range = "R13-001 through R13-011"
+            planned_range = "R13-012 through R13-018"
+            scope_summary = "R13 is active through R13-011 only; R13-012 through R13-018 remain planned only."
+            current_task_boundary = "R13-011 complete as blocked external replay/manual dispatch evidence; no R13-012 final QA signoff is included."
             productized_ui_claimed = $false
             r14_or_successor_opened = $false
         }
@@ -1043,11 +1089,23 @@ function New-R13ControlRoomStatusObject {
             )
         }
         external_replay_status = [pscustomobject][ordered]@{
-            status = "not_delivered"
+            status = "blocked"
             executed = $false
-            summary = "No R13 external replay has occurred by R13-010."
+            aggregate_verdict = [string]$externalReplayBlocked.aggregate_verdict
+            request_ref = "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json"
+            blocked_result_ref = "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json"
+            manual_dispatch_packet_ref = "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json"
+            run_id = [string]$externalReplayBlocked.run_id
+            artifact_id = [string]$externalReplayBlocked.artifact_id
+            artifact_digest = [string]$externalReplayBlocked.artifact_digest
+            summary = "Authenticated external dispatch is unavailable; R13-011 records a blocked manual-dispatch packet and no external replay proof."
             required_before = "meaningful_qa_loop_gate_or_final_signoff"
-            evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
+            evidence_refs = @(
+                "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+                "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
+                "state/external_runs/r13_external_replay/r13_011/validation_manifest.md"
+            )
         }
         control_room_status = [pscustomobject][ordered]@{
             status = "partially_evidenced"
@@ -1065,21 +1123,21 @@ function New-R13ControlRoomStatusObject {
         }
         blockers = @(
             [pscustomobject][ordered]@{
-                id = "blocker-r13-external-replay-missing"
+                id = "blocker-r13-external-replay-blocked"
                 severity = "high"
-                title = "External replay is missing"
-                explanation = "No R13 external replay evidence exists, so the meaningful QA loop and final signoff remain blocked."
-                evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
-                recommended_next_action = "Keep external replay planned until its authorized R13 task is reached."
+                title = "External replay is blocked"
+                explanation = "R13-011 generated a request and blocked/manual-dispatch packet, but no authenticated external run was dispatched and no external replay proof exists."
+                evidence_refs = @("state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json", "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json")
+                recommended_next_action = "Complete the manual external dispatch/import path before any R13-012 final QA signoff."
                 blocking_status = "blocking"
             },
             [pscustomobject][ordered]@{
                 id = "blocker-r13-final-signoff-missing"
                 severity = "high"
                 title = "Final QA signoff is missing"
-                explanation = "No final QA signoff artifact exists in R13-010."
+                explanation = "No final QA signoff artifact exists in R13-011."
                 evidence_refs = @("contracts/actionable_qa/r13_qa_lifecycle.contract.json")
-                recommended_next_action = "Do not sign off until external replay and final signoff evidence are available."
+                recommended_next_action = "Do not sign off until passed external replay/import evidence and final signoff evidence are available."
                 blocking_status = "blocking"
             },
             [pscustomobject][ordered]@{
@@ -1105,10 +1163,10 @@ function New-R13ControlRoomStatusObject {
             [pscustomobject][ordered]@{
                 id = "attention-r13-task-boundary"
                 severity = "high"
-                title = "R13 stops at R13-010"
-                explanation = "R13-011 through R13-018 remain planned only."
+                title = "R13 stops at R13-011"
+                explanation = "R13-012 through R13-018 remain planned only."
                 evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
-                recommended_next_action = "Do not implement R13-011 or later inside R13-010."
+                recommended_next_action = "Do not implement R13-012 or later inside R13-011."
                 blocking_status = "advisory"
             },
             [pscustomobject][ordered]@{
@@ -1117,7 +1175,7 @@ function New-R13ControlRoomStatusObject {
                 title = "Operator demo evidence is partial"
                 explanation = "The operator demo artifact is a human-readable Markdown guide from repo evidence, not a productized UI or hard gate."
                 evidence_refs = @("state/control_room/r13_current/operator_demo.md", "state/control_room/r13_current/operator_demo_validation_manifest.md")
-                recommended_next_action = "Use the demo as operator context before the planned external replay task."
+                recommended_next_action = "Use the demo as operator context for the manual external replay dispatch/import path."
                 blocking_status = "advisory"
             },
             [pscustomobject][ordered]@{
@@ -1141,40 +1199,32 @@ function New-R13ControlRoomStatusObject {
         )
         next_actions = @(
             [pscustomobject][ordered]@{
-                id = "next-r13-011-external-replay-after-demo"
+                id = "next-r13-011-manual-external-replay-dispatch"
                 task_id = "R13-011"
-                title = "External replay after operator demo"
-                action_type = "next_legal_task"
-                description = "Run the planned external replay after the operator demo artifact, unless the R13 authority/status changes by explicit repo-truth approval."
+                title = "Manual external replay dispatch/import"
+                action_type = "blocked_prerequisite"
+                description = "Use the R13-011 manual dispatch packet for authenticated external replay dispatch or an equivalent external-runner handoff, then import and validate the artifact evidence before any R13-012 signoff."
                 required_before = "R13-012 meaningful QA signoff gate"
-                evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
+                evidence_refs = @("state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json")
             },
             [pscustomobject][ordered]@{
                 id = "next-r13-012-meaningful-qa-signoff-after-replay"
                 task_id = "R13-012"
-                title = "Planned meaningful QA signoff gate after external replay"
+                title = "Planned meaningful QA signoff gate after external replay is unblocked"
                 action_type = "later_planned_task"
-                description = "Final QA signoff remains planned after external replay evidence exists."
+                description = "Final QA signoff remains planned and blocked until external replay evidence exists."
                 required_before = "later R13 signoff work"
                 evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
             }
         )
         operator_decisions_required = @(
             [pscustomobject][ordered]@{
-                id = "decision-review-r13-010-operator-demo"
-                title = "Review R13-010 operator demo artifact"
-                decision_type = "operator_review"
-                required_before = "authorizing_R13_011"
-                blocking_status = "non_blocking"
-                evidence_refs = @("state/control_room/r13_current/operator_demo.md", $StatusRef.Replace("\", "/"), $ViewRef.Replace("\", "/"))
-            },
-            [pscustomobject][ordered]@{
-                id = "decision-authorize-r13-011-only"
-                title = "Authorize R13-011 only as the next implementation slice"
-                decision_type = "next_task_authorization"
-                required_before = "starting_any_R13_011_work"
+                id = "decision-complete-r13-011-manual-dispatch"
+                title = "Complete R13-011 manual dispatch/import before signoff"
+                decision_type = "operator_manual_dispatch"
+                required_before = "starting_R13_012_signoff_work"
                 blocking_status = "blocking"
-                evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
+                evidence_refs = @("state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json")
             },
             [pscustomobject][ordered]@{
                 id = "decision-refuse-successor"
@@ -1269,16 +1319,16 @@ function Assert-R13TaskLists {
 
     $completed = Assert-ObjectArray -Value $CompletedTasks -Context "$Context completed_tasks"
     $planned = Assert-ObjectArray -Value $PlannedTasks -Context "$Context planned_tasks"
-    $expectedCompleted = @(1..10 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
-    $expectedPlanned = @(11..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
+    $expectedCompleted = @(1..11 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
+    $expectedPlanned = @(12..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
     $actualCompleted = @($completed | ForEach-Object { [string]$_.task_id })
     $actualPlanned = @($planned | ForEach-Object { [string]$_.task_id })
 
     if (($actualCompleted -join "|") -ne ($expectedCompleted -join "|")) {
-        throw "$Context completed_tasks must be R13-001 through R13-010 only."
+        throw "$Context completed_tasks must be R13-001 through R13-011 only."
     }
     if (($actualPlanned -join "|") -ne ($expectedPlanned -join "|")) {
-        throw "$Context planned_tasks must be R13-011 through R13-018 only."
+        throw "$Context planned_tasks must be R13-012 through R13-018 only."
     }
     foreach ($task in @($completed)) {
         Assert-RequiredObjectFields -Object $task -FieldNames @("task_id", "status", "summary", "evidence_refs") -Context "$Context completed task"
@@ -1317,10 +1367,10 @@ function Assert-HardGateStatus {
         Assert-StringArray -Value $gate.evidence_refs -Context "$Context $gateName.evidence_refs" | Out-Null
     }
     if ($HardGateStatus.current_operator_control_room.status -ne "partially_evidenced") {
-        throw "$Context current_operator_control_room must be partially_evidenced for R13-010."
+        throw "$Context current_operator_control_room must be partially_evidenced for R13-011."
     }
     if ($HardGateStatus.operator_demo.status -ne "partially_evidenced") {
-        throw "$Context operator_demo must be partially_evidenced for R13-010."
+        throw "$Context operator_demo must be partially_evidenced for R13-011."
     }
     if ((Test-HasProperty -Object $HardGateStatus -Name "overall") -and [bool]$HardGateStatus.overall.any_hard_gate_delivered) {
         throw "$Context overall.any_hard_gate_delivered must be false."
@@ -1368,8 +1418,8 @@ function Test-R13ControlRoomStatusObject {
     Assert-R13StatusIdentity -Status $Status -SourceLabel $SourceLabel
     $activeScope = Assert-ObjectValue -Value $Status.active_scope -Context "$SourceLabel active_scope"
     Assert-RequiredObjectFields -Object $activeScope -FieldNames @("active_milestone", "active_through_task", "completed_range", "planned_range", "scope_summary", "current_task_boundary", "productized_ui_claimed", "r14_or_successor_opened") -Context "$SourceLabel active_scope"
-    if ($activeScope.active_milestone -ne $script:R13Milestone -or $activeScope.active_through_task -ne "R13-010") {
-        throw "$SourceLabel active_scope must declare R13 active through R13-010."
+    if ($activeScope.active_milestone -ne $script:R13Milestone -or $activeScope.active_through_task -ne "R13-011") {
+        throw "$SourceLabel active_scope must declare R13 active through R13-011."
     }
     if ([bool]$activeScope.productized_ui_claimed -or [bool]$activeScope.r14_or_successor_opened) {
         throw "$SourceLabel active_scope cannot claim productized UI or successor opening."
@@ -1380,8 +1430,8 @@ function Test-R13ControlRoomStatusObject {
     foreach ($statusField in @("qa_pipeline_status", "runner_status", "skill_status", "external_replay_status", "control_room_status")) {
         Assert-ObjectValue -Value $Status.$statusField -Context "$SourceLabel $statusField" | Out-Null
     }
-    if ([string]$Status.external_replay_status.status -ne "not_delivered" -or [bool]$Status.external_replay_status.executed) {
-        throw "$SourceLabel cannot claim external replay delivery or execution."
+    if ([string]$Status.external_replay_status.status -ne "blocked" -or [bool]$Status.external_replay_status.executed) {
+        throw "$SourceLabel must record external replay as blocked and not executed."
     }
     if ([string]$Status.control_room_status.status -ne "partially_evidenced" -or [bool]$Status.control_room_status.hard_gate_delivered) {
         throw "$SourceLabel control_room_status must be partially_evidenced and not hard_gate_delivered."
@@ -1400,7 +1450,7 @@ function Test-R13ControlRoomStatusObject {
         Assert-RequiredObjectFields -Object $nextAction -FieldNames @("id", "task_id", "title", "action_type", "description", "required_before", "evidence_refs") -Context "$SourceLabel next_action"
     }
     if ([string]$nextActions[0].task_id -ne "R13-011") {
-        throw "$SourceLabel first next legal action must be R13-011."
+        throw "$SourceLabel first next legal action must be R13-011 manual dispatch/import clearance."
     }
     $operatorDecisions = Assert-ObjectArray -Value $Status.operator_decisions_required -Context "$SourceLabel operator_decisions_required" -AllowEmpty
     foreach ($decision in @($operatorDecisions)) {
@@ -1620,12 +1670,12 @@ function Test-R13ControlRoomView {
             throw "R13 control-room view must include non-claim '$nonClaim'."
         }
     }
-    foreach ($taskId in @(1..10 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
+    foreach ($taskId in @(1..11 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
         if ($text -notmatch [regex]::Escape($taskId)) {
             throw "R13 control-room view must include completed task '$taskId'."
         }
     }
-    foreach ($taskId in @(11..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
+    foreach ($taskId in @(12..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
         if ($text -notmatch [regex]::Escape($taskId)) {
             throw "R13 control-room view must include planned task '$taskId'."
         }

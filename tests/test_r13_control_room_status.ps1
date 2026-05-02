@@ -151,11 +151,11 @@ try {
     $generatedManifestPath = Join-Path $generatedRoot "validation_manifest.md"
 
     $statusValidation = & $testStatus -StatusPath $generatedStatusPath
-    if ($statusValidation.CompletedTaskCount -ne 10 -or $statusValidation.PlannedTaskCount -ne 8 -or $statusValidation.NextLegalAction -ne "R13-011") {
-        $failures += "FAIL generated status: status did not preserve R13-010 boundary."
+    if ($statusValidation.CompletedTaskCount -ne 11 -or $statusValidation.PlannedTaskCount -ne 7 -or $statusValidation.NextLegalAction -ne "R13-011") {
+        $failures += "FAIL generated status: status did not preserve R13-011 boundary."
     }
     else {
-        Write-Output "PASS generated status: R13-010 boundary validates."
+        Write-Output "PASS generated status: R13-011 boundary validates."
         $validPassed += 1
     }
 
@@ -239,18 +239,18 @@ try {
     $generatedStatus = Read-JsonObject -Path $generatedStatusPath
     $completedTaskIds = @($generatedStatus.completed_tasks | ForEach-Object { [string]$_.task_id })
     $plannedTaskIds = @($generatedStatus.planned_tasks | ForEach-Object { [string]$_.task_id })
-    if (($completedTaskIds -join "|") -ne ((1..10 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-010 only."
+    if (($completedTaskIds -join "|") -ne ((1..11 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-011 only."
     }
     else {
-        Write-Output "PASS generated status: R13 active through R13-010 only."
+        Write-Output "PASS generated status: R13 active through R13-011 only."
         $validPassed += 1
     }
-    if (($plannedTaskIds -join "|") -ne ((11..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: planned tasks are not R13-011 through R13-018 only."
+    if (($plannedTaskIds -join "|") -ne ((12..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: planned tasks are not R13-012 through R13-018 only."
     }
     else {
-        Write-Output "PASS generated status: R13-011 through R13-018 planned only."
+        Write-Output "PASS generated status: R13-012 through R13-018 planned only."
         $validPassed += 1
     }
     if ($generatedStatus.hard_gate_status.current_operator_control_room.status -ne "partially_evidenced" -or [bool]$generatedStatus.hard_gate_status.current_operator_control_room.hard_gate_delivered) {

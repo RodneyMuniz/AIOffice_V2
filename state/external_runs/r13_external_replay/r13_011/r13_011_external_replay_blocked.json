@@ -1,0 +1,97 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_external_replay_result",
+    "result_id":  "r13err-775abf95e46412a0",
+    "request_id":  "r13errq-6f4decf18a466337",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "requested_head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
+    "requested_tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+    "observed_head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
+    "observed_tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+    "workflow_name":  "R13 External Replay",
+    "run_id":  "",
+    "run_url":  "",
+    "run_attempt":  0,
+    "run_status":  "not_dispatched",
+    "run_conclusion":  "blocked",
+    "artifact_id":  "",
+    "artifact_name":  "r13-external-replay-\u003crun_id\u003e-\u003crun_attempt\u003e",
+    "artifact_digest":  "",
+    "command_results":  [
+                            {
+                                "command_id":  "check-github-cli",
+                                "command":  "Get-Command gh -ErrorAction SilentlyContinue",
+                                "exit_code":  1,
+                                "verdict":  "blocked",
+                                "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_cli_stdout.log",
+                                "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_cli_stderr.log",
+                                "started_at_utc":  "2026-05-02T00:44:35Z",
+                                "completed_at_utc":  "2026-05-02T00:44:35Z"
+                            },
+                            {
+                                "command_id":  "check-github-token-presence",
+                                "command":  "Test GH_TOKEN and GITHUB_TOKEN environment variable presence without reading secret values",
+                                "exit_code":  1,
+                                "verdict":  "blocked",
+                                "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_tokens_stdout.log",
+                                "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_tokens_stderr.log",
+                                "started_at_utc":  "2026-05-02T00:44:35Z",
+                                "completed_at_utc":  "2026-05-02T00:44:35Z"
+                            },
+                            {
+                                "command_id":  "dispatch-r13-external-replay",
+                                "command":  "gh workflow run r13-external-replay.yml --repo RodneyMuniz/AIOffice_V2 --ref release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f branch=release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f expected_head=e9e8b4e21147d7c0906b4916297e3162690dbf64 -f expected_tree=520e2adf5e5fcbce2f81b23c872206d746e6b9c2 -f replay_scope=r13_011_external_replay_after_operator_demo",
+                                "exit_code":  1,
+                                "verdict":  "blocked",
+                                "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/dispatch_r13_external_replay_stdout.log",
+                                "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/dispatch_r13_external_replay_stderr.log",
+                                "started_at_utc":  "2026-05-02T00:44:35Z",
+                                "completed_at_utc":  "2026-05-02T00:44:35Z"
+                            }
+                        ],
+    "aggregate_verdict":  "blocked",
+    "imported_artifact_ref":  "",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-external-replay-request",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                              "evidence_kind":  "external_replay_request",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-result-contract",
+                              "ref":  "contracts/external_replay/r13_external_replay_result.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-module",
+                              "ref":  "tools/R13ExternalReplay.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-invoker",
+                              "ref":  "tools/invoke_r13_external_replay.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          }
+                      ],
+    "refusal_reasons":  [
+                            "Authenticated external dispatch unavailable: gh CLI is not installed or not on PATH.",
+                            "Authenticated external dispatch unavailable: no GH_TOKEN or GITHUB_TOKEN environment variable is present."
+                        ],
+    "started_at_utc":  "2026-05-02T00:44:35Z",
+    "completed_at_utc":  "2026-05-02T00:44:35Z",
+    "non_claims":  [
+                       "R13-011 records external replay status only",
+                       "no final QA signoff has occurred",
+                       "no R13 hard value gate fully delivered by R13-011",
+                       "no R14 or successor opening"
+                   ]
+}

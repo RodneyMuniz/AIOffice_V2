@@ -1,0 +1,74 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_external_replay_request_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-011",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "request_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "replay_scope",
+    "input_refs",
+    "workflow_ref",
+    "allowed_commands",
+    "expected_artifact_name",
+    "expected_result_ref",
+    "operator_approval",
+    "evidence_refs",
+    "refusal_reasons",
+    "created_at_utc",
+    "non_claims"
+  ],
+  "input_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_command_required_fields": [
+    "command_id",
+    "command"
+  ],
+  "operator_approval_required_fields": [
+    "approval_status",
+    "approved_by",
+    "approved_at_utc",
+    "approval_scope"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_replay_scopes": [
+    "r13_011_external_replay_after_operator_demo"
+  ],
+  "required_non_claims": [
+    "R13-011 may record passed external replay only with actual external-runner evidence",
+    "no external replay proof is claimed without run ID, artifact ID, artifact digest, and external-runner evidence",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate fully delivered by R13-011",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "request_must_bind_to_current_r13_branch_head_and_tree",
+    "head_and_tree_must_be_40_character_git_object_ids",
+    "input_refs_must_exist_when_repo_relative",
+    "workflow_ref_must_be_non_empty_but_may_record_manual_dispatch_unavailable_when_blocked",
+    "allowed_commands_must_be_bounded_r13_validation_or_dispatch_commands",
+    "operator_approval_must_scope_only_r13_011_external_replay_or_fail_closed_manual_dispatch",
+    "final_signoff_hard_gate_delivery_and_successor_claims_are_rejected"
+  ]
+}

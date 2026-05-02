@@ -1,0 +1,54 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_external_replay_import_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-011",
+  "required_fields": [
+    "artifact_type",
+    "imported_artifact_id",
+    "source_run_id",
+    "source_artifact_id",
+    "source_artifact_name",
+    "source_artifact_digest",
+    "imported_paths",
+    "validation_results",
+    "evidence_refs",
+    "aggregate_verdict",
+    "non_claims"
+  ],
+  "validation_result_required_fields": [
+    "artifact_id",
+    "ref",
+    "validator",
+    "verdict",
+    "summary"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_non_claims": [
+    "R13-011 imported artifact validation is external replay evidence only",
+    "no final QA signoff has occurred",
+    "no R13 hard value gate fully delivered by R13-011",
+    "no R14 or successor opening"
+  ],
+  "rules": [
+    "import_must_include_source_run_artifact_name_id_and_digest",
+    "imported_paths_must_exist_inside_repo",
+    "validation_results_must_reference_existing_imported_paths",
+    "missing_artifact_refs_are_rejected",
+    "final_signoff_hard_gate_delivery_and_successor_claims_are_rejected"
+  ]
+}

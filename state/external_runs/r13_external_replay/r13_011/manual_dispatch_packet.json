@@ -1,0 +1,88 @@
+{
+    "artifact_type":  "r13_external_replay_manual_dispatch_packet",
+    "packet_id":  "r13ermdp-ef97022f9201b75b",
+    "request_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+    "blocked_result_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "e9e8b4e21147d7c0906b4916297e3162690dbf64",
+    "tree":  "520e2adf5e5fcbce2f81b23c872206d746e6b9c2",
+    "workflow_name":  "R13 External Replay",
+    "workflow_ref":  "github_actions_manual_dispatch_or_equivalent_external_runner_required",
+    "dispatch_status":  "blocked_authenticated_dispatch_unavailable",
+    "attempted_command":  "gh workflow run r13-external-replay.yml --repo RodneyMuniz/AIOffice_V2 --ref release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f branch=release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f expected_head=e9e8b4e21147d7c0906b4916297e3162690dbf64 -f expected_tree=520e2adf5e5fcbce2f81b23c872206d746e6b9c2 -f replay_scope=r13_011_external_replay_after_operator_demo",
+    "attempted_command_results":  [
+                                      {
+                                          "command_id":  "check-github-cli",
+                                          "command":  "Get-Command gh -ErrorAction SilentlyContinue",
+                                          "exit_code":  1,
+                                          "verdict":  "blocked",
+                                          "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_cli_stdout.log",
+                                          "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_cli_stderr.log",
+                                          "started_at_utc":  "2026-05-02T00:44:35Z",
+                                          "completed_at_utc":  "2026-05-02T00:44:35Z"
+                                      },
+                                      {
+                                          "command_id":  "check-github-token-presence",
+                                          "command":  "Test GH_TOKEN and GITHUB_TOKEN environment variable presence without reading secret values",
+                                          "exit_code":  1,
+                                          "verdict":  "blocked",
+                                          "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_tokens_stdout.log",
+                                          "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/check_github_tokens_stderr.log",
+                                          "started_at_utc":  "2026-05-02T00:44:35Z",
+                                          "completed_at_utc":  "2026-05-02T00:44:35Z"
+                                      },
+                                      {
+                                          "command_id":  "dispatch-r13-external-replay",
+                                          "command":  "gh workflow run r13-external-replay.yml --repo RodneyMuniz/AIOffice_V2 --ref release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f branch=release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice -f expected_head=e9e8b4e21147d7c0906b4916297e3162690dbf64 -f expected_tree=520e2adf5e5fcbce2f81b23c872206d746e6b9c2 -f replay_scope=r13_011_external_replay_after_operator_demo",
+                                          "exit_code":  1,
+                                          "verdict":  "blocked",
+                                          "stdout_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/dispatch_r13_external_replay_stdout.log",
+                                          "stderr_ref":  "state/external_runs/r13_external_replay/r13_011/raw_logs/dispatch_r13_external_replay_stderr.log",
+                                          "started_at_utc":  "2026-05-02T00:44:35Z",
+                                          "completed_at_utc":  "2026-05-02T00:44:35Z"
+                                      }
+                                  ],
+    "missing_dependencies_or_credentials":  [
+                                                "Authenticated external dispatch unavailable: gh CLI is not installed or not on PATH.",
+                                                "Authenticated external dispatch unavailable: no GH_TOKEN or GITHUB_TOKEN environment variable is present."
+                                            ],
+    "manual_operator_action_required":  [
+                                            "Provide an authenticated GitHub Actions dispatch path for an R13 External Replay workflow or equivalent external runner.",
+                                            "Run against branch \u0027release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice\u0027 and expected head \u0027e9e8b4e21147d7c0906b4916297e3162690dbf64\u0027 / tree \u0027520e2adf5e5fcbce2f81b23c872206d746e6b9c2\u0027.",
+                                            "Capture run ID, run URL, run attempt, run status/conclusion, artifact ID, artifact name, artifact digest, observed head/tree, and command results.",
+                                            "Import the artifact evidence into state/external_runs/r13_external_replay/r13_011/ and validate it with the R13 external replay validators before R13-012."
+                                        ],
+    "aggregate_verdict":  "blocked",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-external-replay-request",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                              "evidence_kind":  "external_replay_request",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-blocked-result",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
+                              "evidence_kind":  "blocked_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-external-replay-invoker",
+                              "ref":  "tools/invoke_r13_external_replay.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          }
+                      ],
+    "created_at_utc":  "2026-05-02T00:44:35Z",
+    "non_claims":  [
+                       "no external replay has occurred",
+                       "no external replay proof is claimed",
+                       "no final QA signoff has occurred",
+                       "no R13 hard value gate fully delivered by R13-011",
+                       "no R14 or successor opening"
+                   ]
+}
