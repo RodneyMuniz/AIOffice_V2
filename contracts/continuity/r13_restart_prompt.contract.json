@@ -1,0 +1,52 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_restart_prompt_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-013",
+  "required_fields": [
+    "artifact_type",
+    "prompt_id",
+    "source_packet_ref",
+    "target_user",
+    "intended_use",
+    "prompt_body",
+    "required_checks",
+    "allowed_next_task",
+    "forbidden_claims",
+    "evidence_refs",
+    "non_claims"
+  ],
+  "required_prompt_body_rules": [
+    "prompt_body_must_begin_with_minimal_branch_head_tree_worktree_checks",
+    "prompt_body_must_use_committed_repo_evidence_as_state_source",
+    "prompt_body_must_forbid_broad_repo_inventory_unless_focused_validation_fails",
+    "prompt_body_must_forbid_r13_closeout",
+    "prompt_body_must_forbid_r14_or_successor",
+    "prompt_body_must_allow_r13_014_only_after_r13_013_is_committed_pushed_and_verified",
+    "prompt_body_must_forbid_general_codex_compaction_solved_claims",
+    "prompt_body_must_forbid_production_runtime_autonomy_productized_ui_and_full_product_qa_overclaims"
+  ],
+  "required_checks": [
+    "git rev-parse --show-toplevel",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "git rev-parse \"HEAD^{tree}\"",
+    "git status --short --untracked-files=all"
+  ],
+  "allowed_next_task": "R13-014",
+  "required_non_claims": [
+    "bounded repo-truth continuity mitigation only",
+    "does not solve Codex compaction generally",
+    "does not solve Codex reliability generally",
+    "no R13 closeout",
+    "no R14 or successor opening",
+    "no production runtime",
+    "no productized UI",
+    "no full product QA coverage",
+    "R13 active through R13-013 only",
+    "R13-014 through R13-018 remain planned only"
+  ]
+}

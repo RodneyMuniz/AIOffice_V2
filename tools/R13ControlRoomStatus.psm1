@@ -6,7 +6,7 @@ Import-Module (Join-Path $PSScriptRoot "JsonRoot.psm1") -Force
 $script:R13RepositoryName = "AIOffice_V2"
 $script:R13Branch = "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice"
 $script:R13Milestone = "R13 API-First QA Pipeline and Operator Control-Room Product Slice"
-$script:R13SourceTask = "R13-012"
+$script:R13SourceTask = "R13-013"
 $script:GitObjectPattern = "^[a-f0-9]{40}$"
 $script:TimestampPattern = "^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
 $script:AllowedGateStatuses = @("not_delivered", "partial_local_only", "partially_evidenced", "bounded_scope_delivered", "blocked")
@@ -14,8 +14,9 @@ $script:AllowedBlockingStatuses = @("blocking", "non_blocking", "advisory")
 $script:AllowedRefreshVerdicts = @("current", "blocked")
 $script:RequiredNonClaims = @(
     "R13-012 adds bounded meaningful QA signoff only",
-    "R13 active through R13-012 only",
-    "R13-013 through R13-018 remain planned only",
+    "R13-013 adds bounded compaction mitigation and restart proof only",
+    "R13 active through R13-013 only",
+    "R13-014 through R13-018 remain planned only",
     "final QA signoff occurred only for bounded R13 representative QA slice",
     "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope",
     "API/custom-runner bypass gate remains partial only",
@@ -23,6 +24,9 @@ $script:RequiredNonClaims = @(
     "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
     "skill invocation evidence gate remains partial only",
     "external replay evidence is imported and bounded signoff consumed it",
+    "R13-012 generated-head mismatch is explicitly reconciled as generation identity, not current identity",
+    "does not solve Codex compaction generally",
+    "does not solve Codex reliability generally",
     "no full product QA coverage",
     "no R13 closeout",
     "no productized control-room behavior",
@@ -645,7 +649,18 @@ function Get-R13RequiredMajorEvidenceRefs {
         (New-EvidenceRef -RefId "r13-012-signoff-test" -Ref "tests/test_r13_meaningful_qa_signoff.ps1" -EvidenceKind "test" -AuthorityKind "repo_tooling"),
         (New-EvidenceRef -RefId "r13-012-signoff" -Ref "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json" -EvidenceKind "meaningful_qa_signoff" -AuthorityKind "repo_evidence"),
         (New-EvidenceRef -RefId "r13-012-evidence-matrix" -Ref "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json" -EvidenceKind "evidence_matrix" -AuthorityKind "repo_evidence"),
-        (New-EvidenceRef -RefId "r13-012-signoff-validation-manifest" -Ref "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md" -EvidenceKind "validation_manifest" -AuthorityKind "repo_evidence")
+        (New-EvidenceRef -RefId "r13-012-signoff-validation-manifest" -Ref "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md" -EvidenceKind "validation_manifest" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-013-packet-contract" -Ref "contracts/continuity/r13_compaction_mitigation_packet.contract.json" -EvidenceKind "contract" -AuthorityKind "repo_contract"),
+        (New-EvidenceRef -RefId "r13-013-restart-prompt-contract" -Ref "contracts/continuity/r13_restart_prompt.contract.json" -EvidenceKind "contract" -AuthorityKind "repo_contract"),
+        (New-EvidenceRef -RefId "r13-013-module" -Ref "tools/R13CompactionMitigation.psm1" -EvidenceKind "module" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-013-generator" -Ref "tools/new_r13_compaction_mitigation_packet.ps1" -EvidenceKind "cli" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-013-packet-validator" -Ref "tools/validate_r13_compaction_mitigation_packet.ps1" -EvidenceKind "validator" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-013-restart-prompt-validator" -Ref "tools/validate_r13_restart_prompt.ps1" -EvidenceKind "validator" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-013-test" -Ref "tests/test_r13_compaction_mitigation.ps1" -EvidenceKind "test" -AuthorityKind "repo_tooling"),
+        (New-EvidenceRef -RefId "r13-013-identity-reconciliation" -Ref "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json" -EvidenceKind "identity_reconciliation" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-013-compaction-mitigation-packet" -Ref "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json" -EvidenceKind "compaction_mitigation_packet" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-013-restart-prompt" -Ref "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md" -EvidenceKind "restart_prompt" -AuthorityKind "repo_evidence"),
+        (New-EvidenceRef -RefId "r13-013-validation-manifest" -Ref "state/continuity/r13_compaction_mitigation/validation_manifest.md" -EvidenceKind "validation_manifest" -AuthorityKind "repo_evidence")
     )
 }
 
@@ -671,6 +686,8 @@ function Read-R13MajorEvidence {
         "r13-008-qa-fix-plan-result" = "r13_skill_invocation_result"
         "r13-012-signoff" = "r13_meaningful_qa_signoff"
         "r13-012-evidence-matrix" = "r13_meaningful_qa_signoff_evidence_matrix"
+        "r13-013-identity-reconciliation" = "r13_013_identity_reconciliation"
+        "r13-013-compaction-mitigation-packet" = "r13_compaction_mitigation_packet"
     }
 
     foreach ($entry in $expectedArtifacts.GetEnumerator()) {
@@ -727,12 +744,12 @@ function Get-CommandCounts {
 
 function New-R13TaskStatusLists {
     $completed = @()
-    foreach ($taskNumber in 1..12) {
+    foreach ($taskNumber in 1..13) {
         $taskId = "R13-{0}" -f $taskNumber.ToString("000")
         $completed += [pscustomobject][ordered]@{
             task_id = $taskId
             status = "done"
-            summary = if ($taskId -eq "R13-012") { "Bounded meaningful QA signoff gate, evidence matrix, validators, tests, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-011") { "External replay request, prior blocked dispatch packet, GitHub Actions replay result, imported artifact evidence, raw logs, and validation manifest generated without final QA signoff." } elseif ($taskId -eq "R13-010") { "Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-009") { "Current cycle-aware control-room status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest." } else { "$taskId completed in prior R13 repo evidence." }
+            summary = if ($taskId -eq "R13-013") { "Bounded compaction mitigation packet, identity reconciliation, restart prompt, validators, tests, and validation manifest generated from repo-truth evidence." } elseif ($taskId -eq "R13-012") { "Bounded meaningful QA signoff gate, evidence matrix, validators, tests, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-011") { "External replay request, prior blocked dispatch packet, GitHub Actions replay result, imported artifact evidence, raw logs, and validation manifest generated without final QA signoff." } elseif ($taskId -eq "R13-010") { "Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence." } elseif ($taskId -eq "R13-009") { "Current cycle-aware control-room status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest." } else { "$taskId completed in prior R13 repo evidence." }
             evidence_refs = [string[]]$(if ($taskId -eq "R13-011") {
                 @(
                     "contracts/external_replay/r13_external_replay_request.contract.json",
@@ -767,6 +784,21 @@ function New-R13TaskStatusLists {
                     "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md"
                 )
             }
+            elseif ($taskId -eq "R13-013") {
+                @(
+                    "contracts/continuity/r13_compaction_mitigation_packet.contract.json",
+                    "contracts/continuity/r13_restart_prompt.contract.json",
+                    "tools/R13CompactionMitigation.psm1",
+                    "tools/new_r13_compaction_mitigation_packet.ps1",
+                    "tools/validate_r13_compaction_mitigation_packet.ps1",
+                    "tools/validate_r13_restart_prompt.ps1",
+                    "tests/test_r13_compaction_mitigation.ps1",
+                    "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+                    "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+                    "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+                    "state/continuity/r13_compaction_mitigation/validation_manifest.md"
+                )
+            }
             elseif ($taskId -eq "R13-010") {
                 @(
                     "contracts/control_room/r13_operator_demo.contract.json",
@@ -795,7 +827,7 @@ function New-R13TaskStatusLists {
     }
 
     $planned = @()
-    foreach ($taskNumber in 13..18) {
+    foreach ($taskNumber in 14..18) {
         $taskId = "R13-{0}" -f $taskNumber.ToString("000")
         $planned += [pscustomobject][ordered]@{
             task_id = $taskId
@@ -893,7 +925,7 @@ function New-R13HardGateStatus {
             hard_gate_delivered = $true
             delivery_scope = "bounded_representative_qa_failure_to_fix_slice_only"
             full_product_scope_delivered = $false
-            summary = "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner evidence, local skill invocations, current control-room evidence, operator demo evidence, passed external replay/import evidence, and R13-012 bounded signoff exist. This delivers the meaningful QA loop hard gate only for the bounded representative slice, not for full product QA coverage."
+            summary = "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner evidence, local skill invocations, current control-room evidence, operator demo evidence, passed external replay/import evidence, and R13-012 bounded signoff exist. R13-013 adds continuity mitigation only. This delivers the meaningful QA loop hard gate only for the bounded representative slice, not for full product QA coverage."
             missing_required_evidence = @("full_product_qa_coverage", "production_qa_evidence")
             evidence_refs = @(
                 "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
@@ -915,7 +947,7 @@ function New-R13HardGateStatus {
         current_operator_control_room = [pscustomobject][ordered]@{
             status = "partially_evidenced"
             hard_gate_delivered = $false
-            summary = "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence; R13-012 records bounded signoff. This remains partial operator-control-room evidence only, not productized control-room behavior."
+            summary = "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence; R13-012 records bounded signoff; R13-013 records bounded restart proof. This remains partial operator-control-room evidence only, not productized control-room behavior."
             missing_required_evidence = @("productized_operator_control_room")
             evidence_refs = @($ControlRoomEvidenceRefs)
         }
@@ -948,7 +980,7 @@ function New-R13HardGateStatus {
             status = "bounded_scope_passed"
             any_hard_gate_delivered = $true
             any_full_product_hard_gate_delivered = $false
-            summary = "R13-012 delivers the meaningful QA loop hard gate only for the bounded representative QA slice. No full product, production, UI, broad autonomy, R13 closeout, R14, or successor gate is delivered."
+            summary = "R13-012 delivers the meaningful QA loop hard gate only for the bounded representative QA slice. R13-013 adds bounded continuity mitigation only. No full product, production, UI, broad autonomy, R13 closeout, R14, or successor gate is delivered."
         }
     }
 }
@@ -1036,7 +1068,18 @@ function New-R13ControlRoomStatusObject {
         "tests/test_r13_meaningful_qa_signoff.ps1",
         "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
         "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
-        "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md"
+        "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md",
+        "contracts/continuity/r13_compaction_mitigation_packet.contract.json",
+        "contracts/continuity/r13_restart_prompt.contract.json",
+        "tools/R13CompactionMitigation.psm1",
+        "tools/new_r13_compaction_mitigation_packet.ps1",
+        "tools/validate_r13_compaction_mitigation_packet.ps1",
+        "tools/validate_r13_restart_prompt.ps1",
+        "tests/test_r13_compaction_mitigation.ps1",
+        "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+        "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+        "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+        "state/continuity/r13_compaction_mitigation/validation_manifest.md"
     )
     $hardGateStatus = New-R13HardGateStatus -ControlRoomEvidenceRefs $controlRoomEvidenceRefs
     $runnerCounts = Get-CommandCounts -CommandResults $runnerResult.command_results
@@ -1058,11 +1101,11 @@ function New-R13ControlRoomStatusObject {
         source_task = $script:R13SourceTask
         active_scope = [pscustomobject][ordered]@{
             active_milestone = $script:R13Milestone
-            active_through_task = "R13-012"
-            completed_range = "R13-001 through R13-012"
-            planned_range = "R13-013 through R13-018"
-            scope_summary = "R13 is active through R13-012 only; R13-013 through R13-018 remain planned only."
-            current_task_boundary = "R13-012 complete as bounded meaningful QA signoff only; no R13 closeout, R14, or successor is included."
+            active_through_task = "R13-013"
+            completed_range = "R13-001 through R13-013"
+            planned_range = "R13-014 through R13-018"
+            scope_summary = "R13 is active through R13-013 only; R13-014 through R13-018 remain planned only."
+            current_task_boundary = "R13-013 complete as bounded compaction mitigation and restart proof only; no R13 closeout, R14, or successor is included."
             productized_ui_claimed = $false
             r14_or_successor_opened = $false
         }
@@ -1167,7 +1210,7 @@ function New-R13ControlRoomStatusObject {
             observed_head = [string]$externalReplayResult.observed_head
             observed_tree = [string]$externalReplayResult.observed_tree
             imported_artifact_id = [string]$externalReplayImport.imported_artifact_id
-            summary = "GitHub Actions R13 External Replay run 25241730946 completed successfully with artifact 6759970924 imported and validated; R13-012 consumed it for bounded QA signoff only."
+            summary = "GitHub Actions R13 External Replay run 25241730946 completed successfully with artifact 6759970924 imported and validated; R13-012 consumed it for bounded QA signoff only, and R13-013 preserves it as prerequisite restart evidence only."
             required_before = "any_future_unbounded_or_product_scope_signoff"
             evidence_refs = @(
                 "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
@@ -1195,6 +1238,26 @@ function New-R13ControlRoomStatusObject {
                 "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md"
             )
         }
+        compaction_mitigation_status = [pscustomobject][ordered]@{
+            status = "bounded_repo_truth_mitigation_recorded"
+            source_task = "R13-013"
+            identity_reconciliation_ref = "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json"
+            packet_ref = "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json"
+            restart_prompt_ref = "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md"
+            validation_manifest_ref = "state/continuity/r13_compaction_mitigation/validation_manifest.md"
+            signoff_generated_from_head = "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577"
+            signoff_committed_at_head = "9f80291b0f3049ec1dd15635079705db031383fd"
+            verdict = "accepted_as_generation_identity_not_current_identity"
+            bounded_mitigation_only = $true
+            codex_compaction_solved_generally = $false
+            codex_reliability_solved_generally = $false
+            evidence_refs = @(
+                "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+                "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+                "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+                "state/continuity/r13_compaction_mitigation/validation_manifest.md"
+            )
+        }
         control_room_status = [pscustomobject][ordered]@{
             status = "partially_evidenced"
             status_model_ref = $StatusRef.Replace("\", "/")
@@ -1206,7 +1269,7 @@ function New-R13ControlRoomStatusObject {
             stale_state_checks_passed = [bool]$staleChecks.stale_state_checks_passed
             productized_ui_claimed = $false
             hard_gate_delivered = $false
-            summary = "R13-009 generates a repo-backed JSON status model, Markdown view, refresh result, and validation manifest; R13-010 adds a human-readable operator demo artifact; R13-011 imports passed external replay evidence; R13-012 adds bounded signoff status. This remains not a productized UI and not a full product hard gate."
+            summary = "R13-009 generates a repo-backed JSON status model, Markdown view, refresh result, and validation manifest; R13-010 adds a human-readable operator demo artifact; R13-011 imports passed external replay evidence; R13-012 adds bounded signoff status; R13-013 adds bounded compaction mitigation status. This remains not a productized UI and not a full product hard gate."
             evidence_refs = @($controlRoomEvidenceRefs)
         }
         blockers = @()
@@ -1223,10 +1286,10 @@ function New-R13ControlRoomStatusObject {
             [pscustomobject][ordered]@{
                 id = "attention-r13-task-boundary"
                 severity = "high"
-                title = "R13 stops at R13-012"
-                explanation = "R13-013 through R13-018 remain planned only."
+                title = "R13 stops at R13-013"
+                explanation = "R13-014 through R13-018 remain planned only."
                 evidence_refs = @("governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
-                recommended_next_action = "Do not implement R13-013 or later inside R13-012."
+                recommended_next_action = "Do not implement R13-014 or later inside R13-013."
                 blocking_status = "advisory"
             },
             [pscustomobject][ordered]@{
@@ -1268,13 +1331,13 @@ function New-R13ControlRoomStatusObject {
         )
         next_actions = @(
             [pscustomobject][ordered]@{
-                id = "next-r13-013-remains-planned-only"
-                task_id = "R13-013"
-                title = "Hold R13-013 as planned only"
+                id = "next-r13-014-after-r13-013-verified"
+                task_id = "R13-014"
+                title = "Start R13-014 only after R13-013 verification"
                 action_type = "status_boundary"
-                description = "R13-012 bounded signoff is passed and recorded; do not start R13-013 without explicit authorization."
-                required_before = "any explicitly authorized R13-013 work"
-                evidence_refs = @("state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json", "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
+                description = "R13-013 bounded compaction mitigation is recorded; start R13-014 only after R13-013 is committed, pushed, and verified."
+                required_before = "any R13-014 work"
+                evidence_refs = @("state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json", "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md", "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md")
             }
         )
         operator_decisions_required = @(
@@ -1379,16 +1442,16 @@ function Assert-R13TaskLists {
 
     $completed = Assert-ObjectArray -Value $CompletedTasks -Context "$Context completed_tasks"
     $planned = Assert-ObjectArray -Value $PlannedTasks -Context "$Context planned_tasks"
-    $expectedCompleted = @(1..12 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
-    $expectedPlanned = @(13..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
+    $expectedCompleted = @(1..13 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
+    $expectedPlanned = @(14..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })
     $actualCompleted = @($completed | ForEach-Object { [string]$_.task_id })
     $actualPlanned = @($planned | ForEach-Object { [string]$_.task_id })
 
     if (($actualCompleted -join "|") -ne ($expectedCompleted -join "|")) {
-        throw "$Context completed_tasks must be R13-001 through R13-012 only."
+        throw "$Context completed_tasks must be R13-001 through R13-013 only."
     }
     if (($actualPlanned -join "|") -ne ($expectedPlanned -join "|")) {
-        throw "$Context planned_tasks must be R13-013 through R13-018 only."
+        throw "$Context planned_tasks must be R13-014 through R13-018 only."
     }
     foreach ($task in @($completed)) {
         Assert-RequiredObjectFields -Object $task -FieldNames @("task_id", "status", "summary", "evidence_refs") -Context "$Context completed task"
@@ -1484,8 +1547,8 @@ function Test-R13ControlRoomStatusObject {
     Assert-R13StatusIdentity -Status $Status -SourceLabel $SourceLabel
     $activeScope = Assert-ObjectValue -Value $Status.active_scope -Context "$SourceLabel active_scope"
     Assert-RequiredObjectFields -Object $activeScope -FieldNames @("active_milestone", "active_through_task", "completed_range", "planned_range", "scope_summary", "current_task_boundary", "productized_ui_claimed", "r14_or_successor_opened") -Context "$SourceLabel active_scope"
-    if ($activeScope.active_milestone -ne $script:R13Milestone -or $activeScope.active_through_task -ne "R13-012") {
-        throw "$SourceLabel active_scope must declare R13 active through R13-012."
+    if ($activeScope.active_milestone -ne $script:R13Milestone -or $activeScope.active_through_task -ne "R13-013") {
+        throw "$SourceLabel active_scope must declare R13 active through R13-013."
     }
     if ([bool]$activeScope.productized_ui_claimed -or [bool]$activeScope.r14_or_successor_opened) {
         throw "$SourceLabel active_scope cannot claim productized UI or successor opening."
@@ -1521,8 +1584,8 @@ function Test-R13ControlRoomStatusObject {
     foreach ($nextAction in @($nextActions)) {
         Assert-RequiredObjectFields -Object $nextAction -FieldNames @("id", "task_id", "title", "action_type", "description", "required_before", "evidence_refs") -Context "$SourceLabel next_action"
     }
-    if ([string]$nextActions[0].task_id -ne "R13-013") {
-        throw "$SourceLabel first next legal action must preserve R13-013 as the next planned-only task."
+    if ([string]$nextActions[0].task_id -ne "R13-014") {
+        throw "$SourceLabel first next legal action must preserve R13-014 as the next planned-only task."
     }
     $operatorDecisions = Assert-ObjectArray -Value $Status.operator_decisions_required -Context "$SourceLabel operator_decisions_required" -AllowEmpty
     foreach ($decision in @($operatorDecisions)) {
@@ -1655,6 +1718,17 @@ function Export-R13ControlRoomView {
     $lines.Add(('- Production QA signed off: `{0}`' -f $status.signoff_status.production_qa_signed_off)) | Out-Null
     $lines.Add(('- Meaningful QA loop gate: `{0}`' -f $status.signoff_status.meaningful_qa_loop_gate)) | Out-Null
     $lines.Add("") | Out-Null
+    if (Test-HasProperty -Object $status -Name "compaction_mitigation_status") {
+        $lines.Add("## Compaction mitigation posture") | Out-Null
+        $lines.Add(('- Status: `{0}`' -f $status.compaction_mitigation_status.status)) | Out-Null
+        $lines.Add(('- Identity reconciliation: `{0}`' -f $status.compaction_mitigation_status.identity_reconciliation_ref)) | Out-Null
+        $lines.Add(('- Signoff generated from head: `{0}`' -f $status.compaction_mitigation_status.signoff_generated_from_head)) | Out-Null
+        $lines.Add(('- Signoff committed at head: `{0}`' -f $status.compaction_mitigation_status.signoff_committed_at_head)) | Out-Null
+        $lines.Add(('- Verdict: `{0}`' -f $status.compaction_mitigation_status.verdict)) | Out-Null
+        $lines.Add(('- Bounded mitigation only: `{0}`' -f $status.compaction_mitigation_status.bounded_mitigation_only)) | Out-Null
+        $lines.Add(('- Codex compaction is not solved generally: `{0}`' -f (-not [bool]$status.compaction_mitigation_status.codex_compaction_solved_generally))) | Out-Null
+        $lines.Add("") | Out-Null
+    }
     $lines.Add("## Blockers and attention items") | Out-Null
     $lines.Add("### Blockers") | Out-Null
     foreach ($blocker in @($status.blockers)) {
@@ -1751,12 +1825,12 @@ function Test-R13ControlRoomView {
             throw "R13 control-room view must include non-claim '$nonClaim'."
         }
     }
-    foreach ($taskId in @(1..12 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
+    foreach ($taskId in @(1..13 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
         if ($text -notmatch [regex]::Escape($taskId)) {
             throw "R13 control-room view must include completed task '$taskId'."
         }
     }
-    foreach ($taskId in @(13..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
+    foreach ($taskId in @(14..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") })) {
         if ($text -notmatch [regex]::Escape($taskId)) {
             throw "R13 control-room view must include planned task '$taskId'."
         }
@@ -1978,7 +2052,7 @@ function New-BlockedRefreshResult {
         next_actions = @(
             [pscustomobject][ordered]@{
                 id = "next-refresh-current-identity"
-                task_id = "R13-012"
+                task_id = "R13-013"
                 title = "Refresh with current repository identity"
                 action_type = "blocked_retry"
                 description = "Rerun the refresh command with expected branch/head/tree matching current repo truth."

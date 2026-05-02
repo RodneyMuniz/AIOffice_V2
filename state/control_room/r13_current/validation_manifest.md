@@ -2,12 +2,12 @@
 
 - artifact_type: `r13_control_room_validation_manifest`
 - source_refresh_result_ref: `state/control_room/r13_current/control_room_refresh_result.json`
-- generated_at_utc: `2026-05-02T07:56:38Z`
+- generated_at_utc: `2026-05-02T08:41:28Z`
 
 ## Repository Identity
 - Branch: `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
-- Head: `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`
-- Tree: `8860cfff3c8642bee6cb652709ae4d0d4a605b44`
+- Head: `9f80291b0f3049ec1dd15635079705db031383fd`
+- Tree: `c08ca2dc992fd3666f369d221db63806f6178e94`
 - Stale-state checks passed: `True`
 
 ## Generated Artifacts
@@ -25,9 +25,9 @@
 - `state/control_room/r13_current/control_room.md` via `tools/validate_r13_control_room_view.ps1`: `passed` - `Generated Markdown view validates.`
 
 ## R13 Boundary
-- Completed: `R13-001 through R13-012`
-- Planned: `R13-013 through R13-018`
-- Next legal action: `R13-013`
+- Completed: `R13-001 through R13-013`
+- Planned: `R13-014 through R13-018`
+- Next legal action: `R13-014`
 - Blockers: `0`
 - Attention items: `6`
 
@@ -41,8 +41,9 @@
 
 ## Explicit Non-Claims
 - R13-012 adds bounded meaningful QA signoff only
-- R13 active through R13-012 only
-- R13-013 through R13-018 remain planned only
+- R13-013 adds bounded compaction mitigation and restart proof only
+- R13 active through R13-013 only
+- R13-014 through R13-018 remain planned only
 - final QA signoff occurred only for bounded R13 representative QA slice
 - meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope
 - API/custom-runner bypass gate remains partial only
@@ -50,6 +51,9 @@
 - current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate
 - skill invocation evidence gate remains partial only
 - external replay evidence is imported and bounded signoff consumed it
+- R13-012 generated-head mismatch is explicitly reconciled as generation identity, not current identity
+- does not solve Codex compaction generally
+- does not solve Codex reliability generally
 - no full product QA coverage
 - no R13 closeout
 - no productized control-room behavior

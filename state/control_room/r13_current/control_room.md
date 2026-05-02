@@ -2,21 +2,21 @@
 
 - artifact_type: `r13_control_room_view`
 - source_status_ref: `state/control_room/r13_current/control_room_status.json`
-- generated_at_utc: `2026-05-02T07:56:37Z`
+- generated_at_utc: `2026-05-02T08:41:26Z`
 
 ## Current branch/head/tree
 - Repository: `AIOffice_V2`
 - Branch: `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
-- Head: `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`
-- Tree: `8860cfff3c8642bee6cb652709ae4d0d4a605b44`
+- Head: `9f80291b0f3049ec1dd15635079705db031383fd`
+- Tree: `c08ca2dc992fd3666f369d221db63806f6178e94`
 - Stale-state checks passed: `True`
 
 ## Active milestone and scope
 - Active milestone: `R13 API-First QA Pipeline and Operator Control-Room Product Slice`
-- Active through: `R13-012`
-- Completed range: `R13-001 through R13-012`
-- Planned range: `R13-013 through R13-018`
-- Boundary: R13-012 complete as bounded meaningful QA signoff only; no R13 closeout, R14, or successor is included.
+- Active through: `R13-013`
+- Completed range: `R13-001 through R13-013`
+- Planned range: `R13-014 through R13-018`
+- Boundary: R13-013 complete as bounded compaction mitigation and restart proof only; no R13 closeout, R14, or successor is included.
 
 ## R13 task status summary
 ### Completed
@@ -32,8 +32,8 @@
 - `R13-010`: `done` - Human-readable operator demo artifact, validator, test, and validation manifest generated from actual R13 evidence.
 - `R13-011`: `done` - External replay request, prior blocked dispatch packet, GitHub Actions replay result, imported artifact evidence, raw logs, and validation manifest generated without final QA signoff.
 - `R13-012`: `done` - Bounded meaningful QA signoff gate, evidence matrix, validators, tests, and validation manifest generated from actual R13 evidence.
+- `R13-013`: `done` - Bounded compaction mitigation packet, identity reconciliation, restart prompt, validators, tests, and validation manifest generated from repo-truth evidence.
 ### Planned
-- `R13-013`: `planned_only` - R13-013 remains planned only under the R13 authority task order.
 - `R13-014`: `planned_only` - R13-014 remains planned only under the R13 authority task order.
 - `R13-015`: `planned_only` - R13-015 remains planned only under the R13 authority task order.
 - `R13-016`: `planned_only` - R13-016 remains planned only under the R13 authority task order.
@@ -43,9 +43,9 @@
 ## Hard gate posture
 | Gate | Status | Hard gate delivered | Summary |
 | --- | --- | --- | --- |
-| `meaningful_qa_loop` | `bounded_scope_delivered` | `True` | Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner evidence, local skill invocations, current control-room evidence, operator demo evidence, passed external replay/import evidence, and R13-012 bounded signoff exist. This delivers the meaningful QA loop hard gate only for the bounded representative slice, not for full product QA coverage. |
+| `meaningful_qa_loop` | `bounded_scope_delivered` | `True` | Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner evidence, local skill invocations, current control-room evidence, operator demo evidence, passed external replay/import evidence, and R13-012 bounded signoff exist. R13-013 adds continuity mitigation only. This delivers the meaningful QA loop hard gate only for the bounded representative slice, not for full product QA coverage. |
 | `api_custom_runner_bypass` | `partial_local_only` | `False` | R13-007 adds a local API-shaped/custom-runner foundation with bounded validation command results only; the bypass gate is not fully delivered. |
-| `current_operator_control_room` | `partially_evidenced` | `False` | R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence; R13-012 records bounded signoff. This remains partial operator-control-room evidence only, not productized control-room behavior. |
+| `current_operator_control_room` | `partially_evidenced` | `False` | R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence; R13-012 records bounded signoff; R13-013 records bounded restart proof. This remains partial operator-control-room evidence only, not productized control-room behavior. |
 | `skill_invocation_evidence` | `partially_evidenced` | `False` | R13-008 registers four skills and invokes qa.detect plus qa.fix_plan locally with one passed validation command each; runner.external_replay and control_room.refresh are registered but not invoked as R13-008 skills. |
 | `operator_demo` | `partially_evidenced` | `False` | R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; R13-012 consumes it for bounded signoff. This is partial operator-demo evidence only, not a productized demo surface. |
 
@@ -72,7 +72,7 @@
 ## External replay posture
 - Status: `passed`
 - Executed: `True`
-- Summary: GitHub Actions R13 External Replay run 25241730946 completed successfully with artifact 6759970924 imported and validated; R13-012 consumed it for bounded QA signoff only.
+- Summary: GitHub Actions R13 External Replay run 25241730946 completed successfully with artifact 6759970924 imported and validated; R13-012 consumed it for bounded QA signoff only, and R13-013 preserves it as prerequisite restart evidence only.
 
 ## Signoff posture
 - Status: `accepted_bounded_scope`
@@ -83,18 +83,27 @@
 - Production QA signed off: `False`
 - Meaningful QA loop gate: `delivered_for_bounded_representative_scope_only`
 
+## Compaction mitigation posture
+- Status: `bounded_repo_truth_mitigation_recorded`
+- Identity reconciliation: `state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json`
+- Signoff generated from head: `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`
+- Signoff committed at head: `9f80291b0f3049ec1dd15635079705db031383fd`
+- Verdict: `accepted_as_generation_identity_not_current_identity`
+- Bounded mitigation only: `True`
+- Codex compaction is not solved generally: `True`
+
 ## Blockers and attention items
 ### Blockers
 ### Attention items
 - `attention-r13-current-control-room-partial` [medium/advisory] Current control-room evidence is partial: The JSON status, Markdown view, refresh result, validation manifest, and operator demo artifact are evidence-backed, but they are not productized control-room behavior.
-- `attention-r13-task-boundary` [high/advisory] R13 stops at R13-012: R13-013 through R13-018 remain planned only.
+- `attention-r13-task-boundary` [high/advisory] R13 stops at R13-013: R13-014 through R13-018 remain planned only.
 - `attention-r13-signoff-bounded-only` [high/advisory] Bounded signoff only: R13-012 signoff passed only for the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice.
 - `attention-r13-operator-demo-partial` [medium/advisory] Operator demo evidence is partial: The operator demo artifact is a human-readable Markdown guide from repo evidence, not a productized UI or hard gate.
 - `attention-r13-skill-evidence-partial` [medium/advisory] Skill invocation evidence remains partial: Only qa.detect and qa.fix_plan were invoked by R13-008.
 - `attention-r13-no-successor` [high/advisory] No R14 or successor is open: R13 remains active and no successor milestone is authorized.
 
 ## Next legal actions
-- `next-r13-013-remains-planned-only` / `R13-013` [status_boundary] Hold R13-013 as planned only: R13-012 bounded signoff is passed and recorded; do not start R13-013 without explicit authorization.
+- `next-r13-014-after-r13-013-verified` / `R13-014` [status_boundary] Start R13-014 only after R13-013 verification: R13-013 bounded compaction mitigation is recorded; start R13-014 only after R13-013 is committed, pushed, and verified.
 
 ## Operator decisions required
 - `decision-refuse-unbounded-signoff` [signoff_scope_boundary/blocking] Refuse any unbounded or production QA signoff claim. Required before: `any_unbounded_or_product_scope_signoff_claim`
@@ -154,11 +163,23 @@
 - `r13-012-signoff`: `state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json` (meaningful_qa_signoff/repo_evidence)
 - `r13-012-evidence-matrix`: `state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json` (evidence_matrix/repo_evidence)
 - `r13-012-signoff-validation-manifest`: `state/signoff/r13_meaningful_qa_signoff/validation_manifest.md` (validation_manifest/repo_evidence)
+- `r13-013-packet-contract`: `contracts/continuity/r13_compaction_mitigation_packet.contract.json` (contract/repo_contract)
+- `r13-013-restart-prompt-contract`: `contracts/continuity/r13_restart_prompt.contract.json` (contract/repo_contract)
+- `r13-013-module`: `tools/R13CompactionMitigation.psm1` (module/repo_tooling)
+- `r13-013-generator`: `tools/new_r13_compaction_mitigation_packet.ps1` (cli/repo_tooling)
+- `r13-013-packet-validator`: `tools/validate_r13_compaction_mitigation_packet.ps1` (validator/repo_tooling)
+- `r13-013-restart-prompt-validator`: `tools/validate_r13_restart_prompt.ps1` (validator/repo_tooling)
+- `r13-013-test`: `tests/test_r13_compaction_mitigation.ps1` (test/repo_tooling)
+- `r13-013-identity-reconciliation`: `state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json` (identity_reconciliation/repo_evidence)
+- `r13-013-compaction-mitigation-packet`: `state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json` (compaction_mitigation_packet/repo_evidence)
+- `r13-013-restart-prompt`: `state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md` (restart_prompt/repo_evidence)
+- `r13-013-validation-manifest`: `state/continuity/r13_compaction_mitigation/validation_manifest.md` (validation_manifest/repo_evidence)
 
 ## Explicit non-claims
 - R13-012 adds bounded meaningful QA signoff only
-- R13 active through R13-012 only
-- R13-013 through R13-018 remain planned only
+- R13-013 adds bounded compaction mitigation and restart proof only
+- R13 active through R13-013 only
+- R13-014 through R13-018 remain planned only
 - final QA signoff occurred only for bounded R13 representative QA slice
 - meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope
 - API/custom-runner bypass gate remains partial only
@@ -166,6 +187,9 @@
 - current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate
 - skill invocation evidence gate remains partial only
 - external replay evidence is imported and bounded signoff consumed it
+- R13-012 generated-head mismatch is explicitly reconciled as generation identity, not current identity
+- does not solve Codex compaction generally
+- does not solve Codex reliability generally
 - no full product QA coverage
 - no R13 closeout
 - no productized control-room behavior

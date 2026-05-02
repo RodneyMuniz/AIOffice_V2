@@ -1,0 +1,25 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_013_identity_reconciliation",
+    "reconciliation_id":  "r13ir-35631a6c8914dc32",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-013",
+    "signoff_ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+    "signoff_generated_from_head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+    "signoff_generated_from_tree":  "8860cfff3c8642bee6cb652709ae4d0d4a605b44",
+    "signoff_committed_at_head":  "9f80291b0f3049ec1dd15635079705db031383fd",
+    "signoff_committed_at_tree":  "c08ca2dc992fd3666f369d221db63806f6178e94",
+    "current_r13_013_working_head":  "9f80291b0f3049ec1dd15635079705db031383fd",
+    "current_r13_013_working_tree":  "c08ca2dc992fd3666f369d221db63806f6178e94",
+    "reason":  "generated artifacts are created before the commit that makes them durable",
+    "verdict":  "accepted_as_generation_identity_not_current_identity",
+    "generated_at_utc":  "2026-05-02T08:41:34Z",
+    "non_claims":  [
+                       "no history rewrite",
+                       "no false current-head claim",
+                       "no R13 closeout",
+                       "no R14 or successor opening"
+                   ]
+}

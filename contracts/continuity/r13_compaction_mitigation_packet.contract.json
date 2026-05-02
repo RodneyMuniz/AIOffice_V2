@@ -1,0 +1,69 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_compaction_mitigation_packet_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-013",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "packet_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "active_scope",
+    "current_state_summary",
+    "identity_reconciliation_ref",
+    "prerequisite_evidence_refs",
+    "recovered_state",
+    "next_legal_action",
+    "forbidden_actions",
+    "restart_prompt_ref",
+    "validation_results",
+    "residual_risks",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "validation_result_required_fields": [
+    "validator",
+    "verdict",
+    "summary"
+  ],
+  "rules": [
+    "packet_must_bind_to_r13_branch_and_r13_013",
+    "packet_must_record_current_git_branch_head_tree_from_generation_time",
+    "packet_must_recover_r13_active_through_r13_013_only",
+    "packet_must_recover_r13_014_through_r13_018_planned_only",
+    "packet_must_reference_r13_012_signoff_and_evidence_matrix",
+    "packet_must_reference_r13_011_external_replay_result_and_import",
+    "packet_must_reference_qa_pipeline_control_room_operator_demo_and_runner_evidence",
+    "packet_must_allow_r13_014_only_after_r13_013_commit_push_and_verification",
+    "packet_must_forbid_r13_closeout_r14_successor_and_general_codex_compaction_solved_claims",
+    "packet_must_forbid_production_runtime_full_product_qa_broad_autonomy_and_productized_ui_overclaims"
+  ],
+  "required_non_claims": [
+    "bounded repo-truth continuity mitigation only",
+    "does not solve Codex compaction generally",
+    "does not solve Codex reliability generally",
+    "no R13 closeout",
+    "no R14 or successor opening",
+    "no production runtime",
+    "no productized UI",
+    "no full product QA coverage",
+    "R13 active through R13-013 only",
+    "R13-014 through R13-018 remain planned only"
+  ]
+}

@@ -8,6 +8,9 @@ $script:R13RepositoryFullName = "RodneyMuniz/AIOffice_V2"
 $script:R13Branch = "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice"
 $script:R13Milestone = "R13 API-First QA Pipeline and Operator Control-Room Product Slice"
 $script:R13SourceTask = "R13-012"
+$script:R13HistoricalIdentityReconciliationRef = "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json"
+$script:R13HistoricalSignoffGeneratedHead = "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577"
+$script:R13HistoricalSignoffCommittedHead = "9f80291b0f3049ec1dd15635079705db031383fd"
 $script:GitObjectPattern = "^[a-f0-9]{40}$"
 $script:DigestPattern = "^sha256:[a-f0-9]{64}$"
 $script:TimestampPattern = "^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
@@ -1253,6 +1256,59 @@ function Test-R13MeaningfulQaSignoffEvidenceMatrix {
     return Test-R13MeaningfulQaSignoffEvidenceMatrixObject -Matrix $matrix -SourceLabel "R13 meaningful QA signoff evidence matrix"
 }
 
+function Test-R13HistoricalSignoffIdentityReconciliation {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Signoff,
+        [Parameter(Mandatory = $true)]
+        $GitIdentity,
+        [Parameter(Mandatory = $true)]
+        [string]$SourceLabel
+    )
+
+    if ([string]$Signoff.branch -eq [string]$GitIdentity.Branch -and [string]$Signoff.head -eq [string]$GitIdentity.Head -and [string]$Signoff.tree -eq [string]$GitIdentity.Tree) {
+        return $true
+    }
+    if ([string]$Signoff.branch -ne [string]$GitIdentity.Branch) {
+        throw "$SourceLabel branch does not match current branch and cannot be reconciled as historical generated evidence."
+    }
+    if ([string]$Signoff.head -ne $script:R13HistoricalSignoffGeneratedHead) {
+        throw "$SourceLabel head does not match the known R13-012 generation head."
+    }
+    if (-not (Test-Path -LiteralPath (Resolve-RepositoryPath -PathValue $script:R13HistoricalIdentityReconciliationRef))) {
+        throw "$SourceLabel must match current branch/head/tree unless R13-013 identity reconciliation exists."
+    }
+
+    $identity = Get-JsonDocument -Path $script:R13HistoricalIdentityReconciliationRef -Label "R13-013 identity reconciliation"
+    Assert-RequiredObjectFields -Object $identity -FieldNames @("artifact_type", "signoff_ref", "signoff_generated_from_head", "signoff_committed_at_head", "current_r13_013_working_head", "reason", "verdict", "non_claims") -Context "R13-013 identity reconciliation"
+    if ($identity.artifact_type -ne "r13_013_identity_reconciliation") {
+        throw "R13-013 identity reconciliation artifact_type must be r13_013_identity_reconciliation."
+    }
+    if ([string]$identity.signoff_ref -ne "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json") {
+        throw "R13-013 identity reconciliation must point at the R13-012 signoff artifact."
+    }
+    if ([string]$identity.signoff_generated_from_head -ne [string]$Signoff.head -or [string]$identity.signoff_generated_from_head -ne $script:R13HistoricalSignoffGeneratedHead) {
+        throw "R13-013 identity reconciliation must preserve the signoff generation head."
+    }
+    if ([string]$identity.signoff_committed_at_head -ne $script:R13HistoricalSignoffCommittedHead -or [string]$identity.current_r13_013_working_head -ne $script:R13HistoricalSignoffCommittedHead) {
+        throw "R13-013 identity reconciliation must bind the generated signoff to the durable R13-012 commit."
+    }
+    if ([string]$identity.reason -ne "generated artifacts are created before the commit that makes them durable") {
+        throw "R13-013 identity reconciliation must explain generation-before-commit identity."
+    }
+    if ([string]$identity.verdict -ne "accepted_as_generation_identity_not_current_identity") {
+        throw "R13-013 identity reconciliation must accept generation identity only."
+    }
+    $nonClaims = Assert-StringArray -Value $identity.non_claims -Context "R13-013 identity reconciliation non_claims"
+    foreach ($requiredNonClaim in @("no history rewrite", "no false current-head claim", "no R13 closeout", "no R14 or successor opening")) {
+        if ($nonClaims -notcontains $requiredNonClaim) {
+            throw "R13-013 identity reconciliation non_claims must include '$requiredNonClaim'."
+        }
+    }
+
+    return $true
+}
+
 function Test-R13MeaningfulQaSignoffObject {
     [CmdletBinding()]
     param(
@@ -1293,7 +1349,7 @@ function Test-R13MeaningfulQaSignoffObject {
     $refMap = Get-EvidenceRefMap -EvidenceRefs $Signoff.evidence_refs -Context "$SourceLabel evidence_refs"
     $gitIdentity = Get-R13SignoffGitIdentity
     if ([string]$Signoff.branch -ne [string]$gitIdentity.Branch -or [string]$Signoff.head -ne [string]$gitIdentity.Head -or [string]$Signoff.tree -ne [string]$gitIdentity.Tree) {
-        throw "$SourceLabel must match current branch/head/tree."
+        Test-R13HistoricalSignoffIdentityReconciliation -Signoff $Signoff -GitIdentity $gitIdentity -SourceLabel $SourceLabel | Out-Null
     }
     Test-R13PrerequisiteEvidence -GitIdentity $gitIdentity -EvidenceRefMap $refMap | Out-Null
     $matrixRef = [string]$refMap["r13-012-evidence-matrix"]

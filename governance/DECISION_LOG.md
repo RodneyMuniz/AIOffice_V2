@@ -1071,5 +1071,15 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the committed signoff root is `state/signoff/r13_meaningful_qa_signoff/`, with signoff artifact `r13_012_signoff.json`, evidence matrix `r13_012_evidence_matrix.json`, and validation manifest `validation_manifest.md`.
 - Consequence: the signoff decision is `accepted_bounded_scope`, aggregate verdict is `passed`, and scope is `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`.
 - Consequence: the meaningful QA loop hard gate is delivered only for that bounded representative scope. It is not delivered for full product QA coverage, production QA, full autonomous execution, solved Codex reliability, productized UI, or R13 closeout.
-- Consequence: R13 is active through `R13-012` only, and `R13-013` through `R13-018` remain planned only.
+- Consequence: At the R13-012 acceptance boundary, R13 was active through `R13-012` only and `R13-013` through `R13-018` remained planned only; the later R13-013 decision advances the current boundary.
 - Consequence: this decision does not close R13, does not claim API/custom-runner bypass full delivery, does not claim current operator control-room productization, does not claim full skill invocation evidence, does not claim productized operator demo, and does not open R14 or any successor milestone.
+
+## D-0112 R13-013 Added Compaction Mitigation Restart Proof
+- Date: 2026-05-02
+- Status: accepted
+- Decision: `R13-013` is done as bounded repo-truth continuity and compaction mitigation proof for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-013` adds `contracts/continuity/r13_compaction_mitigation_packet.contract.json`, `contracts/continuity/r13_restart_prompt.contract.json`, `tools/R13CompactionMitigation.psm1`, `tools/new_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_restart_prompt.ps1`, and focused proof through `tests/test_r13_compaction_mitigation.ps1`.
+- Consequence: the committed continuity root is `state/continuity/r13_compaction_mitigation/`, with identity reconciliation artifact `r13_013_identity_reconciliation.json`, compaction mitigation packet `r13_013_compaction_mitigation_packet.json`, restart prompt `r13_013_restart_prompt.md`, and validation manifest `validation_manifest.md`.
+- Consequence: the identity reconciliation records R13-012 signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`, durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and verdict `accepted_as_generation_identity_not_current_identity`; this is generation identity, not a false current-head claim.
+- Consequence: R13 is active through `R13-013` only, and `R13-014` through `R13-018` remain planned only.
+- Consequence: this decision is bounded repo-truth continuity mitigation only; it does not solve Codex compaction generally, does not solve Codex reliability generally, does not close R13, and does not open R14 or any successor milestone.

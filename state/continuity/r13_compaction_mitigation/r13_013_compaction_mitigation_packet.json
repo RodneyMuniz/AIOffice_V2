@@ -1,0 +1,323 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_compaction_mitigation_packet",
+    "packet_id":  "r13cmp-c949b57b20cb0e47",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "9f80291b0f3049ec1dd15635079705db031383fd",
+    "tree":  "c08ca2dc992fd3666f369d221db63806f6178e94",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-013",
+    "active_scope":  {
+                         "active_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+                         "active_through_task":  "R13-013",
+                         "completed_range":  "R13-001 through R13-013",
+                         "planned_range":  "R13-014 through R13-018",
+                         "scope_summary":  "R13 is active through R13-013 only; R13-014 through R13-018 remain planned only.",
+                         "r13_closed":  false,
+                         "r14_or_successor_opened":  false
+                     },
+    "current_state_summary":  "R13-013 adds bounded repo-truth continuity and compaction mitigation evidence only: explicit R13-012 identity reconciliation, a restart packet, a restart prompt, validators, and focused proof. It does not solve Codex compaction or reliability generally.",
+    "identity_reconciliation_ref":  "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+    "prerequisite_evidence_refs":  [
+                                       {
+                                           "ref_id":  "r13-012-signoff",
+                                           "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                           "evidence_kind":  "meaningful_qa_signoff",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       },
+                                       {
+                                           "ref_id":  "r13-012-evidence-matrix",
+                                           "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                                           "evidence_kind":  "evidence_matrix",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       },
+                                       {
+                                           "ref_id":  "r13-011-external-replay-result",
+                                           "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                           "evidence_kind":  "external_replay_result",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       },
+                                       {
+                                           "ref_id":  "r13-011-external-replay-import",
+                                           "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                                           "evidence_kind":  "external_replay_import",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       },
+                                       {
+                                           "ref_id":  "r13-control-room-status",
+                                           "ref":  "state/control_room/r13_current/control_room_status.json",
+                                           "evidence_kind":  "control_room_status",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       },
+                                       {
+                                           "ref_id":  "r13-operator-demo",
+                                           "ref":  "state/control_room/r13_current/operator_demo.md",
+                                           "evidence_kind":  "operator_demo",
+                                           "authority_kind":  "repo_evidence",
+                                           "scope":  "repo"
+                                       }
+                                   ],
+    "recovered_state":  {
+                            "git_identity":  {
+                                                 "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+                                                 "head":  "9f80291b0f3049ec1dd15635079705db031383fd",
+                                                 "tree":  "c08ca2dc992fd3666f369d221db63806f6178e94"
+                                             },
+                            "active_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+                            "active_through_task":  "R13-013",
+                            "completed_task_range":  "R13-001 through R13-013",
+                            "planned_task_range":  "R13-014 through R13-018",
+                            "r13_012_bounded_signoff_decision":  {
+                                                                     "signoff_ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                                                     "evidence_matrix_ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                                                                     "signoff_decision":  "accepted_bounded_scope",
+                                                                     "aggregate_verdict":  "passed",
+                                                                     "scope":  "bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice",
+                                                                     "signoff_generated_from_head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+                                                                     "signoff_committed_at_head":  "9f80291b0f3049ec1dd15635079705db031383fd",
+                                                                     "identity_reconciliation_ref":  "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+                                                                     "evidence_rows":  28
+                                                                 },
+                            "r13_011_external_replay_status":  {
+                                                                   "status":  "success",
+                                                                   "aggregate_verdict":  "passed",
+                                                                   "run_id":  "25241730946",
+                                                                   "artifact_id":  "6759970924",
+                                                                   "artifact_digest":  "sha256:50bc3e28d47c5aca5c4ff6a5e595a967c3aa4153c6611dd20e09f47864ee3769",
+                                                                   "imported_artifact_id":  "r13erimp-25241730946-6759970924",
+                                                                   "command_count":  10,
+                                                                   "passed_command_count":  10
+                                                               },
+                            "qa_pipeline_state":  {
+                                                      "issue_detection_aggregate":  "failed",
+                                                      "issue_count":  14,
+                                                      "fix_queue_status":  "ready_for_fix_execution",
+                                                      "failure_to_fix_cycle":  "fixed_pending_external_replay",
+                                                      "bounded_scope_only":  true
+                                                  },
+                            "control_room_state":  {
+                                                       "status_ref":  "state/control_room/r13_current/control_room_status.json",
+                                                       "view_ref":  "state/control_room/r13_current/control_room.md",
+                                                       "refresh_result_ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                                                       "refresh_verdict":  "current",
+                                                       "active_through_task":  "R13-013",
+                                                       "current_operator_control_room_gate":  "partially_evidenced",
+                                                       "productized_ui_claimed":  false
+                                                   },
+                            "operator_demo_state":  {
+                                                        "demo_ref":  "state/control_room/r13_current/operator_demo.md",
+                                                        "validation_manifest_ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                                                        "status":  "partially_evidenced",
+                                                        "productized_demo_claimed":  false
+                                                    },
+                            "next_legal_action":  "R13-014 only after R13-013 is committed, pushed, and verified",
+                            "forbidden_actions":  [
+                                                      "no R13 closeout",
+                                                      "no R14 or successor opening",
+                                                      "no broad repo inventory unless focused validation fails",
+                                                      "no general Codex compaction solved claim"
+                                                  ],
+                            "safe_next_prompt_boundary":  "Use the R13-013 restart prompt only after the R13-013 commit is pushed and verified; then R13-014 may start from committed repo evidence."
+                        },
+    "next_legal_action":  {
+                              "task_id":  "R13-014",
+                              "action":  "start_next_task_after_commit_push_and_verification",
+                              "required_before":  "R13-013 is committed, pushed, and verification validates branch/head/tree and clean worktree",
+                              "description":  "R13-014 may start only after R13-013 is committed, pushed, and verified from repo evidence."
+                          },
+    "forbidden_actions":  [
+                              "do not close R13",
+                              "do not open R14 or any successor",
+                              "do not claim Codex compaction is solved generally",
+                              "do not claim Codex reliability is solved generally",
+                              "do not perform broad repo inventory unless focused validation fails",
+                              "do not claim production runtime, productized UI, full product QA, or broad autonomy"
+                          ],
+    "restart_prompt_ref":  "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+    "validation_results":  [
+                               {
+                                   "validator":  "R13CompactionMitigation identity reconciliation",
+                                   "verdict":  "passed",
+                                   "summary":  "R13-012 signoff head is accepted only as generation identity and is reconciled to the durable R13-012 commit."
+                               },
+                               {
+                                   "validator":  "R13CompactionMitigation packet generator",
+                                   "verdict":  "passed",
+                                   "summary":  "Packet recovered branch/head/tree, R13 active boundary, prerequisite evidence, next legal action, forbidden actions, and non-claims from repo evidence."
+                               }
+                           ],
+    "residual_risks":  [
+                           "This is bounded repo-truth continuity mitigation only and does not solve Codex compaction generally.",
+                           "Generated artifacts still record generation-time Git identity before the commit that makes them durable.",
+                           "R13 remains active; later tasks still require explicit committed evidence.",
+                           "R13-014 must not start until R13-013 is committed, pushed, and verified."
+                       ],
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-013-packet-contract",
+                              "ref":  "contracts/continuity/r13_compaction_mitigation_packet.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-restart-prompt-contract",
+                              "ref":  "contracts/continuity/r13_restart_prompt.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-module",
+                              "ref":  "tools/R13CompactionMitigation.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-generator",
+                              "ref":  "tools/new_r13_compaction_mitigation_packet.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-packet-validator",
+                              "ref":  "tools/validate_r13_compaction_mitigation_packet.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-restart-prompt-validator",
+                              "ref":  "tools/validate_r13_restart_prompt.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-test",
+                              "ref":  "tests/test_r13_compaction_mitigation.ps1",
+                              "evidence_kind":  "test",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-identity-reconciliation",
+                              "ref":  "state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json",
+                              "evidence_kind":  "identity_reconciliation",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-compaction-mitigation-packet",
+                              "ref":  "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+                              "evidence_kind":  "compaction_mitigation_packet",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-restart-prompt",
+                              "ref":  "state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md",
+                              "evidence_kind":  "restart_prompt",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-013-validation-manifest",
+                              "ref":  "state/continuity/r13_compaction_mitigation/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                              "evidence_kind":  "meaningful_qa_signoff",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                              "evidence_kind":  "evidence_matrix",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-result",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                              "evidence_kind":  "external_replay_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-import",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                              "evidence_kind":  "external_replay_import",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-status",
+                              "ref":  "state/control_room/r13_current/control_room_status.json",
+                              "evidence_kind":  "control_room_status",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-view",
+                              "ref":  "state/control_room/r13_current/control_room.md",
+                              "evidence_kind":  "control_room_view",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-refresh-result",
+                              "ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                              "evidence_kind":  "control_room_refresh_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-validation-manifest",
+                              "ref":  "state/control_room/r13_current/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo",
+                              "ref":  "state/control_room/r13_current/operator_demo.md",
+                              "evidence_kind":  "operator_demo",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-authority",
+                              "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                              "evidence_kind":  "authority",
+                              "authority_kind":  "repo_governance",
+                              "scope":  "repo"
+                          }
+                      ],
+    "generated_at_utc":  "2026-05-02T08:41:34Z",
+    "non_claims":  [
+                       "bounded repo-truth continuity mitigation only",
+                       "does not solve Codex compaction generally",
+                       "does not solve Codex reliability generally",
+                       "no R13 closeout",
+                       "no R14 or successor opening",
+                       "no production runtime",
+                       "no productized UI",
+                       "no full product QA coverage",
+                       "R13 active through R13-013 only",
+                       "R13-014 through R13-018 remain planned only"
+                   ]
+}
