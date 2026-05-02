@@ -1083,3 +1083,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the identity reconciliation records R13-012 signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`, durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and verdict `accepted_as_generation_identity_not_current_identity`; this is generation identity, not a false current-head claim.
 - Consequence: R13 is active through `R13-013` only, and `R13-014` through `R13-018` remain planned only.
 - Consequence: this decision is bounded repo-truth continuity mitigation only; it does not solve Codex compaction generally, does not solve Codex reliability generally, does not close R13, and does not open R14 or any successor milestone.
+
+## D-0113 R13-014 Produced Cycle Evidence Package
+- Date: 2026-05-02
+- Status: accepted
+- Decision: `R13-014` is done as cycle evidence consolidation only for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-014` adds `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json`.
+- Consequence: the package consolidates committed evidence refs for the QA lifecycle, issue report, fix queue, bounded fix packet, local rerun/comparison, skill invocations, runner packets, external replay, control-room demo, bounded signoff, restart proof, and operator decision packet.
+- Consequence: the package distinguishes implemented code, committed machine evidence, generated artifacts, external replay evidence, operator/bootstrap narrative, and non-claims; generated Markdown and reports are not treated as proof by themselves.
+- Consequence: R13 is active through `R13-014` only, and `R13-015` through `R13-018` remain planned only.
+- Consequence: this decision does not start R13-015, does not close R13, does not merge to main, does not claim production runtime, production QA, full product QA coverage, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.

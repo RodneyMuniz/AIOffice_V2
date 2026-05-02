@@ -1,0 +1,88 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_operator_decision_packet",
+  "decision_packet_id": "r13odp-014-538ac5fd9daaa94b",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "generated_from_head": "538ac5fd9daaa94b7fa382e1b4ac832becd613a2",
+  "generated_from_tree": "db2968b96fe3e92787b3300e31779a952b560a5a",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-014",
+  "created_at_utc": "2026-05-02T11:40:06Z",
+  "decision": "stop_after_r13_014_package",
+  "operator_position": {
+    "active_through_task": "R13-014",
+    "completed_range": "R13-001 through R13-014",
+    "planned_range": "R13-015 through R13-018",
+    "r13_closed": false,
+    "r13_015_started": false,
+    "r14_or_successor_opened": false
+  },
+  "allowed_next_action": {
+    "task_id": "R13-015",
+    "status": "planned_only",
+    "condition": "only after separate operator direction and verification of the committed R13-014 package head",
+    "description": "Update Vision Control scoring with calculable evidence in a later task; do not perform it inside R13-014."
+  },
+  "forbidden_actions": [
+    "do not start R13-015 in the R13-014 package task",
+    "do not close R13",
+    "do not open R14 or any successor milestone",
+    "do not merge to main",
+    "do not claim production runtime",
+    "do not claim production QA",
+    "do not claim full product QA coverage",
+    "do not claim broad autonomy",
+    "do not claim solved Codex reliability",
+    "do not claim solved Codex compaction"
+  ],
+  "evidence_refs": [
+    {
+      "ref_id": "r13-014-cycle-evidence-package",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json",
+      "evidence_kind": "cycle_evidence_package",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-014-validation-manifest",
+      "ref": "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md",
+      "evidence_kind": "validation_manifest",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-013-compaction-mitigation-packet",
+      "ref": "state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json",
+      "evidence_kind": "continuity_mitigation",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-012-bounded-signoff",
+      "ref": "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+      "evidence_kind": "bounded_meaningful_qa_signoff",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    },
+    {
+      "ref_id": "r13-011-external-replay-result",
+      "ref": "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+      "evidence_kind": "external_replay_result",
+      "authority_kind": "repo_evidence",
+      "scope": "repo"
+    }
+  ],
+  "non_claims": [
+    "R13-014 is evidence consolidation only",
+    "R13-015 is not started",
+    "R13 is not closed",
+    "R14 or successor is not opened",
+    "no production runtime",
+    "no production QA",
+    "no full product QA coverage",
+    "no broad autonomy",
+    "no solved Codex reliability",
+    "no solved Codex context compaction"
+  ]
+}

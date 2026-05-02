@@ -1,14 +1,14 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-013` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-014` only.
 
-R13 active through R13-013 only; R13-013 is done as bounded repo-truth continuity mitigation only. R13-014 through R13-018 remain planned only.
+R13 active through R13-014 only; R13-014 is done as cycle evidence consolidation only. R13-015 through R13-018 remain planned only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor. `R13-013` adds bounded repo-truth continuity and compaction mitigation only; it records identity reconciliation, a compaction mitigation packet, and a restart prompt without claiming Codex compaction is solved generally. `R13-014` adds a cycle evidence package only; it consolidates committed refs and categorizes evidence without starting R13-015, closing R13, or opening R14 or any successor.
 
 ## Accepted Starting State
 
@@ -44,13 +44,14 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-011` as either exact external replay evidence or an honest blocked/manual dispatch packet only;
 - keep `R13-012` as bounded meaningful QA signoff only;
 - keep `R13-013` as bounded repo-truth continuity and compaction mitigation proof only;
+- keep `R13-014` as cycle evidence consolidation only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-R13 gates remain conservative at `R13-013`.
+R13 gates remain conservative at `R13-014`.
 
 1. Meaningful QA loop gate: delivered only for the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice accepted by `R13-012`; not delivered for full product QA coverage or production QA.
 2. API/custom-runner bypass gate: foundation added, not fully delivered.
@@ -115,8 +116,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: adds bounded repo-truth continuity and compaction mitigation proof only through `contracts/continuity/r13_compaction_mitigation_packet.contract.json`, `contracts/continuity/r13_restart_prompt.contract.json`, `tools/R13CompactionMitigation.psm1`, `tools/new_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_restart_prompt.ps1`, focused proof in `tests/test_r13_compaction_mitigation.ps1`, identity reconciliation artifact `state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json`, packet `state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json`, restart prompt `state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md`, and validation manifest `state/continuity/r13_compaction_mitigation/validation_manifest.md`. The reconciliation records signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`, durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and verdict `accepted_as_generation_identity_not_current_identity`. This is bounded repo-truth continuity mitigation only; it does not solve Codex compaction generally, close R13, open R14, or open any successor.
 
 ### `R13-014` Produce R13 cycle evidence package
-- Status: planned
-- Boundary: consolidate R13 evidence under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/`.
+- Status: done
+- Boundary: consolidates R13 evidence refs under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/` through `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json`. It distinguishes implemented code, committed machine evidence, generated artifacts, external replay evidence, operator/bootstrap narrative, and non-claims. It does not start R13-015, close R13, open R14, or open any successor.
 
 ### `R13-015` Update Vision Control scoring with calculable evidence
 - Status: planned
@@ -154,11 +155,12 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - no claim that Codex can run long milestones unattended
 - R13-012 signoff is accepted for bounded scope only
 - R13-013 compaction mitigation is bounded repo-truth continuity mitigation only
+- R13-014 evidence package is consolidation only
 - no R13 closeout
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-013 Claim
+## Current R13-014 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
 
@@ -184,4 +186,6 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 `R13-012` claims only that bounded meaningful QA signoff was generated and validated for the representative QA failure-to-fix loop and evidence-backed operator workflow slice. It adds `contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json`, `contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json`, `tools/R13MeaningfulQaSignoff.psm1`, `tools/new_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1`, `tests/test_r13_meaningful_qa_signoff.ps1`, `state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json`, `state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json`, and `state/signoff/r13_meaningful_qa_signoff/validation_manifest.md`. The signoff decision is `accepted_bounded_scope`, aggregate verdict is `passed`, and scope is `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`.
 
-`R13-013` claims only that bounded repo-truth continuity and compaction mitigation artifacts were generated and validated for the R13-013 restart boundary. It adds `contracts/continuity/r13_compaction_mitigation_packet.contract.json`, `contracts/continuity/r13_restart_prompt.contract.json`, `tools/R13CompactionMitigation.psm1`, `tools/new_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_restart_prompt.ps1`, `tests/test_r13_compaction_mitigation.ps1`, `state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json`, `state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json`, `state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md`, and `state/continuity/r13_compaction_mitigation/validation_manifest.md`. The identity reconciliation records signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`, durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and verdict `accepted_as_generation_identity_not_current_identity`. This is bounded repo-truth continuity mitigation only and does not solve Codex compaction generally. `R13-014` through `R13-018` remain planned only. R13 is not closed. No productized UI, production runtime, real production QA, full product QA coverage, broad autonomy, solved Codex reliability, R14, or successor milestone is opened.
+`R13-013` claims only that bounded repo-truth continuity and compaction mitigation artifacts were generated and validated for the R13-013 restart boundary. It adds `contracts/continuity/r13_compaction_mitigation_packet.contract.json`, `contracts/continuity/r13_restart_prompt.contract.json`, `tools/R13CompactionMitigation.psm1`, `tools/new_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_compaction_mitigation_packet.ps1`, `tools/validate_r13_restart_prompt.ps1`, `tests/test_r13_compaction_mitigation.ps1`, `state/continuity/r13_compaction_mitigation/r13_013_identity_reconciliation.json`, `state/continuity/r13_compaction_mitigation/r13_013_compaction_mitigation_packet.json`, `state/continuity/r13_compaction_mitigation/r13_013_restart_prompt.md`, and `state/continuity/r13_compaction_mitigation/validation_manifest.md`. The identity reconciliation records signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`, durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and verdict `accepted_as_generation_identity_not_current_identity`. This is bounded repo-truth continuity mitigation only and does not solve Codex compaction generally.
+
+`R13-014` claims only that the R13 cycle evidence package was produced under `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/`. It adds `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json`. The package consolidates committed evidence refs for the QA lifecycle, issue report, fix queue, bounded fix packet, local rerun/comparison, skill invocations, runner packets, external replay, control-room demo, bounded signoff, restart proof, and operator decision packet; it explicitly separates implemented code, committed evidence, generated artifacts, external replay evidence, operator/bootstrap narrative, and non-claims. This is consolidation only. `R13-015` through `R13-018` remain planned only. R13 is not closed. No productized UI, production runtime, real production QA, full product QA coverage, broad autonomy, solved Codex reliability, R14, or successor milestone is opened.
