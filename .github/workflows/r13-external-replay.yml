@@ -1,0 +1,295 @@
+name: R13 External Replay
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: R13 branch to verify.
+        required: true
+        type: string
+      expected_head:
+        description: Exact expected commit SHA to replay.
+        required: true
+        type: string
+      expected_tree:
+        description: Exact expected tree SHA to replay.
+        required: true
+        type: string
+      replay_scope:
+        description: Bounded replay scope label.
+        required: true
+        default: r13_011_external_replay_after_operator_demo
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  r13-external-replay:
+    name: R13 External Replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      R13_ARTIFACT_NAME: r13-external-replay-${{ github.run_id }}-${{ github.run_attempt }}
+      R13_EXPECTED_BRANCH: ${{ inputs.branch }}
+      R13_EXPECTED_HEAD: ${{ inputs.expected_head }}
+      R13_EXPECTED_TREE: ${{ inputs.expected_tree }}
+      R13_REPLAY_SCOPE: ${{ inputs.replay_scope }}
+    steps:
+      - name: Check out exact requested R13 head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.expected_head }}
+          fetch-depth: 0
+
+      - name: Configure Git checkout behavior
+        shell: pwsh
+        run: |
+          git config --global core.autocrlf false
+
+      - name: Run bounded R13 replay validations
+        id: replay
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Continue"
+          $outputRoot = Join-Path $env:RUNNER_TEMP "r13-external-replay"
+          $rawLogRoot = Join-Path $outputRoot "raw_logs"
+          New-Item -ItemType Directory -Path $rawLogRoot -Force | Out-Null
+
+          function Invoke-BoundedCommand {
+            param(
+              [Parameter(Mandatory = $true)]
+              [string]$CommandId,
+              [Parameter(Mandatory = $true)]
+              [string]$Command
+            )
+
+            $startedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+            $stdoutRef = "raw_logs/$CommandId.stdout.log"
+            $stderrRef = "raw_logs/$CommandId.stderr.log"
+            $stdoutPath = Join-Path $outputRoot $stdoutRef
+            $stderrPath = Join-Path $outputRoot $stderrRef
+
+            $encodedCommand = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($Command))
+            $output = & pwsh -NoProfile -ExecutionPolicy Bypass -EncodedCommand $encodedCommand 2>&1
+            $exitCode = $LASTEXITCODE
+            if ($null -eq $exitCode) {
+              $exitCode = 0
+            }
+
+            $output | Set-Content -LiteralPath $stdoutPath -Encoding UTF8
+            "" | Set-Content -LiteralPath $stderrPath -Encoding UTF8
+            $completedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+
+            return [pscustomobject]@{
+              command_id = $CommandId
+              command = $Command
+              exit_code = [int]$exitCode
+              verdict = $(if ($exitCode -eq 0) { "passed" } else { "failed" })
+              stdout_ref = $stdoutRef
+              stderr_ref = $stderrRef
+              started_at_utc = $startedAt
+              completed_at_utc = $completedAt
+            }
+          }
+
+          $cleanBeforeRef = "raw_logs/clean_status_before.log"
+          $cleanBeforePath = Join-Path $outputRoot $cleanBeforeRef
+          $cleanBeforeLines = @(git status --short --untracked-files=all)
+          if ($cleanBeforeLines.Count -eq 0) {
+            "" | Set-Content -LiteralPath $cleanBeforePath -Encoding UTF8
+          } else {
+            $cleanBeforeLines | Set-Content -LiteralPath $cleanBeforePath -Encoding UTF8
+          }
+
+          $commands = @(
+            @{
+              id = "assert_requested_identity"
+              command = "if ((git rev-parse HEAD).Trim() -ne `$env:R13_EXPECTED_HEAD) { Write-Error 'Observed head does not match expected head.'; exit 1 }; if ((git rev-parse 'HEAD^{tree}').Trim() -ne `$env:R13_EXPECTED_TREE) { Write-Error 'Observed tree does not match expected tree.'; exit 1 }; Write-Output `"Requested R13 branch/head/tree identity validated for `$env:R13_EXPECTED_BRANCH.`"; exit 0"
+            },
+            @{
+              id = "validate_r13_failure_fix_cycle"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_failure_fix_cycle.ps1 -CyclePath state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json"
+            },
+            @{
+              id = "validate_r13_before_after_comparison"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_qa_before_after_comparison.ps1 -ComparisonPath state/cycles/r13_qa_cycle_demo/before_after_comparison.json"
+            },
+            @{
+              id = "validate_r13_operator_demo"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_operator_demo.ps1 -DemoPath state/control_room/r13_current/operator_demo.md"
+            },
+            @{
+              id = "validate_r13_control_room_status"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_status.ps1 -StatusPath state/control_room/r13_current/control_room_status.json"
+            },
+            @{
+              id = "validate_r13_control_room_view"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_view.ps1 -ViewPath state/control_room/r13_current/control_room.md"
+            },
+            @{
+              id = "validate_r13_control_room_refresh_result"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_control_room_refresh_result.ps1 -RefreshResultPath state/control_room/r13_current/control_room_refresh_result.json"
+            },
+            @{
+              id = "validate_r13_external_replay_request"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_request.ps1 -RequestPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json"
+            },
+            @{
+              id = "validate_r13_external_replay_blocked_result"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_r13_external_replay_result.ps1 -ResultPath state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json"
+            },
+            @{
+              id = "validate_status_doc_gate"
+              command = "pwsh -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1"
+            }
+          )
+
+          $commandResults = @()
+          foreach ($entry in $commands) {
+            $commandResults += Invoke-BoundedCommand -CommandId $entry.id -Command $entry.command
+          }
+
+          $cleanAfterRef = "raw_logs/clean_status_after.log"
+          $cleanAfterPath = Join-Path $outputRoot $cleanAfterRef
+          $cleanAfterLines = @(git status --short --untracked-files=all)
+          if ($cleanAfterLines.Count -eq 0) {
+            "" | Set-Content -LiteralPath $cleanAfterPath -Encoding UTF8
+          } else {
+            $cleanAfterLines | Set-Content -LiteralPath $cleanAfterPath -Encoding UTF8
+          }
+
+          $observedHead = (git rev-parse HEAD).Trim()
+          $observedTree = (git rev-parse 'HEAD^{tree}').Trim()
+          $runUrl = "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          $failedCommands = @($commandResults | Where-Object { $_.exit_code -ne 0 })
+          $aggregateVerdict = if ($failedCommands.Count -eq 0) { "passed" } else { "failed" }
+          $runConclusion = if ($aggregateVerdict -eq "passed") { "success" } else { "failure" }
+          $completedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+          $request = Get-Content -LiteralPath "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json" -Raw | ConvertFrom-Json
+
+          $commandResults | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $outputRoot "command_results.json") -Encoding UTF8
+          [pscustomobject]@{
+            observed_head = $observedHead
+            observed_tree = $observedTree
+            expected_head = $env:R13_EXPECTED_HEAD
+            expected_tree = $env:R13_EXPECTED_TREE
+            branch = $env:R13_EXPECTED_BRANCH
+            replay_scope = $env:R13_REPLAY_SCOPE
+          } | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $outputRoot "observed_identity.json") -Encoding UTF8
+
+          $manifestLines = @(
+            "# R13 External Replay Validation Manifest",
+            "",
+            "- Workflow: R13 External Replay",
+            "- Repository: ${{ github.repository }}",
+            "- Run ID: ${{ github.run_id }}",
+            "- Run URL: $runUrl",
+            "- Run attempt: ${{ github.run_attempt }}",
+            "- Branch input: $env:R13_EXPECTED_BRANCH",
+            "- Expected head: $env:R13_EXPECTED_HEAD",
+            "- Expected tree: $env:R13_EXPECTED_TREE",
+            "- Observed head: $observedHead",
+            "- Observed tree: $observedTree",
+            "- Replay scope: $env:R13_REPLAY_SCOPE",
+            "- Aggregate verdict: $aggregateVerdict",
+            "- Artifact name: $env:R13_ARTIFACT_NAME",
+            "",
+            "## Command Results",
+            ""
+          )
+          foreach ($result in $commandResults) {
+            $manifestLines += "- $($result.command_id): $($result.verdict) (exit $($result.exit_code)); stdout `$($result.stdout_ref)`; stderr `$($result.stderr_ref)`"
+          }
+          $manifestLines += @(
+            "",
+            "## Limitations",
+            "",
+            "- GitHub assigns artifact ID and artifact digest after upload; capture those from the completed workflow run before importing or claiming proof.",
+            "- This workflow performs bounded validation only and does not perform final QA signoff.",
+            "- This workflow does not open R14 or any successor milestone.",
+            "",
+            "## Non-Claims",
+            "",
+            "- no final QA signoff has occurred",
+            "- no R13 hard value gate fully delivered by R13-011",
+            "- no R14 or successor opening"
+          )
+          $manifestLines | Set-Content -LiteralPath (Join-Path $outputRoot "validation_manifest.md") -Encoding UTF8
+
+          $replayResultPacket = [pscustomobject]@{
+            contract_version = "v1"
+            artifact_type = "r13_external_replay_result"
+            result_id = "r13err-github-${{ github.run_id }}-${{ github.run_attempt }}"
+            request_id = $request.request_id
+            repository = "${{ github.repository }}"
+            branch = $env:R13_EXPECTED_BRANCH
+            requested_head = $env:R13_EXPECTED_HEAD
+            requested_tree = $env:R13_EXPECTED_TREE
+            observed_head = $observedHead
+            observed_tree = $observedTree
+            workflow_name = "R13 External Replay"
+            run_id = "${{ github.run_id }}"
+            run_url = $runUrl
+            run_attempt = "${{ github.run_attempt }}"
+            run_status = "completed"
+            run_conclusion = $runConclusion
+            artifact_id = "assigned_by_github_actions_after_upload"
+            artifact_name = $env:R13_ARTIFACT_NAME
+            artifact_digest = "assigned_by_github_actions_after_upload"
+            command_results = $commandResults
+            aggregate_verdict = $aggregateVerdict
+            imported_artifact_ref = "pending_import_after_artifact_identity_capture"
+            evidence_refs = @(
+              @{
+                ref_id = "observed-identity"
+                ref = "observed_identity.json"
+                evidence_kind = "git_identity"
+                authority_kind = "github_actions_external_runner"
+                scope = "artifact"
+              },
+              @{
+                ref_id = "command-results"
+                ref = "command_results.json"
+                evidence_kind = "command_results"
+                authority_kind = "github_actions_external_runner"
+                scope = "artifact"
+              },
+              @{
+                ref_id = "validation-manifest"
+                ref = "validation_manifest.md"
+                evidence_kind = "validation_manifest"
+                authority_kind = "github_actions_external_runner"
+                scope = "artifact"
+              }
+            )
+            refusal_reasons = @($failedCommands | ForEach-Object { "Command '$($_.command_id)' failed with exit code $($_.exit_code)." })
+            started_at_utc = $commandResults[0].started_at_utc
+            completed_at_utc = $completedAt
+            non_claims = @(
+              "R13-011 records external replay status only",
+              "GitHub artifact ID and digest must be captured from the completed workflow run before importing or claiming proof",
+              "no final QA signoff has occurred",
+              "no R13 hard value gate fully delivered by R13-011",
+              "no R14 or successor opening"
+            )
+          }
+          $replayResultPacket | ConvertTo-Json -Depth 30 | Set-Content -LiteralPath (Join-Path $outputRoot "r13_external_replay_result_packet.json") -Encoding UTF8
+
+          "output_root=$outputRoot" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "aggregate_verdict=$aggregateVerdict" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Upload R13 external replay artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.R13_ARTIFACT_NAME }}
+          path: ${{ steps.replay.outputs.output_root }}
+          if-no-files-found: error
+
+      - name: Fail on replay validation failure
+        if: always() && steps.replay.outputs.aggregate_verdict != 'passed'
+        shell: pwsh
+        run: |
+          Write-Error "R13 external replay validation did not pass. See uploaded artifact '${{ env.R13_ARTIFACT_NAME }}'."
