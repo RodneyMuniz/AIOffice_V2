@@ -1,12 +1,12 @@
 # R13 API-First QA Pipeline and Operator Control-Room Product Slice
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-011` only.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-012` only.
 
 ## Purpose
 
 R13 opens as an explicitly approved successor milestone after the approved R12/R13 planning report was committed to repo truth. The milestone target is a meaningful QA and operator workflow vertical slice that reduces manual copy/paste dependency and starts moving execution authority away from Codex chat sessions into repo/API/custom-runner surfaces.
 
-R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only; final QA signoff has not occurred. None of these tasks delivers any R13 hard value gate.
+R13 is not a governance-only milestone in intent. R13 must produce practical implementation evidence for a real QA cycle, API/custom-runner handoff, current operator control-room usefulness, and a small skill invocation foundation. `R13-001` only opens the branch, freezes hard value gates, records the task plan, and updates status surfaces. `R13-002` only defines the ideal QA lifecycle contract and validator foundation. `R13-003` only implements the source-mapped issue detector v2 slice. `R13-004` only implements the QA fix queue and fix-plan generator v2 slice. `R13-005` only implements the bounded fix execution packet model. `R13-006` runs one controlled seeded QA failure-to-fix cycle in a demo workspace only. `R13-007` adds a local API-shaped/custom-runner foundation only. `R13-008` adds a bounded skill registry and two local skill invocations only. `R13-009` adds current cycle-aware control-room JSON/Markdown/refresh result only. `R13-010` adds a human-readable operator demo artifact only. `R13-011` records passed/imported external replay evidence only. `R13-012` adds bounded meaningful QA signoff only; it accepts the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice, not full product QA coverage, production QA, R13 closeout, R14, or any successor.
 
 ## Accepted Starting State
 
@@ -40,15 +40,16 @@ R13 is bounded to one release branch and one milestone:
 - keep `R13-009` as a current cycle-aware control-room JSON/Markdown/refresh result slice only;
 - keep `R13-010` as a human-readable operator demo artifact slice only;
 - keep `R13-011` as either exact external replay evidence or an honest blocked/manual dispatch packet only;
+- keep `R13-012` as bounded meaningful QA signoff only;
 - require later tasks to produce committed machine-readable evidence before any value gate can be marked delivered;
 - avoid product/runtime/autonomy/UI overclaim;
 - do not open R14 or any successor milestone.
 
 ## R13 Hard Value Gates
 
-All R13 gates are planned, partial, or blocked and not yet fully delivered at `R13-011`.
+R13 gates remain conservative at `R13-012`.
 
-1. Meaningful QA loop gate: partially evidenced with passed/imported external replay, but not yet fully delivered until later final QA signoff.
+1. Meaningful QA loop gate: delivered only for the bounded representative QA failure-to-fix loop and evidence-backed operator workflow slice accepted by `R13-012`; not delivered for full product QA coverage or production QA.
 2. API/custom-runner bypass gate: foundation added, not fully delivered.
 3. Current operator control-room gate: partially evidenced by `R13-009`, not fully delivered as a hard gate.
 4. Skill invocation evidence gate: partially evidenced by `R13-008`, not fully delivered as a hard gate.
@@ -103,8 +104,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - Boundary: adds R13 external replay request/result/import contracts and validators, preserves the earlier blocked/manual dispatch evidence, and now records passed/imported GitHub Actions external replay evidence at `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json`, `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json`, and `state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/`. The successful external replay was run `25241730946`, attempt `1`, artifact `6759970924`, artifact name `r13-external-replay-25241730946-1`, artifact digest `sha256:50bc3e28d47c5aca5c4ff6a5e595a967c3aa4153c6611dd20e09f47864ee3769`, observed head `4787d5a59c67d5312ed72231f7a5571b435c1528`, observed tree `f76567051d8b830a6153374b7d60376cf923e7bd`, aggregate verdict `passed`, and command results 10 total / 10 passed / 0 failed / 0 blocked. The earlier request, blocked result, manual dispatch packet, validation manifest, and raw logs remain at `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json`, `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json`, `state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json`, `state/external_runs/r13_external_replay/r13_011/validation_manifest.md`, and `state/external_runs/r13_external_replay/r13_011/raw_logs/`. This is external replay evidence only, not final QA signoff.
 
 ### `R13-012` Add meaningful QA signoff gate
-- Status: planned
-- Boundary: allow QA signoff only after detector, fix queue, bounded fix evidence, rerun, before/after comparison, external replay evidence, current control-room state, and no blocking issue remain.
+- Status: done
+- Boundary: adds bounded meaningful QA signoff contracts, tooling, evidence matrix, tests, signoff artifact, and validation manifest. The signoff decision is `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. It consumes local QA failure-to-fix proof, passed external replay proof, current control-room evidence, operator demo evidence, and residual risks. It does not claim production QA, full product QA coverage, full autonomous execution, solved Codex reliability, productized UI, R13 closeout, R14, or any successor.
 
 ### `R13-013` Add Codex-compaction mitigation proof
 - Status: planned
@@ -132,8 +133,8 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 ## Required Non-Claims
 
-- no R13 hard value gate fully delivered by `R13-011`
-- no meaningful QA loop gate delivered yet
+- meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope
+- no full product QA coverage
 - no API/custom-runner bypass gate fully delivered yet
 - current operator control-room gate remains partially evidenced only, not fully delivered as a hard gate
 - no skill invocation evidence gate fully delivered yet
@@ -148,11 +149,12 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 - no solved Codex reliability
 - no solved Codex context compaction
 - no claim that Codex can run long milestones unattended
-- external replay evidence is passed/imported for R13-011, but no final QA signoff has occurred
+- R13-012 signoff is accepted for bounded scope only
+- no R13 closeout
 - no executor self-certification as QA
 - no R14 or successor opening
 
-## Current R13-011 Claim
+## Current R13-012 Claim
 
 `R13-001` claims only that R13 was opened narrowly from the report-committed R12 branch head, the hard gates and task plan were frozen, the required status surfaces were updated, and no R14 or successor milestone was opened.
 
@@ -174,4 +176,6 @@ No gate can pass from narrative, schema-only validation, stale artifacts, local-
 
 `R13-010` claims only that a human-readable operator demo artifact exists and validates from actual R13 evidence. It adds `contracts/control_room/r13_operator_demo.contract.json`, `tools/render_r13_operator_demo.ps1`, `tools/validate_r13_operator_demo.ps1`, focused proof in `tests/test_r13_operator_demo.ps1`, generated artifact `state/control_room/r13_current/operator_demo.md`, and validation manifest `state/control_room/r13_current/operator_demo_validation_manifest.md`.
 
-`R13-011` claims only that external replay evidence was prepared, executed externally, imported, and validated for this task. It adds `contracts/external_replay/r13_external_replay_request.contract.json`, `contracts/external_replay/r13_external_replay_result.contract.json`, `contracts/external_replay/r13_external_replay_import.contract.json`, `tools/R13ExternalReplay.psm1`, `tools/new_r13_external_replay_request.ps1`, `tools/invoke_r13_external_replay.ps1`, `tools/validate_r13_external_replay_request.ps1`, `tools/validate_r13_external_replay_result.ps1`, `tools/validate_r13_external_replay_import.ps1`, request artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json`, result artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json`, import artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json`, imported artifact root `state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/`, blocked result `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json`, manual dispatch packet `state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json`, validation manifest `state/external_runs/r13_external_replay/r13_011/validation_manifest.md`, and raw logs under `state/external_runs/r13_external_replay/r13_011/raw_logs/`. The external replay aggregate verdict is `passed` for run `25241730946` and artifact `6759970924`, with 10 command results passed and no failures or blocks. `R13-012` through `R13-018` remain planned only. No R13 hard value gate is fully delivered yet. The meaningful QA loop remains not fully delivered until later R13 signoff work; final QA signoff has not occurred. The current operator control-room gate remains partially evidenced only and not fully delivered as a hard gate. The operator demo gate is partially evidenced only and not fully delivered as a hard gate. The API/custom-runner bypass gate and skill invocation evidence gate remain partial only. No final signoff, productized UI, R13 closeout, R14, or successor milestone is opened.
+`R13-011` claims only that external replay evidence was prepared, executed externally, imported, and validated for that task. It adds `contracts/external_replay/r13_external_replay_request.contract.json`, `contracts/external_replay/r13_external_replay_result.contract.json`, `contracts/external_replay/r13_external_replay_import.contract.json`, `tools/R13ExternalReplay.psm1`, `tools/new_r13_external_replay_request.ps1`, `tools/invoke_r13_external_replay.ps1`, `tools/validate_r13_external_replay_request.ps1`, `tools/validate_r13_external_replay_result.ps1`, `tools/validate_r13_external_replay_import.ps1`, request artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json`, result artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json`, import artifact `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json`, imported artifact root `state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/`, blocked result `state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json`, manual dispatch packet `state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json`, validation manifest `state/external_runs/r13_external_replay/r13_011/validation_manifest.md`, and raw logs under `state/external_runs/r13_external_replay/r13_011/raw_logs/`. The external replay aggregate verdict is `passed` for run `25241730946` and artifact `6759970924`, with 10 command results passed and no failures or blocks.
+
+`R13-012` claims only that bounded meaningful QA signoff was generated and validated for the representative QA failure-to-fix loop and evidence-backed operator workflow slice. It adds `contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json`, `contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json`, `tools/R13MeaningfulQaSignoff.psm1`, `tools/new_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1`, `tests/test_r13_meaningful_qa_signoff.ps1`, `state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json`, `state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json`, and `state/signoff/r13_meaningful_qa_signoff/validation_manifest.md`. The signoff decision is `accepted_bounded_scope`, aggregate verdict is `passed`, and scope is `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. `R13-013` through `R13-018` remain planned only. R13 is not closed. No productized UI, production runtime, real production QA, full product QA coverage, broad autonomy, solved Codex reliability, R14, or successor milestone is opened.

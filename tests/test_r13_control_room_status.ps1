@@ -151,11 +151,11 @@ try {
     $generatedManifestPath = Join-Path $generatedRoot "validation_manifest.md"
 
     $statusValidation = & $testStatus -StatusPath $generatedStatusPath
-    if ($statusValidation.CompletedTaskCount -ne 11 -or $statusValidation.PlannedTaskCount -ne 7 -or $statusValidation.NextLegalAction -ne "R13-011") {
-        $failures += "FAIL generated status: status did not preserve R13-011 boundary."
+    if ($statusValidation.CompletedTaskCount -ne 12 -or $statusValidation.PlannedTaskCount -ne 6 -or $statusValidation.NextLegalAction -ne "R13-013") {
+        $failures += "FAIL generated status: status did not preserve R13-012 boundary."
     }
     else {
-        Write-Output "PASS generated status: R13-011 boundary validates."
+        Write-Output "PASS generated status: R13-012 boundary validates."
         $validPassed += 1
     }
 
@@ -172,7 +172,7 @@ try {
     }
     else {
         $manifestText = Get-Content -LiteralPath $generatedManifestPath -Raw
-        if ($manifestText -notmatch "Stale-state checks passed: ``True``" -or $manifestText -notmatch "R13-011") {
+        if ($manifestText -notmatch "Stale-state checks passed: ``True``" -or $manifestText -notmatch "R13-013") {
             $failures += "FAIL generated manifest: expected stale-state and next-action evidence was missing."
         }
         else {
@@ -201,7 +201,7 @@ try {
     }
     Invoke-MutatedStatusRefusal -Label "hard_gate_overclaimed.invalid" -SourceStatusPath $generatedStatusPath -Mutator {
         param($status)
-        $status.hard_gate_status.meaningful_qa_loop.hard_gate_delivered = $true
+        $status.hard_gate_status.api_custom_runner_bypass.hard_gate_delivered = $true
     }
     Invoke-MutatedStatusRefusal -Label "external_replay_claimed.invalid" -SourceStatusPath $generatedStatusPath -Mutator {
         param($status)
@@ -239,18 +239,25 @@ try {
     $generatedStatus = Read-JsonObject -Path $generatedStatusPath
     $completedTaskIds = @($generatedStatus.completed_tasks | ForEach-Object { [string]$_.task_id })
     $plannedTaskIds = @($generatedStatus.planned_tasks | ForEach-Object { [string]$_.task_id })
-    if (($completedTaskIds -join "|") -ne ((1..11 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-011 only."
+    if (($completedTaskIds -join "|") -ne ((1..12 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: completed tasks are not R13-001 through R13-012 only."
     }
     else {
-        Write-Output "PASS generated status: R13 active through R13-011 only."
+        Write-Output "PASS generated status: R13 active through R13-012 only."
         $validPassed += 1
     }
-    if (($plannedTaskIds -join "|") -ne ((12..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
-        $failures += "FAIL generated status: planned tasks are not R13-012 through R13-018 only."
+    if (($plannedTaskIds -join "|") -ne ((13..18 | ForEach-Object { "R13-{0}" -f $_.ToString("000") }) -join "|")) {
+        $failures += "FAIL generated status: planned tasks are not R13-013 through R13-018 only."
     }
     else {
-        Write-Output "PASS generated status: R13-012 through R13-018 planned only."
+        Write-Output "PASS generated status: R13-013 through R13-018 planned only."
+        $validPassed += 1
+    }
+    if ($generatedStatus.hard_gate_status.meaningful_qa_loop.status -ne "bounded_scope_delivered" -or -not [bool]$generatedStatus.hard_gate_status.meaningful_qa_loop.hard_gate_delivered -or [bool]$generatedStatus.hard_gate_status.meaningful_qa_loop.full_product_scope_delivered) {
+        $failures += "FAIL generated status: meaningful QA loop gate was not delivered only for bounded scope."
+    }
+    else {
+        Write-Output "PASS generated status: meaningful QA loop gate is bounded-scope delivered only."
         $validPassed += 1
     }
     if ($generatedStatus.hard_gate_status.current_operator_control_room.status -ne "partially_evidenced" -or [bool]$generatedStatus.hard_gate_status.current_operator_control_room.hard_gate_delivered) {

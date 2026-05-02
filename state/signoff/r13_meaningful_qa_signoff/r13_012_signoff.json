@@ -1,0 +1,598 @@
+{
+    "contract_version":  "v1",
+    "artifact_type":  "r13_meaningful_qa_signoff",
+    "signoff_id":  "r13mqs-326597ddbba8ae75",
+    "repository":  "AIOffice_V2",
+    "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+    "head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+    "tree":  "8860cfff3c8642bee6cb652709ae4d0d4a605b44",
+    "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+    "source_task":  "R13-012",
+    "signoff_scope":  "bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice",
+    "required_evidence":  [
+                              {
+                                  "evidence_id":  "r13-012-signoff-contract",
+                                  "required_for":  "signoff_contract",
+                                  "expected_ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json",
+                                  "actual_ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "R13MeaningfulQaSignoff contract reader",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-evidence-matrix-contract",
+                                  "required_for":  "signoff_contract",
+                                  "expected_ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json",
+                                  "actual_ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "R13MeaningfulQaSignoff contract reader",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-signoff-module",
+                                  "required_for":  "signoff_tooling",
+                                  "expected_ref":  "tools/R13MeaningfulQaSignoff.psm1",
+                                  "actual_ref":  "tools/R13MeaningfulQaSignoff.psm1",
+                                  "status":  "present_current_validated",
+                                  "validator":  "PowerShell module import",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-signoff-generator",
+                                  "required_for":  "signoff_tooling",
+                                  "expected_ref":  "tools/new_r13_meaningful_qa_signoff.ps1",
+                                  "actual_ref":  "tools/new_r13_meaningful_qa_signoff.ps1",
+                                  "status":  "present_current_validated",
+                                  "validator":  "PowerShell CLI presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-signoff-validator",
+                                  "required_for":  "signoff_tooling",
+                                  "expected_ref":  "tools/validate_r13_meaningful_qa_signoff.ps1",
+                                  "actual_ref":  "tools/validate_r13_meaningful_qa_signoff.ps1",
+                                  "status":  "present_current_validated",
+                                  "validator":  "PowerShell CLI presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-evidence-matrix-validator",
+                                  "required_for":  "signoff_tooling",
+                                  "expected_ref":  "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                                  "actual_ref":  "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                                  "status":  "present_current_validated",
+                                  "validator":  "PowerShell CLI presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-signoff-test",
+                                  "required_for":  "signoff_tooling",
+                                  "expected_ref":  "tests/test_r13_meaningful_qa_signoff.ps1",
+                                  "actual_ref":  "tests/test_r13_meaningful_qa_signoff.ps1",
+                                  "status":  "present_current_validated",
+                                  "validator":  "PowerShell test presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-authority",
+                                  "required_for":  "milestone_boundary",
+                                  "expected_ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                                  "actual_ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "bounded status text and no successor claim",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-control-room-status",
+                                  "required_for":  "current_control_room_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/control_room_status.json",
+                                  "actual_ref":  "state/control_room/r13_current/control_room_status.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_control_room_status.ps1 plus current identity check",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-control-room-view",
+                                  "required_for":  "current_control_room_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/control_room.md",
+                                  "actual_ref":  "state/control_room/r13_current/control_room.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_control_room_view.ps1",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-control-room-refresh-result",
+                                  "required_for":  "current_control_room_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                                  "actual_ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_control_room_refresh_result.ps1 plus current identity check",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-control-room-validation-manifest",
+                                  "required_for":  "current_control_room_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/validation_manifest.md",
+                                  "actual_ref":  "state/control_room/r13_current/validation_manifest.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "manifest presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-operator-demo",
+                                  "required_for":  "operator_demo_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/operator_demo.md",
+                                  "actual_ref":  "state/control_room/r13_current/operator_demo.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_operator_demo.ps1",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-operator-demo-validation-manifest",
+                                  "required_for":  "operator_demo_evidence",
+                                  "expected_ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                                  "actual_ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "operator demo validation manifest presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-006-failure-fix-cycle",
+                                  "required_for":  "local_qa_failure_to_fix_proof",
+                                  "expected_ref":  "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                                  "actual_ref":  "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "fixed_pending_external_replay and safety checks",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-006-before-after-comparison",
+                                  "required_for":  "local_qa_failure_to_fix_proof",
+                                  "expected_ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                                  "actual_ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "target_issue_resolved comparison",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-003-issue-detection-report",
+                                  "required_for":  "local_qa_failure_to_fix_proof",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "issue detection report shape",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-004-fix-queue",
+                                  "required_for":  "local_qa_failure_to_fix_proof",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "ready_for_fix_execution queue",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-005-bounded-fix-execution",
+                                  "required_for":  "local_qa_failure_to_fix_proof",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "bounded execution packet authorization",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-007-custom-runner-result",
+                                  "required_for":  "runner_evidence",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "custom runner aggregate passed",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-008-skill-registry",
+                                  "required_for":  "skill_invocation_evidence",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "skill registry presence",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-008-qa-detect-invocation",
+                                  "required_for":  "skill_invocation_evidence",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "qa.detect invocation passed",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-008-qa-fix-plan-invocation",
+                                  "required_for":  "skill_invocation_evidence",
+                                  "expected_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+                                  "actual_ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "qa.fix_plan invocation passed",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-011-external-replay-request",
+                                  "required_for":  "external_replay_proof",
+                                  "expected_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                                  "actual_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "external replay request identity",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-011-external-replay-result",
+                                  "required_for":  "external_replay_proof",
+                                  "expected_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                  "actual_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_external_replay_result.ps1 plus strict run/artifact identity",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-011-external-replay-import",
+                                  "required_for":  "external_replay_proof",
+                                  "expected_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                                  "actual_ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_external_replay_import.ps1 plus strict run/artifact identity",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-011-external-replay-imported-manifest",
+                                  "required_for":  "external_replay_proof",
+                                  "expected_ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                                  "actual_ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                                  "status":  "present_current_validated",
+                                  "validator":  "imported artifact manifest records 10 passed commands",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              },
+                              {
+                                  "evidence_id":  "r13-012-evidence-matrix",
+                                  "required_for":  "signoff_evidence_matrix",
+                                  "expected_ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                                  "actual_ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                                  "status":  "present_current_validated",
+                                  "validator":  "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                                  "verdict":  "passed",
+                                  "notes":  "Required evidence exists and validates."
+                              }
+                          ],
+    "evidence_assessment":  {
+                                "local_qa_failure_to_fix_proof":  {
+                                                                      "issue_detection_aggregate_verdict":  "failed",
+                                                                      "fix_queue_aggregate_verdict":  "ready_for_fix_execution",
+                                                                      "bounded_execution_aggregate_verdict":  "authorized_for_future_execution",
+                                                                      "failure_fix_cycle_status":  "fixed_locally_pending_external_replay",
+                                                                      "failure_fix_cycle_aggregate_verdict":  "fixed_pending_external_replay",
+                                                                      "before_after_comparison_verdict":  "target_issue_resolved",
+                                                                      "selected_issue_type":  "malformed_json",
+                                                                      "bounded_slice_validated":  true
+                                                                  },
+                                "passed_external_replay_proof":  {
+                                                                     "run_id":  "25241730946",
+                                                                     "artifact_id":  "6759970924",
+                                                                     "artifact_digest":  "sha256:50bc3e28d47c5aca5c4ff6a5e595a967c3aa4153c6611dd20e09f47864ee3769",
+                                                                     "requested_head":  "4787d5a59c67d5312ed72231f7a5571b435c1528",
+                                                                     "requested_tree":  "f76567051d8b830a6153374b7d60376cf923e7bd",
+                                                                     "observed_head":  "4787d5a59c67d5312ed72231f7a5571b435c1528",
+                                                                     "observed_tree":  "f76567051d8b830a6153374b7d60376cf923e7bd",
+                                                                     "command_count":  10,
+                                                                     "passed_command_count":  10,
+                                                                     "aggregate_verdict":  "passed",
+                                                                     "import_aggregate_verdict":  "passed",
+                                                                     "passed_external_replay_proven":  true
+                                                                 },
+                                "current_control_room_evidence":  {
+                                                                      "status_ref":  "state/control_room/r13_current/control_room_status.json",
+                                                                      "view_ref":  "state/control_room/r13_current/control_room.md",
+                                                                      "refresh_result_ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                                                                      "active_through_task":  "R13-012",
+                                                                      "stale_state_checks_passed":  true,
+                                                                      "matches_current_branch_head_tree":  true
+                                                                  },
+                                "operator_demo_evidence":  {
+                                                               "demo_ref":  "state/control_room/r13_current/operator_demo.md",
+                                                               "validation_manifest_ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                                                               "validates":  true
+                                                           },
+                                "runner_evidence":  {
+                                                        "aggregate_verdict":  "passed",
+                                                        "command_count":  3,
+                                                        "passed_command_count":  3,
+                                                        "partial_local_only":  true
+                                                    },
+                                "skill_invocation_evidence":  {
+                                                                  "registered_skill_count":  4,
+                                                                  "invoked_skill_ids":  [
+                                                                                            "qa.detect",
+                                                                                            "qa.fix_plan"
+                                                                                        ],
+                                                                  "partial_invocation_evidence_only":  true
+                                                              },
+                                "all_required_evidence_present_current_validated":  true
+                            },
+    "gate_assessment":  {
+                            "meaningful_qa_loop_hard_gate":  "delivered_for_bounded_representative_scope_only",
+                            "meaningful_qa_loop_full_product_scope":  "not_delivered",
+                            "api_custom_runner_bypass":  "partial_local_only",
+                            "current_operator_control_room":  "partial_repo_generated_evidence_only",
+                            "skill_invocation_evidence":  "partial_local_invocation_evidence_only",
+                            "operator_demo":  "partial_markdown_demo_evidence_only",
+                            "production_qa":  "not_delivered",
+                            "production_runtime":  "not_delivered",
+                            "productized_ui":  "not_delivered",
+                            "r13_closeout":  "not_closed",
+                            "r14_or_successor":  "not_opened"
+                        },
+    "residual_risks":  [
+                           "Representative demo workspace only; not production QA and not full product QA coverage.",
+                           "The API/custom-runner bypass remains partial local evidence only.",
+                           "Skill invocation evidence is limited to qa.detect and qa.fix_plan; runner.external_replay and control_room.refresh were not invoked as R13-008 skills.",
+                           "The current control room and operator demo are repo-generated Markdown/JSON evidence, not productized UI or product runtime.",
+                           "The signoff does not solve Codex reliability, context compaction, or broad autonomous execution.",
+                           "R13 remains active after R13-012; R13-013 through R13-018 remain planned only."
+                       ],
+    "blockers":  [
+
+                 ],
+    "signoff_decision":  "accepted_bounded_scope",
+    "aggregate_verdict":  "passed",
+    "evidence_refs":  [
+                          {
+                              "ref_id":  "r13-012-signoff-contract",
+                              "ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix-contract",
+                              "ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-module",
+                              "ref":  "tools/R13MeaningfulQaSignoff.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-generator",
+                              "ref":  "tools/new_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-validator",
+                              "ref":  "tools/validate_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix-validator",
+                              "ref":  "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-test",
+                              "ref":  "tests/test_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "test",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-authority",
+                              "ref":  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
+                              "evidence_kind":  "authority",
+                              "authority_kind":  "repo_governance",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-status",
+                              "ref":  "state/control_room/r13_current/control_room_status.json",
+                              "evidence_kind":  "control_room_status",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-view",
+                              "ref":  "state/control_room/r13_current/control_room.md",
+                              "evidence_kind":  "control_room_view",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-refresh-result",
+                              "ref":  "state/control_room/r13_current/control_room_refresh_result.json",
+                              "evidence_kind":  "control_room_refresh_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-control-room-validation-manifest",
+                              "ref":  "state/control_room/r13_current/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo",
+                              "ref":  "state/control_room/r13_current/operator_demo.md",
+                              "evidence_kind":  "operator_demo",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-operator-demo-validation-manifest",
+                              "ref":  "state/control_room/r13_current/operator_demo_validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-006-failure-fix-cycle",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
+                              "evidence_kind":  "failure_fix_cycle",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-006-before-after-comparison",
+                              "ref":  "state/cycles/r13_qa_cycle_demo/before_after_comparison.json",
+                              "evidence_kind":  "before_after_comparison",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-003-issue-detection-report",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
+                              "evidence_kind":  "issue_detection_report",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-004-fix-queue",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
+                              "evidence_kind":  "fix_queue",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-005-bounded-fix-execution",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_005_bounded_fix_execution_packet.json",
+                              "evidence_kind":  "bounded_fix_execution_packet",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-007-custom-runner-result",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json",
+                              "evidence_kind":  "custom_runner_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-skill-registry",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_skill_registry.json",
+                              "evidence_kind":  "skill_registry",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-qa-detect-invocation",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_detect_invocation_result.json",
+                              "evidence_kind":  "skill_invocation_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-008-qa-fix-plan-invocation",
+                              "ref":  "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/skills/r13_008_qa_fix_plan_invocation_result.json",
+                              "evidence_kind":  "skill_invocation_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-request",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_request.json",
+                              "evidence_kind":  "external_replay_request",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-result",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                              "evidence_kind":  "external_replay_result",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-import",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                              "evidence_kind":  "external_replay_import",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-011-external-replay-imported-manifest",
+                              "ref":  "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
+                              "evidence_kind":  "imported_artifact_manifest",
+                              "authority_kind":  "github_actions_external_runner",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                              "evidence_kind":  "evidence_matrix",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                              "evidence_kind":  "meaningful_qa_signoff",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-validation-manifest",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          }
+                      ],
+    "generated_at_utc":  "2026-05-02T07:49:10Z",
+    "non_claims":  [
+                       "bounded representative QA slice only",
+                       "no production QA",
+                       "no full product QA coverage",
+                       "no full autonomous execution",
+                       "no solved Codex reliability",
+                       "no productized UI",
+                       "no R13 closeout",
+                       "no R14 or successor opening",
+                       "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope"
+                   ]
+}

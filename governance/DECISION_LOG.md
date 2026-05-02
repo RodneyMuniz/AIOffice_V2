@@ -1062,3 +1062,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R13 is active through `R13-011` only, and `R13-012` through `R13-018` remain planned only.
 - Consequence: R13-011 claims external replay evidence only. The meaningful QA loop remains not fully delivered because final QA signoff has not occurred. No R13 hard value gate is fully delivered by R13-011.
 - Consequence: this decision does not claim final QA signoff, R13 closeout, productized control-room behavior, full UI app, production runtime, real production QA, hard gate delivery, broad CI/product coverage, broad autonomous milestone execution, solved Codex reliability, solved Codex context compaction, unattended automatic resume, R14, or any successor milestone opening.
+
+## D-0111 R13-012 Added Bounded Meaningful QA Signoff Gate
+- Date: 2026-05-02
+- Status: accepted
+- Decision: `R13-012` is done as the bounded meaningful QA signoff gate for `R13 API-First QA Pipeline and Operator Control-Room Product Slice`.
+- Consequence: `R13-012` adds `contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json`, `contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json`, `tools/R13MeaningfulQaSignoff.psm1`, `tools/new_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff.ps1`, `tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1`, and focused proof through `tests/test_r13_meaningful_qa_signoff.ps1`.
+- Consequence: the committed signoff root is `state/signoff/r13_meaningful_qa_signoff/`, with signoff artifact `r13_012_signoff.json`, evidence matrix `r13_012_evidence_matrix.json`, and validation manifest `validation_manifest.md`.
+- Consequence: the signoff decision is `accepted_bounded_scope`, aggregate verdict is `passed`, and scope is `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`.
+- Consequence: the meaningful QA loop hard gate is delivered only for that bounded representative scope. It is not delivered for full product QA coverage, production QA, full autonomous execution, solved Codex reliability, productized UI, or R13 closeout.
+- Consequence: R13 is active through `R13-012` only, and `R13-013` through `R13-018` remain planned only.
+- Consequence: this decision does not close R13, does not claim API/custom-runner bypass full delivery, does not claim current operator control-room productization, does not claim full skill invocation evidence, does not claim productized operator demo, and does not open R14 or any successor milestone.

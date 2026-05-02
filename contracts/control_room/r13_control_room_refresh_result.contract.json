@@ -5,7 +5,7 @@
   "repository": "AIOffice_V2",
   "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
   "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
-  "source_task": "R13-010",
+  "source_task": "R13-012",
   "required_fields": [
     "contract_version",
     "artifact_type",
@@ -56,26 +56,31 @@
     "scope"
   ],
   "required_non_claims": [
-    "R13-010 adds human-readable operator demo artifact only",
-    "R13 active through R13-010 only",
-    "R13-011 through R13-018 remain planned only",
+    "R13-012 adds bounded meaningful QA signoff only",
+    "R13 active through R13-012 only",
+    "R13-013 through R13-018 remain planned only",
+    "final QA signoff occurred only for bounded R13 representative QA slice",
+    "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope",
+    "API/custom-runner bypass gate remains partial only",
     "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
     "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
-    "no external replay has occurred",
-    "no final QA signoff delivered by R13-010",
-    "no R13 hard value gate fully delivered by R13-010",
+    "skill invocation evidence gate remains partial only",
+    "external replay evidence is imported and bounded signoff consumed it",
+    "no full product QA coverage",
+    "no R13 closeout",
     "no productized control-room behavior",
     "no full UI app",
     "no production runtime",
     "no real production QA",
-    "no hard gate overclaim",
+    "no full-scope hard gate overclaim",
     "no R14 or successor opening"
   ],
   "rules": [
     "current_refresh_requires_generated_status_and_view_to_validate",
     "blocked_refresh_requires_refusal_reasons",
     "stale_branch_head_or_tree_expectations_must_block_refresh",
-    "hard_gates_must_not_be_marked_delivered_or_complete",
-    "external_replay_final_signoff_productized_ui_r14_and_successor_claims_are_rejected"
+    "meaningful_qa_loop_may_be_marked_delivered_for_bounded_representative_scope_only",
+    "other_hard_gates_must_not_be_marked_delivered_or_complete",
+    "unbounded_final_signoff_productized_ui_r14_and_successor_claims_are_rejected"
   ]
 }

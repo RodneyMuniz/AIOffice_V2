@@ -1,0 +1,61 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_meaningful_qa_signoff_evidence_matrix_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-012",
+  "required_fields": [
+    "artifact_type",
+    "matrix_id",
+    "source_signoff_ref",
+    "evidence_rows",
+    "coverage_summary",
+    "missing_evidence",
+    "residual_risks",
+    "aggregate_verdict",
+    "evidence_refs",
+    "non_claims"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "evidence_row_required_fields": [
+    "evidence_id",
+    "required_for",
+    "expected_ref",
+    "actual_ref",
+    "status",
+    "validator",
+    "verdict",
+    "notes"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "rules": [
+    "matrix_must_reference_the_source_signoff",
+    "every_required_evidence_row_must_have_expected_and_actual_refs",
+    "passed_matrix_requires_all_rows_to_pass",
+    "missing_evidence_must_be_empty_when_aggregate_verdict_is_passed",
+    "matrix_must_preserve_bounded_scope_non_claims"
+  ],
+  "required_non_claims": [
+    "bounded representative QA slice only",
+    "no production QA",
+    "no full product QA coverage",
+    "no full autonomous execution",
+    "no solved Codex reliability",
+    "no productized UI",
+    "no R13 closeout",
+    "no R14 or successor opening",
+    "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope"
+  ]
+}

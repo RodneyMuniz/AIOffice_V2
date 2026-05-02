@@ -1,13 +1,13 @@
 {
     "contract_version":  "v1",
     "artifact_type":  "r13_control_room_refresh_result",
-    "refresh_id":  "r13crr-96c07307e9083de3",
+    "refresh_id":  "r13crr-5bdc12324cdd1025",
     "repository":  "AIOffice_V2",
     "branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-    "head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
-    "tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
+    "head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+    "tree":  "8860cfff3c8642bee6cb652709ae4d0d4a605b44",
     "source_milestone":  "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
-    "source_task":  "R13-011",
+    "source_task":  "R13-012",
     "source_status_ref":  "state/control_room/r13_current/control_room_status.json",
     "generated_status_ref":  "state/control_room/r13_current/control_room_status.json",
     "generated_view_ref":  "state/control_room/r13_current/control_room.md",
@@ -46,18 +46,18 @@
                            ],
     "stale_state_checks":  {
                                "expected_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "expected_head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
-                               "expected_tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
+                               "expected_head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+                               "expected_tree":  "8860cfff3c8642bee6cb652709ae4d0d4a605b44",
                                "observed_branch":  "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
-                               "observed_head":  "10539c1e9648a10b6ad2c53896779e93db5059bd",
-                               "observed_tree":  "97c5c0998cfe22e5650614d8d1f08da28bf8257f",
+                               "observed_head":  "fb2179bb7b66d3d7dd1fd4eb2683aed825f01577",
+                               "observed_tree":  "8860cfff3c8642bee6cb652709ae4d0d4a605b44",
                                "branch_matches_expected":  true,
                                "head_matches_expected":  true,
                                "tree_matches_expected":  true,
                                "required_evidence_refs_present":  true,
                                "hard_gate_overclaim_absent":  true,
                                "external_replay_not_claimed":  true,
-                               "final_signoff_not_claimed":  true,
+                               "final_signoff_not_overclaimed":  true,
                                "operator_demo_not_claimed":  true,
                                "r14_successor_not_opened":  true,
                                "productized_ui_not_claimed":  true,
@@ -65,18 +65,23 @@
                            },
     "hard_gate_status":  {
                              "meaningful_qa_loop":  {
-                                                        "status":  "partially_evidenced",
-                                                        "hard_gate_delivered":  false,
-                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner, local skill invocations, current control-room evidence, an operator demo artifact, and passed external replay/import evidence exist, but the loop is not complete until final QA signoff exists.",
+                                                        "status":  "bounded_scope_delivered",
+                                                        "hard_gate_delivered":  true,
+                                                        "delivery_scope":  "bounded_representative_qa_failure_to_fix_slice_only",
+                                                        "full_product_scope_delivered":  false,
+                                                        "summary":  "Local detector, queue, bounded execution packet, demo failure-to-fix cycle, local custom runner evidence, local skill invocations, current control-room evidence, operator demo evidence, passed external replay/import evidence, and R13-012 bounded signoff exist. This delivers the meaningful QA loop hard gate only for the bounded representative slice, not for full product QA coverage.",
                                                         "missing_required_evidence":  [
-                                                                                          "final_qa_signoff"
+                                                                                          "full_product_qa_coverage",
+                                                                                          "production_qa_evidence"
                                                                                       ],
                                                         "evidence_refs":  [
                                                                               "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_003_issue_detection_report.json",
                                                                               "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/qa/r13_004_fix_queue.json",
                                                                               "state/cycles/r13_qa_cycle_demo/qa_failure_fix_cycle.json",
                                                                               "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
-                                                                              "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json"
+                                                                              "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json",
+                                                                              "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                                                              "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json"
                                                                           ]
                                                     },
                              "api_custom_runner_bypass":  {
@@ -84,8 +89,7 @@
                                                               "hard_gate_delivered":  false,
                                                               "summary":  "R13-007 adds a local API-shaped/custom-runner foundation with bounded validation command results only; the bypass gate is not fully delivered.",
                                                               "missing_required_evidence":  [
-                                                                                                "passed_external_replay_or_operator_approved_bypass_proof",
-                                                                                                "final_signoff"
+                                                                                                "productized_api_runner_bypass_proof"
                                                                                             ],
                                                               "evidence_refs":  [
                                                                                     "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/runner/r13_007_custom_runner_result.json"
@@ -94,9 +98,9 @@
                              "current_operator_control_room":  {
                                                                    "status":  "partially_evidenced",
                                                                    "hard_gate_delivered":  false,
-                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence. This remains partial operator-control-room evidence only, not a full hard-gate delivery.",
+                                                                   "summary":  "R13-009 generates current cycle-aware status, Markdown view, refresh result, stale-state checks, validators, tests, and validation manifest from repo truth; R13-010 adds a Markdown operator demo artifact; R13-011 records passed external replay/import evidence; R13-012 records bounded signoff. This remains partial operator-control-room evidence only, not productized control-room behavior.",
                                                                    "missing_required_evidence":  [
-                                                                                                     "final_qa_signoff"
+                                                                                                     "productized_operator_control_room"
                                                                                                  ],
                                                                    "evidence_refs":  [
                                                                                          "contracts/control_room/r13_control_room_status.contract.json",
@@ -134,7 +138,17 @@
                                                                                          "state/external_runs/r13_external_replay/r13_011/imported_artifact_25241730946_6759970924/validation_manifest.md",
                                                                                          "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_blocked.json",
                                                                                          "state/external_runs/r13_external_replay/r13_011/manual_dispatch_packet.json",
-                                                                                         "state/external_runs/r13_external_replay/r13_011/validation_manifest.md"
+                                                                                         "state/external_runs/r13_external_replay/r13_011/validation_manifest.md",
+                                                                                         "contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json",
+                                                                                         "contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json",
+                                                                                         "tools/R13MeaningfulQaSignoff.psm1",
+                                                                                         "tools/new_r13_meaningful_qa_signoff.ps1",
+                                                                                         "tools/validate_r13_meaningful_qa_signoff.ps1",
+                                                                                         "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                                                                                         "tests/test_r13_meaningful_qa_signoff.ps1",
+                                                                                         "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                                                                         "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                                                                                         "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md"
                                                                                      ]
                                                                },
                              "skill_invocation_evidence":  {
@@ -154,9 +168,9 @@
                              "operator_demo":  {
                                                    "status":  "partially_evidenced",
                                                    "hard_gate_delivered":  false,
-                                                   "summary":  "R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; this is partial operator-demo evidence only, not a full hard-gate delivery.",
+                                                   "summary":  "R13-010 adds a human-readable Markdown operator demo from actual R13 evidence; R13-012 consumes it for bounded signoff. This is partial operator-demo evidence only, not a productized demo surface.",
                                                    "missing_required_evidence":  [
-                                                                                     "final_qa_signoff"
+                                                                                     "productized_operator_demo"
                                                                                  ],
                                                    "evidence_refs":  [
                                                                          "contracts/control_room/r13_operator_demo.contract.json",
@@ -168,58 +182,38 @@
                                                                      ]
                                                },
                              "overall":  {
-                                             "status":  "blocked",
-                                             "any_hard_gate_delivered":  false,
-                                             "summary":  "No R13 hard value gate is fully delivered by R13-011."
+                                             "status":  "bounded_scope_passed",
+                                             "any_hard_gate_delivered":  true,
+                                             "any_full_product_hard_gate_delivered":  false,
+                                             "summary":  "R13-012 delivers the meaningful QA loop hard gate only for the bounded representative QA slice. No full product, production, UI, broad autonomy, R13 closeout, R14, or successor gate is delivered."
                                          }
                          },
     "blockers":  [
-                     {
-                         "id":  "blocker-r13-final-signoff-missing",
-                         "severity":  "high",
-                         "title":  "Final QA signoff is missing",
-                         "explanation":  "No final QA signoff artifact exists in R13-011.",
-                         "evidence_refs":  [
-                                               "contracts/actionable_qa/r13_qa_lifecycle.contract.json"
-                                           ],
-                         "recommended_next_action":  "Do not sign off until R13-012 explicitly consumes the imported external replay evidence and creates final signoff evidence.",
-                         "blocking_status":  "blocking"
-                     },
-                     {
-                         "id":  "blocker-r13-hard-gates-not-delivered",
-                         "severity":  "high",
-                         "title":  "R13 hard gates are not fully delivered",
-                         "explanation":  "Meaningful QA loop, API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo are not fully delivered as hard gates.",
-                         "evidence_refs":  [
-                                               "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
-                                           ],
-                         "recommended_next_action":  "Preserve partial statuses and continue through the official R13 task order.",
-                         "blocking_status":  "blocking"
-                     }
+
                  ],
     "next_actions":  [
                          {
-                             "id":  "next-r13-011-hold-imported-external-replay-evidence-boundary",
-                             "task_id":  "R13-011",
-                             "title":  "Hold R13-011 imported external replay evidence boundary",
+                             "id":  "next-r13-013-remains-planned-only",
+                             "task_id":  "R13-013",
+                             "title":  "Hold R13-013 as planned only",
                              "action_type":  "status_boundary",
-                             "description":  "R13-011 external replay/import evidence is passed and recorded; do not start R13-012 or final QA signoff inside R13-011.",
-                             "required_before":  "any explicitly authorized R13-012 signoff work",
+                             "description":  "R13-012 bounded signoff is passed and recorded; do not start R13-013 without explicit authorization.",
+                             "required_before":  "any explicitly authorized R13-013 work",
                              "evidence_refs":  [
-                                                   "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
-                                                   "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_import.json"
+                                                   "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                                   "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
                                                ]
                          }
                      ],
     "operator_decisions_required":  [
                                         {
-                                            "id":  "decision-refuse-premature-signoff",
-                                            "title":  "Refuse final QA signoff until R13-012 is explicitly started",
-                                            "decision_type":  "signoff_boundary",
-                                            "required_before":  "starting_R13_012_signoff_work",
+                                            "id":  "decision-refuse-unbounded-signoff",
+                                            "title":  "Refuse any unbounded or production QA signoff claim",
+                                            "decision_type":  "signoff_scope_boundary",
+                                            "required_before":  "any_unbounded_or_product_scope_signoff_claim",
                                             "blocking_status":  "blocking",
                                             "evidence_refs":  [
-                                                                  "governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
+                                                                  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json"
                                                               ]
                                         },
                                         {
@@ -538,23 +532,97 @@
                               "evidence_kind":  "validation_manifest",
                               "authority_kind":  "repo_evidence",
                               "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-contract",
+                              "ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix-contract",
+                              "ref":  "contracts/actionable_qa/r13_meaningful_qa_signoff_evidence_matrix.contract.json",
+                              "evidence_kind":  "contract",
+                              "authority_kind":  "repo_contract",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-module",
+                              "ref":  "tools/R13MeaningfulQaSignoff.psm1",
+                              "evidence_kind":  "module",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-generator",
+                              "ref":  "tools/new_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "cli",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-validator",
+                              "ref":  "tools/validate_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix-validator",
+                              "ref":  "tools/validate_r13_meaningful_qa_signoff_evidence_matrix.ps1",
+                              "evidence_kind":  "validator",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-test",
+                              "ref":  "tests/test_r13_meaningful_qa_signoff.ps1",
+                              "evidence_kind":  "test",
+                              "authority_kind":  "repo_tooling",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                              "evidence_kind":  "meaningful_qa_signoff",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-evidence-matrix",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/r13_012_evidence_matrix.json",
+                              "evidence_kind":  "evidence_matrix",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
+                          },
+                          {
+                              "ref_id":  "r13-012-signoff-validation-manifest",
+                              "ref":  "state/signoff/r13_meaningful_qa_signoff/validation_manifest.md",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "repo_evidence",
+                              "scope":  "repo"
                           }
                       ],
-    "generated_at_utc":  "2026-05-02T06:47:53Z",
+    "generated_at_utc":  "2026-05-02T07:56:37Z",
     "non_claims":  [
-                       "R13-011 records external replay evidence only",
-                       "R13 active through R13-011 only",
-                       "R13-012 through R13-018 remain planned only",
+                       "R13-012 adds bounded meaningful QA signoff only",
+                       "R13 active through R13-012 only",
+                       "R13-013 through R13-018 remain planned only",
+                       "final QA signoff occurred only for bounded R13 representative QA slice",
+                       "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope",
+                       "API/custom-runner bypass gate remains partial only",
                        "operator demo gate is partially evidenced only; not fully delivered as a hard gate",
                        "current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate",
-                       "external replay evidence is imported; final QA signoff is still missing",
-                       "no final QA signoff delivered by R13-011",
-                       "no R13 hard value gate fully delivered by R13-011",
+                       "skill invocation evidence gate remains partial only",
+                       "external replay evidence is imported and bounded signoff consumed it",
+                       "no full product QA coverage",
+                       "no R13 closeout",
                        "no productized control-room behavior",
                        "no full UI app",
                        "no production runtime",
                        "no real production QA",
-                       "no hard gate overclaim",
+                       "no full-scope hard gate overclaim",
                        "no R14 or successor opening"
                    ]
 }

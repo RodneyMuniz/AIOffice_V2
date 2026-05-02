@@ -2,12 +2,12 @@
 
 - artifact_type: `r13_control_room_validation_manifest`
 - source_refresh_result_ref: `state/control_room/r13_current/control_room_refresh_result.json`
-- generated_at_utc: `2026-05-02T06:47:54Z`
+- generated_at_utc: `2026-05-02T07:56:38Z`
 
 ## Repository Identity
 - Branch: `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
-- Head: `10539c1e9648a10b6ad2c53896779e93db5059bd`
-- Tree: `97c5c0998cfe22e5650614d8d1f08da28bf8257f`
+- Head: `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577`
+- Tree: `8860cfff3c8642bee6cb652709ae4d0d4a605b44`
 - Stale-state checks passed: `True`
 
 ## Generated Artifacts
@@ -25,32 +25,36 @@
 - `state/control_room/r13_current/control_room.md` via `tools/validate_r13_control_room_view.ps1`: `passed` - `Generated Markdown view validates.`
 
 ## R13 Boundary
-- Completed: `R13-001 through R13-011`
-- Planned: `R13-012 through R13-018`
-- Next legal action: `R13-011`
-- Blockers: `2`
-- Attention items: `5`
+- Completed: `R13-001 through R13-012`
+- Planned: `R13-013 through R13-018`
+- Next legal action: `R13-013`
+- Blockers: `0`
+- Attention items: `6`
 
 ## Hard Gate Posture
-- Overall: `blocked`; any hard gate delivered: `False`
-- `meaningful_qa_loop`: `partially_evidenced`; hard gate delivered `False`
+- Overall: `bounded_scope_passed`; any hard gate delivered: `True`
+- `meaningful_qa_loop`: `bounded_scope_delivered`; hard gate delivered `True`
 - `api_custom_runner_bypass`: `partial_local_only`; hard gate delivered `False`
 - `current_operator_control_room`: `partially_evidenced`; hard gate delivered `False`
 - `skill_invocation_evidence`: `partially_evidenced`; hard gate delivered `False`
 - `operator_demo`: `partially_evidenced`; hard gate delivered `False`
 
 ## Explicit Non-Claims
-- R13-011 records external replay evidence only
-- R13 active through R13-011 only
-- R13-012 through R13-018 remain planned only
+- R13-012 adds bounded meaningful QA signoff only
+- R13 active through R13-012 only
+- R13-013 through R13-018 remain planned only
+- final QA signoff occurred only for bounded R13 representative QA slice
+- meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope
+- API/custom-runner bypass gate remains partial only
 - operator demo gate is partially evidenced only; not fully delivered as a hard gate
 - current operator control-room gate remains partially evidenced only; not fully delivered as a hard gate
-- external replay evidence is imported; final QA signoff is still missing
-- no final QA signoff delivered by R13-011
-- no R13 hard value gate fully delivered by R13-011
+- skill invocation evidence gate remains partial only
+- external replay evidence is imported and bounded signoff consumed it
+- no full product QA coverage
+- no R13 closeout
 - no productized control-room behavior
 - no full UI app
 - no production runtime
 - no real production QA
-- no hard gate overclaim
+- no full-scope hard gate overclaim
 - no R14 or successor opening

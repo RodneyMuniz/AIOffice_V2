@@ -1,0 +1,81 @@
+{
+  "contract_version": "v1",
+  "artifact_type": "r13_meaningful_qa_signoff_contract",
+  "contract_kind": "artifact_contract",
+  "repository": "AIOffice_V2",
+  "branch": "release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice",
+  "source_milestone": "R13 API-First QA Pipeline and Operator Control-Room Product Slice",
+  "source_task": "R13-012",
+  "required_fields": [
+    "contract_version",
+    "artifact_type",
+    "signoff_id",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "source_milestone",
+    "source_task",
+    "signoff_scope",
+    "required_evidence",
+    "evidence_assessment",
+    "gate_assessment",
+    "residual_risks",
+    "blockers",
+    "signoff_decision",
+    "aggregate_verdict",
+    "evidence_refs",
+    "generated_at_utc",
+    "non_claims"
+  ],
+  "allowed_signoff_decisions": [
+    "accepted_bounded_scope",
+    "rejected",
+    "blocked"
+  ],
+  "allowed_aggregate_verdicts": [
+    "passed",
+    "failed",
+    "blocked"
+  ],
+  "required_evidence_fields": [
+    "evidence_id",
+    "required_for",
+    "expected_ref",
+    "actual_ref",
+    "validator",
+    "verdict",
+    "notes"
+  ],
+  "evidence_ref_required_fields": [
+    "ref_id",
+    "ref",
+    "evidence_kind",
+    "authority_kind",
+    "scope"
+  ],
+  "rules": [
+    "signoff_must_bind_to_r13_branch_and_r13_012",
+    "all_required_evidence_refs_must_exist",
+    "external_replay_must_be_passed_imported_and_bound_to_run_25241730946_artifact_6759970924",
+    "external_replay_must_record_digest_sha256_50bc3e28d47c5aca5c4ff6a5e595a967c3aa4153c6611dd20e09f47864ee3769",
+    "external_replay_observed_head_tree_must_match_requested_head_tree",
+    "external_replay_must_have_10_of_10_commands_passed",
+    "control_room_status_must_match_current_branch_head_tree_and_pass_stale_state_checks",
+    "operator_demo_must_exist_and_validate",
+    "accepted_bounded_scope_must_not_claim_full_product_or_production_qa",
+    "accepted_bounded_scope_must_not_claim_full_autonomy_codex_reliability_productized_ui_r13_closeout_r14_or_successor",
+    "passed_aggregate_verdict_is_allowed_only_for_the_bounded_representative_qa_slice"
+  ],
+  "required_non_claims": [
+    "bounded representative QA slice only",
+    "no production QA",
+    "no full product QA coverage",
+    "no full autonomous execution",
+    "no solved Codex reliability",
+    "no productized UI",
+    "no R13 closeout",
+    "no R14 or successor opening",
+    "meaningful QA loop hard gate delivered only for bounded representative scope, not full product scope"
+  ]
+}
