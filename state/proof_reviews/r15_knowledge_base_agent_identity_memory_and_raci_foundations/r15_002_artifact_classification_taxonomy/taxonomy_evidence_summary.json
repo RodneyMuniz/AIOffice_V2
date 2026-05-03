@@ -1,0 +1,52 @@
+{
+  "artifact_type": "r15_002_taxonomy_evidence_summary",
+  "source_task": "R15-002",
+  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+  "starting_head": "776547f6a8edff672bd72ea0c45aac2af6023d6e",
+  "starting_tree": "cba721c7a0121511c2fed4b53694f031c2ee10f4",
+  "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
+  "taxonomy_artifact": "state/knowledge/r15_artifact_classification_taxonomy.json",
+  "contract": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+  "validator_module": "tools/R15ArtifactClassificationTaxonomy.psm1",
+  "validator_cli": "tools/validate_r15_artifact_classification_taxonomy.ps1",
+  "focused_tests": "tests/test_r15_artifact_classification_taxonomy.ps1",
+  "valid_fixture": "state/fixtures/valid/knowledge/r15_artifact_classification_taxonomy.valid.json",
+  "invalid_fixture_root": "state/fixtures/invalid/knowledge/r15_artifact_classification_taxonomy/",
+  "validation_manifest": "state/knowledge/r15_artifact_classification_taxonomy_validation_manifest.md",
+  "validation_results": [
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r15_artifact_classification_taxonomy.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r15_artifact_classification_taxonomy.ps1 -TaxonomyPath state\\knowledge\\r15_artifact_classification_taxonomy.json",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+      "result": "passed"
+    }
+  ],
+  "r15_active_through": "R15-002",
+  "r15_planned_only": [
+    "R15-003",
+    "R15-004",
+    "R15-005",
+    "R15-006",
+    "R15-007",
+    "R15-008",
+    "R15-009"
+  ]
+}

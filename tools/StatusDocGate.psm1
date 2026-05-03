@@ -2210,8 +2210,8 @@ function Test-R15OpeningStatus {
         throw "R15 authority does not match KANBAN for the live R15 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 1 -or $kanbanSnapshot.PlannedStart -ne 2 -or $kanbanSnapshot.PlannedThrough -ne 9) {
-        throw "R15 status must keep R15-001 done and R15-002 through R15-009 planned only."
+    if ($kanbanSnapshot.DoneThrough -ne 2 -or $kanbanSnapshot.PlannedStart -ne 3 -or $kanbanSnapshot.PlannedThrough -ne 9) {
+        throw "R15 status must keep R15-001 through R15-002 done and R15-003 through R15-009 planned only."
     }
 
     $r15TaskMatches = [regex]::Matches($Texts.Kanban, '(?m)^###\s+`(R15-\d{3})`')
@@ -2232,10 +2232,10 @@ function Test-R15OpeningStatus {
             $Texts.R15Authority
         ))
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`\s+is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-001` only' -Message "README must declare R15 active on the R15 branch through R15-001 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`\s+is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-002` only' -Message "README must declare R15 active on the R15 branch through R15-002 only."
     Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`\s+is now active in repo truth\.' -Message "ACTIVE_STATE must declare R15 as the active milestone."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`' -Message "KANBAN must declare R15 as the active milestone."
-    Assert-RegexMatch -Text $Texts.R15Authority -Pattern '\*\*Milestone status:\*\*\s+Active in repo truth through `R15-001` only' -Message "R15 authority must declare R15 active through R15-001 only."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern '\*\*Milestone status:\*\*\s+Active in repo truth through `R15-002` only' -Message "R15 authority must declare R15 active through R15-002 only."
     Assert-RegexMatch -Text $Texts.R15Authority -Pattern '\*\*Source R14 head:\*\*\s+`43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`' -Message "R15 authority must record the source R14 head."
     Assert-RegexMatch -Text $Texts.R15Authority -Pattern '\*\*Source R14 tree observed locally:\*\*\s+`2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`' -Message "R15 authority must record the locally observed source R14 tree."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R15 Opened As Knowledge And Agent Identity Foundations' -Message "DECISION_LOG must record the R15 opening decision."
@@ -2249,12 +2249,20 @@ function Test-R15OpeningStatus {
     Assert-RegexMatch -Text $r15CurrentText -Pattern '(?i)skill invocation evidence.*remain(s)? partial|skill invocation evidence gate is partial' -Message "Status docs must preserve skill invocation evidence as partial."
     Assert-RegexMatch -Text $r15CurrentText -Pattern '(?i)operator demo.*remain(s)? partial|operator demo gate remains partial' -Message "Status docs must preserve operator demo as partial."
     Assert-RegexMatch -Text $r15CurrentText -Pattern '(?i)R14.*accepted.*narrow|accepted with caveats as a narrow documentation/governance/reporting-enforcement milestone through `R14-006`' -Message "Status docs must preserve R14 accepted/narrowly complete through R14-006."
-    Assert-RegexMatch -Text $r15CurrentText -Pattern '`R15-002`\s+through\s+`R15-009`\s+are planned only|R15-002 through R15-009 are planned only' -Message "Status docs must keep R15-002 through R15-009 planned only."
-    Assert-RegexMatch -Text $r15CurrentText -Pattern '(?i)only `R15-001` is complete|`R15-001` is done|R15 active through R15-001 only' -Message "Status docs must state only R15-001 is complete after opening."
+    Assert-RegexMatch -Text $r15CurrentText -Pattern '`R15-003`\s+through\s+`R15-009`\s+are planned only|R15-003 through R15-009 are planned only' -Message "Status docs must keep R15-003 through R15-009 planned only."
+    Assert-RegexMatch -Text $r15CurrentText -Pattern '(?i)`R15-002` is done|R15 active through R15-002 only|Active in repo truth through `R15-002` only' -Message "Status docs must state R15 is active through R15-002 only."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'contracts/knowledge/artifact_classification_taxonomy\.contract\.json' -Message "R15 authority must cite the R15-002 taxonomy contract."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'tools/R15ArtifactClassificationTaxonomy\.psm1' -Message "R15 authority must cite the R15-002 validator module."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'tools/validate_r15_artifact_classification_taxonomy\.ps1' -Message "R15 authority must cite the R15-002 validator CLI."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'tests/test_r15_artifact_classification_taxonomy\.ps1' -Message "R15 authority must cite the R15-002 focused tests."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'state/fixtures/valid/knowledge/r15_artifact_classification_taxonomy\.valid\.json' -Message "R15 authority must cite the R15-002 valid fixture."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'state/fixtures/invalid/knowledge/r15_artifact_classification_taxonomy/' -Message "R15 authority must cite the R15-002 invalid fixture root."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'state/knowledge/r15_artifact_classification_taxonomy\.json' -Message "R15 authority must cite the R15-002 committed taxonomy artifact."
+    Assert-RegexMatch -Text $Texts.R15Authority -Pattern 'state/knowledge/r15_artifact_classification_taxonomy_validation_manifest\.md' -Message "R15 authority must cite the R15-002 validation manifest."
 
     Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "R13 closure" -Pattern '(?i)\bR13\b.{0,120}\b(is now closed|is closed|formally closed|closed in repo truth|closeout package exists|final-head support exists|merged to main|main merge exists)\b'
     Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "R13 hard gates passed" -Pattern '(?i)\b(API/custom-runner bypass|current operator control-room|current operator control room|skill invocation evidence|operator demo)\b.{0,120}\b(passed|fully delivered|converted to passed|complete as a hard gate|delivered as a hard gate)\b|\bR13 hard gates\b.{0,120}\b(passed|fully delivered)\b'
-    Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "R15 implementation beyond R15-001" -Pattern '(?i)\b(R15-00[2-9]|artifact taxonomy|knowledge index|agent identity packets?|memory scopes?|RACI matrix|card re-entry packet|dry run|proof package)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "R15 implementation beyond R15-002" -Pattern '(?i)\b(R15-00[3-9]|knowledge index|repo knowledge index|artifact registry engine|knowledge base|agent identity packets?|memory scopes?|RACI matrix|card re-entry packets?|dry run|final R15 proof package|R15 proof package)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created)\b'
     Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "R16 or successor opening" -Pattern '(?i)\bR16\b.{0,120}\b(active|open|opened|marked active)\b|\bsuccessor milestone\b.{0,120}\b(active|open|opened|marked active)\b'
     Assert-NoForbiddenPositiveClaim -Text $r15CurrentText -Context "Status docs" -ClaimLabel "product/runtime/integration/agent-execution overclaim" -Pattern '(?i)\b(productized UI|productized control-room behavior|full UI app|production runtime|production QA|full product QA|full product QA coverage|broad autonomy|broad autonomous milestone execution|board runtime|external board sync|Linear integration|Symphony integration|GitHub Projects integration|custom board implementation|custom board runtime|true multi-agent execution|multi-agent runtime|persistent memory engine|solved Codex reliability|solved Codex compaction|solved Codex context compaction)\b'
 

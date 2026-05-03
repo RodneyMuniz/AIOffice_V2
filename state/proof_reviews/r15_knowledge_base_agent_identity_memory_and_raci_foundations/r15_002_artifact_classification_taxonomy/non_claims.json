@@ -1,0 +1,40 @@
+{
+  "artifact_type": "r15_002_non_claims",
+  "source_task": "R15-002",
+  "non_claims": [
+    "No full repo artifacts are classified by R15-002.",
+    "No repo knowledge index is implemented by R15-002.",
+    "No artifact registry engine is implemented by R15-002.",
+    "No knowledge base is implemented by R15-002.",
+    "No deprecated files are cleaned by R15-002.",
+    "No cleanup decisions are approved by R15-002.",
+    "No agent identity packets are implemented by R15-002.",
+    "No memory scopes are implemented by R15-002.",
+    "No RACI matrix is implemented by R15-002.",
+    "No card re-entry packets are implemented by R15-002.",
+    "No classification or re-entry dry run is executed by R15-002.",
+    "No final R15 proof package is complete by R15-002.",
+    "No product runtime is claimed.",
+    "No board runtime is claimed.",
+    "No external board sync is claimed.",
+    "No Linear implementation is claimed.",
+    "No Symphony implementation is claimed.",
+    "No GitHub Projects implementation is claimed.",
+    "No custom board runtime is claimed.",
+    "No true multi-agent execution is claimed.",
+    "No persistent memory engine is claimed.",
+    "No solved Codex compaction is claimed.",
+    "No solved Codex reliability is claimed.",
+    "No R16 opening is claimed."
+  ],
+  "r15_active_through": "R15-002",
+  "r15_planned_only": [
+    "R15-003",
+    "R15-004",
+    "R15-005",
+    "R15-006",
+    "R15-007",
+    "R15-008",
+    "R15-009"
+  ]
+}

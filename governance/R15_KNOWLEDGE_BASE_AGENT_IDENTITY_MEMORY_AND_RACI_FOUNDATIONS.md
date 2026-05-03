@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-001` only
+**Milestone status:** Active in repo truth through `R15-002` only
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,7 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-Only `R15-001` is complete after this opening slice. `R15-002` through `R15-009` are planned only.
+`R15-001` and `R15-002` are complete. `R15-003` through `R15-009` are planned only.
 
 ## Purpose
 
@@ -63,8 +63,18 @@ R15 must not implement:
 - Durable output: this authority document, status-surface updates, and the opening evidence package under `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/opening/`.
 
 ### `R15-002` Define artifact classification taxonomy
-- Status: planned
-- Purpose: define how repo artifacts are classified as core, supporting, historical, deprecated, candidate, cleanup candidate, unknown, evidence, operator artifact, or external mirror.
+- Status: done
+- Purpose: define a machine-checkable taxonomy for repo artifacts, including documents, contracts, tools, tests, reports, proof packages, state files, generated artifacts, operator artifacts, external evidence, deprecated material, cleanup candidates, and unknown items.
+- Durable output:
+  - `contracts/knowledge/artifact_classification_taxonomy.contract.json`
+  - `tools/R15ArtifactClassificationTaxonomy.psm1`
+  - `tools/validate_r15_artifact_classification_taxonomy.ps1`
+  - `tests/test_r15_artifact_classification_taxonomy.ps1`
+  - `state/fixtures/valid/knowledge/r15_artifact_classification_taxonomy.valid.json`
+  - `state/fixtures/invalid/knowledge/r15_artifact_classification_taxonomy/`
+  - `state/knowledge/r15_artifact_classification_taxonomy.json`
+  - `state/knowledge/r15_artifact_classification_taxonomy_validation_manifest.md`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_002_artifact_classification_taxonomy/`
 
 ### `R15-003` Create repo knowledge index model
 - Status: planned
@@ -128,6 +138,46 @@ R15-001 does not claim:
 - no solved Codex reliability;
 - no R16 opening.
 
+R15-002 claims only:
+
+- artifact classification taxonomy contract exists;
+- validator module exists;
+- CLI wrapper exists;
+- valid and invalid fixtures exist;
+- focused tests exist;
+- committed taxonomy artifact exists;
+- validation manifest exists;
+- R15-002 evidence folder exists;
+- status surfaces were updated;
+- validation passed.
+
+R15-002 does not claim:
+
+- no full repo artifacts classified;
+- no repo knowledge index implemented;
+- no artifact registry engine implemented;
+- no knowledge base implemented;
+- no deprecated files cleaned;
+- no cleanup decisions approved;
+- no agent identity packets implemented;
+- no memory scopes implemented;
+- no RACI matrix implemented;
+- no card re-entry packets implemented;
+- no classification or re-entry dry run executed;
+- no final R15 proof package complete;
+- no product runtime;
+- no board runtime;
+- no external board sync;
+- no Linear implementation;
+- no Symphony implementation;
+- no GitHub Projects implementation;
+- no custom board implementation;
+- no true multi-agent execution;
+- no persistent memory engine;
+- no solved Codex compaction;
+- no solved Codex reliability;
+- no R16 opening.
+
 ## Exit Criteria
 
 R15 may exit only when:
@@ -167,8 +217,10 @@ R15 depends on:
 
 ## Validation Requirements
 
-The opening slice must run and record:
+The R15-002 slice must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_artifact_classification_taxonomy.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_artifact_classification_taxonomy.ps1 -TaxonomyPath state\knowledge\r15_artifact_classification_taxonomy.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_reporting_standard.ps1`
@@ -183,13 +235,13 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-001` only.
-- `R15-002` through `R15-009` planned only.
+- R15 active through `R15-002` only.
+- `R15-003` through `R15-009` planned only.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
-## Opening Slice Status
+## R15-002 Slice Status
 
-After this opening slice, only `R15-001` is complete.
+After this slice, `R15-001` and `R15-002` are complete.
 
-`R15-002` through `R15-009` are planned only. They are not implemented by this document, the status surfaces, or the opening evidence packet.
+`R15-003` through `R15-009` are planned only. R15-002 does not classify the whole repo, implement the repo knowledge index, implement agent identity packets, implement memory scopes, implement the RACI matrix, implement card re-entry packets, execute the dry run, complete the final R15 proof package, or open R16.
