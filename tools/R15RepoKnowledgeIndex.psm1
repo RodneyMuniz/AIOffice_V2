@@ -94,7 +94,7 @@ $script:AllowedLoadPriorities = @(
     "5_avoid_unless_needed"
 )
 
-$script:RequiredNonClaims = @(
+$script:RequiredNonClaimsR15003 = @(
     "no full repo index implemented by R15-003",
     "no full repo artifacts classified by R15-003",
     "no knowledge-base engine implemented by R15-003",
@@ -117,6 +117,37 @@ $script:RequiredNonClaims = @(
     "no external board sync",
     "no true multi-agent execution",
     "no persistent memory engine",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+)
+
+$script:RequiredNonClaimsR15004 = @(
+    "no full repo index implemented by R15-004",
+    "no full repo artifacts classified by R15-004",
+    "no knowledge-base engine implemented by R15-004",
+    "no artifact registry engine implemented by R15-004",
+    "no retrieval engine implemented by R15-004",
+    "no vector search implemented by R15-004",
+    "no Obsidian integration by R15-004",
+    "no actual agents implemented by R15-004",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no memory scopes implemented beyond identity packet refs by R15-004",
+    "no RACI matrix implemented",
+    "no card re-entry packet implemented",
+    "no board routing implemented",
+    "no PM automation implemented",
+    "no Developer/QA/Auditor runtime separation implemented",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
     "no R16 opening",
     "no solved Codex compaction",
     "no solved Codex reliability"
@@ -162,6 +193,16 @@ $script:OverclaimPatterns = @(
     "true multi-agent execution",
     "multi-agent runtime",
     "persistent memory engine",
+    "direct agent access runtime",
+    "direct agent access implemented",
+    "actual agents implemented",
+    "memory scopes implemented",
+    "RACI matrix implemented",
+    "card re-entry packet implemented",
+    "card reentry packet implemented",
+    "board routing implemented",
+    "PM automation implemented",
+    "Developer/QA/Auditor runtime separation implemented",
     "solved Codex reliability",
     "solved Codex compaction",
     "solved Codex context compaction",
@@ -412,7 +453,17 @@ function Assert-RequiredNonClaims {
         [string]$Context
     )
 
-    foreach ($requiredNonClaim in $script:RequiredNonClaims) {
+    $missingR15004 = @($script:RequiredNonClaimsR15004 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15004.Count -eq 0) {
+        return
+    }
+
+    $missingR15003 = @($script:RequiredNonClaimsR15003 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15003.Count -eq 0) {
+        return
+    }
+
+    foreach ($requiredNonClaim in $script:RequiredNonClaimsR15004) {
         if ($NonClaims -notcontains $requiredNonClaim) {
             throw "$Context non_claims must include '$requiredNonClaim'."
         }

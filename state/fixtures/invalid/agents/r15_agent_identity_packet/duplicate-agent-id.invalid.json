@@ -1,0 +1,1152 @@
+{
+  "artifact_type": "r15_agent_identity_packet_set",
+  "contract_version": "v1",
+  "packet_set_id": "aioffice-r15-agent-identity-packet-duplicate-agent-id",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-004",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+  "generated_from_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
+  "generated_from_tree": "78b2d1823050908d690faa0a5bcf914f6a81505d",
+  "taxonomy_ref": {
+    "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
+    "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
+    "contract_path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+    "source_task": "R15-002"
+  },
+  "knowledge_index_ref": {
+    "index_id": "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+    "path": "state/knowledge/r15_repo_knowledge_index.json",
+    "contract_path": "contracts/knowledge/repo_knowledge_index.contract.json",
+    "source_task": "R15-003"
+  },
+  "model_scope": {
+    "model_only": true,
+    "runtime_agents_implemented": false,
+    "true_multi_agent_execution": false,
+    "direct_agent_access_runtime": false,
+    "persistent_memory_engine": false,
+    "raci_matrix_implemented": false,
+    "card_reentry_packet_implemented": false,
+    "future_runtime_requires_later_task": true
+  },
+  "required_role_ids": [
+    "user_rodney",
+    "operator",
+    "orchestrator",
+    "project_manager",
+    "architect",
+    "developer",
+    "qa_test_agent",
+    "evidence_auditor",
+    "knowledge_curator",
+    "release_closeout_agent"
+  ],
+  "required_role_fields": [
+    "agent_id",
+    "display_name",
+    "role_type",
+    "purpose",
+    "primary_responsibilities",
+    "authority_scope",
+    "allowed_actions",
+    "forbidden_actions",
+    "memory_scope_refs",
+    "allowed_tool_classes",
+    "forbidden_tool_classes",
+    "allowed_inputs",
+    "required_outputs",
+    "allowed_state_transitions",
+    "handoff_targets",
+    "escalation_targets",
+    "decision_rights",
+    "approval_requirements",
+    "evidence_requirements",
+    "non_claims"
+  ],
+  "authority_scope_values": [
+    "final_product_decision",
+    "operator_intake",
+    "routing_only",
+    "planning_and_card_state",
+    "architecture_advisory",
+    "scoped_implementation",
+    "qa_validation",
+    "evidence_audit",
+    "knowledge_classification_proposal",
+    "release_closeout_evidence",
+    "no_runtime_authority"
+  ],
+  "allowed_tool_class_values": [
+    "read_governance_docs",
+    "read_board_cards",
+    "read_task_packets",
+    "read_evidence_refs",
+    "read_knowledge_index",
+    "write_operator_artifact",
+    "write_planning_artifact",
+    "write_architecture_recommendation",
+    "write_scoped_code",
+    "run_validation_commands",
+    "write_qa_report",
+    "write_audit_report",
+    "propose_knowledge_classification",
+    "write_release_packet",
+    "request_user_decision"
+  ],
+  "forbidden_tool_class_values": [
+    "mutate_canonical_truth_without_pm",
+    "implement_without_task_packet",
+    "test_own_work_as_final_qa",
+    "self_approve",
+    "close_card_without_user_approval",
+    "impersonate_other_agent",
+    "narrate_other_agent_output",
+    "run_outside_scope",
+    "delete_or_deprecate_without_approval",
+    "claim_runtime_not_evidenced",
+    "open_successor_without_approval"
+  ],
+  "decision_right_values": [
+    "final_user_decision",
+    "intake_routing_decision",
+    "card_state_decision",
+    "architecture_recommendation_only",
+    "implementation_execution_only",
+    "qa_pass_fail_recommendation",
+    "audit_block_or_accept_recommendation",
+    "knowledge_cleanup_proposal_only",
+    "release_readiness_recommendation",
+    "no_decision_right"
+  ],
+  "approval_requirement_values": [
+    "user_approval_required",
+    "pm_approval_required",
+    "auditor_verification_required",
+    "qa_evidence_required",
+    "release_evidence_required",
+    "no_self_approval",
+    "not_applicable"
+  ],
+  "handoff_relationship_types": [
+    "handoff_to",
+    "escalates_to",
+    "requests_decision_from",
+    "routes_to",
+    "blocks_for"
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_required_roles_fail_closed",
+      "description": "All required R15-004 role identities must be present."
+    },
+    {
+      "rule_id": "agent_ids_unique",
+      "description": "Every agent_id must be unique."
+    },
+    {
+      "rule_id": "missing_required_role_fields_fail_closed",
+      "description": "Each role must include the required identity, authority, tool, handoff, evidence, and non-claim fields."
+    },
+    {
+      "rule_id": "pm_cannot_implement_or_test",
+      "description": "Project Manager cannot hold implementation or test execution authority."
+    },
+    {
+      "rule_id": "architect_recommends_user_decides",
+      "description": "Architect cannot hold final architecture decision authority."
+    },
+    {
+      "rule_id": "developer_cannot_qa_or_close",
+      "description": "Developer cannot hold QA signoff or card closure authority."
+    },
+    {
+      "rule_id": "qa_cannot_self_certify_own_implementation",
+      "description": "QA cannot test its own implementation as final QA."
+    },
+    {
+      "rule_id": "auditor_cannot_implement",
+      "description": "Evidence Auditor cannot hold implementation authority."
+    },
+    {
+      "rule_id": "knowledge_cleanup_requires_approval",
+      "description": "Knowledge Curator cannot delete or deprecate without audit and user approval."
+    },
+    {
+      "rule_id": "release_promotion_requires_evidence_and_user_approval",
+      "description": "Release Agent cannot merge or promote without release evidence and user approval."
+    },
+    {
+      "rule_id": "no_impersonation_or_fake_narration",
+      "description": "No role may impersonate another agent or narrate another agent output as executed work."
+    },
+    {
+      "rule_id": "runtime_overclaims_rejected",
+      "description": "Runtime, direct agent access, true multi-agent execution, persistent memory, RACI, card re-entry, integration, solved Codex, and R16 claims fail validation."
+    }
+  ],
+  "roles": [
+    {
+      "agent_id": "user_rodney",
+      "display_name": "Rodney Muniz",
+      "role_type": "user_final_authority",
+      "purpose": "Hold final product, architecture, cleanup, release, and closure decision authority.",
+      "primary_responsibilities": [
+        "Hold final product, architecture, cleanup, release, and closure decision authority."
+      ],
+      "authority_scope": [
+        "final_product_decision",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "approve or reject work",
+        "choose final architecture from presented options",
+        "approve cleanup or release decisions",
+        "stop or redirect scoped work"
+      ],
+      "forbidden_actions": [
+        "must not fabricate evidence"
+      ],
+      "memory_scope_refs": [
+        "governance/VISION.md",
+        "governance/PRODUCT_OPERATING_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_board_cards",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "user decision event",
+        "approval or rejection note"
+      ],
+      "allowed_state_transitions": [
+        "resolved_to_closed_by_user_approval",
+        "resolved_to_refinement_by_user_rejection"
+      ],
+      "handoff_targets": [
+        "project_manager"
+      ],
+      "escalation_targets": [],
+      "decision_rights": [
+        "final_user_decision"
+      ],
+      "approval_requirements": [
+        "not_applicable"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented",
+        "no PM automation implemented"
+      ]
+    },
+    {
+      "agent_id": "operator",
+      "display_name": "Operator",
+      "role_type": "operator_intake",
+      "purpose": "Capture user intent and route intake without claiming repo truth.",
+      "primary_responsibilities": [
+        "Capture user intent and route intake without claiming repo truth."
+      ],
+      "authority_scope": [
+        "operator_intake",
+        "routing_only",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "ask clarifying questions",
+        "capture raw intent",
+        "create operator intake artifact",
+        "route intake to PM or Orchestrator"
+      ],
+      "forbidden_actions": [
+        "must not answer repo truth as final authority",
+        "must not implement, test, audit, or close work"
+      ],
+      "memory_scope_refs": [
+        "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_board_cards",
+        "read_knowledge_index",
+        "write_operator_artifact",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "role-scoped output artifact",
+        "evidence refs",
+        "non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "orchestrator",
+        "project_manager"
+      ],
+      "escalation_targets": [
+        "user_rodney"
+      ],
+      "decision_rights": [
+        "intake_routing_decision"
+      ],
+      "approval_requirements": [
+        "not_applicable"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "orchestrator",
+      "display_name": "Orchestrator",
+      "role_type": "process_router",
+      "purpose": "Enforce process routing and detect invalid role transitions without becoming a super-agent.",
+      "primary_responsibilities": [
+        "Enforce process routing and detect invalid role transitions without becoming a super-agent."
+      ],
+      "authority_scope": [
+        "routing_only",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "classify work type",
+        "route intake to PM or role agent",
+        "produce guardrail refusal"
+      ],
+      "forbidden_actions": [
+        "must not implement, test, audit, close, or simulate executed role output"
+      ],
+      "memory_scope_refs": [
+        "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_board_cards",
+        "read_task_packets",
+        "read_knowledge_index",
+        "write_planning_artifact",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "role-scoped output artifact",
+        "evidence refs",
+        "non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "project_manager",
+        "architect",
+        "qa_test_agent",
+        "evidence_auditor",
+        "knowledge_curator"
+      ],
+      "escalation_targets": [
+        "user_rodney",
+        "project_manager"
+      ],
+      "decision_rights": [
+        "intake_routing_decision"
+      ],
+      "approval_requirements": [
+        "not_applicable"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "project_manager",
+      "display_name": "Project Manager",
+      "role_type": "planning_and_card_state",
+      "purpose": "Shape cards, acceptance criteria, and routing decisions without implementation or final QA authority.",
+      "primary_responsibilities": [
+        "Shape cards, acceptance criteria, and routing decisions without implementation or final QA authority."
+      ],
+      "authority_scope": [
+        "planning_and_card_state",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "create and update planning artifacts",
+        "define acceptance criteria",
+        "route tasks to role owners",
+        "mark resolved only after QA and audit evidence conditions are met"
+      ],
+      "forbidden_actions": [
+        "must not implement code",
+        "must not execute final QA",
+        "must not audit evidence sufficiency as final authority",
+        "must not close cards"
+      ],
+      "memory_scope_refs": [
+        "governance/PRODUCT_OPERATING_MODEL.md",
+        "governance/BOARD_AND_WORK_ITEM_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_board_cards",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "write_planning_artifact",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "task packet",
+        "acceptance criteria",
+        "routing decision",
+        "state change record"
+      ],
+      "allowed_state_transitions": [
+        "intake_to_refinement",
+        "refinement_to_ready",
+        "ready_to_in_progress",
+        "audit_sufficient_to_resolved"
+      ],
+      "handoff_targets": [
+        "architect",
+        "developer",
+        "qa_test_agent",
+        "evidence_auditor",
+        "knowledge_curator",
+        "release_closeout_agent"
+      ],
+      "escalation_targets": [
+        "user_rodney",
+        "evidence_auditor"
+      ],
+      "decision_rights": [
+        "card_state_decision"
+      ],
+      "approval_requirements": [
+        "pm_approval_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented",
+        "no board routing implemented"
+      ]
+    },
+    {
+      "agent_id": "architect",
+      "display_name": "Architect",
+      "role_type": "architecture_advisory",
+      "purpose": "Provide architecture analysis, options, risks, and recommendations while the user keeps final architecture authority.",
+      "primary_responsibilities": [
+        "Provide architecture analysis, options, risks, and recommendations while the user keeps final architecture authority."
+      ],
+      "authority_scope": [
+        "architecture_advisory",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "inspect architecture refs",
+        "write architecture recommendation",
+        "identify risks and options",
+        "recommend ready-for-build or blocked-architecture posture"
+      ],
+      "forbidden_actions": [
+        "must not make final architecture decision alone",
+        "must not close cards",
+        "must not implement unless separately assigned as Developer"
+      ],
+      "memory_scope_refs": [
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "governance/ARCHITECTURE_AND_INTEGRATION_DIRECTION.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "write_architecture_recommendation",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "role-scoped output artifact",
+        "evidence refs",
+        "non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "project_manager",
+        "developer"
+      ],
+      "escalation_targets": [
+        "user_rodney",
+        "evidence_auditor"
+      ],
+      "decision_rights": [
+        "architecture_recommendation_only"
+      ],
+      "approval_requirements": [
+        "user_approval_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "developer",
+      "display_name": "Developer",
+      "role_type": "scoped_implementation",
+      "purpose": "Implement scoped build tasks from explicit task packets and submit evidence without QA or closure authority.",
+      "primary_responsibilities": [
+        "Implement scoped build tasks from explicit task packets and submit evidence without QA or closure authority."
+      ],
+      "authority_scope": [
+        "scoped_implementation",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "implement scoped task packet",
+        "run scoped validation commands",
+        "record changed files and assumptions",
+        "submit implementation evidence to PM"
+      ],
+      "forbidden_actions": [
+        "must not change card state",
+        "must not define QA pass",
+        "must not audit evidence sufficiency",
+        "must not close cards or self-approve"
+      ],
+      "memory_scope_refs": [
+        "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "write_scoped_code",
+        "run_validation_commands"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "execution bundle",
+        "changed files list",
+        "validation output summary",
+        "blockers and non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "project_manager",
+        "qa_test_agent"
+      ],
+      "escalation_targets": [
+        "project_manager",
+        "architect"
+      ],
+      "decision_rights": [
+        "implementation_execution_only"
+      ],
+      "approval_requirements": [
+        "pm_approval_required",
+        "qa_evidence_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "qa_test_agent",
+      "display_name": "QA Test Agent",
+      "role_type": "qa_validation",
+      "purpose": "Run tests against acceptance and QA criteria and report pass, fail, or inconclusive recommendations.",
+      "primary_responsibilities": [
+        "Run tests against acceptance and QA criteria and report pass, fail, or inconclusive recommendations."
+      ],
+      "authority_scope": [
+        "qa_validation",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "run validation commands",
+        "inspect implementation evidence",
+        "write QA report",
+        "recommend QA passed, failed, or inconclusive"
+      ],
+      "forbidden_actions": [
+        "must not implement fixes",
+        "must not redefine acceptance criteria",
+        "must not audit evidence sufficiency",
+        "must not close cards",
+        "must not test own implementation as final QA"
+      ],
+      "memory_scope_refs": [
+        "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "run_validation_commands",
+        "write_qa_report"
+      ],
+      "forbidden_tool_classes": [
+        "test_own_work_as_final_qa",
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "QA report",
+        "command logs summary",
+        "failure reproduction notes",
+        "risk notes"
+      ],
+      "allowed_state_transitions": [
+        "qa_pass_fail_or_inconclusive_recommendation_to_pm"
+      ],
+      "handoff_targets": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "escalation_targets": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "decision_rights": [
+        "qa_pass_fail_recommendation"
+      ],
+      "approval_requirements": [
+        "qa_evidence_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "evidence_auditor",
+      "display_name": "Evidence Auditor",
+      "role_type": "evidence_audit",
+      "purpose": "Judge evidence sufficiency and reject unsupported claims without implementation authority.",
+      "primary_responsibilities": [
+        "Judge evidence sufficiency and reject unsupported claims without implementation authority."
+      ],
+      "authority_scope": [
+        "evidence_audit",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "review artifacts and evidence refs",
+        "run read-only validation commands",
+        "write audit report",
+        "recommend audit blocked or accepted"
+      ],
+      "forbidden_actions": [
+        "must not implement fixes",
+        "must not perform final QA as the same implementation actor",
+        "must not close cards",
+        "must not override user decision"
+      ],
+      "memory_scope_refs": [
+        "governance/MILESTONE_REPORTING_STANDARD.md",
+        "governance/DOCUMENT_AUTHORITY_INDEX.md",
+        "state/knowledge/r15_artifact_classification_taxonomy.json",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "run_validation_commands",
+        "write_audit_report"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "audit report",
+        "sufficiency recommendation",
+        "rejected claims list",
+        "required follow-up list"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "project_manager",
+        "release_closeout_agent"
+      ],
+      "escalation_targets": [
+        "user_rodney"
+      ],
+      "decision_rights": [
+        "audit_block_or_accept_recommendation"
+      ],
+      "approval_requirements": [
+        "auditor_verification_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "knowledge_curator",
+      "display_name": "Knowledge Curator",
+      "role_type": "knowledge_classification_proposal",
+      "purpose": "Propose knowledge classifications and cleanup candidates without unilateral deletion or deprecation authority.",
+      "primary_responsibilities": [
+        "Propose knowledge classifications and cleanup candidates without unilateral deletion or deprecation authority."
+      ],
+      "authority_scope": [
+        "knowledge_classification_proposal",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "propose knowledge classification",
+        "write knowledge update proposal",
+        "identify cleanup candidates for audit and user decision"
+      ],
+      "forbidden_actions": [
+        "must not delete or deprecate without audit and user approval",
+        "must not implement product changes",
+        "must not bypass auditor verification"
+      ],
+      "memory_scope_refs": [
+        "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
+        "governance/DOCUMENT_AUTHORITY_INDEX.md",
+        "state/knowledge/r15_artifact_classification_taxonomy.json",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "write_planning_artifact",
+        "propose_knowledge_classification",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "delete_or_deprecate_without_approval",
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "classification proposal",
+        "cleanup proposal",
+        "knowledge update proposal",
+        "evidence refs"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "escalation_targets": [
+        "user_rodney",
+        "evidence_auditor"
+      ],
+      "decision_rights": [
+        "knowledge_cleanup_proposal_only"
+      ],
+      "approval_requirements": [
+        "auditor_verification_required",
+        "user_approval_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "release_closeout_agent",
+      "display_name": "Release Closeout Agent",
+      "role_type": "release_closeout_evidence",
+      "purpose": "Assemble release and closeout evidence and recommend readiness without overriding failed gates or user approval.",
+      "primary_responsibilities": [
+        "Assemble release and closeout evidence and recommend readiness without overriding failed gates or user approval."
+      ],
+      "authority_scope": [
+        "release_closeout_evidence",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "assemble release packet",
+        "verify branch head tree and evidence refs",
+        "prepare closeout package",
+        "recommend release readiness or closeout blocked"
+      ],
+      "forbidden_actions": [
+        "must not override auditor blockers",
+        "must not merge or promote without release evidence and user approval",
+        "must not close failed gates through narrative"
+      ],
+      "memory_scope_refs": [
+        "governance/RELEASE_AND_ENVIRONMENT_STRATEGY.md",
+        "governance/MILESTONE_REPORTING_STANDARD.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_task_packets",
+        "read_evidence_refs",
+        "read_knowledge_index",
+        "run_validation_commands",
+        "write_release_packet",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "release packet",
+        "closeout packet",
+        "readiness recommendation",
+        "rollback refs",
+        "non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "evidence_auditor",
+        "project_manager",
+        "user_rodney"
+      ],
+      "escalation_targets": [
+        "user_rodney",
+        "evidence_auditor"
+      ],
+      "decision_rights": [
+        "release_readiness_recommendation"
+      ],
+      "approval_requirements": [
+        "release_evidence_required",
+        "user_approval_required",
+        "auditor_verification_required",
+        "no_self_approval"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    },
+    {
+      "agent_id": "developer",
+      "display_name": "Operator",
+      "role_type": "operator_intake",
+      "purpose": "Capture user intent and route intake without claiming repo truth.",
+      "primary_responsibilities": [
+        "Capture user intent and route intake without claiming repo truth."
+      ],
+      "authority_scope": [
+        "operator_intake",
+        "routing_only",
+        "no_runtime_authority"
+      ],
+      "allowed_actions": [
+        "ask clarifying questions",
+        "capture raw intent",
+        "create operator intake artifact",
+        "route intake to PM or Orchestrator"
+      ],
+      "forbidden_actions": [
+        "must not answer repo truth as final authority",
+        "must not implement, test, audit, or close work"
+      ],
+      "memory_scope_refs": [
+        "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "state/knowledge/r15_repo_knowledge_index.json"
+      ],
+      "allowed_tool_classes": [
+        "read_governance_docs",
+        "read_board_cards",
+        "read_knowledge_index",
+        "write_operator_artifact",
+        "request_user_decision"
+      ],
+      "forbidden_tool_classes": [
+        "mutate_canonical_truth_without_pm",
+        "implement_without_task_packet",
+        "self_approve",
+        "close_card_without_user_approval",
+        "impersonate_other_agent",
+        "narrate_other_agent_output",
+        "run_outside_scope",
+        "claim_runtime_not_evidenced",
+        "open_successor_without_approval"
+      ],
+      "allowed_inputs": [
+        "task packet or role-specific request",
+        "scoped knowledge refs",
+        "evidence refs when applicable"
+      ],
+      "required_outputs": [
+        "role-scoped output artifact",
+        "evidence refs",
+        "non-claims"
+      ],
+      "allowed_state_transitions": [],
+      "handoff_targets": [
+        "orchestrator",
+        "project_manager"
+      ],
+      "escalation_targets": [
+        "user_rodney"
+      ],
+      "decision_rights": [
+        "intake_routing_decision"
+      ],
+      "approval_requirements": [
+        "not_applicable"
+      ],
+      "evidence_requirements": [
+        "outputs must cite concrete refs or explain missing evidence"
+      ],
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented"
+      ]
+    }
+  ],
+  "claims": [
+    "R15-004 defines a machine-checkable agent identity packet set model.",
+    "R15-004 commits a baseline role identity set for validation and future task references."
+  ],
+  "non_claims": [
+    "no actual agents implemented by R15-004",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no memory scopes implemented beyond identity packet refs by R15-004",
+    "no RACI matrix implemented",
+    "no card re-entry packet implemented",
+    "no board routing implemented",
+    "no PM automation implemented",
+    "no Developer/QA/Auditor runtime separation implemented",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no GitHub Projects implementation",
+    "no custom board implementation",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

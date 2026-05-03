@@ -16,7 +16,7 @@ Current posture:
 
 `R14 Product Vision Pivot and Governance Enforcement` is accepted with caveats as a narrow documentation/governance/reporting-enforcement milestone through `R14-006`. R14 did not close R13, did not implement product runtime, did not integrate Symphony, Linear, GitHub Projects, or a custom board runtime, and did not implement R15 capability.
 
-`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-003` only. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. R15-004 through R15-009 are planned only.
+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-004` only. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. R15-005 through R15-009 are planned only.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
@@ -24,7 +24,7 @@ R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first
 
 The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R15 status: R15 active through R15-003 only. R15-004 through R15-009 are planned only. R14 remains accepted narrowly through R14-006 only.
+Current R15 status: R15 active through R15-004 only. R15-005 through R15-009 are planned only. R14 remains accepted narrowly through R14-006 only.
 
 Active branch:
 `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
@@ -92,16 +92,16 @@ Earlier closed milestone:
 - Depends on: `R15-002`
 - Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`, `contracts/knowledge/repo_knowledge_index.contract.json`, `tools/R15RepoKnowledgeIndex.psm1`, `tools/validate_r15_repo_knowledge_index.ps1`, `tests/test_r15_repo_knowledge_index.ps1`
 - Durable output: repo knowledge index contract, validator module, CLI wrapper, valid/invalid fixtures, bounded seed index artifact, validation manifest, and R15-003 evidence folder
-- Done when: repo knowledge index validation and focused tests pass, status surfaces record R15 active through R15-003 only, R15-004 through R15-009 remain planned only, and no full repo index or knowledge-base engine is claimed
+- Done when: repo knowledge index validation and focused tests passed at the R15-003 boundary and no full repo index or knowledge-base engine is claimed
 
 ### `R15-004` Define agent identity packet model
-- Status: planned
+- Status: done
 - Order: 4
 - Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
 - Depends on: `R15-003`
-- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
-- Durable output: planned agent identity packet model
-- Done when: planned only in this opening slice
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`, `contracts/agents/agent_identity_packet.contract.json`, `tools/R15AgentIdentityPacket.psm1`, `tools/validate_r15_agent_identity_packet.ps1`, `tests/test_r15_agent_identity_packet.ps1`
+- Durable output: agent identity packet contract, validator module, CLI wrapper, valid/invalid fixtures, baseline packet set, validation manifest, bounded knowledge index entries, and R15-004 evidence folder
+- Done when: agent identity packet validation and focused tests pass, status surfaces record R15 active through R15-004 only, R15-005 through R15-009 remain planned only, and no actual agent runtime, memory engine, RACI matrix, board routing, or R16 opening is claimed
 
 ### `R15-005` Define agent memory scope model
 - Status: planned

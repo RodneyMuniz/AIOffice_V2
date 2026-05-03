@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-003` only
+**Milestone status:** Active in repo truth through `R15-004` only
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,7 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-`R15-001` through `R15-003` are complete. `R15-004` through `R15-009` are planned only.
+`R15-001` through `R15-004` are complete. `R15-005` through `R15-009` are planned only.
 
 ## Purpose
 
@@ -91,8 +91,19 @@ R15 must not implement:
   - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_003_repo_knowledge_index_model/`
 
 ### `R15-004` Define agent identity packet model
-- Status: planned
+- Status: done
 - Purpose: define a contract/model for each agent identity, including role, responsibility, authority, memory scope, allowed tools, forbidden actions, input contracts, and output artifacts.
+- Durable output:
+  - `contracts/agents/agent_identity_packet.contract.json`
+  - `tools/R15AgentIdentityPacket.psm1`
+  - `tools/validate_r15_agent_identity_packet.ps1`
+  - `tests/test_r15_agent_identity_packet.ps1`
+  - `state/fixtures/valid/agents/r15_agent_identity_packet.valid.json`
+  - `state/fixtures/invalid/agents/r15_agent_identity_packet/`
+  - `state/agents/r15_agent_identity_packet.json`
+  - `state/agents/r15_agent_identity_packet_validation_manifest.md`
+  - updated bounded knowledge index `state/knowledge/r15_repo_knowledge_index.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_004_agent_identity_packet_model/`
 
 ### `R15-005` Define agent memory scope model
 - Status: planned
@@ -229,6 +240,45 @@ R15-003 does not claim:
 - no solved Codex compaction;
 - no solved Codex reliability.
 
+R15-004 claims only:
+
+- agent identity packet contract exists;
+- validator module exists;
+- CLI wrapper exists;
+- valid and invalid fixtures exist;
+- focused tests exist;
+- committed baseline identity packet set exists;
+- validation manifest exists;
+- bounded knowledge index was updated with R15-004 entries;
+- R15-004 evidence folder exists;
+- status surfaces were updated;
+- validation passed.
+
+R15-004 does not claim:
+
+- no actual agents implemented by R15-004;
+- no direct agent access runtime implemented;
+- no true multi-agent execution implemented;
+- no persistent memory engine implemented;
+- no memory scopes implemented beyond identity packet refs by R15-004;
+- no RACI matrix implemented;
+- no card re-entry packet implemented;
+- no board routing implemented;
+- no PM automation implemented;
+- no Developer/QA/Auditor runtime separation implemented;
+- no final R15 proof package complete;
+- no product runtime;
+- no board runtime;
+- no external board sync;
+- no integrations implemented;
+- no GitHub Projects implementation;
+- no Linear implementation;
+- no Symphony implementation;
+- no custom board implementation;
+- no R16 opening;
+- no solved Codex compaction;
+- no solved Codex reliability.
+
 ## Exit Criteria
 
 R15 may exit only when:
@@ -268,8 +318,10 @@ R15 depends on:
 
 ## Validation Requirements
 
-The R15-003 slice must run and record:
+The R15-004 slice must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_agent_identity_packet.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_agent_identity_packet.ps1 -PacketPath state\agents\r15_agent_identity_packet.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_repo_knowledge_index.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_repo_knowledge_index.ps1 -IndexPath state\knowledge\r15_repo_knowledge_index.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_artifact_classification_taxonomy.ps1`
@@ -288,13 +340,13 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-003` only.
-- `R15-004` through `R15-009` planned only.
+- R15 active through `R15-004` only.
+- `R15-005` through `R15-009` planned only.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
-## R15-003 Slice Status
+## R15-004 Slice Status
 
-After this slice, `R15-001` through `R15-003` are complete.
+After this slice, `R15-001` through `R15-004` are complete.
 
-`R15-004` through `R15-009` are planned only. R15-003 does not classify the whole repo, implement a full repo index, implement a knowledge-base engine, implement agent identity packets, implement memory scopes, implement the RACI matrix, implement card re-entry packets, execute the dry run, complete the final R15 proof package, or open R16.
+`R15-005` through `R15-009` are planned only. R15-004 defines the identity packet model only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, memory scopes beyond identity packet refs, the RACI matrix, card re-entry packets, board routing, the classification/re-entry dry run, the final R15 proof package, or R16.

@@ -6,8 +6,8 @@
   "source_task": "R15-003",
   "repository": "RodneyMuniz/AIOffice_V2",
   "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
-  "generated_from_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-  "generated_from_tree": "0c5fa18c58938ebf00ee936eff6b99d9b495b823",
+  "generated_from_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
+  "generated_from_tree": "78b2d1823050908d690faa0a5bcf914f6a81505d",
   "taxonomy_ref": {
     "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
     "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
@@ -19,7 +19,7 @@
     "full_repo_index": false,
     "future_fuller_index_requires_later_task": true,
     "description": "Bounded seed set of current authority and R15 foundation references only.",
-    "included_path_count": 13,
+    "included_path_count": 15,
     "included_paths": [
       "governance/VISION.md",
       "governance/PRODUCT_OPERATING_MODEL.md",
@@ -33,12 +33,14 @@
       "contracts/knowledge/artifact_classification_taxonomy.contract.json",
       "state/knowledge/r15_artifact_classification_taxonomy.json",
       "contracts/knowledge/repo_knowledge_index.contract.json",
-      "state/knowledge/r15_repo_knowledge_index.json"
+      "state/knowledge/r15_repo_knowledge_index.json",
+      "contracts/agents/agent_identity_packet.contract.json",
+      "state/agents/r15_agent_identity_packet.json"
     ],
     "excluded_scope": [
       "No broad historical repo classification.",
-      "No product runtime, board runtime, integration, or engine artifacts.",
-      "No R15-004 through R15-009 implementation artifacts."
+      "No product runtime, board runtime, integration, direct agent access runtime, or engine artifacts.",
+      "No R15-005 through R15-009 implementation artifacts."
     ]
   },
   "required_entry_fields": [
@@ -194,11 +196,19 @@
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["operator_summary", "pm_planning", "architect_design", "codex_reentry"],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "architect_design",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load first when product doctrine or current product direction is needed.",
-      "non_claims": ["no product runtime", "no board runtime"]
+      "non_claims": [
+        "no product runtime",
+        "no board runtime"
+      ]
     },
     {
       "entry_id": "product_operating_model",
@@ -214,15 +224,25 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["governance_vision"],
+      "depends_on": [
+        "governance_vision"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["operator_summary", "pm_planning", "architect_design", "codex_reentry"],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "architect_design",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load when task routing, card flow, or product operating posture matters.",
-      "non_claims": ["no board runtime", "no external board sync"]
+      "non_claims": [
+        "no board runtime",
+        "no external board sync"
+      ]
     },
     {
       "entry_id": "document_authority_index",
@@ -238,15 +258,23 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-003",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["governance_vision"],
+      "depends_on": [
+        "governance_vision"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["auditor_review", "knowledge_curator", "codex_reentry"],
+      "recommended_for_roles": [
+        "auditor_review",
+        "knowledge_curator",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load when deciding whether a document is authority, context, evidence, or report-only.",
-      "non_claims": ["no full repo artifacts classified by R15-003"]
+      "non_claims": [
+        "no full repo artifacts classified by R15-003"
+      ]
     },
     {
       "entry_id": "knowledge_base_artifact_registry_model",
@@ -262,17 +290,30 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["governance_vision"],
+      "depends_on": [
+        "governance_vision"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [
-        {"relationship_type": "references", "target_entry_id": "document_authority_index", "reason": "Authority classes guide index entry treatment."}
+        {
+          "relationship_type": "references",
+          "target_entry_id": "document_authority_index",
+          "reason": "Authority classes guide index entry treatment."
+        }
       ],
-      "recommended_for_roles": ["knowledge_curator", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load when designing or validating knowledge-map and artifact-registry foundations.",
-      "non_claims": ["no knowledge-base engine implemented by R15-003", "no artifact registry engine implemented by R15-003"]
+      "non_claims": [
+        "no knowledge-base engine implemented by R15-003",
+        "no artifact registry engine implemented by R15-003"
+      ]
     },
     {
       "entry_id": "role_raci_agent_authority_model",
@@ -288,15 +329,26 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["governance_vision", "product_operating_model"],
+      "depends_on": [
+        "governance_vision",
+        "product_operating_model"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["pm_planning", "architect_design", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "pm_planning",
+        "architect_design",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "2_high",
       "scan_scope": "exact_file_only",
       "reason": "Load when role authority or evidence sufficiency boundaries are in scope.",
-      "non_claims": ["no RACI matrix implemented", "no true multi-agent execution"]
+      "non_claims": [
+        "no RACI matrix implemented",
+        "no true multi-agent execution"
+      ]
     },
     {
       "entry_id": "agent_identity_memory_model",
@@ -312,15 +364,26 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["role_raci_agent_authority_model"],
+      "depends_on": [
+        "role_raci_agent_authority_model"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["architect_design", "developer_execution", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "architect_design",
+        "developer_execution",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "2_high",
       "scan_scope": "exact_file_only",
       "reason": "Load when future work discusses agent identity, memory, handoff, or authority boundaries.",
-      "non_claims": ["no agent identity packets implemented", "no memory scopes implemented", "no persistent memory engine"]
+      "non_claims": [
+        "no agent identity packets implemented",
+        "no memory scopes implemented",
+        "no persistent memory engine"
+      ]
     },
     {
       "entry_id": "context_compaction_control_model",
@@ -336,15 +399,27 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["agent_identity_memory_model", "knowledge_base_artifact_registry_model"],
+      "depends_on": [
+        "agent_identity_memory_model",
+        "knowledge_base_artifact_registry_model"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["developer_execution", "qa_validation", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "developer_execution",
+        "qa_validation",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "2_high",
       "scan_scope": "exact_file_only",
       "reason": "Load when context burn, re-entry, or scan limits are part of the task.",
-      "non_claims": ["no card re-entry packets implemented", "no solved Codex compaction", "no solved Codex reliability"]
+      "non_claims": [
+        "no card re-entry packets implemented",
+        "no solved Codex compaction",
+        "no solved Codex reliability"
+      ]
     },
     {
       "entry_id": "milestone_reporting_standard",
@@ -360,21 +435,29 @@
       "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
       "source_task": "R14-004",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["document_authority_index"],
+      "depends_on": [
+        "document_authority_index"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["auditor_review", "release_closeout", "operator_summary"],
+      "recommended_for_roles": [
+        "auditor_review",
+        "release_closeout",
+        "operator_summary"
+      ],
       "load_priority": "2_high",
       "scan_scope": "exact_file_only",
       "reason": "Load when report sufficiency, evidence treatment, or closeout language is in scope.",
-      "non_claims": ["no final R15 proof package complete"]
+      "non_claims": [
+        "no final R15 proof package complete"
+      ]
     },
     {
       "entry_id": "r15_authority",
       "path": "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
       "title": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "summary": "Active R15 authority document, task list, boundaries, and non-claims through R15-003.",
+      "summary": "Active R15 authority document, task list, boundaries, and non-claims through R15-004.",
       "classification_class": "status_surface",
       "evidence_kind": "status_doc",
       "authority_kind": "status_authority",
@@ -382,19 +465,46 @@
       "proof_status": "proof_by_itself_false",
       "owner_role": "Operator / Auditor",
       "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-003",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["product_operating_model", "knowledge_base_artifact_registry_model", "role_raci_agent_authority_model", "agent_identity_memory_model", "context_compaction_control_model", "milestone_reporting_standard"],
+      "source_task": "R15-004",
+      "last_verified_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
+      "depends_on": [
+        "product_operating_model",
+        "knowledge_base_artifact_registry_model",
+        "role_raci_agent_authority_model",
+        "agent_identity_memory_model",
+        "context_compaction_control_model",
+        "milestone_reporting_standard"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [
-        {"relationship_type": "reports_on", "target_entry_id": "r15_repo_knowledge_index_state", "reason": "R15 authority records R15-003 deliverables and scope."}
+        {
+          "relationship_type": "reports_on",
+          "target_entry_id": "r15_repo_knowledge_index_state",
+          "reason": "R15 authority records R15-003 deliverables and scope."
+        },
+        {
+          "relationship_type": "reports_on",
+          "target_entry_id": "r15_agent_identity_packet_state",
+          "reason": "R15 authority records R15-004 deliverables and scope."
+        }
       ],
-      "recommended_for_roles": ["operator_summary", "pm_planning", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load before any R15 task to preserve active-through and planned-only boundaries.",
-      "non_claims": ["no agent identity packets implemented", "no memory scopes implemented", "no RACI matrix implemented", "no classification or re-entry dry run executed", "no R16 opening"]
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no memory scopes implemented beyond identity packet refs by R15-004",
+        "no RACI matrix implemented",
+        "no card re-entry packet implemented",
+        "no R16 opening"
+      ]
     },
     {
       "entry_id": "r15_taxonomy_contract",
@@ -410,15 +520,24 @@
       "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
       "source_task": "R15-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["knowledge_base_artifact_registry_model", "document_authority_index"],
+      "depends_on": [
+        "knowledge_base_artifact_registry_model",
+        "document_authority_index"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [],
-      "recommended_for_roles": ["knowledge_curator", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load when validator or index classification values need their schema authority.",
-      "non_claims": ["no full repo artifacts classified by R15-003"]
+      "non_claims": [
+        "no full repo artifacts classified by R15-003"
+      ]
     },
     {
       "entry_id": "r15_taxonomy_state",
@@ -434,17 +553,29 @@
       "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
       "source_task": "R15-002",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["r15_taxonomy_contract"],
+      "depends_on": [
+        "r15_taxonomy_contract"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [
-        {"relationship_type": "validates", "target_entry_id": "r15_repo_knowledge_index_contract", "reason": "The repo knowledge index contract constrains entries to taxonomy values."}
+        {
+          "relationship_type": "validates",
+          "target_entry_id": "r15_repo_knowledge_index_contract",
+          "reason": "The repo knowledge index contract constrains entries to taxonomy values."
+        }
       ],
-      "recommended_for_roles": ["knowledge_curator", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load as the direct taxonomy dependency for index validation.",
-      "non_claims": ["no full repo artifacts classified by R15-003"]
+      "non_claims": [
+        "no full repo artifacts classified by R15-003"
+      ]
     },
     {
       "entry_id": "r15_repo_knowledge_index_contract",
@@ -460,17 +591,32 @@
       "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
       "source_task": "R15-003",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["r15_taxonomy_contract", "r15_taxonomy_state", "knowledge_base_artifact_registry_model"],
+      "depends_on": [
+        "r15_taxonomy_contract",
+        "r15_taxonomy_state",
+        "knowledge_base_artifact_registry_model"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [
-        {"relationship_type": "derived_from", "target_entry_id": "knowledge_base_artifact_registry_model", "reason": "The contract implements the model direction as a bounded machine-checkable index shape."}
+        {
+          "relationship_type": "derived_from",
+          "target_entry_id": "knowledge_base_artifact_registry_model",
+          "reason": "The contract implements the model direction as a bounded machine-checkable index shape."
+        }
       ],
-      "recommended_for_roles": ["knowledge_curator", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load when validating or extending the R15-003 index shape in a later authorized task.",
-      "non_claims": ["no full repo index implemented by R15-003", "no knowledge-base engine implemented by R15-003"]
+      "non_claims": [
+        "no full repo index implemented by R15-003",
+        "no knowledge-base engine implemented by R15-003"
+      ]
     },
     {
       "entry_id": "r15_repo_knowledge_index_state",
@@ -486,47 +632,159 @@
       "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
       "source_task": "R15-003",
       "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": ["r15_repo_knowledge_index_contract", "r15_taxonomy_state"],
+      "depends_on": [
+        "r15_repo_knowledge_index_contract",
+        "r15_taxonomy_state"
+      ],
       "supersedes": [],
       "superseded_by": [],
       "related_entries": [
-        {"relationship_type": "evidence_for", "target_entry_id": "r15_authority", "reason": "The bounded seed supports the R15-003 done status only."}
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_authority",
+          "reason": "The bounded seed supports the R15-003 done status only."
+        }
       ],
-      "recommended_for_roles": ["operator_summary", "knowledge_curator", "auditor_review", "codex_reentry"],
+      "recommended_for_roles": [
+        "operator_summary",
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
       "load_priority": "1_critical",
       "scan_scope": "exact_file_only",
       "reason": "Load as the R15-003 bounded seed index artifact; do not treat it as broad repo classification.",
-      "non_claims": ["no full repo index implemented by R15-003", "no retrieval engine implemented by R15-003", "no vector search implemented by R15-003"]
+      "non_claims": [
+        "no full repo index implemented by R15-003",
+        "no retrieval engine implemented by R15-003",
+        "no vector search implemented by R15-003"
+      ]
+    },
+    {
+      "entry_id": "r15_agent_identity_packet_contract",
+      "path": "contracts/agents/agent_identity_packet.contract.json",
+      "title": "R15 Agent Identity Packet Contract",
+      "summary": "R15-004 contract defining required role identity fields, role authority values, tool classes, handoff targets, approval requirements, and invalid-state rules.",
+      "classification_class": "contract",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "contract_authority",
+      "lifecycle_state": "current",
+      "proof_status": "requires_machine_evidence",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-004",
+      "last_verified_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
+      "depends_on": [
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state",
+        "agent_identity_memory_model",
+        "role_raci_agent_authority_model"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "derived_from",
+          "target_entry_id": "agent_identity_memory_model",
+          "reason": "The contract makes the target identity packet model machine-checkable."
+        },
+        {
+          "relationship_type": "validates",
+          "target_entry_id": "r15_agent_identity_packet_state",
+          "reason": "The validator uses this contract shape to check the baseline packet set."
+        }
+      ],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "auditor_review",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load before validating or extending agent identity packet fields in later authorized R15 tasks.",
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented"
+      ]
+    },
+    {
+      "entry_id": "r15_agent_identity_packet_state",
+      "path": "state/agents/r15_agent_identity_packet.json",
+      "title": "R15 Agent Identity Packet Baseline",
+      "summary": "Committed R15-004 baseline identity packet set for the ten required roles, with model-only runtime flags and role-boundary non-claims.",
+      "classification_class": "machine_evidence",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "proof_authority",
+      "lifecycle_state": "current",
+      "proof_status": "proof_by_itself_true",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-004",
+      "last_verified_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
+      "depends_on": [
+        "r15_agent_identity_packet_contract",
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_authority",
+          "reason": "The baseline packet set supports the R15-004 done status only."
+        }
+      ],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "auditor_review",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load as the R15-004 baseline identity model; do not treat it as actual agent execution or direct access runtime.",
+      "non_claims": [
+        "no actual agents implemented by R15-004",
+        "no direct agent access runtime implemented",
+        "no persistent memory engine implemented"
+      ]
     }
   ],
   "claims": [
     "R15-003 adds a repo knowledge index contract.",
     "R15-003 adds a validator module, CLI wrapper, valid and invalid fixtures, focused tests, a bounded seed index artifact, a validation manifest, and an evidence folder.",
-    "R15-003 updates status surfaces for R15 active through R15-003 only."
+    "R15-004 updates the bounded seed index with agent identity packet contract and baseline packet entries.",
+    "R15-004 updates status surfaces for R15 active through R15-004 only."
   ],
   "non_claims": [
-    "no full repo index implemented by R15-003",
-    "no full repo artifacts classified by R15-003",
-    "no knowledge-base engine implemented by R15-003",
-    "no artifact registry engine implemented by R15-003",
-    "no retrieval engine implemented by R15-003",
-    "no vector search implemented by R15-003",
-    "no Obsidian integration by R15-003",
-    "no GitHub Projects integration",
-    "no Linear implementation",
-    "no Symphony implementation",
-    "no custom board implementation",
-    "no agent identity packets implemented",
-    "no memory scopes implemented",
+    "no full repo index implemented by R15-004",
+    "no full repo artifacts classified by R15-004",
+    "no knowledge-base engine implemented by R15-004",
+    "no artifact registry engine implemented by R15-004",
+    "no retrieval engine implemented by R15-004",
+    "no vector search implemented by R15-004",
+    "no Obsidian integration by R15-004",
+    "no actual agents implemented by R15-004",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no memory scopes implemented beyond identity packet refs by R15-004",
     "no RACI matrix implemented",
-    "no card re-entry packets implemented",
-    "no classification or re-entry dry run executed",
+    "no card re-entry packet implemented",
+    "no board routing implemented",
+    "no PM automation implemented",
+    "no Developer/QA/Auditor runtime separation implemented",
     "no final R15 proof package complete",
     "no product runtime",
     "no board runtime",
     "no external board sync",
-    "no true multi-agent execution",
-    "no persistent memory engine",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
     "no R16 opening",
     "no solved Codex compaction",
     "no solved Codex reliability"

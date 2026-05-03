@@ -1,0 +1,28 @@
+{
+  "artifact_type": "r15_agent_identity_packet_non_claims",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-004",
+  "non_claims": [
+    "no actual agents implemented by R15-004",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no memory scopes implemented beyond identity packet refs by R15-004",
+    "no RACI matrix implemented",
+    "no card re-entry packet implemented",
+    "no board routing implemented",
+    "no PM automation implemented",
+    "no Developer/QA/Auditor runtime separation implemented",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no GitHub Projects implementation",
+    "no custom board implementation",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}
