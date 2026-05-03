@@ -1187,3 +1187,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the recommended R15 direction is planning-only: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`.
 - Consequence: R15 is not opened, no R15 task files are active, and R15 is not marked active.
 - Consequence: this decision does not close R13, does not convert R13 partial gates into passed gates, does not implement product runtime, and does not claim Symphony, Linear, GitHub Projects, or custom board integration.
+
+## D-0124 R15 Opened As Knowledge And Agent Identity Foundations
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` opens on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`.
+- Consequence: `R15-001` is done as the R15 opening/status slice through `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`, status-surface updates, and the opening evidence package under `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/opening/`.
+- Consequence: `R15-002` through `R15-009` remain planned only.
+- Consequence: R13 remains failed/partial, active through `R13-018` only, not closed, without final-head support, without a closeout package, and without a main merge.
+- Consequence: API/custom-runner bypass, current operator control room, skill invocation evidence, and operator demo remain partial.
+- Consequence: R14 remains accepted with caveats as a narrow documentation/governance/reporting-enforcement milestone through `R14-006`.
+- Consequence: this decision does not implement artifact taxonomy, a knowledge index, agent identity packets, memory scopes, a RACI matrix, card re-entry packets, a dry run, a complete R15 proof package, product runtime, board runtime, external board sync, Symphony integration, Linear integration, GitHub Projects integration, custom board implementation, true multi-agent execution, persistent memory engine implementation, solved Codex compaction, solved Codex reliability, or R16.

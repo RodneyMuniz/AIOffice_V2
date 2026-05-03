@@ -3,7 +3,7 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R14 Product Vision Pivot and Governance Enforcement`
+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
 
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
@@ -14,7 +14,9 @@ Current posture:
 
 `R13 API-First QA Pipeline and Operator Control-Room Product Slice` remains active in repo truth through `R13-018` only, failed/partial, and not closed. R13 starts from the report-committed R12 branch head `9ad475faa87746cb3d6ef074545e4b703e77e786` on branch `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`. The planning authority is `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`, committed at `9ad475faa87746cb3d6ef074545e4b703e77e786`; it is not product proof by itself.
 
-`R14 Product Vision Pivot and Governance Enforcement` is now active on branch `release/r14-product-vision-pivot-and-governance-enforcement` only because the operator explicitly approved the post-R13 product vision pivot strategy after R13-018. R14 is documentation/governance/reporting enforcement only. It does not close R13, does not implement product runtime, does not integrate Symphony, Linear, GitHub Projects, or a custom board runtime, and does not open R15.
+`R14 Product Vision Pivot and Governance Enforcement` is accepted with caveats as a narrow documentation/governance/reporting-enforcement milestone through `R14-006`. R14 did not close R13, did not implement product runtime, did not integrate Symphony, Linear, GitHub Projects, or a custom board runtime, and did not implement R15 capability.
+
+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-001` only. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. R15-002 through R15-009 are planned only.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
@@ -22,9 +24,12 @@ R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first
 
 The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R14 status: R14 active through R14-006 only. R14-001 through R14-006 are the only R14 tasks. R15 is not open.
+Current R15 status: R15 active through R15-001 only. R15-002 through R15-009 are planned only. R14 remains accepted narrowly through R14-006 only.
 
 Active branch:
+`release/r15-knowledge-base-agent-identity-memory-raci-foundations`
+
+R14 accepted source branch:
 `release/r14-product-vision-pivot-and-governance-enforcement`
 
 R13 failed/partial branch:
@@ -61,6 +66,87 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R15-001` Open R15 in repo truth
+- Status: done
+- Order: 1
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: accepted-with-caveats R14 posture, source R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`, and source R14 tree observed locally as `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`, `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`
+- Durable output: R15 release branch, R15 authority document, R15 task plan, status-surface updates, and opening evidence package under `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/opening/`
+- Done when: R15 opens as a foundation milestone only, R13 remains failed/partial and not closed, R14 remains accepted narrowly through R14-006, and no R15 implementation beyond R15-001 is claimed
+
+### `R15-002` Define artifact classification taxonomy
+- Status: planned
+- Order: 2
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-001`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned artifact classification taxonomy model
+- Done when: planned only in this opening slice
+
+### `R15-003` Create repo knowledge index model
+- Status: planned
+- Order: 3
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-002`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned repo knowledge index model
+- Done when: planned only in this opening slice
+
+### `R15-004` Define agent identity packet model
+- Status: planned
+- Order: 4
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-003`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned agent identity packet model
+- Done when: planned only in this opening slice
+
+### `R15-005` Define agent memory scope model
+- Status: planned
+- Order: 5
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-004`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned agent memory scope model
+- Done when: planned only in this opening slice
+
+### `R15-006` Define RACI and state-transition matrix
+- Status: planned
+- Order: 6
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-005`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned RACI and state-transition matrix
+- Done when: planned only in this opening slice
+
+### `R15-007` Define card re-entry packet model
+- Status: planned
+- Order: 7
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-006`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned card re-entry packet model
+- Done when: planned only in this opening slice
+
+### `R15-008` Run one classification and re-entry dry run
+- Status: planned
+- Order: 8
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-007`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned bounded dry run over one existing R13/R14 evidence slice
+- Done when: planned only in this opening slice
+
+### `R15-009` Produce R15 proof/review package
+- Status: planned
+- Order: 9
+- Milestone: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+- Depends on: `R15-008`
+- Authority: `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md`
+- Durable output: planned R15 proof/review package
+- Done when: planned only in this opening slice
 
 ### `R14-001` Open R14 in repo truth
 - Status: done

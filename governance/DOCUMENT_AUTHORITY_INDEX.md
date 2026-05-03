@@ -1,7 +1,7 @@
 # AIOffice Document Authority Index
 
-**Status:** Current R14 governance index
-**Milestone:** R14 Product Vision Pivot and Governance Enforcement
+**Status:** Current R15 governance index
+**Milestone:** R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 **Purpose:** Classify current governance documents by authority class and proof treatment.
 
 Generated Markdown and reports are operator artifacts unless backed by committed machine evidence. A report may explain evidence, but it is not proof by itself.
@@ -24,7 +24,8 @@ Generated Markdown and reports are operator artifacts unless backed by committed
 | Path | Class | Purpose | Owner role | Current authority | Proof by itself | Dependency references | Replacement/deprecation notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `governance/VISION.md` | Class A | Constitutional product vision after R13 failed/partial posture. | User / Operator | Yes | No | R13-018 report, R14 source pack inventory | Approved R14 replacement for prior vision. |
-| `governance/R14_PRODUCT_VISION_PIVOT_AND_GOVERNANCE_ENFORCEMENT.md` | Class E | R14 opening, boundary, task plan, and non-claims. | Operator | Yes | No | R13-018, approved source pack | New R14 milestone authority; does not close R13. |
+| `governance/R14_PRODUCT_VISION_PIVOT_AND_GOVERNANCE_ENFORCEMENT.md` | Class E | R14 opening, boundary, task plan, and non-claims. | Operator | Yes | No | R13-018, approved source pack | R14 accepted narrowly through R14-006; does not close R13. |
+| `governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md` | Class E | R15 opening, boundary, task plan, and non-claims. | Operator / Auditor | Yes | No | R14 closeout and planning brief, R14 proof package, R14 source head/tree | Current R15 milestone authority; R15 active through R15-001 only. |
 | `governance/PRODUCT_OPERATING_MODEL.md` | Class B | Double Diamond, board/card operating loop, and delivery posture. | Operator / PM | Yes | No | `governance/VISION.md` | New R14 authority. |
 | `governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md` | Class B | Role boundaries, authority, and RACI rules. | Operator / Auditor | Yes | No | `governance/VISION.md`, `governance/PRODUCT_OPERATING_MODEL.md` | New R14 authority. |
 | `governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md` | Class B | Agent identity, memory scope, authority, and output boundaries. | Operator / Auditor | Yes | No | RACI model, context model | New R14 authority; target-state agent roles are not proof. |
@@ -37,16 +38,17 @@ Generated Markdown and reports are operator artifacts unless backed by committed
 | `governance/MILESTONE_REPORTING_STANDARD.md` | Class D | Required milestone report structure and evidence treatment. | Auditor / Release/Closeout Agent | Yes | No | KPI domain model, report template | New R14 authority. |
 | `governance/templates/AIOffice_Milestone_Report_Template_v2.md` | Class D | Reusable milestone report template. | Auditor / Release/Closeout Agent | Yes | No | Milestone reporting standard | New R14 template. |
 | `governance/ARCHITECTURE_AND_INTEGRATION_DIRECTION.md` | Class H | Candidate direction for GitHub, Linear, custom board, Symphony-inspired runners, and Codex/OpenAI surfaces. | Architect | Yes, direction only | No | Vision, board model, release model | Future adapter reference only; no integration is implemented by R14. |
-| `README.md` | Class E | Human entrypoint and current repo-truth summary. | Operator | Yes | No | Active state, milestone authorities, reports | Updated for R14 active posture. |
-| `governance/ACTIVE_STATE.md` | Class E | Current operational truth, active milestone, guardrails, and next step. | Operator | Yes | No | KANBAN, decision log, milestone authorities | Updated for R14 active posture. |
-| `execution/KANBAN.md` | Class E | Task board for current and historical milestone task states. | PM / Operator | Yes | No | Active state, decision log | Updated with R14-001 through R14-006 only. |
-| `governance/DECISION_LOG.md` | Class E | Accepted governance decisions. | Operator | Yes | No | Milestone authorities, task evidence | Appended R14 opening and task acceptance decisions. |
+| `README.md` | Class E | Human entrypoint and current repo-truth summary. | Operator | Yes | No | Active state, milestone authorities, reports | Updated for R15 active posture. |
+| `governance/ACTIVE_STATE.md` | Class E | Current operational truth, active milestone, guardrails, and next step. | Operator | Yes | No | KANBAN, decision log, milestone authorities | Updated for R15 active posture. |
+| `execution/KANBAN.md` | Class E | Task board for current and historical milestone task states. | PM / Operator | Yes | No | Active state, decision log | Updated with R15-001 done and R15-002 through R15-009 planned only. |
+| `governance/DECISION_LOG.md` | Class E | Accepted governance decisions. | Operator | Yes | No | Milestone authorities, task evidence | Appended R15 opening decision. |
 | `governance/BRANCHING_CONVENTION.md` | Class B | Release branch naming and branch-truth rules. | Operator | Yes | No | Active state, release strategy | Existing authority; R14 follows release branch pattern. |
 | `governance/R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md` | Class G | R13 authority and task record. | Operator | Historical/current R13 boundary | No | R13 evidence and reports | R13 remains failed/partial and not closed. |
 | `governance/reports/AIOffice_V2_R13_Final_Failed_Partial_Report_and_Conditional_Successor_Recommendation_v1.md` | Class G | R13 failed/partial operator report and conditional successor recommendation. | Operator | Historical report authority | No | R13-017 decision, R13 scorecard | Does not open R14 by itself. |
 | `governance/reports/pivot_inputs/AIOffice_Document_Update_Plan_v1.md` | Class G | Approved pivot input plan installed from source pack. | Operator | Context for R14 | No | Source pack inventory | Root source-pack file installed under pivot inputs. |
 | `governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md` | Class G | R14 operator closeout and R15 planning brief. | Operator | Current R14 operator artifact | No | R14 proof package, installed docs | Planning-only; does not open R15. |
 | `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/` | Class F | R14 inventory, validation package, non-claims, and command results. | Auditor | Yes | Mixed; machine inventories are evidence, reports are not proof alone | R14 installed docs and validation commands | New R14 proof-review package. |
+| `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/opening/` | Class F | R15 opening evidence package. | Auditor | Yes | Mixed; JSON packets and manifests are evidence for opening only | R15 authority doc and status gate validation | R15-001 opening proof only; R15-002 through R15-009 remain planned. |
 | `governance/_operator_inbox/aioffice_vision_update/` | Class F | Preserved approved local source pack. | Operator | Source pack authority for R14 install only | Source files prove source content/hash, not implementation | R14 source inventory | Preserved in place; not deleted. |
 
 ## Dependency Rule
