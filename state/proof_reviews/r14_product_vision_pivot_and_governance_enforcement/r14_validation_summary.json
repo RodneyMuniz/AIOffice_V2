@@ -27,13 +27,13 @@
     },
     {
       "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
-      "result": "failed",
-      "notes": "Legacy R13-only active milestone invariant: ACTIVE_STATE must declare R13 active through R13-018 only."
+      "result": "passed_after_corrective_support",
+      "notes": "Originally failed on the legacy R13-only active milestone invariant. Corrective support now accepts R14 active while preserving R13 failed/partial through R13-018 only and rejecting R13 closure, R15 opening, R13 partial-gate promotion, and product/runtime/integration overclaims."
     },
     {
       "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
-      "result": "failed",
-      "notes": "Legacy R13-only active milestone invariant: ACTIVE_STATE must declare R13 active through R13-018 only."
+      "result": "passed_after_corrective_support",
+      "notes": "The validator now reports R13 failed/partial through R13-018 only and active R14 through R14-006 with no R15 opening."
     },
     {
       "command": "git diff --check",
@@ -45,6 +45,32 @@
       "result": "passed"
     }
   ],
+  "corrective_support_patch": {
+    "commit_message": "Reconcile status gate for R14 active posture",
+    "starting_head": "36fbb01f74ad860450e9660ed364a4b2775f43b4",
+    "starting_tree": "3dc3b58cfd760015ea8719df03f0eee09ae61861",
+    "scope": "status-doc gate correction only; no R15 opening, no product runtime, and no R13 closure",
+    "validation_results": [
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+        "result": "passed",
+        "notes": "Valid current R14 posture passed; 54 invalid status scenarios were rejected."
+      },
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+        "result": "passed",
+        "notes": "Validated R13 failed/partial through R13-018 only, active R14 through R14-006, and no R15 opening."
+      },
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+        "result": "passed"
+      },
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+        "result": "passed"
+      }
+    ]
+  },
   "r13_preservation": "R13 remains failed/partial, active through R13-018 only, and not closed.",
   "r15_status": "not opened",
   "claim_boundary": "documentation/governance/reporting enforcement only"
