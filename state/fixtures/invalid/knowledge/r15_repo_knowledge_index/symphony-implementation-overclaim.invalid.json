@@ -1,0 +1,300 @@
+﻿{
+    "artifact_type":  "r15_repo_knowledge_index",
+    "contract_version":  "v1",
+    "index_id":  "aioffice-r15-repo-knowledge-index-valid-fixture-v1",
+    "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+    "source_task":  "R15-003",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+    "generated_from_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+    "generated_from_tree":  "0c5fa18c58938ebf00ee936eff6b99d9b495b823",
+    "taxonomy_ref":  {
+                         "taxonomy_id":  "aioffice-r15-artifact-classification-taxonomy-v1",
+                         "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                         "contract_path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                         "source_task":  "R15-002"
+                     },
+    "index_scope":  {
+                        "bounded_seed_only":  true,
+                        "full_repo_index":  false,
+                        "future_fuller_index_requires_later_task":  true,
+                        "description":  "Valid R15-003 fixture over a tiny bounded seed set."
+                    },
+    "required_entry_fields":  [
+                                  "entry_id",
+                                  "path",
+                                  "title",
+                                  "summary",
+                                  "classification_class",
+                                  "evidence_kind",
+                                  "authority_kind",
+                                  "lifecycle_state",
+                                  "proof_status",
+                                  "owner_role",
+                                  "source_milestone",
+                                  "source_task",
+                                  "last_verified_head",
+                                  "depends_on",
+                                  "supersedes",
+                                  "superseded_by",
+                                  "related_entries",
+                                  "recommended_for_roles",
+                                  "load_priority",
+                                  "scan_scope",
+                                  "reason",
+                                  "non_claims"
+                              ],
+    "allowed_artifact_classes":  [
+                                     "constitutional_truth",
+                                     "operating_model",
+                                     "domain_model",
+                                     "contract",
+                                     "tool",
+                                     "test",
+                                     "status_surface",
+                                     "evidence_package",
+                                     "machine_evidence",
+                                     "generated_operator_artifact",
+                                     "report",
+                                     "template",
+                                     "historical_archive",
+                                     "deprecated",
+                                     "candidate",
+                                     "cleanup_candidate",
+                                     "external_mirror",
+                                     "external_evidence",
+                                     "unknown"
+                                 ],
+    "allowed_evidence_kinds":  [
+                                   "implemented_code",
+                                   "committed_machine_evidence",
+                                   "generated_artifact",
+                                   "operator_artifact",
+                                   "external_replay_evidence",
+                                   "status_doc",
+                                   "governance_doc",
+                                   "planning_doc",
+                                   "validation_manifest",
+                                   "test_result",
+                                   "unknown"
+                               ],
+    "allowed_authority_kinds":  [
+                                    "constitutional_authority",
+                                    "governance_authority",
+                                    "operating_authority",
+                                    "contract_authority",
+                                    "status_authority",
+                                    "proof_authority",
+                                    "planning_context",
+                                    "report_context",
+                                    "non_authoritative_reference",
+                                    "unknown"
+                                ],
+    "allowed_lifecycle_states":  [
+                                     "current",
+                                     "active",
+                                     "planned",
+                                     "historical",
+                                     "superseded",
+                                     "deprecated",
+                                     "candidate",
+                                     "cleanup_candidate",
+                                     "unknown"
+                                 ],
+    "allowed_proof_status_values":  [
+                                        "proof_by_itself_false",
+                                        "proof_by_itself_true",
+                                        "requires_machine_evidence",
+                                        "external_evidence_required",
+                                        "operator_artifact_only",
+                                        "historical_context_only"
+                                    ],
+    "relationship_types":  [
+                               "depends_on",
+                               "supersedes",
+                               "superseded_by",
+                               "references",
+                               "validates",
+                               "reports_on",
+                               "evidence_for",
+                               "template_for",
+                               "derived_from",
+                               "related_to"
+                           ],
+    "lookup_profiles":  [
+                            "operator_summary",
+                            "pm_planning",
+                            "architect_design",
+                            "developer_execution",
+                            "qa_validation",
+                            "auditor_review",
+                            "knowledge_curator",
+                            "release_closeout",
+                            "codex_reentry"
+                        ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "fixture_required_values_fail_closed",
+                                    "description":  "The valid fixture keeps all required R15-003 fields present."
+                                },
+                                {
+                                    "rule_id":  "fixture_bounded_seed_only",
+                                    "description":  "The valid fixture is bounded and not a broad index."
+                                }
+                            ],
+    "index_entries":  [
+                          {
+                              "entry_id":  "governance_vision",
+                              "path":  "governance/VISION.md",
+                              "title":  "AIOffice Vision",
+                              "summary":  "R15 ships Symphony implementation.",
+                              "classification_class":  "constitutional_truth",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "constitutional_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "User / Operator",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "architect_design",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "This fixture entry represents the highest-level current vision document.",
+                              "non_claims":  [
+                                                 "no product runtime"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_artifact_classification_taxonomy_state",
+                              "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                              "title":  "R15 Artifact Classification Taxonomy",
+                              "summary":  "Committed machine-readable taxonomy dependency for R15-003 index validation.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "derived_from",
+                                                          "target_entry_id":  "governance_vision",
+                                                          "reason":  "The taxonomy supports post-pivot repo-truth classification discipline."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "This is the validated taxonomy artifact used by the R15-003 index validator.",
+                              "non_claims":  [
+                                                 "no full repo artifacts classified by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_repo_knowledge_index_state",
+                              "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                              "title":  "R15 Repo Knowledge Index",
+                              "summary":  "Bounded seed index artifact for current authority documents only.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-003",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "r15_artifact_classification_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_artifact_classification_taxonomy_state",
+                                                          "reason":  "Index entries must use values allowed by the R15-002 taxonomy."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "This fixture confirms that a bounded seed index can point at a known taxonomy dependency.",
+                              "non_claims":  [
+                                                 "no full repo index implemented by R15-003",
+                                                 "no knowledge-base engine implemented by R15-003"
+                                             ]
+                          }
+                      ],
+    "claims":  [
+                   "R15-003 validates a bounded repo knowledge index fixture."
+               ],
+    "non_claims":  [
+                       "no full repo index implemented by R15-003",
+                       "no full repo artifacts classified by R15-003",
+                       "no knowledge-base engine implemented by R15-003",
+                       "no artifact registry engine implemented by R15-003",
+                       "no retrieval engine implemented by R15-003",
+                       "no vector search implemented by R15-003",
+                       "no Obsidian integration by R15-003",
+                       "no GitHub Projects integration",
+                       "no Linear implementation",
+                       "no Symphony implementation",
+                       "no custom board implementation",
+                       "no agent identity packets implemented",
+                       "no memory scopes implemented",
+                       "no RACI matrix implemented",
+                       "no card re-entry packets implemented",
+                       "no classification or re-entry dry run executed",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no board runtime",
+                       "no external board sync",
+                       "no true multi-agent execution",
+                       "no persistent memory engine",
+                       "no R16 opening",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
+}

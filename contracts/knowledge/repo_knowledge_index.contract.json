@@ -1,0 +1,258 @@
+{
+  "artifact_type": "r15_repo_knowledge_index",
+  "contract_version": "v1",
+  "index_id": "aioffice-r15-repo-knowledge-index-contract-v1",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-003",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+  "generated_from_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+  "generated_from_tree": "0c5fa18c58938ebf00ee936eff6b99d9b495b823",
+  "taxonomy_ref": {
+    "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
+    "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
+    "contract_path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+    "source_task": "R15-002"
+  },
+  "index_scope": {
+    "bounded_seed_only": true,
+    "full_repo_index": false,
+    "future_fuller_index_requires_later_task": true,
+    "description": "R15-003 defines the repo knowledge index model and a bounded authority-document seed only."
+  },
+  "required_entry_fields": [
+    "entry_id",
+    "path",
+    "title",
+    "summary",
+    "classification_class",
+    "evidence_kind",
+    "authority_kind",
+    "lifecycle_state",
+    "proof_status",
+    "owner_role",
+    "source_milestone",
+    "source_task",
+    "last_verified_head",
+    "depends_on",
+    "supersedes",
+    "superseded_by",
+    "related_entries",
+    "recommended_for_roles",
+    "load_priority",
+    "scan_scope",
+    "reason",
+    "non_claims"
+  ],
+  "allowed_artifact_classes": [
+    "constitutional_truth",
+    "operating_model",
+    "domain_model",
+    "contract",
+    "tool",
+    "test",
+    "status_surface",
+    "evidence_package",
+    "machine_evidence",
+    "generated_operator_artifact",
+    "report",
+    "template",
+    "historical_archive",
+    "deprecated",
+    "candidate",
+    "cleanup_candidate",
+    "external_mirror",
+    "external_evidence",
+    "unknown"
+  ],
+  "allowed_evidence_kinds": [
+    "implemented_code",
+    "committed_machine_evidence",
+    "generated_artifact",
+    "operator_artifact",
+    "external_replay_evidence",
+    "status_doc",
+    "governance_doc",
+    "planning_doc",
+    "validation_manifest",
+    "test_result",
+    "unknown"
+  ],
+  "allowed_authority_kinds": [
+    "constitutional_authority",
+    "governance_authority",
+    "operating_authority",
+    "contract_authority",
+    "status_authority",
+    "proof_authority",
+    "planning_context",
+    "report_context",
+    "non_authoritative_reference",
+    "unknown"
+  ],
+  "allowed_lifecycle_states": [
+    "current",
+    "active",
+    "planned",
+    "historical",
+    "superseded",
+    "deprecated",
+    "candidate",
+    "cleanup_candidate",
+    "unknown"
+  ],
+  "allowed_proof_status_values": [
+    "proof_by_itself_false",
+    "proof_by_itself_true",
+    "requires_machine_evidence",
+    "external_evidence_required",
+    "operator_artifact_only",
+    "historical_context_only"
+  ],
+  "relationship_types": [
+    "depends_on",
+    "supersedes",
+    "superseded_by",
+    "references",
+    "validates",
+    "reports_on",
+    "evidence_for",
+    "template_for",
+    "derived_from",
+    "related_to"
+  ],
+  "lookup_profiles": [
+    "operator_summary",
+    "pm_planning",
+    "architect_design",
+    "developer_execution",
+    "qa_validation",
+    "auditor_review",
+    "knowledge_curator",
+    "release_closeout",
+    "codex_reentry"
+  ],
+  "scan_scope_values": [
+    "no_scan",
+    "exact_file_only",
+    "folder_limited",
+    "evidence_refs_only",
+    "bounded_glob",
+    "full_repo_prohibited"
+  ],
+  "load_priority_values": [
+    "1_critical",
+    "2_high",
+    "3_normal",
+    "4_context_only",
+    "5_avoid_unless_needed"
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_required_values_fail_closed",
+      "description": "Required top-level and entry fields must be present and non-empty when their type requires text."
+    },
+    {
+      "rule_id": "taxonomy_dependency_required",
+      "description": "The index must reference the R15-002 taxonomy artifact and contract."
+    },
+    {
+      "rule_id": "taxonomy_values_only",
+      "description": "Classification class, evidence kind, authority kind, lifecycle state, and proof status values must be allowed by the R15-002 taxonomy."
+    },
+    {
+      "rule_id": "entry_ids_unique",
+      "description": "Every index entry_id must be unique."
+    },
+    {
+      "rule_id": "paths_unique_unless_justified",
+      "description": "A duplicate path requires an explicit duplicate_reason."
+    },
+    {
+      "rule_id": "relationships_resolve_or_external",
+      "description": "Relationship references must resolve to known entry IDs or use an explicit external ref prefix."
+    },
+    {
+      "rule_id": "bounded_scan_only",
+      "description": "R15-003 rejects full-repo index or full-repo scan claims."
+    },
+    {
+      "rule_id": "proof_by_itself_respects_taxonomy",
+      "description": "Entries marked proof_by_itself_true must be allowed by both taxonomy class and evidence kind."
+    },
+    {
+      "rule_id": "unknown_requires_reason",
+      "description": "Unknown classification, evidence, authority, or lifecycle values require an explicit reason."
+    },
+    {
+      "rule_id": "runtime_and_integration_overclaims_rejected",
+      "description": "Positive runtime, integration, true multi-agent, persistent memory, solved Codex, or R16 claims fail validation."
+    }
+  ],
+  "index_entries": [
+    {
+      "entry_id": "r15_repo_knowledge_index_contract",
+      "path": "contracts/knowledge/repo_knowledge_index.contract.json",
+      "title": "R15 Repo Knowledge Index Contract",
+      "summary": "Defines the machine-checkable R15-003 repo knowledge index fields, allowed values, lookup profiles, relationship types, scan bounds, and invalid-state rules.",
+      "classification_class": "contract",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "contract_authority",
+      "lifecycle_state": "current",
+      "proof_status": "requires_machine_evidence",
+      "owner_role": "Knowledge Curator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-003",
+      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+      "depends_on": [
+        "external:r15-002-taxonomy"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [],
+      "recommended_for_roles": [
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "This contract is the R15-003 authority for validating bounded repo knowledge index artifacts.",
+      "non_claims": [
+        "no full repo index implemented by R15-003",
+        "no knowledge-base engine implemented by R15-003"
+      ]
+    }
+  ],
+  "claims": [
+    "R15-003 defines a repo knowledge index contract and validator boundary.",
+    "R15-003 permits only a bounded seed set of current authority references."
+  ],
+  "non_claims": [
+    "no full repo index implemented by R15-003",
+    "no full repo artifacts classified by R15-003",
+    "no knowledge-base engine implemented by R15-003",
+    "no artifact registry engine implemented by R15-003",
+    "no retrieval engine implemented by R15-003",
+    "no vector search implemented by R15-003",
+    "no Obsidian integration by R15-003",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no agent identity packets implemented",
+    "no memory scopes implemented",
+    "no RACI matrix implemented",
+    "no card re-entry packets implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no true multi-agent execution",
+    "no persistent memory engine",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

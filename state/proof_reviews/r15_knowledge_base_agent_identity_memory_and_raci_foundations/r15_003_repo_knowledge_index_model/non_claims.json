@@ -1,0 +1,32 @@
+{
+  "artifact_type": "r15_repo_knowledge_index_non_claims",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-003",
+  "non_claims": [
+    "no full repo index implemented by R15-003",
+    "no full repo artifacts classified by R15-003",
+    "no knowledge-base engine implemented by R15-003",
+    "no artifact registry engine implemented by R15-003",
+    "no retrieval engine implemented by R15-003",
+    "no vector search implemented by R15-003",
+    "no Obsidian integration by R15-003",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no agent identity packets implemented",
+    "no memory scopes implemented",
+    "no RACI matrix implemented",
+    "no card re-entry packets implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no true multi-agent execution",
+    "no persistent memory engine",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

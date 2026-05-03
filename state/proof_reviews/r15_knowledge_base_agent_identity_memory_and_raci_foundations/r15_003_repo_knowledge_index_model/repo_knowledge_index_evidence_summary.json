@@ -1,0 +1,44 @@
+{
+  "artifact_type": "r15_repo_knowledge_index_evidence_summary",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-003",
+  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+  "starting_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+  "starting_tree": "0c5fa18c58938ebf00ee936eff6b99d9b495b823",
+  "deliverables": [
+    "contracts/knowledge/repo_knowledge_index.contract.json",
+    "tools/R15RepoKnowledgeIndex.psm1",
+    "tools/validate_r15_repo_knowledge_index.ps1",
+    "tests/test_r15_repo_knowledge_index.ps1",
+    "state/fixtures/valid/knowledge/r15_repo_knowledge_index.valid.json",
+    "state/fixtures/invalid/knowledge/r15_repo_knowledge_index/",
+    "state/knowledge/r15_repo_knowledge_index.json",
+    "state/knowledge/r15_repo_knowledge_index_validation_manifest.md",
+    "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_003_repo_knowledge_index_model/"
+  ],
+  "taxonomy_dependency": {
+    "taxonomy_path": "state/knowledge/r15_artifact_classification_taxonomy.json",
+    "taxonomy_contract_path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+    "source_task": "R15-002"
+  },
+  "bounded_seed_index": {
+    "path": "state/knowledge/r15_repo_knowledge_index.json",
+    "bounded_seed_only": true,
+    "full_repo_index": false,
+    "future_fuller_index_requires_later_task": true,
+    "entry_count": 13
+  },
+  "status_after_task": {
+    "r15_active_through": "R15-003",
+    "planned_tasks": [
+      "R15-004",
+      "R15-005",
+      "R15-006",
+      "R15-007",
+      "R15-008",
+      "R15-009"
+    ]
+  },
+  "validation_result": "passed",
+  "validation_manifest": "state/knowledge/r15_repo_knowledge_index_validation_manifest.md"
+}

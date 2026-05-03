@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-002` only
+**Milestone status:** Active in repo truth through `R15-003` only
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,7 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-`R15-001` and `R15-002` are complete. `R15-003` through `R15-009` are planned only.
+`R15-001` through `R15-003` are complete. `R15-004` through `R15-009` are planned only.
 
 ## Purpose
 
@@ -77,8 +77,18 @@ R15 must not implement:
   - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_002_artifact_classification_taxonomy/`
 
 ### `R15-003` Create repo knowledge index model
-- Status: planned
+- Status: done
 - Purpose: define a machine-readable index for important docs, contracts, tools, tests, reports, proof packages, state files, and their authority levels.
+- Durable output:
+  - `contracts/knowledge/repo_knowledge_index.contract.json`
+  - `tools/R15RepoKnowledgeIndex.psm1`
+  - `tools/validate_r15_repo_knowledge_index.ps1`
+  - `tests/test_r15_repo_knowledge_index.ps1`
+  - `state/fixtures/valid/knowledge/r15_repo_knowledge_index.valid.json`
+  - `state/fixtures/invalid/knowledge/r15_repo_knowledge_index/`
+  - `state/knowledge/r15_repo_knowledge_index.json`
+  - `state/knowledge/r15_repo_knowledge_index_validation_manifest.md`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_003_repo_knowledge_index_model/`
 
 ### `R15-004` Define agent identity packet model
 - Status: planned
@@ -178,6 +188,47 @@ R15-002 does not claim:
 - no solved Codex reliability;
 - no R16 opening.
 
+R15-003 claims only:
+
+- repo knowledge index contract exists;
+- validator module exists;
+- CLI wrapper exists;
+- valid and invalid fixtures exist;
+- focused tests exist;
+- bounded seed knowledge index artifact exists;
+- validation manifest exists;
+- R15-003 evidence folder exists;
+- status surfaces were updated;
+- validation passed.
+
+R15-003 does not claim:
+
+- no full repo index implemented by R15-003;
+- no full repo artifacts classified by R15-003;
+- no knowledge-base engine implemented by R15-003;
+- no artifact registry engine implemented by R15-003;
+- no retrieval engine implemented by R15-003;
+- no vector search implemented by R15-003;
+- no Obsidian integration by R15-003;
+- no GitHub Projects integration;
+- no Linear implementation;
+- no Symphony implementation;
+- no custom board implementation;
+- no agent identity packets implemented;
+- no memory scopes implemented;
+- no RACI matrix implemented;
+- no card re-entry packets implemented;
+- no classification or re-entry dry run executed;
+- no final R15 proof package complete;
+- no product runtime;
+- no board runtime;
+- no external board sync;
+- no true multi-agent execution;
+- no persistent memory engine;
+- no R16 opening;
+- no solved Codex compaction;
+- no solved Codex reliability.
+
 ## Exit Criteria
 
 R15 may exit only when:
@@ -217,8 +268,10 @@ R15 depends on:
 
 ## Validation Requirements
 
-The R15-002 slice must run and record:
+The R15-003 slice must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_repo_knowledge_index.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_repo_knowledge_index.ps1 -IndexPath state\knowledge\r15_repo_knowledge_index.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_artifact_classification_taxonomy.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_artifact_classification_taxonomy.ps1 -TaxonomyPath state\knowledge\r15_artifact_classification_taxonomy.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`
@@ -235,13 +288,13 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-002` only.
-- `R15-003` through `R15-009` planned only.
+- R15 active through `R15-003` only.
+- `R15-004` through `R15-009` planned only.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
-## R15-002 Slice Status
+## R15-003 Slice Status
 
-After this slice, `R15-001` and `R15-002` are complete.
+After this slice, `R15-001` through `R15-003` are complete.
 
-`R15-003` through `R15-009` are planned only. R15-002 does not classify the whole repo, implement the repo knowledge index, implement agent identity packets, implement memory scopes, implement the RACI matrix, implement card re-entry packets, execute the dry run, complete the final R15 proof package, or open R16.
+`R15-004` through `R15-009` are planned only. R15-003 does not classify the whole repo, implement a full repo index, implement a knowledge-base engine, implement agent identity packets, implement memory scopes, implement the RACI matrix, implement card re-entry packets, execute the dry run, complete the final R15 proof package, or open R16.
