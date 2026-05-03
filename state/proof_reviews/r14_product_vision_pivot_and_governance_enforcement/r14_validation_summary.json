@@ -1,0 +1,51 @@
+{
+  "milestone": "R14 Product Vision Pivot and Governance Enforcement",
+  "branch": "release/r14-product-vision-pivot-and-governance-enforcement",
+  "starting_head": "d3123256e83505098ee13829648f0f6e531f96ef",
+  "starting_tree": "6ebd9940929667c6b31533d4a2b9f8b677389fce",
+  "source_pack_root": "governance/_operator_inbox/aioffice_vision_update/",
+  "source_pack_files_found": 14,
+  "documents_installed": 14,
+  "overwritten_destinations": [
+    "governance/VISION.md"
+  ],
+  "preserved_source_pack_files": 14,
+  "updated_status_files": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md"
+  ],
+  "validation_results": [
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+      "result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+      "result": "failed",
+      "notes": "Legacy R13-only active milestone invariant: ACTIVE_STATE must declare R13 active through R13-018 only."
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "result": "failed",
+      "notes": "Legacy R13-only active milestone invariant: ACTIVE_STATE must declare R13 active through R13-018 only."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed_after_normalization",
+      "notes": "Initial run flagged CRLF/trailing Markdown hard-break whitespace in approved source-pack documents; R14 text files were mechanically normalized, inventories regenerated, and staged rerun passed."
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    }
+  ],
+  "r13_preservation": "R13 remains failed/partial, active through R13-018 only, and not closed.",
+  "r15_status": "not opened",
+  "claim_boundary": "documentation/governance/reporting enforcement only"
+}

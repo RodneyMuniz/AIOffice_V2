@@ -1,0 +1,33 @@
+{
+  "milestone": "R14 Product Vision Pivot and Governance Enforcement",
+  "r13_preservation": {
+    "r13_status": "failed/partial, active through R13-018 only, not closed",
+    "r13_final_head_support": false,
+    "r13_closeout_package": false,
+    "r13_main_merge": false,
+    "partial_gates_preserved": [
+      "API/custom-runner bypass",
+      "current operator control room",
+      "skill invocation evidence",
+      "operator demo"
+    ]
+  },
+  "non_claims": [
+    "R13 closure",
+    "R13 hard gates passed",
+    "productized UI",
+    "production runtime",
+    "production QA",
+    "full product QA",
+    "broad autonomy",
+    "solved Codex reliability",
+    "solved Codex compaction",
+    "Linear integration",
+    "Symphony integration",
+    "GitHub Projects integration",
+    "custom board implementation",
+    "R15 opening",
+    "R15 implementation"
+  ],
+  "r15_status": "not opened; planning brief only"
+}

@@ -1,0 +1,114 @@
+[
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\AIOffice_Document_Update_Plan_v1.md",
+        "source_pack_relative_path":  "AIOffice_Document_Update_Plan_v1.md",
+        "sha256":  "10cfa708dbb9828d12d37f722ed752a79e90e78b87651945500711410e45ac9a",
+        "length_bytes":  5010,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "source_pack_relative_path":  "governance\\AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+        "sha256":  "ec5dfc46e6450c7058be34fb92bc7858ce93bd98e9f15ccb772150dccb8709b7",
+        "length_bytes":  5899,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\ARCHITECTURE_AND_INTEGRATION_DIRECTION.md",
+        "source_pack_relative_path":  "governance\\ARCHITECTURE_AND_INTEGRATION_DIRECTION.md",
+        "sha256":  "4e08800d24e2e5639dd93aecd18afa4e6b225ae32ab2972470ba8e5a11fffd15",
+        "length_bytes":  7359,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\BOARD_AND_WORK_ITEM_MODEL.md",
+        "source_pack_relative_path":  "governance\\BOARD_AND_WORK_ITEM_MODEL.md",
+        "sha256":  "a16ff41a5e072ef72ea6f2ad5efe5722ad84f2bfe6a269d061a3af2871dfba32",
+        "length_bytes":  5863,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+        "source_pack_relative_path":  "governance\\CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+        "sha256":  "88f8a38729ea411ce5213f2fe9f67d988f5ba122d26d184e600e3188666b0ed0",
+        "length_bytes":  4801,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
+        "source_pack_relative_path":  "governance\\KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
+        "sha256":  "c1ae29297197537d872d22b35c24b8e1f8255dc87b26b05479c8d95d4a707cb4",
+        "length_bytes":  4389,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\KPI_DOMAIN_MODEL.md",
+        "source_pack_relative_path":  "governance\\KPI_DOMAIN_MODEL.md",
+        "sha256":  "e59835fb3c6aa3f2da69058df719fc69ae0be422db711362f2f0be3f210142c5",
+        "length_bytes":  14059,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\MILESTONE_REPORTING_STANDARD.md",
+        "source_pack_relative_path":  "governance\\MILESTONE_REPORTING_STANDARD.md",
+        "sha256":  "898c99a47669b304bce35c899988870277ab7b70109db8d4cfb72354e2a1bb0a",
+        "length_bytes":  6841,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\PRODUCT_OPERATING_MODEL.md",
+        "source_pack_relative_path":  "governance\\PRODUCT_OPERATING_MODEL.md",
+        "sha256":  "99f4214882a0e174bbb65305fd555870636d3e7fcfbaafb3a7e69259f4365193",
+        "length_bytes":  8083,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\RELEASE_AND_ENVIRONMENT_STRATEGY.md",
+        "source_pack_relative_path":  "governance\\RELEASE_AND_ENVIRONMENT_STRATEGY.md",
+        "sha256":  "6a519b7555ec17bee5d8bb1d8d3a1f5c8ef9a0de280d61ec68899d18c4b6b91c",
+        "length_bytes":  3990,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "source_pack_relative_path":  "governance\\ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+        "sha256":  "7de24a797718365bc4a559fc9ba86bfdc9575c4b618a203b9aa4324e463d553a",
+        "length_bytes":  14705,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\SECURITY_SAFETY_AND_COST_CONTROL_MODEL.md",
+        "source_pack_relative_path":  "governance\\SECURITY_SAFETY_AND_COST_CONTROL_MODEL.md",
+        "sha256":  "4d98f02cc080f636045b31a041ed5db0d5ec678b0d4c196275faefeb217b8843",
+        "length_bytes":  3328,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\templates\\AIOffice_Milestone_Report_Template_v2.md",
+        "source_pack_relative_path":  "governance\\templates\\AIOffice_Milestone_Report_Template_v2.md",
+        "sha256":  "c6a3504df6759e8e0dcbf01d472599bea4e6cdf0b0302ff85a667906c30ad511",
+        "length_bytes":  4529,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    },
+    {
+        "source_path":  "governance\\_operator_inbox\\aioffice_vision_update\\governance\\VISION.md",
+        "source_pack_relative_path":  "governance\\VISION.md",
+        "sha256":  "20b6937777efe998d4aa9903a68be994e6d7150248480f7ad13b1891d9219a2d",
+        "length_bytes":  12907,
+        "inventoried":  true,
+        "preserved_in_inbox":  true
+    }
+]

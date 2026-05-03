@@ -3,7 +3,7 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice`
+`R14 Product Vision Pivot and Governance Enforcement`
 
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
@@ -12,17 +12,22 @@ Current posture:
 
 `R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot` is now closed narrowly in repo truth after `R12-021`. R12 starts from the verified R11 audit/R12 planning report commit `5aa08904b02663a5549d2c8a21971544476ae805` and starting tree `ac324d20d4538e50bfdcb92fe192185a824a2f48`, while preserving R11 final accepted closeout head `c3bcdf803c0370db66eaa0a9227b3c2301b28fa2` as the narrow R11 closeout truth. The planning report `governance/reports/AIOffice_V2_R11_Audit_and_R12_Planning_Report_v1.md` is a narrative planning artifact only, not milestone proof. R12 foundation work includes value-gate freeze, scorecard weight alignment, the operating-loop contract, remote-head/stale-phase detection, fresh-thread bootstrap packet generation, mandatory transition residue preflight, external runner contracts, GitHub Actions external-runner substrate tooling, bounded replay workflow/bundle wiring, external artifact evidence normalization, actionable QA report/fix queue foundations, cycle QA evidence gate tooling, static control-room status/view artifacts, an operator decision queue, a bounded one-command control-room refresh workflow, fresh-thread restart proof tooling, imported passing R12-019 external final-state replay evidence under `state/external_runs/r12_external_runner/r12_019_final_state_replay/`, final audit/report evidence at `governance/reports/AIOffice_V2_R12_Final_Audit_Report_v1.md`, and closeout/final-head support at `state/proof_reviews/r12_external_api_runner_actionable_qa_and_operator_control_room_workflow_pilot/`. R12's strongest proof is the R12-019 external replay, not the report itself. R12-020 is a report artifact, not product proof by itself. R12-021 is closeout/final-head support only. R12 itself did not open R13 or any successor.
 
-`R13 API-First QA Pipeline and Operator Control-Room Product Slice` is now active in repo truth through `R13-018` only. R13 starts from the report-committed R12 branch head `9ad475faa87746cb3d6ef074545e4b703e77e786` on branch `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`. The planning authority is `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`, committed at `9ad475faa87746cb3d6ef074545e4b703e77e786`; it is not product proof by itself.
+`R13 API-First QA Pipeline and Operator Control-Room Product Slice` remains active in repo truth through `R13-018` only, failed/partial, and not closed. R13 starts from the report-committed R12 branch head `9ad475faa87746cb3d6ef074545e4b703e77e786` on branch `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`. The planning authority is `governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md`, committed at `9ad475faa87746cb3d6ef074545e4b703e77e786`; it is not product proof by itself.
+
+`R14 Product Vision Pivot and Governance Enforcement` is now active on branch `release/r14-product-vision-pivot-and-governance-enforcement` only because the operator explicitly approved the post-R13 product vision pivot strategy after R13-018. R14 is documentation/governance/reporting enforcement only. It does not close R13, does not implement product runtime, does not integrate Symphony, Linear, GitHub Projects, or a custom board runtime, and does not open R15.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
 R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_cycle_evidence_package.json`, `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/evidence/r13_014_validation_manifest.md`, and `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_014_operator_decision_packet.json`. R13-015 adds calculable Vision Control scoring only through `contracts/vision_control/r13_vision_control_scorecard.contract.json`, `tools/R13VisionControlScorecard.psm1`, `tools/validate_r13_vision_control_scorecard.ps1`, `tests/test_r13_vision_control_scorecard.ps1`, `state/vision_control/r13_015_vision_control_scorecard.json`, and `state/vision_control/r13_015_validation_manifest.md`; the scorecard calculates R13 aggregate `51.9`, uplift `3.7` from the prior reported R12 aggregate and `5.7` from the recomputed R12 item-row aggregate, with no 10 to 15 percent progress claim. R13-016 adds final audit candidate packet only through `governance/reports/AIOffice_V2_R13_Final_Audit_Candidate_Packet_v1.md`. R13-017 adds fail-closed closeout decision packet only through `state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json`. R13-018 adds final failed/partial report and conditional successor recommendation only through `governance/reports/AIOffice_V2_R13_Final_Failed_Partial_Report_and_Conditional_Successor_Recommendation_v1.md`.
 
-The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and no R14 or successor milestone is delivered or opened. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
+The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R13 status: R13 active through R13-018 only. R13-017 is done as fail-closed closeout eligibility decision only; R13-018 is done as final failed/partial report and conditional successor recommendation only.
+Current R14 status: R14 active through R14-006 only. R14-001 through R14-006 are the only R14 tasks. R15 is not open.
 
 Active branch:
+`release/r14-product-vision-pivot-and-governance-enforcement`
+
+R13 failed/partial branch:
 `release/r13-api-first-qa-pipeline-and-operator-control-room-product-slice`
 
 R12 closed branch:
@@ -56,6 +61,60 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R14-001` Open R14 in repo truth
+- Status: done
+- Order: 1
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: explicit operator approval of the post-R13 product vision pivot strategy after R13-018, starting head `d3123256e83505098ee13829648f0f6e531f96ef`, and starting tree `6ebd9940929667c6b31533d4a2b9f8b677389fce`
+- Authority: `governance/R14_PRODUCT_VISION_PIVOT_AND_GOVERNANCE_ENFORCEMENT.md`, `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`
+- Durable output: R14 release branch, R14 boundary, task plan, R13 failed/partial preservation, and R15 non-opening posture
+- Done when: R14 opens as documentation/governance/reporting enforcement only, R13 remains failed/partial and not closed, and no product runtime or R15 opening is claimed
+
+### `R14-002` Install approved pivot documents
+- Status: done
+- Order: 2
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: `R14-001`
+- Authority: `governance/_operator_inbox/aioffice_vision_update/`, `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/source_pack_inventory.json`, `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/document_inventory.json`
+- Durable output: every approved source-pack file installed by source-pack mapping rules, source pack preserved in inbox, hashes recorded, and overwrites recorded
+- Done when: every source-pack file is inventoried, mapped, installed or intentionally preserved, and no unmapped file is silently dropped
+
+### `R14-003` Add document authority index
+- Status: done
+- Order: 3
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: `R14-002`
+- Authority: `governance/DOCUMENT_AUTHORITY_INDEX.md`
+- Durable output: document authority classes A through H, current major document ownership, proof treatment, dependencies, and replacement/deprecation notes
+- Done when: generated Markdown and reports are explicitly classified as operator artifacts unless backed by committed machine evidence
+
+### `R14-004` Add lightweight reporting standard enforcement
+- Status: done
+- Order: 4
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: `R14-003`
+- Authority: `tools/validate_milestone_reporting_standard.ps1`, `tests/test_milestone_reporting_standard.ps1`
+- Durable output: validator and focused test for required reporting-standard files, required section text, and operator-artifact versus machine-evidence distinction
+- Done when: the validator checks the milestone reporting standard, KPI model, report template, document authority index, required report sections, and artifact boundary without becoming a full reporting engine
+
+### `R14-005` Add R14 validation/evidence package
+- Status: done
+- Order: 5
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: `R14-004`
+- Authority: `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/`
+- Durable output: README, validation manifest, source-pack inventory, document inventory, non-claims, and validation summary
+- Done when: the package lists source files, installed documents, overwrites, preserved inbox files, updated status files, validation commands, results, R13 failed/partial preservation, explicit non-claims, and no R15 opening
+
+### `R14-006` Produce R14 closeout and R15 planning brief
+- Status: done
+- Order: 6
+- Milestone: `R14 Product Vision Pivot and Governance Enforcement`
+- Depends on: `R14-005`
+- Authority: `governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md`
+- Durable output: R14 operator closeout and planning-only R15 recommendation
+- Done when: the report includes required R14 closeout sections, recommends R15 planning direction only, does not open R15, and does not create active R15 tasks
 
 ### `R13-001` Open R13 and freeze hard value gates
 - Status: done

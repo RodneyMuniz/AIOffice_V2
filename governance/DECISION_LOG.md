@@ -1136,3 +1136,54 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: the conditional successor recommendation does not open R14 or any successor; any successor requires separate explicit operator approval and repo-truth opening evidence.
 - Consequence: R13 is active through `R13-018` only and remains not closed.
 - Consequence: this decision does not close R13, does not run final-head support, does not create a closeout package, does not merge to main, does not convert partial gates into passed gates, does not claim production runtime, production QA, full product QA coverage, productized UI, productized control-room behavior, broad autonomy, solved Codex reliability, solved Codex compaction, and does not open R14 or any successor milestone.
+
+## D-0118 R14 Opened From Explicit Operator Pivot Approval
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14 Product Vision Pivot and Governance Enforcement` opens on branch `release/r14-product-vision-pivot-and-governance-enforcement` from head `d3123256e83505098ee13829648f0f6e531f96ef` and tree `6ebd9940929667c6b31533d4a2b9f8b677389fce`.
+- Consequence: R14 opens only because the operator explicitly approved the post-R13 product vision pivot strategy after R13-018 and approved the local source pack under `governance/_operator_inbox/aioffice_vision_update/`.
+- Consequence: R14 is documentation/governance/reporting enforcement only.
+- Consequence: R13 remains active through `R13-018` only, failed/partial, not closed, without final-head support, without a closeout package, and without main merge.
+- Consequence: API/custom-runner bypass, current operator control room, skill invocation evidence, and operator demo remain partial.
+- Consequence: this decision does not implement product runtime, agents, board UI, Symphony, Linear, GitHub Projects, custom board runtime, runner automation, or R15.
+
+## D-0119 R14-002 Installed Approved Pivot Documents
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14-002` is done as approved pivot document installation.
+- Consequence: every file recursively found under `governance/_operator_inbox/aioffice_vision_update/` is inventoried in `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/source_pack_inventory.json`.
+- Consequence: every source-pack file is installed using the approved path mapping and recorded in `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/document_inventory.json`.
+- Consequence: `governance/VISION.md` is recorded as an approved overwrite; the source pack remains preserved under `governance/_operator_inbox/aioffice_vision_update/`.
+- Consequence: these installed documents are governance truth or direction according to their document authority class, but they are not proof by themselves.
+
+## D-0120 R14-003 Added Document Authority Index
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14-003` is done through `governance/DOCUMENT_AUTHORITY_INDEX.md`.
+- Consequence: current major governance documents are classified as Class A through Class H authority surfaces.
+- Consequence: generated Markdown and reports are operator artifacts unless backed by committed machine evidence.
+- Consequence: target-state documents remain non-claims until supported by implementation and evidence.
+
+## D-0121 R14-004 Added Milestone Reporting Standard Enforcement
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14-004` is done through `tools/validate_milestone_reporting_standard.ps1` and `tests/test_milestone_reporting_standard.ps1`.
+- Consequence: the validator checks for `governance/MILESTONE_REPORTING_STANDARD.md`, `governance/KPI_DOMAIN_MODEL.md`, `governance/templates/AIOffice_Milestone_Report_Template_v2.md`, and `governance/DOCUMENT_AUTHORITY_INDEX.md`.
+- Consequence: the validator checks required report section text and preserves the distinction between operator artifacts and committed machine evidence.
+- Consequence: this is lightweight reporting enforcement only, not a reporting engine.
+
+## D-0122 R14-005 Added Validation Evidence Package
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14-005` is done through `state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/`.
+- Consequence: the package records source-pack inventory, document inventory, non-claims, validation manifest, validation summary, overwritten destinations, preserved source-pack files, updated status files, validation commands, and results.
+- Consequence: the package preserves that R13 remains failed/partial and that R15 is not open.
+
+## D-0123 R14-006 Produced R14 Closeout And R15 Planning Brief
+- Date: 2026-05-03
+- Status: accepted
+- Decision: `R14-006` is done through `governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md`.
+- Consequence: the report is an operator artifact only.
+- Consequence: the recommended R15 direction is planning-only: `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`.
+- Consequence: R15 is not opened, no R15 task files are active, and R15 is not marked active.
+- Consequence: this decision does not close R13, does not convert R13 partial gates into passed gates, does not implement product runtime, and does not claim Symphony, Linear, GitHub Projects, or custom board integration.
