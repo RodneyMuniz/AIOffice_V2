@@ -1,0 +1,29 @@
+{
+  "artifact_type": "r15_005_agent_memory_scope_non_claims",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-005",
+  "non_claims": [
+    "no actual agents implemented by R15-005",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-005",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no RACI matrix implemented",
+    "no card re-entry packet implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

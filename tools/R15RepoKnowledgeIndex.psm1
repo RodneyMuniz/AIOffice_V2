@@ -153,6 +153,35 @@ $script:RequiredNonClaimsR15004 = @(
     "no solved Codex reliability"
 )
 
+$script:RequiredNonClaimsR15005 = @(
+    "no full repo index implemented by R15-005",
+    "no full repo artifacts classified by R15-005",
+    "no knowledge-base engine implemented by R15-005",
+    "no artifact registry engine implemented by R15-005",
+    "no retrieval engine implemented by R15-005",
+    "no vector search implemented by R15-005",
+    "no Obsidian integration by R15-005",
+    "no actual agents implemented by R15-005",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no RACI matrix implemented",
+    "no card re-entry packet implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+)
+
 $script:ProofByItselfEvidenceKinds = @(
     "committed_machine_evidence",
     "external_replay_evidence",
@@ -455,6 +484,11 @@ function Assert-RequiredNonClaims {
 
     $missingR15004 = @($script:RequiredNonClaimsR15004 | Where-Object { $NonClaims -notcontains $_ })
     if ($missingR15004.Count -eq 0) {
+        return
+    }
+
+    $missingR15005 = @($script:RequiredNonClaimsR15005 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15005.Count -eq 0) {
         return
     }
 

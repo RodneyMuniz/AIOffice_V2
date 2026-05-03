@@ -6,8 +6,8 @@
   "source_task": "R15-003",
   "repository": "RodneyMuniz/AIOffice_V2",
   "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
-  "generated_from_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
-  "generated_from_tree": "78b2d1823050908d690faa0a5bcf914f6a81505d",
+  "generated_from_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
+  "generated_from_tree": "e3ebcdc43706a37796352f526ea7b7016ffe8b72",
   "taxonomy_ref": {
     "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
     "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
@@ -19,7 +19,7 @@
     "full_repo_index": false,
     "future_fuller_index_requires_later_task": true,
     "description": "Bounded seed set of current authority and R15 foundation references only.",
-    "included_path_count": 15,
+    "included_path_count": 17,
     "included_paths": [
       "governance/VISION.md",
       "governance/PRODUCT_OPERATING_MODEL.md",
@@ -35,12 +35,14 @@
       "contracts/knowledge/repo_knowledge_index.contract.json",
       "state/knowledge/r15_repo_knowledge_index.json",
       "contracts/agents/agent_identity_packet.contract.json",
-      "state/agents/r15_agent_identity_packet.json"
+      "state/agents/r15_agent_identity_packet.json",
+      "contracts/agents/agent_memory_scope.contract.json",
+      "state/agents/r15_agent_memory_scope.json"
     ],
     "excluded_scope": [
       "No broad historical repo classification.",
       "No product runtime, board runtime, integration, direct agent access runtime, or engine artifacts.",
-      "No R15-005 through R15-009 implementation artifacts."
+      "No R15-006 through R15-009 implementation artifacts."
     ]
   },
   "required_entry_fields": [
@@ -751,32 +753,139 @@
         "no direct agent access runtime implemented",
         "no persistent memory engine implemented"
       ]
+    },
+    {
+      "entry_id": "r15_agent_memory_scope_contract",
+      "path": "contracts/agents/agent_memory_scope.contract.json",
+      "title": "R15 Agent Memory Scope Contract",
+      "summary": "R15-005 contract defining required memory scope fields, scope-boundary flags, role-to-memory access mapping, and invalid-state rules for the model-only agent memory scope baseline.",
+      "classification_class": "contract",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "contract_authority",
+      "lifecycle_state": "current",
+      "proof_status": "requires_machine_evidence",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-005",
+      "last_verified_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
+      "depends_on": [
+        "r15_agent_identity_packet_state",
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state",
+        "agent_identity_memory_model"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "derived_from",
+          "target_entry_id": "agent_identity_memory_model",
+          "reason": "The contract makes the target memory-scope model machine-checkable without adding runtime memory loading."
+        },
+        {
+          "relationship_type": "validates",
+          "target_entry_id": "r15_agent_memory_scope_state",
+          "reason": "The validator uses this contract shape to check the baseline memory scope model."
+        }
+      ],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load before validating or extending R15-005 memory scope fields in later authorized tasks.",
+      "non_claims": [
+        "no actual agents implemented by R15-005",
+        "no direct agent access runtime implemented",
+        "no persistent memory engine implemented",
+        "no runtime memory loading implemented",
+        "no retrieval engine implemented by R15-005",
+        "no vector search implemented by R15-005"
+      ]
+    },
+    {
+      "entry_id": "r15_agent_memory_scope_state",
+      "path": "state/agents/r15_agent_memory_scope.json",
+      "title": "R15 Agent Memory Scope Baseline",
+      "summary": "Committed R15-005 baseline memory scope model with ten scope records, model-only runtime flags, explicit access boundaries, and role-to-memory mapping tied to R15-004 identities.",
+      "classification_class": "machine_evidence",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "proof_authority",
+      "lifecycle_state": "current",
+      "proof_status": "proof_by_itself_true",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-005",
+      "last_verified_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
+      "depends_on": [
+        "r15_agent_memory_scope_contract",
+        "r15_agent_identity_packet_state",
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_authority",
+          "reason": "The baseline memory scope model supports the R15-005 done status only."
+        },
+        {
+          "relationship_type": "depends_on",
+          "target_entry_id": "r15_agent_identity_packet_state",
+          "reason": "The role-to-memory access mapping is tied to the R15-004 model-only identities."
+        }
+      ],
+      "recommended_for_roles": [
+        "operator_summary",
+        "pm_planning",
+        "knowledge_curator",
+        "auditor_review",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load as the R15-005 baseline memory scope model; do not treat it as runtime memory loading, persistent memory, retrieval, vector search, direct agent runtime, or RACI implementation.",
+      "non_claims": [
+        "no actual agents implemented by R15-005",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented",
+        "no runtime memory loading implemented",
+        "no RACI matrix implemented",
+        "no card re-entry packet implemented"
+      ]
     }
   ],
   "claims": [
     "R15-003 adds a repo knowledge index contract.",
     "R15-003 adds a validator module, CLI wrapper, valid and invalid fixtures, focused tests, a bounded seed index artifact, a validation manifest, and an evidence folder.",
     "R15-004 updates the bounded seed index with agent identity packet contract and baseline packet entries.",
-    "R15-004 updates status surfaces for R15 active through R15-004 only."
+    "R15-004 updates status surfaces for R15 active through R15-004 only.",
+    "R15-005 updates the bounded seed index with agent memory scope contract and baseline model entries.",
+    "R15-005 updates status surfaces for R15 active through R15-005 only."
   ],
   "non_claims": [
-    "no full repo index implemented by R15-004",
-    "no full repo artifacts classified by R15-004",
-    "no knowledge-base engine implemented by R15-004",
-    "no artifact registry engine implemented by R15-004",
-    "no retrieval engine implemented by R15-004",
-    "no vector search implemented by R15-004",
-    "no Obsidian integration by R15-004",
-    "no actual agents implemented by R15-004",
+    "no full repo index implemented by R15-005",
+    "no full repo artifacts classified by R15-005",
+    "no knowledge-base engine implemented by R15-005",
+    "no artifact registry engine implemented by R15-005",
+    "no retrieval engine implemented by R15-005",
+    "no vector search implemented by R15-005",
+    "no Obsidian integration by R15-005",
+    "no actual agents implemented by R15-005",
     "no direct agent access runtime implemented",
     "no true multi-agent execution implemented",
     "no persistent memory engine implemented",
-    "no memory scopes implemented beyond identity packet refs by R15-004",
+    "no runtime memory loading implemented",
     "no RACI matrix implemented",
     "no card re-entry packet implemented",
-    "no board routing implemented",
-    "no PM automation implemented",
-    "no Developer/QA/Auditor runtime separation implemented",
+    "no classification or re-entry dry run executed",
     "no final R15 proof package complete",
     "no product runtime",
     "no board runtime",

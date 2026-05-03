@@ -1,0 +1,1152 @@
+{
+    "artifact_type":  "r15_agent_memory_scope_model",
+    "contract_version":  "v1",
+    "memory_scope_model_id":  "aioffice-r15-agent-memory-scope-invalid-fixture-v1",
+    "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+    "source_task":  "R15-005",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+    "generated_from_head":  "fcbbd689b412851a4002fd8ce5708644dc190181",
+    "generated_from_tree":  "e3ebcdc43706a37796352f526ea7b7016ffe8b72",
+    "taxonomy_ref":  {
+                         "taxonomy_id":  "aioffice-r15-artifact-classification-taxonomy-v1",
+                         "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                         "contract_path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                         "source_task":  "R15-002"
+                     },
+    "knowledge_index_ref":  {
+                                "index_id":  "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+                                "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                                "contract_path":  "contracts/knowledge/repo_knowledge_index.contract.json",
+                                "source_task":  "R15-003"
+                            },
+    "agent_identity_packet_ref":  {
+                                      "packet_set_id":  "aioffice-r15-agent-identity-packet-baseline-v1",
+                                      "path":  "state/agents/r15_agent_identity_packet.json",
+                                      "contract_path":  "contracts/agents/agent_identity_packet.contract.json",
+                                      "source_task":  "R15-004"
+                                  },
+    "scope_boundary":  {
+                           "model_only":  true,
+                           "actual_agents_implemented":  false,
+                           "persistent_memory_engine_implemented":  false,
+                           "runtime_memory_loading_implemented":  false,
+                           "retrieval_engine_implemented":  false,
+                           "vector_search_implemented":  false,
+                           "direct_agent_access_runtime":  false,
+                           "true_multi_agent_execution":  false,
+                           "raci_matrix_implemented":  true,
+                           "card_reentry_packet_implemented":  false,
+                           "r16_opened":  false,
+                           "future_runtime_requires_later_task":  true
+                       },
+    "required_scope_ids":  [
+                               "global_governance_memory",
+                               "product_governance_memory",
+                               "milestone_authority_memory",
+                               "role_identity_memory",
+                               "card_task_memory",
+                               "run_session_memory",
+                               "evidence_memory",
+                               "knowledge_index_memory",
+                               "historical_report_memory",
+                               "deprecated_cleanup_candidate_memory"
+                           ],
+    "required_scope_fields":  [
+                                  "scope_id",
+                                  "scope_type",
+                                  "purpose",
+                                  "authority_level",
+                                  "allowed_agent_ids",
+                                  "role_types",
+                                  "canonical_paths",
+                                  "optional_paths",
+                                  "forbidden_paths",
+                                  "forbidden_patterns",
+                                  "load_mode",
+                                  "max_context_strategy",
+                                  "freshness_or_staleness_rule",
+                                  "evidence_requirement",
+                                  "compaction_rule",
+                                  "mutation_allowed",
+                                  "non_claims"
+                              ],
+    "allowed_scope_types":  [
+                                "global_governance_memory",
+                                "product_governance_memory",
+                                "milestone_authority_memory",
+                                "role_identity_memory",
+                                "card_task_memory",
+                                "run_session_memory",
+                                "evidence_memory",
+                                "knowledge_index_memory",
+                                "historical_report_memory",
+                                "deprecated_cleanup_candidate_memory"
+                            ],
+    "allowed_authority_levels":  [
+                                     "canonical_authority",
+                                     "bounded_evidence_reference",
+                                     "operator_artifact",
+                                     "generated_report",
+                                     "stale_historical_context",
+                                     "cleanup_candidate_reference",
+                                     "knowledge_index_reference",
+                                     "non_authoritative_context"
+                                 ],
+    "allowed_load_modes":  [
+                               "exact_canonical_paths",
+                               "bounded_refs_only",
+                               "explicit_task_packet_refs",
+                               "evidence_refs_only",
+                               "knowledge_index_lookup_only",
+                               "historical_refs_only",
+                               "cleanup_candidate_refs_only"
+                           ],
+    "allowed_context_strategies":  [
+                                       "load_summary_then_exact_refs",
+                                       "exact_files_only",
+                                       "index_entry_then_exact_file",
+                                       "evidence_refs_only",
+                                       "last_run_manifest_only",
+                                       "stale_summary_only",
+                                       "cleanup_summary_only"
+                                   ],
+    "allowed_evidence_requirements":  [
+                                          "canonical_authority_citation_required",
+                                          "bounded_evidence_ref_required",
+                                          "operator_artifact_ref_required",
+                                          "generated_report_ref_required",
+                                          "explicit_user_or_pm_request_required"
+                                      ],
+    "allowed_memory_reference_kinds":  [
+                                           "canonical_authority_sources",
+                                           "bounded_evidence_references",
+                                           "operator_artifacts",
+                                           "generated_reports",
+                                           "stale_historical_context",
+                                           "knowledge_index_entries",
+                                           "cleanup_candidate_refs"
+                                       ],
+    "memory_scopes":  [
+                          {
+                              "scope_id":  "global_governance_memory",
+                              "scope_type":  "global_governance_memory",
+                              "purpose":  "Bounded model-only global_governance_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "canonical_authority",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "operator",
+                                                        "orchestrator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "operator_intake",
+                                                 "process_router",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "README.md",
+                                                      "governance/ACTIVE_STATE.md",
+                                                      "execution/KANBAN.md",
+                                                      "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                      "governance/DECISION_LOG.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "governance/BRANCHING_CONVENTION.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "exact_canonical_paths",
+                              "max_context_strategy":  "load_summary_then_exact_refs",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "canonical_authority_citation_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "product_governance_memory",
+                              "scope_type":  "product_governance_memory",
+                              "purpose":  "Bounded model-only product_governance_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "canonical_authority",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "operator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "operator_intake",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "governance/VISION.md",
+                                                      "governance/PRODUCT_OPERATING_MODEL.md",
+                                                      "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+                                                      "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+                                                      "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+                                                      "governance/RELEASE_AND_ENVIRONMENT_STRATEGY.md",
+                                                      "governance/SECURITY_SAFETY_AND_COST_CONTROL_MODEL.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "governance/BOARD_AND_WORK_ITEM_MODEL.md",
+                                                     "governance/KPI_DOMAIN_MODEL.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "exact_canonical_paths",
+                              "max_context_strategy":  "load_summary_then_exact_refs",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "canonical_authority_citation_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "milestone_authority_memory",
+                              "scope_type":  "milestone_authority_memory",
+                              "purpose":  "Bounded model-only milestone_authority_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "canonical_authority",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "operator",
+                                                        "orchestrator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "operator_intake",
+                                                 "process_router",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                      "README.md",
+                                                      "governance/ACTIVE_STATE.md",
+                                                      "execution/KANBAN.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "governance/MILESTONE_REPORTING_STANDARD.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "exact_canonical_paths",
+                              "max_context_strategy":  "exact_files_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "canonical_authority_citation_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "role_identity_memory",
+                              "scope_type":  "role_identity_memory",
+                              "purpose":  "Bounded model-only role_identity_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "bounded_evidence_reference",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "operator",
+                                                        "orchestrator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "operator_intake",
+                                                 "process_router",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "contracts/agents/agent_identity_packet.contract.json",
+                                                      "state/agents/r15_agent_identity_packet.json",
+                                                      "contracts/agents/agent_memory_scope.contract.json",
+                                                      "state/agents/r15_agent_memory_scope.json"
+                                                  ],
+                              "optional_paths":  [
+                                                     "tools/R15AgentIdentityPacket.psm1",
+                                                     "tools/R15AgentMemoryScope.psm1"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "bounded_refs_only",
+                              "max_context_strategy":  "index_entry_then_exact_file",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "bounded_evidence_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "card_task_memory",
+                              "scope_type":  "card_task_memory",
+                              "purpose":  "Bounded model-only card_task_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "operator_artifact",
+                              "allowed_agent_ids":  [
+                                                        "operator",
+                                                        "orchestrator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "operator_intake",
+                                                 "process_router",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "execution/KANBAN.md",
+                                                      "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "explicit_task_packet_refs",
+                              "max_context_strategy":  "exact_files_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "operator_artifact_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "run_session_memory",
+                              "scope_type":  "run_session_memory",
+                              "purpose":  "Bounded model-only run_session_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "bounded_evidence_reference",
+                              "allowed_agent_ids":  [
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "bounded_refs_only",
+                              "max_context_strategy":  "last_run_manifest_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "bounded_evidence_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "evidence_memory",
+                              "scope_type":  "evidence_memory",
+                              "purpose":  "Bounded model-only evidence_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "bounded_evidence_reference",
+                              "allowed_agent_ids":  [
+                                                        "project_manager",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "planning_and_card_state",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json"
+                                                  ],
+                              "optional_paths":  [
+                                                     "state/agents/r15_agent_memory_scope_validation_manifest.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "evidence_refs_only",
+                              "max_context_strategy":  "evidence_refs_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "bounded_evidence_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "knowledge_index_memory",
+                              "scope_type":  "knowledge_index_memory",
+                              "purpose":  "Bounded model-only knowledge_index_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "knowledge_index_reference",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "operator",
+                                                        "orchestrator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "developer",
+                                                        "qa_test_agent",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "operator_intake",
+                                                 "process_router",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "scoped_implementation",
+                                                 "qa_validation",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                                      "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                                      "contracts/knowledge/repo_knowledge_index.contract.json",
+                                                      "state/knowledge/r15_repo_knowledge_index.json"
+                                                  ],
+                              "optional_paths":  [
+                                                     "tools/R15ArtifactClassificationTaxonomy.psm1",
+                                                     "tools/R15RepoKnowledgeIndex.psm1"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "knowledge_index_lookup_only",
+                              "max_context_strategy":  "index_entry_then_exact_file",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "bounded_evidence_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "historical_report_memory",
+                              "scope_type":  "historical_report_memory",
+                              "purpose":  "Bounded model-only historical_report_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "stale_historical_context",
+                              "allowed_agent_ids":  [
+                                                        "operator",
+                                                        "project_manager",
+                                                        "architect",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator",
+                                                        "release_closeout_agent"
+                                                    ],
+                              "role_types":  [
+                                                 "operator_intake",
+                                                 "planning_and_card_state",
+                                                 "architecture_advisory",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal",
+                                                 "release_closeout_evidence"
+                                             ],
+                              "canonical_paths":  [
+                                                      "governance/reports/AIOffice_V2_R13_Final_Failed_Partial_Report_and_Conditional_Successor_Recommendation_v1.md",
+                                                      "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "governance/reports/AIOffice_V2_R12_Audit_and_R13_Planning_Report_v1.md"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "historical_refs_only",
+                              "max_context_strategy":  "stale_summary_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "generated_report_ref_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          },
+                          {
+                              "scope_id":  "deprecated_cleanup_candidate_memory",
+                              "scope_type":  "deprecated_cleanup_candidate_memory",
+                              "purpose":  "Bounded model-only deprecated_cleanup_candidate_memory category for exact refs and evidence-backed context.",
+                              "authority_level":  "cleanup_candidate_reference",
+                              "allowed_agent_ids":  [
+                                                        "user_rodney",
+                                                        "evidence_auditor",
+                                                        "knowledge_curator"
+                                                    ],
+                              "role_types":  [
+                                                 "user_final_authority",
+                                                 "evidence_audit",
+                                                 "knowledge_classification_proposal"
+                                             ],
+                              "canonical_paths":  [
+                                                      "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                      "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md"
+                                                  ],
+                              "optional_paths":  [
+                                                     "state/knowledge/r15_repo_knowledge_index.json"
+                                                 ],
+                              "forbidden_paths":  [
+                                                      ".git/",
+                                                      "node_modules/",
+                                                      "unbounded external mirrors"
+                                                  ],
+                              "forbidden_patterns":  [
+                                                         "full_repo_scan",
+                                                         "implicit_memory_loading",
+                                                         "persistent_memory_runtime_claim",
+                                                         "runtime_agent_memory_claim",
+                                                         "vector_or_retrieval_claim"
+                                                     ],
+                              "load_mode":  "cleanup_candidate_refs_only",
+                              "max_context_strategy":  "cleanup_summary_only",
+                              "freshness_or_staleness_rule":  "Use current repo-truth refs; stale chat memory is not evidence.",
+                              "evidence_requirement":  "explicit_user_or_pm_request_required",
+                              "compaction_rule":  "After compaction, reload exact refs listed by this scope.",
+                              "mutation_allowed":  false,
+                              "non_claims":  [
+                                                 "no implicit memory loading",
+                                                 "no full repo scan",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented"
+                                             ]
+                          }
+                      ],
+    "role_memory_access_matrix":  [
+                                      {
+                                          "agent_id":  "user_rodney",
+                                          "role_type":  "user_final_authority",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory",
+                                                                    "deprecated_cleanup_candidate_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "global_governance_memory",
+                                                                         "product_governance_memory",
+                                                                         "milestone_authority_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "run_session_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "bounded_evidence_references",
+                                                                         "knowledge_index_entries",
+                                                                         "cleanup_candidate_refs"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "operator",
+                                          "role_type":  "operator_intake",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "global_governance_memory",
+                                                                         "milestone_authority_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "operator_artifacts",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "orchestrator",
+                                          "role_type":  "process_router",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "knowledge_index_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "milestone_authority_memory",
+                                                                         "role_identity_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "historical_report_memory",
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "operator_artifacts",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "project_manager",
+                                          "role_type":  "planning_and_card_state",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "product_governance_memory",
+                                                                         "milestone_authority_memory",
+                                                                         "card_task_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "operator_artifacts",
+                                                                         "bounded_evidence_references",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "architect",
+                                          "role_type":  "architecture_advisory",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "product_governance_memory",
+                                                                         "role_identity_memory",
+                                                                         "card_task_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "run_session_memory",
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "operator_artifacts",
+                                                                         "knowledge_index_entries",
+                                                                         "stale_historical_context"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "developer",
+                                          "role_type":  "scoped_implementation",
+                                          "allowed_scope_ids":  [
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "run_session_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "card_task_memory",
+                                                                         "run_session_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "historical_report_memory",
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "operator_artifacts",
+                                                                         "bounded_evidence_references",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "qa_test_agent",
+                                          "role_type":  "qa_validation",
+                                          "allowed_scope_ids":  [
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "run_session_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "card_task_memory",
+                                                                         "evidence_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "historical_report_memory",
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "bounded_evidence_references",
+                                                                         "operator_artifacts",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "evidence_auditor",
+                                          "role_type":  "evidence_audit",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "card_task_memory",
+                                                                    "run_session_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory",
+                                                                    "deprecated_cleanup_candidate_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "global_governance_memory",
+                                                                         "milestone_authority_memory",
+                                                                         "evidence_memory",
+                                                                         "knowledge_index_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "bounded_evidence_references",
+                                                                         "generated_reports",
+                                                                         "stale_historical_context",
+                                                                         "knowledge_index_entries",
+                                                                         "cleanup_candidate_refs"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "knowledge_curator",
+                                          "role_type":  "knowledge_classification_proposal",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "product_governance_memory",
+                                                                    "role_identity_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory",
+                                                                    "deprecated_cleanup_candidate_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "knowledge_index_memory",
+                                                                         "evidence_memory",
+                                                                         "deprecated_cleanup_candidate_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "run_session_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "bounded_evidence_references",
+                                                                         "knowledge_index_entries",
+                                                                         "cleanup_candidate_refs"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      },
+                                      {
+                                          "agent_id":  "release_closeout_agent",
+                                          "role_type":  "release_closeout_evidence",
+                                          "allowed_scope_ids":  [
+                                                                    "global_governance_memory",
+                                                                    "milestone_authority_memory",
+                                                                    "role_identity_memory",
+                                                                    "run_session_memory",
+                                                                    "evidence_memory",
+                                                                    "knowledge_index_memory",
+                                                                    "historical_report_memory"
+                                                                ],
+                                          "default_load_scope_ids":  [
+                                                                         "milestone_authority_memory",
+                                                                         "evidence_memory",
+                                                                         "run_session_memory"
+                                                                     ],
+                                          "prohibited_scope_ids":  [
+                                                                       "deprecated_cleanup_candidate_memory"
+                                                                   ],
+                                          "memory_reference_kinds":  [
+                                                                         "canonical_authority_sources",
+                                                                         "bounded_evidence_references",
+                                                                         "generated_reports",
+                                                                         "knowledge_index_entries"
+                                                                     ],
+                                          "evidence_reference_rule":  "Use explicit scope ids plus concrete file or evidence refs; never load broad repository context by role alone.",
+                                          "bounded_refs_required":  true,
+                                          "must_not_load_all_memory":  true,
+                                          "non_claims":  [
+                                                             "no runtime agent access",
+                                                             "no implicit memory loading",
+                                                             "no persistent memory engine implemented"
+                                                         ]
+                                      }
+                                  ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_required_memory_scopes_fail_closed",
+                                    "description":  "All required R15-005 memory scope categories must be present."
+                                },
+                                {
+                                    "rule_id":  "scope_ids_unique",
+                                    "description":  "Every memory scope_id must be unique."
+                                },
+                                {
+                                    "rule_id":  "missing_required_scope_fields_fail_closed",
+                                    "description":  "Each memory scope must include required fields."
+                                },
+                                {
+                                    "rule_id":  "full_repo_scan_rejected",
+                                    "description":  "No scope may allow full repo scan by default path or load mode."
+                                },
+                                {
+                                    "rule_id":  "implicit_memory_loading_rejected",
+                                    "description":  "No scope may claim implicit memory loading by role name or chat memory."
+                                },
+                                {
+                                    "rule_id":  "load_all_memory_without_bounded_refs_rejected",
+                                    "description":  "No role may load all memory without bounded references."
+                                },
+                                {
+                                    "rule_id":  "runtime_memory_engine_claim_rejected",
+                                    "description":  "Any runtime memory engine claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "persistent_memory_claim_rejected",
+                                    "description":  "Any persistent memory claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "retrieval_vector_search_claim_rejected",
+                                    "description":  "Any retrieval engine or vector search claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "direct_agent_runtime_claim_rejected",
+                                    "description":  "Any direct agent runtime or true multi-agent execution claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "raci_implementation_claim_rejected",
+                                    "description":  "Any RACI implementation claim fails validation; this is memory access mapping only."
+                                },
+                                {
+                                    "rule_id":  "card_reentry_implementation_claim_rejected",
+                                    "description":  "Any card re-entry implementation claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "r16_opening_claim_rejected",
+                                    "description":  "Any R16 or successor opening claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "r15_006_plus_complete_status_rejected",
+                                    "description":  "Any status posture marking R15-006 or later complete fails validation."
+                                }
+                            ],
+    "claims":  [
+                   "R15-005 defines a machine-checkable agent memory scope model.",
+                   "R15-005 maps R15-004 role identities to bounded memory scopes without creating a RACI matrix."
+               ],
+    "non_claims":  [
+                       "no actual agents implemented by R15-005",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-005",
+                       "no RACI matrix implemented",
+                       "no card re-entry packet implemented",
+                       "no classification or re-entry dry run executed",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no board runtime",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear implementation",
+                       "no Symphony implementation",
+                       "no custom board implementation",
+                       "no R16 opening",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
+}
+
