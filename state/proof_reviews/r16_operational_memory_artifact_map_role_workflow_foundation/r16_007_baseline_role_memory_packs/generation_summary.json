@@ -1,0 +1,57 @@
+{
+  "artifact_type": "r16_007_generation_summary",
+  "source_task": "R16-007",
+  "generated_artifact": "state/memory/r16_role_memory_packs.json",
+  "valid_fixture": "state/fixtures/valid/memory/r16_role_memory_packs.valid.json",
+  "invalid_fixture_root": "state/fixtures/invalid/memory/r16_role_memory_packs/",
+  "generator_module": "tools/R16RoleMemoryPackGenerator.psm1",
+  "generator_cli": "tools/new_r16_role_memory_packs.ps1",
+  "validator_cli": "tools/validate_r16_role_memory_packs.ps1",
+  "focused_test": "tests/test_r16_role_memory_pack_generator.ps1",
+  "model_dependency": "state/memory/r16_role_memory_pack_model.json",
+  "memory_layer_dependency": "state/memory/r16_memory_layers.json",
+  "generated_from_head": "dc4f06309bd5f1b8c071cc6b05582189747ec297",
+  "generated_from_tree": "3bfb9906e3fb34530073a61666891d62359b68ab",
+  "role_count": 8,
+  "roles": [
+    "operator",
+    "project_manager",
+    "architect",
+    "developer",
+    "qa",
+    "evidence_auditor",
+    "knowledge_curator",
+    "release_closeout_agent"
+  ],
+  "memory_layer_types": [
+    "global_governance_memory",
+    "product_governance_memory",
+    "milestone_authority_memory",
+    "role_identity_memory",
+    "task_card_memory",
+    "run_session_memory",
+    "evidence_memory",
+    "knowledge_index_memory",
+    "historical_report_memory",
+    "deprecated_cleanup_candidate_memory"
+  ],
+  "determinism_proof_summary": {
+    "method": "Focused test runs the generator twice and compares normalized JSON.",
+    "expected_result": "Repeated generation from the same bounded exact refs produces identical normalized output.",
+    "full_repo_scan_allowed": false,
+    "wildcard_source_refs_allowed": false
+  },
+  "posture": {
+    "active_through_task": "R16-007",
+    "planned_range": "R16-008..R16-026",
+    "baseline_role_memory_packs_are_state_artifacts_not_runtime_memory": true,
+    "baseline_role_memory_packs_are_actual_agents": false,
+    "baseline_role_memory_packs_perform_workflow_execution": false,
+    "artifact_maps_implemented": false,
+    "audit_maps_implemented": false,
+    "context_load_planner_implemented": false,
+    "role_run_envelopes_implemented": false,
+    "handoff_packets_implemented": false,
+    "workflow_drills_run": false
+  }
+}

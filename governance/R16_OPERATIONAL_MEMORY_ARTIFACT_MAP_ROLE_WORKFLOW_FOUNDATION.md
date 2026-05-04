@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-006` only
+**Milestone status:** Active in repo truth through `R16-007` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -35,7 +35,9 @@ R16-004 defines the memory layer contract only through `contracts/memory/r16_mem
 
 R16-005 implements deterministic baseline memory layer generation only through `tools/R16MemoryLayerGenerator.psm1`, `tools/new_r16_memory_layers.ps1`, `tools/validate_r16_memory_layers.ps1`, `tests/test_r16_memory_layer_generator.ps1`, generated baseline state artifact `state/memory/r16_memory_layers.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_memory_layers/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_005_deterministic_memory_layer_generator/`. Generated baseline memory layers are committed state artifacts, not runtime memory.
 
-R16-006 adds the role-specific memory pack model only through `contracts/memory/r16_role_memory_pack_model.contract.json`, `tools/R16RoleMemoryPackModel.psm1`, `tools/validate_r16_role_memory_pack_model.ps1`, `tests/test_r16_role_memory_pack_model.ps1`, committed state artifact `state/memory/r16_role_memory_pack_model.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_role_memory_pack_model/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_006_role_memory_pack_model/`. No generated baseline role memory packs exist yet. No role memory pack generator exists yet.
+R16-006 adds the role-specific memory pack model only through `contracts/memory/r16_role_memory_pack_model.contract.json`, `tools/R16RoleMemoryPackModel.psm1`, `tools/validate_r16_role_memory_pack_model.ps1`, `tests/test_r16_role_memory_pack_model.ps1`, committed state artifact `state/memory/r16_role_memory_pack_model.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_role_memory_pack_model/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_006_role_memory_pack_model/`.
+
+R16-007 generated baseline role memory packs only through `tools/R16RoleMemoryPackGenerator.psm1`, `tools/new_r16_role_memory_packs.ps1`, `tools/validate_r16_role_memory_packs.ps1`, `tests/test_r16_role_memory_pack_generator.ps1`, generated baseline state artifact `state/memory/r16_role_memory_packs.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_role_memory_packs/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_007_baseline_role_memory_packs/`. Generated baseline role memory packs are committed state artifacts, not runtime memory. Generated baseline role memory packs are not actual agents. Generated baseline role memory packs do not perform work or workflow execution.
 
 ## Purpose
 
@@ -299,8 +301,18 @@ Required evidence deliverables:
 - Done when: the model defines role catalog, aliases, allowed/required/forbidden memory layer types per role, exact memory layer dependencies from `state/memory/r16_memory_layers.json`, required source-ref treatment, deterministic load priority, ref budget categories, stale-ref handling, proof treatment, authority boundaries, forbidden actions, non-claims, preserved R13/R14/R15 boundaries, and invalid-state rules while rejecting generated role memory packs, role memory pack generator claims, runtime memory loading, persistent memory runtime, retrieval/vector runtime, actual autonomous agents, true multi-agent execution, external integrations, artifact maps, context-load planners, R16-007 implementation, R16-027-or-later tasks, and R13/R14/R15 boundary violations.
 
 ### `R16-007` Generate baseline memory packs for key roles
-- Status: planned
+- Status: done
 - Purpose: produce role-specific baseline memory packs with exact refs and scoped load boundaries.
+- Durable output:
+  - `tools/R16RoleMemoryPackGenerator.psm1`
+  - `tools/new_r16_role_memory_packs.ps1`
+  - `tools/validate_r16_role_memory_packs.ps1`
+  - `tests/test_r16_role_memory_pack_generator.ps1`
+  - `state/memory/r16_role_memory_packs.json`
+  - `state/fixtures/valid/memory/r16_role_memory_packs.valid.json`
+  - `state/fixtures/invalid/memory/r16_role_memory_packs/`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_007_baseline_role_memory_packs/`
+- Done when: deterministic baseline memory packs are generated for Operator, Project Manager, Architect, Developer, QA, Evidence Auditor, Knowledge Curator, and Release/Closeout Agent from `state/memory/r16_role_memory_pack_model.json` and `state/memory/r16_memory_layers.json`; role aliases, allowed/required/forbidden layer policy, load priority, budget categories, proof treatment, stale-ref policy, role authority boundaries, and forbidden actions are preserved; invalid role, dependency, source-ref, proof-treatment, runtime, agent, integration, later-task, and R13/R14/R15 boundary overclaims fail closed; and generated baseline role memory packs are recorded as committed state artifacts only, not runtime memory, not actual agents, and not workflow execution.
 
 ### `R16-008` Add memory pack validation and stale-ref detection
 - Status: planned
@@ -380,8 +392,10 @@ Required evidence deliverables:
 
 ## Validation Requirements
 
-R16-006 validation must run and record:
+R16-007 validation must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_role_memory_pack_generator.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_role_memory_packs.ps1 -PacksPath state\memory\r16_role_memory_packs.json -ModelPath state\memory\r16_role_memory_pack_model.json -MemoryLayersPath state\memory\r16_memory_layers.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_role_memory_pack_model.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_role_memory_pack_model.ps1 -ModelPath state\memory\r16_role_memory_pack_model.json -ContractPath contracts\memory\r16_role_memory_pack_model.contract.json -MemoryLayersPath state\memory\r16_memory_layers.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_memory_layer_generator.ps1`
@@ -407,14 +421,15 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-006` only.
-- `R16-007` through `R16-026` planned only.
+- R16 active through `R16-007` only.
+- `R16-008` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
+- generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
 
 Status gates must reject:
 
-- reject `R16-007` or later implementation claims.
+- reject `R16-008` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -432,8 +447,10 @@ Status gates must reject:
 - reject conversion of R13 partial gates into passed gates.
 - reject target KPI scores treated as achieved implementation.
 - reject generated baseline memory layers treated as runtime memory.
-- reject generated baseline role memory packs claimed.
-- reject role memory pack generator claims.
+- reject generated baseline role memory packs treated as runtime memory.
+- reject generated baseline role memory packs treated as actual agents.
+- reject generated baseline role memory packs treated as workflow execution.
+- reject role memory pack generator runtime overclaims.
 - reject role-specific memory pack model treated as actual agents.
 
 ## Compaction and Restart Recovery Strategy
@@ -539,4 +556,21 @@ R16-006 is accepted only if:
 - no artifact map, audit map, context-load planner, budget estimator, role-run envelope, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-007, or R16-027-or-later claim is made;
 - focused R16-006 validation and status gates pass.
 
-After R16-006, R16 is active through `R16-006` only. `R16-007` through `R16-026` remain planned only. R16-006 added the role-specific memory pack model only. No generated baseline role memory packs exist yet. No role memory pack generator exists yet. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet.
+After R16-006, R16 was active through `R16-006` only and `R16-007` through `R16-026` remained planned only. R16-006 added the role-specific memory pack model only.
+
+R16-007 is accepted only if:
+
+- the deterministic role memory pack generator exists at `tools/R16RoleMemoryPackGenerator.psm1`;
+- the generator CLI exists at `tools/new_r16_role_memory_packs.ps1`;
+- the role memory pack validator CLI exists at `tools/validate_r16_role_memory_packs.ps1`;
+- the generated baseline role memory pack artifact exists at `state/memory/r16_role_memory_packs.json`;
+- the valid and invalid fixtures cover missing role packs, unknown roles, aliases to unknown roles, missing model or memory-layer dependencies, unknown layer types, missing required layers, forbidden layers, load-priority errors, broad/wildcard refs, stale refs without caveats, report/proof treatment errors, runtime/product/agent/integration overclaims, artifact/audit/context/role-run/handoff/workflow claims, R16-008 implementation claims, R16-027-or-later tasks, and R13/R14/R15 boundary violations;
+- all eight required roles are present: Operator, Project Manager, Architect, Developer, QA, Evidence Auditor, Knowledge Curator, and Release/Closeout Agent;
+- every role pack references exact memory layer dependencies from `state/memory/r16_memory_layers.json`;
+- role aliases, allowed/required/forbidden layer policy, deterministic load priority, ref budget categories, stale-ref handling, proof treatment, role authority boundaries, and forbidden actions are preserved from the R16-006 model;
+- generated baseline role memory packs are explicitly recorded as committed state artifacts, not runtime memory, not actual agents, and not workflow execution;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- no artifact map, audit map, context-load planner, budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-008, or R16-027-or-later claim is made;
+- focused R16-007 validation and status gates pass.
+
+After R16-007, R16 is active through `R16-007` only. `R16-008` through `R16-026` remain planned only. R16-007 generated baseline role memory packs only. Generated baseline role memory packs are committed state artifacts, not runtime memory. Generated baseline role memory packs are not actual agents. Generated baseline role memory packs do not perform work or workflow execution. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet. No handoff packets are implemented yet. No workflow drills are implemented yet.
