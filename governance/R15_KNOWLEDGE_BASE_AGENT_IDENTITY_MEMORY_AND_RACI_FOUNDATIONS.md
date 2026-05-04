@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-009` only; all planned R15 tasks complete and pending external audit/review
+**Milestone status:** Active in repo truth through `R15-009` only; R15 accepted with caveats by external audit as a bounded foundation milestone only
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,15 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-`R15-001` through `R15-009` are complete. R15 is pending external audit/review only; external acceptance is not claimed.
+`R15-001` through `R15-009` are complete. R15 is accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`.
+
+## Post-Audit Acceptance Note
+
+R15 is accepted with caveats by external audit as a bounded foundation milestone only. The accepted boundary is R15 through `R15-009` at remote head `d9685030a0556a528684d28367db83f4c72f7fc9` and tree `7529230df0c1f5bec3625ba654b035a2af824e9b`.
+
+The post-audit support packet is `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/post_audit_acceptance/`. It records the operator-provided final verdict, "Accept with caveats.", and preserves the caveat that two R15-009 proof-package files contain stale `generated_from_head` and `generated_from_tree` provenance fields from the pre-final R15-009 head/tree.
+
+This post-audit packet does not rewrite the audited proof package, does not change R15 scope, does not open R16, does not merge to main, and does not claim product runtime.
 
 ## Purpose
 
@@ -612,8 +620,8 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-009` only, with all planned R15 tasks complete and pending external audit/review.
-- No R15 external acceptance claimed.
+- R15 active through `R15-009` only and accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`.
+- No uncaveated or scope-widening audit acceptance claim.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
@@ -621,4 +629,4 @@ The status gate must accept only this R15 posture:
 
 After this slice, `R15-001` through `R15-009` are complete.
 
-R15 is pending external audit/review only. R15-009 produces a final bounded proof/review package and operator recommendation only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, product runtime, integrations, R16 opening, main merge, or external audit acceptance.
+R15 is accepted with caveats by external audit as a bounded foundation milestone only. R15-009 produces a final bounded proof/review package and operator recommendation only; the post-audit packet records the accepted-with-caveats verdict without changing R15 scope. R15 does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, product runtime, integrations, R16 opening, or main merge.
