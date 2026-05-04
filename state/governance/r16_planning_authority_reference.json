@@ -1,0 +1,303 @@
+{
+  "artifact_type": "r16_planning_authority_reference_packet",
+  "contract_version": "v1",
+  "reference_packet_id": "aioffice-r16-002-planning-authority-reference-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-002",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "ea3a8702f33bc515b5b300af7bce2794d7f8f888",
+  "generated_from_tree": "77906bed58755a611f3f87d803385de53c241988",
+  "authority_document_ref": {
+    "path": "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "artifact_role": "milestone_authority",
+    "authority_class": "Class E",
+    "proof_treatment": "status_authority_not_implementation_proof",
+    "proof_by_itself": false,
+    "implementation_proof": false
+  },
+  "opening_validation_manifest_ref": {
+    "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/validation_manifest.md",
+    "artifact_role": "opening_validation_manifest",
+    "authority_class": "Class F",
+    "proof_treatment": "r16_001_opening_evidence_only",
+    "proof_by_itself": false,
+    "implementation_proof": false
+  },
+  "planning_artifacts": [
+    {
+      "path": "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+      "title": "AIOffice V2 R15 External Audit and R16 Planning Report v2",
+      "artifact_role": "operator-approved planning artifact",
+      "authority_class": "Class G",
+      "proof_treatment": "planning_authority_only_not_implementation_proof",
+      "operator_approved": true,
+      "proof_by_itself": false,
+      "implementation_proof": false,
+      "source_milestone": "R15/R16 transition",
+      "source_task": "operator-approved R16 planning direction",
+      "content_identity": {
+        "hash_algorithm": "SHA256",
+        "sha256": "c0c8d3b0576e71dd513145dec349fb81c04d38a658416b3332378626c2bbe8c1",
+        "identity_basis": "Committed file content observed during R16-002 preflight."
+      }
+    },
+    {
+      "path": "governance/reports/AIOffice_V2_Revised_R16_Operational_Memory_Artifact_Map_Role_Workflow_Plan_v2.md",
+      "title": "AIOffice V2 Revised R16 Operational Memory, Artifact Map, Role Workflow Plan v2",
+      "artifact_role": "operator-approved planning artifact",
+      "authority_class": "Class G",
+      "proof_treatment": "planning_authority_only_not_implementation_proof",
+      "operator_approved": true,
+      "proof_by_itself": false,
+      "implementation_proof": false,
+      "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+      "source_task": "operator-approved R16 planning direction",
+      "content_identity": {
+        "hash_algorithm": "SHA256",
+        "sha256": "f43c82ecfbf0a7ee99782dc60ac4a57ea7548f76977ec0c37c9169756f62ec34",
+        "identity_basis": "Committed file content observed during R16-002 preflight."
+      }
+    }
+  ],
+  "artifact_paths": [
+    "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+    "governance/reports/AIOffice_V2_Revised_R16_Operational_Memory_Artifact_Map_Role_Workflow_Plan_v2.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/validation_manifest.md",
+    "contracts/governance/r16_planning_authority_reference.contract.json",
+    "tools/R16PlanningAuthorityReference.psm1",
+    "tools/validate_r16_planning_authority_reference.ps1",
+    "tests/test_r16_planning_authority_reference.ps1",
+    "state/fixtures/valid/governance/r16_planning_authority_reference.valid.json",
+    "state/governance/r16_planning_authority_reference.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/README.md",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/validation_manifest.md",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/non_claims.json"
+  ],
+  "artifact_roles": {
+    "planning_artifacts": "operator-approved planning artifacts only",
+    "authority_document": "R16 milestone authority and task posture document",
+    "opening_validation_manifest": "R16-001 opening validation evidence reference",
+    "r16_002_packet": "machine-readable R16-002 planning authority reference packet",
+    "validator": "fail-closed packet validator for planning authority references"
+  },
+  "authority_classes": [
+    {
+      "class": "Class E",
+      "name": "Status / operational truth",
+      "treatment": "Current milestone posture authority; not implementation proof by itself."
+    },
+    {
+      "class": "Class F",
+      "name": "Evidence / proof packages",
+      "treatment": "Machine-readable packets and validation manifests are bounded proof only for the task they name."
+    },
+    {
+      "class": "Class G",
+      "name": "Historical / report archive",
+      "treatment": "Operator-approved planning context only; not implementation proof by itself."
+    }
+  ],
+  "proof_treatment": {
+    "planning_reports_are_operator_artifacts_only": true,
+    "planning_reports_are_implementation_proof": false,
+    "r16_002_claims_r16_003_or_later": false,
+    "memory_layers_implemented": false,
+    "artifact_maps_implemented": false,
+    "audit_maps_implemented": false,
+    "context_load_planners_implemented": false,
+    "role_run_envelopes_implemented": false,
+    "handoff_packets_implemented": false,
+    "product_runtime_implemented": false,
+    "productized_ui_implemented": false,
+    "actual_autonomous_agents_implemented": false,
+    "true_multi_agent_execution_implemented": false,
+    "persistent_memory_runtime_implemented": false,
+    "runtime_memory_loading_implemented": false,
+    "retrieval_runtime_implemented": false,
+    "vector_search_runtime_implemented": false,
+    "external_integrations_implemented": false,
+    "main_merge_completed": false,
+    "r13_closed": false,
+    "r14_caveats_removed": false,
+    "r15_caveats_removed": false,
+    "solved_codex_compaction": false,
+    "solved_codex_reliability": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "task_posture": {
+    "active_through_task": "R16-002",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002"
+    ],
+    "planned_tasks": [
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011",
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016",
+      "R16-017",
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ]
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed/partial",
+      "active_through": "R13-018",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates": [
+        "API/custom-runner bypass",
+        "current operator control room",
+        "skill invocation evidence",
+        "operator demo"
+      ]
+    },
+    "r14": {
+      "status": "accepted_with_caveats",
+      "through": "R14-006",
+      "caveats_removed": false,
+      "product_runtime": false,
+      "r13_partial_gates_converted_to_passed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats",
+      "through": "R15-009",
+      "audited_head": "d9685030a0556a528684d28367db83f4c72f7fc9",
+      "audited_tree": "7529230df0c1f5bec3625ba654b035a2af824e9b",
+      "post_audit_support_commit": "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true,
+      "stale_generated_from_caveat_files": [
+        "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+        "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json"
+      ]
+    }
+  },
+  "claims": [
+    "R16-002 installs and validates planning authority references only.",
+    "The two approved v2 reports are bound as operator planning artifacts only and are not implementation proof."
+  ],
+  "non_claims": [
+    "no product runtime",
+    "no productized UI",
+    "no actual autonomous agents",
+    "no true multi-agent execution",
+    "no persistent memory runtime",
+    "no runtime memory loading",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no external integrations",
+    "no GitHub Projects integration",
+    "no Linear integration",
+    "no Symphony integration",
+    "no custom board integration",
+    "no external board sync",
+    "no solved Codex compaction",
+    "no solved Codex reliability",
+    "no main merge",
+    "no R13 closure",
+    "no R14 caveat removal",
+    "no R15 caveat removal",
+    "no R13 partial-gate conversion",
+    "no R16-003 implementation",
+    "no R16-027 or later task",
+    "no memory layers implemented yet",
+    "no artifact maps implemented yet",
+    "no audit maps implemented yet",
+    "no context-load planners implemented yet",
+    "no role-run envelopes implemented yet",
+    "no handoff packets implemented yet"
+  ],
+  "validation_commands": [
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_planning_authority_reference.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_planning_authority_reference.ps1 -PacketPath state\\governance\\r16_planning_authority_reference.json",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "expected_result": "passed"
+    },
+    {
+      "command": "git status --short",
+      "expected_result": "records expected R16-002 files before staging and clean after commit"
+    },
+    {
+      "command": "git rev-parse HEAD",
+      "expected_result": "reports current head"
+    },
+    {
+      "command": "git rev-parse \"HEAD^{tree}\"",
+      "expected_result": "reports current tree"
+    },
+    {
+      "command": "git branch --show-current",
+      "expected_result": "release/r16-operational-memory-artifact-map-role-workflow-foundation"
+    }
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_approved_v2_report_rejected",
+      "description": "Both approved v2 R16 planning reports must be present and hash-identified."
+    },
+    {
+      "rule_id": "planning_report_as_proof_rejected",
+      "description": "The reports must remain operator planning artifacts only."
+    },
+    {
+      "rule_id": "r16_003_or_later_implementation_claim_rejected",
+      "description": "R16-002 cannot claim R16-003 or later work."
+    },
+    {
+      "rule_id": "runtime_agent_memory_retrieval_integration_overclaims_rejected",
+      "description": "Product runtime, agent runtime, memory runtime, retrieval, vector, and integration claims fail validation."
+    },
+    {
+      "rule_id": "preserved_boundary_changes_rejected",
+      "description": "R13 closure, R13 partial-gate conversion, R14 caveat removal, and R15 caveat removal fail validation."
+    },
+    {
+      "rule_id": "r16_027_or_later_task_rejected",
+      "description": "Task identifiers after R16-026 are rejected."
+    }
+  ]
+}

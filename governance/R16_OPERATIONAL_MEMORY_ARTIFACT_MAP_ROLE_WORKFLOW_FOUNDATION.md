@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-001` only
+**Milestone status:** Active in repo truth through `R16-002` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -26,6 +26,8 @@ The operator-approved R16 planning artifacts are:
 - `governance/reports/AIOffice_V2_Revised_R16_Operational_Memory_Artifact_Map_Role_Workflow_Plan_v2.md`
 
 These reports are operator planning artifacts. They guide R16, but they are not implementation proof by themselves.
+
+R16-002 installs machine-readable planning authority references for these reports through `state/governance/r16_planning_authority_reference.json`. That packet binds the reports as operator-approved planning artifacts only, validates their content identity, preserves R13/R14/R15 boundaries, and does not implement R16-003 or later work.
 
 ## Purpose
 
@@ -219,8 +221,18 @@ Required evidence deliverables:
   - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/validation_manifest.md`
 
 ### `R16-002` Install approved R16 planning artifacts and authority references
-- Status: planned
-- Purpose: preserve or install the two approved v2 planning reports and connect them to R16 authority references.
+- Status: done
+- Purpose: preserve the two approved v2 planning reports and connect them to R16 authority references as planning authority only.
+- Durable output:
+  - `contracts/governance/r16_planning_authority_reference.contract.json`
+  - `tools/R16PlanningAuthorityReference.psm1`
+  - `tools/validate_r16_planning_authority_reference.ps1`
+  - `tests/test_r16_planning_authority_reference.ps1`
+  - `state/fixtures/valid/governance/r16_planning_authority_reference.valid.json`
+  - `state/fixtures/invalid/governance/r16_planning_authority_reference/`
+  - `state/governance/r16_planning_authority_reference.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/`
+- Done when: both approved v2 reports are present, hash-identified, classified as operator-approved planning artifacts only, validated as not implementation proof, and guarded against R16-003-or-later, runtime, integration, memory-runtime, retrieval/vector, agent, main-merge, and boundary-overclaim states.
 
 ### `R16-003` Add R16 KPI baseline and target scorecard
 - Status: planned
@@ -320,8 +332,10 @@ Required evidence deliverables:
 
 ## Validation Requirements
 
-R16-001 validation must run and record:
+R16-002 validation must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_planning_authority_reference.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_planning_authority_reference.ps1 -PacketPath state\governance\r16_planning_authority_reference.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_milestone_reporting_standard.ps1`
@@ -337,23 +351,27 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-001` only.
-- `R16-002` through `R16-026` planned only.
+- R16 active through `R16-002` only.
+- `R16-003` through `R16-026` planned only.
 
 Status gates must reject:
 
+- reject `R16-003` implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
-- main merge.
-- product runtime claims.
-- true multi-agent runtime claims.
-- persistent memory runtime overclaims.
-- retrieval or vector search overclaims.
-- external integration overclaims.
-- solved Codex compaction or reliability claims.
-- R13 closure.
-- removal of R14 caveats.
-- conversion of R13 partial gates into passed gates.
+- reject main merge.
+- reject product runtime claims.
+- reject productized UI claims.
+- reject actual autonomous agent claims.
+- reject true multi-agent runtime claims.
+- reject persistent memory runtime overclaims.
+- reject retrieval or vector search overclaims.
+- reject external integration overclaims.
+- reject solved Codex compaction or reliability claims.
+- reject R13 closure.
+- reject removal of R14 caveats.
+- reject removal of R15 caveats.
+- reject conversion of R13 partial gates into passed gates.
 
 ## Compaction and Restart Recovery Strategy
 
@@ -382,3 +400,16 @@ R16-001 is accepted only if:
 - the final remote branch head is verified after push.
 
 After R16-001, R16 is active through `R16-001` only. `R16-002` through `R16-026` remain planned only.
+
+R16-002 is accepted only if:
+
+- the planning authority reference contract exists;
+- the planning authority reference packet exists at `state/governance/r16_planning_authority_reference.json`;
+- the two approved v2 planning reports are present and hash-identified;
+- the two approved v2 planning reports are classified as operator-approved planning artifacts only;
+- neither approved report is treated as implementation proof by itself;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- no memory layer, artifact map, audit map, context-load planner, role-run envelope, handoff packet, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-003, or R16-027-or-later claim is made;
+- focused R16-002 validation and status gates pass.
+
+After R16-002, R16 is active through `R16-002` only. `R16-003` through `R16-026` remain planned only. No memory layers are implemented yet. No artifact maps are implemented yet. No role-run envelopes are implemented yet.

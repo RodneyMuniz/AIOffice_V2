@@ -18,7 +18,7 @@ Current posture:
 
 `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is accepted with caveats by external audit as a bounded foundation milestone only through `R15-009`, at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. The post-audit support commit is `3058bd6ed5067c97f744c92b9b9235004f0568b0` and does not change R15 scope. The R15-009 stale `generated_from_head` and `generated_from_tree` caveat remains preserved for `r15_final_proof_review_package.json` and `evidence_index.json`.
 
-`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-001` only. `R16-002` through `R16-026` remain planned only. R16 opens from starting head `3058bd6ed5067c97f744c92b9b9235004f0568b0` and starting tree `045886694b19b90f70f08bcffc0e1b321b5c28a0`. No main merge, product runtime, productized UI, actual autonomous agents, true multi-agent execution, persistent memory runtime, retrieval/vector runtime, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-002` only. `R16-003` through `R16-026` remain planned only. R16 opens from starting head `3058bd6ed5067c97f744c92b9b9235004f0568b0` and starting tree `045886694b19b90f70f08bcffc0e1b321b5c28a0`. R16-002 installed and validated planning authority references only through `state/governance/r16_planning_authority_reference.json`. No memory layers are implemented yet. No artifact maps are implemented yet. No role-run envelopes are implemented yet. No main merge, product runtime, productized UI, actual autonomous agents, true multi-agent execution, persistent memory runtime, retrieval/vector runtime, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
@@ -26,7 +26,7 @@ R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first
 
 The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R16 status: R16 active through R16-001 only. R16-002 through R16-026 remain planned only. R15 remains accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted with caveats through R14-006 only.
+Current R16 status: R16 active through R16-002 only. R16-003 through R16-026 remain planned only. R16-002 installed and validated planning authority references only. No memory layers are implemented yet. No artifact maps are implemented yet. No role-run envelopes are implemented yet. R15 remains accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted with caveats through R14-006 only.
 
 Active branch:
 `release/r16-operational-memory-artifact-map-role-workflow-foundation`
@@ -82,13 +82,13 @@ Earlier closed milestone:
 - Done when: R16 opens through R16-001 only, R16-002 through R16-026 remain planned only, R13 failed/partial and R14/R15 caveated postures are preserved, and no runtime/product/integration/main-merge/R13-closeout claim is made
 
 ### `R16-002` Install approved R16 planning artifacts and authority references
-- Status: planned
+- Status: done
 - Order: 2
 - Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
 - Depends on: `R16-001`
 - Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
-- Durable output: approved v2 planning reports preserved and linked into authority/status surfaces as planning artifacts only
-- Done when: planning artifacts are installed or confirmed present without treating either report as implementation proof by itself
+- Durable output: approved v2 planning reports preserved and linked into authority/status surfaces as planning artifacts only, plus `contracts/governance/r16_planning_authority_reference.contract.json`, `tools/R16PlanningAuthorityReference.psm1`, `tools/validate_r16_planning_authority_reference.ps1`, `tests/test_r16_planning_authority_reference.ps1`, `state/fixtures/valid/governance/r16_planning_authority_reference.valid.json`, invalid fixtures under `state/fixtures/invalid/governance/r16_planning_authority_reference/`, `state/governance/r16_planning_authority_reference.json`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/`
+- Done when: planning artifacts are installed, hash-identified, and validated as operator-approved planning artifacts only without treating either report as implementation proof by itself or claiming R16-003/later implementation
 
 ### `R16-003` Add R16 KPI baseline and target scorecard
 - Status: planned
