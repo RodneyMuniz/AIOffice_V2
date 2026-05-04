@@ -151,13 +151,13 @@ try {
         & $testScope -ScopePath (Join-Path $invalidRoot "r16-opening-overclaim.invalid.json") -TaxonomyPath $taxonomyPath -KnowledgeIndexPath $knowledgeIndexPath -AgentIdentityPacketPath $agentIdentityPacketPath -RepositoryRoot $repoRoot | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r15-006-complete-status" -RequiredFragments @("R15-006", "planned only") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-006-complete-status")
+    Invoke-ExpectedRefusal -Label "r15-007-complete-status" -RequiredFragments @("R15-007", "planned only") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-007-complete-status")
         foreach ($path in @($scenario.KanbanPath, $scenario.R15AuthorityPath)) {
             $text = Get-Content -LiteralPath $path -Raw
-            $updatedText = [regex]::Replace($text, '(?m)(^### `R15-006` Define RACI and state-transition matrix\r?\n- Status: )planned', '${1}done', 1)
+            $updatedText = [regex]::Replace($text, '(?m)(^### `R15-007` Define card re-entry packet model\r?\n- Status: )planned', '${1}done', 1)
             if ($updatedText -eq $text) {
-                throw "Expected R15-006 planned status was not found in '$path'."
+                throw "Expected R15-007 planned status was not found in '$path'."
             }
             Set-Content -LiteralPath $path -Value $updatedText -Encoding UTF8
         }

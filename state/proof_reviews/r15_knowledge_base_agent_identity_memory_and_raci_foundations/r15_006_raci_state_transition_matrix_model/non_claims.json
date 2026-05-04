@@ -1,0 +1,29 @@
+﻿{
+    "artifact_type":  "r15_006_non_claims",
+    "source_task":  "R15-006",
+    "non_claims":  [
+                       "no actual agents implemented by R15-006",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-006",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear implementation",
+                       "no Symphony implementation",
+                       "no custom board runtime",
+                       "no PM automation implemented",
+                       "no actual workflow execution",
+                       "no board routing runtime implemented",
+                       "no card re-entry packet implemented",
+                       "no classification or re-entry dry run executed",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no R16 opening",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
+}

@@ -1,0 +1,3418 @@
+{
+  "artifact_type": "r15_raci_state_transition_matrix_model",
+  "contract_version": "v1",
+  "matrix_id": "aioffice-r15-raci-state-transition-matrix-valid-fixture-v1",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-006",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+  "generated_from_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
+  "generated_from_tree": "5cca615e161305013c155bb18002d4b05d9ab655",
+  "taxonomy_ref": {
+    "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
+    "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
+    "contract_path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+    "source_task": "R15-002"
+  },
+  "knowledge_index_ref": {
+    "index_id": "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+    "path": "state/knowledge/r15_repo_knowledge_index.json",
+    "contract_path": "contracts/knowledge/repo_knowledge_index.contract.json",
+    "source_task": "R15-003"
+  },
+  "agent_identity_packet_ref": {
+    "packet_set_id": "aioffice-r15-agent-identity-packet-baseline-v1",
+    "path": "state/agents/r15_agent_identity_packet.json",
+    "contract_path": "contracts/agents/agent_identity_packet.contract.json",
+    "source_task": "R15-004"
+  },
+  "agent_memory_scope_ref": {
+    "memory_scope_model_id": "aioffice-r15-agent-memory-scope-baseline-v1",
+    "path": "state/agents/r15_agent_memory_scope.json",
+    "contract_path": "contracts/agents/agent_memory_scope.contract.json",
+    "source_task": "R15-005"
+  },
+  "scope_boundary": {
+    "model_only": true,
+    "runtime_state_machine_implemented": false,
+    "board_routing_runtime_implemented": true,
+    "actual_agents_implemented": false,
+    "direct_agent_access_runtime_implemented": false,
+    "true_multi_agent_execution_implemented": false,
+    "persistent_memory_engine_implemented": false,
+    "runtime_memory_loading_implemented": false,
+    "retrieval_engine_implemented": false,
+    "vector_search_implemented": false,
+    "external_board_sync_implemented": false,
+    "pm_automation_implemented": false,
+    "actual_workflow_execution_implemented": false,
+    "card_reentry_packet_implemented": false,
+    "product_runtime_implemented": false,
+    "integration_runtime_implemented": false,
+    "r16_opened": false,
+    "future_runtime_requires_later_task": true
+  },
+  "required_state_ids": [
+    "intake",
+    "refinement",
+    "ready",
+    "in_progress",
+    "implementation_complete",
+    "qa_review",
+    "qa_failed",
+    "qa_passed",
+    "audit_review",
+    "audit_blocked",
+    "audit_accepted",
+    "user_approval_required",
+    "approved_for_closeout",
+    "closed",
+    "rejected_or_cancelled"
+  ],
+  "required_state_fields": [
+    "state_id",
+    "state_kind",
+    "description",
+    "terminal",
+    "active_state",
+    "allowed_entry_transition_ids",
+    "allowed_exit_transition_ids",
+    "non_claims"
+  ],
+  "required_transition_fields": [
+    "transition_id",
+    "from_state_id",
+    "to_state_id",
+    "responsible_agent_ids",
+    "accountable_agent_id",
+    "consulted_agent_ids",
+    "informed_agent_ids",
+    "allowed_proposers",
+    "allowed_executors",
+    "allowed_verifiers",
+    "required_approvers",
+    "required_evidence_refs",
+    "prohibited_agents",
+    "prohibited_actions",
+    "requires_user_approval",
+    "requires_qa_evidence",
+    "requires_audit_evidence",
+    "requires_release_closeout_evidence",
+    "fail_closed",
+    "fail_closed_conditions",
+    "no_self_approval",
+    "separation_of_duties_rule_refs",
+    "non_claims"
+  ],
+  "required_evidence_type_ids": [
+    "bounded_card_ref",
+    "task_packet_ref",
+    "acceptance_criteria_ref",
+    "implementation_evidence_ref",
+    "qa_evidence_ref",
+    "audit_evidence_ref",
+    "audit_accepted_state_ref",
+    "user_approval_ref",
+    "release_closeout_evidence_ref",
+    "rejection_or_cancellation_authority_ref",
+    "state_change_record_ref"
+  ],
+  "required_separation_of_duties_rule_ids": [
+    "user_final_approval_required",
+    "project_manager_no_implementation_or_final_qa",
+    "developer_requires_bounded_task",
+    "qa_no_self_final_qa",
+    "auditor_no_implementation",
+    "release_closeout_no_close_without_user_approval",
+    "no_self_approval",
+    "no_impersonation",
+    "no_close_without_evidence_approval_chain"
+  ],
+  "state_model": [
+    {
+      "state_id": "intake",
+      "state_kind": "active",
+      "description": "Raw work item captured from operator or user request and awaiting PM refinement.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [],
+      "allowed_exit_transition_ids": [
+        "intake_to_refinement",
+        "intake_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "refinement",
+      "state_kind": "active",
+      "description": "Work item is being shaped into acceptance criteria, bounded scope, and evidence needs.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "intake_to_refinement",
+        "audit_blocked_to_refinement"
+      ],
+      "allowed_exit_transition_ids": [
+        "refinement_to_ready",
+        "refinement_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "ready",
+      "state_kind": "active",
+      "description": "Work item has enough bounded scope and evidence requirements to start implementation.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "refinement_to_ready"
+      ],
+      "allowed_exit_transition_ids": [
+        "ready_to_in_progress",
+        "ready_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "in_progress",
+      "state_kind": "active",
+      "description": "Scoped implementation or documentation work is underway from an explicit card or task reference.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "ready_to_in_progress",
+        "qa_failed_to_in_progress",
+        "audit_blocked_to_in_progress"
+      ],
+      "allowed_exit_transition_ids": [
+        "in_progress_to_implementation_complete",
+        "in_progress_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "implementation_complete",
+      "state_kind": "active",
+      "description": "Developer-facing work is complete enough to request independent QA review.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "in_progress_to_implementation_complete"
+      ],
+      "allowed_exit_transition_ids": [
+        "implementation_complete_to_qa_review",
+        "implementation_complete_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_review",
+      "state_kind": "active",
+      "description": "QA is validating implementation evidence and acceptance criteria.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "implementation_complete_to_qa_review"
+      ],
+      "allowed_exit_transition_ids": [
+        "qa_review_to_qa_failed",
+        "qa_review_to_qa_passed",
+        "qa_review_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_failed",
+      "state_kind": "active",
+      "description": "QA found failures that require rework before audit.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "qa_review_to_qa_failed"
+      ],
+      "allowed_exit_transition_ids": [
+        "qa_failed_to_in_progress",
+        "qa_failed_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_passed",
+      "state_kind": "active",
+      "description": "QA has a pass recommendation with evidence refs, pending audit.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "qa_review_to_qa_passed"
+      ],
+      "allowed_exit_transition_ids": [
+        "qa_passed_to_audit_review",
+        "qa_passed_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_review",
+      "state_kind": "active",
+      "description": "Evidence auditor is checking proof sufficiency and non-claim boundaries.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "qa_passed_to_audit_review"
+      ],
+      "allowed_exit_transition_ids": [
+        "audit_review_to_audit_blocked",
+        "audit_review_to_audit_accepted",
+        "audit_review_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_blocked",
+      "state_kind": "active",
+      "description": "Audit found evidence or claim gaps that require rework or refinement.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "audit_review_to_audit_blocked"
+      ],
+      "allowed_exit_transition_ids": [
+        "audit_blocked_to_in_progress",
+        "audit_blocked_to_refinement",
+        "audit_blocked_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_accepted",
+      "state_kind": "active",
+      "description": "Audit accepts evidence sufficiency for requesting user approval.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "audit_review_to_audit_accepted"
+      ],
+      "allowed_exit_transition_ids": [
+        "audit_accepted_to_user_approval_required",
+        "audit_accepted_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "user_approval_required",
+      "state_kind": "active",
+      "description": "User approval is required before closeout readiness can advance.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "audit_accepted_to_user_approval_required"
+      ],
+      "allowed_exit_transition_ids": [
+        "user_approval_required_to_approved_for_closeout",
+        "user_approval_required_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "approved_for_closeout",
+      "state_kind": "active",
+      "description": "User approval exists and release or closeout evidence can be assembled.",
+      "terminal": false,
+      "active_state": true,
+      "allowed_entry_transition_ids": [
+        "user_approval_required_to_approved_for_closeout"
+      ],
+      "allowed_exit_transition_ids": [
+        "approved_for_closeout_to_closed",
+        "approved_for_closeout_to_rejected_or_cancelled"
+      ],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "closed",
+      "state_kind": "terminal",
+      "description": "Work item is closed only after user approval, audit evidence, and release or closeout evidence.",
+      "terminal": true,
+      "active_state": false,
+      "allowed_entry_transition_ids": [
+        "approved_for_closeout_to_closed"
+      ],
+      "allowed_exit_transition_ids": [],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "rejected_or_cancelled",
+      "state_kind": "terminal",
+      "description": "Work item is rejected or cancelled by user authority after preserving a state change record.",
+      "terminal": true,
+      "active_state": false,
+      "allowed_entry_transition_ids": [
+        "intake_to_rejected_or_cancelled",
+        "refinement_to_rejected_or_cancelled",
+        "ready_to_rejected_or_cancelled",
+        "in_progress_to_rejected_or_cancelled",
+        "implementation_complete_to_rejected_or_cancelled",
+        "qa_review_to_rejected_or_cancelled",
+        "qa_failed_to_rejected_or_cancelled",
+        "qa_passed_to_rejected_or_cancelled",
+        "audit_review_to_rejected_or_cancelled",
+        "audit_blocked_to_rejected_or_cancelled",
+        "audit_accepted_to_rejected_or_cancelled",
+        "user_approval_required_to_rejected_or_cancelled",
+        "approved_for_closeout_to_rejected_or_cancelled"
+      ],
+      "allowed_exit_transition_ids": [],
+      "non_claims": [
+        "model-only state record",
+        "no runtime state machine implemented",
+        "no board routing runtime implemented"
+      ]
+    }
+  ],
+  "state_raci_records": [
+    {
+      "state_id": "intake",
+      "responsible_agent_ids": [
+        "operator"
+      ],
+      "accountable_agent_id": "operator",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "operator"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "refinement",
+      "responsible_agent_ids": [
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "acceptance_criteria_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "ready",
+      "responsible_agent_ids": [
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "acceptance_criteria_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "in_progress",
+      "responsible_agent_ids": [
+        "developer"
+      ],
+      "accountable_agent_id": "developer",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "developer"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref"
+      ],
+      "prohibited_agents": [
+        "project_manager",
+        "qa_test_agent",
+        "evidence_auditor"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "implementation_complete",
+      "responsible_agent_ids": [
+        "developer"
+      ],
+      "accountable_agent_id": "developer",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "developer"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "implementation_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "project_manager",
+        "qa_test_agent",
+        "evidence_auditor"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_review",
+      "responsible_agent_ids": [
+        "qa_test_agent"
+      ],
+      "accountable_agent_id": "qa_test_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "qa_test_agent"
+      ],
+      "allowed_verifiers": [
+        "qa_test_agent",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "implementation_evidence_ref",
+        "qa_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "developer"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_failed",
+      "responsible_agent_ids": [
+        "qa_test_agent",
+        "developer"
+      ],
+      "accountable_agent_id": "qa_test_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "qa_test_agent",
+        "developer"
+      ],
+      "allowed_verifiers": [
+        "qa_test_agent",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "qa_passed",
+      "responsible_agent_ids": [
+        "qa_test_agent"
+      ],
+      "accountable_agent_id": "qa_test_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "qa_test_agent"
+      ],
+      "allowed_verifiers": [
+        "qa_test_agent",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "developer"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_review",
+      "responsible_agent_ids": [
+        "evidence_auditor"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "evidence_auditor"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "audit_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_blocked",
+      "responsible_agent_ids": [
+        "evidence_auditor",
+        "project_manager"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "evidence_auditor",
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "audit_accepted",
+      "responsible_agent_ids": [
+        "evidence_auditor"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "evidence_auditor"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "audit_evidence_ref",
+        "audit_accepted_state_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent"
+      ],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "user_approval_required",
+      "responsible_agent_ids": [
+        "user_rodney",
+        "release_closeout_agent"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "user_rodney",
+        "release_closeout_agent"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_accepted_state_ref",
+        "user_approval_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "approved_for_closeout",
+      "responsible_agent_ids": [
+        "release_closeout_agent"
+      ],
+      "accountable_agent_id": "release_closeout_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "release_closeout_agent"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_accepted_state_ref",
+        "user_approval_ref",
+        "release_closeout_evidence_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "closed",
+      "responsible_agent_ids": [
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_accepted_state_ref",
+        "user_approval_ref",
+        "release_closeout_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    },
+    {
+      "state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "user_rodney",
+        "project_manager"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "user_rodney",
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [],
+      "prohibited_actions": [
+        "impersonate_other_role",
+        "self_approve_where_prohibited",
+        "claim_runtime_execution"
+      ],
+      "fail_closed_conditions": [
+        "missing accountable agent",
+        "missing responsible agent",
+        "missing required evidence",
+        "unknown state or agent id"
+      ],
+      "non_claims": [
+        "model-only RACI record",
+        "no actual agent execution",
+        "no board routing runtime implemented"
+      ]
+    }
+  ],
+  "transition_matrix": [
+    {
+      "transition_id": "intake_to_refinement",
+      "from_state_id": "intake",
+      "to_state_id": "refinement",
+      "responsible_agent_ids": [
+        "operator",
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "operator",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_code",
+        "final_qa",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "refinement_to_ready",
+      "from_state_id": "refinement",
+      "to_state_id": "ready",
+      "responsible_agent_ids": [
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "architect"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "acceptance_criteria_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_code",
+        "final_qa",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "project_manager_no_implementation_or_final_qa",
+        "developer_requires_bounded_task"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "ready_to_in_progress",
+      "from_state_id": "ready",
+      "to_state_id": "in_progress",
+      "responsible_agent_ids": [
+        "developer"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "developer"
+      ],
+      "allowed_verifiers": [
+        "project_manager"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "acceptance_criteria_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "project_manager",
+        "qa_test_agent",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_without_task_packet",
+        "pm_code_implementation",
+        "audit_implementation",
+        "qa_final_scope_implementation"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "developer_requires_bounded_task",
+        "project_manager_no_implementation_or_final_qa"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "in_progress_to_implementation_complete",
+      "from_state_id": "in_progress",
+      "to_state_id": "implementation_complete",
+      "responsible_agent_ids": [
+        "developer"
+      ],
+      "accountable_agent_id": "developer",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "developer",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "developer"
+      ],
+      "allowed_verifiers": [
+        "project_manager"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "implementation_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "project_manager",
+        "qa_test_agent",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_without_task_packet",
+        "self_approve",
+        "pm_code_implementation",
+        "audit_implementation",
+        "qa_final_scope_implementation"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "developer_requires_bounded_task",
+        "project_manager_no_implementation_or_final_qa"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "implementation_complete_to_qa_review",
+      "from_state_id": "implementation_complete",
+      "to_state_id": "qa_review",
+      "responsible_agent_ids": [
+        "project_manager",
+        "qa_test_agent"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "developer",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "qa_test_agent"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "implementation_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "final_qa_by_implementation_actor",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "qa_no_self_final_qa",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_review_to_qa_failed",
+      "from_state_id": "qa_review",
+      "to_state_id": "qa_failed",
+      "responsible_agent_ids": [
+        "qa_test_agent"
+      ],
+      "accountable_agent_id": "qa_test_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "qa_test_agent"
+      ],
+      "allowed_executors": [
+        "qa_test_agent"
+      ],
+      "allowed_verifiers": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "test_own_implementation_as_final_qa",
+        "implement_fix",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "qa_no_self_final_qa",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_review_to_qa_passed",
+      "from_state_id": "qa_review",
+      "to_state_id": "qa_passed",
+      "responsible_agent_ids": [
+        "qa_test_agent"
+      ],
+      "accountable_agent_id": "qa_test_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "qa_test_agent"
+      ],
+      "allowed_executors": [
+        "qa_test_agent"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "project_manager",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "test_own_implementation_as_final_qa",
+        "implement_fix",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "qa_no_self_final_qa",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_failed_to_in_progress",
+      "from_state_id": "qa_failed",
+      "to_state_id": "in_progress",
+      "responsible_agent_ids": [
+        "developer",
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "qa_test_agent",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "qa_test_agent"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "qa_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "developer_requires_bounded_task",
+        "project_manager_no_implementation_or_final_qa"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_passed_to_audit_review",
+      "from_state_id": "qa_passed",
+      "to_state_id": "audit_review",
+      "responsible_agent_ids": [
+        "evidence_auditor",
+        "project_manager"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "qa_test_agent",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_fix",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "auditor_no_implementation",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_review_to_audit_blocked",
+      "from_state_id": "audit_review",
+      "to_state_id": "audit_blocked",
+      "responsible_agent_ids": [
+        "evidence_auditor"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "evidence_auditor"
+      ],
+      "allowed_executors": [
+        "evidence_auditor"
+      ],
+      "allowed_verifiers": [
+        "project_manager"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "audit_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_fix",
+        "final_qa",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "auditor_no_implementation",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_review_to_audit_accepted",
+      "from_state_id": "audit_review",
+      "to_state_id": "audit_accepted",
+      "responsible_agent_ids": [
+        "evidence_auditor"
+      ],
+      "accountable_agent_id": "evidence_auditor",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "evidence_auditor"
+      ],
+      "allowed_executors": [
+        "evidence_auditor"
+      ],
+      "allowed_verifiers": [
+        "project_manager"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "qa_evidence_ref",
+        "audit_evidence_ref",
+        "audit_accepted_state_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_fix",
+        "final_qa",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "auditor_no_implementation",
+        "no_impersonation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_blocked_to_in_progress",
+      "from_state_id": "audit_blocked",
+      "to_state_id": "in_progress",
+      "responsible_agent_ids": [
+        "project_manager",
+        "developer"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "evidence_auditor",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "task_packet_ref",
+        "audit_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "audit_implementation",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "developer_requires_bounded_task",
+        "auditor_no_implementation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_blocked_to_refinement",
+      "from_state_id": "audit_blocked",
+      "to_state_id": "refinement",
+      "responsible_agent_ids": [
+        "project_manager"
+      ],
+      "accountable_agent_id": "project_manager",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "evidence_auditor",
+        "project_manager"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "implement_code",
+        "final_qa",
+        "close_card"
+      ],
+      "requires_user_approval": false,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": false,
+      "separation_of_duties_rule_refs": [
+        "project_manager_no_implementation_or_final_qa",
+        "auditor_no_implementation"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_accepted_to_user_approval_required",
+      "from_state_id": "audit_accepted",
+      "to_state_id": "user_approval_required",
+      "responsible_agent_ids": [
+        "release_closeout_agent",
+        "evidence_auditor"
+      ],
+      "accountable_agent_id": "release_closeout_agent",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "evidence_auditor",
+        "release_closeout_agent"
+      ],
+      "allowed_executors": [
+        "release_closeout_agent"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_evidence_ref",
+        "audit_accepted_state_ref",
+        "state_change_record_ref",
+        "qa_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent"
+      ],
+      "prohibited_actions": [
+        "skip_user_approval",
+        "close_card"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": true,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "release_closeout_no_close_without_user_approval",
+        "no_self_approval"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "user_approval_required_to_approved_for_closeout",
+      "from_state_id": "user_approval_required",
+      "to_state_id": "approved_for_closeout",
+      "responsible_agent_ids": [
+        "user_rodney",
+        "release_closeout_agent"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "release_closeout_agent"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_accepted_state_ref",
+        "user_approval_ref",
+        "state_change_record_ref",
+        "audit_evidence_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent"
+      ],
+      "prohibited_actions": [
+        "approve_without_user",
+        "close_card"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "release_closeout_no_close_without_user_approval",
+        "no_self_approval"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "approved_for_closeout_to_closed",
+      "from_state_id": "approved_for_closeout",
+      "to_state_id": "closed",
+      "responsible_agent_ids": [
+        "release_closeout_agent",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "release_closeout_agent"
+      ],
+      "allowed_executors": [
+        "release_closeout_agent"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "audit_evidence_ref",
+        "audit_accepted_state_ref",
+        "user_approval_ref",
+        "release_closeout_evidence_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "project_manager"
+      ],
+      "prohibited_actions": [
+        "close_without_user_approval",
+        "close_without_audit_accepted",
+        "close_without_release_evidence"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": true,
+      "requires_release_closeout_evidence": true,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "release_closeout_no_close_without_user_approval",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "intake_to_rejected_or_cancelled",
+      "from_state_id": "intake",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "refinement_to_rejected_or_cancelled",
+      "from_state_id": "refinement",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "ready_to_rejected_or_cancelled",
+      "from_state_id": "ready",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "in_progress_to_rejected_or_cancelled",
+      "from_state_id": "in_progress",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "implementation_complete_to_rejected_or_cancelled",
+      "from_state_id": "implementation_complete",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_review_to_rejected_or_cancelled",
+      "from_state_id": "qa_review",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_failed_to_rejected_or_cancelled",
+      "from_state_id": "qa_failed",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "qa_passed_to_rejected_or_cancelled",
+      "from_state_id": "qa_passed",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_review_to_rejected_or_cancelled",
+      "from_state_id": "audit_review",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_blocked_to_rejected_or_cancelled",
+      "from_state_id": "audit_blocked",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "audit_accepted_to_rejected_or_cancelled",
+      "from_state_id": "audit_accepted",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "user_approval_required_to_rejected_or_cancelled",
+      "from_state_id": "user_approval_required",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    },
+    {
+      "transition_id": "approved_for_closeout_to_rejected_or_cancelled",
+      "from_state_id": "approved_for_closeout",
+      "to_state_id": "rejected_or_cancelled",
+      "responsible_agent_ids": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "accountable_agent_id": "user_rodney",
+      "consulted_agent_ids": [
+        "project_manager",
+        "evidence_auditor"
+      ],
+      "informed_agent_ids": [
+        "operator",
+        "user_rodney"
+      ],
+      "allowed_proposers": [
+        "project_manager",
+        "user_rodney"
+      ],
+      "allowed_executors": [
+        "project_manager"
+      ],
+      "allowed_verifiers": [
+        "evidence_auditor"
+      ],
+      "required_approvers": [
+        "user_rodney"
+      ],
+      "required_evidence_refs": [
+        "bounded_card_ref",
+        "rejection_or_cancellation_authority_ref",
+        "state_change_record_ref"
+      ],
+      "prohibited_agents": [
+        "developer",
+        "qa_test_agent",
+        "release_closeout_agent"
+      ],
+      "prohibited_actions": [
+        "cancel_without_user_authority",
+        "erase_evidence",
+        "skip_state_change_record"
+      ],
+      "requires_user_approval": true,
+      "requires_qa_evidence": false,
+      "requires_audit_evidence": false,
+      "requires_release_closeout_evidence": false,
+      "fail_closed": true,
+      "fail_closed_conditions": [
+        "missing required evidence",
+        "unknown or impersonated agent identity",
+        "unapproved approver chain",
+        "source or target state mismatch"
+      ],
+      "no_self_approval": true,
+      "separation_of_duties_rule_refs": [
+        "user_final_approval_required",
+        "no_self_approval",
+        "no_close_without_evidence_approval_chain"
+      ],
+      "non_claims": [
+        "model-only transition authority",
+        "no board routing runtime implemented",
+        "no actual workflow execution"
+      ]
+    }
+  ],
+  "prohibited_transitions": [
+    {
+      "transition_id": "direct_active_state_to_closed_without_user_approval",
+      "from_state_id": "any_valid_active_state",
+      "to_state_id": "closed",
+      "reason": "Active states cannot jump to closed without approved_for_closeout, user approval, audit accepted state, and release evidence.",
+      "fail_closed": true,
+      "non_claims": [
+        "no runtime state machine implemented"
+      ]
+    },
+    {
+      "transition_id": "closed_to_active_state",
+      "from_state_id": "closed",
+      "to_state_id": "any_valid_active_state",
+      "reason": "Closed work items cannot silently re-enter active work in the R15-006 model.",
+      "fail_closed": true,
+      "non_claims": [
+        "no card re-entry packet implemented"
+      ]
+    },
+    {
+      "transition_id": "qa_review_to_closed",
+      "from_state_id": "qa_review",
+      "to_state_id": "closed",
+      "reason": "QA evidence alone cannot close a card.",
+      "fail_closed": true,
+      "non_claims": [
+        "no final QA self-approval"
+      ]
+    },
+    {
+      "transition_id": "audit_blocked_to_closed",
+      "from_state_id": "audit_blocked",
+      "to_state_id": "closed",
+      "reason": "Audit blockers must route to rework or refinement, not closure.",
+      "fail_closed": true,
+      "non_claims": [
+        "no release closeout without audit accepted state"
+      ]
+    },
+    {
+      "transition_id": "implementation_complete_to_closed",
+      "from_state_id": "implementation_complete",
+      "to_state_id": "closed",
+      "reason": "Implementation evidence requires QA, audit, user approval, and closeout evidence before closure.",
+      "fail_closed": true,
+      "non_claims": [
+        "no developer closure authority"
+      ]
+    },
+    {
+      "transition_id": "r15_007_plus_status_completion",
+      "from_state_id": "any_valid_active_state",
+      "to_state_id": "closed",
+      "reason": "Status posture marking R15-007 or later complete fails closed during R15-006.",
+      "fail_closed": true,
+      "non_claims": [
+        "R15-007 through R15-009 planned only"
+      ]
+    }
+  ],
+  "separation_of_duties_rules": [
+    {
+      "rule_id": "user_final_approval_required",
+      "description": "user_rodney is final approval authority for closeout, cancellation, and other user-approval-required transitions.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no automated user approval"
+      ]
+    },
+    {
+      "rule_id": "project_manager_no_implementation_or_final_qa",
+      "description": "project_manager may plan and coordinate but must not implement code or own final QA for that work.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no PM automation implemented"
+      ]
+    },
+    {
+      "rule_id": "developer_requires_bounded_task",
+      "description": "developer may implement only when bounded_card_ref and task_packet_ref are required evidence.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no unbounded implementation authority"
+      ]
+    },
+    {
+      "rule_id": "qa_no_self_final_qa",
+      "description": "qa_test_agent may validate but must not test its own implementation as final QA.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no final QA self-certification"
+      ]
+    },
+    {
+      "rule_id": "auditor_no_implementation",
+      "description": "evidence_auditor may audit evidence but must not implement fixes or product changes.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no auditor implementation authority"
+      ]
+    },
+    {
+      "rule_id": "release_closeout_no_close_without_user_approval",
+      "description": "release_closeout_agent may recommend closeout but must not close without user approval.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no release automation implemented"
+      ]
+    },
+    {
+      "rule_id": "no_self_approval",
+      "description": "No role may self-approve transitions where no_self_approval is required.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no self-approval runtime"
+      ]
+    },
+    {
+      "rule_id": "no_impersonation",
+      "description": "No role may impersonate another role or claim another role performed work.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no role impersonation"
+      ]
+    },
+    {
+      "rule_id": "no_close_without_evidence_approval_chain",
+      "description": "No role may close a card without required evidence and approval chain.",
+      "must_fail_closed": true,
+      "non_claims": [
+        "no card closure runtime implemented"
+      ]
+    }
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_required_states",
+      "description": "missing required states fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "duplicate_states",
+      "description": "duplicate states fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "missing_required_transitions",
+      "description": "missing required transitions fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "duplicate_transition_ids",
+      "description": "duplicate transition ids fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "closed_without_user_approval_rejected",
+      "description": "closed without user approval rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "developer_accountable_for_qa_pass_rejected",
+      "description": "developer accountable for qa pass rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "qa_as_implementer_for_final_qa_rejected",
+      "description": "qa as implementer for final qa rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "auditor_as_implementer_rejected",
+      "description": "auditor as implementer rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "pm_as_code_implementer_rejected",
+      "description": "pm as code implementer rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "release_closeout_without_audit_accepted_rejected",
+      "description": "release closeout without audit accepted rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "missing_accountable_agent_rejected",
+      "description": "missing accountable agent rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "missing_responsible_agent_rejected",
+      "description": "missing responsible agent rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "runtime_state_machine_claim_rejected",
+      "description": "runtime state machine claim rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "board_routing_runtime_claim_rejected",
+      "description": "board routing runtime claim rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "card_reentry_implementation_claim_rejected",
+      "description": "card reentry implementation claim rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "actual_agent_runtime_claim_rejected",
+      "description": "actual agent runtime claim rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "r16_opening_claim_rejected",
+      "description": "r16 opening claim rejected fails closed in the R15-006 validator."
+    },
+    {
+      "rule_id": "r15_007_plus_complete_status_rejected",
+      "description": "r15 007 plus complete status rejected fails closed in the R15-006 validator."
+    }
+  ],
+  "claims": [
+    "R15-006 defines a machine-checkable RACI and state-transition matrix model for AIOffice work items.",
+    "R15-006 defines role authority, evidence, prohibited transitions, approval requirements, QA evidence requirements, audit evidence requirements, and fail-closed transition rules as governance data only."
+  ],
+  "non_claims": [
+    "no actual agents implemented by R15-006",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-006",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board runtime",
+    "no PM automation implemented",
+    "no actual workflow execution",
+    "no board routing runtime implemented",
+    "no card re-entry packet implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

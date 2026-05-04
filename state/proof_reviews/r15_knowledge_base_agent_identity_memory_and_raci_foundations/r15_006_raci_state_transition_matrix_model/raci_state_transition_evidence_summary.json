@@ -1,0 +1,43 @@
+﻿{
+    "artifact_type":  "r15_006_raci_state_transition_evidence_summary",
+    "source_task":  "R15-006",
+    "matrix_path":  "state/agents/r15_raci_state_transition_matrix.json",
+    "contract_path":  "contracts/agents/raci_state_transition_matrix.contract.json",
+    "valid_fixture_path":  "state/fixtures/valid/agents/r15_raci_state_transition_matrix.valid.json",
+    "invalid_fixture_root":  "state/fixtures/invalid/agents/r15_raci_state_transition_matrix/",
+    "state_count":  15,
+    "transition_count":  29,
+    "prohibited_transition_count":  6,
+    "separation_of_duties_rule_count":  9,
+    "active_through":  "R15-006",
+    "planned_only":  [
+                         "R15-007",
+                         "R15-008",
+                         "R15-009"
+                     ],
+    "non_claims":  [
+                       "no actual agents implemented by R15-006",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-006",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear implementation",
+                       "no Symphony implementation",
+                       "no custom board runtime",
+                       "no PM automation implemented",
+                       "no actual workflow execution",
+                       "no board routing runtime implemented",
+                       "no card re-entry packet implemented",
+                       "no classification or re-entry dry run executed",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no R16 opening",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
+}
