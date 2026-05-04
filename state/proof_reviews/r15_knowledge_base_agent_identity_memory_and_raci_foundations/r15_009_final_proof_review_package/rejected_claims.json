@@ -1,0 +1,35 @@
+{
+  "artifact_type": "r15_009_final_proof_review_package_rejected_claims",
+  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+  "source_task": "R15-009",
+  "claims_rejected": [
+    "actual agents implemented",
+    "true multi-agent execution",
+    "direct agent runtime",
+    "persistent memory engine",
+    "runtime memory loading",
+    "retrieval/vector search",
+    "productized UI",
+    "board runtime",
+    "board routing runtime",
+    "card re-entry runtime",
+    "PM automation",
+    "workflow execution",
+    "external board sync",
+    "GitHub Projects integration",
+    "Linear integration",
+    "Symphony integration",
+    "custom board integration",
+    "product runtime",
+    "solved Codex compaction",
+    "solved Codex reliability",
+    "R16 opened",
+    "main merged",
+    "external audit accepted"
+  ],
+  "rejection_basis": [
+    "R15 artifacts are contracts, validators, model artifacts, validation manifests, proof-review packages, and one bounded dry-run artifact.",
+    "No committed evidence implements runtime agents, runtime memory loading, retrieval, board routing, workflow execution, integrations, product runtime, R16 opening, main merge, or external audit acceptance.",
+    "Generated Markdown and reports are operator artifacts unless backed by committed machine evidence."
+  ]
+}

@@ -606,19 +606,20 @@ function Assert-R15CardReentryPacketStatusPosture {
             throw "R15 status posture must mark $taskId done for current R15 validation compatibility."
         }
     }
-    if ($kanbanStatus["R15-009"] -ne "planned" -or $authorityStatus["R15-009"] -ne "planned") {
-        throw "R15 status posture must keep R15-009 planned only."
+    if ($kanbanStatus["R15-009"] -notin @("planned", "done") -or $authorityStatus["R15-009"] -notin @("planned", "done")) {
+        throw "R15 status posture must keep R15-009 planned at the R15-007 boundary or done at the R15-009 boundary."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R15 active through `?R15-008`? only|Active in repo truth through `R15-008` only|through `R15-008` only' -Message "Status docs must state R15 is active through R15-008 only."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)`?R15-009`?\s+planned only|R15-009 remains planned only|R15-009 planned only' -Message "Status docs must keep R15-009 planned only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R15 active through `?R15-007`? only|R15 active through `?R15-008`? only|Active in repo truth through `R15-008` only|through `R15-008` only|R15.*complete through `?R15-009`?.*pending external audit/review|R15 active through R15-009 only|Active in repo truth through `R15-009` only' -Message "Status docs must state either the R15-007/R15-008 boundary posture or the current R15-009 pending external review posture."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R13 remains failed/partial.*R13-018|R13 API-First QA Pipeline and Operator Control-Room Product Slice` remains failed/partial' -Message "Status docs must preserve R13 failed/partial through R13-018."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R14.*accepted.*R14-006|accepted with caveats.*R14-006' -Message "Status docs must preserve R14 accepted with caveats through R14-006."
     Assert-RegexMatch -Text $texts["governance\DECISION_LOG.md"] -Pattern 'R15-007 Defined Card Re-entry Packet Model' -Message "DECISION_LOG must record the R15-007 card re-entry packet model decision."
 
     Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "R16 or successor opening" -Pattern '(?i)\bR16\b.{0,120}\b(active|open|opened|marked active)\b|\bsuccessor milestone\b.{0,120}\b(is now active|is active|marked active|opens on branch|opened on branch)\b'
-    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "R15-009 completion" -Pattern '(?i)\bR15-009\b.{0,160}\b(done|complete|completed|implemented|executed|ran)\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "R15 implementation beyond R15-009" -Pattern '(?i)\b(R15-010|R15 successor task)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned)\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "R15 external audit acceptance" -Pattern '(?i)\bR15\b.{0,160}\b(externally accepted|external audit accepted|external acceptance)\b|\bexternal audit accepted\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "R15 main merge" -Pattern '(?i)\bR15\b.{0,160}\b(merged to main|main merge exists|main merged)\b'
     Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-007 status docs" -ClaimLabel "runtime or integration overclaim" -Pattern '(?i)\b(actual agents implemented|agent runtime|direct agent access runtime|true multi-agent execution|multi-agent runtime|persistent memory engine|runtime memory loading|retrieval engine|vector search|Obsidian integration|card re-entry runtime|card reentry runtime|final R15 proof package complete|product runtime|production runtime|board runtime|external board sync|Linear integration|Symphony integration|GitHub Projects integration|custom board runtime|custom board implementation|PM automation|actual workflow execution|workflow execution implemented|board routing runtime|solved Codex reliability|solved Codex compaction)\b'
 }
 

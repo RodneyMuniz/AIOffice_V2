@@ -125,16 +125,9 @@ try {
         }
     }
 
-    Invoke-ExpectedRefusal -Label "r15-009-complete-status" -RequiredFragments @("R15-009", "planned only") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-009-complete-status")
-        foreach ($path in @($scenario.KanbanPath, $scenario.R15AuthorityPath)) {
-            $text = Get-Content -LiteralPath $path -Raw
-            $updatedText = [regex]::Replace($text, '(?m)(^### `R15-009` Produce R15 proof/review package\r?\n- Status: )planned', '${1}done', 1)
-            if ($updatedText -eq $text) {
-                throw "Expected R15-009 planned status was not found in '$path'."
-            }
-            Set-Content -LiteralPath $path -Value $updatedText -Encoding UTF8
-        }
+    Invoke-ExpectedRefusal -Label "r15-010-successor-status" -RequiredFragments @("R15 implementation beyond R15-009") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-010-successor-status")
+        Add-Content -LiteralPath $scenario.R15AuthorityPath -Value ("`r`nR15-010 successor task is planned.") -Encoding UTF8
         Invoke-DryRunValidation -Path $validFixture -RepositoryRoot $scenario.Root
     }
 

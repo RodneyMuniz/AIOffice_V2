@@ -243,6 +243,37 @@ $script:RequiredNonClaimsR15008 = @(
     "no solved Codex reliability"
 )
 
+$script:RequiredNonClaimsR15009 = @(
+    "no full repo index implemented by R15-009",
+    "no full repo artifacts classified by R15-009",
+    "no knowledge-base engine implemented by R15-009",
+    "no artifact registry engine implemented by R15-009",
+    "no actual agents implemented by R15-009",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-009",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no board routing runtime implemented",
+    "no PM automation implemented",
+    "no actual workflow execution",
+    "no card re-entry runtime implemented",
+    "no product runtime",
+    "no board runtime",
+    "no R16 opening",
+    "no main merge",
+    "no external audit acceptance",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+)
+
 $script:ProofByItselfEvidenceKinds = @(
     "committed_machine_evidence",
     "external_replay_evidence",
@@ -304,6 +335,11 @@ $script:OverclaimPatterns = @(
     "solved Codex context compaction",
     "R16 opening",
     "R16 opened",
+    "main merge",
+    "main merged",
+    "external audit accepted",
+    "external audit acceptance",
+    "externally accepted",
     "full repo index",
     "full-repo index",
     "full repo scan",
@@ -548,6 +584,11 @@ function Assert-RequiredNonClaims {
         [Parameter(Mandatory = $true)]
         [string]$Context
     )
+
+    $missingR15009 = @($script:RequiredNonClaimsR15009 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15009.Count -eq 0) {
+        return
+    }
 
     $missingR15008 = @($script:RequiredNonClaimsR15008 | Where-Object { $NonClaims -notcontains $_ })
     if ($missingR15008.Count -eq 0) {

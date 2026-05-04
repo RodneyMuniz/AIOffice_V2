@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-008` only
+**Milestone status:** Active in repo truth through `R15-009` only; all planned R15 tasks complete and pending external audit/review
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,7 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-`R15-001` through `R15-008` are complete. `R15-009` is planned only.
+`R15-001` through `R15-009` are complete. R15 is pending external audit/review only; external acceptance is not claimed.
 
 ## Purpose
 
@@ -166,8 +166,18 @@ R15 must not implement:
   - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_008_classification_reentry_dry_run/`
 
 ### `R15-009` Produce R15 proof/review package
-- Status: planned
+- Status: done
 - Purpose: consolidate R15 evidence, validation, non-claims, and next-stage recommendation without opening R16.
+- Durable output:
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/README.md`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/validation_manifest.md`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/non_claims.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/rejected_claims.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/next_stage_recommendation.md`
+  - `governance/reports/AIOffice_V2_R15_Proof_Review_Package_and_R16_Readiness_Recommendation_v1.md`
+  - updated bounded knowledge index `state/knowledge/r15_repo_knowledge_index.json`
 
 ## Explicit Non-Claims
 
@@ -490,6 +500,49 @@ R15-008 does not claim:
 - no solved Codex reliability;
 - no R16 opening.
 
+R15-009 claims only:
+
+- final R15 proof/review package folder exists;
+- package README exists;
+- machine-readable final proof/review package JSON exists;
+- task evidence index exists for R15-001 through R15-009;
+- validation manifest exists;
+- non-claims JSON exists;
+- rejected claims JSON exists;
+- next-stage recommendation exists;
+- operator report exists;
+- bounded knowledge index was updated with R15-009 entries only;
+- status surfaces were updated to R15 complete through R15-009 and pending external audit/review;
+- validation passed after the final command battery.
+
+R15-009 does not claim:
+
+- no actual agents implemented by R15-009;
+- no direct agent access runtime implemented;
+- no true multi-agent execution implemented;
+- no persistent memory engine implemented;
+- no runtime memory loading implemented;
+- no retrieval engine implemented;
+- no vector search implemented;
+- no Obsidian integration by R15-009;
+- no external board sync;
+- no GitHub Projects integration;
+- no Linear integration;
+- no Symphony integration;
+- no custom board runtime;
+- no productized UI;
+- no PM automation implemented;
+- no actual workflow execution;
+- no board routing runtime implemented;
+- no card re-entry runtime implemented;
+- no product runtime;
+- no integration runtime;
+- no solved Codex compaction;
+- no solved Codex reliability;
+- no R16 opening;
+- no main merge;
+- no external audit acceptance.
+
 ## Exit Criteria
 
 R15 may exit only when:
@@ -529,7 +582,7 @@ R15 depends on:
 
 ## Validation Requirements
 
-The R15-008 slice must run and record:
+The R15-009 final proof/review package must run and record:
 
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_classification_reentry_dry_run.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_classification_reentry_dry_run.ps1 -DryRunPath state\agents\r15_classification_reentry_dry_run.json`
@@ -559,13 +612,13 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-008` only.
-- `R15-009` planned only.
+- R15 active through `R15-009` only, with all planned R15 tasks complete and pending external audit/review.
+- No R15 external acceptance claimed.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
-## R15-008 Slice Status
+## R15-009 Final Proof Review Status
 
-After this slice, `R15-001` through `R15-008` are complete.
+After this slice, `R15-001` through `R15-009` are complete.
 
-`R15-009` is planned only. R15-008 runs one bounded classification and card re-entry dry run only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, the final R15 proof package, product runtime, integrations, or R16.
+R15 is pending external audit/review only. R15-009 produces a final bounded proof/review package and operator recommendation only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, product runtime, integrations, R16 opening, main merge, or external audit acceptance.
