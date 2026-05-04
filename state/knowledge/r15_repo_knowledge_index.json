@@ -1,1269 +1,1699 @@
 {
-  "artifact_type": "r15_repo_knowledge_index",
-  "contract_version": "v1",
-  "index_id": "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
-  "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-  "source_task": "R15-003",
-  "repository": "RodneyMuniz/AIOffice_V2",
-  "branch": "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
-  "generated_from_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
-  "generated_from_tree": "e3ebcdc43706a37796352f526ea7b7016ffe8b72",
-  "taxonomy_ref": {
-    "taxonomy_id": "aioffice-r15-artifact-classification-taxonomy-v1",
-    "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
-    "contract_path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
-    "source_task": "R15-002"
-  },
-  "index_scope": {
-    "bounded_seed_only": true,
-    "full_repo_index": false,
-    "future_fuller_index_requires_later_task": true,
-    "description": "Bounded seed set of current authority and R15 foundation references only.",
-    "included_path_count": 25,
-    "included_paths": [
-      "governance/VISION.md",
-      "governance/PRODUCT_OPERATING_MODEL.md",
-      "governance/DOCUMENT_AUTHORITY_INDEX.md",
-      "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
-      "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
-      "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
-      "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
-      "governance/MILESTONE_REPORTING_STANDARD.md",
-      "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
-      "contracts/knowledge/artifact_classification_taxonomy.contract.json",
-      "state/knowledge/r15_artifact_classification_taxonomy.json",
-      "contracts/knowledge/repo_knowledge_index.contract.json",
-      "state/knowledge/r15_repo_knowledge_index.json",
-      "contracts/agents/agent_identity_packet.contract.json",
-      "state/agents/r15_agent_identity_packet.json",
-      "contracts/agents/agent_memory_scope.contract.json",
-      "state/agents/r15_agent_memory_scope.json",
-      "contracts/agents/raci_state_transition_matrix.contract.json",
-      "state/agents/r15_raci_state_transition_matrix.json",
-      "state/agents/r15_raci_state_transition_matrix_validation_manifest.md",
-      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/",
-      "contracts/agents/card_reentry_packet.contract.json",
-      "state/agents/r15_card_reentry_packet.json",
-      "state/agents/r15_card_reentry_packet_validation_manifest.md",
-      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/"
-    ],
-    "excluded_scope": [
-      "No broad historical repo classification.",
-      "No product runtime, board runtime, integration, direct agent access runtime, or engine artifacts.",
-      "No R15-008 through R15-009 implementation artifacts."
-    ]
-  },
-  "required_entry_fields": [
-    "entry_id",
-    "path",
-    "title",
-    "summary",
-    "classification_class",
-    "evidence_kind",
-    "authority_kind",
-    "lifecycle_state",
-    "proof_status",
-    "owner_role",
-    "source_milestone",
-    "source_task",
-    "last_verified_head",
-    "depends_on",
-    "supersedes",
-    "superseded_by",
-    "related_entries",
-    "recommended_for_roles",
-    "load_priority",
-    "scan_scope",
-    "reason",
-    "non_claims"
-  ],
-  "allowed_artifact_classes": [
-    "constitutional_truth",
-    "operating_model",
-    "domain_model",
-    "contract",
-    "tool",
-    "test",
-    "status_surface",
-    "evidence_package",
-    "machine_evidence",
-    "generated_operator_artifact",
-    "report",
-    "template",
-    "historical_archive",
-    "deprecated",
-    "candidate",
-    "cleanup_candidate",
-    "external_mirror",
-    "external_evidence",
-    "unknown"
-  ],
-  "allowed_evidence_kinds": [
-    "implemented_code",
-    "committed_machine_evidence",
-    "generated_artifact",
-    "operator_artifact",
-    "external_replay_evidence",
-    "status_doc",
-    "governance_doc",
-    "planning_doc",
-    "validation_manifest",
-    "test_result",
-    "unknown"
-  ],
-  "allowed_authority_kinds": [
-    "constitutional_authority",
-    "governance_authority",
-    "operating_authority",
-    "contract_authority",
-    "status_authority",
-    "proof_authority",
-    "planning_context",
-    "report_context",
-    "non_authoritative_reference",
-    "unknown"
-  ],
-  "allowed_lifecycle_states": [
-    "current",
-    "active",
-    "planned",
-    "historical",
-    "superseded",
-    "deprecated",
-    "candidate",
-    "cleanup_candidate",
-    "unknown"
-  ],
-  "allowed_proof_status_values": [
-    "proof_by_itself_false",
-    "proof_by_itself_true",
-    "requires_machine_evidence",
-    "external_evidence_required",
-    "operator_artifact_only",
-    "historical_context_only"
-  ],
-  "relationship_types": [
-    "depends_on",
-    "supersedes",
-    "superseded_by",
-    "references",
-    "validates",
-    "reports_on",
-    "evidence_for",
-    "template_for",
-    "derived_from",
-    "related_to"
-  ],
-  "lookup_profiles": [
-    "operator_summary",
-    "pm_planning",
-    "architect_design",
-    "developer_execution",
-    "qa_validation",
-    "auditor_review",
-    "knowledge_curator",
-    "release_closeout",
-    "codex_reentry"
-  ],
-  "invalid_state_rules": [
-    {
-      "rule_id": "bounded_seed_only_required",
-      "description": "The R15-003 index must remain a bounded seed and must not claim broad classification."
-    },
-    {
-      "rule_id": "full_repo_index_rejected",
-      "description": "A full repo index or full repo scan claim fails validation."
-    },
-    {
-      "rule_id": "taxonomy_values_required",
-      "description": "Entry classification, evidence, authority, lifecycle, and proof values must be allowed by the R15-002 taxonomy."
-    },
-    {
-      "rule_id": "relationships_must_resolve",
-      "description": "Relationships must reference known entry IDs or explicit external refs."
-    },
-    {
-      "rule_id": "runtime_and_integration_overclaims_rejected",
-      "description": "Runtime, board, integration, true multi-agent, persistent memory, solved Codex, and R16 claims fail validation."
-    }
-  ],
-  "index_entries": [
-    {
-      "entry_id": "governance_vision",
-      "path": "governance/VISION.md",
-      "title": "AIOffice Vision",
-      "summary": "Highest current product doctrine after the R13 failed/partial posture and R14 pivot.",
-      "classification_class": "constitutional_truth",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "constitutional_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "User / Operator",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "architect_design",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load first when product doctrine or current product direction is needed.",
-      "non_claims": [
-        "no product runtime",
-        "no board runtime"
-      ]
-    },
-    {
-      "entry_id": "product_operating_model",
-      "path": "governance/PRODUCT_OPERATING_MODEL.md",
-      "title": "Product Operating Model",
-      "summary": "Defines the target Double Diamond and governed card operating model.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "operating_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / PM",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "governance_vision"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "architect_design",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when task routing, card flow, or product operating posture matters.",
-      "non_claims": [
-        "no board runtime",
-        "no external board sync"
-      ]
-    },
-    {
-      "entry_id": "document_authority_index",
-      "path": "governance/DOCUMENT_AUTHORITY_INDEX.md",
-      "title": "Document Authority Index",
-      "summary": "Classifies current major governance documents by authority class and proof treatment.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "governance_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-003",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "governance_vision"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "auditor_review",
-        "knowledge_curator",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when deciding whether a document is authority, context, evidence, or report-only.",
-      "non_claims": [
-        "no full repo artifacts classified by R15-003"
-      ]
-    },
-    {
-      "entry_id": "knowledge_base_artifact_registry_model",
-      "path": "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
-      "title": "Knowledge Base and Artifact Registry Model",
-      "summary": "Target model for knowledge layers, artifact registry fields, and context-burn reduction.",
-      "classification_class": "domain_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "governance_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Knowledge Curator",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "governance_vision"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "references",
-          "target_entry_id": "document_authority_index",
-          "reason": "Authority classes guide index entry treatment."
-        }
-      ],
-      "recommended_for_roles": [
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when designing or validating knowledge-map and artifact-registry foundations.",
-      "non_claims": [
-        "no knowledge-base engine implemented by R15-003",
-        "no artifact registry engine implemented by R15-003"
-      ]
-    },
-    {
-      "entry_id": "role_raci_agent_authority_model",
-      "path": "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
-      "title": "Role RACI and Agent Authority Model",
-      "summary": "Defines target role boundaries, authority rules, conflict rules, and RACI direction.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "operating_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "governance_vision",
-        "product_operating_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "pm_planning",
-        "architect_design",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "2_high",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when role authority or evidence sufficiency boundaries are in scope.",
-      "non_claims": [
-        "no RACI matrix implemented",
-        "no true multi-agent execution"
-      ]
-    },
-    {
-      "entry_id": "agent_identity_memory_model",
-      "path": "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
-      "title": "Agent Identity and Memory Model",
-      "summary": "Target model for agent identity packets, memory refs, tool permissions, and handoffs.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "operating_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "role_raci_agent_authority_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "architect_design",
-        "developer_execution",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "2_high",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when future work discusses agent identity, memory, handoff, or authority boundaries.",
-      "non_claims": [
-        "no agent identity packets implemented",
-        "no memory scopes implemented",
-        "no persistent memory engine"
-      ]
-    },
-    {
-      "entry_id": "context_compaction_control_model",
-      "path": "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
-      "title": "Context and Compaction Control Model",
-      "summary": "Target model for artifact-backed context, compaction recovery, re-entry, and scan boundaries.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "operating_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "agent_identity_memory_model",
-        "knowledge_base_artifact_registry_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "developer_execution",
-        "qa_validation",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "2_high",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when context burn, re-entry, or scan limits are part of the task.",
-      "non_claims": [
-        "no card re-entry packets implemented",
-        "no solved Codex compaction",
-        "no solved Codex reliability"
-      ]
-    },
-    {
-      "entry_id": "milestone_reporting_standard",
-      "path": "governance/MILESTONE_REPORTING_STANDARD.md",
-      "title": "Milestone Reporting Standard",
-      "summary": "Defines evidence hierarchy, reporting structure, KPI score treatment, RACI reporting, and non-claim rules.",
-      "classification_class": "operating_model",
-      "evidence_kind": "governance_doc",
-      "authority_kind": "governance_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Auditor / Release/Closeout Agent",
-      "source_milestone": "R14 Product Vision Pivot and Governance Enforcement",
-      "source_task": "R14-004",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "document_authority_index"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "auditor_review",
-        "release_closeout",
-        "operator_summary"
-      ],
-      "load_priority": "2_high",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when report sufficiency, evidence treatment, or closeout language is in scope.",
-      "non_claims": [
-        "no final R15 proof package complete"
-      ]
-    },
-    {
-      "entry_id": "r15_authority",
-      "path": "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
-      "title": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "summary": "Active R15 authority document, task list, boundaries, and non-claims through R15-006.",
-      "classification_class": "status_surface",
-      "evidence_kind": "status_doc",
-      "authority_kind": "status_authority",
-      "lifecycle_state": "active",
-      "proof_status": "proof_by_itself_false",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-006",
-      "last_verified_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
-      "depends_on": [
-        "product_operating_model",
-        "knowledge_base_artifact_registry_model",
-        "role_raci_agent_authority_model",
-        "agent_identity_memory_model",
-        "context_compaction_control_model",
-        "milestone_reporting_standard"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "reports_on",
-          "target_entry_id": "r15_repo_knowledge_index_state",
-          "reason": "R15 authority records R15-003 deliverables and scope."
-        },
-        {
-          "relationship_type": "reports_on",
-          "target_entry_id": "r15_agent_identity_packet_state",
-          "reason": "R15 authority records R15-004 deliverables and scope."
-        },
-        {
-          "relationship_type": "reports_on",
-          "target_entry_id": "r15_raci_state_transition_matrix_state",
-          "reason": "R15 authority records R15-006 deliverables and scope."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load before any R15 task to preserve active-through and planned-only boundaries.",
-      "non_claims": [
-        "no actual agents implemented by R15-006",
-        "no direct agent access runtime implemented",
-        "no card re-entry packet implemented",
-        "no R16 opening"
-      ]
-    },
-    {
-      "entry_id": "r15_taxonomy_contract",
-      "path": "contracts/knowledge/artifact_classification_taxonomy.contract.json",
-      "title": "R15 Artifact Classification Taxonomy Contract",
-      "summary": "Machine-checkable taxonomy contract defining classification classes and evidence treatment.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Knowledge Curator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "knowledge_base_artifact_registry_model",
-        "document_authority_index"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [],
-      "recommended_for_roles": [
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when validator or index classification values need their schema authority.",
-      "non_claims": [
-        "no full repo artifacts classified by R15-003"
-      ]
-    },
-    {
-      "entry_id": "r15_taxonomy_state",
-      "path": "state/knowledge/r15_artifact_classification_taxonomy.json",
-      "title": "R15 Artifact Classification Taxonomy Artifact",
-      "summary": "Committed validated R15-002 taxonomy artifact used by the R15-003 index validator.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Knowledge Curator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-002",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "r15_taxonomy_contract"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "validates",
-          "target_entry_id": "r15_repo_knowledge_index_contract",
-          "reason": "The repo knowledge index contract constrains entries to taxonomy values."
-        }
-      ],
-      "recommended_for_roles": [
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the direct taxonomy dependency for index validation.",
-      "non_claims": [
-        "no full repo artifacts classified by R15-003"
-      ]
-    },
-    {
-      "entry_id": "r15_repo_knowledge_index_contract",
-      "path": "contracts/knowledge/repo_knowledge_index.contract.json",
-      "title": "R15 Repo Knowledge Index Contract",
-      "summary": "R15-003 contract defining index fields, allowed values, relationships, lookup profiles, scan scopes, and invalid-state rules.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Knowledge Curator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-003",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "r15_taxonomy_contract",
-        "r15_taxonomy_state",
-        "knowledge_base_artifact_registry_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "derived_from",
-          "target_entry_id": "knowledge_base_artifact_registry_model",
-          "reason": "The contract implements the model direction as a bounded machine-checkable index shape."
-        }
-      ],
-      "recommended_for_roles": [
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when validating or extending the R15-003 index shape in a later authorized task.",
-      "non_claims": [
-        "no full repo index implemented by R15-003",
-        "no knowledge-base engine implemented by R15-003"
-      ]
-    },
-    {
-      "entry_id": "r15_repo_knowledge_index_state",
-      "path": "state/knowledge/r15_repo_knowledge_index.json",
-      "title": "R15 Repo Knowledge Index Bounded Seed",
-      "summary": "Committed bounded seed index over current authority and R15 foundation references only.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Knowledge Curator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-003",
-      "last_verified_head": "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
-      "depends_on": [
-        "r15_repo_knowledge_index_contract",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The bounded seed supports the R15-003 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the R15-003 bounded seed index artifact; do not treat it as broad repo classification.",
-      "non_claims": [
-        "no full repo index implemented by R15-003",
-        "no retrieval engine implemented by R15-003",
-        "no vector search implemented by R15-003"
-      ]
-    },
-    {
-      "entry_id": "r15_agent_identity_packet_contract",
-      "path": "contracts/agents/agent_identity_packet.contract.json",
-      "title": "R15 Agent Identity Packet Contract",
-      "summary": "R15-004 contract defining required role identity fields, role authority values, tool classes, handoff targets, approval requirements, and invalid-state rules.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-004",
-      "last_verified_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
-      "depends_on": [
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state",
-        "agent_identity_memory_model",
-        "role_raci_agent_authority_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "derived_from",
-          "target_entry_id": "agent_identity_memory_model",
-          "reason": "The contract makes the target identity packet model machine-checkable."
-        },
-        {
-          "relationship_type": "validates",
-          "target_entry_id": "r15_agent_identity_packet_state",
-          "reason": "The validator uses this contract shape to check the baseline packet set."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load before validating or extending agent identity packet fields in later authorized R15 tasks.",
-      "non_claims": [
-        "no actual agents implemented by R15-004",
-        "no direct agent access runtime implemented",
-        "no true multi-agent execution implemented"
-      ]
-    },
-    {
-      "entry_id": "r15_agent_identity_packet_state",
-      "path": "state/agents/r15_agent_identity_packet.json",
-      "title": "R15 Agent Identity Packet Baseline",
-      "summary": "Committed R15-004 baseline identity packet set for the ten required roles, with model-only runtime flags and role-boundary non-claims.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-004",
-      "last_verified_head": "c20b12083f583b4f27e4249c9bb8116906102bac",
-      "depends_on": [
-        "r15_agent_identity_packet_contract",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The baseline packet set supports the R15-004 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the R15-004 baseline identity model; do not treat it as actual agent execution or direct access runtime.",
-      "non_claims": [
-        "no actual agents implemented by R15-004",
-        "no direct agent access runtime implemented",
-        "no persistent memory engine implemented"
-      ]
-    },
-    {
-      "entry_id": "r15_agent_memory_scope_contract",
-      "path": "contracts/agents/agent_memory_scope.contract.json",
-      "title": "R15 Agent Memory Scope Contract",
-      "summary": "R15-005 contract defining required memory scope fields, scope-boundary flags, role-to-memory access mapping, and invalid-state rules for the model-only agent memory scope baseline.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-005",
-      "last_verified_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
-      "depends_on": [
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state",
-        "agent_identity_memory_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "derived_from",
-          "target_entry_id": "agent_identity_memory_model",
-          "reason": "The contract makes the target memory-scope model machine-checkable without adding runtime memory loading."
-        },
-        {
-          "relationship_type": "validates",
-          "target_entry_id": "r15_agent_memory_scope_state",
-          "reason": "The validator uses this contract shape to check the baseline memory scope model."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load before validating or extending R15-005 memory scope fields in later authorized tasks.",
-      "non_claims": [
-        "no actual agents implemented by R15-005",
-        "no direct agent access runtime implemented",
-        "no persistent memory engine implemented",
-        "no runtime memory loading implemented",
-        "no retrieval engine implemented by R15-005",
-        "no vector search implemented by R15-005"
-      ]
-    },
-    {
-      "entry_id": "r15_agent_memory_scope_state",
-      "path": "state/agents/r15_agent_memory_scope.json",
-      "title": "R15 Agent Memory Scope Baseline",
-      "summary": "Committed R15-005 baseline memory scope model with ten scope records, model-only runtime flags, explicit access boundaries, and role-to-memory mapping tied to R15-004 identities.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-005",
-      "last_verified_head": "fcbbd689b412851a4002fd8ce5708644dc190181",
-      "depends_on": [
-        "r15_agent_memory_scope_contract",
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The baseline memory scope model supports the R15-005 done status only."
-        },
-        {
-          "relationship_type": "depends_on",
-          "target_entry_id": "r15_agent_identity_packet_state",
-          "reason": "The role-to-memory access mapping is tied to the R15-004 model-only identities."
-        }
-      ],
-      "recommended_for_roles": [
-        "operator_summary",
-        "pm_planning",
-        "knowledge_curator",
-        "auditor_review",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the R15-005 baseline memory scope model; do not treat it as runtime memory loading, persistent memory, retrieval, vector search, direct agent runtime, or RACI implementation.",
-      "non_claims": [
-        "no actual agents implemented by R15-005",
-        "no direct agent access runtime implemented",
-        "no true multi-agent execution implemented",
-        "no persistent memory engine implemented",
-        "no runtime memory loading implemented",
-        "no RACI matrix implemented",
-        "no card re-entry packet implemented"
-      ]
-    },
-    {
-      "entry_id": "r15_raci_state_transition_matrix_contract",
-      "path": "contracts/agents/raci_state_transition_matrix.contract.json",
-      "title": "R15 RACI State-Transition Matrix Contract",
-      "summary": "R15-006 contract defining required states, transition fields, evidence refs, prohibited transitions, separation-of-duties rules, and fail-closed conditions.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-006",
-      "last_verified_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
-      "depends_on": [
-        "r15_agent_memory_scope_state",
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state",
-        "role_raci_agent_authority_model"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "validates",
-          "target_entry_id": "r15_raci_state_transition_matrix_state",
-          "reason": "The validator uses this contract shape to check the baseline matrix model."
-        }
-      ],
-      "recommended_for_roles": [
-        "pm_planning",
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load before validating or extending R15-006 RACI/state-transition fields in later authorized tasks.",
-      "non_claims": [
-        "no runtime state machine implemented",
-        "no board routing runtime implemented",
-        "no actual workflow execution"
-      ]
-    },
-    {
-      "entry_id": "r15_raci_state_transition_matrix_state",
-      "path": "state/agents/r15_raci_state_transition_matrix.json",
-      "title": "R15 RACI State-Transition Matrix Baseline",
-      "summary": "Committed R15-006 baseline RACI/state-transition matrix model with required states, allowed transitions, prohibited transitions, evidence requirements, approval requirements, and fail-closed rules.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-006",
-      "last_verified_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
-      "depends_on": [
-        "r15_raci_state_transition_matrix_contract",
-        "r15_agent_memory_scope_state",
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The baseline matrix model supports the R15-006 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "pm_planning",
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the R15-006 baseline matrix model; do not treat it as runtime execution, board routing, PM automation, card re-entry, or product runtime.",
-      "non_claims": [
-        "no actual agents implemented by R15-006",
-        "no board routing runtime implemented",
-        "no actual workflow execution",
-        "no card re-entry packet implemented",
-        "no product runtime"
-      ]
-    },
-    {
-      "entry_id": "r15_raci_state_transition_matrix_validation_manifest",
-      "path": "state/agents/r15_raci_state_transition_matrix_validation_manifest.md",
-      "title": "R15 RACI State-Transition Matrix Validation Manifest",
-      "summary": "Canonical R15-006 validation manifest recording required command results for the RACI/state-transition matrix model slice.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "validation_manifest",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-006",
-      "last_verified_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
-      "depends_on": [
-        "r15_raci_state_transition_matrix_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_raci_state_transition_matrix_state",
-          "reason": "The manifest records validation results for the R15-006 model."
-        }
-      ],
-      "recommended_for_roles": [
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when checking R15-006 validation results.",
-      "non_claims": [
-        "no final R15 proof package complete",
-        "no R16 opening"
-      ]
-    },
-    {
-      "entry_id": "r15_006_raci_state_transition_matrix_proof_review",
-      "path": "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/",
-      "title": "R15-006 RACI State-Transition Matrix Proof Review",
-      "summary": "Bounded R15-006 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
-      "classification_class": "evidence_package",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-006",
-      "last_verified_head": "e22a746ac5fb880add25a7571e407707c8c4d774",
-      "depends_on": [
-        "r15_raci_state_transition_matrix_state",
-        "r15_raci_state_transition_matrix_validation_manifest"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The proof-review folder supports the R15-006 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "folder_limited",
-      "reason": "Load as the bounded proof-review package for R15-006 only.",
-      "non_claims": [
-        "no final R15 proof package complete",
-        "no R16 opening"
-      ]
-    },
-    {
-      "entry_id": "r15_card_reentry_packet_contract",
-      "path": "contracts/agents/card_reentry_packet.contract.json",
-      "title": "R15 Card Re-entry Packet Contract",
-      "summary": "Machine-checkable R15-007 contract for the card re-entry packet model.",
-      "classification_class": "contract",
-      "evidence_kind": "implemented_code",
-      "authority_kind": "contract_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-007",
-      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
-      "depends_on": [
-        "r15_raci_state_transition_matrix_state",
-        "r15_agent_memory_scope_state",
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "validates",
-          "target_entry_id": "r15_card_reentry_packet_state",
-          "reason": "The validator uses this contract shape to check the baseline card re-entry packet model."
-        }
-      ],
-      "recommended_for_roles": [
-        "pm_planning",
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load before validating or extending R15-007 card re-entry packet fields in later authorized tasks.",
-      "non_claims": [
-        "no card re-entry runtime implemented",
-        "no board routing runtime implemented",
-        "no runtime memory loading implemented",
-        "no retrieval engine implemented",
-        "no vector search implemented"
-      ]
-    },
-    {
-      "entry_id": "r15_card_reentry_packet_state",
-      "path": "state/agents/r15_card_reentry_packet.json",
-      "title": "R15 Card Re-entry Packet Baseline",
-      "summary": "Committed R15-007 baseline card re-entry packet model with bounded role-specific load plans, evidence refs, memory scope refs, RACI transition refs, actions, approvals, fail-closed conditions, and non-claims.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Operator / Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-007",
-      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
-      "depends_on": [
-        "r15_card_reentry_packet_contract",
-        "r15_raci_state_transition_matrix_state",
-        "r15_agent_memory_scope_state",
-        "r15_agent_identity_packet_state",
-        "r15_repo_knowledge_index_state",
-        "r15_taxonomy_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The baseline packet model supports the R15-007 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "pm_planning",
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load as the R15-007 baseline card re-entry packet model; do not treat it as runtime loading, runtime routing, dry-run execution, or product runtime.",
-      "non_claims": [
-        "no actual agents implemented by R15-007",
-        "no direct agent access runtime implemented",
-        "no true multi-agent execution implemented",
-        "no runtime memory loading implemented",
-        "no retrieval engine implemented",
-        "no vector search implemented",
-        "no board routing runtime implemented",
-        "no card re-entry runtime implemented",
-        "no classification or re-entry dry run executed",
-        "no product runtime"
-      ]
-    },
-    {
-      "entry_id": "r15_card_reentry_packet_validation_manifest",
-      "path": "state/agents/r15_card_reentry_packet_validation_manifest.md",
-      "title": "R15 Card Re-entry Packet Validation Manifest",
-      "summary": "Canonical R15-007 validation manifest recording required command results for the card re-entry packet model slice.",
-      "classification_class": "machine_evidence",
-      "evidence_kind": "validation_manifest",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "proof_by_itself_true",
-      "owner_role": "Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-007",
-      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
-      "depends_on": [
-        "r15_card_reentry_packet_state"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_card_reentry_packet_state",
-          "reason": "The manifest records validation results for the R15-007 model."
-        }
-      ],
-      "recommended_for_roles": [
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "exact_file_only",
-      "reason": "Load when checking R15-007 validation results.",
-      "non_claims": [
-        "no classification or re-entry dry run executed",
-        "no final R15 proof package complete",
-        "no R16 opening"
-      ]
-    },
-    {
-      "entry_id": "r15_007_card_reentry_packet_proof_review",
-      "path": "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/",
-      "title": "R15-007 Card Re-entry Packet Proof Review",
-      "summary": "Bounded R15-007 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
-      "classification_class": "evidence_package",
-      "evidence_kind": "committed_machine_evidence",
-      "authority_kind": "proof_authority",
-      "lifecycle_state": "current",
-      "proof_status": "requires_machine_evidence",
-      "owner_role": "Auditor",
-      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
-      "source_task": "R15-007",
-      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
-      "depends_on": [
-        "r15_card_reentry_packet_state",
-        "r15_card_reentry_packet_validation_manifest"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "related_entries": [
-        {
-          "relationship_type": "evidence_for",
-          "target_entry_id": "r15_authority",
-          "reason": "The proof-review folder supports the R15-007 done status only."
-        }
-      ],
-      "recommended_for_roles": [
-        "auditor_review",
-        "release_closeout",
-        "codex_reentry"
-      ],
-      "load_priority": "1_critical",
-      "scan_scope": "folder_limited",
-      "reason": "Load as the bounded proof-review package for R15-007 only.",
-      "non_claims": [
-        "no classification or re-entry dry run executed",
-        "no final R15 proof package complete",
-        "no R16 opening"
-      ]
-    }
-  ],
-  "claims": [
-    "R15-003 adds a repo knowledge index contract.",
-    "R15-003 adds a validator module, CLI wrapper, valid and invalid fixtures, focused tests, a bounded seed index artifact, a validation manifest, and an evidence folder.",
-    "R15-004 updates the bounded seed index with agent identity packet contract and baseline packet entries.",
-    "R15-004 updates status surfaces for R15 active through R15-004 only.",
-    "R15-005 updates the bounded seed index with agent memory scope contract and baseline model entries.",
-    "R15-005 updates status surfaces for R15 active through R15-005 only.",
-    "R15-006 updates the bounded seed index with RACI/state-transition matrix contract, state, manifest, and proof-review entries.",
-    "R15-007 updates the bounded seed index with card re-entry packet contract, state, manifest, and proof-review entries."
-  ],
-  "non_claims": [
-    "no full repo index implemented by R15-007",
-    "no full repo artifacts classified by R15-007",
-    "no knowledge-base engine implemented by R15-007",
-    "no artifact registry engine implemented by R15-007",
-    "no actual agents implemented by R15-007",
-    "no direct agent access runtime implemented",
-    "no true multi-agent execution implemented",
-    "no persistent memory engine implemented",
-    "no runtime memory loading implemented",
-    "no retrieval engine implemented",
-    "no vector search implemented",
-    "no Obsidian integration by R15-007",
-    "no card re-entry runtime implemented",
-    "no classification or re-entry dry run executed",
-    "no final R15 proof package complete",
-    "no product runtime",
-    "no board runtime",
-    "no external board sync",
-    "no GitHub Projects integration",
-    "no Linear implementation",
-    "no Symphony implementation",
-    "no custom board implementation",
-    "no board routing runtime implemented",
-    "no PM automation implemented",
-    "no actual workflow execution",
-    "no R16 opening",
-    "no solved Codex compaction",
-    "no solved Codex reliability"
-  ]
+    "artifact_type":  "r15_repo_knowledge_index",
+    "contract_version":  "v1",
+    "index_id":  "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+    "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+    "source_task":  "R15-003",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+    "generated_from_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+    "generated_from_tree":  "52ef7676ab76cd3a2a1ea6e94b3c168cfeee19d6",
+    "taxonomy_ref":  {
+                         "taxonomy_id":  "aioffice-r15-artifact-classification-taxonomy-v1",
+                         "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                         "contract_path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                         "source_task":  "R15-002"
+                     },
+    "index_scope":  {
+                        "bounded_seed_only":  true,
+                        "full_repo_index":  false,
+                        "future_fuller_index_requires_later_task":  true,
+                        "description":  "Bounded seed set of current authority and R15 foundation references only.",
+                        "included_path_count":  25,
+                        "included_paths":  [
+                                               "governance/VISION.md",
+                                               "governance/PRODUCT_OPERATING_MODEL.md",
+                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                               "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
+                                               "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+                                               "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+                                               "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+                                               "governance/MILESTONE_REPORTING_STANDARD.md",
+                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                               "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                               "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                               "contracts/knowledge/repo_knowledge_index.contract.json",
+                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                               "contracts/agents/agent_identity_packet.contract.json",
+                                               "state/agents/r15_agent_identity_packet.json",
+                                               "contracts/agents/agent_memory_scope.contract.json",
+                                               "state/agents/r15_agent_memory_scope.json",
+                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                               "state/agents/r15_raci_state_transition_matrix_validation_manifest.md",
+                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/",
+                                               "contracts/agents/card_reentry_packet.contract.json",
+                                               "state/agents/r15_card_reentry_packet.json",
+                                               "state/agents/r15_card_reentry_packet_validation_manifest.md",
+                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/"
+                                           ],
+                        "excluded_scope":  [
+                                               "No broad historical repo classification.",
+                                               "No product runtime, board runtime, integration, direct agent access runtime, or engine artifacts.",
+                                               "No R15-008 through R15-009 implementation artifacts."
+                                           ]
+                    },
+    "required_entry_fields":  [
+                                  "entry_id",
+                                  "path",
+                                  "title",
+                                  "summary",
+                                  "classification_class",
+                                  "evidence_kind",
+                                  "authority_kind",
+                                  "lifecycle_state",
+                                  "proof_status",
+                                  "owner_role",
+                                  "source_milestone",
+                                  "source_task",
+                                  "last_verified_head",
+                                  "depends_on",
+                                  "supersedes",
+                                  "superseded_by",
+                                  "related_entries",
+                                  "recommended_for_roles",
+                                  "load_priority",
+                                  "scan_scope",
+                                  "reason",
+                                  "non_claims"
+                              ],
+    "allowed_artifact_classes":  [
+                                     "constitutional_truth",
+                                     "operating_model",
+                                     "domain_model",
+                                     "contract",
+                                     "tool",
+                                     "test",
+                                     "status_surface",
+                                     "evidence_package",
+                                     "machine_evidence",
+                                     "generated_operator_artifact",
+                                     "report",
+                                     "template",
+                                     "historical_archive",
+                                     "deprecated",
+                                     "candidate",
+                                     "cleanup_candidate",
+                                     "external_mirror",
+                                     "external_evidence",
+                                     "unknown"
+                                 ],
+    "allowed_evidence_kinds":  [
+                                   "implemented_code",
+                                   "committed_machine_evidence",
+                                   "generated_artifact",
+                                   "operator_artifact",
+                                   "external_replay_evidence",
+                                   "status_doc",
+                                   "governance_doc",
+                                   "planning_doc",
+                                   "validation_manifest",
+                                   "test_result",
+                                   "unknown"
+                               ],
+    "allowed_authority_kinds":  [
+                                    "constitutional_authority",
+                                    "governance_authority",
+                                    "operating_authority",
+                                    "contract_authority",
+                                    "status_authority",
+                                    "proof_authority",
+                                    "planning_context",
+                                    "report_context",
+                                    "non_authoritative_reference",
+                                    "unknown"
+                                ],
+    "allowed_lifecycle_states":  [
+                                     "current",
+                                     "active",
+                                     "planned",
+                                     "historical",
+                                     "superseded",
+                                     "deprecated",
+                                     "candidate",
+                                     "cleanup_candidate",
+                                     "unknown"
+                                 ],
+    "allowed_proof_status_values":  [
+                                        "proof_by_itself_false",
+                                        "proof_by_itself_true",
+                                        "requires_machine_evidence",
+                                        "external_evidence_required",
+                                        "operator_artifact_only",
+                                        "historical_context_only"
+                                    ],
+    "relationship_types":  [
+                               "depends_on",
+                               "supersedes",
+                               "superseded_by",
+                               "references",
+                               "validates",
+                               "reports_on",
+                               "evidence_for",
+                               "template_for",
+                               "derived_from",
+                               "related_to"
+                           ],
+    "lookup_profiles":  [
+                            "operator_summary",
+                            "pm_planning",
+                            "architect_design",
+                            "developer_execution",
+                            "qa_validation",
+                            "auditor_review",
+                            "knowledge_curator",
+                            "release_closeout",
+                            "codex_reentry"
+                        ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "bounded_seed_only_required",
+                                    "description":  "The R15-003 index must remain a bounded seed and must not claim broad classification."
+                                },
+                                {
+                                    "rule_id":  "full_repo_index_rejected",
+                                    "description":  "A full repo index or full repo scan claim fails validation."
+                                },
+                                {
+                                    "rule_id":  "taxonomy_values_required",
+                                    "description":  "Entry classification, evidence, authority, lifecycle, and proof values must be allowed by the R15-002 taxonomy."
+                                },
+                                {
+                                    "rule_id":  "relationships_must_resolve",
+                                    "description":  "Relationships must reference known entry IDs or explicit external refs."
+                                },
+                                {
+                                    "rule_id":  "runtime_and_integration_overclaims_rejected",
+                                    "description":  "Runtime, board, integration, true multi-agent, persistent memory, solved Codex, and R16 claims fail validation."
+                                }
+                            ],
+    "index_entries":  [
+                          {
+                              "entry_id":  "governance_vision",
+                              "path":  "governance/VISION.md",
+                              "title":  "AIOffice Vision",
+                              "summary":  "Highest current product doctrine after the R13 failed/partial posture and R14 pivot.",
+                              "classification_class":  "constitutional_truth",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "constitutional_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "User / Operator",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "architect_design",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load first when product doctrine or current product direction is needed.",
+                              "non_claims":  [
+                                                 "no product runtime",
+                                                 "no board runtime"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "product_operating_model",
+                              "path":  "governance/PRODUCT_OPERATING_MODEL.md",
+                              "title":  "Product Operating Model",
+                              "summary":  "Defines the target Double Diamond and governed card operating model.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "operating_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / PM",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "governance_vision"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "architect_design",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when task routing, card flow, or product operating posture matters.",
+                              "non_claims":  [
+                                                 "no board runtime",
+                                                 "no external board sync"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "document_authority_index",
+                              "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                              "title":  "Document Authority Index",
+                              "summary":  "Classifies current major governance documents by authority class and proof treatment.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "governance_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-003",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "governance_vision"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "knowledge_curator",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when deciding whether a document is authority, context, evidence, or report-only.",
+                              "non_claims":  [
+                                                 "no full repo artifacts classified by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "knowledge_base_artifact_registry_model",
+                              "path":  "governance/KNOWLEDGE_BASE_AND_ARTIFACT_REGISTRY_MODEL.md",
+                              "title":  "Knowledge Base and Artifact Registry Model",
+                              "summary":  "Target model for knowledge layers, artifact registry fields, and context-burn reduction.",
+                              "classification_class":  "domain_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "governance_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Knowledge Curator",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "governance_vision"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "references",
+                                                          "target_entry_id":  "document_authority_index",
+                                                          "reason":  "Authority classes guide index entry treatment."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when designing or validating knowledge-map and artifact-registry foundations.",
+                              "non_claims":  [
+                                                 "no knowledge-base engine implemented by R15-003",
+                                                 "no artifact registry engine implemented by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "role_raci_agent_authority_model",
+                              "path":  "governance/ROLE_RACI_AND_AGENT_AUTHORITY_MODEL.md",
+                              "title":  "Role RACI and Agent Authority Model",
+                              "summary":  "Defines target role boundaries, authority rules, conflict rules, and RACI direction.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "operating_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "governance_vision",
+                                                 "product_operating_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "pm_planning",
+                                                            "architect_design",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "2_high",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when role authority or evidence sufficiency boundaries are in scope.",
+                              "non_claims":  [
+                                                 "no RACI matrix implemented",
+                                                 "no true multi-agent execution"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "agent_identity_memory_model",
+                              "path":  "governance/AGENT_IDENTITY_AND_MEMORY_MODEL.md",
+                              "title":  "Agent Identity and Memory Model",
+                              "summary":  "Target model for agent identity packets, memory refs, tool permissions, and handoffs.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "operating_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "role_raci_agent_authority_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "architect_design",
+                                                            "developer_execution",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "2_high",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when future work discusses agent identity, memory, handoff, or authority boundaries.",
+                              "non_claims":  [
+                                                 "no agent identity packets implemented",
+                                                 "no memory scopes implemented",
+                                                 "no persistent memory engine"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "context_compaction_control_model",
+                              "path":  "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+                              "title":  "Context and Compaction Control Model",
+                              "summary":  "Target model for artifact-backed context, compaction recovery, re-entry, and scan boundaries.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "operating_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "agent_identity_memory_model",
+                                                 "knowledge_base_artifact_registry_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "developer_execution",
+                                                            "qa_validation",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "2_high",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when context burn, re-entry, or scan limits are part of the task.",
+                              "non_claims":  [
+                                                 "no card re-entry packets implemented",
+                                                 "no solved Codex compaction",
+                                                 "no solved Codex reliability"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "milestone_reporting_standard",
+                              "path":  "governance/MILESTONE_REPORTING_STANDARD.md",
+                              "title":  "Milestone Reporting Standard",
+                              "summary":  "Defines evidence hierarchy, reporting structure, KPI score treatment, RACI reporting, and non-claim rules.",
+                              "classification_class":  "operating_model",
+                              "evidence_kind":  "governance_doc",
+                              "authority_kind":  "governance_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Auditor / Release/Closeout Agent",
+                              "source_milestone":  "R14 Product Vision Pivot and Governance Enforcement",
+                              "source_task":  "R14-004",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "document_authority_index"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "operator_summary"
+                                                        ],
+                              "load_priority":  "2_high",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when report sufficiency, evidence treatment, or closeout language is in scope.",
+                              "non_claims":  [
+                                                 "no final R15 proof package complete"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_authority",
+                              "path":  "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                              "title":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "summary":  "R15 opening, boundary, task plan, R15-002 through R15-008 model/dry-run slices, and non-claims.",
+                              "classification_class":  "status_surface",
+                              "evidence_kind":  "status_doc",
+                              "authority_kind":  "status_authority",
+                              "lifecycle_state":  "active",
+                              "proof_status":  "proof_by_itself_false",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "product_operating_model",
+                                                 "knowledge_base_artifact_registry_model",
+                                                 "role_raci_agent_authority_model",
+                                                 "agent_identity_memory_model",
+                                                 "context_compaction_control_model",
+                                                 "milestone_reporting_standard"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "reports_on",
+                                                          "target_entry_id":  "r15_repo_knowledge_index_state",
+                                                          "reason":  "R15 authority records R15-003 deliverables and scope."
+                                                      },
+                                                      {
+                                                          "relationship_type":  "reports_on",
+                                                          "target_entry_id":  "r15_agent_identity_packet_state",
+                                                          "reason":  "R15 authority records R15-004 deliverables and scope."
+                                                      },
+                                                      {
+                                                          "relationship_type":  "reports_on",
+                                                          "target_entry_id":  "r15_raci_state_transition_matrix_state",
+                                                          "reason":  "R15 authority records R15-006 deliverables and scope."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when checking current R15 active-through posture and R15-008 dry-run boundaries.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-006",
+                                                 "no direct agent access runtime implemented",
+                                                 "no card re-entry packet implemented",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_taxonomy_contract",
+                              "path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                              "title":  "R15 Artifact Classification Taxonomy Contract",
+                              "summary":  "Machine-checkable taxonomy contract defining classification classes and evidence treatment.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "knowledge_base_artifact_registry_model",
+                                                 "document_authority_index"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when validator or index classification values need their schema authority.",
+                              "non_claims":  [
+                                                 "no full repo artifacts classified by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_taxonomy_state",
+                              "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                              "title":  "R15 Artifact Classification Taxonomy Artifact",
+                              "summary":  "Committed validated R15-002 taxonomy artifact used by the R15-003 index validator.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-002",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "r15_taxonomy_contract"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_repo_knowledge_index_contract",
+                                                          "reason":  "The repo knowledge index contract constrains entries to taxonomy values."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the direct taxonomy dependency for index validation.",
+                              "non_claims":  [
+                                                 "no full repo artifacts classified by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_repo_knowledge_index_contract",
+                              "path":  "contracts/knowledge/repo_knowledge_index.contract.json",
+                              "title":  "R15 Repo Knowledge Index Contract",
+                              "summary":  "R15-003 contract defining index fields, allowed values, relationships, lookup profiles, scan scopes, and invalid-state rules.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-003",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "r15_taxonomy_contract",
+                                                 "r15_taxonomy_state",
+                                                 "knowledge_base_artifact_registry_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "derived_from",
+                                                          "target_entry_id":  "knowledge_base_artifact_registry_model",
+                                                          "reason":  "The contract implements the model direction as a bounded machine-checkable index shape."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when validating or extending the R15-003 index shape in a later authorized task.",
+                              "non_claims":  [
+                                                 "no full repo index implemented by R15-003",
+                                                 "no knowledge-base engine implemented by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_repo_knowledge_index_state",
+                              "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                              "title":  "R15 Repo Knowledge Index Bounded Seed",
+                              "summary":  "Committed bounded seed index over current authority and R15 foundation references only.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Knowledge Curator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-003",
+                              "last_verified_head":  "7037dc60d013632f430a3edd25c2c3fbad0d54d7",
+                              "depends_on":  [
+                                                 "r15_repo_knowledge_index_contract",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The bounded seed supports the R15-003 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the R15-003 bounded seed index artifact; do not treat it as broad repo classification.",
+                              "non_claims":  [
+                                                 "no full repo index implemented by R15-003",
+                                                 "no retrieval engine implemented by R15-003",
+                                                 "no vector search implemented by R15-003"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_agent_identity_packet_contract",
+                              "path":  "contracts/agents/agent_identity_packet.contract.json",
+                              "title":  "R15 Agent Identity Packet Contract",
+                              "summary":  "R15-004 contract defining required role identity fields, role authority values, tool classes, handoff targets, approval requirements, and invalid-state rules.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-004",
+                              "last_verified_head":  "c20b12083f583b4f27e4249c9bb8116906102bac",
+                              "depends_on":  [
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state",
+                                                 "agent_identity_memory_model",
+                                                 "role_raci_agent_authority_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "derived_from",
+                                                          "target_entry_id":  "agent_identity_memory_model",
+                                                          "reason":  "The contract makes the target identity packet model machine-checkable."
+                                                      },
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_agent_identity_packet_state",
+                                                          "reason":  "The validator uses this contract shape to check the baseline packet set."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load before validating or extending agent identity packet fields in later authorized R15 tasks.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-004",
+                                                 "no direct agent access runtime implemented",
+                                                 "no true multi-agent execution implemented"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_agent_identity_packet_state",
+                              "path":  "state/agents/r15_agent_identity_packet.json",
+                              "title":  "R15 Agent Identity Packet Baseline",
+                              "summary":  "Committed R15-004 baseline identity packet set for the ten required roles, with model-only runtime flags and role-boundary non-claims.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-004",
+                              "last_verified_head":  "c20b12083f583b4f27e4249c9bb8116906102bac",
+                              "depends_on":  [
+                                                 "r15_agent_identity_packet_contract",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The baseline packet set supports the R15-004 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the R15-004 baseline identity model; do not treat it as actual agent execution or direct access runtime.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-004",
+                                                 "no direct agent access runtime implemented",
+                                                 "no persistent memory engine implemented"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_agent_memory_scope_contract",
+                              "path":  "contracts/agents/agent_memory_scope.contract.json",
+                              "title":  "R15 Agent Memory Scope Contract",
+                              "summary":  "R15-005 contract defining required memory scope fields, scope-boundary flags, role-to-memory access mapping, and invalid-state rules for the model-only agent memory scope baseline.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-005",
+                              "last_verified_head":  "fcbbd689b412851a4002fd8ce5708644dc190181",
+                              "depends_on":  [
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state",
+                                                 "agent_identity_memory_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "derived_from",
+                                                          "target_entry_id":  "agent_identity_memory_model",
+                                                          "reason":  "The contract makes the target memory-scope model machine-checkable without adding runtime memory loading."
+                                                      },
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_agent_memory_scope_state",
+                                                          "reason":  "The validator uses this contract shape to check the baseline memory scope model."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load before validating or extending R15-005 memory scope fields in later authorized tasks.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-005",
+                                                 "no direct agent access runtime implemented",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented",
+                                                 "no retrieval engine implemented by R15-005",
+                                                 "no vector search implemented by R15-005"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_agent_memory_scope_state",
+                              "path":  "state/agents/r15_agent_memory_scope.json",
+                              "title":  "R15 Agent Memory Scope Baseline",
+                              "summary":  "Committed R15-005 baseline memory scope model with ten scope records, model-only runtime flags, explicit access boundaries, and role-to-memory mapping tied to R15-004 identities.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-005",
+                              "last_verified_head":  "fcbbd689b412851a4002fd8ce5708644dc190181",
+                              "depends_on":  [
+                                                 "r15_agent_memory_scope_contract",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The baseline memory scope model supports the R15-005 done status only."
+                                                      },
+                                                      {
+                                                          "relationship_type":  "depends_on",
+                                                          "target_entry_id":  "r15_agent_identity_packet_state",
+                                                          "reason":  "The role-to-memory access mapping is tied to the R15-004 model-only identities."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "operator_summary",
+                                                            "pm_planning",
+                                                            "knowledge_curator",
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the R15-005 baseline memory scope model; do not treat it as runtime memory loading, persistent memory, retrieval, vector search, direct agent runtime, or RACI implementation.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-005",
+                                                 "no direct agent access runtime implemented",
+                                                 "no true multi-agent execution implemented",
+                                                 "no persistent memory engine implemented",
+                                                 "no runtime memory loading implemented",
+                                                 "no RACI matrix implemented",
+                                                 "no card re-entry packet implemented"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_raci_state_transition_matrix_contract",
+                              "path":  "contracts/agents/raci_state_transition_matrix.contract.json",
+                              "title":  "R15 RACI State-Transition Matrix Contract",
+                              "summary":  "R15-006 contract defining required states, transition fields, evidence refs, prohibited transitions, separation-of-duties rules, and fail-closed conditions.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-006",
+                              "last_verified_head":  "e22a746ac5fb880add25a7571e407707c8c4d774",
+                              "depends_on":  [
+                                                 "r15_agent_memory_scope_state",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state",
+                                                 "role_raci_agent_authority_model"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_raci_state_transition_matrix_state",
+                                                          "reason":  "The validator uses this contract shape to check the baseline matrix model."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load before validating or extending R15-006 RACI/state-transition fields in later authorized tasks.",
+                              "non_claims":  [
+                                                 "no runtime state machine implemented",
+                                                 "no board routing runtime implemented",
+                                                 "no actual workflow execution"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_raci_state_transition_matrix_state",
+                              "path":  "state/agents/r15_raci_state_transition_matrix.json",
+                              "title":  "R15 RACI State-Transition Matrix Baseline",
+                              "summary":  "Committed R15-006 baseline RACI/state-transition matrix model with required states, allowed transitions, prohibited transitions, evidence requirements, approval requirements, and fail-closed rules.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-006",
+                              "last_verified_head":  "e22a746ac5fb880add25a7571e407707c8c4d774",
+                              "depends_on":  [
+                                                 "r15_raci_state_transition_matrix_contract",
+                                                 "r15_agent_memory_scope_state",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The baseline matrix model supports the R15-006 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the R15-006 baseline matrix model; do not treat it as runtime execution, board routing, PM automation, card re-entry, or product runtime.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-006",
+                                                 "no board routing runtime implemented",
+                                                 "no actual workflow execution",
+                                                 "no card re-entry packet implemented",
+                                                 "no product runtime"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_raci_state_transition_matrix_validation_manifest",
+                              "path":  "state/agents/r15_raci_state_transition_matrix_validation_manifest.md",
+                              "title":  "R15 RACI State-Transition Matrix Validation Manifest",
+                              "summary":  "Canonical R15-006 validation manifest recording required command results for the RACI/state-transition matrix model slice.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-006",
+                              "last_verified_head":  "e22a746ac5fb880add25a7571e407707c8c4d774",
+                              "depends_on":  [
+                                                 "r15_raci_state_transition_matrix_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_raci_state_transition_matrix_state",
+                                                          "reason":  "The manifest records validation results for the R15-006 model."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when checking R15-006 validation results.",
+                              "non_claims":  [
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_006_raci_state_transition_matrix_proof_review",
+                              "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/",
+                              "title":  "R15-006 RACI State-Transition Matrix Proof Review",
+                              "summary":  "Bounded R15-006 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
+                              "classification_class":  "evidence_package",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-006",
+                              "last_verified_head":  "e22a746ac5fb880add25a7571e407707c8c4d774",
+                              "depends_on":  [
+                                                 "r15_raci_state_transition_matrix_state",
+                                                 "r15_raci_state_transition_matrix_validation_manifest"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The proof-review folder supports the R15-006 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "folder_limited",
+                              "reason":  "Load as the bounded proof-review package for R15-006 only.",
+                              "non_claims":  [
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_card_reentry_packet_contract",
+                              "path":  "contracts/agents/card_reentry_packet.contract.json",
+                              "title":  "R15 Card Re-entry Packet Contract",
+                              "summary":  "Machine-checkable R15-007 contract for the card re-entry packet model.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-007",
+                              "last_verified_head":  "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+                              "depends_on":  [
+                                                 "r15_raci_state_transition_matrix_state",
+                                                 "r15_agent_memory_scope_state",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_card_reentry_packet_state",
+                                                          "reason":  "The validator uses this contract shape to check the baseline card re-entry packet model."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load before validating or extending R15-007 card re-entry packet fields in later authorized tasks.",
+                              "non_claims":  [
+                                                 "no card re-entry runtime implemented",
+                                                 "no board routing runtime implemented",
+                                                 "no runtime memory loading implemented",
+                                                 "no retrieval engine implemented",
+                                                 "no vector search implemented"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_card_reentry_packet_state",
+                              "path":  "state/agents/r15_card_reentry_packet.json",
+                              "title":  "R15 Card Re-entry Packet Baseline",
+                              "summary":  "Committed R15-007 baseline card re-entry packet model with bounded role-specific load plans, evidence refs, memory scope refs, RACI transition refs, actions, approvals, fail-closed conditions, and non-claims.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-007",
+                              "last_verified_head":  "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+                              "depends_on":  [
+                                                 "r15_card_reentry_packet_contract",
+                                                 "r15_raci_state_transition_matrix_state",
+                                                 "r15_agent_memory_scope_state",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The baseline packet model supports the R15-007 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "pm_planning",
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the R15-007 baseline card re-entry packet model; do not treat it as runtime loading, runtime routing, dry-run execution, or product runtime.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-007",
+                                                 "no direct agent access runtime implemented",
+                                                 "no true multi-agent execution implemented",
+                                                 "no runtime memory loading implemented",
+                                                 "no retrieval engine implemented",
+                                                 "no vector search implemented",
+                                                 "no board routing runtime implemented",
+                                                 "no card re-entry runtime implemented",
+                                                 "no classification or re-entry dry run executed",
+                                                 "no product runtime"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_card_reentry_packet_validation_manifest",
+                              "path":  "state/agents/r15_card_reentry_packet_validation_manifest.md",
+                              "title":  "R15 Card Re-entry Packet Validation Manifest",
+                              "summary":  "Canonical R15-007 validation manifest recording required command results for the card re-entry packet model slice.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-007",
+                              "last_verified_head":  "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+                              "depends_on":  [
+                                                 "r15_card_reentry_packet_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_card_reentry_packet_state",
+                                                          "reason":  "The manifest records validation results for the R15-007 model."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when checking R15-007 validation results.",
+                              "non_claims":  [
+                                                 "no classification or re-entry dry run executed",
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_007_card_reentry_packet_proof_review",
+                              "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/",
+                              "title":  "R15-007 Card Re-entry Packet Proof Review",
+                              "summary":  "Bounded R15-007 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
+                              "classification_class":  "evidence_package",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-007",
+                              "last_verified_head":  "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+                              "depends_on":  [
+                                                 "r15_card_reentry_packet_state",
+                                                 "r15_card_reentry_packet_validation_manifest"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The proof-review folder supports the R15-007 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "folder_limited",
+                              "reason":  "Load as the bounded proof-review package for R15-007 only.",
+                              "non_claims":  [
+                                                 "no classification or re-entry dry run executed",
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r14_validation_manifest",
+                              "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                              "title":  "R14 Validation Manifest",
+                              "summary":  "R14 validation command manifest used as one bounded target-slice evidence file for R15-008.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_repo_knowledge_index_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "R15-008 uses this exact R14 evidence ref as bounded dry-run input only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as one exact target evidence file for the R15-008 dry run; do not scan the proof-review folder broadly.",
+                              "non_claims":  [
+                                                 "no full repo scan",
+                                                 "no R15 final proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r14_validation_summary",
+                              "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                              "title":  "R14 Validation Summary JSON",
+                              "summary":  "R14 machine-readable validation summary used as one bounded target-slice evidence file for R15-008.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_repo_knowledge_index_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "R15-008 uses this exact R14 evidence ref as bounded dry-run input only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as one exact target evidence file for the R15-008 dry run; do not scan the proof-review folder broadly.",
+                              "non_claims":  [
+                                                 "no full repo scan",
+                                                 "no R15 final proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r14_pivot_closeout_r15_planning_brief",
+                              "path":  "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                              "title":  "R14 Pivot Closeout and R15 Planning Brief",
+                              "summary":  "R14 generated report used as bounded context for the R15-008 target slice; report text is not proof by itself.",
+                              "classification_class":  "report",
+                              "evidence_kind":  "generated_artifact",
+                              "authority_kind":  "report_context",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_false",
+                              "owner_role":  "Operator",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r14_validation_manifest",
+                                                 "r14_validation_summary"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "reports_on",
+                                                          "target_entry_id":  "r14_validation_manifest",
+                                                          "reason":  "The report explains R14 validation but is not proof by itself."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "2_high",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load only when the dry run needs the R14 closeout/planning narrative for bounded context.",
+                              "non_claims":  [
+                                                 "not proof by itself",
+                                                 "no R15 opening by report alone",
+                                                 "no product runtime"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_008_classification_reentry_dry_run_contract",
+                              "path":  "contracts/agents/classification_reentry_dry_run.contract.json",
+                              "title":  "R15 Classification Re-entry Dry Run Contract",
+                              "summary":  "Machine-checkable R15-008 contract for one bounded classification and re-entry dry run.",
+                              "classification_class":  "contract",
+                              "evidence_kind":  "implemented_code",
+                              "authority_kind":  "contract_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Operator / Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_card_reentry_packet_state",
+                                                 "r15_raci_state_transition_matrix_state",
+                                                 "r15_agent_memory_scope_state",
+                                                 "r15_agent_identity_packet_state",
+                                                 "r15_repo_knowledge_index_state",
+                                                 "r15_taxonomy_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "validates",
+                                                          "target_entry_id":  "r15_008_classification_reentry_dry_run_state",
+                                                          "reason":  "The validator uses this contract shape to check the R15-008 dry-run artifact."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load before validating the R15-008 classification/re-entry dry-run artifact.",
+                              "non_claims":  [
+                                                 "no runtime agents implemented",
+                                                 "no card re-entry runtime implemented",
+                                                 "no final R15 proof package complete"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_008_classification_reentry_dry_run_state",
+                              "path":  "state/agents/r15_classification_reentry_dry_run.json",
+                              "title":  "R15 Classification Re-entry Dry Run Artifact",
+                              "summary":  "Committed R15-008 bounded dry-run result over the default R14/R15 evidence slice, with model output explicitly distinguished from runtime execution.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_008_classification_reentry_dry_run_contract",
+                                                 "r14_validation_manifest",
+                                                 "r14_validation_summary",
+                                                 "r14_pivot_closeout_r15_planning_brief",
+                                                 "r15_authority"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The dry-run artifact supports R15-008 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load as the canonical R15-008 dry-run artifact; do not treat it as runtime execution.",
+                              "non_claims":  [
+                                                 "no actual agents implemented by R15-008",
+                                                 "no card re-entry runtime implemented",
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_008_classification_reentry_dry_run_validation_manifest",
+                              "path":  "state/agents/r15_classification_reentry_dry_run_validation_manifest.md",
+                              "title":  "R15 Classification Re-entry Dry Run Validation Manifest",
+                              "summary":  "Canonical R15-008 validation manifest recording required command results for the dry-run slice.",
+                              "classification_class":  "machine_evidence",
+                              "evidence_kind":  "validation_manifest",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "proof_by_itself_true",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_008_classification_reentry_dry_run_state"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_008_classification_reentry_dry_run_state",
+                                                          "reason":  "The manifest records validation results for the R15-008 dry run."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "exact_file_only",
+                              "reason":  "Load when checking R15-008 validation results.",
+                              "non_claims":  [
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          },
+                          {
+                              "entry_id":  "r15_008_classification_reentry_dry_run_proof_review",
+                              "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_008_classification_reentry_dry_run/",
+                              "title":  "R15-008 Classification Re-entry Dry Run Proof Review",
+                              "summary":  "Bounded R15-008 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
+                              "classification_class":  "evidence_package",
+                              "evidence_kind":  "committed_machine_evidence",
+                              "authority_kind":  "proof_authority",
+                              "lifecycle_state":  "current",
+                              "proof_status":  "requires_machine_evidence",
+                              "owner_role":  "Auditor",
+                              "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                              "source_task":  "R15-008",
+                              "last_verified_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+                              "depends_on":  [
+                                                 "r15_008_classification_reentry_dry_run_state",
+                                                 "r15_008_classification_reentry_dry_run_validation_manifest"
+                                             ],
+                              "supersedes":  [
+
+                                             ],
+                              "superseded_by":  [
+
+                                                ],
+                              "related_entries":  [
+                                                      {
+                                                          "relationship_type":  "evidence_for",
+                                                          "target_entry_id":  "r15_authority",
+                                                          "reason":  "The proof-review folder supports the R15-008 done status only."
+                                                      }
+                                                  ],
+                              "recommended_for_roles":  [
+                                                            "auditor_review",
+                                                            "release_closeout",
+                                                            "codex_reentry"
+                                                        ],
+                              "load_priority":  "1_critical",
+                              "scan_scope":  "folder_limited",
+                              "reason":  "Load as the bounded proof-review package for R15-008 only.",
+                              "non_claims":  [
+                                                 "no final R15 proof package complete",
+                                                 "no R16 opening"
+                                             ]
+                          }
+                      ],
+    "claims":  [
+                   "R15-003 adds a repo knowledge index contract.",
+                   "R15-003 adds a validator module, CLI wrapper, valid and invalid fixtures, focused tests, a bounded seed index artifact, a validation manifest, and an evidence folder.",
+                   "R15-004 updates the bounded seed index with agent identity packet contract and baseline packet entries.",
+                   "R15-004 updates status surfaces for R15 active through R15-004 only.",
+                   "R15-005 updates the bounded seed index with agent memory scope contract and baseline model entries.",
+                   "R15-005 updates status surfaces for R15 active through R15-005 only.",
+                   "R15-006 updates the bounded seed index with RACI/state-transition matrix contract, state, manifest, and proof-review entries.",
+                   "R15-007 updates the bounded seed index with card re-entry packet contract, state, manifest, and proof-review entries."
+               ],
+    "non_claims":  [
+                       "no full repo index implemented by R15-008",
+                       "no full repo artifacts classified by R15-008",
+                       "no knowledge-base engine implemented by R15-008",
+                       "no artifact registry engine implemented by R15-008",
+                       "no actual agents implemented by R15-008",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-008",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear implementation",
+                       "no Symphony implementation",
+                       "no custom board implementation",
+                       "no board routing runtime implemented",
+                       "no PM automation implemented",
+                       "no actual workflow execution",
+                       "no card re-entry runtime implemented",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no board runtime",
+                       "no R16 opening",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
 }

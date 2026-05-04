@@ -1,6 +1,6 @@
 # R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations
 
-**Milestone status:** Active in repo truth through `R15-007` only
+**Milestone status:** Active in repo truth through `R15-008` only
 **Opened from branch:** `release/r14-product-vision-pivot-and-governance-enforcement`
 **Source R14 head:** `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc`
 **Source R14 tree observed locally:** `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`
@@ -9,7 +9,7 @@
 
 R15 opens as the first post-pivot foundation milestone after the accepted-with-caveats R14 posture. R15 is not product runtime, productized UI, external board sync, true multi-agent execution, persistent memory implementation, or integration work.
 
-`R15-001` through `R15-007` are complete. `R15-008` through `R15-009` are planned only.
+`R15-001` through `R15-008` are complete. `R15-009` is planned only.
 
 ## Purpose
 
@@ -151,8 +151,19 @@ R15 must not implement:
   - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/`
 
 ### `R15-008` Run one classification and re-entry dry run
-- Status: planned
+- Status: done
 - Purpose: apply the R15 models to one bounded existing R13/R14 evidence slice to prove that classification and re-entry reduce full-repo scanning.
+- Durable output:
+  - `contracts/agents/classification_reentry_dry_run.contract.json`
+  - `tools/R15ClassificationReentryDryRun.psm1`
+  - `tools/validate_r15_classification_reentry_dry_run.ps1`
+  - `tests/test_r15_classification_reentry_dry_run.ps1`
+  - `state/fixtures/valid/agents/r15_classification_reentry_dry_run.valid.json`
+  - `state/fixtures/invalid/agents/r15_classification_reentry_dry_run/`
+  - `state/agents/r15_classification_reentry_dry_run.json`
+  - `state/agents/r15_classification_reentry_dry_run_validation_manifest.md`
+  - updated bounded knowledge index `state/knowledge/r15_repo_knowledge_index.json`
+  - `state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_008_classification_reentry_dry_run/`
 
 ### `R15-009` Produce R15 proof/review package
 - Status: planned
@@ -431,6 +442,54 @@ R15-007 does not claim:
 - no solved Codex reliability;
 - no R16 opening.
 
+R15-008 claims only:
+
+- classification/re-entry dry-run contract exists;
+- validator module exists;
+- CLI wrapper exists;
+- valid and invalid fixtures exist;
+- focused tests exist;
+- committed dry-run artifact exists;
+- validation manifest exists;
+- bounded knowledge index was updated with R15-008 entries only;
+- R15-008 evidence folder exists;
+- one bounded R14 evidence slice was inspected;
+- exact knowledge-index refs were used;
+- `evidence_auditor` was selected as the target role;
+- memory-scope constraints were applied;
+- RACI/state-transition constraints were applied;
+- a model-only card re-entry packet output was defined;
+- the dry-run evidence distinguishes model output from runtime execution;
+- status surfaces were updated;
+- validation passed.
+
+R15-008 does not claim:
+
+- no actual agents implemented by R15-008;
+- no direct agent access runtime implemented;
+- no true multi-agent execution implemented;
+- no persistent memory engine implemented;
+- no runtime memory loading implemented;
+- no retrieval engine implemented;
+- no vector search implemented;
+- no Obsidian integration by R15-008;
+- no external board sync;
+- no GitHub Projects integration;
+- no Linear integration;
+- no Symphony integration;
+- no custom board runtime;
+- no PM automation implemented;
+- no actual workflow execution;
+- no board routing runtime implemented;
+- no card re-entry runtime implemented;
+- no full repo scan executed;
+- no final R15 proof package complete;
+- no product runtime;
+- no integration runtime;
+- no solved Codex compaction;
+- no solved Codex reliability;
+- no R16 opening.
+
 ## Exit Criteria
 
 R15 may exit only when:
@@ -470,8 +529,10 @@ R15 depends on:
 
 ## Validation Requirements
 
-The R15-007 slice must run and record:
+The R15-008 slice must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_classification_reentry_dry_run.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_classification_reentry_dry_run.ps1 -DryRunPath state\agents\r15_classification_reentry_dry_run.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_card_reentry_packet.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r15_card_reentry_packet.ps1 -PacketPath state\agents\r15_card_reentry_packet.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r15_raci_state_transition_matrix.ps1`
@@ -498,13 +559,13 @@ The status gate must accept only this R15 posture:
 
 - R13 failed/partial through `R13-018` only.
 - R14 accepted/narrowly complete through `R14-006`.
-- R15 active through `R15-007` only.
-- `R15-008` through `R15-009` planned only.
+- R15 active through `R15-008` only.
+- `R15-009` planned only.
 - No R16 or successor opening.
 - No product/runtime/integration/agent-execution overclaims.
 
-## R15-007 Slice Status
+## R15-008 Slice Status
 
-After this slice, `R15-001` through `R15-007` are complete.
+After this slice, `R15-001` through `R15-008` are complete.
 
-`R15-008` through `R15-009` are planned only. R15-007 defines the card re-entry packet model only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, the classification/re-entry dry run, the final R15 proof package, product runtime, integrations, or R16.
+`R15-009` is planned only. R15-008 runs one bounded classification and card re-entry dry run only; it does not implement actual agents, direct agent access runtime, true multi-agent execution, persistent memory, runtime memory loading, retrieval, vector search, card re-entry runtime, board routing runtime, PM automation, actual workflow execution, the final R15 proof package, product runtime, integrations, or R16.

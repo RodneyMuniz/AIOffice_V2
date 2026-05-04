@@ -668,26 +668,24 @@ function Assert-R15RaciStateTransitionStatusPosture {
 
     $kanbanStatus = Get-R15TaskStatusMap -Text $texts["execution\KANBAN.md"] -Context "KANBAN"
     $authorityStatus = Get-R15TaskStatusMap -Text $texts["governance\R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md"] -Context "R15 authority"
-    foreach ($taskId in @("R15-001", "R15-002", "R15-003", "R15-004", "R15-005", "R15-006", "R15-007")) {
+    foreach ($taskId in @("R15-001", "R15-002", "R15-003", "R15-004", "R15-005", "R15-006", "R15-007", "R15-008")) {
         if ($kanbanStatus[$taskId] -ne "done" -or $authorityStatus[$taskId] -ne "done") {
             throw "R15 status posture must mark $taskId done for current R15 validation compatibility."
         }
     }
-    foreach ($taskId in @("R15-008", "R15-009")) {
-        if ($kanbanStatus[$taskId] -ne "planned" -or $authorityStatus[$taskId] -ne "planned") {
-            throw "R15 status posture must keep $taskId planned only."
-        }
+    if ($kanbanStatus["R15-009"] -ne "planned" -or $authorityStatus["R15-009"] -ne "planned") {
+        throw "R15 status posture must keep R15-009 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R15 active through `?R15-007`? only|Active in repo truth through `R15-007` only|through `R15-007` only' -Message "Status docs must state R15 is active through R15-007 only."
-    Assert-RegexMatch -Text $combinedText -Pattern '(?i)`?R15-008`?\s+through\s+`?R15-009`?\s+are planned only|R15-008 through R15-009 are planned only' -Message "Status docs must keep R15-008 through R15-009 planned only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)R15 active through `?R15-008`? only|Active in repo truth through `R15-008` only|through `R15-008` only' -Message "Status docs must state R15 is active through R15-008 only."
+    Assert-RegexMatch -Text $combinedText -Pattern '(?i)`?R15-009`?\s+planned only|R15-009 remains planned only|R15-009 planned only' -Message "Status docs must keep R15-009 planned only."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R13 remains failed/partial.*R13-018|R13 API-First QA Pipeline and Operator Control-Room Product Slice` remains failed/partial' -Message "Status docs must preserve R13 failed/partial through R13-018."
     Assert-RegexMatch -Text $combinedText -Pattern '(?i)R14.*accepted.*R14-006|accepted with caveats.*R14-006' -Message "Status docs must preserve R14 accepted with caveats through R14-006."
     Assert-RegexMatch -Text $texts["governance\DECISION_LOG.md"] -Pattern 'R15-006 Defined RACI State-Transition Matrix Model' -Message "DECISION_LOG must record the R15-006 RACI state-transition decision."
 
     Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-006 status docs" -ClaimLabel "R16 or successor opening" -Pattern '(?i)\bR16\b.{0,120}\b(active|open|opened|marked active)\b|\bsuccessor milestone\b.{0,120}\b(is now active|is active|marked active|opens on branch|opened on branch)\b'
-    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-006 status docs" -ClaimLabel "R15-008 or later completion" -Pattern '(?i)\bR15-00[8-9]\b.{0,140}\b(done|complete|completed|implemented|executed|ran)\b'
+    Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-006 status docs" -ClaimLabel "R15-009 completion" -Pattern '(?i)\bR15-009\b.{0,140}\b(done|complete|completed|implemented|executed|ran)\b'
     Assert-NoForbiddenPositiveClaim -Text $combinedText -Context "R15-006 status docs" -ClaimLabel "runtime or integration overclaim" -Pattern '(?i)\b(actual agents implemented|agent runtime|direct agent access runtime|true multi-agent execution|multi-agent runtime|persistent memory engine|runtime memory loading|retrieval engine|vector search|Obsidian integration|card re-entry packet implemented|card reentry packet implemented|card re-entry implementation|final R15 proof package complete|product runtime|production runtime|board runtime|external board sync|Linear integration|Symphony integration|GitHub Projects integration|custom board runtime|custom board implementation|PM automation|actual workflow execution|workflow execution implemented|board routing runtime|solved Codex reliability|solved Codex compaction)\b'
 }
 

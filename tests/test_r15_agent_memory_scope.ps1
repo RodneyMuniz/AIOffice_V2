@@ -151,13 +151,13 @@ try {
         & $testScope -ScopePath (Join-Path $invalidRoot "r16-opening-overclaim.invalid.json") -TaxonomyPath $taxonomyPath -KnowledgeIndexPath $knowledgeIndexPath -AgentIdentityPacketPath $agentIdentityPacketPath -RepositoryRoot $repoRoot | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r15-008-complete-status" -RequiredFragments @("R15-008", "planned only") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-008-complete-status")
+    Invoke-ExpectedRefusal -Label "r15-009-complete-status" -RequiredFragments @("R15-009", "planned only") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-009-complete-status")
         foreach ($path in @($scenario.KanbanPath, $scenario.R15AuthorityPath)) {
             $text = Get-Content -LiteralPath $path -Raw
-            $updatedText = [regex]::Replace($text, '(?m)(^### `R15-008` Run one classification and re-entry dry run\r?\n- Status: )planned', '${1}done', 1)
+            $updatedText = [regex]::Replace($text, '(?m)(^### `R15-009` Produce R15 proof/review package\r?\n- Status: )planned', '${1}done', 1)
             if ($updatedText -eq $text) {
-                throw "Expected R15-008 planned status was not found in '$path'."
+                throw "Expected R15-009 planned status was not found in '$path'."
             }
             Set-Content -LiteralPath $path -Value $updatedText -Encoding UTF8
         }

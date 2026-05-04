@@ -1,0 +1,732 @@
+﻿{
+    "artifact_type":  "r15_classification_reentry_dry_run",
+    "contract_version":  "v1",
+    "dry_run_id":  "aioffice-r15-008-classification-reentry-dry-run-v1",
+    "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+    "source_task":  "R15-008",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+    "generated_from_head":  "2b116618c4992b2e17921b2c5de86e020a0ebe11",
+    "generated_from_tree":  "52ef7676ab76cd3a2a1ea6e94b3c168cfeee19d6",
+    "target_slice_id":  "r15_008_default_r14_evidence_slice",
+    "target_slice_paths":  [
+                               "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                               "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                               "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md"
+                           ],
+    "dependency_refs":  {
+                            "artifact_classification_taxonomy":  {
+                                                                     "taxonomy_id":  "aioffice-r15-artifact-classification-taxonomy-v1",
+                                                                     "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                                                     "contract_path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                                                     "source_task":  "R15-002"
+                                                                 },
+                            "repo_knowledge_index":  {
+                                                         "index_id":  "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+                                                         "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                                                         "contract_path":  "contracts/knowledge/repo_knowledge_index.contract.json",
+                                                         "source_task":  "R15-003"
+                                                     },
+                            "agent_identity_packet_model":  {
+                                                                "packet_set_id":  "aioffice-r15-agent-identity-packet-baseline-v1",
+                                                                "path":  "state/agents/r15_agent_identity_packet.json",
+                                                                "contract_path":  "contracts/agents/agent_identity_packet.contract.json",
+                                                                "source_task":  "R15-004"
+                                                            },
+                            "agent_memory_scope_model":  {
+                                                             "memory_scope_model_id":  "aioffice-r15-agent-memory-scope-baseline-v1",
+                                                             "path":  "state/agents/r15_agent_memory_scope.json",
+                                                             "contract_path":  "contracts/agents/agent_memory_scope.contract.json",
+                                                             "source_task":  "R15-005"
+                                                         },
+                            "raci_state_transition_matrix_model":  {
+                                                                       "matrix_id":  "aioffice-r15-raci-state-transition-matrix-baseline-v1",
+                                                                       "path":  "state/agents/r15_raci_state_transition_matrix.json",
+                                                                       "contract_path":  "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                       "source_task":  "R15-006"
+                                                                   },
+                            "card_reentry_packet_model":  {
+                                                              "packet_model_id":  "aioffice-r15-card-reentry-packet-model-v1",
+                                                              "path":  "state/agents/r15_card_reentry_packet.json",
+                                                              "contract_path":  "contracts/agents/card_reentry_packet.contract.json",
+                                                              "source_task":  "R15-007"
+                                                          }
+                        },
+    "scope_boundary":  {
+                           "dry_run_only":  true,
+                           "full_repo_scan_executed":  false,
+                           "runtime_agents_implemented":  false,
+                           "actual_agents_implemented":  false,
+                           "direct_agent_access_runtime_implemented":  false,
+                           "true_multi_agent_execution_implemented":  false,
+                           "persistent_memory_engine_implemented":  false,
+                           "runtime_memory_loading_implemented":  false,
+                           "retrieval_engine_implemented":  false,
+                           "vector_search_implemented":  false,
+                           "card_reentry_runtime_implemented":  false,
+                           "board_routing_runtime_implemented":  false,
+                           "workflow_execution_implemented":  false,
+                           "final_r15_proof_package_complete":  false,
+                           "product_runtime_implemented":  false,
+                           "integration_runtime_implemented":  false,
+                           "external_board_sync_implemented":  false,
+                           "r16_opened":  false,
+                           "future_runtime_requires_later_task":  true
+                       },
+    "classification_results":  [
+                                   {
+                                       "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                                       "artifact_class":  "machine_evidence",
+                                       "evidence_kind":  "validation_manifest",
+                                       "authority_kind":  "proof_authority",
+                                       "lifecycle_state":  "current",
+                                       "proof_status":  "proof_by_itself_true",
+                                       "classification_reason":  "The file is a committed validation manifest from the R14 proof-review package.",
+                                       "bounded_context_reason":  "It is one exact file in the requested target slice; no sibling folder scan is needed.",
+                                       "treatment_flags":  {
+                                                               "canonical_authority":  false,
+                                                               "bounded_evidence":  true,
+                                                               "operator_artifact":  false,
+                                                               "generated_report":  false,
+                                                               "non_authoritative_context":  false
+                                                           }
+                                   },
+                                   {
+                                       "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                                       "artifact_class":  "machine_evidence",
+                                       "evidence_kind":  "committed_machine_evidence",
+                                       "authority_kind":  "proof_authority",
+                                       "lifecycle_state":  "current",
+                                       "proof_status":  "proof_by_itself_true",
+                                       "classification_reason":  "The file is machine-readable R14 validation summary evidence.",
+                                       "bounded_context_reason":  "It is one exact JSON file in the requested target slice; no proof-review folder expansion is needed.",
+                                       "treatment_flags":  {
+                                                               "canonical_authority":  false,
+                                                               "bounded_evidence":  true,
+                                                               "operator_artifact":  false,
+                                                               "generated_report":  false,
+                                                               "non_authoritative_context":  false
+                                                           }
+                                   },
+                                   {
+                                       "path":  "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                                       "artifact_class":  "report",
+                                       "evidence_kind":  "generated_artifact",
+                                       "authority_kind":  "report_context",
+                                       "lifecycle_state":  "current",
+                                       "proof_status":  "proof_by_itself_false",
+                                       "classification_reason":  "The file is a generated R14 closeout and R15 planning report, not proof by itself.",
+                                       "bounded_context_reason":  "It is loaded only as one exact narrative context ref for the dry-run target slice.",
+                                       "treatment_flags":  {
+                                                               "canonical_authority":  false,
+                                                               "bounded_evidence":  false,
+                                                               "operator_artifact":  true,
+                                                               "generated_report":  true,
+                                                               "non_authoritative_context":  true
+                                                           }
+                                   },
+                                   {
+                                       "path":  "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                       "artifact_class":  "status_surface",
+                                       "evidence_kind":  "status_doc",
+                                       "authority_kind":  "status_authority",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_by_itself_false",
+                                       "classification_reason":  "The file is the current R15 milestone authority and status surface.",
+                                       "bounded_context_reason":  "It is one exact authority file in the target slice and constrains R15-008 without opening R15-009.",
+                                       "treatment_flags":  {
+                                                               "canonical_authority":  true,
+                                                               "bounded_evidence":  false,
+                                                               "operator_artifact":  false,
+                                                               "generated_report":  false,
+                                                               "non_authoritative_context":  false
+                                                           }
+                                   }
+                               ],
+    "knowledge_index_lookup_result":  [
+                                          {
+                                              "index_entry_id":  "r14_validation_manifest",
+                                              "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                                              "why_loaded":  "bounded target validation manifest",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r14_validation_summary",
+                                              "path":  "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                                              "why_loaded":  "bounded target machine summary",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r14_pivot_closeout_r15_planning_brief",
+                                              "path":  "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                                              "why_loaded":  "bounded target generated report context",
+                                              "authority_level":  "report_context",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_authority",
+                                              "path":  "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                              "why_loaded":  "bounded target current R15 authority",
+                                              "authority_level":  "status_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_taxonomy_contract",
+                                              "path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                              "why_loaded":  "classification dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_taxonomy_state",
+                                              "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                              "why_loaded":  "classification taxonomy dependency",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_repo_knowledge_index_contract",
+                                              "path":  "contracts/knowledge/repo_knowledge_index.contract.json",
+                                              "why_loaded":  "knowledge-index dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_repo_knowledge_index_state",
+                                              "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                                              "why_loaded":  "bounded index lookup source",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_agent_identity_packet_contract",
+                                              "path":  "contracts/agents/agent_identity_packet.contract.json",
+                                              "why_loaded":  "agent identity dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_agent_identity_packet_state",
+                                              "path":  "state/agents/r15_agent_identity_packet.json",
+                                              "why_loaded":  "target agent identity selection source",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_agent_memory_scope_contract",
+                                              "path":  "contracts/agents/agent_memory_scope.contract.json",
+                                              "why_loaded":  "memory-scope dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_agent_memory_scope_state",
+                                              "path":  "state/agents/r15_agent_memory_scope.json",
+                                              "why_loaded":  "memory scope constraint source",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_raci_state_transition_matrix_contract",
+                                              "path":  "contracts/agents/raci_state_transition_matrix.contract.json",
+                                              "why_loaded":  "RACI dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_raci_state_transition_matrix_state",
+                                              "path":  "state/agents/r15_raci_state_transition_matrix.json",
+                                              "why_loaded":  "transition constraint source",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_card_reentry_packet_contract",
+                                              "path":  "contracts/agents/card_reentry_packet.contract.json",
+                                              "why_loaded":  "card re-entry dependency contract",
+                                              "authority_level":  "contract_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          },
+                                          {
+                                              "index_entry_id":  "r15_card_reentry_packet_state",
+                                              "path":  "state/agents/r15_card_reentry_packet.json",
+                                              "why_loaded":  "packet output model source",
+                                              "authority_level":  "proof_authority",
+                                              "load_mode":  "exact_file_only",
+                                              "exact_file_inspection_allowed":  true,
+                                              "full_repo_scan_avoided":  true
+                                          }
+                                      ],
+    "agent_role_selection":  {
+                                 "target_agent_id":  "evidence_auditor",
+                                 "target_role_type":  "evidence_audit",
+                                 "role_identity_ref":  "evidence_auditor",
+                                 "selection_rationale":  "The target slice is proof-review and reporting evidence, so R15-008 tests evidence-bounded re-entry through the R15-004 evidence_auditor role rather than implementation."
+                             },
+    "memory_scope_application":  {
+                                     "allowed_memory_scope_refs":  [
+                                                                       "milestone_authority_memory",
+                                                                       "role_identity_memory",
+                                                                       "run_session_memory",
+                                                                       "evidence_memory",
+                                                                       "knowledge_index_memory",
+                                                                       "historical_report_memory",
+                                                                       "unknown_scope"
+                                                                   ],
+                                     "forbidden_memory_scope_refs":  [
+                                                                         "product_governance_memory",
+                                                                         "deprecated_cleanup_candidate_memory"
+                                                                     ],
+                                     "forbidden_paths":  [
+                                                             ".git/",
+                                                             "node_modules/",
+                                                             "unbounded external mirrors"
+                                                         ],
+                                     "exact_load_budget":  {
+                                                               "max_files":  16,
+                                                               "max_evidence_refs":  5,
+                                                               "max_memory_scope_refs":  6,
+                                                               "max_context_chars":  18000
+                                                           },
+                                     "compaction_rule":  "After interruption or compaction, reload only the exact allowed paths and bounded evidence refs in this packet; chat memory is not proof.",
+                                     "context_budget":  {
+                                                            "exact_allowed_paths":  [
+                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                                                                                        "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                                                                                        "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                                        "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                                                                        "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                                                                        "contracts/knowledge/repo_knowledge_index.contract.json",
+                                                                                        "state/knowledge/r15_repo_knowledge_index.json",
+                                                                                        "contracts/agents/agent_identity_packet.contract.json",
+                                                                                        "state/agents/r15_agent_identity_packet.json",
+                                                                                        "contracts/agents/agent_memory_scope.contract.json",
+                                                                                        "state/agents/r15_agent_memory_scope.json",
+                                                                                        "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                                        "state/agents/r15_raci_state_transition_matrix.json",
+                                                                                        "contracts/agents/card_reentry_packet.contract.json",
+                                                                                        "state/agents/r15_card_reentry_packet.json"
+                                                                                    ],
+                                                            "max_files":  16,
+                                                            "no_full_repo_scan":  true
+                                                        },
+                                     "no_implicit_memory_loading":  true
+                                 },
+    "raci_state_transition_application":  {
+                                              "transition_id":  "audit_review_to_audit_accepted",
+                                              "from_state":  "audit_review",
+                                              "to_state":  "audit_accepted",
+                                              "responsible_roles":  [
+                                                                        "evidence_auditor"
+                                                                    ],
+                                              "accountable_role":  "evidence_auditor",
+                                              "consulted_roles":  [
+                                                                      "project_manager"
+                                                                  ],
+                                              "informed_roles":  [
+                                                                     "operator",
+                                                                     "user_rodney"
+                                                                 ],
+                                              "required_evidence":  [
+                                                                        "bounded_card_ref",
+                                                                        "qa_evidence_ref",
+                                                                        "audit_evidence_ref",
+                                                                        "audit_accepted_state_ref",
+                                                                        "state_change_record_ref"
+                                                                    ],
+                                              "required_approvals":  [
+
+                                                                     ],
+                                              "fail_closed_conditions":  [
+                                                                             "missing required evidence",
+                                                                             "unknown or impersonated agent identity",
+                                                                             "unapproved approver chain",
+                                                                             "source or target state mismatch"
+                                                                         ]
+                                          },
+    "reentry_packet_result":  {
+                                  "uses_card_reentry_packet_model":  true,
+                                  "card_reentry_packet_model_ref":  "aioffice-r15-card-reentry-packet-model-v1",
+                                  "packet_output":  {
+                                                        "packet_id":  "r15_008_evidence_auditor_audit_review_to_accepted_dry_run_packet",
+                                                        "source_card_id":  "R15-008-classification-reentry-dry-run",
+                                                        "source_task_id":  "R15-008",
+                                                        "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                                                        "current_card_state":  "audit_review",
+                                                        "intended_next_state":  "audit_accepted",
+                                                        "target_agent_id":  "evidence_auditor",
+                                                        "target_role_type":  "evidence_audit",
+                                                        "role_identity_ref":  "evidence_auditor",
+                                                        "memory_scope_refs":  [
+                                                                                  "milestone_authority_memory",
+                                                                                  "role_identity_memory",
+                                                                                  "run_session_memory",
+                                                                                  "evidence_memory",
+                                                                                  "knowledge_index_memory",
+                                                                                  "historical_report_memory"
+                                                                              ],
+                                                        "raci_transition_refs":  [
+                                                                                     "audit_review_to_audit_accepted"
+                                                                                 ],
+                                                        "allowed_canonical_paths":  [
+                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                                                                                        "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                                                                                        "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                                        "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                                                                        "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                                                                        "contracts/knowledge/repo_knowledge_index.contract.json",
+                                                                                        "state/knowledge/r15_repo_knowledge_index.json",
+                                                                                        "contracts/agents/agent_identity_packet.contract.json",
+                                                                                        "state/agents/r15_agent_identity_packet.json",
+                                                                                        "contracts/agents/agent_memory_scope.contract.json",
+                                                                                        "state/agents/r15_agent_memory_scope.json",
+                                                                                        "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                                        "state/agents/r15_raci_state_transition_matrix.json",
+                                                                                        "contracts/agents/card_reentry_packet.contract.json",
+                                                                                        "state/agents/r15_card_reentry_packet.json"
+                                                                                    ],
+                                                        "allowed_evidence_refs":  [
+                                                                                      "bounded_card_ref",
+                                                                                      "qa_evidence_ref",
+                                                                                      "audit_evidence_ref",
+                                                                                      "audit_accepted_state_ref",
+                                                                                      "state_change_record_ref"
+                                                                                  ],
+                                                        "optional_context_refs":  [
+
+                                                                                  ],
+                                                        "forbidden_paths":  [
+                                                                                ".git/",
+                                                                                "node_modules/",
+                                                                                "unbounded external mirrors"
+                                                                            ],
+                                                        "forbidden_patterns":  [
+                                                                                   "full_repo_scan",
+                                                                                   "implicit_memory_loading",
+                                                                                   "dynamic_retrieval",
+                                                                                   "vector_search",
+                                                                                   "external_board_lookup",
+                                                                                   "runtime_execution_claim",
+                                                                                   "board_routing_runtime_claim",
+                                                                                   "card_reentry_runtime_claim",
+                                                                                   "r16_opening_claim"
+                                                                               ],
+                                                        "load_plan":  {
+                                                                          "load_plan_id":  "r15_008_evidence_auditor_dry_run_packet.load_plan",
+                                                                          "allowed_ref_types":  [
+                                                                                                    "exact_canonical_paths",
+                                                                                                    "bounded_evidence_refs",
+                                                                                                    "memory_scope_refs",
+                                                                                                    "raci_transition_refs"
+                                                                                                ],
+                                                                          "exact_canonical_paths":  [
+                                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/validation_manifest.md",
+                                                                                                        "state/proof_reviews/r14_product_vision_pivot_and_governance_enforcement/r14_validation_summary.json",
+                                                                                                        "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md",
+                                                                                                        "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                                                        "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                                                                                                        "state/knowledge/r15_artifact_classification_taxonomy.json",
+                                                                                                        "contracts/knowledge/repo_knowledge_index.contract.json",
+                                                                                                        "state/knowledge/r15_repo_knowledge_index.json",
+                                                                                                        "contracts/agents/agent_identity_packet.contract.json",
+                                                                                                        "state/agents/r15_agent_identity_packet.json",
+                                                                                                        "contracts/agents/agent_memory_scope.contract.json",
+                                                                                                        "state/agents/r15_agent_memory_scope.json",
+                                                                                                        "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                                                        "state/agents/r15_raci_state_transition_matrix.json",
+                                                                                                        "contracts/agents/card_reentry_packet.contract.json",
+                                                                                                        "state/agents/r15_card_reentry_packet.json"
+                                                                                                    ],
+                                                                          "bounded_evidence_refs":  [
+                                                                                                        "bounded_card_ref",
+                                                                                                        "qa_evidence_ref",
+                                                                                                        "audit_evidence_ref",
+                                                                                                        "audit_accepted_state_ref",
+                                                                                                        "state_change_record_ref"
+                                                                                                    ],
+                                                                          "memory_scope_refs":  [
+                                                                                                    "milestone_authority_memory",
+                                                                                                    "role_identity_memory",
+                                                                                                    "run_session_memory",
+                                                                                                    "evidence_memory",
+                                                                                                    "knowledge_index_memory",
+                                                                                                    "historical_report_memory"
+                                                                                                ],
+                                                                          "raci_transition_refs":  [
+                                                                                                       "audit_review_to_audit_accepted"
+                                                                                                   ],
+                                                                          "exact_canonical_paths_only":  true,
+                                                                          "bounded_evidence_refs_only":  true,
+                                                                          "memory_scope_refs_only":  true,
+                                                                          "raci_transition_refs_only":  true,
+                                                                          "no_full_repo_scan":  true,
+                                                                          "no_implicit_historical_memory":  true,
+                                                                          "no_dynamic_retrieval":  true,
+                                                                          "no_vector_search":  true,
+                                                                          "no_external_board_lookup":  true,
+                                                                          "no_runtime_agent_memory_loading":  true,
+                                                                          "no_runtime_execution_claims":  true
+                                                                      },
+                                                        "context_budget":  {
+                                                                               "max_files":  16,
+                                                                               "max_evidence_refs":  5,
+                                                                               "max_memory_scope_refs":  6,
+                                                                               "max_transition_refs":  1,
+                                                                               "max_notes_chars":  2500,
+                                                                               "budget_unit":  "bounded_refs"
+                                                                           },
+                                                        "allowed_actions":  [
+                                                                                "review artifacts and evidence refs",
+                                                                                "run read-only validation commands",
+                                                                                "write audit report",
+                                                                                "recommend audit blocked or accepted"
+                                                                            ],
+                                                        "forbidden_actions":  [
+                                                                                  "must not implement fixes",
+                                                                                  "must not perform final QA as the same implementation actor",
+                                                                                  "must not close cards",
+                                                                                  "must not override user decision",
+                                                                                  "mutate_canonical_truth_without_pm",
+                                                                                  "implement_without_task_packet",
+                                                                                  "self_approve",
+                                                                                  "close_card_without_user_approval",
+                                                                                  "impersonate_other_agent",
+                                                                                  "narrate_other_agent_output",
+                                                                                  "run_outside_scope",
+                                                                                  "claim_runtime_not_evidenced",
+                                                                                  "open_successor_without_approval"
+                                                                              ],
+                                                        "required_inputs":  [
+                                                                                "bounded target slice refs",
+                                                                                "target role identity ref",
+                                                                                "memory scope refs",
+                                                                                "RACI transition refs",
+                                                                                "bounded evidence refs"
+                                                                            ],
+                                                        "required_outputs":  [
+                                                                                 "dry-run evidence output",
+                                                                                 "classification table",
+                                                                                 "bounded re-entry packet output",
+                                                                                 "non-claim confirmation"
+                                                                             ],
+                                                        "evidence_requirements":  [
+                                                                                      "bounded_card_ref",
+                                                                                      "qa_evidence_ref",
+                                                                                      "audit_evidence_ref",
+                                                                                      "audit_accepted_state_ref",
+                                                                                      "state_change_record_ref"
+                                                                                  ],
+                                                        "approval_requirements":  {
+                                                                                      "user_approval_required":  false,
+                                                                                      "pm_approval_required":  false,
+                                                                                      "qa_evidence_required":  true,
+                                                                                      "audit_evidence_required":  true,
+                                                                                      "release_evidence_required":  false,
+                                                                                      "approval_refs":  [
+
+                                                                                                        ]
+                                                                                  },
+                                                        "escalation_targets":  [
+                                                                                   "user_rodney",
+                                                                                   "project_manager"
+                                                                               ],
+                                                        "fail_closed_conditions":  [
+                                                                                       "missing required evidence",
+                                                                                       "unknown target agent",
+                                                                                       "unknown memory scope",
+                                                                                       "unknown RACI transition",
+                                                                                       "full repo scan requested",
+                                                                                       "runtime execution claim",
+                                                                                       "R15-009 completion claim"
+                                                                                   ],
+                                                        "exit_conditions":  [
+                                                                                "bounded target slice classified",
+                                                                                "only indexed exact refs loaded",
+                                                                                "model output distinguished from runtime execution",
+                                                                                "non-claims preserved",
+                                                                                "R15-009 remains planned only"
+                                                                            ],
+                                                        "non_claims":  [
+                                                                           "no actual agents implemented by R15-008",
+                                                                           "no direct agent access runtime implemented",
+                                                                           "no true multi-agent execution implemented",
+                                                                           "no persistent memory engine implemented",
+                                                                           "no runtime memory loading implemented",
+                                                                           "no retrieval engine implemented",
+                                                                           "no vector search implemented",
+                                                                           "no Obsidian integration by R15-008",
+                                                                           "no external board sync",
+                                                                           "no GitHub Projects integration",
+                                                                           "no Linear integration",
+                                                                           "no Symphony integration",
+                                                                           "no custom board runtime",
+                                                                           "no PM automation implemented",
+                                                                           "no actual workflow execution",
+                                                                           "no board routing runtime implemented",
+                                                                           "no card re-entry runtime implemented",
+                                                                           "no final R15 proof package complete",
+                                                                           "no product runtime",
+                                                                           "no integration runtime implemented",
+                                                                           "no solved Codex compaction",
+                                                                           "no solved Codex reliability",
+                                                                           "no R16 opening"
+                                                                       ]
+                                                    }
+                              },
+    "model_runtime_distinction":  {
+                                      "model_output_only":  true,
+                                      "runtime_execution_performed":  false,
+                                      "runtime_claims_prohibited":  true,
+                                      "distinction_statement":  "R15-008 emits model/dry-run evidence only: the packet was formed and validated, but no agent runtime, board routing runtime, workflow execution, or card re-entry runtime executed."
+                                  },
+    "dry_run_verdict":  {
+                            "aggregate_verdict":  "passed",
+                            "bounded_reentry_context_achieved":  true,
+                            "full_repo_scan_avoided":  true,
+                            "non_claims_preserved":  true,
+                            "model_conflicts_found":  false,
+                            "r15_009_remains_planned_only":  true,
+                            "model_output_distinguished_from_runtime_execution":  true
+                        },
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_required_target_slice_paths",
+                                    "description":  "missing_required_target_slice_paths is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "dry_run_claiming_full_repo_scan",
+                                    "description":  "dry_run_claiming_full_repo_scan is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "broad_repo_root_or_wildcard_paths",
+                                    "description":  "broad_repo_root_or_wildcard_paths is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "unknown_artifact_classification",
+                                    "description":  "unknown_artifact_classification is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "unknown_knowledge_index_entry",
+                                    "description":  "unknown_knowledge_index_entry is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "unknown_target_agent",
+                                    "description":  "unknown_target_agent is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "unknown_memory_scope",
+                                    "description":  "unknown_memory_scope is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "unknown_raci_transition",
+                                    "description":  "unknown_raci_transition is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "missing_card_reentry_packet_output",
+                                    "description":  "missing_card_reentry_packet_output is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "runtime_agent_claim",
+                                    "description":  "runtime_agent_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "card_reentry_runtime_claim",
+                                    "description":  "card_reentry_runtime_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "board_routing_runtime_claim",
+                                    "description":  "board_routing_runtime_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "workflow_execution_claim",
+                                    "description":  "workflow_execution_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "product_runtime_claim",
+                                    "description":  "product_runtime_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "final_r15_proof_package_claim",
+                                    "description":  "final_r15_proof_package_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "r16_opening_claim",
+                                    "description":  "r16_opening_claim is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "status_posture_r15_009_complete",
+                                    "description":  "status_posture_r15_009_complete is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                },
+                                {
+                                    "rule_id":  "model_output_not_distinguished_from_runtime_execution",
+                                    "description":  "model_output_not_distinguished_from_runtime_execution is rejected for the R15-008 classification/re-entry dry-run artifact."
+                                }
+                            ],
+    "claims":  [
+                   "one bounded classification and re-entry dry run executed as model/evidence application only",
+                   "default four-file R14/R15 target slice classified without full repo scan",
+                   "evidence_auditor selected as the target role for bounded re-entry",
+                   "audit_review_to_audit_accepted transition applied as model-only constraint",
+                   "bounded card re-entry packet output defined without runtime execution"
+               ],
+    "non_claims":  [
+                       "no actual agents implemented by R15-008",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-008",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board runtime",
+                       "no PM automation implemented",
+                       "no actual workflow execution",
+                       "no board routing runtime implemented",
+                       "no card re-entry runtime implemented",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no integration runtime implemented",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no R16 opening"
+                   ]
+}

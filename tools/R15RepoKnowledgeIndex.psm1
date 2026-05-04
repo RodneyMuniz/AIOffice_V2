@@ -213,6 +213,36 @@ $script:RequiredNonClaimsR15007 = @(
     "no solved Codex reliability"
 )
 
+$script:RequiredNonClaimsR15008 = @(
+    "no full repo index implemented by R15-008",
+    "no full repo artifacts classified by R15-008",
+    "no knowledge-base engine implemented by R15-008",
+    "no artifact registry engine implemented by R15-008",
+    "no actual agents implemented by R15-008",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-008",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no board routing runtime implemented",
+    "no PM automation implemented",
+    "no actual workflow execution",
+    "no card re-entry runtime implemented",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+)
+
 $script:ProofByItselfEvidenceKinds = @(
     "committed_machine_evidence",
     "external_replay_evidence",
@@ -518,6 +548,11 @@ function Assert-RequiredNonClaims {
         [Parameter(Mandatory = $true)]
         [string]$Context
     )
+
+    $missingR15008 = @($script:RequiredNonClaimsR15008 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15008.Count -eq 0) {
+        return
+    }
 
     $missingR15007 = @($script:RequiredNonClaimsR15007 | Where-Object { $NonClaims -notcontains $_ })
     if ($missingR15007.Count -eq 0) {
