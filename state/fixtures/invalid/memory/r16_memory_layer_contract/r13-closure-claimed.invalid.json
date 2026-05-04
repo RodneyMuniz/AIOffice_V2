@@ -1,0 +1,898 @@
+{
+    "artifact_type":  "r16_memory_layer_contract",
+    "contract_version":  "v1",
+    "memory_layer_contract_id":  "aioffice-r16-004-memory-layer-contract-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-004",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generated_from_head":  "0d035522a69599c7b6ced8232fb24445ec8cebe6",
+    "generated_from_tree":  "551bb35dc7cb0f7548aa105dff9b97641925bac5",
+    "memory_layer_model_mode":  {
+                                    "mode":  "contract_model_only_not_runtime_memory",
+                                    "contract_model_only":  true,
+                                    "deterministic_memory_layer_generator_implemented":  false,
+                                    "operational_memory_layers_generated":  false,
+                                    "role_specific_memory_packs_generated":  false,
+                                    "runtime_memory_loading_implemented":  false,
+                                    "persistent_memory_runtime_implemented":  false,
+                                    "retrieval_runtime_implemented":  false,
+                                    "vector_search_runtime_implemented":  false,
+                                    "product_runtime_implemented":  false,
+                                    "actual_autonomous_agents_implemented":  false,
+                                    "true_multi_agent_execution_implemented":  false,
+                                    "external_integrations_implemented":  false
+                                },
+    "allowed_layer_types":  [
+                                "global_governance_memory",
+                                "product_governance_memory",
+                                "milestone_authority_memory",
+                                "role_identity_memory",
+                                "task_card_memory",
+                                "run_session_memory",
+                                "evidence_memory",
+                                "knowledge_index_memory",
+                                "historical_report_memory",
+                                "deprecated_cleanup_candidate_memory"
+                            ],
+    "allowed_authority_classes":  [
+                                      "constitutional_authority",
+                                      "governance_authority",
+                                      "milestone_authority",
+                                      "contract_authority",
+                                      "state_authority",
+                                      "proof_authority",
+                                      "report_context",
+                                      "operator_context",
+                                      "deprecated_context"
+                                  ],
+    "allowed_memory_scope_kinds":  [
+                                       "repository_global",
+                                       "product_governance",
+                                       "milestone",
+                                       "task",
+                                       "role",
+                                       "run_session",
+                                       "evidence",
+                                       "knowledge_index",
+                                       "historical_report",
+                                       "cleanup_candidate"
+                                   ],
+    "allowed_source_ref_types":  [
+                                     "repo_file_exact_path",
+                                     "governance_document",
+                                     "contract_file",
+                                     "state_artifact",
+                                     "proof_review_package",
+                                     "validation_manifest",
+                                     "tool_file",
+                                     "test_file",
+                                     "fixture_file",
+                                     "report_file"
+                                 ],
+    "allowed_proof_treatments":  [
+                                     {
+                                         "treatment_id":  "canonical_authority_constraint_not_proof_by_itself",
+                                         "rule":  "Canonical authority may constrain behavior but is not proof by itself unless backed by committed machine evidence."
+                                     },
+                                     {
+                                         "treatment_id":  "operator_report_planning_context_not_implementation_proof",
+                                         "rule":  "Generated or planning reports are operator artifacts unless backed by committed evidence."
+                                     },
+                                     {
+                                         "treatment_id":  "validation_manifest_commands_only",
+                                         "rule":  "Validation manifests are proof evidence only for the commands they record."
+                                     },
+                                     {
+                                         "treatment_id":  "state_artifact_validator_backed_machine_evidence",
+                                         "rule":  "State artifacts are committed machine evidence only if validator-backed."
+                                     },
+                                     {
+                                         "treatment_id":  "committed_machine_evidence",
+                                         "rule":  "Committed machine evidence requires exact source refs and validator-backed identity."
+                                     },
+                                     {
+                                         "treatment_id":  "contract_model_only_not_runtime_memory",
+                                         "rule":  "The memory-layer contract is model/contract proof only, not runtime memory."
+                                     },
+                                     {
+                                         "treatment_id":  "deprecated_context_not_active_authority",
+                                         "rule":  "Deprecated context may be retained for cleanup only and cannot override active authority."
+                                     }
+                                 ],
+    "layer_record_schema":  {
+                                "required_fields":  [
+                                                        "layer_id",
+                                                        "layer_type",
+                                                        "authority_class",
+                                                        "memory_scope_kind",
+                                                        "source_refs",
+                                                        "freshness",
+                                                        "role_eligibility",
+                                                        "load_rules",
+                                                        "exclusion_rules",
+                                                        "context_budget",
+                                                        "proof_treatment",
+                                                        "evidence_requirements",
+                                                        "allowed_content",
+                                                        "forbidden_content",
+                                                        "non_claims"
+                                                    ],
+                                "layer_type_must_be_allowed":  true,
+                                "authority_class_must_be_allowed":  true,
+                                "source_refs_required":  true,
+                                "source_refs_must_be_exact_paths":  true,
+                                "broad_repo_scan_forbidden":  true,
+                                "wildcard_source_refs_forbidden":  true
+                            },
+    "source_ref_schema":  {
+                              "required_fields":  [
+                                                      "ref_id",
+                                                      "ref_type",
+                                                      "path",
+                                                      "authority_class",
+                                                      "proof_treatment",
+                                                      "exact_load_only",
+                                                      "broad_scan_allowed",
+                                                      "wildcard_allowed",
+                                                      "stale_state",
+                                                      "stale_caveat",
+                                                      "machine_proof",
+                                                      "implementation_proof"
+                                                  ],
+                              "path_must_be_repo_relative_exact_path":  true,
+                              "broad_repo_root_forbidden":  true,
+                              "wildcard_path_forbidden":  true,
+                              "full_repo_scan_forbidden":  true,
+                              "planning_reports_cannot_be_implementation_proof":  true,
+                              "generated_reports_cannot_be_machine_proof_without_committed_evidence":  true
+                          },
+    "freshness_schema":  {
+                             "required_fields":  [
+                                                     "freshness_basis",
+                                                     "generated_from_head",
+                                                     "generated_from_tree",
+                                                     "stale_ref_policy",
+                                                     "stale_caveat_required"
+                                                 ],
+                             "generated_from_head_required":  true,
+                             "generated_from_tree_required":  true,
+                             "stale_refs_fail_closed_without_caveat":  true
+                         },
+    "stale_ref_policy":  {
+                             "policy_id":  "fail_closed_unless_explicit_caveat",
+                             "stale_ref_requires_caveat":  true,
+                             "stale_ref_accepted_without_caveat":  false,
+                             "stale_caveat_must_name_ref_and_boundary":  true
+                         },
+    "role_eligibility_schema":  {
+                                    "eligible_roles_are_model_scopes_only":  true,
+                                    "allowed_roles":  [
+                                                          "Operator",
+                                                          "PM",
+                                                          "Architect",
+                                                          "Developer",
+                                                          "QA",
+                                                          "Auditor",
+                                                          "Knowledge Curator",
+                                                          "Release/Closeout Agent"
+                                                      ],
+                                    "actual_autonomous_agents":  false,
+                                    "true_multi_agent_execution":  false
+                                },
+    "load_rule_schema":  {
+                             "exact_load_required":  true,
+                             "source_ref_path_level_required":  true,
+                             "broad_scan_allowed":  false,
+                             "full_repo_scan_allowed":  false,
+                             "wildcard_path_allowed":  false
+                         },
+    "exclusion_rule_schema":  {
+                                  "required_exclusions":  [
+                                                              "product runtime",
+                                                              "productized UI",
+                                                              "actual autonomous agents",
+                                                              "true multi-agent execution",
+                                                              "persistent memory runtime",
+                                                              "runtime memory loading",
+                                                              "retrieval runtime",
+                                                              "vector search runtime",
+                                                              "external integrations",
+                                                              "full repo scan",
+                                                              "wildcard source ref",
+                                                              "R16-005 or later implementation"
+                                                          ]
+                              },
+    "context_budget_schema":  {
+                                  "allowed_budget_categories":  [
+                                                                    "governance_authority_load",
+                                                                    "state_evidence_load",
+                                                                    "proof_review_load",
+                                                                    "report_context_load",
+                                                                    "fixture_test_load",
+                                                                    "small_exact_ref_load"
+                                                                ],
+                                  "forbidden_budget_categories":  [
+                                                                      "full_repo_scan",
+                                                                      "wildcard_load",
+                                                                      "runtime_retrieval",
+                                                                      "vector_search_runtime",
+                                                                      "external_integration_runtime"
+                                                                  ],
+                                  "budget_values_are_categories_not_provider_billing":  true
+                              },
+    "evidence_requirement_schema":  {
+                                        "committed_contract_required":  true,
+                                        "focused_validator_required":  true,
+                                        "validation_manifest_required":  true,
+                                        "machine_evidence_requires_validator":  true,
+                                        "report_context_is_not_implementation_proof":  true,
+                                        "planning_report_is_not_implementation_proof":  true
+                                    },
+    "allowed_memory_content":  [
+                                   "authority summary",
+                                   "exact source ref",
+                                   "freshness status",
+                                   "stale caveat",
+                                   "role eligibility",
+                                   "proof treatment",
+                                   "evidence requirement",
+                                   "exclusion rule",
+                                   "context budget category",
+                                   "non-claim"
+                               ],
+    "forbidden_memory_content":  [
+                                     "runtime memory payload",
+                                     "persistent memory state",
+                                     "retrieval index",
+                                     "vector embedding",
+                                     "broad repo scan instruction",
+                                     "wildcard source ref",
+                                     "agent runtime instruction",
+                                     "external integration credential",
+                                     "product runtime claim",
+                                     "implementation proof claim from planning report"
+                                 ],
+    "proof_treatment_rules":  {
+                                  "canonical_authority_requires_committed_machine_evidence_for_proof":  true,
+                                  "generated_reports_operator_artifacts_unless_evidence_backed":  true,
+                                  "validation_manifests_prove_recorded_commands_only":  true,
+                                  "state_artifacts_machine_evidence_only_if_validator_backed":  true,
+                                  "planning_reports_planning_authority_only":  true,
+                                  "memory_layer_contract_model_proof_only":  true,
+                                  "generated_reports_as_machine_proof":  false,
+                                  "planning_reports_as_implementation_proof":  false,
+                                  "memory_layer_contract_is_runtime_memory":  false
+                              },
+    "current_posture":  {
+                            "active_through_task":  "R16-004",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-005",
+                                                  "R16-006",
+                                                  "R16-007",
+                                                  "R16-008",
+                                                  "R16-009",
+                                                  "R16-010",
+                                                  "R16-011",
+                                                  "R16-012",
+                                                  "R16-013",
+                                                  "R16-014",
+                                                  "R16-015",
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "r16_005_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "memory_layer_generator_implemented":  false,
+                            "generated_operational_memory_layers_exist":  false,
+                            "role_specific_memory_packs_implemented":  false,
+                            "artifact_maps_implemented":  false,
+                            "audit_maps_implemented":  false,
+                            "context_load_planner_implemented":  false,
+                            "context_budget_estimator_implemented":  false,
+                            "role_run_envelopes_implemented":  false,
+                            "handoff_packets_implemented":  false,
+                            "workflow_drills_run":  false,
+                            "product_runtime_implemented":  false,
+                            "productized_ui_implemented":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "true_multi_agent_execution_implemented":  false,
+                            "persistent_memory_runtime_implemented":  false,
+                            "runtime_memory_loading_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "main_merge_completed":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false
+                        },
+    "contract_source_refs":  [
+                                 {
+                                     "ref_id":  "kpi-domain-model",
+                                     "ref_type":  "governance_document",
+                                     "path":  "governance/KPI_DOMAIN_MODEL.md",
+                                     "authority_class":  "governance_authority",
+                                     "proof_treatment":  "canonical_authority_constraint_not_proof_by_itself",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "milestone-reporting-standard",
+                                     "ref_type":  "governance_document",
+                                     "path":  "governance/MILESTONE_REPORTING_STANDARD.md",
+                                     "authority_class":  "governance_authority",
+                                     "proof_treatment":  "canonical_authority_constraint_not_proof_by_itself",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-authority",
+                                     "ref_type":  "governance_document",
+                                     "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                     "authority_class":  "milestone_authority",
+                                     "proof_treatment":  "canonical_authority_constraint_not_proof_by_itself",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-planning-report-v2",
+                                     "ref_type":  "report_file",
+                                     "path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                     "authority_class":  "report_context",
+                                     "proof_treatment":  "operator_report_planning_context_not_implementation_proof",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-revised-plan-v2",
+                                     "ref_type":  "report_file",
+                                     "path":  "governance/reports/AIOffice_V2_Revised_R16_Operational_Memory_Artifact_Map_Role_Workflow_Plan_v2.md",
+                                     "authority_class":  "report_context",
+                                     "proof_treatment":  "operator_report_planning_context_not_implementation_proof",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-planning-authority-reference",
+                                     "ref_type":  "state_artifact",
+                                     "path":  "state/governance/r16_planning_authority_reference.json",
+                                     "authority_class":  "state_authority",
+                                     "proof_treatment":  "state_artifact_validator_backed_machine_evidence",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  true,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-kpi-scorecard",
+                                     "ref_type":  "state_artifact",
+                                     "path":  "state/governance/r16_kpi_baseline_target_scorecard.json",
+                                     "authority_class":  "state_authority",
+                                     "proof_treatment":  "state_artifact_validator_backed_machine_evidence",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  true,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-003-validation-manifest",
+                                     "ref_type":  "validation_manifest",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_003_kpi_baseline_target_scorecard/validation_manifest.md",
+                                     "authority_class":  "proof_authority",
+                                     "proof_treatment":  "validation_manifest_commands_only",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  true,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-contract-file",
+                                     "ref_type":  "contract_file",
+                                     "path":  "contracts/memory/r16_memory_layer.contract.json",
+                                     "authority_class":  "contract_authority",
+                                     "proof_treatment":  "contract_model_only_not_runtime_memory",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-validator",
+                                     "ref_type":  "tool_file",
+                                     "path":  "tools/R16MemoryLayerContract.psm1",
+                                     "authority_class":  "contract_authority",
+                                     "proof_treatment":  "contract_model_only_not_runtime_memory",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-validator-cli",
+                                     "ref_type":  "tool_file",
+                                     "path":  "tools/validate_r16_memory_layer_contract.ps1",
+                                     "authority_class":  "contract_authority",
+                                     "proof_treatment":  "contract_model_only_not_runtime_memory",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-focused-test",
+                                     "ref_type":  "test_file",
+                                     "path":  "tests/test_r16_memory_layer_contract.ps1",
+                                     "authority_class":  "proof_authority",
+                                     "proof_treatment":  "validation_manifest_commands_only",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-proof-readme",
+                                     "ref_type":  "proof_review_package",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/README.md",
+                                     "authority_class":  "proof_authority",
+                                     "proof_treatment":  "validation_manifest_commands_only",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-proof-manifest",
+                                     "ref_type":  "validation_manifest",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/validation_manifest.md",
+                                     "authority_class":  "proof_authority",
+                                     "proof_treatment":  "validation_manifest_commands_only",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 },
+                                 {
+                                     "ref_id":  "r16-memory-proof-non-claims",
+                                     "ref_type":  "proof_review_package",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/non_claims.json",
+                                     "authority_class":  "proof_authority",
+                                     "proof_treatment":  "validation_manifest_commands_only",
+                                     "exact_load_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "stale_state":  "fresh",
+                                     "stale_caveat":  "",
+                                     "machine_proof":  false,
+                                     "implementation_proof":  false
+                                 }
+                             ],
+    "contract_model_samples":  [
+                                   {
+                                       "layer_id":  "sample-r16-004-milestone-authority-memory-contract-record",
+                                       "layer_type":  "milestone_authority_memory",
+                                       "authority_class":  "milestone_authority",
+                                       "memory_scope_kind":  "milestone",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "sample-r16-authority",
+                                                               "ref_type":  "governance_document",
+                                                               "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                                               "authority_class":  "milestone_authority",
+                                                               "proof_treatment":  "canonical_authority_constraint_not_proof_by_itself",
+                                                               "exact_load_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "stale_caveat":  "",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           },
+                                                           {
+                                                               "ref_id":  "sample-r16-kpi-scorecard",
+                                                               "ref_type":  "state_artifact",
+                                                               "path":  "state/governance/r16_kpi_baseline_target_scorecard.json",
+                                                               "authority_class":  "state_authority",
+                                                               "proof_treatment":  "state_artifact_validator_backed_machine_evidence",
+                                                               "exact_load_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "stale_caveat":  "",
+                                                               "machine_proof":  true,
+                                                               "implementation_proof":  false
+                                                           },
+                                                           {
+                                                               "ref_id":  "sample-r16-revised-plan",
+                                                               "ref_type":  "report_file",
+                                                               "path":  "governance/reports/AIOffice_V2_Revised_R16_Operational_Memory_Artifact_Map_Role_Workflow_Plan_v2.md",
+                                                               "authority_class":  "report_context",
+                                                               "proof_treatment":  "operator_report_planning_context_not_implementation_proof",
+                                                               "exact_load_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "stale_caveat":  "",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "freshness":  {
+                                                         "freshness_basis":  "exact committed path refs checked during R16-004 contract validation",
+                                                         "generated_from_head":  "0d035522a69599c7b6ced8232fb24445ec8cebe6",
+                                                         "generated_from_tree":  "551bb35dc7cb0f7548aa105dff9b97641925bac5",
+                                                         "stale_ref_policy":  "fail_closed_unless_explicit_caveat",
+                                                         "stale_caveat_required":  true
+                                                     },
+                                       "role_eligibility":  {
+                                                                "eligible_roles":  [
+                                                                                       "Operator",
+                                                                                       "PM",
+                                                                                       "Architect",
+                                                                                       "Developer",
+                                                                                       "QA",
+                                                                                       "Auditor",
+                                                                                       "Knowledge Curator",
+                                                                                       "Release/Closeout Agent"
+                                                                                   ],
+                                                                "actual_autonomous_agents":  false,
+                                                                "true_multi_agent_execution":  false,
+                                                                "role_scope_note":  "Eligibility is documentation/model scope only, not agent execution."
+                                                            },
+                                       "load_rules":  {
+                                                          "exact_load_required":  true,
+                                                          "path_level_source_refs_required":  true,
+                                                          "broad_scan_allowed":  false,
+                                                          "full_repo_scan_allowed":  false,
+                                                          "wildcard_path_allowed":  false
+                                                      },
+                                       "exclusion_rules":  {
+                                                               "excluded_claims":  [
+                                                                                       "runtime memory loading",
+                                                                                       "persistent memory runtime",
+                                                                                       "retrieval runtime",
+                                                                                       "vector search runtime",
+                                                                                       "product runtime",
+                                                                                       "actual autonomous agents",
+                                                                                       "true multi-agent execution",
+                                                                                       "external integrations"
+                                                                                   ],
+                                                               "broad_repo_scan_excluded":  true,
+                                                               "generated_operational_layer_excluded":  true
+                                                           },
+                                       "context_budget":  {
+                                                              "budget_category":  "governance_authority_load",
+                                                              "max_source_refs":  8,
+                                                              "token_budget_category":  "bounded_small",
+                                                              "exact_paths_required":  true,
+                                                              "full_repo_scan_budget_allowed":  false
+                                                          },
+                                       "proof_treatment":  "contract_model_only_not_runtime_memory",
+                                       "evidence_requirements":  {
+                                                                     "committed_contract_required":  true,
+                                                                     "validator_required":  true,
+                                                                     "focused_test_required":  true,
+                                                                     "implementation_proof_required_for_runtime_claims":  true,
+                                                                     "report_context_alone_sufficient":  false
+                                                                 },
+                                       "allowed_content":  [
+                                                               "authority summary",
+                                                               "exact source ref list",
+                                                               "freshness caveat",
+                                                               "role eligibility",
+                                                               "load rule",
+                                                               "exclusion rule",
+                                                               "context budget category",
+                                                               "evidence requirement",
+                                                               "non-claim"
+                                                           ],
+                                       "forbidden_content":  [
+                                                                 "runtime memory payload",
+                                                                 "retrieval index",
+                                                                 "vector embedding",
+                                                                 "agent execution instruction",
+                                                                 "external integration credential",
+                                                                 "full repo scan instruction",
+                                                                 "implementation proof claim without validator-backed evidence"
+                                                             ],
+                                       "non_claims":  [
+                                                          "sample record only",
+                                                          "not a generated operational memory layer",
+                                                          "not runtime memory",
+                                                          "not a role-specific memory pack"
+                                                      ]
+                                   }
+                               ],
+    "non_claims":  [
+                       "no product runtime",
+                       "no productized UI",
+                       "no actual autonomous agents",
+                       "no true multi-agent execution",
+                       "no persistent memory runtime",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no external integrations",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board integration",
+                       "no external board sync",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no main merge",
+                       "no R13 closure",
+                       "no R14 caveat removal",
+                       "no R15 caveat removal",
+                       "no R13 partial-gate conversion",
+                       "no R16-005 implementation",
+                       "no R16-027 or later task",
+                       "no deterministic memory layer generator",
+                       "no generated operational memory layers",
+                       "no role-specific memory packs",
+                       "no artifact maps implemented yet",
+                       "no audit maps implemented yet",
+                       "no context-load planner implemented yet",
+                       "no context budget estimator implemented yet",
+                       "no role-run envelopes implemented yet",
+                       "no handoff packets implemented yet",
+                       "no workflow drills",
+                       "memory-layer contract existence does not equal memory runtime"
+                   ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  true,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates":  [
+                                                                   "API/custom-runner bypass",
+                                                                   "current operator control room",
+                                                                   "skill invocation evidence",
+                                                                   "operator demo"
+                                                               ]
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false,
+                                             "product_runtime":  false,
+                                             "r13_partial_gates_converted_to_passed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                             "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                             "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true,
+                                             "stale_generated_from_caveat_files":  [
+                                                                                       "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                                                                       "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json"
+                                                                                   ]
+                                         }
+                             },
+    "validation_commands":  [
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_memory_layer_contract.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_memory_layer_contract.ps1 -ContractPath contracts\\memory\\r16_memory_layer.contract.json",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_kpi_baseline_target_scorecard.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\\governance\\r16_kpi_baseline_target_scorecard.json",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_planning_authority_reference.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_planning_authority_reference.ps1 -PacketPath state\\governance\\r16_planning_authority_reference.json",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "git diff --check",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "git status --short",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "git rev-parse HEAD",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "git rev-parse \"HEAD^{tree}\"",
+                                    "required":  true
+                                },
+                                {
+                                    "command":  "git branch --show-current",
+                                    "required":  true
+                                }
+                            ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_layer_type_rejected",
+                                    "description":  "Fail closed when missing layer type rejected."
+                                },
+                                {
+                                    "rule_id":  "unknown_layer_type_rejected",
+                                    "description":  "Fail closed when unknown layer type rejected."
+                                },
+                                {
+                                    "rule_id":  "missing_authority_class_rejected",
+                                    "description":  "Fail closed when missing authority class rejected."
+                                },
+                                {
+                                    "rule_id":  "unknown_authority_class_rejected",
+                                    "description":  "Fail closed when unknown authority class rejected."
+                                },
+                                {
+                                    "rule_id":  "missing_source_refs_rejected",
+                                    "description":  "Fail closed when missing source refs rejected."
+                                },
+                                {
+                                    "rule_id":  "broad_repo_root_source_ref_rejected",
+                                    "description":  "Fail closed when broad repo root source ref rejected."
+                                },
+                                {
+                                    "rule_id":  "wildcard_source_ref_rejected",
+                                    "description":  "Fail closed when wildcard source ref rejected."
+                                },
+                                {
+                                    "rule_id":  "generated_report_as_machine_proof_rejected",
+                                    "description":  "Fail closed when generated report as machine proof rejected."
+                                },
+                                {
+                                    "rule_id":  "planning_report_as_implementation_proof_rejected",
+                                    "description":  "Fail closed when planning report as implementation proof rejected."
+                                },
+                                {
+                                    "rule_id":  "stale_ref_without_caveat_rejected",
+                                    "description":  "Fail closed when stale ref without caveat rejected."
+                                },
+                                {
+                                    "rule_id":  "runtime_memory_loading_claim_rejected",
+                                    "description":  "Fail closed when runtime memory loading claim rejected."
+                                },
+                                {
+                                    "rule_id":  "persistent_memory_runtime_claim_rejected",
+                                    "description":  "Fail closed when persistent memory runtime claim rejected."
+                                },
+                                {
+                                    "rule_id":  "retrieval_runtime_claim_rejected",
+                                    "description":  "Fail closed when retrieval runtime claim rejected."
+                                },
+                                {
+                                    "rule_id":  "vector_search_runtime_claim_rejected",
+                                    "description":  "Fail closed when vector search runtime claim rejected."
+                                },
+                                {
+                                    "rule_id":  "product_runtime_claim_rejected",
+                                    "description":  "Fail closed when product runtime claim rejected."
+                                },
+                                {
+                                    "rule_id":  "actual_autonomous_agents_claim_rejected",
+                                    "description":  "Fail closed when actual autonomous agents claim rejected."
+                                },
+                                {
+                                    "rule_id":  "true_multi_agent_execution_claim_rejected",
+                                    "description":  "Fail closed when true multi agent execution claim rejected."
+                                },
+                                {
+                                    "rule_id":  "external_integration_claim_rejected",
+                                    "description":  "Fail closed when external integration claim rejected."
+                                },
+                                {
+                                    "rule_id":  "r16_005_or_later_implementation_claim_rejected",
+                                    "description":  "Fail closed when r16 005 or later implementation claim rejected."
+                                },
+                                {
+                                    "rule_id":  "r16_027_or_later_task_rejected",
+                                    "description":  "Fail closed when r16 027 or later task rejected."
+                                },
+                                {
+                                    "rule_id":  "r13_closure_claim_rejected",
+                                    "description":  "Fail closed when r13 closure claim rejected."
+                                },
+                                {
+                                    "rule_id":  "r14_caveat_removal_rejected",
+                                    "description":  "Fail closed when r14 caveat removal rejected."
+                                },
+                                {
+                                    "rule_id":  "r15_caveat_removal_rejected",
+                                    "description":  "Fail closed when r15 caveat removal rejected."
+                                }
+                            ]
+}
