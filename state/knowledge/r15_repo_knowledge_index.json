@@ -19,7 +19,7 @@
     "full_repo_index": false,
     "future_fuller_index_requires_later_task": true,
     "description": "Bounded seed set of current authority and R15 foundation references only.",
-    "included_path_count": 21,
+    "included_path_count": 25,
     "included_paths": [
       "governance/VISION.md",
       "governance/PRODUCT_OPERATING_MODEL.md",
@@ -41,12 +41,16 @@
       "contracts/agents/raci_state_transition_matrix.contract.json",
       "state/agents/r15_raci_state_transition_matrix.json",
       "state/agents/r15_raci_state_transition_matrix_validation_manifest.md",
-      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/"
+      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_006_raci_state_transition_matrix_model/",
+      "contracts/agents/card_reentry_packet.contract.json",
+      "state/agents/r15_card_reentry_packet.json",
+      "state/agents/r15_card_reentry_packet_validation_manifest.md",
+      "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/"
     ],
     "excluded_scope": [
       "No broad historical repo classification.",
       "No product runtime, board runtime, integration, direct agent access runtime, or engine artifacts.",
-      "No R15-007 through R15-009 implementation artifacts."
+      "No R15-008 through R15-009 implementation artifacts."
     ]
   },
   "required_entry_fields": [
@@ -1039,6 +1043,187 @@
         "no final R15 proof package complete",
         "no R16 opening"
       ]
+    },
+    {
+      "entry_id": "r15_card_reentry_packet_contract",
+      "path": "contracts/agents/card_reentry_packet.contract.json",
+      "title": "R15 Card Re-entry Packet Contract",
+      "summary": "Machine-checkable R15-007 contract for the card re-entry packet model.",
+      "classification_class": "contract",
+      "evidence_kind": "implemented_code",
+      "authority_kind": "contract_authority",
+      "lifecycle_state": "current",
+      "proof_status": "requires_machine_evidence",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-007",
+      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+      "depends_on": [
+        "r15_raci_state_transition_matrix_state",
+        "r15_agent_memory_scope_state",
+        "r15_agent_identity_packet_state",
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "validates",
+          "target_entry_id": "r15_card_reentry_packet_state",
+          "reason": "The validator uses this contract shape to check the baseline card re-entry packet model."
+        }
+      ],
+      "recommended_for_roles": [
+        "pm_planning",
+        "auditor_review",
+        "release_closeout",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load before validating or extending R15-007 card re-entry packet fields in later authorized tasks.",
+      "non_claims": [
+        "no card re-entry runtime implemented",
+        "no board routing runtime implemented",
+        "no runtime memory loading implemented",
+        "no retrieval engine implemented",
+        "no vector search implemented"
+      ]
+    },
+    {
+      "entry_id": "r15_card_reentry_packet_state",
+      "path": "state/agents/r15_card_reentry_packet.json",
+      "title": "R15 Card Re-entry Packet Baseline",
+      "summary": "Committed R15-007 baseline card re-entry packet model with bounded role-specific load plans, evidence refs, memory scope refs, RACI transition refs, actions, approvals, fail-closed conditions, and non-claims.",
+      "classification_class": "machine_evidence",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "proof_authority",
+      "lifecycle_state": "current",
+      "proof_status": "proof_by_itself_true",
+      "owner_role": "Operator / Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-007",
+      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+      "depends_on": [
+        "r15_card_reentry_packet_contract",
+        "r15_raci_state_transition_matrix_state",
+        "r15_agent_memory_scope_state",
+        "r15_agent_identity_packet_state",
+        "r15_repo_knowledge_index_state",
+        "r15_taxonomy_state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_authority",
+          "reason": "The baseline packet model supports the R15-007 done status only."
+        }
+      ],
+      "recommended_for_roles": [
+        "pm_planning",
+        "auditor_review",
+        "release_closeout",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load as the R15-007 baseline card re-entry packet model; do not treat it as runtime loading, runtime routing, dry-run execution, or product runtime.",
+      "non_claims": [
+        "no actual agents implemented by R15-007",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no runtime memory loading implemented",
+        "no retrieval engine implemented",
+        "no vector search implemented",
+        "no board routing runtime implemented",
+        "no card re-entry runtime implemented",
+        "no classification or re-entry dry run executed",
+        "no product runtime"
+      ]
+    },
+    {
+      "entry_id": "r15_card_reentry_packet_validation_manifest",
+      "path": "state/agents/r15_card_reentry_packet_validation_manifest.md",
+      "title": "R15 Card Re-entry Packet Validation Manifest",
+      "summary": "Canonical R15-007 validation manifest recording required command results for the card re-entry packet model slice.",
+      "classification_class": "machine_evidence",
+      "evidence_kind": "validation_manifest",
+      "authority_kind": "proof_authority",
+      "lifecycle_state": "current",
+      "proof_status": "proof_by_itself_true",
+      "owner_role": "Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-007",
+      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+      "depends_on": [
+        "r15_card_reentry_packet_state"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_card_reentry_packet_state",
+          "reason": "The manifest records validation results for the R15-007 model."
+        }
+      ],
+      "recommended_for_roles": [
+        "auditor_review",
+        "release_closeout",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "exact_file_only",
+      "reason": "Load when checking R15-007 validation results.",
+      "non_claims": [
+        "no classification or re-entry dry run executed",
+        "no final R15 proof package complete",
+        "no R16 opening"
+      ]
+    },
+    {
+      "entry_id": "r15_007_card_reentry_packet_proof_review",
+      "path": "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_007_card_reentry_packet_model/",
+      "title": "R15-007 Card Re-entry Packet Proof Review",
+      "summary": "Bounded R15-007 evidence folder with README, canonical manifest pointer, evidence summary, and non-claims.",
+      "classification_class": "evidence_package",
+      "evidence_kind": "committed_machine_evidence",
+      "authority_kind": "proof_authority",
+      "lifecycle_state": "current",
+      "proof_status": "requires_machine_evidence",
+      "owner_role": "Auditor",
+      "source_milestone": "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+      "source_task": "R15-007",
+      "last_verified_head": "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+      "depends_on": [
+        "r15_card_reentry_packet_state",
+        "r15_card_reentry_packet_validation_manifest"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "related_entries": [
+        {
+          "relationship_type": "evidence_for",
+          "target_entry_id": "r15_authority",
+          "reason": "The proof-review folder supports the R15-007 done status only."
+        }
+      ],
+      "recommended_for_roles": [
+        "auditor_review",
+        "release_closeout",
+        "codex_reentry"
+      ],
+      "load_priority": "1_critical",
+      "scan_scope": "folder_limited",
+      "reason": "Load as the bounded proof-review package for R15-007 only.",
+      "non_claims": [
+        "no classification or re-entry dry run executed",
+        "no final R15 proof package complete",
+        "no R16 opening"
+      ]
     }
   ],
   "claims": [
@@ -1048,23 +1233,23 @@
     "R15-004 updates status surfaces for R15 active through R15-004 only.",
     "R15-005 updates the bounded seed index with agent memory scope contract and baseline model entries.",
     "R15-005 updates status surfaces for R15 active through R15-005 only.",
-    "R15-006 updates the bounded seed index with RACI/state-transition matrix contract, state, manifest, and proof-review entries."
+    "R15-006 updates the bounded seed index with RACI/state-transition matrix contract, state, manifest, and proof-review entries.",
+    "R15-007 updates the bounded seed index with card re-entry packet contract, state, manifest, and proof-review entries."
   ],
   "non_claims": [
-    "no full repo index implemented by R15-005",
-    "no full repo artifacts classified by R15-005",
-    "no knowledge-base engine implemented by R15-005",
-    "no artifact registry engine implemented by R15-005",
-    "no retrieval engine implemented by R15-005",
-    "no vector search implemented by R15-005",
-    "no Obsidian integration by R15-005",
-    "no actual agents implemented by R15-005",
+    "no full repo index implemented by R15-007",
+    "no full repo artifacts classified by R15-007",
+    "no knowledge-base engine implemented by R15-007",
+    "no artifact registry engine implemented by R15-007",
+    "no actual agents implemented by R15-007",
     "no direct agent access runtime implemented",
     "no true multi-agent execution implemented",
     "no persistent memory engine implemented",
     "no runtime memory loading implemented",
-    "no RACI matrix implemented",
-    "no card re-entry packet implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-007",
+    "no card re-entry runtime implemented",
     "no classification or re-entry dry run executed",
     "no final R15 proof package complete",
     "no product runtime",
@@ -1074,15 +1259,11 @@
     "no Linear implementation",
     "no Symphony implementation",
     "no custom board implementation",
+    "no board routing runtime implemented",
+    "no PM automation implemented",
+    "no actual workflow execution",
     "no R16 opening",
     "no solved Codex compaction",
-    "no solved Codex reliability",
-    "no full repo index implemented by R15-006",
-    "no full repo artifacts classified by R15-006",
-    "no knowledge-base engine implemented by R15-006",
-    "no artifact registry engine implemented by R15-006",
-    "no actual agents implemented by R15-006",
-    "no board routing runtime implemented",
-    "no actual workflow execution"
+    "no solved Codex reliability"
   ]
 }

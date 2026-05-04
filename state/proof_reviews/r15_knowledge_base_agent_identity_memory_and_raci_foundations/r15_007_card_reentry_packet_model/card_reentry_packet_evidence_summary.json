@@ -1,0 +1,43 @@
+{
+    "artifact_type": "r15_007_card_reentry_packet_evidence_summary",
+    "source_task": "R15-007",
+    "packet_path": "state/agents/r15_card_reentry_packet.json",
+    "contract_path": "contracts/agents/card_reentry_packet.contract.json",
+    "valid_fixture_path": "state/fixtures/valid/agents/r15_card_reentry_packet.valid.json",
+    "invalid_fixture_root": "state/fixtures/invalid/agents/r15_card_reentry_packet/",
+    "validator_module_path": "tools/R15CardReentryPacket.psm1",
+    "validator_cli_path": "tools/validate_r15_card_reentry_packet.ps1",
+    "focused_test_path": "tests/test_r15_card_reentry_packet.ps1",
+    "packet_count": 5,
+    "invalid_fixture_count": 25,
+    "active_through": "R15-007",
+    "planned_only": [
+        "R15-008",
+        "R15-009"
+    ],
+    "non_claims": [
+        "no actual agents implemented by R15-007",
+        "no direct agent access runtime implemented",
+        "no true multi-agent execution implemented",
+        "no persistent memory engine implemented",
+        "no runtime memory loading implemented",
+        "no retrieval engine implemented",
+        "no vector search implemented",
+        "no Obsidian integration by R15-007",
+        "no external board sync",
+        "no GitHub Projects integration",
+        "no Linear integration",
+        "no Symphony integration",
+        "no custom board runtime",
+        "no PM automation implemented",
+        "no actual workflow execution",
+        "no board routing runtime implemented",
+        "no card re-entry runtime implemented",
+        "no classification/re-entry dry run executed",
+        "no final R15 proof package complete",
+        "no product runtime",
+        "no solved Codex compaction",
+        "no solved Codex reliability",
+        "no R16 opening"
+    ]
+}

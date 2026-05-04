@@ -182,6 +182,37 @@ $script:RequiredNonClaimsR15005 = @(
     "no solved Codex reliability"
 )
 
+$script:RequiredNonClaimsR15007 = @(
+    "no full repo index implemented by R15-007",
+    "no full repo artifacts classified by R15-007",
+    "no knowledge-base engine implemented by R15-007",
+    "no artifact registry engine implemented by R15-007",
+    "no actual agents implemented by R15-007",
+    "no direct agent access runtime implemented",
+    "no true multi-agent execution implemented",
+    "no persistent memory engine implemented",
+    "no runtime memory loading implemented",
+    "no retrieval engine implemented",
+    "no vector search implemented",
+    "no Obsidian integration by R15-007",
+    "no external board sync",
+    "no GitHub Projects integration",
+    "no Linear implementation",
+    "no Symphony implementation",
+    "no custom board implementation",
+    "no board routing runtime implemented",
+    "no PM automation implemented",
+    "no actual workflow execution",
+    "no card re-entry runtime implemented",
+    "no classification or re-entry dry run executed",
+    "no final R15 proof package complete",
+    "no product runtime",
+    "no board runtime",
+    "no R16 opening",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+)
+
 $script:ProofByItselfEvidenceKinds = @(
     "committed_machine_evidence",
     "external_replay_evidence",
@@ -229,7 +260,13 @@ $script:OverclaimPatterns = @(
     "RACI matrix implemented",
     "card re-entry packet implemented",
     "card reentry packet implemented",
+    "card re-entry runtime",
+    "card reentry runtime",
+    "runtime memory loading",
+    "retrieval engine",
+    "vector search",
     "board routing implemented",
+    "board routing runtime",
     "PM automation implemented",
     "Developer/QA/Auditor runtime separation implemented",
     "solved Codex reliability",
@@ -481,6 +518,11 @@ function Assert-RequiredNonClaims {
         [Parameter(Mandatory = $true)]
         [string]$Context
     )
+
+    $missingR15007 = @($script:RequiredNonClaimsR15007 | Where-Object { $NonClaims -notcontains $_ })
+    if ($missingR15007.Count -eq 0) {
+        return
+    }
 
     $missingR15004 = @($script:RequiredNonClaimsR15004 | Where-Object { $NonClaims -notcontains $_ })
     if ($missingR15004.Count -eq 0) {

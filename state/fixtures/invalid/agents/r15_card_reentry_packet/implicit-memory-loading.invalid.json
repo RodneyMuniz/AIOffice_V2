@@ -1,0 +1,1419 @@
+{
+    "artifact_type":  "r15_card_reentry_packet_model",
+    "contract_version":  "v1",
+    "packet_model_id":  "aioffice-r15-card-reentry-packet-model-v1",
+    "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+    "source_task":  "R15-007",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r15-knowledge-base-agent-identity-memory-raci-foundations",
+    "generated_from_head":  "207a95368a389b46a4fc266f3a01d20f262f3bc8",
+    "generated_from_tree":  "5faab2969db8a2ea41c4df33ceeb4fc6682c84ef",
+    "taxonomy_ref":  {
+                         "taxonomy_id":  "aioffice-r15-artifact-classification-taxonomy-v1",
+                         "path":  "state/knowledge/r15_artifact_classification_taxonomy.json",
+                         "contract_path":  "contracts/knowledge/artifact_classification_taxonomy.contract.json",
+                         "source_task":  "R15-002"
+                     },
+    "knowledge_index_ref":  {
+                                "index_id":  "aioffice-r15-repo-knowledge-index-bounded-seed-v1",
+                                "path":  "state/knowledge/r15_repo_knowledge_index.json",
+                                "contract_path":  "contracts/knowledge/repo_knowledge_index.contract.json",
+                                "source_task":  "R15-003"
+                            },
+    "agent_identity_packet_ref":  {
+                                      "packet_set_id":  "aioffice-r15-agent-identity-packet-baseline-v1",
+                                      "path":  "state/agents/r15_agent_identity_packet.json",
+                                      "contract_path":  "contracts/agents/agent_identity_packet.contract.json",
+                                      "source_task":  "R15-004"
+                                  },
+    "agent_memory_scope_ref":  {
+                                   "memory_scope_model_id":  "aioffice-r15-agent-memory-scope-baseline-v1",
+                                   "path":  "state/agents/r15_agent_memory_scope.json",
+                                   "contract_path":  "contracts/agents/agent_memory_scope.contract.json",
+                                   "source_task":  "R15-005"
+                               },
+    "raci_state_transition_matrix_ref":  {
+                                             "matrix_id":  "aioffice-r15-raci-state-transition-matrix-baseline-v1",
+                                             "path":  "state/agents/r15_raci_state_transition_matrix.json",
+                                             "contract_path":  "contracts/agents/raci_state_transition_matrix.contract.json",
+                                             "source_task":  "R15-006"
+                                         },
+    "scope_boundary":  {
+                           "model_only":  true,
+                           "card_reentry_runtime_implemented":  false,
+                           "board_routing_runtime_implemented":  false,
+                           "actual_agents_implemented":  false,
+                           "pm_automation_implemented":  false,
+                           "workflow_execution_implemented":  false,
+                           "classification_reentry_dry_run_executed":  false,
+                           "product_runtime_implemented":  false,
+                           "integration_runtime_implemented":  false,
+                           "direct_agent_access_runtime_implemented":  false,
+                           "true_multi_agent_execution_implemented":  false,
+                           "persistent_memory_engine_implemented":  false,
+                           "runtime_memory_loading_implemented":  false,
+                           "retrieval_engine_implemented":  false,
+                           "vector_search_implemented":  false,
+                           "external_board_sync_implemented":  false,
+                           "r16_opened":  false,
+                           "future_runtime_requires_later_task":  true
+                       },
+    "required_packet_fields":  [
+                                   "packet_id",
+                                   "source_card_id",
+                                   "source_task_id",
+                                   "source_milestone",
+                                   "current_card_state",
+                                   "intended_next_state",
+                                   "target_agent_id",
+                                   "target_role_type",
+                                   "role_identity_ref",
+                                   "memory_scope_refs",
+                                   "raci_transition_refs",
+                                   "allowed_canonical_paths",
+                                   "allowed_evidence_refs",
+                                   "optional_context_refs",
+                                   "forbidden_paths",
+                                   "forbidden_patterns",
+                                   "load_plan",
+                                   "context_budget",
+                                   "allowed_actions",
+                                   "forbidden_actions",
+                                   "required_inputs",
+                                   "required_outputs",
+                                   "evidence_requirements",
+                                   "approval_requirements",
+                                   "escalation_targets",
+                                   "fail_closed_conditions",
+                                   "exit_conditions",
+                                   "non_claims"
+                               ],
+    "required_load_plan_fields":  [
+                                      "load_plan_id",
+                                      "allowed_ref_types",
+                                      "exact_canonical_paths",
+                                      "bounded_evidence_refs",
+                                      "memory_scope_refs",
+                                      "raci_transition_refs",
+                                      "exact_canonical_paths_only",
+                                      "bounded_evidence_refs_only",
+                                      "memory_scope_refs_only",
+                                      "raci_transition_refs_only",
+                                      "no_full_repo_scan",
+                                      "no_implicit_historical_memory",
+                                      "no_dynamic_retrieval",
+                                      "no_vector_search",
+                                      "no_external_board_lookup",
+                                      "no_runtime_agent_memory_loading"
+                                  ],
+    "allowed_load_plan_ref_types":  [
+                                        "exact_canonical_paths",
+                                        "bounded_evidence_refs",
+                                        "memory_scope_refs",
+                                        "raci_transition_refs"
+                                    ],
+    "allowed_context_budget_units":  [
+                                         "bounded_refs",
+                                         "files",
+                                         "chars"
+                                     ],
+    "packet_records":  [
+                           {
+                               "packet_id":  "r15_007_developer_ready_to_in_progress_packet",
+                               "source_card_id":  "R15-007-card-reentry-packet-model",
+                               "source_task_id":  "R15-007",
+                               "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                               "current_card_state":  "ready",
+                               "intended_next_state":  "in_progress",
+                               "target_agent_id":  "developer",
+                               "target_role_type":  "scoped_implementation",
+                               "role_identity_ref":  "developer",
+                               "memory_scope_refs":  [
+                                                         "milestone_authority_memory",
+                                                         "role_identity_memory",
+                                                         "card_task_memory",
+                                                         "run_session_memory",
+                                                         "evidence_memory",
+                                                         "knowledge_index_memory"
+                                                     ],
+                               "raci_transition_refs":  [
+                                                            "ready_to_in_progress"
+                                                        ],
+                               "allowed_canonical_paths":  [
+                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                               "execution/KANBAN.md",
+                                                               "state/agents/r15_agent_identity_packet.json",
+                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                               "state/agents/r15_agent_memory_scope.json",
+                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json"
+                                                           ],
+                               "allowed_evidence_refs":  [
+                                                             "bounded_card_ref",
+                                                             "task_packet_ref",
+                                                             "acceptance_criteria_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "optional_context_refs":  [
+                                                             "governance/MILESTONE_REPORTING_STANDARD.md"
+                                                         ],
+                               "forbidden_paths":  [
+                                                       ".git/",
+                                                       "node_modules/",
+                                                       "unbounded external mirrors"
+                                                   ],
+                               "forbidden_patterns":  [
+                                                          "full_repo_scan",
+                                                          "implicit_memory_loading",
+                                                          "persistent_memory_runtime_claim",
+                                                          "runtime_agent_memory_loading",
+                                                          "dynamic_retrieval",
+                                                          "vector_search",
+                                                          "external_board_lookup",
+                                                          "board_routing_runtime_claim",
+                                                          "card_reentry_runtime_claim",
+                                                          "dry_run_executed_claim",
+                                                          "r16_opening_claim"
+                                                      ],
+                               "load_plan":  {
+                                                 "load_plan_id":  "r15_007_developer_ready_to_in_progress_packet.load_plan",
+                                                 "allowed_ref_types":  [
+                                                                           "exact_canonical_paths",
+                                                                           "bounded_evidence_refs",
+                                                                           "memory_scope_refs",
+                                                                           "raci_transition_refs"
+                                                                       ],
+                                                 "exact_canonical_paths":  [
+                                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                               "execution/KANBAN.md",
+                                                                               "state/agents/r15_agent_identity_packet.json",
+                                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                                               "state/agents/r15_agent_memory_scope.json",
+                                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json"
+                                                                           ],
+                                                 "bounded_evidence_refs":  [
+                                                                               "bounded_card_ref",
+                                                                               "task_packet_ref",
+                                                                               "acceptance_criteria_ref",
+                                                                               "state_change_record_ref"
+                                                                           ],
+                                                 "memory_scope_refs":  [
+                                                                           "milestone_authority_memory",
+                                                                           "role_identity_memory",
+                                                                           "card_task_memory",
+                                                                           "run_session_memory",
+                                                                           "evidence_memory",
+                                                                           "knowledge_index_memory"
+                                                                       ],
+                                                 "raci_transition_refs":  [
+                                                                              "ready_to_in_progress"
+                                                                          ],
+                                                 "exact_canonical_paths_only":  true,
+                                                 "bounded_evidence_refs_only":  true,
+                                                 "memory_scope_refs_only":  true,
+                                                 "raci_transition_refs_only":  true,
+                                                 "no_full_repo_scan":  true,
+                                                 "no_implicit_historical_memory":  false,
+                                                 "no_dynamic_retrieval":  true,
+                                                 "no_vector_search":  true,
+                                                 "no_external_board_lookup":  true,
+                                                 "no_runtime_agent_memory_loading":  true
+                                             },
+                               "context_budget":  {
+                                                      "max_files":  14,
+                                                      "max_evidence_refs":  4,
+                                                      "max_memory_scope_refs":  6,
+                                                      "max_transition_refs":  1,
+                                                      "max_notes_chars":  2500,
+                                                      "budget_unit":  "bounded_refs"
+                                                  },
+                               "allowed_actions":  [
+                                                       "implement scoped task packet",
+                                                       "run scoped validation commands",
+                                                       "record changed files and assumptions",
+                                                       "submit implementation evidence to PM"
+                                                   ],
+                               "forbidden_actions":  [
+                                                         "must not change card state",
+                                                         "must not define QA pass",
+                                                         "must not audit evidence sufficiency",
+                                                         "must not close cards or self-approve",
+                                                         "mutate_canonical_truth_without_pm",
+                                                         "implement_without_task_packet",
+                                                         "self_approve",
+                                                         "close_card_without_user_approval",
+                                                         "impersonate_other_agent",
+                                                         "narrate_other_agent_output",
+                                                         "run_outside_scope",
+                                                         "claim_runtime_not_evidenced",
+                                                         "open_successor_without_approval",
+                                                         "pm_code_implementation",
+                                                         "audit_implementation",
+                                                         "qa_final_scope_implementation"
+                                                     ],
+                               "required_inputs":  [
+                                                       "bounded source card id",
+                                                       "target role identity ref",
+                                                       "memory scope refs",
+                                                       "RACI transition refs",
+                                                       "bounded evidence refs"
+                                                   ],
+                               "required_outputs":  [
+                                                        "bounded role handoff note",
+                                                        "state-change recommendation only",
+                                                        "implementation-start handoff recommendation only"
+                                                    ],
+                               "evidence_requirements":  [
+                                                             "bounded_card_ref",
+                                                             "task_packet_ref",
+                                                             "acceptance_criteria_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "approval_requirements":  {
+                                                             "user_approval_required":  false,
+                                                             "pm_approval_required":  false,
+                                                             "qa_evidence_required":  false,
+                                                             "audit_evidence_required":  false,
+                                                             "release_evidence_required":  false,
+                                                             "approval_refs":  [
+
+                                                                               ]
+                                                         },
+                               "escalation_targets":  [
+                                                          "project_manager",
+                                                          "evidence_auditor"
+                                                      ],
+                               "fail_closed_conditions":  [
+                                                              "missing required evidence",
+                                                              "unknown or impersonated agent identity",
+                                                              "unapproved approver chain",
+                                                              "source or target state mismatch",
+                                                              "full repo scan is rejected",
+                                                              "unknown memory scope ref",
+                                                              "unknown RACI transition ref",
+                                                              "positive runtime claim"
+                                                          ],
+                               "exit_conditions":  [
+                                                       "all required inputs are present",
+                                                       "load plan stays within exact canonical paths",
+                                                       "required evidence refs are accounted for",
+                                                       "no forbidden action or path is requested"
+                                                   ],
+                               "non_claims":  [
+                                                  "no actual agents implemented by R15-007",
+                                                  "no direct agent access runtime implemented",
+                                                  "no true multi-agent execution implemented",
+                                                  "no persistent memory engine implemented",
+                                                  "no runtime memory loading implemented",
+                                                  "no retrieval engine implemented",
+                                                  "no vector search implemented",
+                                                  "no Obsidian integration by R15-007",
+                                                  "no external board sync",
+                                                  "no GitHub Projects integration",
+                                                  "no Linear integration",
+                                                  "no Symphony integration",
+                                                  "no custom board runtime",
+                                                  "no PM automation implemented",
+                                                  "no actual workflow execution",
+                                                  "no board routing runtime implemented",
+                                                  "no card re-entry runtime implemented",
+                                                  "no classification/re-entry dry run executed",
+                                                  "no final R15 proof package complete",
+                                                  "no product runtime",
+                                                  "no solved Codex compaction",
+                                                  "no solved Codex reliability",
+                                                  "no R16 opening"
+                                              ]
+                           },
+                           {
+                               "packet_id":  "r15_007_project_manager_refinement_to_ready_packet",
+                               "source_card_id":  "R15-007-card-reentry-packet-model",
+                               "source_task_id":  "R15-007",
+                               "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                               "current_card_state":  "refinement",
+                               "intended_next_state":  "ready",
+                               "target_agent_id":  "project_manager",
+                               "target_role_type":  "planning_and_card_state",
+                               "role_identity_ref":  "project_manager",
+                               "memory_scope_refs":  [
+                                                         "global_governance_memory",
+                                                         "product_governance_memory",
+                                                         "milestone_authority_memory",
+                                                         "role_identity_memory",
+                                                         "card_task_memory",
+                                                         "evidence_memory",
+                                                         "knowledge_index_memory"
+                                                     ],
+                               "raci_transition_refs":  [
+                                                            "refinement_to_ready"
+                                                        ],
+                               "allowed_canonical_paths":  [
+                                                               "README.md",
+                                                               "governance/ACTIVE_STATE.md",
+                                                               "governance/DECISION_LOG.md",
+                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                               "execution/KANBAN.md",
+                                                               "state/agents/r15_agent_identity_packet.json",
+                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                               "state/agents/r15_agent_memory_scope.json",
+                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                               "governance/VISION.md",
+                                                               "governance/PRODUCT_OPERATING_MODEL.md"
+                                                           ],
+                               "allowed_evidence_refs":  [
+                                                             "bounded_card_ref",
+                                                             "task_packet_ref",
+                                                             "acceptance_criteria_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "optional_context_refs":  [
+                                                             "governance/BRANCHING_CONVENTION.md"
+                                                         ],
+                               "forbidden_paths":  [
+                                                       ".git/",
+                                                       "node_modules/",
+                                                       "unbounded external mirrors"
+                                                   ],
+                               "forbidden_patterns":  [
+                                                          "full_repo_scan",
+                                                          "implicit_memory_loading",
+                                                          "persistent_memory_runtime_claim",
+                                                          "runtime_agent_memory_loading",
+                                                          "dynamic_retrieval",
+                                                          "vector_search",
+                                                          "external_board_lookup",
+                                                          "board_routing_runtime_claim",
+                                                          "card_reentry_runtime_claim",
+                                                          "dry_run_executed_claim",
+                                                          "r16_opening_claim"
+                                                      ],
+                               "load_plan":  {
+                                                 "load_plan_id":  "r15_007_project_manager_refinement_to_ready_packet.load_plan",
+                                                 "allowed_ref_types":  [
+                                                                           "exact_canonical_paths",
+                                                                           "bounded_evidence_refs",
+                                                                           "memory_scope_refs",
+                                                                           "raci_transition_refs"
+                                                                       ],
+                                                 "exact_canonical_paths":  [
+                                                                               "README.md",
+                                                                               "governance/ACTIVE_STATE.md",
+                                                                               "governance/DECISION_LOG.md",
+                                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                               "execution/KANBAN.md",
+                                                                               "state/agents/r15_agent_identity_packet.json",
+                                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                                               "state/agents/r15_agent_memory_scope.json",
+                                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                                               "governance/VISION.md",
+                                                                               "governance/PRODUCT_OPERATING_MODEL.md"
+                                                                           ],
+                                                 "bounded_evidence_refs":  [
+                                                                               "bounded_card_ref",
+                                                                               "task_packet_ref",
+                                                                               "acceptance_criteria_ref",
+                                                                               "state_change_record_ref"
+                                                                           ],
+                                                 "memory_scope_refs":  [
+                                                                           "global_governance_memory",
+                                                                           "product_governance_memory",
+                                                                           "milestone_authority_memory",
+                                                                           "role_identity_memory",
+                                                                           "card_task_memory",
+                                                                           "evidence_memory",
+                                                                           "knowledge_index_memory"
+                                                                       ],
+                                                 "raci_transition_refs":  [
+                                                                              "refinement_to_ready"
+                                                                          ],
+                                                 "exact_canonical_paths_only":  true,
+                                                 "bounded_evidence_refs_only":  true,
+                                                 "memory_scope_refs_only":  true,
+                                                 "raci_transition_refs_only":  true,
+                                                 "no_full_repo_scan":  true,
+                                                 "no_implicit_historical_memory":  true,
+                                                 "no_dynamic_retrieval":  true,
+                                                 "no_vector_search":  true,
+                                                 "no_external_board_lookup":  true,
+                                                 "no_runtime_agent_memory_loading":  true
+                                             },
+                               "context_budget":  {
+                                                      "max_files":  15,
+                                                      "max_evidence_refs":  4,
+                                                      "max_memory_scope_refs":  7,
+                                                      "max_transition_refs":  1,
+                                                      "max_notes_chars":  2500,
+                                                      "budget_unit":  "bounded_refs"
+                                                  },
+                               "allowed_actions":  [
+                                                       "create and update planning artifacts",
+                                                       "define acceptance criteria",
+                                                       "route tasks to role owners",
+                                                       "mark resolved only after QA and audit evidence conditions are met"
+                                                   ],
+                               "forbidden_actions":  [
+                                                         "must not implement code",
+                                                         "must not execute final QA",
+                                                         "must not audit evidence sufficiency as final authority",
+                                                         "must not close cards",
+                                                         "mutate_canonical_truth_without_pm",
+                                                         "implement_without_task_packet",
+                                                         "self_approve",
+                                                         "close_card_without_user_approval",
+                                                         "impersonate_other_agent",
+                                                         "narrate_other_agent_output",
+                                                         "run_outside_scope",
+                                                         "claim_runtime_not_evidenced",
+                                                         "open_successor_without_approval",
+                                                         "implement_code",
+                                                         "final_qa",
+                                                         "close_card"
+                                                     ],
+                               "required_inputs":  [
+                                                       "bounded source card id",
+                                                       "target role identity ref",
+                                                       "memory scope refs",
+                                                       "RACI transition refs",
+                                                       "bounded evidence refs"
+                                                   ],
+                               "required_outputs":  [
+                                                        "bounded role handoff note",
+                                                        "state-change recommendation only",
+                                                        "ready-state recommendation only"
+                                                    ],
+                               "evidence_requirements":  [
+                                                             "bounded_card_ref",
+                                                             "task_packet_ref",
+                                                             "acceptance_criteria_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "approval_requirements":  {
+                                                             "user_approval_required":  false,
+                                                             "pm_approval_required":  false,
+                                                             "qa_evidence_required":  false,
+                                                             "audit_evidence_required":  false,
+                                                             "release_evidence_required":  false,
+                                                             "approval_refs":  [
+
+                                                                               ]
+                                                         },
+                               "escalation_targets":  [
+                                                          "user_rodney",
+                                                          "evidence_auditor"
+                                                      ],
+                               "fail_closed_conditions":  [
+                                                              "missing required evidence",
+                                                              "unknown or impersonated agent identity",
+                                                              "unapproved approver chain",
+                                                              "source or target state mismatch",
+                                                              "full repo scan is rejected",
+                                                              "unknown memory scope ref",
+                                                              "unknown RACI transition ref",
+                                                              "positive runtime claim"
+                                                          ],
+                               "exit_conditions":  [
+                                                       "all required inputs are present",
+                                                       "load plan stays within exact canonical paths",
+                                                       "required evidence refs are accounted for",
+                                                       "no forbidden action or path is requested"
+                                                   ],
+                               "non_claims":  [
+                                                  "no actual agents implemented by R15-007",
+                                                  "no direct agent access runtime implemented",
+                                                  "no true multi-agent execution implemented",
+                                                  "no persistent memory engine implemented",
+                                                  "no runtime memory loading implemented",
+                                                  "no retrieval engine implemented",
+                                                  "no vector search implemented",
+                                                  "no Obsidian integration by R15-007",
+                                                  "no external board sync",
+                                                  "no GitHub Projects integration",
+                                                  "no Linear integration",
+                                                  "no Symphony integration",
+                                                  "no custom board runtime",
+                                                  "no PM automation implemented",
+                                                  "no actual workflow execution",
+                                                  "no board routing runtime implemented",
+                                                  "no card re-entry runtime implemented",
+                                                  "no classification/re-entry dry run executed",
+                                                  "no final R15 proof package complete",
+                                                  "no product runtime",
+                                                  "no solved Codex compaction",
+                                                  "no solved Codex reliability",
+                                                  "no R16 opening"
+                                              ]
+                           },
+                           {
+                               "packet_id":  "r15_007_qa_review_to_passed_packet",
+                               "source_card_id":  "R15-007-card-reentry-packet-model",
+                               "source_task_id":  "R15-007",
+                               "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                               "current_card_state":  "qa_review",
+                               "intended_next_state":  "qa_passed",
+                               "target_agent_id":  "qa_test_agent",
+                               "target_role_type":  "qa_validation",
+                               "role_identity_ref":  "qa_test_agent",
+                               "memory_scope_refs":  [
+                                                         "milestone_authority_memory",
+                                                         "role_identity_memory",
+                                                         "card_task_memory",
+                                                         "run_session_memory",
+                                                         "evidence_memory",
+                                                         "knowledge_index_memory"
+                                                     ],
+                               "raci_transition_refs":  [
+                                                            "qa_review_to_qa_passed"
+                                                        ],
+                               "allowed_canonical_paths":  [
+                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                               "execution/KANBAN.md",
+                                                               "state/agents/r15_agent_identity_packet.json",
+                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                               "state/agents/r15_agent_memory_scope.json",
+                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json"
+                                                           ],
+                               "allowed_evidence_refs":  [
+                                                             "bounded_card_ref",
+                                                             "qa_evidence_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "optional_context_refs":  [
+                                                             "governance/MILESTONE_REPORTING_STANDARD.md"
+                                                         ],
+                               "forbidden_paths":  [
+                                                       ".git/",
+                                                       "node_modules/",
+                                                       "unbounded external mirrors"
+                                                   ],
+                               "forbidden_patterns":  [
+                                                          "full_repo_scan",
+                                                          "implicit_memory_loading",
+                                                          "persistent_memory_runtime_claim",
+                                                          "runtime_agent_memory_loading",
+                                                          "dynamic_retrieval",
+                                                          "vector_search",
+                                                          "external_board_lookup",
+                                                          "board_routing_runtime_claim",
+                                                          "card_reentry_runtime_claim",
+                                                          "dry_run_executed_claim",
+                                                          "r16_opening_claim"
+                                                      ],
+                               "load_plan":  {
+                                                 "load_plan_id":  "r15_007_qa_review_to_passed_packet.load_plan",
+                                                 "allowed_ref_types":  [
+                                                                           "exact_canonical_paths",
+                                                                           "bounded_evidence_refs",
+                                                                           "memory_scope_refs",
+                                                                           "raci_transition_refs"
+                                                                       ],
+                                                 "exact_canonical_paths":  [
+                                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                               "execution/KANBAN.md",
+                                                                               "state/agents/r15_agent_identity_packet.json",
+                                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                                               "state/agents/r15_agent_memory_scope.json",
+                                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json"
+                                                                           ],
+                                                 "bounded_evidence_refs":  [
+                                                                               "bounded_card_ref",
+                                                                               "qa_evidence_ref",
+                                                                               "state_change_record_ref"
+                                                                           ],
+                                                 "memory_scope_refs":  [
+                                                                           "milestone_authority_memory",
+                                                                           "role_identity_memory",
+                                                                           "card_task_memory",
+                                                                           "run_session_memory",
+                                                                           "evidence_memory",
+                                                                           "knowledge_index_memory"
+                                                                       ],
+                                                 "raci_transition_refs":  [
+                                                                              "qa_review_to_qa_passed"
+                                                                          ],
+                                                 "exact_canonical_paths_only":  true,
+                                                 "bounded_evidence_refs_only":  true,
+                                                 "memory_scope_refs_only":  true,
+                                                 "raci_transition_refs_only":  true,
+                                                 "no_full_repo_scan":  true,
+                                                 "no_implicit_historical_memory":  true,
+                                                 "no_dynamic_retrieval":  true,
+                                                 "no_vector_search":  true,
+                                                 "no_external_board_lookup":  true,
+                                                 "no_runtime_agent_memory_loading":  true
+                                             },
+                               "context_budget":  {
+                                                      "max_files":  14,
+                                                      "max_evidence_refs":  3,
+                                                      "max_memory_scope_refs":  6,
+                                                      "max_transition_refs":  1,
+                                                      "max_notes_chars":  2500,
+                                                      "budget_unit":  "bounded_refs"
+                                                  },
+                               "allowed_actions":  [
+                                                       "run validation commands",
+                                                       "inspect implementation evidence",
+                                                       "write QA report",
+                                                       "recommend QA passed, failed, or inconclusive"
+                                                   ],
+                               "forbidden_actions":  [
+                                                         "must not implement fixes",
+                                                         "must not redefine acceptance criteria",
+                                                         "must not audit evidence sufficiency",
+                                                         "must not close cards",
+                                                         "must not test own implementation as final QA",
+                                                         "test_own_work_as_final_qa",
+                                                         "mutate_canonical_truth_without_pm",
+                                                         "implement_without_task_packet",
+                                                         "self_approve",
+                                                         "close_card_without_user_approval",
+                                                         "impersonate_other_agent",
+                                                         "narrate_other_agent_output",
+                                                         "run_outside_scope",
+                                                         "claim_runtime_not_evidenced",
+                                                         "open_successor_without_approval",
+                                                         "test_own_implementation_as_final_qa",
+                                                         "implement_fix",
+                                                         "close_card"
+                                                     ],
+                               "required_inputs":  [
+                                                       "bounded source card id",
+                                                       "target role identity ref",
+                                                       "memory scope refs",
+                                                       "RACI transition refs",
+                                                       "bounded evidence refs"
+                                                   ],
+                               "required_outputs":  [
+                                                        "bounded role handoff note",
+                                                        "state-change recommendation only",
+                                                        "QA recommendation only"
+                                                    ],
+                               "evidence_requirements":  [
+                                                             "bounded_card_ref",
+                                                             "qa_evidence_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "approval_requirements":  {
+                                                             "user_approval_required":  false,
+                                                             "pm_approval_required":  false,
+                                                             "qa_evidence_required":  true,
+                                                             "audit_evidence_required":  false,
+                                                             "release_evidence_required":  false,
+                                                             "approval_refs":  [
+
+                                                                               ]
+                                                         },
+                               "escalation_targets":  [
+                                                          "project_manager",
+                                                          "evidence_auditor"
+                                                      ],
+                               "fail_closed_conditions":  [
+                                                              "missing required evidence",
+                                                              "unknown or impersonated agent identity",
+                                                              "unapproved approver chain",
+                                                              "source or target state mismatch",
+                                                              "full repo scan is rejected",
+                                                              "unknown memory scope ref",
+                                                              "unknown RACI transition ref",
+                                                              "positive runtime claim"
+                                                          ],
+                               "exit_conditions":  [
+                                                       "all required inputs are present",
+                                                       "load plan stays within exact canonical paths",
+                                                       "required evidence refs are accounted for",
+                                                       "no forbidden action or path is requested"
+                                                   ],
+                               "non_claims":  [
+                                                  "no actual agents implemented by R15-007",
+                                                  "no direct agent access runtime implemented",
+                                                  "no true multi-agent execution implemented",
+                                                  "no persistent memory engine implemented",
+                                                  "no runtime memory loading implemented",
+                                                  "no retrieval engine implemented",
+                                                  "no vector search implemented",
+                                                  "no Obsidian integration by R15-007",
+                                                  "no external board sync",
+                                                  "no GitHub Projects integration",
+                                                  "no Linear integration",
+                                                  "no Symphony integration",
+                                                  "no custom board runtime",
+                                                  "no PM automation implemented",
+                                                  "no actual workflow execution",
+                                                  "no board routing runtime implemented",
+                                                  "no card re-entry runtime implemented",
+                                                  "no classification/re-entry dry run executed",
+                                                  "no final R15 proof package complete",
+                                                  "no product runtime",
+                                                  "no solved Codex compaction",
+                                                  "no solved Codex reliability",
+                                                  "no R16 opening"
+                                              ]
+                           },
+                           {
+                               "packet_id":  "r15_007_auditor_review_to_accepted_packet",
+                               "source_card_id":  "R15-007-card-reentry-packet-model",
+                               "source_task_id":  "R15-007",
+                               "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                               "current_card_state":  "audit_review",
+                               "intended_next_state":  "audit_accepted",
+                               "target_agent_id":  "evidence_auditor",
+                               "target_role_type":  "evidence_audit",
+                               "role_identity_ref":  "evidence_auditor",
+                               "memory_scope_refs":  [
+                                                         "global_governance_memory",
+                                                         "product_governance_memory",
+                                                         "milestone_authority_memory",
+                                                         "role_identity_memory",
+                                                         "card_task_memory",
+                                                         "run_session_memory",
+                                                         "evidence_memory",
+                                                         "knowledge_index_memory",
+                                                         "historical_report_memory"
+                                                     ],
+                               "raci_transition_refs":  [
+                                                            "audit_review_to_audit_accepted"
+                                                        ],
+                               "allowed_canonical_paths":  [
+                                                               "README.md",
+                                                               "governance/ACTIVE_STATE.md",
+                                                               "governance/DECISION_LOG.md",
+                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                               "execution/KANBAN.md",
+                                                               "state/agents/r15_agent_identity_packet.json",
+                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                               "state/agents/r15_agent_memory_scope.json",
+                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json",
+                                                               "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md"
+                                                           ],
+                               "allowed_evidence_refs":  [
+                                                             "bounded_card_ref",
+                                                             "qa_evidence_ref",
+                                                             "audit_evidence_ref",
+                                                             "audit_accepted_state_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "optional_context_refs":  [
+                                                             "governance/BRANCHING_CONVENTION.md"
+                                                         ],
+                               "forbidden_paths":  [
+                                                       ".git/",
+                                                       "node_modules/",
+                                                       "unbounded external mirrors"
+                                                   ],
+                               "forbidden_patterns":  [
+                                                          "full_repo_scan",
+                                                          "implicit_memory_loading",
+                                                          "persistent_memory_runtime_claim",
+                                                          "runtime_agent_memory_loading",
+                                                          "dynamic_retrieval",
+                                                          "vector_search",
+                                                          "external_board_lookup",
+                                                          "board_routing_runtime_claim",
+                                                          "card_reentry_runtime_claim",
+                                                          "dry_run_executed_claim",
+                                                          "r16_opening_claim"
+                                                      ],
+                               "load_plan":  {
+                                                 "load_plan_id":  "r15_007_auditor_review_to_accepted_packet.load_plan",
+                                                 "allowed_ref_types":  [
+                                                                           "exact_canonical_paths",
+                                                                           "bounded_evidence_refs",
+                                                                           "memory_scope_refs",
+                                                                           "raci_transition_refs"
+                                                                       ],
+                                                 "exact_canonical_paths":  [
+                                                                               "README.md",
+                                                                               "governance/ACTIVE_STATE.md",
+                                                                               "governance/DECISION_LOG.md",
+                                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                               "execution/KANBAN.md",
+                                                                               "state/agents/r15_agent_identity_packet.json",
+                                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                                               "state/agents/r15_agent_memory_scope.json",
+                                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json",
+                                                                               "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md"
+                                                                           ],
+                                                 "bounded_evidence_refs":  [
+                                                                               "bounded_card_ref",
+                                                                               "qa_evidence_ref",
+                                                                               "audit_evidence_ref",
+                                                                               "audit_accepted_state_ref",
+                                                                               "state_change_record_ref"
+                                                                           ],
+                                                 "memory_scope_refs":  [
+                                                                           "global_governance_memory",
+                                                                           "product_governance_memory",
+                                                                           "milestone_authority_memory",
+                                                                           "role_identity_memory",
+                                                                           "card_task_memory",
+                                                                           "run_session_memory",
+                                                                           "evidence_memory",
+                                                                           "knowledge_index_memory",
+                                                                           "historical_report_memory"
+                                                                       ],
+                                                 "raci_transition_refs":  [
+                                                                              "audit_review_to_audit_accepted"
+                                                                          ],
+                                                 "exact_canonical_paths_only":  true,
+                                                 "bounded_evidence_refs_only":  true,
+                                                 "memory_scope_refs_only":  true,
+                                                 "raci_transition_refs_only":  true,
+                                                 "no_full_repo_scan":  true,
+                                                 "no_implicit_historical_memory":  true,
+                                                 "no_dynamic_retrieval":  true,
+                                                 "no_vector_search":  true,
+                                                 "no_external_board_lookup":  true,
+                                                 "no_runtime_agent_memory_loading":  true
+                                             },
+                               "context_budget":  {
+                                                      "max_files":  19,
+                                                      "max_evidence_refs":  5,
+                                                      "max_memory_scope_refs":  9,
+                                                      "max_transition_refs":  1,
+                                                      "max_notes_chars":  2500,
+                                                      "budget_unit":  "bounded_refs"
+                                                  },
+                               "allowed_actions":  [
+                                                       "review artifacts and evidence refs",
+                                                       "run read-only validation commands",
+                                                       "write audit report",
+                                                       "recommend audit blocked or accepted"
+                                                   ],
+                               "forbidden_actions":  [
+                                                         "must not implement fixes",
+                                                         "must not perform final QA as the same implementation actor",
+                                                         "must not close cards",
+                                                         "must not override user decision",
+                                                         "mutate_canonical_truth_without_pm",
+                                                         "implement_without_task_packet",
+                                                         "self_approve",
+                                                         "close_card_without_user_approval",
+                                                         "impersonate_other_agent",
+                                                         "narrate_other_agent_output",
+                                                         "run_outside_scope",
+                                                         "claim_runtime_not_evidenced",
+                                                         "open_successor_without_approval",
+                                                         "implement_fix",
+                                                         "final_qa",
+                                                         "close_card"
+                                                     ],
+                               "required_inputs":  [
+                                                       "bounded source card id",
+                                                       "target role identity ref",
+                                                       "memory scope refs",
+                                                       "RACI transition refs",
+                                                       "bounded evidence refs"
+                                                   ],
+                               "required_outputs":  [
+                                                        "bounded role handoff note",
+                                                        "state-change recommendation only",
+                                                        "audit recommendation only"
+                                                    ],
+                               "evidence_requirements":  [
+                                                             "bounded_card_ref",
+                                                             "qa_evidence_ref",
+                                                             "audit_evidence_ref",
+                                                             "audit_accepted_state_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "approval_requirements":  {
+                                                             "user_approval_required":  false,
+                                                             "pm_approval_required":  false,
+                                                             "qa_evidence_required":  true,
+                                                             "audit_evidence_required":  true,
+                                                             "release_evidence_required":  false,
+                                                             "approval_refs":  [
+
+                                                                               ]
+                                                         },
+                               "escalation_targets":  [
+                                                          "project_manager",
+                                                          "user_rodney"
+                                                      ],
+                               "fail_closed_conditions":  [
+                                                              "missing required evidence",
+                                                              "unknown or impersonated agent identity",
+                                                              "unapproved approver chain",
+                                                              "source or target state mismatch",
+                                                              "full repo scan is rejected",
+                                                              "unknown memory scope ref",
+                                                              "unknown RACI transition ref",
+                                                              "positive runtime claim"
+                                                          ],
+                               "exit_conditions":  [
+                                                       "all required inputs are present",
+                                                       "load plan stays within exact canonical paths",
+                                                       "required evidence refs are accounted for",
+                                                       "no forbidden action or path is requested"
+                                                   ],
+                               "non_claims":  [
+                                                  "no actual agents implemented by R15-007",
+                                                  "no direct agent access runtime implemented",
+                                                  "no true multi-agent execution implemented",
+                                                  "no persistent memory engine implemented",
+                                                  "no runtime memory loading implemented",
+                                                  "no retrieval engine implemented",
+                                                  "no vector search implemented",
+                                                  "no Obsidian integration by R15-007",
+                                                  "no external board sync",
+                                                  "no GitHub Projects integration",
+                                                  "no Linear integration",
+                                                  "no Symphony integration",
+                                                  "no custom board runtime",
+                                                  "no PM automation implemented",
+                                                  "no actual workflow execution",
+                                                  "no board routing runtime implemented",
+                                                  "no card re-entry runtime implemented",
+                                                  "no classification/re-entry dry run executed",
+                                                  "no final R15 proof package complete",
+                                                  "no product runtime",
+                                                  "no solved Codex compaction",
+                                                  "no solved Codex reliability",
+                                                  "no R16 opening"
+                                              ]
+                           },
+                           {
+                               "packet_id":  "r15_007_release_closeout_to_closed_packet",
+                               "source_card_id":  "R15-007-card-reentry-packet-model",
+                               "source_task_id":  "R15-007",
+                               "source_milestone":  "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations",
+                               "current_card_state":  "approved_for_closeout",
+                               "intended_next_state":  "closed",
+                               "target_agent_id":  "release_closeout_agent",
+                               "target_role_type":  "release_closeout_evidence",
+                               "role_identity_ref":  "release_closeout_agent",
+                               "memory_scope_refs":  [
+                                                         "global_governance_memory",
+                                                         "milestone_authority_memory",
+                                                         "role_identity_memory",
+                                                         "run_session_memory",
+                                                         "evidence_memory",
+                                                         "knowledge_index_memory",
+                                                         "historical_report_memory"
+                                                     ],
+                               "raci_transition_refs":  [
+                                                            "approved_for_closeout_to_closed"
+                                                        ],
+                               "allowed_canonical_paths":  [
+                                                               "README.md",
+                                                               "governance/ACTIVE_STATE.md",
+                                                               "governance/DECISION_LOG.md",
+                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                               "execution/KANBAN.md",
+                                                               "state/agents/r15_agent_identity_packet.json",
+                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                               "state/agents/r15_agent_memory_scope.json",
+                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json",
+                                                               "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md"
+                                                           ],
+                               "allowed_evidence_refs":  [
+                                                             "bounded_card_ref",
+                                                             "audit_evidence_ref",
+                                                             "audit_accepted_state_ref",
+                                                             "user_approval_ref",
+                                                             "release_closeout_evidence_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "optional_context_refs":  [
+                                                             "governance/BRANCHING_CONVENTION.md"
+                                                         ],
+                               "forbidden_paths":  [
+                                                       ".git/",
+                                                       "node_modules/",
+                                                       "unbounded external mirrors"
+                                                   ],
+                               "forbidden_patterns":  [
+                                                          "full_repo_scan",
+                                                          "implicit_memory_loading",
+                                                          "persistent_memory_runtime_claim",
+                                                          "runtime_agent_memory_loading",
+                                                          "dynamic_retrieval",
+                                                          "vector_search",
+                                                          "external_board_lookup",
+                                                          "board_routing_runtime_claim",
+                                                          "card_reentry_runtime_claim",
+                                                          "dry_run_executed_claim",
+                                                          "r16_opening_claim"
+                                                      ],
+                               "load_plan":  {
+                                                 "load_plan_id":  "r15_007_release_closeout_to_closed_packet.load_plan",
+                                                 "allowed_ref_types":  [
+                                                                           "exact_canonical_paths",
+                                                                           "bounded_evidence_refs",
+                                                                           "memory_scope_refs",
+                                                                           "raci_transition_refs"
+                                                                       ],
+                                                 "exact_canonical_paths":  [
+                                                                               "README.md",
+                                                                               "governance/ACTIVE_STATE.md",
+                                                                               "governance/DECISION_LOG.md",
+                                                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                                               "governance/R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+                                                                               "execution/KANBAN.md",
+                                                                               "state/agents/r15_agent_identity_packet.json",
+                                                                               "contracts/agents/agent_identity_packet.contract.json",
+                                                                               "state/agents/r15_agent_memory_scope.json",
+                                                                               "contracts/agents/agent_memory_scope.contract.json",
+                                                                               "state/agents/r15_raci_state_transition_matrix.json",
+                                                                               "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                                               "state/knowledge/r15_repo_knowledge_index.json",
+                                                                               "state/agents/r15_agent_memory_scope_validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/README.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/validation_manifest.md",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/agent_memory_scope_evidence_summary.json",
+                                                                               "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_005_agent_memory_scope_model/non_claims.json",
+                                                                               "governance/reports/AIOffice_V2_R14_Pivot_Closeout_and_R15_Planning_Brief_v1.md"
+                                                                           ],
+                                                 "bounded_evidence_refs":  [
+                                                                               "bounded_card_ref",
+                                                                               "audit_evidence_ref",
+                                                                               "audit_accepted_state_ref",
+                                                                               "user_approval_ref",
+                                                                               "release_closeout_evidence_ref",
+                                                                               "state_change_record_ref"
+                                                                           ],
+                                                 "memory_scope_refs":  [
+                                                                           "global_governance_memory",
+                                                                           "milestone_authority_memory",
+                                                                           "role_identity_memory",
+                                                                           "run_session_memory",
+                                                                           "evidence_memory",
+                                                                           "knowledge_index_memory",
+                                                                           "historical_report_memory"
+                                                                       ],
+                                                 "raci_transition_refs":  [
+                                                                              "approved_for_closeout_to_closed"
+                                                                          ],
+                                                 "exact_canonical_paths_only":  true,
+                                                 "bounded_evidence_refs_only":  true,
+                                                 "memory_scope_refs_only":  true,
+                                                 "raci_transition_refs_only":  true,
+                                                 "no_full_repo_scan":  true,
+                                                 "no_implicit_historical_memory":  true,
+                                                 "no_dynamic_retrieval":  true,
+                                                 "no_vector_search":  true,
+                                                 "no_external_board_lookup":  true,
+                                                 "no_runtime_agent_memory_loading":  true
+                                             },
+                               "context_budget":  {
+                                                      "max_files":  19,
+                                                      "max_evidence_refs":  6,
+                                                      "max_memory_scope_refs":  7,
+                                                      "max_transition_refs":  1,
+                                                      "max_notes_chars":  2500,
+                                                      "budget_unit":  "bounded_refs"
+                                                  },
+                               "allowed_actions":  [
+                                                       "assemble release packet",
+                                                       "verify branch head tree and evidence refs",
+                                                       "prepare closeout package",
+                                                       "recommend release readiness or closeout blocked"
+                                                   ],
+                               "forbidden_actions":  [
+                                                         "must not override auditor blockers",
+                                                         "must not merge or promote without release evidence and user approval",
+                                                         "must not close failed gates through narrative",
+                                                         "mutate_canonical_truth_without_pm",
+                                                         "implement_without_task_packet",
+                                                         "self_approve",
+                                                         "close_card_without_user_approval",
+                                                         "impersonate_other_agent",
+                                                         "narrate_other_agent_output",
+                                                         "run_outside_scope",
+                                                         "claim_runtime_not_evidenced",
+                                                         "open_successor_without_approval",
+                                                         "close_without_user_approval",
+                                                         "close_without_audit_accepted",
+                                                         "close_without_release_evidence"
+                                                     ],
+                               "required_inputs":  [
+                                                       "bounded source card id",
+                                                       "target role identity ref",
+                                                       "memory scope refs",
+                                                       "RACI transition refs",
+                                                       "bounded evidence refs"
+                                                   ],
+                               "required_outputs":  [
+                                                        "bounded role handoff note",
+                                                        "state-change recommendation only",
+                                                        "release readiness recommendation only"
+                                                    ],
+                               "evidence_requirements":  [
+                                                             "bounded_card_ref",
+                                                             "audit_evidence_ref",
+                                                             "audit_accepted_state_ref",
+                                                             "user_approval_ref",
+                                                             "release_closeout_evidence_ref",
+                                                             "state_change_record_ref"
+                                                         ],
+                               "approval_requirements":  {
+                                                             "user_approval_required":  true,
+                                                             "pm_approval_required":  false,
+                                                             "qa_evidence_required":  false,
+                                                             "audit_evidence_required":  true,
+                                                             "release_evidence_required":  true,
+                                                             "approval_refs":  [
+                                                                                   "user_approval_ref"
+                                                                               ]
+                                                         },
+                               "escalation_targets":  [
+                                                          "user_rodney",
+                                                          "evidence_auditor"
+                                                      ],
+                               "fail_closed_conditions":  [
+                                                              "missing required evidence",
+                                                              "unknown or impersonated agent identity",
+                                                              "unapproved approver chain",
+                                                              "source or target state mismatch",
+                                                              "full repo scan is rejected",
+                                                              "unknown memory scope ref",
+                                                              "unknown RACI transition ref",
+                                                              "positive runtime claim"
+                                                          ],
+                               "exit_conditions":  [
+                                                       "all required inputs are present",
+                                                       "load plan stays within exact canonical paths",
+                                                       "required evidence refs are accounted for",
+                                                       "no forbidden action or path is requested"
+                                                   ],
+                               "non_claims":  [
+                                                  "no actual agents implemented by R15-007",
+                                                  "no direct agent access runtime implemented",
+                                                  "no true multi-agent execution implemented",
+                                                  "no persistent memory engine implemented",
+                                                  "no runtime memory loading implemented",
+                                                  "no retrieval engine implemented",
+                                                  "no vector search implemented",
+                                                  "no Obsidian integration by R15-007",
+                                                  "no external board sync",
+                                                  "no GitHub Projects integration",
+                                                  "no Linear integration",
+                                                  "no Symphony integration",
+                                                  "no custom board runtime",
+                                                  "no PM automation implemented",
+                                                  "no actual workflow execution",
+                                                  "no board routing runtime implemented",
+                                                  "no card re-entry runtime implemented",
+                                                  "no classification/re-entry dry run executed",
+                                                  "no final R15 proof package complete",
+                                                  "no product runtime",
+                                                  "no solved Codex compaction",
+                                                  "no solved Codex reliability",
+                                                  "no R16 opening"
+                                              ]
+                           }
+                       ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_required_packet_fields",
+                                    "description":  "missing_required_packet_fields is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "duplicate_packet_ids",
+                                    "description":  "duplicate_packet_ids is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "unknown_target_agent_id",
+                                    "description":  "unknown_target_agent_id is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "unknown_memory_scope_ref",
+                                    "description":  "unknown_memory_scope_ref is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "unknown_raci_transition_ref",
+                                    "description":  "unknown_raci_transition_ref is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "target_role_not_allowed_by_memory_scope",
+                                    "description":  "target_role_not_allowed_by_memory_scope is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "target_role_not_allowed_by_raci_transition",
+                                    "description":  "target_role_not_allowed_by_raci_transition is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "unbounded_full_repo_scan_rejected",
+                                    "description":  "unbounded_full_repo_scan_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "wildcard_or_repo_root_allowed_paths_rejected",
+                                    "description":  "wildcard_or_repo_root_allowed_paths_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "implicit_memory_loading_rejected",
+                                    "description":  "implicit_memory_loading_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "persistent_memory_runtime_claim_rejected",
+                                    "description":  "persistent_memory_runtime_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "retrieval_vector_search_claim_rejected",
+                                    "description":  "retrieval_vector_search_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "external_board_sync_claim_rejected",
+                                    "description":  "external_board_sync_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "board_routing_runtime_claim_rejected",
+                                    "description":  "board_routing_runtime_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "card_reentry_runtime_claim_rejected",
+                                    "description":  "card_reentry_runtime_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "dry_run_executed_claim_rejected",
+                                    "description":  "dry_run_executed_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "product_runtime_claim_rejected",
+                                    "description":  "product_runtime_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "r16_opening_claim_rejected",
+                                    "description":  "r16_opening_claim_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "status_posture_r15_008_plus_complete_rejected",
+                                    "description":  "status_posture_r15_008_plus_complete_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "packet_action_forbidden_by_identity_rejected",
+                                    "description":  "packet_action_forbidden_by_identity_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "packet_access_forbidden_by_memory_scope_rejected",
+                                    "description":  "packet_access_forbidden_by_memory_scope_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "packet_raci_transition_violation_rejected",
+                                    "description":  "packet_raci_transition_violation_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "developer_approve_qa_closeout_rejected",
+                                    "description":  "developer_approve_qa_closeout_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "qa_implement_code_rejected",
+                                    "description":  "qa_implement_code_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "auditor_implement_rejected",
+                                    "description":  "auditor_implement_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "pm_implement_or_final_qa_rejected",
+                                    "description":  "pm_implement_or_final_qa_rejected is rejected for the R15-007 card re-entry packet model."
+                                },
+                                {
+                                    "rule_id":  "release_closeout_without_audit_user_approval_rejected",
+                                    "description":  "release_closeout_without_audit_user_approval_rejected is rejected for the R15-007 card re-entry packet model."
+                                }
+                            ],
+    "claims":  [
+                   "card re-entry packet contract exists",
+                   "validator module exists",
+                   "CLI wrapper exists",
+                   "valid and invalid fixtures exist",
+                   "focused tests exist",
+                   "committed baseline card re-entry packet model exists",
+                   "validation manifest exists",
+                   "bounded knowledge index updated with R15-007 entries",
+                   "R15-007 evidence folder exists",
+                   "status surfaces updated",
+                   "validation passed"
+               ],
+    "non_claims":  [
+                       "no actual agents implemented by R15-007",
+                       "no direct agent access runtime implemented",
+                       "no true multi-agent execution implemented",
+                       "no persistent memory engine implemented",
+                       "no runtime memory loading implemented",
+                       "no retrieval engine implemented",
+                       "no vector search implemented",
+                       "no Obsidian integration by R15-007",
+                       "no external board sync",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board runtime",
+                       "no PM automation implemented",
+                       "no actual workflow execution",
+                       "no board routing runtime implemented",
+                       "no card re-entry runtime implemented",
+                       "no classification/re-entry dry run executed",
+                       "no final R15 proof package complete",
+                       "no product runtime",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no R16 opening"
+                   ]
+}
