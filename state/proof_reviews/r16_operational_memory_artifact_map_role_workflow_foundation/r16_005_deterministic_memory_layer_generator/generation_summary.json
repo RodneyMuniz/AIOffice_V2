@@ -1,0 +1,42 @@
+{
+  "artifact_type": "r16_005_generation_summary",
+  "source_task": "R16-005",
+  "generated_artifact": "state/memory/r16_memory_layers.json",
+  "valid_fixture": "state/fixtures/valid/memory/r16_memory_layers.valid.json",
+  "invalid_fixture_root": "state/fixtures/invalid/memory/r16_memory_layers/",
+  "generator_module": "tools/R16MemoryLayerGenerator.psm1",
+  "generator_cli": "tools/new_r16_memory_layers.ps1",
+  "validator_cli": "tools/validate_r16_memory_layers.ps1",
+  "focused_test": "tests/test_r16_memory_layer_generator.ps1",
+  "generated_from_head": "bf80ee749abeb7e74168cee20159543dc6354540",
+  "generated_from_tree": "0d91d71f62a0cedf2b892218878f758845c88fe4",
+  "layer_count": 10,
+  "memory_layer_types": [
+    "global_governance_memory",
+    "product_governance_memory",
+    "milestone_authority_memory",
+    "role_identity_memory",
+    "task_card_memory",
+    "run_session_memory",
+    "evidence_memory",
+    "knowledge_index_memory",
+    "historical_report_memory",
+    "deprecated_cleanup_candidate_memory"
+  ],
+  "determinism_proof_summary": {
+    "method": "Focused test runs the generator twice and compares normalized JSON.",
+    "expected_result": "Repeated generation from the same bounded exact refs produces identical normalized output.",
+    "full_repo_scan_allowed": false,
+    "wildcard_source_refs_allowed": false
+  },
+  "posture": {
+    "active_through_task": "R16-005",
+    "planned_range": "R16-006..R16-026",
+    "baseline_layers_are_state_artifacts_not_runtime_memory": true,
+    "role_specific_memory_packs_implemented": false,
+    "artifact_maps_implemented": false,
+    "audit_maps_implemented": false,
+    "context_load_planner_implemented": false,
+    "role_run_envelopes_implemented": false
+  }
+}

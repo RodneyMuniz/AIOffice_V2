@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-004` only
+**Milestone status:** Active in repo truth through `R16-005` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -32,6 +32,8 @@ R16-002 installs machine-readable planning authority references for these report
 R16-003 adds a KPI baseline and target scorecard through `state/governance/r16_kpi_baseline_target_scorecard.json`. That scorecard records current achieved maturity and R16 closeout target maturity separately; KPI targets are targets, not achieved implementation evidence.
 
 R16-004 defines the memory layer contract only through `contracts/memory/r16_memory_layer.contract.json`, `tools/R16MemoryLayerContract.psm1`, `tools/validate_r16_memory_layer_contract.ps1`, `tests/test_r16_memory_layer_contract.ps1`, memory contract fixtures, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/`. The contract is model/contract proof only and is not runtime memory.
+
+R16-005 implements deterministic baseline memory layer generation only through `tools/R16MemoryLayerGenerator.psm1`, `tools/new_r16_memory_layers.ps1`, `tools/validate_r16_memory_layers.ps1`, `tests/test_r16_memory_layer_generator.ps1`, generated baseline state artifact `state/memory/r16_memory_layers.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_memory_layers/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_005_deterministic_memory_layer_generator/`. Generated baseline memory layers are committed state artifacts, not runtime memory.
 
 ## Purpose
 
@@ -267,8 +269,18 @@ Required evidence deliverables:
 - Done when: the memory layer contract defines allowed memory layer types, authority classes, source refs, freshness and stale-ref rules, exact-load rules, role eligibility, proof treatment, evidence requirements, exclusions, context budget categories, allowed/forbidden content, invalid states, and non-claims while rejecting broad scans, wildcard refs, report-as-proof errors, stale refs without caveats, runtime/product/agent/integration overclaims, R16-005-or-later implementation claims, and R13/R14/R15 boundary violations.
 
 ### `R16-005` Implement deterministic memory layer generator
-- Status: planned
+- Status: done
 - Purpose: generate memory layer artifacts from bounded repo refs without broad runtime claims.
+- Durable output:
+  - `tools/R16MemoryLayerGenerator.psm1`
+  - `tools/new_r16_memory_layers.ps1`
+  - `tools/validate_r16_memory_layers.ps1`
+  - `tests/test_r16_memory_layer_generator.ps1`
+  - `state/memory/r16_memory_layers.json`
+  - `state/fixtures/valid/memory/r16_memory_layers.valid.json`
+  - `state/fixtures/invalid/memory/r16_memory_layers/`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_005_deterministic_memory_layer_generator/`
+- Done when: deterministic baseline memory layers are generated from bounded exact refs, all R16-004 memory layer types are present, invalid source/proof/runtime/role-pack/boundary overclaims fail closed, and generated baseline memory layers are recorded as committed state artifacts, not runtime memory.
 
 ### `R16-006` Add role-specific memory pack model
 - Status: planned
@@ -356,8 +368,10 @@ Required evidence deliverables:
 
 ## Validation Requirements
 
-R16-004 validation must run and record:
+R16-005 validation must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_memory_layer_generator.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_memory_layers.ps1 -MemoryLayersPath state\memory\r16_memory_layers.json -ContractPath contracts\memory\r16_memory_layer.contract.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_memory_layer_contract.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_memory_layer_contract.ps1 -ContractPath contracts\memory\r16_memory_layer.contract.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_kpi_baseline_target_scorecard.ps1`
@@ -379,12 +393,13 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-004` only.
-- `R16-005` through `R16-026` planned only.
+- R16 active through `R16-005` only.
+- `R16-006` through `R16-026` planned only.
+- deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 
 Status gates must reject:
 
-- reject `R16-005` or later implementation claims.
+- reject `R16-006` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -401,6 +416,8 @@ Status gates must reject:
 - reject removal of R15 caveats.
 - reject conversion of R13 partial gates into passed gates.
 - reject target KPI scores treated as achieved implementation.
+- reject generated baseline memory layers treated as runtime memory.
+- reject role-specific memory packs claimed.
 
 ## Compaction and Restart Recovery Strategy
 
@@ -473,3 +490,18 @@ R16-004 is accepted only if:
 - focused R16-004 validation and status gates pass.
 
 After R16-004, R16 is active through `R16-004` only. `R16-005` through `R16-026` remain planned only. R16-004 defined the memory layer contract only. KPI targets are target maturity values only and are not achieved implementation evidence. No deterministic memory layer generator is implemented yet. No operational memory layers are generated yet. No memory layers are implemented yet. No role-specific memory packs are implemented yet. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet.
+
+R16-005 is accepted only if:
+
+- the deterministic memory layer generator exists at `tools/R16MemoryLayerGenerator.psm1`;
+- the generator CLI exists at `tools/new_r16_memory_layers.ps1`;
+- the memory layer artifact validator CLI exists at `tools/validate_r16_memory_layers.ps1`;
+- the generated baseline memory layer artifact exists at `state/memory/r16_memory_layers.json`;
+- the valid and invalid fixtures cover missing layers, unknown layer types, authority errors, broad/wildcard refs, full repo scan requests, stale refs without caveats, report/proof treatment errors, runtime/product/agent/integration overclaims, role-specific memory pack claims, R16-006 implementation claims, R16-027-or-later tasks, and R13/R14/R15 boundary violations;
+- all ten R16-004 memory layer types are present;
+- generated baseline memory layers are explicitly recorded as committed state artifacts, not runtime memory;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- no role-specific memory pack, artifact map, audit map, context-load planner, budget estimator, role-run envelope, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-006, or R16-027-or-later claim is made;
+- focused R16-005 validation and status gates pass.
+
+After R16-005, R16 is active through `R16-005` only. `R16-006` through `R16-026` remain planned only. R16-005 implemented deterministic baseline memory layer generation only. Generated baseline memory layers are committed state artifacts, not runtime memory. No role-specific memory packs are implemented yet. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet.

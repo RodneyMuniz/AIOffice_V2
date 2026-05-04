@@ -506,22 +506,21 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 4 -or $snapshot.PlannedStart -ne 5 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-004 only with R16-005 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 5 -or $snapshot.PlannedStart -ne 6 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-005 only with R16-006 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-004 only",
-            "R16-005 through R16-026 remain planned only",
+            "R16 active through R16-005 only",
+            "R16-006 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
+            "R16-005 implemented deterministic baseline memory layer generation only",
             "KPI targets are",
-            "No deterministic memory layer generator is implemented yet",
-            "No operational memory layers are generated yet",
+            "generated baseline memory layers are committed state artifacts, not runtime memory",
             "No role-specific memory packs are implemented yet",
-            "No memory layers are implemented yet",
             "No artifact maps are implemented yet",
             "No audit maps are implemented yet",
             "No context-load planner is implemented yet",
@@ -554,8 +553,9 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-005 or later implementation" -Pattern '(?i)\bR16-(00[5-9]|0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "memory layer implementation" -Pattern '(?i)\b(memory layer|memory layers|memory pack|memory packs|deterministic memory layer generator)\b.{0,160}\b(implemented|implementation complete|created|generated|ships|runtime)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-006 or later implementation" -Pattern '(?i)\bR16-(00[6-9]|0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "role-specific memory packs" -Pattern '(?i)\b(role-specific memory pack|role-specific memory packs)\b.{0,160}\b(implemented|implementation complete|created|generated|exists|ships|runtime)\b|\b(implements|implemented|created|generated|ships)\b.{0,120}\b(role-specific memory pack|role-specific memory packs)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map implementation" -Pattern '(?i)\b(artifact map|artifact maps|audit map|audit maps)\b.{0,160}\b(implemented|implementation complete|created|exists|ships)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(artifact map|artifact maps|audit map|audit maps)\b|\b(artifact map runtime|artifact maps runtime|audit map runtime|audit maps runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "context-load planner implementation" -Pattern '(?i)\b(context-load planner|context load planner|context-load plan|context load plan)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(context-load planner|context load planner|context-load plan|context load plan)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "role-run envelope or handoff packet implementation" -Pattern '(?i)\b(role-run envelope|role run envelope|handoff packet|handoff packets)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b'
