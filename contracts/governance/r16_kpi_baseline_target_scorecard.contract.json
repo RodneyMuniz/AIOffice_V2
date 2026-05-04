@@ -1,0 +1,268 @@
+{
+  "artifact_type": "r16_kpi_baseline_target_scorecard_contract",
+  "contract_version": "v1",
+  "contract_id": "aioffice-r16-kpi-baseline-target-scorecard-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-003",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "purpose": "Define a machine-checkable R16 KPI baseline and target scorecard that separates achieved evidence from R16 closeout targets.",
+  "required_top_level_fields": [
+    "artifact_type",
+    "contract_version",
+    "scorecard_id",
+    "source_milestone",
+    "source_task",
+    "repository",
+    "branch",
+    "generated_from_head",
+    "generated_from_tree",
+    "scoring_model_ref",
+    "reporting_standard_ref",
+    "template_ref",
+    "scorecard_mode",
+    "current_posture",
+    "priority_domains",
+    "domain_scores",
+    "weighted_aggregate",
+    "target_aggregate",
+    "evidence_caps",
+    "confidence_model",
+    "maturity_scale",
+    "previous_reference_runs",
+    "target_not_achievement_disclaimer",
+    "preserved_boundaries",
+    "non_claims",
+    "validation_commands",
+    "invalid_state_rules"
+  ],
+  "domain_model": {
+    "exact_domain_count": 10,
+    "weights_must_sum_to": 100,
+    "domains": [
+      {
+        "domain": "Product Experience & Double-Diamond Workflow",
+        "weight": 12
+      },
+      {
+        "domain": "Board & Work Orchestration",
+        "weight": 12
+      },
+      {
+        "domain": "Agent Workforce & RACI",
+        "weight": 14
+      },
+      {
+        "domain": "Knowledge, Memory & Context Compression",
+        "weight": 12
+      },
+      {
+        "domain": "Execution Harness & QA",
+        "weight": 14
+      },
+      {
+        "domain": "Governance, Evidence & Audit",
+        "weight": 8
+      },
+      {
+        "domain": "Architecture & Integrations",
+        "weight": 8
+      },
+      {
+        "domain": "Release & Environment Strategy",
+        "weight": 6
+      },
+      {
+        "domain": "Security, Safety & Cost Controls",
+        "weight": 8
+      },
+      {
+        "domain": "Continuous Improvement & Auto-Research",
+        "weight": 6
+      }
+    ]
+  },
+  "required_scorecard_mode": "baseline_and_target_not_achievement",
+  "required_current_posture": {
+    "active_through_task": "R16-003",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003"
+    ],
+    "planned_tasks_start": "R16-004",
+    "planned_tasks_end": "R16-026",
+    "r16_004_or_later_implementation_claimed": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "maturity_rules": {
+    "minimum": 0,
+    "maximum": 5,
+    "score_conversion": "score = maturity / 5 * 100",
+    "current_and_target_scores_must_be_separate": true,
+    "targets_cannot_be_treated_as_evidence": true
+  },
+  "confidence_rules": {
+    "allowed_values": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ]
+  },
+  "evidence_cap_rules": {
+    "current_score_must_not_exceed_evidence_cap": true,
+    "target_score_must_not_override_current_evidence_cap": true,
+    "cap_table_ref": "governance/KPI_DOMAIN_MODEL.md"
+  },
+  "priority_uplift_rules": [
+    {
+      "domain": "Knowledge, Memory & Context Compression",
+      "minimum_target_uplift": 1.5,
+      "target_must_exceed_current": true
+    },
+    {
+      "domain": "Agent Workforce & RACI",
+      "minimum_target_uplift": 1.5,
+      "target_must_exceed_current": true
+    }
+  ],
+  "required_future_implementation_false_fields": [
+    "memory_layers_implemented",
+    "artifact_maps_implemented",
+    "audit_maps_implemented",
+    "context_load_planners_implemented",
+    "role_run_envelopes_implemented",
+    "handoff_packets_implemented",
+    "product_runtime_implemented",
+    "productized_ui_implemented",
+    "actual_autonomous_agents_implemented",
+    "true_multi_agent_execution_implemented",
+    "persistent_memory_runtime_implemented",
+    "runtime_memory_loading_implemented",
+    "retrieval_runtime_implemented",
+    "vector_search_runtime_implemented",
+    "external_integrations_implemented",
+    "main_merge_completed",
+    "solved_codex_compaction",
+    "solved_codex_reliability"
+  ],
+  "required_preserved_boundaries": {
+    "r13": {
+      "status": "failed/partial",
+      "active_through": "R13-018",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates": [
+        "API/custom-runner bypass",
+        "current operator control room",
+        "skill invocation evidence",
+        "operator demo"
+      ]
+    },
+    "r14": {
+      "status": "accepted_with_caveats",
+      "through": "R14-006",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats",
+      "through": "R15-009",
+      "audited_head": "d9685030a0556a528684d28367db83f4c72f7fc9",
+      "audited_tree": "7529230df0c1f5bec3625ba654b035a2af824e9b",
+      "post_audit_support_commit": "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  },
+  "required_non_claims": [
+    "no product runtime",
+    "no productized UI",
+    "no actual autonomous agents",
+    "no true multi-agent execution",
+    "no persistent memory runtime",
+    "no runtime memory loading",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no external integrations",
+    "no GitHub Projects integration",
+    "no Linear integration",
+    "no Symphony integration",
+    "no custom board integration",
+    "no external board sync",
+    "no solved Codex compaction",
+    "no solved Codex reliability",
+    "no main merge",
+    "no R13 closure",
+    "no R14 caveat removal",
+    "no R15 caveat removal",
+    "no R13 partial-gate conversion",
+    "no R16-004 implementation",
+    "no R16-027 or later task",
+    "no memory layers implemented yet",
+    "no artifact maps implemented yet",
+    "no audit maps implemented yet",
+    "no context-load planners implemented yet",
+    "no role-run envelopes implemented yet",
+    "no handoff packets implemented yet",
+    "KPI targets are not achieved scores"
+  ],
+  "required_validation_commands": [
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_kpi_baseline_target_scorecard.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\\governance\\r16_kpi_baseline_target_scorecard.json",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_planning_authority_reference.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_planning_authority_reference.ps1 -PacketPath state\\governance\\r16_planning_authority_reference.json",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+    "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+    "git diff --check",
+    "git status --short",
+    "git rev-parse HEAD",
+    "git rev-parse \"HEAD^{tree}\"",
+    "git branch --show-current"
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_or_extra_kpi_domain_rejected",
+      "description": "The scorecard must contain exactly the approved 10 KPI domains."
+    },
+    {
+      "rule_id": "wrong_weight_sum_rejected",
+      "description": "Domain weights must match the KPI model and sum to 100."
+    },
+    {
+      "rule_id": "invalid_maturity_or_confidence_rejected",
+      "description": "Maturity outside 0..5 and confidence outside A..E fail validation."
+    },
+    {
+      "rule_id": "score_above_cap_rejected",
+      "description": "Current achieved scores cannot exceed evidence caps."
+    },
+    {
+      "rule_id": "target_as_achievement_rejected",
+      "description": "Target score columns cannot be counted as achieved implementation evidence."
+    },
+    {
+      "rule_id": "priority_uplift_missing_rejected",
+      "description": "Knowledge/Memory and Agent/RACI must show explicit significant target uplifts."
+    },
+    {
+      "rule_id": "r16_004_or_later_implementation_claim_rejected",
+      "description": "R16-003 cannot claim R16-004 or later implementation."
+    },
+    {
+      "rule_id": "runtime_agent_memory_retrieval_integration_overclaims_rejected",
+      "description": "Product runtime, agents, memory runtime, retrieval/vector, and integration overclaims fail validation."
+    },
+    {
+      "rule_id": "preserved_boundary_changes_rejected",
+      "description": "R13 closure, R13 partial-gate conversion, R14 caveat removal, and R15 caveat removal fail validation."
+    },
+    {
+      "rule_id": "r16_027_or_later_task_rejected",
+      "description": "R16-027 or later task identifiers fail validation."
+    }
+  ]
+}

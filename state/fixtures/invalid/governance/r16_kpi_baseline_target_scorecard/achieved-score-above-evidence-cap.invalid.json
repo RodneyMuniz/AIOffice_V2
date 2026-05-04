@@ -1,0 +1,612 @@
+{
+    "artifact_type":  "r16_kpi_baseline_target_scorecard",
+    "contract_version":  "v1",
+    "scorecard_id":  "aioffice-r16-003-kpi-baseline-target-scorecard-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-003",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generated_from_head":  "794088b584063953789dabb6a167c51714e23181",
+    "generated_from_tree":  "8f99aaed5142f10402172054c710e3c254a52d2f",
+    "scoring_model_ref":  {
+                              "path":  "governance/KPI_DOMAIN_MODEL.md",
+                              "authority_class":  "Class C",
+                              "proof_treatment":  "scoring_model_not_implementation_proof",
+                              "proof_by_itself":  false
+                          },
+    "reporting_standard_ref":  {
+                                   "path":  "governance/MILESTONE_REPORTING_STANDARD.md",
+                                   "authority_class":  "Class D",
+                                   "proof_treatment":  "reporting_standard_not_implementation_proof",
+                                   "proof_by_itself":  false
+                               },
+    "template_ref":  {
+                         "path":  "governance/templates/AIOffice_Milestone_Report_Template_v2.md",
+                         "authority_class":  "Class D",
+                         "proof_treatment":  "template_not_implementation_proof",
+                         "proof_by_itself":  false
+                     },
+    "scorecard_mode":  "baseline_and_target_not_achievement",
+    "current_posture":  {
+                            "active_through_task":  "R16-003",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-004",
+                                                  "R16-005",
+                                                  "R16-006",
+                                                  "R16-007",
+                                                  "R16-008",
+                                                  "R16-009",
+                                                  "R16-010",
+                                                  "R16-011",
+                                                  "R16-012",
+                                                  "R16-013",
+                                                  "R16-014",
+                                                  "R16-015",
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "current_achievement_scope":  "R16-003 adds KPI baseline and target scorecard only; current scores reflect achieved evidence and exclude target ambition.",
+                            "r16_004_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "memory_layers_implemented":  false,
+                            "artifact_maps_implemented":  false,
+                            "audit_maps_implemented":  false,
+                            "context_load_planners_implemented":  false,
+                            "role_run_envelopes_implemented":  false,
+                            "handoff_packets_implemented":  false,
+                            "product_runtime_implemented":  false,
+                            "productized_ui_implemented":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "true_multi_agent_execution_implemented":  false,
+                            "persistent_memory_runtime_implemented":  false,
+                            "runtime_memory_loading_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "main_merge_completed":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false
+                        },
+    "priority_domains":  [
+                             {
+                                 "domain":  "Knowledge, Memory \u0026 Context Compression",
+                                 "current_maturity":  2,
+                                 "target_maturity":  4,
+                                 "target_uplift":  2,
+                                 "priority_reason":  "R16 is expected to reduce context burn through bounded memory and artifact-map evidence.",
+                                 "target_is_achievement":  false
+                             },
+                             {
+                                 "domain":  "Agent Workforce \u0026 RACI",
+                                 "current_maturity":  2,
+                                 "target_maturity":  4,
+                                 "target_uplift":  2,
+                                 "priority_reason":  "R16 is expected to turn model-only roles into bounded role-run and handoff evidence.",
+                                 "target_is_achievement":  false
+                             }
+                         ],
+    "domain_scores":  [
+                          {
+                              "domain":  "Product Experience \u0026 Double-Diamond Workflow",
+                              "weight":  12,
+                              "current_maturity":  1,
+                              "current_score":  20,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "D",
+                              "evidence_posture":  "Narrative/docs only",
+                              "evidence_cap":  10,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/VISION.md",
+                                                    "governance/PRODUCT_OPERATING_MODEL.md"
+                                                ],
+                              "target_maturity":  2,
+                              "target_score":  40,
+                              "target_evidence_cap":  40,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "By R16 closeout this domain may improve only through clearer workflow artifacts; no productized UI target is claimed.",
+                              "next_correction":  "Keep product experience scores bounded until a real product surface or exercised workflow evidence exists.",
+                              "risks":  [
+                                            "Generated governance can be mistaken for product experience.",
+                                            "R13 operator surfaces remain partial."
+                                        ]
+                          },
+                          {
+                              "domain":  "Board \u0026 Work Orchestration",
+                              "weight":  12,
+                              "current_maturity":  2,
+                              "current_score":  40,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "C",
+                              "evidence_posture":  "Contract/model exists but no productized board runtime",
+                              "evidence_cap":  40,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/BOARD_AND_WORK_ITEM_MODEL.md",
+                                                    "execution/KANBAN.md",
+                                                    "state/cycles/r13_api_first_qa_pipeline_and_operator_control_room_product_slice/operator/r13_017_closeout_decision_packet.json"
+                                                ],
+                              "target_maturity":  3,
+                              "target_score":  60,
+                              "target_evidence_cap":  60,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets better handoff/card evidence by closeout without claiming external board sync or productized board runtime.",
+                              "next_correction":  "Wait for artifact maps, context plans, and handoff packets before raising achieved board maturity.",
+                              "risks":  [
+                                            "Markdown KANBAN is not a live board.",
+                                            "External board integrations remain non-claims."
+                                        ]
+                          },
+                          {
+                              "domain":  "Agent Workforce \u0026 RACI",
+                              "weight":  14,
+                              "current_maturity":  2,
+                              "current_score":  40,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "B",
+                              "evidence_posture":  "Committed R15 contracts and machine-readable model evidence only",
+                              "evidence_cap":  40,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "contracts/agents/agent_identity_packet.contract.json",
+                                                    "state/agents/r15_agent_identity_packet.json",
+                                                    "contracts/agents/raci_state_transition_matrix.contract.json",
+                                                    "state/agents/r15_raci_state_transition_matrix.json"
+                                                ],
+                              "target_maturity":  4,
+                              "target_score":  80,
+                              "target_evidence_cap":  80,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets bounded role-run envelopes and RACI handoff gates by closeout, but the target is not achieved by this scorecard.",
+                              "next_correction":  "Implement role-run envelope contract and generator in later R16 tasks before any achieved uplift is claimed.",
+                              "risks":  [
+                                            "Role labels can be mistaken for actual agents.",
+                                            "No true multi-agent execution exists."
+                                        ]
+                          },
+                          {
+                              "domain":  "Knowledge, Memory \u0026 Context Compression",
+                              "weight":  12,
+                              "current_maturity":  2,
+                              "current_score":  40,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "B",
+                              "evidence_posture":  "Committed R15 knowledge/memory model evidence only",
+                              "evidence_cap":  40,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "state/knowledge/r15_repo_knowledge_index.json",
+                                                    "state/agents/r15_agent_memory_scope.json",
+                                                    "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md",
+                                                    "state/governance/r16_planning_authority_reference.json"
+                                                ],
+                              "target_maturity":  4,
+                              "target_score":  80,
+                              "target_evidence_cap":  80,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets bounded memory packs, artifact maps, context-load plans, and restart drills by closeout, but none are achieved by R16-003.",
+                              "next_correction":  "Implement R16-004 through R16-017 before claiming operational memory or context-load maturity.",
+                              "risks":  [
+                                            "Planning docs can overstate memory runtime.",
+                                            "No runtime memory loading or retrieval exists."
+                                        ]
+                          },
+                          {
+                              "domain":  "Execution Harness \u0026 QA",
+                              "weight":  14,
+                              "current_maturity":  3,
+                              "current_score":  60,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "A",
+                              "evidence_posture":  "Implemented and exercised in prior bounded slices, but not a product runtime",
+                              "evidence_cap":  70,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "state/external_runs/r13_external_replay/r13_011/r13_011_external_replay_result.json",
+                                                    "state/signoff/r13_meaningful_qa_signoff/r13_012_signoff.json",
+                                                    "tests/test_status_doc_gate.ps1"
+                                                ],
+                              "target_maturity":  3.5,
+                              "target_score":  70,
+                              "target_evidence_cap":  80,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets local validation around scorecards, maps, envelopes, and drills while preserving no production QA claim.",
+                              "next_correction":  "Keep runtime Execution/QA scoring capped until R16 drills are run and evidenced.",
+                              "risks":  [
+                                            "External replay is bounded and manual-heavy.",
+                                            "Production QA and product runtime remain non-claims."
+                                        ]
+                          },
+                          {
+                              "domain":  "Governance, Evidence \u0026 Audit",
+                              "weight":  8,
+                              "current_maturity":  4,
+                              "current_score":  80,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "B",
+                              "evidence_posture":  "Status gates, authority references, and local validation are exercised",
+                              "evidence_cap":  80,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "contracts/governance/r16_kpi_baseline_target_scorecard.contract.json",
+                                                    "tools/R16KpiBaselineTargetScorecard.psm1",
+                                                    "tests/test_r16_kpi_baseline_target_scorecard.ps1",
+                                                    "state/governance/r16_kpi_baseline_target_scorecard.json"
+                                                ],
+                              "target_maturity":  4.5,
+                              "target_score":  90,
+                              "target_evidence_cap":  90,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets a stronger final audit map and closeout package, but this target does not close R16.",
+                              "next_correction":  "Use R16 scorecard validation as the floor for later audit-map and closeout evidence.",
+                              "risks":  [
+                                            "Governance can dominate the milestone without workflow improvement.",
+                                            "Local validation is not external audit by itself."
+                                        ]
+                          },
+                          {
+                              "domain":  "Architecture \u0026 Integrations",
+                              "weight":  8,
+                              "current_maturity":  1,
+                              "current_score":  20,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "D",
+                              "evidence_posture":  "Architecture direction only; no external integration implementation",
+                              "evidence_cap":  20,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/ARCHITECTURE_AND_INTEGRATION_DIRECTION.md",
+                                                    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+                                                ],
+                              "target_maturity":  2,
+                              "target_score":  40,
+                              "target_evidence_cap":  40,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 may clarify integration boundaries, but external integrations remain out of scope for achieved R16-003 scoring.",
+                              "next_correction":  "Do not raise architecture/integration maturity until adapter contracts or exercised integrations exist.",
+                              "risks":  [
+                                            "Vendor direction could be mistaken for implementation.",
+                                            "No GitHub Projects, Linear, Symphony, custom board, or external sync is implemented."
+                                        ]
+                          },
+                          {
+                              "domain":  "Release \u0026 Environment Strategy",
+                              "weight":  6,
+                              "current_maturity":  3,
+                              "current_score":  60,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "B",
+                              "evidence_posture":  "Branch/status/final-head support patterns exist, but R16 is still active",
+                              "evidence_cap":  70,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/RELEASE_AND_ENVIRONMENT_STRATEGY.md",
+                                                    "governance/BRANCHING_CONVENTION.md",
+                                                    "governance/ACTIVE_STATE.md"
+                                                ],
+                              "target_maturity":  3.5,
+                              "target_score":  70,
+                              "target_evidence_cap":  80,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets final proof/review and final-head support at closeout, not in R16-003.",
+                              "next_correction":  "Keep R16 open until R16-026 closeout evidence exists and remote head is verified.",
+                              "risks":  [
+                                            "Final-head support is not available until closeout.",
+                                            "Main merge remains a non-claim."
+                                        ]
+                          },
+                          {
+                              "domain":  "Security, Safety \u0026 Cost Controls",
+                              "weight":  8,
+                              "current_maturity":  1,
+                              "current_score":  20,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "D",
+                              "evidence_posture":  "Policy direction only for this R16 slice",
+                              "evidence_cap":  20,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/SECURITY_SAFETY_AND_COST_CONTROL_MODEL.md",
+                                                    "governance/CONTEXT_AND_COMPACTION_CONTROL_MODEL.md"
+                                                ],
+                              "target_maturity":  2.5,
+                              "target_score":  50,
+                              "target_evidence_cap":  60,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets context budget and over-budget fail-closed rules later, but no context budget estimator exists yet.",
+                              "next_correction":  "Do not credit safety/cost controls until R16-016 and R16-017 are implemented and validated.",
+                              "risks":  [
+                                            "Cost controls are currently design-level.",
+                                            "No runtime stop or budget dashboard is claimed."
+                                        ]
+                          },
+                          {
+                              "domain":  "Continuous Improvement \u0026 Auto-Research",
+                              "weight":  6,
+                              "current_maturity":  2,
+                              "current_score":  40,
+                              "current_score_basis":  "baseline/current achieved only; target maturity is excluded from current score",
+                              "evidence_confidence":  "B",
+                              "evidence_posture":  "Reporting and scoring loop exists with evidence-backed references",
+                              "evidence_cap":  40,
+                              "cap_applied":  true,
+                              "evidence_refs":  [
+                                                    "governance/KPI_DOMAIN_MODEL.md",
+                                                    "governance/MILESTONE_REPORTING_STANDARD.md",
+                                                    "state/vision_control/r13_015_vision_control_scorecard.json"
+                                                ],
+                              "target_maturity":  3,
+                              "target_score":  60,
+                              "target_evidence_cap":  60,
+                              "target_is_achievement":  false,
+                              "target_treated_as_evidence":  false,
+                              "target_rationale":  "R16 targets friction metrics and improved auditability by closeout, not autonomous research execution.",
+                              "next_correction":  "Carry this baseline forward so later reports must calculate evidence-backed movement.",
+                              "risks":  [
+                                            "Narrative progress can drift without calculable evidence.",
+                                            "Auto-research remains governed proposal territory only."
+                                        ]
+                          }
+                      ],
+    "weighted_aggregate":  {
+                               "mode":  "current_achieved_baseline_only",
+                               "score":  41.6,
+                               "maturity_equivalent":  2.08,
+                               "targets_included":  false,
+                               "achieved_scope":  "Current achieved evidence through R16-003 only."
+                           },
+    "target_aggregate":  {
+                             "mode":  "target_by_r16_closeout_not_achieved",
+                             "score":  64.8,
+                             "maturity_equivalent":  3.24,
+                             "achieved":  false,
+                             "requires_future_evidence":  true,
+                             "target_scope":  "Target maturity if future R16 tasks produce evidence by closeout."
+                         },
+    "evidence_caps":  {
+                          "cap_rule_ref":  "governance/KPI_DOMAIN_MODEL.md#5-score-cap-rules",
+                          "current_scores_must_not_exceed_caps":  true,
+                          "targets_do_not_override_current_caps":  true,
+                          "score_caps_applied":  true,
+                          "cap_exception_claimed":  false
+                      },
+    "confidence_model":  {
+                             "allowed_values":  [
+                                                    "A",
+                                                    "B",
+                                                    "C",
+                                                    "D",
+                                                    "E"
+                                                ],
+                             "ref":  "governance/KPI_DOMAIN_MODEL.md#4-evidence-confidence",
+                             "confidence_independent_from_maturity":  true
+                         },
+    "maturity_scale":  [
+                           {
+                               "value":  0,
+                               "label":  "Absent"
+                           },
+                           {
+                               "value":  1,
+                               "label":  "Described"
+                           },
+                           {
+                               "value":  2,
+                               "label":  "Designed"
+                           },
+                           {
+                               "value":  3,
+                               "label":  "Implemented"
+                           },
+                           {
+                               "value":  4,
+                               "label":  "Exercised"
+                           },
+                           {
+                               "value":  5,
+                               "label":  "Operationalized"
+                           }
+                       ],
+    "previous_reference_runs":  [
+                                    {
+                                        "run_id":  "R13-015",
+                                        "evidence_ref":  "state/vision_control/r13_015_vision_control_scorecard.json",
+                                        "evidence_backed":  true,
+                                        "metric":  "legacy_vision_control_aggregate",
+                                        "value":  51.9,
+                                        "comparability":  "reference only; not the approved 10-domain KPI model"
+                                    }
+                                ],
+    "target_not_achievement_disclaimer":  {
+                                              "target_scores_are_achieved_scores":  false,
+                                              "target_scores_are_current_evidence":  false,
+                                              "target_scores_close_r16":  false,
+                                              "target_scores_require_future_evidence":  true,
+                                              "statement":  "Targets express R16 closeout ambition only and cannot be counted as achieved implementation evidence."
+                                          },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates":  [
+                                                                   "API/custom-runner bypass",
+                                                                   "current operator control room",
+                                                                   "skill invocation evidence",
+                                                                   "operator demo"
+                                                               ]
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false,
+                                             "product_runtime":  false,
+                                             "r13_partial_gates_converted_to_passed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                             "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                             "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true,
+                                             "stale_generated_from_caveat_files":  [
+                                                                                       "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                                                                       "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json"
+                                                                                   ]
+                                         }
+                             },
+    "non_claims":  [
+                       "no product runtime",
+                       "no productized UI",
+                       "no actual autonomous agents",
+                       "no true multi-agent execution",
+                       "no persistent memory runtime",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no external integrations",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board integration",
+                       "no external board sync",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no main merge",
+                       "no R13 closure",
+                       "no R14 caveat removal",
+                       "no R15 caveat removal",
+                       "no R13 partial-gate conversion",
+                       "no R16-004 implementation",
+                       "no R16-027 or later task",
+                       "no memory layers implemented yet",
+                       "no artifact maps implemented yet",
+                       "no audit maps implemented yet",
+                       "no context-load planners implemented yet",
+                       "no role-run envelopes implemented yet",
+                       "no handoff packets implemented yet",
+                       "KPI targets are not achieved scores"
+                   ],
+    "validation_commands":  [
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_kpi_baseline_target_scorecard.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\\governance\\r16_kpi_baseline_target_scorecard.json",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_planning_authority_reference.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_planning_authority_reference.ps1 -PacketPath state\\governance\\r16_planning_authority_reference.json",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "git diff --check",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "git status --short",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "git rev-parse HEAD",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "git rev-parse \"HEAD^{tree}\"",
+                                    "expected_result":  "passed"
+                                },
+                                {
+                                    "command":  "git branch --show-current",
+                                    "expected_result":  "passed"
+                                }
+                            ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_or_extra_kpi_domain_rejected",
+                                    "description":  "The scorecard must contain exactly the approved 10 KPI domains."
+                                },
+                                {
+                                    "rule_id":  "wrong_weight_sum_rejected",
+                                    "description":  "Domain weights must match the KPI model and sum to 100."
+                                },
+                                {
+                                    "rule_id":  "invalid_maturity_or_confidence_rejected",
+                                    "description":  "Maturity outside 0..5 and confidence outside A..E fail validation."
+                                },
+                                {
+                                    "rule_id":  "score_above_cap_rejected",
+                                    "description":  "Current achieved scores cannot exceed evidence caps."
+                                },
+                                {
+                                    "rule_id":  "target_as_achievement_rejected",
+                                    "description":  "Targets cannot be counted as achieved implementation evidence."
+                                },
+                                {
+                                    "rule_id":  "priority_uplift_missing_rejected",
+                                    "description":  "The two R16 priority domains must show significant target uplifts."
+                                },
+                                {
+                                    "rule_id":  "r16_004_or_later_implementation_claim_rejected",
+                                    "description":  "R16-003 cannot claim R16-004 or later implementation."
+                                },
+                                {
+                                    "rule_id":  "runtime_agent_memory_retrieval_integration_overclaims_rejected",
+                                    "description":  "Runtime, agent, memory, retrieval/vector, and integration overclaims fail validation."
+                                },
+                                {
+                                    "rule_id":  "preserved_boundary_changes_rejected",
+                                    "description":  "R13/R14/R15 boundary changes fail validation."
+                                },
+                                {
+                                    "rule_id":  "r16_027_or_later_task_rejected",
+                                    "description":  "R16-027 or later task identifiers fail validation."
+                                }
+                            ]
+}

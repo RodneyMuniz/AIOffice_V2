@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-002` only
+**Milestone status:** Active in repo truth through `R16-003` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -28,6 +28,8 @@ The operator-approved R16 planning artifacts are:
 These reports are operator planning artifacts. They guide R16, but they are not implementation proof by themselves.
 
 R16-002 installs machine-readable planning authority references for these reports through `state/governance/r16_planning_authority_reference.json`. That packet binds the reports as operator-approved planning artifacts only, validates their content identity, preserves R13/R14/R15 boundaries, and does not implement R16-003 or later work.
+
+R16-003 adds a KPI baseline and target scorecard through `state/governance/r16_kpi_baseline_target_scorecard.json`. That scorecard records current achieved maturity and R16 closeout target maturity separately; KPI targets are targets, not achieved implementation evidence.
 
 ## Purpose
 
@@ -235,8 +237,18 @@ Required evidence deliverables:
 - Done when: both approved v2 reports are present, hash-identified, classified as operator-approved planning artifacts only, validated as not implementation proof, and guarded against R16-003-or-later, runtime, integration, memory-runtime, retrieval/vector, agent, main-merge, and boundary-overclaim states.
 
 ### `R16-003` Add R16 KPI baseline and target scorecard
-- Status: planned
+- Status: done
 - Purpose: record baseline and target maturity with evidence caps for Knowledge, Memory and Context Compression plus Agent Workforce and RACI.
+- Durable output:
+  - `contracts/governance/r16_kpi_baseline_target_scorecard.contract.json`
+  - `tools/R16KpiBaselineTargetScorecard.psm1`
+  - `tools/validate_r16_kpi_baseline_target_scorecard.ps1`
+  - `tests/test_r16_kpi_baseline_target_scorecard.ps1`
+  - `state/fixtures/valid/governance/r16_kpi_baseline_target_scorecard.valid.json`
+  - `state/fixtures/invalid/governance/r16_kpi_baseline_target_scorecard/`
+  - `state/governance/r16_kpi_baseline_target_scorecard.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_003_kpi_baseline_target_scorecard/`
+- Done when: the approved 10-domain KPI model is validated with current achieved and target scores separated, evidence caps enforced, priority target uplifts explicit, and future R16 implementation overclaims rejected.
 
 ### `R16-004` Define memory layer contract
 - Status: planned
@@ -332,8 +344,10 @@ Required evidence deliverables:
 
 ## Validation Requirements
 
-R16-002 validation must run and record:
+R16-003 validation must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_kpi_baseline_target_scorecard.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\governance\r16_kpi_baseline_target_scorecard.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_planning_authority_reference.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_planning_authority_reference.ps1 -PacketPath state\governance\r16_planning_authority_reference.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1`
@@ -351,12 +365,12 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-002` only.
-- `R16-003` through `R16-026` planned only.
+- R16 active through `R16-003` only.
+- `R16-004` through `R16-026` planned only.
 
 Status gates must reject:
 
-- reject `R16-003` implementation claims.
+- reject `R16-004` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -372,6 +386,7 @@ Status gates must reject:
 - reject removal of R14 caveats.
 - reject removal of R15 caveats.
 - reject conversion of R13 partial gates into passed gates.
+- reject target KPI scores treated as achieved implementation.
 
 ## Compaction and Restart Recovery Strategy
 
@@ -413,3 +428,18 @@ R16-002 is accepted only if:
 - focused R16-002 validation and status gates pass.
 
 After R16-002, R16 is active through `R16-002` only. `R16-003` through `R16-026` remain planned only. No memory layers are implemented yet. No artifact maps are implemented yet. No role-run envelopes are implemented yet.
+
+R16-003 is accepted only if:
+
+- the KPI baseline and target scorecard contract exists;
+- the scorecard exists at `state/governance/r16_kpi_baseline_target_scorecard.json`;
+- the scorecard uses the approved 10-domain KPI model and weights;
+- current achieved scores and target scores are separate;
+- targets are not treated as achieved implementation evidence;
+- evidence caps and confidence scoring are enforced;
+- Knowledge, Memory & Context Compression and Agent Workforce & RACI have explicit significant target maturity uplifts;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- no memory layer, artifact map, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-004, or R16-027-or-later claim is made;
+- focused R16-003 validation and status gates pass.
+
+After R16-003, R16 is active through `R16-003` only. `R16-004` through `R16-026` remain planned only. KPI targets are target maturity values only and are not achieved implementation evidence. No memory layers are implemented yet. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet.
