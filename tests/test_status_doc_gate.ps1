@@ -24,7 +24,8 @@ function New-StatusDocHarness {
         "governance\R12_EXTERNAL_API_RUNNER_ACTIONABLE_QA_AND_CONTROL_ROOM_WORKFLOW_PILOT.md",
         "governance\R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md",
         "governance\R14_PRODUCT_VISION_PIVOT_AND_GOVERNANCE_ENFORCEMENT.md",
-        "governance\R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md"
+        "governance\R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md",
+        "governance\R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
     )
 
     foreach ($relativePath in $paths) {
@@ -50,6 +51,7 @@ function New-StatusDocHarness {
         R13AuthorityPath = Join-Path $Root "governance\R13_API_FIRST_QA_PIPELINE_AND_OPERATOR_CONTROL_ROOM_PRODUCT_SLICE.md"
         R14AuthorityPath = Join-Path $Root "governance\R14_PRODUCT_VISION_PIVOT_AND_GOVERNANCE_ENFORCEMENT.md"
         R15AuthorityPath = Join-Path $Root "governance\R15_KNOWLEDGE_BASE_AGENT_IDENTITY_MEMORY_AND_RACI_FOUNDATIONS.md"
+        R16AuthorityPath = Join-Path $Root "governance\R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
     }
 }
 
@@ -126,11 +128,11 @@ $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("r8statusgate" + [guid]
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Closed -or -not $liveValidation.R12Closed -or $liveValidation.R12Opened -or -not $liveValidation.R13Opened -or -not $liveValidation.R14Opened -or -not $liveValidation.R15Opened -or $liveValidation.ActiveMilestone -ne "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations" -or $liveValidation.MostRecentlyClosedMilestone -ne "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 9 -or $liveValidation.R11PlannedStart -ne $null -or $liveValidation.R11PlannedThrough -ne $null -or $liveValidation.R12DoneThrough -ne 21 -or $liveValidation.R12PlannedStart -ne $null -or $liveValidation.R12PlannedThrough -ne $null -or $liveValidation.R13DoneThrough -ne 18 -or $liveValidation.R13PlannedStart -ne $null -or $liveValidation.R13PlannedThrough -ne $null -or $liveValidation.R14DoneThrough -ne 6 -or $liveValidation.R14PlannedStart -ne $null -or $liveValidation.R14PlannedThrough -ne $null -or $liveValidation.R15DoneThrough -ne 9 -or $liveValidation.R15PlannedStart -ne $null -or $liveValidation.R15PlannedThrough -ne $null) {
-        $failures += "FAIL valid: live repo truth did not validate as R8/R9/R10/R11 closed, R12 closed narrowly through R12-021, R13 failed/partial through R13-018 only, R14 accepted/narrowly complete through R14-006, and R15 active through R15-009 with no planned successor task."
+    if ($liveValidation.DoneThrough -ne 9 -or $liveValidation.PlannedStart -ne $null -or $liveValidation.PlannedThrough -ne $null -or -not $liveValidation.R8Closed -or -not $liveValidation.R9Closed -or -not $liveValidation.R10Closed -or -not $liveValidation.R11Closed -or -not $liveValidation.R12Closed -or $liveValidation.R12Opened -or -not $liveValidation.R13Opened -or -not $liveValidation.R14Opened -or -not $liveValidation.R15Opened -or -not $liveValidation.R16Opened -or $liveValidation.ActiveMilestone -ne "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation" -or $liveValidation.MostRecentlyClosedMilestone -ne "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" -or $liveValidation.R9DoneThrough -ne 7 -or $liveValidation.R9PlannedStart -ne $null -or $liveValidation.R9PlannedThrough -ne $null -or $liveValidation.R10DoneThrough -ne 8 -or $liveValidation.R10PlannedStart -ne $null -or $liveValidation.R10PlannedThrough -ne $null -or $liveValidation.R11DoneThrough -ne 9 -or $liveValidation.R11PlannedStart -ne $null -or $liveValidation.R11PlannedThrough -ne $null -or $liveValidation.R12DoneThrough -ne 21 -or $liveValidation.R12PlannedStart -ne $null -or $liveValidation.R12PlannedThrough -ne $null -or $liveValidation.R13DoneThrough -ne 18 -or $liveValidation.R13PlannedStart -ne $null -or $liveValidation.R13PlannedThrough -ne $null -or $liveValidation.R14DoneThrough -ne 6 -or $liveValidation.R14PlannedStart -ne $null -or $liveValidation.R14PlannedThrough -ne $null -or $liveValidation.R15DoneThrough -ne 9 -or $liveValidation.R15PlannedStart -ne $null -or $liveValidation.R15PlannedThrough -ne $null -or $liveValidation.R16DoneThrough -ne 1 -or $liveValidation.R16PlannedStart -ne 2 -or $liveValidation.R16PlannedThrough -ne 26) {
+        $failures += "FAIL valid: live repo truth did not validate as R8/R9/R10/R11 closed, R12 closed narrowly through R12-021, R13 failed/partial through R13-018 only, R14 accepted with caveats through R14-006, R15 accepted with caveats through R15-009, and R16 active through R16-001 with R16-002 through R16-026 planned only."
     }
     else {
-        Write-Output ("PASS valid current R15 posture: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, R11 through R11-{3} closed, R12 through R12-{4} closed, R13 failed/partial through R13-{5}, R14 accepted through R14-{6}, and R15 active through R15-{7} with no planned successor task, accepted with caveats by external audit at audited head/tree as a bounded foundation milestone only" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R12DoneThrough.ToString("000"), $liveValidation.R13DoneThrough.ToString("000"), $liveValidation.R14DoneThrough.ToString("000"), $liveValidation.R15DoneThrough.ToString("000"))
+        Write-Output ("PASS valid current R16 posture: R8 through R8-{0} complete, '{1}' most recently closed, R10 through R10-{2} closed, R11 through R11-{3} closed, R12 through R12-{4} closed, R13 failed/partial through R13-{5}, R14 accepted with caveats through R14-{6}, R15 accepted with caveats through R15-{7}, and R16 active through R16-{8} with R16-002 through R16-026 planned only" -f $liveValidation.DoneThrough.ToString("000"), $liveValidation.MostRecentlyClosedMilestone, $liveValidation.R10DoneThrough.ToString("000"), $liveValidation.R11DoneThrough.ToString("000"), $liveValidation.R12DoneThrough.ToString("000"), $liveValidation.R13DoneThrough.ToString("000"), $liveValidation.R14DoneThrough.ToString("000"), $liveValidation.R15DoneThrough.ToString("000"), $liveValidation.R16DoneThrough.ToString("000"))
         $validPassed += 1
     }
 
@@ -184,9 +186,9 @@ try {
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
-    Invoke-ExpectedRefusal -Label "r16-opened-after-r15-opening" -RequiredFragments @("R16 or successor opening") -Action {
-        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-opened")
-        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R16 Successor Product Runtime Milestone` is now active in repo truth.') -Encoding UTF8
+    Invoke-ExpectedRefusal -Label "r17-opened-after-r16-opening" -RequiredFragments @("R16 closure") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r17-opened")
+        Add-Content -LiteralPath $scenario.ActiveStatePath -Value ($crlf + '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is now closed in repo truth and `R17 Product Runtime Milestone` is now active.') -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 
@@ -235,6 +237,54 @@ try {
     Invoke-ExpectedRefusal -Label "r15-main-merge-overclaim" -RequiredFragments @("R15 main merge") -Action {
         $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r15-main-merge")
         Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R15 merged to main after the proof package.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-027-task-overclaim" -RequiredFragments @("unexpected R16 task") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-027-task")
+        Add-Content -LiteralPath $scenario.KanbanPath -Value ($crlf + "### `R16-027` Implement successor runtime" + $crlf + "- Status: planned") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-closed-overclaim" -RequiredFragments @("R16 closure") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-closed")
+        Add-Content -LiteralPath $scenario.ReadmePath -Value ($crlf + "R16 is now closed in repo truth.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-product-runtime-overclaim" -RequiredFragments @("product runtime") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-product-runtime")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R16 ships product runtime and productized UI.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-agent-memory-retrieval-overclaim" -RequiredFragments @("true agent or multi-agent runtime") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-agent-memory-retrieval")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R16 implements actual autonomous agents, true multi-agent runtime, persistent memory engine, retrieval runtime, and vector search runtime.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-integration-overclaim" -RequiredFragments @("external integration") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-integration")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R16 implements GitHub Projects integration, Linear integration, Symphony integration, custom board integration, and external board sync.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-solved-codex-overclaim" -RequiredFragments @("solved Codex compaction or reliability") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-solved-codex")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R16 proves solved Codex compaction and solved Codex reliability.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-main-merge-overclaim" -RequiredFragments @("main merge") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-main-merge")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R16 merged to main after opening.") -Encoding UTF8
+        & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
+    }
+
+    Invoke-ExpectedRefusal -Label "r16-r14-caveats-removed" -RequiredFragments @("R14 caveat removal") -Action {
+        $scenario = New-StatusDocHarness -Root (Join-Path $tempRoot "invalid-r16-r14-caveats-removed")
+        Add-Content -LiteralPath $scenario.R16AuthorityPath -Value ($crlf + "R14 is now accepted without caveats.") -Encoding UTF8
         & $testStatusDocGate -RepositoryRoot $scenario.Root | Out-Null
     }
 

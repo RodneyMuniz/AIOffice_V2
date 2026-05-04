@@ -3,7 +3,7 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`
+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
 
 Current posture:
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
@@ -16,7 +16,9 @@ Current posture:
 
 `R14 Product Vision Pivot and Governance Enforcement` is accepted with caveats as a narrow documentation/governance/reporting-enforcement milestone through `R14-006`. R14 did not close R13, did not implement product runtime, did not integrate Symphony, Linear, GitHub Projects, or a custom board runtime, and did not implement R15 capability.
 
-`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is now active on branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations` through `R15-009` only. R15 is accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. R16 is not opened, no main merge is claimed, and no product runtime is claimed.
+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is accepted with caveats by external audit as a bounded foundation milestone only through `R15-009`, at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. The post-audit support commit is `3058bd6ed5067c97f744c92b9b9235004f0568b0` and does not change R15 scope. The R15-009 stale `generated_from_head` and `generated_from_tree` caveat remains preserved for `r15_final_proof_review_package.json` and `evidence_index.json`.
+
+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-001` only. `R16-002` through `R16-026` remain planned only. R16 opens from starting head `3058bd6ed5067c97f744c92b9b9235004f0568b0` and starting tree `045886694b19b90f70f08bcffc0e1b321b5c28a0`. No main merge, product runtime, productized UI, actual autonomous agents, true multi-agent execution, persistent memory runtime, retrieval/vector runtime, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
@@ -24,9 +26,12 @@ R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first
 
 The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R15 status: R15 active through R15-009 only and accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted narrowly through R14-006 only.
+Current R16 status: R16 active through R16-001 only. R16-002 through R16-026 remain planned only. R15 remains accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted with caveats through R14-006 only.
 
 Active branch:
+`release/r16-operational-memory-artifact-map-role-workflow-foundation`
+
+R15 accepted source branch:
 `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 
 R14 accepted source branch:
@@ -66,6 +71,240 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R16-001` Open R16 in repo truth
+- Status: done
+- Order: 1
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: source branch `release/r15-knowledge-base-agent-identity-memory-raci-foundations`, expected head `3058bd6ed5067c97f744c92b9b9235004f0568b0`, expected tree `045886694b19b90f70f08bcffc0e1b321b5c28a0`, and clean worktree
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`, `README.md`, `governance/ACTIVE_STATE.md`, `execution/KANBAN.md`, `governance/DECISION_LOG.md`, `governance/DOCUMENT_AUTHORITY_INDEX.md`
+- Durable output: R16 release branch, R16 authority document, 26-task plan, status-surface updates, approved planning artifacts, and opening evidence package under `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/`
+- Done when: R16 opens through R16-001 only, R16-002 through R16-026 remain planned only, R13 failed/partial and R14/R15 caveated postures are preserved, and no runtime/product/integration/main-merge/R13-closeout claim is made
+
+### `R16-002` Install approved R16 planning artifacts and authority references
+- Status: planned
+- Order: 2
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-001`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: approved v2 planning reports preserved and linked into authority/status surfaces as planning artifacts only
+- Done when: planning artifacts are installed or confirmed present without treating either report as implementation proof by itself
+
+### `R16-003` Add R16 KPI baseline and target scorecard
+- Status: planned
+- Order: 3
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-002`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: R16 KPI baseline and target scorecard with evidence caps
+- Done when: target maturity is recorded without inflating achieved scores
+
+### `R16-004` Define memory layer contract
+- Status: planned
+- Order: 4
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-003`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: memory layer contract and validation expectations
+- Done when: memory layer shape, allowed refs, authority levels, freshness rules, and non-claims are machine-checkable
+
+### `R16-005` Implement deterministic memory layer generator
+- Status: planned
+- Order: 5
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-004`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: generator tooling, fixtures, tests, and generated baseline memory layers
+- Done when: deterministic memory layers can be generated from bounded repo refs without runtime memory overclaims
+
+### `R16-006` Add role-specific memory pack model
+- Status: planned
+- Order: 6
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-005`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: role-specific memory pack model
+- Done when: PM, Architect, Developer, QA, Auditor, Knowledge Curator, and Release/Closeout memory pack requirements are defined
+
+### `R16-007` Generate baseline memory packs for key roles
+- Status: planned
+- Order: 7
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-006`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: generated baseline memory packs
+- Done when: key roles have bounded memory packs with exact refs and load boundaries
+
+### `R16-008` Add memory pack validation and stale-ref detection
+- Status: planned
+- Order: 8
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-007`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: memory pack validator, stale-ref fixtures, tests, and validation manifest
+- Done when: stale, missing, broad, and authority-mismatched refs fail closed
+
+### `R16-009` Define artifact map contract
+- Status: planned
+- Order: 9
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-008`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: artifact map contract
+- Done when: milestone-scoped evidence and authority paths have a machine-checkable map shape
+
+### `R16-010` Implement artifact map generator for milestone scope
+- Status: planned
+- Order: 10
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-009`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: artifact map generator, focused tests, and generated milestone map
+- Done when: bounded artifact maps are generated without full-repo proof claims
+
+### `R16-011` Add audit map contract
+- Status: planned
+- Order: 11
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-010`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: audit map contract
+- Done when: authority level, evidence path, proof status, caveat, and inspection route fields are machine-checkable
+
+### `R16-012` Generate R15/R16 audit map showing exact evidence paths and authority levels
+- Status: planned
+- Order: 12
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-011`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: generated R15/R16 audit map
+- Done when: R15/R16 authority and evidence paths can be inspected from exact refs without broad repo scanning
+
+### `R16-013` Add artifact-map diff/check tooling to prevent stale or missing evidence refs
+- Status: planned
+- Order: 13
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-012`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: diff/check tooling, invalid fixtures, tests, and validation manifest
+- Done when: stale or missing artifact-map refs fail closed
+
+### `R16-014` Define context-load plan contract
+- Status: planned
+- Order: 14
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-013`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: context-load plan contract
+- Done when: scoped context loading, exact paths, budgets, exclusions, and no-full-repo-scan rules are defined
+
+### `R16-015` Implement exact context-load planner from memory packs and artifact maps
+- Status: planned
+- Order: 15
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-014`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: context-load planner, focused tests, and generated plans
+- Done when: planner output ties role memory packs to artifact maps with exact scoped loads
+
+### `R16-016` Add context budget estimator with token/cost approximation fields
+- Status: planned
+- Order: 16
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-015`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: budget estimator fields and validation evidence
+- Done when: plans include bounded token/cost approximation fields without claiming exact provider billing
+
+### `R16-017` Add over-budget fail-closed validation and no-full-repo-scan rules
+- Status: planned
+- Order: 17
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-016`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: over-budget and broad-scan refusal validation
+- Done when: over-budget plans and full-repo scan requests fail closed
+
+### `R16-018` Define role-run envelope contract
+- Status: planned
+- Order: 18
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-017`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: role-run envelope contract
+- Done when: role identity, allowed actions, evidence needs, handoff exits, and forbidden actions are machine-checkable
+
+### `R16-019` Implement role-run envelope generator for PM, Architect, Developer, QA, Auditor, Knowledge Curator, and Release/Closeout
+- Status: planned
+- Order: 19
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-018`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: role-run envelope generator and generated envelopes for named roles
+- Done when: bounded role-run envelopes are generated without claiming runtime agents
+
+### `R16-020` Add RACI transition gate validator using role-run envelope, card state, required evidence, and allowed actions
+- Status: planned
+- Order: 20
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-019`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: RACI transition gate validator, fixtures, tests, and validation manifest
+- Done when: invalid role, state, evidence, or allowed-action transitions fail closed
+
+### `R16-021` Add handoff packet generator tying card state, role, memory pack, context-load plan, and evidence refs together
+- Status: planned
+- Order: 21
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-020`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: handoff packet generator and generated packet examples
+- Done when: handoff packets tie card state, role, memory pack, context-load plan, and evidence refs together with exact paths
+
+### `R16-022` Run bounded Codex restart/compaction recovery drill using memory pack plus artifact map
+- Status: planned
+- Order: 22
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-021`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: restart/compaction recovery drill evidence
+- Done when: bounded re-entry from generated artifacts is demonstrated without claiming solved Codex compaction
+
+### `R16-023` Run bounded role-handoff drill from PM to Developer to QA to Auditor using generated handoff packets
+- Status: planned
+- Order: 23
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-022`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: role-handoff drill evidence
+- Done when: PM to Developer to QA to Auditor handoff packets are generated and inspected in a bounded drill
+
+### `R16-024` Run bounded audit-readiness drill proving evidence can be inspected through audit map without broad repo scanning
+- Status: planned
+- Order: 24
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-023`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: audit-readiness drill evidence
+- Done when: evidence inspection works through audit-map refs without broad repo scanning
+
+### `R16-025` Capture friction metrics: loaded files, exact refs, manual steps, context budget, restart recovery steps, stale-ref findings
+- Status: planned
+- Order: 25
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-024`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: friction metrics report and machine-readable metric packet
+- Done when: loaded files, exact refs, manual steps, context budget, restart recovery steps, and stale-ref findings are recorded
+
+### `R16-026` Produce R16 final proof/review package and final-head support packet
+- Status: planned
+- Order: 26
+- Milestone: `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+- Depends on: `R16-025`
+- Authority: `governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md`
+- Durable output: final proof/review package, audit map, non-claims, rejected claims, validation manifest, and final-head support packet
+- Done when: R16 evidence is consolidated, final validation passes, remote-head support is recorded, non-claims are preserved, and no runtime/product/integration/main-merge overclaims are made
 
 ### `R15-001` Open R15 in repo truth
 - Status: done
