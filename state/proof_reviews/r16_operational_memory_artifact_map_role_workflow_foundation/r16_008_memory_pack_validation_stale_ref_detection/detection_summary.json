@@ -1,0 +1,93 @@
+{
+  "artifact_type": "r16_008_memory_pack_validation_detection_summary",
+  "source_task": "R16-008",
+  "validation_report": "state/memory/r16_memory_pack_validation_report.json",
+  "valid_fixture": "state/fixtures/valid/memory/r16_memory_pack_validation_report.valid.json",
+  "invalid_fixture_root": "state/fixtures/invalid/memory/r16_memory_pack_validation_report/",
+  "detector_module": "tools/R16MemoryPackValidation.psm1",
+  "detector_cli": "tools/test_r16_memory_pack_refs.ps1",
+  "validator_cli": "tools/validate_r16_memory_pack_validation_report.ps1",
+  "focused_test": "tests/test_r16_memory_pack_validation.ps1",
+  "input_artifacts": [
+    "state/memory/r16_memory_layers.json",
+    "state/memory/r16_role_memory_pack_model.json",
+    "state/memory/r16_role_memory_packs.json"
+  ],
+  "aggregate_verdict": "passed_with_caveats",
+  "finding_summary": {
+    "total_findings": 10,
+    "pass_count": 7,
+    "info_count": 0,
+    "warning_count": 3,
+    "fail_count": 0,
+    "stale_ref_findings": 3,
+    "accepted_stale_ref_findings": 3,
+    "missing_ref_findings": 0,
+    "proof_treatment_findings": 2,
+    "role_policy_findings": 2,
+    "overclaim_findings": 1
+  },
+  "accepted_stale_caveats": [
+    {
+      "caveat_id": "accepted-stale-r16-memory-layers",
+      "artifact_path": "state/memory/r16_memory_layers.json",
+      "declared_generated_from_head": "bf80ee749abeb7e74168cee20159543dc6354540",
+      "declared_generated_from_tree": "0d91d71f62a0cedf2b892218878f758845c88fe4",
+      "observed_head": "5ee0efb261854f0e422bda41c3769bc9d010b2e9",
+      "observed_tree": "30c3cbff993b862eaf7159f2d860861f184cb279",
+      "accepted_reason": "Prior-task committed state artifact generated_from boundary is stale relative to the R16-008 detector invocation boundary and is preserved as an explicit caveat."
+    },
+    {
+      "caveat_id": "accepted-stale-r16-role-memory-pack-model",
+      "artifact_path": "state/memory/r16_role_memory_pack_model.json",
+      "declared_generated_from_head": "839e99a28fe39d5c7ba4fb38609976a3cbd85079",
+      "declared_generated_from_tree": "83f75217708b53625dc789142778fc5d09d29b3b",
+      "observed_head": "5ee0efb261854f0e422bda41c3769bc9d010b2e9",
+      "observed_tree": "30c3cbff993b862eaf7159f2d860861f184cb279",
+      "accepted_reason": "Prior-task committed state artifact generated_from boundary is stale relative to the R16-008 detector invocation boundary and is preserved as an explicit caveat."
+    },
+    {
+      "caveat_id": "accepted-stale-r16-role-memory-packs",
+      "artifact_path": "state/memory/r16_role_memory_packs.json",
+      "declared_generated_from_head": "dc4f06309bd5f1b8c071cc6b05582189747ec297",
+      "declared_generated_from_tree": "3bfb9906e3fb34530073a61666891d62359b68ab",
+      "observed_head": "5ee0efb261854f0e422bda41c3769bc9d010b2e9",
+      "observed_tree": "30c3cbff993b862eaf7159f2d860861f184cb279",
+      "accepted_reason": "Prior-task committed state artifact generated_from boundary is stale relative to the R16-008 detector invocation boundary and is preserved as an explicit caveat."
+    }
+  ],
+  "missing_ref_summary": {
+    "missing_ref_findings": 0,
+    "required_exact_refs_missing": 0,
+    "broad_repo_root_refs_allowed": false,
+    "wildcard_refs_allowed": false
+  },
+  "role_policy_summary": {
+    "role_pack_count": 8,
+    "memory_layer_type_count": 10,
+    "missing_required_layers": 0,
+    "forbidden_layers_included": 0,
+    "unknown_roles": 0,
+    "unknown_layer_types": 0
+  },
+  "determinism_proof_summary": {
+    "method": "Focused test runs the detector twice and compares normalized JSON.",
+    "expected_result": "Repeated generation from the same bounded exact refs produces identical normalized output.",
+    "findings_sorted_by_deterministic_order": true,
+    "exact_refs_sorted_by_path_then_ref_id": true,
+    "full_repo_scan_allowed": false,
+    "wildcard_source_refs_allowed": false
+  },
+  "posture": {
+    "active_through_task": "R16-008",
+    "planned_range": "R16-009..R16-026",
+    "validation_report_is_state_artifact_only": true,
+    "validation_report_is_runtime_memory": false,
+    "artifact_maps_implemented": false,
+    "audit_maps_implemented": false,
+    "context_load_planner_implemented": false,
+    "role_run_envelopes_implemented": false,
+    "handoff_packets_implemented": false,
+    "workflow_drills_run": false
+  }
+}

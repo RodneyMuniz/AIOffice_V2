@@ -506,20 +506,21 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 7 -or $snapshot.PlannedStart -ne 8 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-007 only with R16-008 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 8 -or $snapshot.PlannedStart -ne 9 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-008 only with R16-009 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-007 only",
-            "R16-008 through R16-026 remain planned only",
+            "R16 active through R16-008 only",
+            "R16-009 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
             "R16-005 implemented deterministic baseline memory layer generation only",
             "R16-006 added the role-specific memory pack model only",
             "R16-007 generated baseline role memory packs only",
+            "R16-008 added memory pack validation and stale-ref detection only",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
@@ -559,7 +560,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-008 or later implementation" -Pattern '(?i)\bR16-(00[8-9]|0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-009 or later implementation" -Pattern '(?i)\bR16-(00[9]|0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated role memory packs treated as runtime memory, agents, or workflow execution" -Pattern '(?i)\b(generated role memory pack|generated role memory packs|generated baseline role memory pack|generated baseline role memory packs|baseline role memory pack|baseline role memory packs|role-specific memory pack|role-specific memory packs)\b(?!\s+model\b).{0,180}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|actual agents|actual autonomous agents|agent runtime|perform work|workflow execution|perform workflow execution|external integration|external integrations)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map implementation" -Pattern '(?i)\b(artifact map|artifact maps|audit map|audit maps)\b.{0,160}\b(implemented|implementation complete|created|exists|ships)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(artifact map|artifact maps|audit map|audit maps)\b|\b(artifact map runtime|artifact maps runtime|audit map runtime|audit maps runtime)\b'
