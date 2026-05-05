@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-010` only
+**Milestone status:** Active in repo truth through `R16-011` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -44,6 +44,8 @@ R16-008 added memory pack validation and stale-ref detection only through `contr
 R16-009 defined the artifact map contract only through `contracts/artifacts/r16_artifact_map.contract.json`, `tools/R16ArtifactMapContract.psm1`, `tools/validate_r16_artifact_map_contract.ps1`, `tests/test_r16_artifact_map_contract.ps1`, fixtures under `tests/fixtures/r16_artifact_map_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/`. The artifact map contract is model/contract proof only; it is not a generated artifact map, not an artifact map generator, not runtime memory, not retrieval/vector runtime, not an audit map, not a context-load planner, and not workflow execution.
 
 R16-010 implemented the bounded artifact map generator for milestone scope through `tools/R16ArtifactMapGenerator.psm1`, `tools/new_r16_artifact_map.ps1`, `tools/validate_r16_artifact_map.ps1`, `tests/test_r16_artifact_map_generator.ps1`, committed generated state artifact `state/artifacts/r16_artifact_map.json`, fixtures under `tests/fixtures/r16_artifact_map_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/`. `state/artifacts/r16_artifact_map.json` is a committed generated state artifact only. The artifact map is not runtime memory, not an audit map, not a context-load planner, and not workflow execution.
+
+R16-011 added the audit map contract only through `contracts/audit/r16_audit_map.contract.json`, `tools/R16AuditMapContract.psm1`, `tools/validate_r16_audit_map_contract.ps1`, `tests/test_r16_audit_map_contract.ps1`, fixtures under `tests/fixtures/r16_audit_map_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/`. The audit map contract is model/contract proof only. No generated audit map exists yet. No audit map generator exists yet. No R15/R16 audit map exists yet.
 
 ## Purpose
 
@@ -379,8 +381,30 @@ Required evidence deliverables:
 - Done when: the artifact map is generated deterministically from curated exact R16 milestone paths, validates against the R16-009 contract semantics, rejects wildcard paths, broad repo-root paths, full-repo scan claims, missing required paths, runtime memory claims, audit map claims, context-load planner claims, report-as-machine-proof misuse, stale refs without caveats, R16-011 or later implementation claims, R16-027-or-later task claims, and R13/R14/R15 boundary changes, and records `state/artifacts/r16_artifact_map.json` as a committed generated state artifact only, not runtime memory, not an audit map, not a context-load planner, and not workflow execution.
 
 ### `R16-011` Add audit map contract
-- Status: planned
-- Purpose: define audit-map fields for authority level, evidence path, proof status, and inspection route.
+- Status: done
+- Purpose: define audit-map fields for authority level, evidence path, proof status, proof treatment, caveats, validation commands, exact-ref policy, and inspection routes.
+- Durable output:
+  - `contracts/audit/r16_audit_map.contract.json`
+  - `tools/R16AuditMapContract.psm1`
+  - `tools/validate_r16_audit_map_contract.ps1`
+  - `tests/test_r16_audit_map_contract.ps1`
+  - `tests/fixtures/r16_audit_map_contract/valid_audit_map_contract.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_missing_required_field.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_generated_audit_map_claim.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_audit_map_generator_claim.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_runtime_memory_claim.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_context_planner_claim.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_broad_scan_policy.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_wildcard_path_policy.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_report_as_machine_proof.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_r16_012_claim.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_r13_boundary_change.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_r14_caveat_removed.json`
+  - `tests/fixtures/r16_audit_map_contract/invalid_r15_caveat_removed.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/proof_review.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/evidence_index.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/validation_manifest.md`
+- Done when: the future audit map entry schema, authority-level taxonomy, proof status values, audit-readiness statuses, inspection route schema, caveat schema, validation command schema, exact-ref policy, generation policy, proof-treatment policy, overclaim detection policy, current posture, and preserved R13/R14/R15 boundaries are machine-checkable while generated audit map, audit map generator, R15/R16 audit map, artifact-map diff/check tooling, context-load planner, context budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, runtime/product/agent/integration, R16-012-or-later implementation, and R16-027-or-later task claims fail closed.
 
 ### `R16-012` Generate R15/R16 audit map showing exact evidence paths and authority levels
 - Status: planned
@@ -477,8 +501,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-010` only.
-- `R16-011` through `R16-026` remain planned only.
+- R16 active through `R16-011` only.
+- `R16-012` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -486,7 +510,10 @@ Status gates must accept:
 - artifact map contract exists as model/contract proof only.
 - artifact map generator exists for milestone scope only.
 - `state/artifacts/r16_artifact_map.json` exists as a committed generated state artifact only, not runtime memory, not an audit map, not a context-load planner, and not workflow execution.
-- no audit map exists yet.
+- audit map contract exists as model/contract proof only.
+- no generated audit map exists yet.
+- no audit map generator exists yet.
+- no R15/R16 audit map exists yet.
 - no context-load planner exists yet.
 - no role-run envelope exists yet.
 - no handoff packet exists yet.
@@ -494,7 +521,7 @@ Status gates must accept:
 
 Status gates must reject:
 
-- reject `R16-011` or later implementation claims.
+- reject `R16-012` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -698,4 +725,22 @@ R16-010 is accepted only if:
 - no audit map, context-load planner, budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-011 implementation, or R16-027-or-later claim is made;
 - focused R16-010 validation and status gates pass.
 
-After R16-010, R16 is active through `R16-010` only. `R16-011` through `R16-026` remain planned only. R16-010 implemented the bounded artifact map generator for milestone scope. `state/artifacts/r16_artifact_map.json` is a committed generated state artifact only. The artifact map is not runtime memory, not an audit map, not a context-load planner, and not workflow execution. No audit map exists yet. No context-load planner exists yet. No role-run envelopes exist yet. No handoff packets exist yet. No workflow drills exist yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+After R16-010, R16 was active through `R16-010` only. `R16-011` through `R16-026` remained planned only. R16-010 implemented the bounded artifact map generator for milestone scope. `state/artifacts/r16_artifact_map.json` is a committed generated state artifact only. The artifact map is not runtime memory, not an audit map, not a context-load planner, and not workflow execution. No audit map existed yet. No context-load planner existed yet. No role-run envelopes existed yet. No handoff packets existed yet. No workflow drills existed yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability were claimed.
+
+R16-011 is accepted only if:
+
+- the audit map contract exists at `contracts/audit/r16_audit_map.contract.json`;
+- the validator module exists at `tools/R16AuditMapContract.psm1`;
+- the contract validator CLI exists at `tools/validate_r16_audit_map_contract.ps1`;
+- the focused test exists at `tests/test_r16_audit_map_contract.ps1`;
+- the valid fixture exists at `tests/fixtures/r16_audit_map_contract/valid_audit_map_contract.json`;
+- invalid fixtures exist for missing required fields, generated audit map claims, audit map generator claims, runtime memory claims, context planner claims, broad scan policy, wildcard path policy, report-as-machine-proof misuse, R16-012 implementation claims, R13 boundary changes, R14 caveat removal, and R15 caveat removal;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/`;
+- the contract requires future audit map entries to classify exact evidence paths, authority levels/classes, evidence kinds, proof statuses, proof treatment, inspection routes, caveats, validation commands, required-for-closeout status, audit-readiness status, non-claims, and deterministic order;
+- the exact-ref policy rejects wildcard paths, broad repo-root claims, full-repo scan claims, directory-only proof claims without exact files, and hidden stale generated_from refs;
+- the audit map generation policy records that a future generated audit map must be generated by a dedicated generator in R16-012, while R16-011 does not generate the audit map and does not implement generator logic;
+- generated audit map, audit map generator, R15/R16 audit map, artifact-map diff/check tooling, context-load planner, context budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-012 or later implementation, and R16-027-or-later task claims fail closed;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-011 validation and status gates pass.
+
+After R16-011, R16 is active through `R16-011` only. `R16-012` through `R16-026` remain planned only. R16-011 added the audit map contract only. No generated audit map exists yet. No audit map generator exists yet. No R15/R16 audit map exists yet. `state/artifacts/r16_artifact_map.json` remains a committed generated state artifact only. The artifact map is not runtime memory, not an audit map, not a context-load planner, and not workflow execution. No context-load planner exists yet. No role-run envelope exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

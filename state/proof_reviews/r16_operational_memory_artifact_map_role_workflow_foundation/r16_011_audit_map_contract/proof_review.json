@@ -1,0 +1,90 @@
+{
+  "artifact_type": "r16_011_audit_map_contract_proof_review",
+  "source_task": "R16-011",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "previous_remote_baseline": "7e0d59e24f04d981160140ea915c36fde58abe82",
+  "scope_verdict": "accepted_contract_only",
+  "contract_path": "contracts/audit/r16_audit_map.contract.json",
+  "current_posture": {
+    "active_through_task": "R16-011",
+    "planned_tasks": [
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016",
+      "R16-017",
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ]
+  },
+  "required_deliverables": [
+    "contracts/audit/r16_audit_map.contract.json",
+    "tools/R16AuditMapContract.psm1",
+    "tools/validate_r16_audit_map_contract.ps1",
+    "tests/test_r16_audit_map_contract.ps1",
+    "tests/fixtures/r16_audit_map_contract/valid_audit_map_contract.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_missing_required_field.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_generated_audit_map_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_audit_map_generator_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_runtime_memory_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_context_planner_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_broad_scan_policy.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_wildcard_path_policy.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_report_as_machine_proof.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r16_012_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r13_boundary_change.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r14_caveat_removed.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r15_caveat_removed.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/evidence_index.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/validation_manifest.md"
+  ],
+  "validation_summary": {
+    "status": "passed_with_recorded_fail_closed_retries",
+    "commands_executed": 39,
+    "commands_passed": 34,
+    "commands_failed": 5,
+    "failure_treatment": "All failed command attempts were fail-closed validator or invocation errors encountered before corrective reruns; the final applicable validation commands passed."
+  },
+  "non_claims": [
+    "no generated audit map",
+    "no audit map generator",
+    "no R15/R16 audit map",
+    "no artifact-map diff/check tooling",
+    "no context-load planner",
+    "no role-run envelope",
+    "no handoff packet",
+    "no workflow drill",
+    "no product runtime",
+    "no runtime memory",
+    "no autonomous agents",
+    "no external integrations",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ],
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  }
+}

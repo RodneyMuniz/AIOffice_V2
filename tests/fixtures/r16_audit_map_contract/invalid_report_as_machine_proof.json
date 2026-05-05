@@ -1,0 +1,5 @@
+{
+  "proof_treatment_policy": {
+    "generated_reports_as_machine_proof_allowed": true
+  }
+}

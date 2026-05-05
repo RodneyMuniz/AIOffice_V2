@@ -1,0 +1,490 @@
+{
+  "artifact_type": "r16_audit_map_contract",
+  "contract_version": "v1",
+  "audit_map_contract_id": "aioffice-r16-011-audit-map-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-011",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "7e0d59e24f04d981160140ea915c36fde58abe82",
+  "generated_from_tree": "ba5383a7488dc25d143b42cb455c4f99c37a31a3",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_artifact_map_contract",
+      "path": "contracts/artifacts/r16_artifact_map.contract.json",
+      "authority_level": "contract_authority",
+      "proof_status": "contract_only",
+      "deterministic_order": 1
+    },
+    {
+      "ref_id": "r16_artifact_map_state_artifact",
+      "path": "state/artifacts/r16_artifact_map.json",
+      "authority_level": "generated_state_artifact",
+      "proof_status": "validator_backed_state_artifact",
+      "deterministic_order": 2
+    },
+    {
+      "ref_id": "r16_artifact_map_generator_module",
+      "path": "tools/R16ArtifactMapGenerator.psm1",
+      "authority_level": "generated_state_artifact",
+      "proof_status": "machine_validated",
+      "deterministic_order": 3
+    },
+    {
+      "ref_id": "r16_artifact_map_validator_cli",
+      "path": "tools/validate_r16_artifact_map.ps1",
+      "authority_level": "validation_report",
+      "proof_status": "machine_validated",
+      "deterministic_order": 4
+    },
+    {
+      "ref_id": "r16_artifact_map_generator_test",
+      "path": "tests/test_r16_artifact_map_generator.ps1",
+      "authority_level": "validation_report",
+      "proof_status": "machine_validated",
+      "deterministic_order": 5
+    },
+    {
+      "ref_id": "r16_010_proof_review",
+      "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/proof_review.json",
+      "authority_level": "proof_review_package",
+      "proof_status": "proof_review_only",
+      "deterministic_order": 6
+    },
+    {
+      "ref_id": "r16_010_validation_manifest",
+      "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/validation_manifest.md",
+      "authority_level": "validation_manifest",
+      "proof_status": "validation_manifest_only",
+      "deterministic_order": 7
+    }
+  ],
+  "contract_mode": {
+    "contract_only": true,
+    "generated_audit_map": false,
+    "audit_map_generator": false,
+    "r15_r16_audit_map_generated": false,
+    "artifact_map_diff_tooling": false,
+    "context_load_planner": false,
+    "context_budget_estimator": false,
+    "role_run_envelope": false,
+    "raci_transition_gate": false,
+    "handoff_packet": false,
+    "workflow_drill": false,
+    "runtime_memory": false,
+    "product_runtime": false,
+    "autonomous_agents": false,
+    "external_integrations": false
+  },
+  "audit_map_entry_schema": {
+    "required_fields": [
+      "audit_entry_id",
+      "evidence_path",
+      "artifact_id",
+      "artifact_type",
+      "source_milestone",
+      "source_task",
+      "authority_level",
+      "authority_class",
+      "evidence_kind",
+      "proof_status",
+      "proof_treatment",
+      "inspection_route",
+      "exact_ref_required",
+      "broad_scan_allowed",
+      "wildcard_allowed",
+      "stale_ref_status",
+      "caveat_id",
+      "validation_commands",
+      "required_for_closeout",
+      "audit_readiness_status",
+      "non_claims",
+      "deterministic_order"
+    ],
+    "field_policy": {
+      "exact_ref_required": true,
+      "broad_scan_allowed": false,
+      "wildcard_allowed": false,
+      "deterministic_order_required": true
+    }
+  },
+  "authority_level_taxonomy": [
+    {
+      "authority_level": "constitutional_authority",
+      "authority_class": "governance_authority",
+      "proof_treatment": "highest narrative operating authority",
+      "deterministic_order": 1
+    },
+    {
+      "authority_level": "governance_authority",
+      "authority_class": "governance_authority",
+      "proof_treatment": "repo-truth governance authority",
+      "deterministic_order": 2
+    },
+    {
+      "authority_level": "milestone_authority",
+      "authority_class": "milestone_authority",
+      "proof_treatment": "milestone scope authority",
+      "deterministic_order": 3
+    },
+    {
+      "authority_level": "contract_authority",
+      "authority_class": "contract_authority",
+      "proof_treatment": "contract-only schema authority",
+      "deterministic_order": 4
+    },
+    {
+      "authority_level": "generated_state_artifact",
+      "authority_class": "state_authority",
+      "proof_treatment": "committed generated state artifact only",
+      "deterministic_order": 5
+    },
+    {
+      "authority_level": "validation_report",
+      "authority_class": "validation_authority",
+      "proof_treatment": "machine validation output when command-backed",
+      "deterministic_order": 6
+    },
+    {
+      "authority_level": "validation_manifest",
+      "authority_class": "proof_authority",
+      "proof_treatment": "manifest of executed commands only",
+      "deterministic_order": 7
+    },
+    {
+      "authority_level": "proof_review_package",
+      "authority_class": "proof_authority",
+      "proof_treatment": "proof-review context and closeout support",
+      "deterministic_order": 8
+    },
+    {
+      "authority_level": "evidence_index",
+      "authority_class": "proof_authority",
+      "proof_treatment": "index of exact evidence paths",
+      "deterministic_order": 9
+    },
+    {
+      "authority_level": "operator_report",
+      "authority_class": "operator_context",
+      "proof_treatment": "operator narrative context, not machine proof by itself",
+      "deterministic_order": 10
+    },
+    {
+      "authority_level": "planning_artifact",
+      "authority_class": "planning_authority",
+      "proof_treatment": "planning context only",
+      "deterministic_order": 11
+    },
+    {
+      "authority_level": "narrative_context",
+      "authority_class": "context_authority",
+      "proof_treatment": "context only",
+      "deterministic_order": 12
+    },
+    {
+      "authority_level": "external_evidence",
+      "authority_class": "external_evidence",
+      "proof_treatment": "external replay evidence when exact run identity is present",
+      "deterministic_order": 13
+    },
+    {
+      "authority_level": "local_only_rejected",
+      "authority_class": "rejected_authority",
+      "proof_treatment": "local-only evidence rejected for closeout claims",
+      "deterministic_order": 14
+    }
+  ],
+  "proof_status_values": [
+    "machine_validated",
+    "validator_backed_state_artifact",
+    "generated_state_artifact_only",
+    "contract_only",
+    "proof_review_only",
+    "validation_manifest_only",
+    "operator_artifact_only",
+    "planning_artifact_only",
+    "narrative_context_only",
+    "external_replay_evidence",
+    "stale_with_explicit_caveat",
+    "stale_without_caveat_rejected",
+    "runtime_claim_rejected",
+    "local_only_rejected"
+  ],
+  "audit_readiness_status_values": [
+    "ready_for_exact_inspection",
+    "ready_with_caveat",
+    "context_only",
+    "not_implementation_proof",
+    "rejected_overclaim",
+    "missing_required_ref",
+    "stale_without_caveat",
+    "planned_only"
+  ],
+  "inspection_route_schema": {
+    "required_fields": [
+      "route_id",
+      "route_kind",
+      "evidence_path",
+      "reader_role",
+      "exact_command",
+      "expected_content_type",
+      "broad_scan_allowed",
+      "wildcard_allowed",
+      "fallback_allowed",
+      "fallback_route",
+      "audit_notes"
+    ]
+  },
+  "caveat_schema": {
+    "required_fields": [
+      "caveat_id",
+      "caveat_type",
+      "applies_to_path",
+      "applies_to_ref_id",
+      "declared_boundary",
+      "observed_boundary",
+      "accepted_reason",
+      "preserved_scope",
+      "audit_impact",
+      "deterministic_order"
+    ]
+  },
+  "validation_command_schema": {
+    "required_fields": [
+      "command_id",
+      "command",
+      "expected_result",
+      "validates_path",
+      "evidence_kind",
+      "required_for_closeout",
+      "deterministic_order"
+    ]
+  },
+  "exact_ref_policy": {
+    "repo_relative_exact_paths_only": true,
+    "exact_ref_required": true,
+    "wildcard_path_claims_allowed": false,
+    "broad_repo_root_claims_allowed": false,
+    "full_repo_scan_claims_allowed": false,
+    "directory_only_proof_claims_allowed_without_exact_files": false,
+    "directory_only_proof_claims_require_exact_files": true,
+    "stale_generated_from_refs_detected_and_caveated": true,
+    "stale_generated_from_refs_hidden": false
+  },
+  "audit_map_generation_policy": {
+    "deterministic_ordering_required": true,
+    "future_generated_audit_map_requires_dedicated_r16_012_generator": true,
+    "future_generator_task": "R16-012",
+    "r16_011_generates_audit_map": false,
+    "r16_011_implements_generator_logic": false,
+    "audit_map_generator_exists": false,
+    "r15_r16_audit_map_generated": false,
+    "generated_audit_maps_are_runtime_memory": false,
+    "generated_audit_maps_are_product_runtime": false,
+    "generated_audit_maps_close_r13": false,
+    "generated_audit_maps_remove_r14_caveats": false,
+    "generated_audit_maps_remove_r15_caveats": false
+  },
+  "proof_treatment_policy": {
+    "treatment_categories": [
+      "machine-validated evidence",
+      "validator-backed committed state artifacts",
+      "generated state artifacts only",
+      "contract-only artifacts",
+      "proof-review packages",
+      "validation manifests",
+      "operator reports",
+      "planning artifacts",
+      "narrative context",
+      "external replay evidence",
+      "local-only rejected evidence",
+      "runtime/product claims rejected unless later implemented and evidenced"
+    ],
+    "generated_reports_as_machine_proof_allowed": false,
+    "operator_reports_as_machine_proof_allowed": false,
+    "planning_artifacts_as_implementation_proof_allowed": false,
+    "local_only_evidence_allowed_for_closeout": false,
+    "runtime_product_claims_allowed_without_later_evidence": false,
+    "runtime_product_claims_rejected_unless_later_implemented_and_evidenced": true
+  },
+  "overclaim_detection_policy": {
+    "claim_flags": {
+      "generated_audit_map": false,
+      "audit_map_generator": false,
+      "r15_r16_audit_map_generated": false,
+      "artifact_map_diff_tooling": false,
+      "context_load_planner": false,
+      "context_budget_estimator": false,
+      "role_run_envelope": false,
+      "raci_transition_gate": false,
+      "handoff_packet": false,
+      "workflow_drill": false,
+      "product_runtime": false,
+      "productized_ui": false,
+      "actual_autonomous_agents": false,
+      "true_multi_agent_execution": false,
+      "persistent_memory_runtime": false,
+      "runtime_memory_loading": false,
+      "retrieval_runtime": false,
+      "vector_search_runtime": false,
+      "external_integrations": false,
+      "github_projects_integration": false,
+      "linear_integration": false,
+      "symphony_integration": false,
+      "custom_board_integration": false,
+      "external_board_sync": false,
+      "solved_codex_compaction": false,
+      "solved_codex_reliability": false,
+      "main_merge": false,
+      "r13_closure": false,
+      "r14_caveat_removal": false,
+      "r15_caveat_removal": false,
+      "r13_partial_gate_conversion": false,
+      "r16_012_or_later_implementation": false,
+      "r16_027_or_later_task": false
+    },
+    "rejected_claims": [
+      "generated audit map",
+      "audit map generator",
+      "R15/R16 audit map generated",
+      "artifact-map diff/check tooling",
+      "context-load planner",
+      "context budget estimator",
+      "role-run envelope",
+      "RACI transition gate",
+      "handoff packet",
+      "workflow drill",
+      "product runtime",
+      "productized UI",
+      "actual autonomous agents",
+      "true multi-agent execution",
+      "persistent memory runtime",
+      "runtime memory loading",
+      "retrieval runtime",
+      "vector search runtime",
+      "external integrations",
+      "GitHub Projects integration",
+      "Linear integration",
+      "Symphony integration",
+      "custom board integration",
+      "external board sync",
+      "solved Codex compaction",
+      "solved Codex reliability",
+      "main merge",
+      "R13 closure",
+      "R14 caveat removal",
+      "R15 caveat removal",
+      "R13 partial-gate conversion",
+      "R16-012 or later implementation",
+      "R16-027 or later task"
+    ]
+  },
+  "current_posture": {
+    "active_through_task": "R16-011",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011"
+    ],
+    "planned_tasks": [
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016",
+      "R16-017",
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ],
+    "r16_012_or_later_implementation_claimed": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  },
+  "validation_commands": [
+    {
+      "command_id": "validate_r16_audit_map_contract",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_audit_map_contract.ps1",
+      "expected_result": "PASS",
+      "validates_path": "contracts/audit/r16_audit_map.contract.json",
+      "evidence_kind": "machine_validated",
+      "required_for_closeout": true,
+      "deterministic_order": 1
+    },
+    {
+      "command_id": "test_r16_audit_map_contract",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_audit_map_contract.ps1",
+      "expected_result": "PASS",
+      "validates_path": "tests/test_r16_audit_map_contract.ps1",
+      "evidence_kind": "machine_validated",
+      "required_for_closeout": true,
+      "deterministic_order": 2
+    },
+    {
+      "command_id": "validate_r16_artifact_map",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_artifact_map.ps1",
+      "expected_result": "PASS",
+      "validates_path": "state/artifacts/r16_artifact_map.json",
+      "evidence_kind": "machine_validated",
+      "required_for_closeout": true,
+      "deterministic_order": 3
+    },
+    {
+      "command_id": "test_r16_artifact_map_generator",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_artifact_map_generator.ps1",
+      "expected_result": "PASS",
+      "validates_path": "tests/test_r16_artifact_map_generator.ps1",
+      "evidence_kind": "machine_validated",
+      "required_for_closeout": true,
+      "deterministic_order": 4
+    }
+  ],
+  "non_claims": [
+    "no generated audit map",
+    "no audit map generator",
+    "no R15/R16 audit map",
+    "no artifact-map diff/check tooling",
+    "no context-load planner",
+    "no context budget estimator",
+    "no role-run envelope",
+    "no RACI transition gate",
+    "no handoff packet",
+    "no workflow drill",
+    "no product runtime",
+    "no runtime memory",
+    "no autonomous agents",
+    "no external integrations",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

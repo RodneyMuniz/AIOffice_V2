@@ -1,0 +1,47 @@
+{
+  "artifact_type": "r16_011_audit_map_contract_evidence_index",
+  "source_task": "R16-011",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "contract_file": "contracts/audit/r16_audit_map.contract.json",
+  "validation_module": "tools/R16AuditMapContract.psm1",
+  "validation_cli": "tools/validate_r16_audit_map_contract.ps1",
+  "test_file": "tests/test_r16_audit_map_contract.ps1",
+  "valid_fixture": "tests/fixtures/r16_audit_map_contract/valid_audit_map_contract.json",
+  "invalid_fixtures": [
+    "tests/fixtures/r16_audit_map_contract/invalid_missing_required_field.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_generated_audit_map_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_audit_map_generator_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_runtime_memory_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_context_planner_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_broad_scan_policy.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_wildcard_path_policy.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_report_as_machine_proof.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r16_012_claim.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r13_boundary_change.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r14_caveat_removed.json",
+    "tests/fixtures/r16_audit_map_contract/invalid_r15_caveat_removed.json"
+  ],
+  "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/proof_review.json",
+  "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/validation_manifest.md",
+  "status_surfaces_changed": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "governance/DOCUMENT_AUTHORITY_INDEX.md",
+    "tools/StatusDocGate.psm1",
+    "tools/validate_status_doc_gate.ps1",
+    "tests/test_status_doc_gate.ps1",
+    "tools/R16PlanningAuthorityReference.psm1",
+    "tests/test_r16_planning_authority_reference.ps1",
+    "tests/test_r16_kpi_baseline_target_scorecard.ps1",
+    "tests/test_r16_memory_layer_contract.ps1"
+  ],
+  "non_claims": [
+    "R16-011 defines the audit map contract only.",
+    "No generated audit map exists yet.",
+    "No audit map generator exists yet.",
+    "No R15/R16 audit map exists yet."
+  ]
+}

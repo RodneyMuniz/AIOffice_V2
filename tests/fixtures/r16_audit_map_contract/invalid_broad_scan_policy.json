@@ -1,0 +1,5 @@
+{
+  "exact_ref_policy": {
+    "broad_repo_root_claims_allowed": true
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "contract_mode": {
+    "context_load_planner": true
+  }
+}

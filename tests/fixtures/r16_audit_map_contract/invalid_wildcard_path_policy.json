@@ -1,0 +1,5 @@
+{
+  "exact_ref_policy": {
+    "wildcard_path_claims_allowed": true
+  }
+}

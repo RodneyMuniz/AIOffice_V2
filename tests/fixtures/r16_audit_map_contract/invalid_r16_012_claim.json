@@ -1,0 +1,9 @@
+{
+  "current_posture": {
+    "complete_tasks": [
+      "R16-001",
+      "R16-012"
+    ],
+    "r16_012_or_later_implementation_claimed": true
+  }
+}

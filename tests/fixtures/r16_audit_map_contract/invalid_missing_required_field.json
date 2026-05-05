@@ -1,0 +1,29 @@
+{
+  "artifact_type": "r16_audit_map_contract",
+  "contract_version": "v1",
+  "audit_map_contract_id": "aioffice-r16-011-audit-map-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-011",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "7e0d59e24f04d981160140ea915c36fde58abe82",
+  "generated_from_tree": "ba5383a7488dc25d143b42cb455c4f99c37a31a3",
+  "dependency_refs": [],
+  "contract_mode": {
+    "contract_only": true,
+    "generated_audit_map": false,
+    "audit_map_generator": false,
+    "r15_r16_audit_map_generated": false,
+    "artifact_map_diff_tooling": false,
+    "context_load_planner": false,
+    "context_budget_estimator": false,
+    "role_run_envelope": false,
+    "raci_transition_gate": false,
+    "handoff_packet": false,
+    "workflow_drill": false,
+    "runtime_memory": false,
+    "product_runtime": false,
+    "autonomous_agents": false,
+    "external_integrations": false
+  }
+}

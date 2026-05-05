@@ -1,0 +1,5 @@
+{
+  "contract_mode": {
+    "runtime_memory": true
+  }
+}
