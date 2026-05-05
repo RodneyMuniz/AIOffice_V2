@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-014` only
+**Milestone status:** Active in repo truth through `R16-015` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -52,6 +52,8 @@ R16-012 generated the bounded R15/R16 audit map only through `tools/R16AuditMapG
 R16-013 added bounded artifact/audit map diff-check tooling and a committed check report through `contracts/artifacts/r16_artifact_audit_map_check_report.contract.json`, `tools/R16ArtifactAuditMapCheck.psm1`, `tools/test_r16_artifact_audit_map_refs.ps1`, `tools/validate_r16_artifact_audit_map_check_report.ps1`, `tests/test_r16_artifact_audit_map_check.ps1`, generated validation/check report state artifact `state/artifacts/r16_artifact_audit_map_check_report.json`, fixtures under `tests/fixtures/r16_artifact_audit_map_check/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/`. `state/artifacts/r16_artifact_audit_map_check_report.json` is a committed validation/check report state artifact only. The check report is not runtime memory, not product runtime, not a context-load planner, not a context budget estimator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution.
 
 R16-014 added the context-load plan contract only through `contracts/context/r16_context_load_plan.contract.json`, `tools/R16ContextLoadPlanContract.psm1`, `tools/validate_r16_context_load_plan_contract.ps1`, `tests/test_r16_context_load_plan_contract.ps1`, fixtures under `tests/fixtures/r16_context_load_plan_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/`. The context-load plan contract is model/contract proof only; it is not a generated context-load plan, not a context-load planner, not a context budget estimator, not an over-budget fail-closed validator, not runtime memory, not retrieval/vector runtime, not product runtime, and not workflow execution.
+
+R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, generated context-load plan state artifact `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. The context-load plan is not runtime memory. The context-load plan is not runtime memory loading. The context-load plan is not retrieval runtime. The context-load plan is not vector search runtime. The context-load plan is not product runtime. The context-load plan is not a context budget estimator. The context-load plan is not an over-budget fail-closed validator. The context-load plan is not a role-run envelope. The context-load plan is not a RACI transition gate. The context-load plan is not a handoff packet. The context-load plan is not workflow execution.
 
 ## Purpose
 
@@ -432,8 +434,10 @@ Required evidence deliverables:
   - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/`
 
 ### `R16-015` Implement exact context-load planner from memory packs and artifact maps
-- Status: planned
-- Purpose: produce deterministic load plans with exact paths, roles, budgets, and exclusions.
+- Status: done
+- Purpose: produce deterministic load plans with exact paths, roles, categorical budget placeholder, and exclusions.
+- Durable output: `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, generated state artifact `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`.
+- Done when: the planner loads and validates `state/memory/r16_role_memory_packs.json`, `state/artifacts/r16_artifact_map.json`, `state/audit/r16_r15_r16_audit_map.json`, and `state/artifacts/r16_artifact_audit_map_check_report.json`, emits exact-path-only deterministic load groups for `evidence_auditor`, records a categorical budget placeholder only, preserves accepted R15 stale generated_from caveats, and rejects runtime memory, retrieval/vector runtime, exact token count, context budget estimator, over-budget validator, role-run envelope, RACI transition gate, handoff packet, workflow drill, R16-016-or-later implementation, and R13/R14/R15 boundary overclaims.
 
 ### `R16-016` Add context budget estimator with token/cost approximation fields
 - Status: planned
@@ -514,8 +518,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-014` only.
-- `R16-015` through `R16-026` remain planned only.
+- R16 active through `R16-015` only.
+- `R16-016` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -530,8 +534,19 @@ Status gates must accept:
 - bounded artifact/audit map diff-check tooling exists for R16-013 validation only.
 - `state/artifacts/r16_artifact_audit_map_check_report.json` exists as a committed validation/check report state artifact only, not runtime memory, not product runtime, not a context-load planner, not a context budget estimator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution.
 - context-load plan contract exists as model/contract proof only, not a generated context-load plan, not a context-load planner, not a context budget estimator, not an over-budget fail-closed validator, not runtime memory, and not workflow execution.
-- no generated context-load plan exists yet.
-- no context-load planner exists yet.
+- R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact.
+- `state/context/r16_context_load_plan.json` exists as a committed generated context-load plan state artifact only.
+- the context-load plan is not runtime memory.
+- the context-load plan is not runtime memory loading.
+- the context-load plan is not retrieval runtime.
+- the context-load plan is not vector search runtime.
+- the context-load plan is not product runtime.
+- the context-load plan is not a context budget estimator.
+- the context-load plan is not an over-budget fail-closed validator.
+- the context-load plan is not a role-run envelope.
+- the context-load plan is not a RACI transition gate.
+- the context-load plan is not a handoff packet.
+- the context-load plan is not workflow execution.
 - no context budget estimator exists yet.
 - no over-budget fail-closed validator exists yet.
 - no role-run envelope exists yet.
@@ -541,7 +556,7 @@ Status gates must accept:
 
 Status gates must reject:
 
-- reject `R16-015` or later implementation claims.
+- reject `R16-016` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -568,7 +583,7 @@ Status gates must reject:
 - reject artifact map runtime overclaims.
 - reject generated artifact map treated as runtime memory, audit map, context-load planner, or workflow execution.
 - reject audit map claims.
-- reject context-load planner claims.
+- reject context-load plan runtime, budget-estimator, over-budget-validator, role-run-envelope, RACI-transition-gate, handoff-packet, and workflow-execution overclaims.
 - reject role-run envelope claims.
 - reject handoff packet claims.
 - reject workflow drill claims.
@@ -820,4 +835,25 @@ R16-014 is accepted only if:
 - R13 failed/partial and R14/R15 caveated postures are preserved;
 - focused R16-014 validation and status gates pass.
 
-After R16-014, R16 is active through `R16-014` only. `R16-015` through `R16-026` remain planned only. R16-014 added the context-load plan contract only through `contracts/context/r16_context_load_plan.contract.json`, `tools/R16ContextLoadPlanContract.psm1`, `tools/validate_r16_context_load_plan_contract.ps1`, `tests/test_r16_context_load_plan_contract.ps1`, fixtures under `tests/fixtures/r16_context_load_plan_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/`. The context-load plan contract is model/contract proof only. No generated context-load plan exists yet. No context-load planner exists yet. No context budget estimator exists yet. No over-budget fail-closed validator exists yet. No role-run envelope exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+After R16-014, R16 was active through `R16-014` only. `R16-015` through `R16-026` remained planned only. R16-014 added the context-load plan contract only through `contracts/context/r16_context_load_plan.contract.json`, `tools/R16ContextLoadPlanContract.psm1`, `tools/validate_r16_context_load_plan_contract.ps1`, `tests/test_r16_context_load_plan_contract.ps1`, fixtures under `tests/fixtures/r16_context_load_plan_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/`. The context-load plan contract is model/contract proof only. No generated context-load plan existed yet. No context-load planner existed yet. No context budget estimator existed yet. No over-budget fail-closed validator existed yet. No role-run envelope existed yet. No RACI transition gate existed yet. No handoff packet existed yet. No workflow drill existed yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability were claimed.
+
+R16-015 is accepted only if:
+
+- the context-load planner module exists at `tools/R16ContextLoadPlanner.psm1`;
+- the generator CLI exists at `tools/new_r16_context_load_plan.ps1`;
+- the validator CLI exists at `tools/validate_r16_context_load_plan.ps1`;
+- the focused test exists at `tests/test_r16_context_load_planner.ps1`;
+- the generated context-load plan exists at `state/context/r16_context_load_plan.json`;
+- the valid fixture exists at `tests/fixtures/r16_context_load_planner/valid_context_load_plan.json`;
+- invalid fixtures exist for missing role memory pack ref, missing artifact map ref, missing audit map ref, missing check report ref, missing load item path, wildcard path, broad scan claim, directory-only ref, local scratch ref, remote unverified ref, report-as-machine-proof misuse, runtime memory claim, retrieval runtime claim, vector search claim, context budget estimator claim, exact token count claim, over-budget validator claim, role-run envelope claim, RACI transition gate claim, handoff packet claim, workflow drill claim, R16-016 implementation claim, R13 boundary change, R14 caveat removal, and R15 caveat removal;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`;
+- the plan loads and validates `state/memory/r16_role_memory_packs.json` for `evidence_auditor`, `state/artifacts/r16_artifact_map.json`, `state/audit/r16_r15_r16_audit_map.json`, and `state/artifacts/r16_artifact_audit_map_check_report.json`;
+- the plan records exact-path-only deterministic load groups and load items;
+- the plan records a categorical budget placeholder only with `context_budget_estimator_implemented: false`, `exact_provider_token_count_claimed: false`, `exact_provider_billing_claimed: false`, and `budget_category: not_estimated_until_R16_016`;
+- the known R15 stale generated_from caveats for `r15_final_proof_review_package.json` and `evidence_index.json` remain accepted only because they are explicit;
+- `state/context/r16_context_load_plan.json` is recorded as a committed generated context-load plan state artifact only, not runtime memory, not runtime memory loading, not retrieval runtime, not vector search runtime, not product runtime, not a context budget estimator, not an over-budget fail-closed validator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution;
+- no context budget estimator, over-budget fail-closed validator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, runtime memory, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-016 implementation, or R16-027-or-later claim is made;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-015 validation and status gates pass.
+
+After R16-015, R16 is active through `R16-015` only. `R16-016` through `R16-026` remain planned only. R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, generated state artifact `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. The context-load plan is not runtime memory. The context-load plan is not runtime memory loading. The context-load plan is not retrieval runtime. The context-load plan is not vector search runtime. The context-load plan is not product runtime. The context-load plan is not a context budget estimator. The context-load plan is not an over-budget fail-closed validator. The context-load plan is not a role-run envelope. The context-load plan is not a RACI transition gate. The context-load plan is not a handoff packet. The context-load plan is not workflow execution. No context budget estimator exists yet. No over-budget fail-closed validator exists yet. No role-run envelope exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

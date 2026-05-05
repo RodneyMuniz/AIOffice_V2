@@ -60,11 +60,11 @@ try {
     }
 
     $statusSnapshot = & $assertStatus -RepositoryRoot $repoRoot
-    if ($statusSnapshot.DoneThrough -ne 14 -or $statusSnapshot.PlannedStart -ne 15 -or $statusSnapshot.PlannedThrough -ne 26) {
-        $failures += "FAIL status posture: expected R16 active through R16-014 only with R16-015 through R16-026 planned only."
+    if ($statusSnapshot.DoneThrough -ne 15 -or $statusSnapshot.PlannedStart -ne 16 -or $statusSnapshot.PlannedThrough -ne 26) {
+        $failures += "FAIL status posture: expected R16 active through R16-015 only with R16-016 through R16-026 planned only."
     }
     else {
-        Write-Output "PASS status posture: R16 active through R16-014 only; R16-015 through R16-026 remain planned only."
+        Write-Output "PASS status posture: R16 active through R16-015 only; R16-016 through R16-026 remain planned only."
         $validPassed += 1
     }
 

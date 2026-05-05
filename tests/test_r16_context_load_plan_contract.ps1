@@ -54,10 +54,7 @@ try {
     }
 
     foreach ($forbiddenPath in @(
-        "state\context\r16_context_load_plan.json",
         "state\context\r16_context_load_plans.json",
-        "tools\R16ContextLoadPlanner.psm1",
-        "tools\new_r16_context_load_plan.ps1",
         "tools\R16ContextBudgetEstimator.psm1",
         "tools\R16OverBudgetFailClosedValidator.psm1",
         "contracts\workflow\r16_role_run_envelope.contract.json",

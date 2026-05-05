@@ -1,0 +1,747 @@
+{
+    "artifact_type":  "r16_context_load_plan",
+    "plan_version":  "v1",
+    "plan_id":  "aioffice-r16-015-context-load-plan-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-015",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generation_boundary":  {
+                                "input_head":  "bdb8b1cf464e015859893c3940ba10f2906467f4",
+                                "input_tree":  "6b556d925f3c2eecc036e6923ea97a1944b2f4a2"
+                            },
+    "requesting_role":  "evidence_auditor",
+    "target_task":  "R16 continuation and audit-readiness inspection",
+    "target_workflow_phase":  "artifact-map-and-context-load-foundation",
+    "role_memory_pack_ref":  {
+                                 "ref_id":  "r16_007_evidence_auditor_role_memory_pack",
+                                 "path":  "state/memory/r16_role_memory_packs.json",
+                                 "source_task":  "R16-007",
+                                 "loaded_and_validated":  true,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "deterministic_order":  1,
+                                 "role_id":  "evidence_auditor"
+                             },
+    "artifact_map_ref":  {
+                             "ref_id":  "r16_010_artifact_map",
+                             "path":  "state/artifacts/r16_artifact_map.json",
+                             "source_task":  "R16-010",
+                             "loaded_and_validated":  true,
+                             "exact_path_only":  true,
+                             "broad_scan_allowed":  false,
+                             "wildcard_allowed":  false,
+                             "deterministic_order":  2
+                         },
+    "audit_map_ref":  {
+                          "ref_id":  "r16_012_r15_r16_audit_map",
+                          "path":  "state/audit/r16_r15_r16_audit_map.json",
+                          "source_task":  "R16-012",
+                          "loaded_and_validated":  true,
+                          "exact_path_only":  true,
+                          "broad_scan_allowed":  false,
+                          "wildcard_allowed":  false,
+                          "deterministic_order":  3
+                      },
+    "check_report_ref":  {
+                             "ref_id":  "r16_013_artifact_audit_map_check_report",
+                             "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                             "source_task":  "R16-013",
+                             "loaded_and_validated":  true,
+                             "exact_path_only":  true,
+                             "broad_scan_allowed":  false,
+                             "wildcard_allowed":  false,
+                             "deterministic_order":  4
+                         },
+    "load_policy":  {
+                        "policy_id":  "exact-path-only",
+                        "repo_relative_exact_paths_only":  true,
+                        "load_items_require_paths":  true,
+                        "directory_only_refs_allowed":  false,
+                        "wildcard_paths_allowed":  false,
+                        "broad_repo_scan_allowed":  false,
+                        "full_repo_scan_allowed":  false,
+                        "local_scratch_refs_allowed":  false,
+                        "unverified_remote_refs_allowed":  false,
+                        "report_as_machine_proof_allowed":  false,
+                        "runtime_memory_loading_allowed":  false,
+                        "retrieval_runtime_allowed":  false,
+                        "vector_search_runtime_allowed":  false
+                    },
+    "generation_mode":  {
+                            "context_load_planner_implemented":  true,
+                            "generated_context_load_plan_state_artifact":  true,
+                            "context_budget_estimator_implemented":  false,
+                            "over_budget_fail_closed_validator_implemented":  false,
+                            "runtime_memory_implemented":  false,
+                            "runtime_memory_loading_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "product_runtime_implemented":  false,
+                            "productized_ui_implemented":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "true_multi_agent_execution_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "role_run_envelope_implemented":  false,
+                            "raci_transition_gate_implemented":  false,
+                            "handoff_packet_implemented":  false,
+                            "workflow_drill_run":  false,
+                            "r16_016_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "r13_closure_claimed":  false,
+                            "r14_caveat_removal_claimed":  false,
+                            "r15_caveat_removal_claimed":  false,
+                            "r13_partial_gate_conversion_claimed":  false,
+                            "main_merge_completed":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false
+                        },
+    "load_groups":  [
+                        {
+                            "group_id":  "role_scope_and_memory_policy",
+                            "purpose":  "Load the evidence auditor role pack, role model, and memory-pack validation report as exact state artifacts.",
+                            "load_items":  [
+                                               {
+                                                   "item_id":  "role_memory_packs_state",
+                                                   "ref_kind":  "role_memory_pack_state_artifact",
+                                                   "source_ref":  "role_memory_pack_ref",
+                                                   "source_task":  "R16-007",
+                                                   "authority_level":  "state_artifact",
+                                                   "proof_status":  "committed_state_artifact_only",
+                                                   "proof_treatment":  "context for role-scoped planning only; not runtime memory",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  1
+                                               },
+                                               {
+                                                   "item_id":  "role_memory_pack_model_state",
+                                                   "path":  "state/memory/r16_role_memory_pack_model.json",
+                                                   "ref_kind":  "role_memory_pack_model_state_artifact",
+                                                   "source_ref":  "role_memory_pack_ref",
+                                                   "source_task":  "R16-006",
+                                                   "authority_level":  "state_model",
+                                                   "proof_status":  "model_state_artifact_only",
+                                                   "proof_treatment":  "role model context only; not actual agents",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  2
+                                               },
+                                               {
+                                                   "item_id":  "memory_pack_validation_report_state",
+                                                   "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                                   "ref_kind":  "memory_pack_validation_report_state_artifact",
+                                                   "source_ref":  "role_memory_pack_ref",
+                                                   "source_task":  "R16-008",
+                                                   "authority_level":  "validator_backed_state_artifact",
+                                                   "proof_status":  "validation_report_only",
+                                                   "proof_treatment":  "validation context only; not runtime memory",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  3
+                                               }
+                                           ],
+                            "required_refs":  [
+                                                  "role_memory_packs_state",
+                                                  "role_memory_pack_model_state",
+                                                  "memory_pack_validation_report_state"
+                                              ],
+                            "optional_refs":  [
+
+                                              ],
+                            "forbidden_refs":  [
+                                                   "wildcard paths",
+                                                   "broad repo scans",
+                                                   "directory-only refs",
+                                                   "local scratch refs",
+                                                   "unverified remote refs"
+                                               ],
+                            "deterministic_order":  1
+                        },
+                        {
+                            "group_id":  "status_and_milestone_authority",
+                            "purpose":  "Load current status surfaces and R16 authority by exact path only.",
+                            "load_items":  [
+                                               {
+                                                   "item_id":  "status_readme",
+                                                   "path":  "README.md",
+                                                   "ref_kind":  "status_surface",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "governance_authority",
+                                                   "proof_status":  "context_only",
+                                                   "proof_treatment":  "status authority context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  1
+                                               },
+                                               {
+                                                   "item_id":  "status_active_state",
+                                                   "path":  "governance/ACTIVE_STATE.md",
+                                                   "ref_kind":  "status_surface",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "governance_authority",
+                                                   "proof_status":  "context_only",
+                                                   "proof_treatment":  "status authority context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  2
+                                               },
+                                               {
+                                                   "item_id":  "status_kanban",
+                                                   "path":  "execution/KANBAN.md",
+                                                   "ref_kind":  "task_board",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "operator_context",
+                                                   "proof_status":  "context_only",
+                                                   "proof_treatment":  "task-board context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  3
+                                               },
+                                               {
+                                                   "item_id":  "status_decision_log",
+                                                   "path":  "governance/DECISION_LOG.md",
+                                                   "ref_kind":  "decision_log",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "governance_authority",
+                                                   "proof_status":  "context_only",
+                                                   "proof_treatment":  "decision-log context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  4
+                                               },
+                                               {
+                                                   "item_id":  "document_authority_index",
+                                                   "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                   "ref_kind":  "authority_index",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "governance_authority",
+                                                   "proof_status":  "context_only",
+                                                   "proof_treatment":  "authority index context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  5
+                                               },
+                                               {
+                                                   "item_id":  "r16_authority",
+                                                   "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                                   "ref_kind":  "milestone_authority",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-015",
+                                                   "authority_level":  "milestone_authority",
+                                                   "proof_status":  "authority_context",
+                                                   "proof_treatment":  "R16 authority context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  6
+                                               }
+                                           ],
+                            "required_refs":  [
+                                                  "status_readme",
+                                                  "status_active_state",
+                                                  "status_kanban",
+                                                  "status_decision_log",
+                                                  "document_authority_index",
+                                                  "r16_authority"
+                                              ],
+                            "optional_refs":  [
+
+                                              ],
+                            "forbidden_refs":  [
+                                                   "wildcard paths",
+                                                   "broad repo scans",
+                                                   "directory-only refs",
+                                                   "local scratch refs",
+                                                   "unverified remote refs"
+                                               ],
+                            "deterministic_order":  2
+                        },
+                        {
+                            "group_id":  "artifact_audit_and_check_maps",
+                            "purpose":  "Load the artifact map, audit map, and check report that constrain exact evidence refs.",
+                            "load_items":  [
+                                               {
+                                                   "item_id":  "artifact_map_state",
+                                                   "path":  "state/artifacts/r16_artifact_map.json",
+                                                   "ref_kind":  "artifact_map_state_artifact",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-010",
+                                                   "authority_level":  "validator_backed_state_artifact",
+                                                   "proof_status":  "generated_state_artifact_only",
+                                                   "proof_treatment":  "artifact map context only; not runtime memory",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  1
+                                               },
+                                               {
+                                                   "item_id":  "audit_map_state",
+                                                   "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                                   "ref_kind":  "audit_map_state_artifact",
+                                                   "source_ref":  "audit_map_ref",
+                                                   "source_task":  "R16-012",
+                                                   "authority_level":  "validator_backed_state_artifact",
+                                                   "proof_status":  "generated_audit_map_state_artifact_only",
+                                                   "proof_treatment":  "audit map context only; not runtime memory",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  2
+                                               },
+                                               {
+                                                   "item_id":  "artifact_audit_map_check_report",
+                                                   "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                                   "ref_kind":  "check_report_state_artifact",
+                                                   "source_ref":  "check_report_ref",
+                                                   "source_task":  "R16-013",
+                                                   "authority_level":  "validator_backed_state_artifact",
+                                                   "proof_status":  "validation_check_report_only",
+                                                   "proof_treatment":  "check report context only; not machine proof by itself",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  3
+                                               }
+                                           ],
+                            "required_refs":  [
+                                                  "artifact_map_state",
+                                                  "audit_map_state",
+                                                  "artifact_audit_map_check_report"
+                                              ],
+                            "optional_refs":  [
+
+                                              ],
+                            "forbidden_refs":  [
+                                                   "wildcard paths",
+                                                   "broad repo scans",
+                                                   "directory-only refs",
+                                                   "local scratch refs",
+                                                   "unverified remote refs"
+                                               ],
+                            "deterministic_order":  3
+                        },
+                        {
+                            "group_id":  "context_contract_and_prior_proof",
+                            "purpose":  "Load the R16-014 context-load plan contract and proof-review package as exact predecessor context.",
+                            "load_items":  [
+                                               {
+                                                   "item_id":  "context_load_plan_contract",
+                                                   "path":  "contracts/context/r16_context_load_plan.contract.json",
+                                                   "ref_kind":  "contract",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-014",
+                                                   "authority_level":  "contract_authority",
+                                                   "proof_status":  "contract_only",
+                                                   "proof_treatment":  "contract/model proof only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  1
+                                               },
+                                               {
+                                                   "item_id":  "r16_014_proof_review",
+                                                   "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                                   "ref_kind":  "proof_review",
+                                                   "source_ref":  "audit_map_ref",
+                                                   "source_task":  "R16-014",
+                                                   "authority_level":  "proof_review_context",
+                                                   "proof_status":  "proof_review_package",
+                                                   "proof_treatment":  "proof-review context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  2
+                                               },
+                                               {
+                                                   "item_id":  "r16_014_evidence_index",
+                                                   "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                                   "ref_kind":  "evidence_index",
+                                                   "source_ref":  "audit_map_ref",
+                                                   "source_task":  "R16-014",
+                                                   "authority_level":  "proof_review_context",
+                                                   "proof_status":  "evidence_index",
+                                                   "proof_treatment":  "evidence-index context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  3
+                                               },
+                                               {
+                                                   "item_id":  "r16_014_validation_manifest",
+                                                   "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                                   "ref_kind":  "validation_manifest",
+                                                   "source_ref":  "audit_map_ref",
+                                                   "source_task":  "R16-014",
+                                                   "authority_level":  "proof_review_context",
+                                                   "proof_status":  "validation_manifest",
+                                                   "proof_treatment":  "validation manifest context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  4
+                                               }
+                                           ],
+                            "required_refs":  [
+                                                  "context_load_plan_contract",
+                                                  "r16_014_proof_review",
+                                                  "r16_014_evidence_index",
+                                                  "r16_014_validation_manifest"
+                                              ],
+                            "optional_refs":  [
+
+                                              ],
+                            "forbidden_refs":  [
+                                                   "wildcard paths",
+                                                   "broad repo scans",
+                                                   "directory-only refs",
+                                                   "local scratch refs",
+                                                   "unverified remote refs"
+                                               ],
+                            "deterministic_order":  4
+                        },
+                        {
+                            "group_id":  "preserved_caveat_context",
+                            "purpose":  "Load exact caveat and planning-report refs required to preserve R13/R14/R15 boundaries.",
+                            "load_items":  [
+                                               {
+                                                   "item_id":  "r15_final_proof_review_package",
+                                                   "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                                   "ref_kind":  "accepted_caveat_ref",
+                                                   "source_ref":  "check_report_ref",
+                                                   "source_task":  "R15-009",
+                                                   "authority_level":  "historical_proof_review_context",
+                                                   "proof_status":  "accepted_with_caveat",
+                                                   "proof_treatment":  "historical caveat context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  1
+                                               },
+                                               {
+                                                   "item_id":  "r15_final_evidence_index",
+                                                   "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                                   "ref_kind":  "accepted_caveat_ref",
+                                                   "source_ref":  "check_report_ref",
+                                                   "source_task":  "R15-009",
+                                                   "authority_level":  "historical_proof_review_context",
+                                                   "proof_status":  "accepted_with_caveat",
+                                                   "proof_treatment":  "historical caveat context only",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  2
+                                               },
+                                               {
+                                                   "item_id":  "r15_external_audit_r16_planning_report",
+                                                   "path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                                   "ref_kind":  "operator_planning_report",
+                                                   "source_ref":  "artifact_map_ref",
+                                                   "source_task":  "R16-002",
+                                                   "authority_level":  "operator_context",
+                                                   "proof_status":  "planning_context_only",
+                                                   "proof_treatment":  "operator report context only; not machine proof",
+                                                   "load_required":  true,
+                                                   "machine_proof":  false,
+                                                   "implementation_proof":  false,
+                                                   "exact_path_only":  true,
+                                                   "broad_scan_allowed":  false,
+                                                   "wildcard_allowed":  false,
+                                                   "remote_verified":  true,
+                                                   "deterministic_order":  3
+                                               }
+                                           ],
+                            "required_refs":  [
+                                                  "r15_final_proof_review_package",
+                                                  "r15_final_evidence_index",
+                                                  "r15_external_audit_r16_planning_report"
+                                              ],
+                            "optional_refs":  [
+
+                                              ],
+                            "forbidden_refs":  [
+                                                   "wildcard paths",
+                                                   "broad repo scans",
+                                                   "directory-only refs",
+                                                   "local scratch refs",
+                                                   "unverified remote refs"
+                                               ],
+                            "deterministic_order":  5
+                        }
+                    ],
+    "load_order":  [
+                       "role_scope_and_memory_policy",
+                       "status_and_milestone_authority",
+                       "artifact_audit_and_check_maps",
+                       "context_contract_and_prior_proof",
+                       "preserved_caveat_context"
+                   ],
+    "context_budget":  {
+                           "context_budget_estimator_implemented":  false,
+                           "exact_provider_token_count_claimed":  false,
+                           "exact_provider_billing_claimed":  false,
+                           "budget_category":  "not_estimated_until_R16_016"
+                       },
+    "current_posture":  {
+                            "active_through_task":  "R16-015",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004",
+                                                   "R16-005",
+                                                   "R16-006",
+                                                   "R16-007",
+                                                   "R16-008",
+                                                   "R16-009",
+                                                   "R16-010",
+                                                   "R16-011",
+                                                   "R16-012",
+                                                   "R16-013",
+                                                   "R16-014",
+                                                   "R16-015"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "r16_016_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false
+                        },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed_partial_through_r13_018_only",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates_converted_to_passed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats_through_r14_006_only",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats_through_r15_009_only",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "accepted_caveats":  [
+                             {
+                                 "caveat_id":  "r15_final_proof_review_package_stale_generated_from",
+                                 "caveat_type":  "stale_generated_from_ref_preserved",
+                                 "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                 "applies_to_ref_id":  "r15_final_proof_review_package",
+                                 "declared_boundary":  {
+                                                           "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                                           "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                                           "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0"
+                                                       },
+                                 "observed_boundary":  {
+                                                           "generated_from_head":  "5865422a1a1c0bf6f347346a95087ee33e055da3",
+                                                           "generated_from_tree":  "c2d8f3e8f59e3f7785a0f8261f82204bcbb4af22"
+                                                       },
+                                 "accepted_reason":  "The R15 external audit acceptance boundary is recorded separately and the older generated_from values remain visible as provenance caveats.",
+                                 "preserved_scope":  "R15 remains accepted with caveats through R15-009 only; R13 remains failed/partial and R14/R15 caveats are not removed.",
+                                 "deterministic_order":  1
+                             },
+                             {
+                                 "caveat_id":  "r15_evidence_index_stale_generated_from",
+                                 "caveat_type":  "stale_generated_from_ref_preserved",
+                                 "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                 "applies_to_ref_id":  "r15_final_evidence_index",
+                                 "declared_boundary":  {
+                                                           "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                                           "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                                           "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0"
+                                                       },
+                                 "observed_boundary":  {
+                                                           "generated_from_head":  "5865422a1a1c0bf6f347346a95087ee33e055da3",
+                                                           "generated_from_tree":  "c2d8f3e8f59e3f7785a0f8261f82204bcbb4af22"
+                                                       },
+                                 "accepted_reason":  "The R15 evidence index keeps its original generated_from values and is accepted only with this explicit caveat.",
+                                 "preserved_scope":  "R15 remains accepted with caveats through R15-009 only; R13 remains failed/partial and R14/R15 caveats are not removed.",
+                                 "deterministic_order":  2
+                             }
+                         ],
+    "proof_treatment_policy":  {
+                                   "generated_context_load_plan_as_machine_proof_allowed":  false,
+                                   "generated_reports_as_machine_proof_allowed":  false,
+                                   "operator_reports_as_machine_proof_allowed":  false,
+                                   "planning_artifacts_as_implementation_proof_allowed":  false,
+                                   "runtime_product_claims_allowed_without_later_evidence":  false
+                               },
+    "validation_findings":  [
+                                {
+                                    "finding_id":  "source_refs_loaded_and_validated",
+                                    "severity":  "pass",
+                                    "message":  "Role memory pack, artifact map, audit map, and check report refs were loaded and validated by exact path.",
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "finding_id":  "accepted_r15_stale_generated_from_caveats_preserved",
+                                    "severity":  "warning",
+                                    "message":  "Accepted R15 stale generated_from caveats are preserved as caveats, not removed.",
+                                    "deterministic_order":  2
+                                }
+                            ],
+    "finding_summary":  {
+                            "pass_count":  1,
+                            "warning_count":  2,
+                            "fail_count":  0
+                        },
+    "aggregate_verdict":  "passed_with_caveats",
+    "validation_commands":  [
+                                {
+                                    "command_id":  "new_r16_context_load_plan",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/new_r16_context_load_plan.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "state/context/r16_context_load_plan.json",
+                                    "required_for_closeout":  true,
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "command_id":  "validate_r16_context_load_plan",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_context_load_plan.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "state/context/r16_context_load_plan.json",
+                                    "required_for_closeout":  true,
+                                    "deterministic_order":  2
+                                },
+                                {
+                                    "command_id":  "test_r16_context_load_planner",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_context_load_planner.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tests/test_r16_context_load_planner.ps1",
+                                    "required_for_closeout":  true,
+                                    "deterministic_order":  3
+                                }
+                            ],
+    "non_claims":  [
+                       "state/context/r16_context_load_plan.json is a committed generated context-load plan state artifact only",
+                       "the context-load plan is not runtime memory",
+                       "the context-load plan is not runtime memory loading",
+                       "the context-load plan is not retrieval runtime",
+                       "the context-load plan is not vector search runtime",
+                       "the context-load plan is not product runtime",
+                       "the context-load plan is not a context budget estimator",
+                       "the context-load plan is not an over-budget fail-closed validator",
+                       "the context-load plan is not a role-run envelope",
+                       "the context-load plan is not a RACI transition gate",
+                       "the context-load plan is not a handoff packet",
+                       "the context-load plan is not workflow execution",
+                       "no context budget estimator",
+                       "no over-budget fail-closed validator",
+                       "no role-run envelope",
+                       "no RACI transition gate",
+                       "no handoff packet",
+                       "no workflow drill",
+                       "no product runtime",
+                       "no runtime memory",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no autonomous agents",
+                       "no external integrations",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "R13 remains failed/partial and not closed",
+                       "R14 caveats remain preserved",
+                       "R15 caveats remain preserved",
+                       "R16-016 through R16-026 remain planned only"
+                   ],
+    "generated_artifact_statement":  "state/context/r16_context_load_plan.json is a committed generated context-load plan state artifact only; it is not runtime memory, not runtime memory loading, not retrieval runtime, not vector search runtime, not product runtime, not a context budget estimator, not an over-budget fail-closed validator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution."
+}
