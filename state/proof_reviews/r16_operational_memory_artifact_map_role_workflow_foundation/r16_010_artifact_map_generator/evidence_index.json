@@ -1,0 +1,49 @@
+{
+  "artifact_type": "r16_010_artifact_map_generator_evidence_index",
+  "source_task": "R16-010",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "evidence": {
+    "generator_module": "tools/R16ArtifactMapGenerator.psm1",
+    "generator_cli": "tools/new_r16_artifact_map.ps1",
+    "validator_cli": "tools/validate_r16_artifact_map.ps1",
+    "test_file": "tests/test_r16_artifact_map_generator.ps1",
+    "generated_artifact_map": "state/artifacts/r16_artifact_map.json",
+    "valid_fixture": "tests/fixtures/r16_artifact_map_generator/valid_artifact_map.json",
+    "invalid_fixtures": [
+      "tests/fixtures/r16_artifact_map_generator/invalid_missing_required_path.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_wildcard_path.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_broad_scan_claim.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_runtime_memory_claim.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_audit_map_claim.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_context_planner_claim.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_report_as_machine_proof.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_stale_ref_without_caveat.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_r16_011_claim.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_r13_boundary_change.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_r14_caveat_removed.json",
+      "tests/fixtures/r16_artifact_map_generator/invalid_r15_caveat_removed.json"
+    ],
+    "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/proof_review.json",
+    "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/validation_manifest.md",
+    "status_surfaces_changed": [
+      "README.md",
+      "governance/ACTIVE_STATE.md",
+      "execution/KANBAN.md",
+      "governance/DECISION_LOG.md",
+      "governance/DOCUMENT_AUTHORITY_INDEX.md",
+      "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+      "tools/StatusDocGate.psm1",
+      "tools/validate_status_doc_gate.ps1",
+      "tests/test_status_doc_gate.ps1"
+    ]
+  },
+  "non_claims": [
+    "The generated artifact map is a committed state artifact only.",
+    "The generated artifact map is not runtime memory.",
+    "No audit map exists yet.",
+    "No context-load planner exists yet.",
+    "No role-run envelope, handoff packet, or workflow drill exists yet."
+  ]
+}

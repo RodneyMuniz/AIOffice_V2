@@ -1,0 +1,502 @@
+{
+    "artifact_type":  "r16_artifact_map",
+    "artifact_map_version":  "v1",
+    "artifact_map_id":  "aioffice-r16-010-artifact-map-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-010",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "contract_ref":  {
+                         "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                         "source_task":  "R16-009",
+                         "contract_artifact_type":  "r16_artifact_map_contract",
+                         "contract_version":  "v1",
+                         "loaded_and_validated":  true
+                     },
+    "generation_boundary":  {
+                                "input_head":  "a6e088b79bd4bd70042d6540acc24c8c988f1984",
+                                "input_tree":  "be53d49d4b2752e08fb407e19c247e9bf31c948b",
+                                "boundary_note":  "This is the input boundary for generation, not a claim to equal the final commit created by R16-010."
+                            },
+    "generator":  {
+                      "module_path":  "tools/R16ArtifactMapGenerator.psm1",
+                      "cli_path":  "tools/new_r16_artifact_map.ps1",
+                      "validator_path":  "tools/validate_r16_artifact_map.ps1",
+                      "deterministic_output_ordering":  true,
+                      "broad_repo_scan_performed":  false,
+                      "wildcard_paths_loaded":  false
+                  },
+    "generation_policy":  {
+                              "curated_exact_paths_only":  true,
+                              "repo_relative_exact_paths_required":  true,
+                              "broad_repo_scan_allowed":  false,
+                              "broad_repo_scan_performed":  false,
+                              "full_repo_scan_allowed":  false,
+                              "full_repo_scan_performed":  false,
+                              "wildcard_paths_allowed":  false,
+                              "wildcard_paths_loaded":  false,
+                              "missing_required_paths_rejected":  true,
+                              "reports_as_machine_proof_allowed":  false,
+                              "planning_reports_as_implementation_proof_allowed":  false,
+                              "stale_refs_without_caveat_allowed":  false
+                          },
+    "generation_mode":  {
+                            "artifact_map_generator_implemented":  true,
+                            "generated_artifact_map_exists":  true,
+                            "generated_artifact_map_is_state_artifact":  true,
+                            "generated_artifact_map_is_runtime_memory":  false,
+                            "audit_map_implemented":  false,
+                            "context_load_planner_implemented":  false,
+                            "context_budget_estimator_implemented":  false,
+                            "role_run_envelope_implemented":  false,
+                            "raci_transition_gate_implemented":  false,
+                            "handoff_packet_implemented":  false,
+                            "workflow_drill_run":  false,
+                            "product_runtime_implemented":  false,
+                            "productized_ui_implemented":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "true_multi_agent_execution_implemented":  false,
+                            "persistent_memory_runtime_implemented":  false,
+                            "runtime_memory_implemented":  false,
+                            "runtime_memory_loading_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false,
+                            "main_merge_completed":  false,
+                            "r16_011_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "r13_closure_claimed":  false,
+                            "r14_caveat_removed":  false,
+                            "r15_caveat_removed":  false,
+                            "r13_partial_gate_conversion_claimed":  false
+                        },
+    "current_posture":  {
+                            "active_through_task":  "R16-010",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004",
+                                                   "R16-005",
+                                                   "R16-006",
+                                                   "R16-007",
+                                                   "R16-008",
+                                                   "R16-009",
+                                                   "R16-010",
+                                                   "R16-011"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-011",
+                                                  "R16-012",
+                                                  "R16-013",
+                                                  "R16-014",
+                                                  "R16-015",
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "r16_011_or_later_implementation_claimed":  true,
+                            "r16_027_or_later_task_exists":  false
+                        },
+    "required_paths":  [
+                           "README.md",
+                           "governance/ACTIVE_STATE.md",
+                           "execution/KANBAN.md",
+                           "governance/DECISION_LOG.md",
+                           "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                           "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                           "state/governance/r16_planning_authority_reference.json",
+                           "contracts/governance/r16_planning_authority_reference.contract.json",
+                           "tools/R16PlanningAuthorityReference.psm1",
+                           "tools/validate_r16_planning_authority_reference.ps1",
+                           "tests/test_r16_planning_authority_reference.ps1",
+                           "state/governance/r16_kpi_baseline_target_scorecard.json",
+                           "contracts/governance/r16_kpi_baseline_target_scorecard.contract.json",
+                           "tools/R16KpiBaselineTargetScorecard.psm1",
+                           "tools/validate_r16_kpi_baseline_target_scorecard.ps1",
+                           "tests/test_r16_kpi_baseline_target_scorecard.ps1",
+                           "contracts/memory/r16_memory_layer.contract.json",
+                           "tools/R16MemoryLayerContract.psm1",
+                           "tools/validate_r16_memory_layer_contract.ps1",
+                           "tests/test_r16_memory_layer_contract.ps1",
+                           "tools/R16MemoryLayerGenerator.psm1",
+                           "tools/new_r16_memory_layers.ps1",
+                           "tools/validate_r16_memory_layers.ps1",
+                           "tests/test_r16_memory_layer_generator.ps1",
+                           "state/memory/r16_memory_layers.json",
+                           "contracts/memory/r16_role_memory_pack_model.contract.json",
+                           "tools/R16RoleMemoryPackModel.psm1",
+                           "tools/validate_r16_role_memory_pack_model.ps1",
+                           "tests/test_r16_role_memory_pack_model.ps1",
+                           "state/memory/r16_role_memory_pack_model.json",
+                           "tools/R16RoleMemoryPackGenerator.psm1",
+                           "tools/new_r16_role_memory_packs.ps1",
+                           "tools/validate_r16_role_memory_packs.ps1",
+                           "tests/test_r16_role_memory_pack_generator.ps1",
+                           "state/memory/r16_role_memory_packs.json",
+                           "contracts/memory/r16_memory_pack_validation_report.contract.json",
+                           "tools/R16MemoryPackValidation.psm1",
+                           "tools/test_r16_memory_pack_refs.ps1",
+                           "tools/validate_r16_memory_pack_validation_report.ps1",
+                           "tests/test_r16_memory_pack_validation.ps1",
+                           "state/memory/r16_memory_pack_validation_report.json",
+                           "contracts/artifacts/r16_artifact_map.contract.json",
+                           "tools/R16ArtifactMapContract.psm1",
+                           "tools/validate_r16_artifact_map_contract.ps1",
+                           "tests/test_r16_artifact_map_contract.ps1",
+                           "tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                           "tests/fixtures/r16_artifact_map_contract/invalid_missing_required_field.json",
+                           "tests/fixtures/r16_artifact_map_contract/invalid_runtime_claim.json",
+                           "tests/fixtures/r16_artifact_map_contract/invalid_generated_map_claim.json",
+                           "tests/fixtures/r16_artifact_map_contract/invalid_broad_scan_policy.json",
+                           "tools/R16ArtifactMapGenerator.psm1",
+                           "tools/new_r16_artifact_map.ps1",
+                           "tools/validate_r16_artifact_map.ps1",
+                           "tests/test_r16_artifact_map_generator.ps1",
+                           "state/artifacts/r16_artifact_map.json",
+                           "tests/fixtures/r16_artifact_map_generator/valid_artifact_map.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_missing_required_path.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_wildcard_path.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_broad_scan_claim.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_runtime_memory_claim.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_audit_map_claim.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_context_planner_claim.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_report_as_machine_proof.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_stale_ref_without_caveat.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_r16_011_claim.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_r13_boundary_change.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_r14_caveat_removed.json",
+                           "tests/fixtures/r16_artifact_map_generator/invalid_r15_caveat_removed.json",
+                           "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/proof_review.json",
+                           "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/evidence_index.json",
+                           "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/validation_manifest.md"
+                       ],
+    "artifact_records":  [
+                             {
+                                 "artifact_id":  "status_readme",
+                                 "path":  "README.md",
+                                 "artifact_class":  "authority_document",
+                                 "artifact_role":  "governance_authority",
+                                 "authority_class":  "governance_authority",
+                                 "evidence_kind":  "narrative_context",
+                                 "lifecycle_state":  "active",
+                                 "proof_status":  "context_only",
+                                 "source_task":  "R16-010",
+                                 "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                 "owner_role":  "governance_operator",
+                                 "source_refs":  [
+                                                     {
+                                                         "ref_id":  "status_readme_self_ref",
+                                                         "path":  "README.md",
+                                                         "source_task":  "R16-010",
+                                                         "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                         "artifact_class":  "authority_document",
+                                                         "authority_class":  "governance_authority",
+                                                         "evidence_kind":  "narrative_context",
+                                                         "proof_status":  "context_only",
+                                                         "exact_path_only":  true,
+                                                         "broad_scan_allowed":  false,
+                                                         "wildcard_allowed":  false,
+                                                         "stale_state":  "fresh",
+                                                         "caveat_id":  "",
+                                                         "generated_from_head":  "a6e088b79bd4bd70042d6540acc24c8c988f1984",
+                                                         "generated_from_tree":  "be53d49d4b2752e08fb407e19c247e9bf31c948b",
+                                                         "machine_proof":  false,
+                                                         "implementation_proof":  false
+                                                     }
+                                                 ],
+                                 "dependency_refs":  [
+
+                                                     ],
+                                 "generated_from_head":  "a6e088b79bd4bd70042d6540acc24c8c988f1984",
+                                 "generated_from_tree":  "be53d49d4b2752e08fb407e19c247e9bf31c948b",
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "inspection_route":  {
+                                                          "route_id":  "status_readme_inspection",
+                                                          "route_kind":  "exact_file_read",
+                                                          "path":  "README.md",
+                                                          "expected_reader_role":  "governance_operator",
+                                                          "exact_command":  "Get-Content -LiteralPath README.md",
+                                                          "broad_scan_allowed":  false,
+                                                          "wildcard_allowed":  false,
+                                                          "fallback_route":  "none",
+                                                          "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                      },
+                                 "caveats":  [
+
+                                             ],
+                                 "non_claims":  [
+                                                    "Status surface only; not machine implementation proof by itself.",
+                                                    "This artifact is not runtime memory, not an audit map, not a context-load planner, and not workflow execution."
+                                                ],
+                                 "deterministic_order":  1
+                             }
+                         ],
+    "relationships":  [
+
+                      ],
+    "finding_summary":  {
+                            "missing_required_paths":  0,
+                            "wildcard_paths":  0,
+                            "broad_repo_root_paths":  0,
+                            "stale_refs_without_caveat":  0,
+                            "runtime_overclaims":  0,
+                            "audit_map_overclaims":  0,
+                            "context_planner_overclaims":  0,
+                            "later_task_overclaims":  0
+                        },
+    "aggregate_verdict":  "passed",
+    "non_claims":  [
+                       "no product runtime",
+                       "no productized UI",
+                       "no actual autonomous agents",
+                       "no true multi-agent execution",
+                       "no persistent memory runtime",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no external integrations",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board integration",
+                       "no external board sync",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no main merge",
+                       "no R13 closure",
+                       "no R14 caveat removal",
+                       "no R15 caveat removal",
+                       "no R13 partial-gate conversion",
+                       "no audit map",
+                       "no context-load planner",
+                       "no role-run envelope",
+                       "no handoff packet",
+                       "no workflow drill"
+                   ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates":  [
+                                                                   "API/custom-runner bypass",
+                                                                   "current operator control room",
+                                                                   "skill invocation evidence",
+                                                                   "operator demo"
+                                                               ]
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false,
+                                             "r13_partial_gates_converted_to_passed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                             "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                             "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "validation_commands":  [
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/new_r16_artifact_map.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_artifact_map.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  2
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_artifact_map_generator.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  3
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_artifact_map_contract.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  4
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_artifact_map_contract.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  5
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  6
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_status_doc_gate.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  7
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_memory_pack_validation.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  8
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_memory_pack_validation_report.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  9
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_memory_layer_generator.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  10
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_memory_layers.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  11
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_role_memory_pack_generator.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  12
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_role_memory_packs.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  13
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_kpi_baseline_target_scorecard.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  14
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_kpi_baseline_target_scorecard.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  15
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_planning_authority_reference.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  16
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_planning_authority_reference.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  17
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_milestone_reporting_standard.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  18
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_milestone_reporting_standard.ps1",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  19
+                                },
+                                {
+                                    "command":  "git diff --check",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  20
+                                },
+                                {
+                                    "command":  "git diff --cached --check",
+                                    "expected_result":  "pass",
+                                    "deterministic_order":  21
+                                }
+                            ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_required_path_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "rule_id":  "wildcard_path_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  2
+                                },
+                                {
+                                    "rule_id":  "broad_repo_root_path_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  3
+                                },
+                                {
+                                    "rule_id":  "full_repo_scan_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  4
+                                },
+                                {
+                                    "rule_id":  "runtime_memory_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  5
+                                },
+                                {
+                                    "rule_id":  "audit_map_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  6
+                                },
+                                {
+                                    "rule_id":  "context_load_planner_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  7
+                                },
+                                {
+                                    "rule_id":  "report_as_machine_proof_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  8
+                                },
+                                {
+                                    "rule_id":  "stale_ref_without_caveat_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  9
+                                },
+                                {
+                                    "rule_id":  "r16_011_or_later_implementation_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  10
+                                },
+                                {
+                                    "rule_id":  "r16_027_or_later_task_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  11
+                                },
+                                {
+                                    "rule_id":  "r13_closure_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  12
+                                },
+                                {
+                                    "rule_id":  "r14_caveat_removal_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  13
+                                },
+                                {
+                                    "rule_id":  "r15_caveat_removal_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  14
+                                },
+                                {
+                                    "rule_id":  "r13_partial_gate_conversion_claim_rejected",
+                                    "enforced":  true,
+                                    "deterministic_order":  15
+                                }
+                            ]
+}
