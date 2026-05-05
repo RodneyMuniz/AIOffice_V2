@@ -54,14 +54,12 @@ try {
     }
 
     foreach ($forbiddenPath in @(
-        "tools\R16AuditMapGenerator.psm1",
-        "tools\new_r16_audit_map.ps1",
         "state\audit\r16_audit_map.json",
         "state\audit\r15_r16_audit_map.json",
         "state\artifacts\r16_audit_map.json"
     )) {
         if (Test-Path -LiteralPath (Join-Path $repoRoot $forbiddenPath)) {
-            $failures += "FAIL forbidden R16-011 artifact exists: $forbiddenPath"
+            $failures += "FAIL forbidden mislocated audit-map artifact exists: $forbiddenPath"
         }
     }
 

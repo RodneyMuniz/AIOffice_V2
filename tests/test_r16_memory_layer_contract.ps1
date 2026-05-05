@@ -115,11 +115,11 @@ try {
     }
 
     $status = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if (-not $status.R16Opened -or $status.R16DoneThrough -ne 11 -or $status.R16PlannedStart -ne 12 -or $status.R16PlannedThrough -ne 26) {
-        $failures += "FAIL status posture: expected R16 active through R16-011 only with R16-012 through R16-026 planned only."
+    if (-not $status.R16Opened -or $status.R16DoneThrough -ne 12 -or $status.R16PlannedStart -ne 13 -or $status.R16PlannedThrough -ne 26) {
+        $failures += "FAIL status posture: expected R16 active through R16-012 only with R16-013 through R16-026 planned only."
     }
     else {
-        Write-Output "PASS status posture: R16 active through R16-011 only; R16-012 through R16-026 remain planned only."
+        Write-Output "PASS status posture: R16 active through R16-012 only; R16-013 through R16-026 remain planned only."
         $validPassed += 1
     }
 

@@ -1,0 +1,44 @@
+{
+  "artifact_type": "r16_012_r15_r16_audit_map_evidence_index",
+  "source_task": "R16-012",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generator_module": "tools/R16AuditMapGenerator.psm1",
+  "generator_cli": "tools/new_r16_audit_map.ps1",
+  "validator_cli": "tools/validate_r16_audit_map.ps1",
+  "test_file": "tests/test_r16_audit_map_generator.ps1",
+  "generated_audit_map": "state/audit/r16_r15_r16_audit_map.json",
+  "valid_fixture": "tests/fixtures/r16_audit_map_generator/valid_audit_map.json",
+  "invalid_fixtures": [
+    "tests/fixtures/r16_audit_map_generator/invalid_missing_evidence_path.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_wildcard_evidence_path.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_broad_scan_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_directory_only_proof_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_runtime_memory_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_context_planner_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_artifact_diff_tooling_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_report_as_machine_proof.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_stale_ref_without_caveat.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_r16_013_claim.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_r13_boundary_change.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_r14_caveat_removed.json",
+    "tests/fixtures/r16_audit_map_generator/invalid_r15_caveat_removed.json"
+  ],
+  "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/proof_review.json",
+  "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/validation_manifest.md",
+  "status_surfaces_changed": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md",
+    "governance/DOCUMENT_AUTHORITY_INDEX.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "tools/StatusDocGate.psm1",
+    "tools/validate_status_doc_gate.ps1",
+    "tests/test_status_doc_gate.ps1"
+  ],
+  "non_claims": [
+    "The audit map is a committed generated audit map state artifact only.",
+    "The audit map is not runtime memory, not product runtime, not a context-load planner, and not artifact-map diff/check tooling.",
+    "No R16-013 through R16-026 implementation is claimed."
+  ]
+}
