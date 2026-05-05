@@ -1,0 +1,5 @@
+{
+  "exact_ref_policy": {
+    "directory_only_ref_policy_allowed": true
+  }
+}

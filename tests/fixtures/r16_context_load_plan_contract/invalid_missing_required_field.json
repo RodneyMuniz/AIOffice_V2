@@ -1,0 +1,37 @@
+{
+  "artifact_type": "r16_context_load_plan_contract",
+  "contract_version": "v1",
+  "context_load_plan_contract_id": "aioffice-r16-014-context-load-plan-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-014",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "11ce73f451f97546b5e0c5123a6891ed4391b069",
+  "generated_from_tree": "25c1255d43981c0bea84d56525050889fed9bae5",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_artifact_audit_map_check_report",
+      "path": "state/artifacts/r16_artifact_audit_map_check_report.json",
+      "source_task": "R16-013",
+      "proof_treatment": "committed validation/check report state artifact only",
+      "deterministic_order": 1
+    }
+  ],
+  "contract_mode": {
+    "contract_only": true,
+    "generated_context_load_plan": false,
+    "context_load_planner": false,
+    "context_budget_estimator": false,
+    "over_budget_fail_closed_validator": false,
+    "runtime_memory": false,
+    "retrieval_runtime": false,
+    "vector_search_runtime": false,
+    "product_runtime": false,
+    "autonomous_agents": false,
+    "external_integrations": false,
+    "role_run_envelope": false,
+    "raci_transition_gate": false,
+    "handoff_packet": false,
+    "workflow_drill": false
+  }
+}

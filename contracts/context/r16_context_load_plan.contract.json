@@ -1,0 +1,278 @@
+{
+  "artifact_type": "r16_context_load_plan_contract",
+  "contract_version": "v1",
+  "context_load_plan_contract_id": "aioffice-r16-014-context-load-plan-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-014",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "11ce73f451f97546b5e0c5123a6891ed4391b069",
+  "generated_from_tree": "25c1255d43981c0bea84d56525050889fed9bae5",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_role_memory_pack_model",
+      "path": "state/memory/r16_role_memory_pack_model.json",
+      "source_task": "R16-006",
+      "proof_treatment": "committed state model only",
+      "deterministic_order": 1
+    },
+    {
+      "ref_id": "r16_role_memory_packs",
+      "path": "state/memory/r16_role_memory_packs.json",
+      "source_task": "R16-007",
+      "proof_treatment": "committed generated state artifact only",
+      "deterministic_order": 2
+    },
+    {
+      "ref_id": "r16_memory_pack_validation_report",
+      "path": "state/memory/r16_memory_pack_validation_report.json",
+      "source_task": "R16-008",
+      "proof_treatment": "committed validation report state artifact only",
+      "deterministic_order": 3
+    },
+    {
+      "ref_id": "r16_artifact_map",
+      "path": "state/artifacts/r16_artifact_map.json",
+      "source_task": "R16-010",
+      "proof_treatment": "committed generated state artifact only",
+      "deterministic_order": 4
+    },
+    {
+      "ref_id": "r16_r15_r16_audit_map",
+      "path": "state/audit/r16_r15_r16_audit_map.json",
+      "source_task": "R16-012",
+      "proof_treatment": "committed generated audit map state artifact only",
+      "deterministic_order": 5
+    },
+    {
+      "ref_id": "r16_artifact_audit_map_check_report",
+      "path": "state/artifacts/r16_artifact_audit_map_check_report.json",
+      "source_task": "R16-013",
+      "proof_treatment": "committed validation/check report state artifact only",
+      "deterministic_order": 6
+    },
+    {
+      "ref_id": "r16_013_proof_review",
+      "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/proof_review.json",
+      "source_task": "R16-013",
+      "proof_treatment": "proof-review package",
+      "deterministic_order": 7
+    },
+    {
+      "ref_id": "r16_authority",
+      "path": "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+      "source_task": "R16-014",
+      "proof_treatment": "milestone authority",
+      "deterministic_order": 8
+    }
+  ],
+  "contract_mode": {
+    "contract_only": true,
+    "generated_context_load_plan": false,
+    "context_load_planner": false,
+    "context_budget_estimator": false,
+    "over_budget_fail_closed_validator": false,
+    "runtime_memory": false,
+    "retrieval_runtime": false,
+    "vector_search_runtime": false,
+    "product_runtime": false,
+    "autonomous_agents": false,
+    "external_integrations": false,
+    "role_run_envelope": false,
+    "raci_transition_gate": false,
+    "handoff_packet": false,
+    "workflow_drill": false
+  },
+  "context_load_plan_schema": {
+    "required_fields": [
+      "context_load_plan_id",
+      "source_milestone",
+      "source_task",
+      "target_role",
+      "target_workflow_scope",
+      "source_refs",
+      "load_groups",
+      "artifact_refs",
+      "audit_refs",
+      "exclusion_refs",
+      "context_budget",
+      "load_order",
+      "exact_ref_policy",
+      "validation_commands",
+      "non_claims",
+      "deterministic_order"
+    ]
+  },
+  "context_source_ref_schema": {
+    "required_fields": [
+      "ref_id",
+      "path",
+      "ref_kind",
+      "source_task",
+      "authority_level",
+      "proof_status",
+      "load_required",
+      "deterministic_order"
+    ]
+  },
+  "load_group_schema": {
+    "required_fields": [
+      "group_id",
+      "purpose",
+      "required_refs",
+      "optional_refs",
+      "forbidden_refs",
+      "max_items",
+      "deterministic_order"
+    ]
+  },
+  "context_budget_schema": {
+    "required_fields": [
+      "budget_id",
+      "budget_unit",
+      "max_budget",
+      "estimator_status",
+      "over_budget_policy",
+      "fail_closed_required",
+      "deterministic_order"
+    ]
+  },
+  "exact_ref_policy": {
+    "repo_relative_exact_paths_only": true,
+    "wildcard_path_claims_allowed": false,
+    "broad_repo_root_claims_allowed": false,
+    "full_repo_scan_allowed": false,
+    "directory_only_ref_policy_allowed": false,
+    "directory_only_refs_require_exact_files": true,
+    "generated_plan_requires_dedicated_r16_015_planner": true,
+    "r16_014_generates_context_load_plan": false,
+    "r16_014_implements_context_load_planner": false
+  },
+  "proof_treatment_policy": {
+    "contract_artifact_only": true,
+    "generated_context_load_plan_as_machine_proof_allowed": false,
+    "generated_reports_as_machine_proof_allowed": false,
+    "operator_reports_as_machine_proof_allowed": false,
+    "planning_artifacts_as_implementation_proof_allowed": false,
+    "runtime_product_claims_allowed_without_later_evidence": false,
+    "runtime_product_claims_rejected_unless_later_implemented_and_evidenced": true
+  },
+  "overclaim_detection_policy": {
+    "claim_flags": {
+      "generated_context_load_plan": false,
+      "context_load_planner": false,
+      "context_budget_estimator": false,
+      "over_budget_fail_closed_validator": false,
+      "runtime_memory_loading": false,
+      "persistent_memory_runtime": false,
+      "retrieval_runtime": false,
+      "vector_search_runtime": false,
+      "product_runtime": false,
+      "productized_ui": false,
+      "actual_autonomous_agents": false,
+      "true_multi_agent_execution": false,
+      "role_run_envelope": false,
+      "raci_transition_gate": false,
+      "handoff_packet": false,
+      "workflow_drill": false,
+      "external_integrations": false,
+      "solved_codex_compaction": false,
+      "solved_codex_reliability": false,
+      "main_merge": false,
+      "r13_closure": false,
+      "r14_caveat_removal": false,
+      "r15_caveat_removal": false,
+      "r13_partial_gate_conversion": false,
+      "r16_015_or_later_implementation": false,
+      "r16_027_or_later_task": false
+    }
+  },
+  "current_posture": {
+    "active_through_task": "R16-014",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011",
+      "R16-012",
+      "R16-013",
+      "R16-014"
+    ],
+    "planned_tasks": [
+      "R16-015",
+      "R16-016",
+      "R16-017",
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ],
+    "r16_015_or_later_implementation_claimed": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  },
+  "validation_commands": [
+    {
+      "command_id": "validate_r16_context_load_plan_contract",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_context_load_plan_contract.ps1",
+      "expected_result": "PASS",
+      "validates_path": "contracts/context/r16_context_load_plan.contract.json",
+      "required_for_closeout": true,
+      "deterministic_order": 1
+    },
+    {
+      "command_id": "test_r16_context_load_plan_contract",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_context_load_plan_contract.ps1",
+      "expected_result": "PASS",
+      "validates_path": "tests/test_r16_context_load_plan_contract.ps1",
+      "required_for_closeout": true,
+      "deterministic_order": 2
+    }
+  ],
+  "non_claims": [
+    "no generated context-load plan",
+    "no context-load planner",
+    "no context budget estimator",
+    "no over-budget fail-closed validator",
+    "no role-run envelope",
+    "no RACI transition gate",
+    "no handoff packet",
+    "no workflow drill",
+    "no product runtime",
+    "no runtime memory",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no autonomous agents",
+    "no external integrations",
+    "no solved Codex compaction",
+    "no solved Codex reliability"
+  ]
+}

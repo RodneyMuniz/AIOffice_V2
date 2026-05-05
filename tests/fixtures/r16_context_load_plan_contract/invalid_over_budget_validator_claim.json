@@ -1,0 +1,5 @@
+{
+  "contract_mode": {
+    "over_budget_fail_closed_validator": true
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "contract_mode": {
+    "context_budget_estimator": true
+  }
+}

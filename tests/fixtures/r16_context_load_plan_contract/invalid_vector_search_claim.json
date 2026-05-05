@@ -1,0 +1,7 @@
+{
+  "overclaim_detection_policy": {
+    "claim_flags": {
+      "vector_search_runtime": true
+    }
+  }
+}
