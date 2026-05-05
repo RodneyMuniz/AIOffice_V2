@@ -1,0 +1,371 @@
+{
+    "artifact_type":  "r16_artifact_audit_map_check_report",
+    "report_version":  "v1",
+    "report_id":  "aioffice-r16-013-artifact-audit-map-check-report-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-013",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generation_boundary":  {
+                                "input_head":  "e1a4ec6e4e0c7c12ac2d68f98b496323fe998ecf",
+                                "input_tree":  "2acbd19827083752803091bd2df4416c4786c486",
+                                "boundary_note":  "input boundary for generation, not a claim to equal final R16-013 commit"
+                            },
+    "artifact_map_ref":  {
+                             "path":  "state/artifacts/r16_artifact_map.json",
+                             "source_task":  "R16-010",
+                             "loaded_and_validated":  true
+                         },
+    "audit_map_ref":  {
+                          "path":  "state/audit/r16_r15_r16_audit_map.json",
+                          "source_task":  "R16-012",
+                          "loaded_and_validated":  true
+                      },
+    "current_posture":  {
+                            "active_through_task":  "R16-013",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004",
+                                                   "R16-005",
+                                                   "R16-006",
+                                                   "R16-007",
+                                                   "R16-008",
+                                                   "R16-009",
+                                                   "R16-010",
+                                                   "R16-011",
+                                                   "R16-012",
+                                                   "R16-013"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-014",
+                                                  "R16-015",
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "r16_014_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false
+                        },
+    "check_mode":  {
+                       "artifact_audit_map_check_tooling_implemented":  true,
+                       "check_report_state_artifact":  true,
+                       "context_load_planner_implemented":  false,
+                       "context_budget_estimator_implemented":  false,
+                       "role_run_envelope_implemented":  true,
+                       "raci_transition_gate_implemented":  false,
+                       "handoff_packet_implemented":  false,
+                       "workflow_drill_run":  false,
+                       "runtime_memory_implemented":  false,
+                       "product_runtime_implemented":  false,
+                       "actual_autonomous_agents_implemented":  false,
+                       "external_integrations_implemented":  false
+                   },
+    "exact_ref_summary":  {
+                              "artifact_map_required_paths_checked":  71,
+                              "audit_map_required_paths_checked":  105,
+                              "artifact_records_checked":  106,
+                              "audit_entries_checked":  159,
+                              "missing_required_paths":  0,
+                              "wildcard_paths":  0,
+                              "broad_repo_root_paths":  0,
+                              "directory_only_proof_claims":  0,
+                              "stale_generated_from_without_caveat":  0,
+                              "report_as_machine_proof_errors":  0
+                          },
+    "accepted_caveats":  [
+                             {
+                                 "caveat_id":  "r15_final_proof_review_package_stale_generated_from",
+                                 "caveat_type":  "stale_generated_from_ref_preserved",
+                                 "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                 "applies_to_ref_id":  "r15_final_proof_review_package",
+                                 "declared_boundary":  {
+                                                           "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                                           "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                                           "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0"
+                                                       },
+                                 "observed_boundary":  {
+                                                           "generated_from_head":  "5865422a1a1c0bf6f347346a95087ee33e055da3",
+                                                           "generated_from_tree":  "c2d8f3e8f59e3f7785a0f8261f82204bcbb4af22"
+                                                       },
+                                 "accepted_reason":  "The R15 external audit acceptance boundary is recorded separately and the older generated_from values remain visible as provenance caveats.",
+                                 "preserved_scope":  "R15 remains accepted with caveats through R15-009 only; R13 remains failed/partial and R14/R15 caveats are not removed.",
+                                 "deterministic_order":  1
+                             },
+                             {
+                                 "caveat_id":  "r15_evidence_index_stale_generated_from",
+                                 "caveat_type":  "stale_generated_from_ref_preserved",
+                                 "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                 "applies_to_ref_id":  "r15_final_evidence_index",
+                                 "declared_boundary":  {
+                                                           "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                                           "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                                           "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0"
+                                                       },
+                                 "observed_boundary":  {
+                                                           "generated_from_head":  "5865422a1a1c0bf6f347346a95087ee33e055da3",
+                                                           "generated_from_tree":  "c2d8f3e8f59e3f7785a0f8261f82204bcbb4af22"
+                                                       },
+                                 "accepted_reason":  "The R15 evidence index keeps its original generated_from values and is accepted only with this explicit caveat.",
+                                 "preserved_scope":  "R15 remains accepted with caveats through R15-009 only; R13 remains failed/partial and R14/R15 caveats are not removed.",
+                                 "deterministic_order":  2
+                             }
+                         ],
+    "findings":  [
+                     {
+                         "finding_id":  "accepted_r15_final_proof_review_package_stale_generated_from",
+                         "category":  "stale_generated_from_policy",
+                         "severity":  "warning",
+                         "subject_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                         "subject_ref_id":  "r15_final_proof_review_package",
+                         "expected":  "stale generated_from is visible and caveated",
+                         "actual":  "accepted with explicit caveat",
+                         "accepted_caveat_id":  "r15_final_proof_review_package_stale_generated_from",
+                         "message":  "Known R15 stale generated_from ref is accepted only because the audit map preserves explicit caveat \u0027r15_final_proof_review_package_stale_generated_from\u0027.",
+                         "deterministic_order":  1
+                     },
+                     {
+                         "finding_id":  "accepted_r15_evidence_index_stale_generated_from",
+                         "category":  "stale_generated_from_policy",
+                         "severity":  "warning",
+                         "subject_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                         "subject_ref_id":  "r15_final_evidence_index",
+                         "expected":  "stale generated_from is visible and caveated",
+                         "actual":  "accepted with explicit caveat",
+                         "accepted_caveat_id":  "r15_evidence_index_stale_generated_from",
+                         "message":  "Known R15 stale generated_from ref is accepted only because the audit map preserves explicit caveat \u0027r15_evidence_index_stale_generated_from\u0027.",
+                         "deterministic_order":  2
+                     },
+                     {
+                         "finding_id":  "contract_validated",
+                         "category":  "exact_path_policy",
+                         "severity":  "pass",
+                         "subject_path":  "contracts/artifacts/r16_artifact_audit_map_check_report.contract.json",
+                         "subject_ref_id":  "report_contract",
+                         "expected":  "contract validates",
+                         "actual":  "passed",
+                         "accepted_caveat_id":  "",
+                         "message":  "R16-013 report contract validates and preserves check-only semantics.",
+                         "deterministic_order":  3
+                     },
+                     {
+                         "finding_id":  "artifact_map_loaded",
+                         "category":  "required_path_presence",
+                         "severity":  "pass",
+                         "subject_path":  "state/artifacts/r16_artifact_map.json",
+                         "subject_ref_id":  "artifact_map_ref",
+                         "expected":  "artifact map loaded and validated",
+                         "actual":  "records=106",
+                         "accepted_caveat_id":  "",
+                         "message":  "R16 artifact map loaded and validated from exact path.",
+                         "deterministic_order":  4
+                     },
+                     {
+                         "finding_id":  "audit_map_loaded",
+                         "category":  "required_path_presence",
+                         "severity":  "pass",
+                         "subject_path":  "state/audit/r16_r15_r16_audit_map.json",
+                         "subject_ref_id":  "audit_map_ref",
+                         "expected":  "audit map loaded and validated",
+                         "actual":  "entries=159",
+                         "accepted_caveat_id":  "",
+                         "message":  "R16 R15/R16 audit map loaded and validated from exact path.",
+                         "deterministic_order":  5
+                     },
+                     {
+                         "finding_id":  "required_paths_exist",
+                         "category":  "required_path_presence",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "required_paths",
+                         "expected":  "all required paths exist",
+                         "actual":  "missing=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "Artifact-map and audit-map required paths exist.",
+                         "deterministic_order":  6
+                     },
+                     {
+                         "finding_id":  "exact_paths_only",
+                         "category":  "exact_path_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "exact_ref_policy",
+                         "expected":  "repo-relative exact file paths",
+                         "actual":  "checked=873",
+                         "accepted_caveat_id":  "",
+                         "message":  "Artifact records, audit entries, source refs, inspection routes, and practical proof-review refs use exact file paths.",
+                         "deterministic_order":  7
+                     },
+                     {
+                         "finding_id":  "no_wildcards",
+                         "category":  "wildcard_path_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "wildcard_policy",
+                         "expected":  "no wildcard paths",
+                         "actual":  "wildcard_paths=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "No wildcard path claims were found.",
+                         "deterministic_order":  8
+                     },
+                     {
+                         "finding_id":  "no_broad_repo_root_paths",
+                         "category":  "broad_repo_root_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "broad_repo_root_policy",
+                         "expected":  "no broad repo root paths",
+                         "actual":  "broad_repo_root_paths=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "No broad repo-root path claims were found.",
+                         "deterministic_order":  9
+                     },
+                     {
+                         "finding_id":  "no_directory_only_proof_claims",
+                         "category":  "directory_only_proof_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "directory_only_policy",
+                         "expected":  "no directory-only proof claims",
+                         "actual":  "directory_only_proof_claims=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "No directory-only proof claims were found.",
+                         "deterministic_order":  10
+                     },
+                     {
+                         "finding_id":  "no_report_as_machine_proof",
+                         "category":  "report_proof_treatment_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "proof_treatment_policy",
+                         "expected":  "reports and manifests are not machine implementation proof by themselves",
+                         "actual":  "report_as_machine_proof_errors=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "Reports, manifests, and planning artifacts are not treated as machine implementation proof.",
+                         "deterministic_order":  11
+                     },
+                     {
+                         "finding_id":  "current_posture_preserved",
+                         "category":  "later_task_overclaim_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "current_posture",
+                         "expected":  "active through R16-013 only",
+                         "actual":  "R16-014 through R16-026 planned only",
+                         "accepted_caveat_id":  "",
+                         "message":  "Current posture is active through R16-013 only; R16-014 through R16-026 remain planned only.",
+                         "deterministic_order":  12
+                     },
+                     {
+                         "finding_id":  "historical_boundaries_preserved",
+                         "category":  "historical_boundary_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "r13_r14_r15",
+                         "expected":  "R13 failed/partial, R14/R15 caveats preserved",
+                         "actual":  "preserved",
+                         "accepted_caveat_id":  "",
+                         "message":  "R13 remains failed/partial and not closed; R14/R15 caveats remain preserved.",
+                         "deterministic_order":  13
+                     },
+                     {
+                         "finding_id":  "no_runtime_or_integration_overclaims",
+                         "category":  "runtime_overclaim_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "non_claims",
+                         "expected":  "no runtime/product/agent/integration claims",
+                         "actual":  "overclaims=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "No product runtime, runtime memory, autonomous agent, or external integration overclaims were found.",
+                         "deterministic_order":  14
+                     },
+                     {
+                         "finding_id":  "no_context_or_role_workflow_overclaims",
+                         "category":  "context_planner_overclaim_policy",
+                         "severity":  "pass",
+                         "subject_path":  "",
+                         "subject_ref_id":  "non_claims",
+                         "expected":  "no context planner or role workflow implementation",
+                         "actual":  "overclaims=0",
+                         "accepted_caveat_id":  "",
+                         "message":  "No context-load planner, budget estimator, role-run envelope, handoff packet, RACI transition gate, or workflow drill claims were found.",
+                         "deterministic_order":  15
+                     }
+                 ],
+    "finding_summary":  {
+                            "pass_count":  13,
+                            "info_count":  0,
+                            "warning_count":  2,
+                            "fail_count":  0,
+                            "missing_required_paths":  0,
+                            "wildcard_paths":  0,
+                            "broad_repo_root_paths":  0,
+                            "directory_only_proof_claims":  0,
+                            "stale_generated_from_without_caveat":  0,
+                            "report_as_machine_proof_errors":  0,
+                            "runtime_overclaims":  0,
+                            "context_planner_overclaims":  0,
+                            "role_workflow_overclaims":  0,
+                            "later_task_overclaims":  0,
+                            "r13_boundary_violations":  0,
+                            "r14_caveat_removals":  0,
+                            "r15_caveat_removals":  0
+                        },
+    "aggregate_verdict":  "passed_with_caveats",
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed_partial_through_r13_018_only",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates_converted_to_passed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats_through_r14_006_only",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats_through_r15_009_only",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "non_claims":  [
+                       "no context-load planner",
+                       "no context budget estimator",
+                       "no role-run envelope",
+                       "no RACI transition gate",
+                       "no handoff packet",
+                       "no workflow drill",
+                       "no product runtime",
+                       "no productized UI",
+                       "no actual autonomous agents",
+                       "no true multi-agent execution",
+                       "no persistent memory runtime",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no external integrations",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board integration",
+                       "no external board sync",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no main merge",
+                       "no R13 closure",
+                       "no R14 caveat removal",
+                       "no R15 caveat removal",
+                       "no R13 partial-gate conversion"
+                   ]
+}

@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-012` only
+**Milestone status:** Active in repo truth through `R16-013` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -45,7 +45,11 @@ R16-009 defined the artifact map contract only through `contracts/artifacts/r16_
 
 R16-010 implemented the bounded artifact map generator for milestone scope through `tools/R16ArtifactMapGenerator.psm1`, `tools/new_r16_artifact_map.ps1`, `tools/validate_r16_artifact_map.ps1`, `tests/test_r16_artifact_map_generator.ps1`, committed generated state artifact `state/artifacts/r16_artifact_map.json`, fixtures under `tests/fixtures/r16_artifact_map_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/`. `state/artifacts/r16_artifact_map.json` is a committed generated state artifact only. The artifact map is not runtime memory, not an audit map, not a context-load planner, and not workflow execution.
 
-R16-011 added the audit map contract only through `contracts/audit/r16_audit_map.contract.json`, `tools/R16AuditMapContract.psm1`, `tools/validate_r16_audit_map_contract.ps1`, `tests/test_r16_audit_map_contract.ps1`, fixtures under `tests/fixtures/r16_audit_map_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/`. The audit map contract is model/contract proof only. No generated audit map exists yet. No audit map generator exists yet. No R15/R16 audit map exists yet.
+R16-011 added the audit map contract only through `contracts/audit/r16_audit_map.contract.json`, `tools/R16AuditMapContract.psm1`, `tools/validate_r16_audit_map_contract.ps1`, `tests/test_r16_audit_map_contract.ps1`, fixtures under `tests/fixtures/r16_audit_map_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/`. The audit map contract is model/contract proof only.
+
+R16-012 generated the bounded R15/R16 audit map only through `tools/R16AuditMapGenerator.psm1`, `tools/new_r16_audit_map.ps1`, `tools/validate_r16_audit_map.ps1`, `tests/test_r16_audit_map_generator.ps1`, generated audit map state artifact `state/audit/r16_r15_r16_audit_map.json`, fixtures under `tests/fixtures/r16_audit_map_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/`. `state/audit/r16_r15_r16_audit_map.json` is a committed generated audit map state artifact only. The audit map is not runtime memory, not product runtime, not a context-load planner, and not artifact-map diff/check tooling.
+
+R16-013 added bounded artifact/audit map diff-check tooling and a committed check report through `contracts/artifacts/r16_artifact_audit_map_check_report.contract.json`, `tools/R16ArtifactAuditMapCheck.psm1`, `tools/test_r16_artifact_audit_map_refs.ps1`, `tools/validate_r16_artifact_audit_map_check_report.ps1`, `tests/test_r16_artifact_audit_map_check.ps1`, generated validation/check report state artifact `state/artifacts/r16_artifact_audit_map_check_report.json`, fixtures under `tests/fixtures/r16_artifact_audit_map_check/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/`. `state/artifacts/r16_artifact_audit_map_check_report.json` is a committed validation/check report state artifact only. The check report is not runtime memory, not product runtime, not a context-load planner, not a context budget estimator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution.
 
 ## Purpose
 
@@ -411,8 +415,8 @@ Required evidence deliverables:
 - Purpose: reduce audit inspection effort by mapping exact R15/R16 evidence and caveats.
 
 ### `R16-013` Add artifact-map diff/check tooling to prevent stale or missing evidence refs
-- Status: planned
-- Purpose: validate artifact-map freshness and reject stale or missing refs.
+- Status: done
+- Purpose: validate artifact-map and audit-map freshness and reject stale or missing refs.
 
 ### `R16-014` Define context-load plan contract
 - Status: planned
@@ -501,8 +505,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-011` only.
-- `R16-013` through `R16-026` remain planned only.
+- R16 active through `R16-013` only.
+- `R16-014` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -511,9 +515,11 @@ Status gates must accept:
 - artifact map generator exists for milestone scope only.
 - `state/artifacts/r16_artifact_map.json` exists as a committed generated state artifact only, not runtime memory, not an audit map, not a context-load planner, and not workflow execution.
 - audit map contract exists as model/contract proof only.
-- no generated audit map exists yet.
-- no audit map generator exists yet.
-- no R15/R16 audit map exists yet.
+- generated audit map exists as a committed generated audit map state artifact only, not runtime memory, not product runtime, not a context-load planner, and not artifact-map diff/check tooling.
+- audit map generator exists for bounded R15/R16 audit map generation only.
+- R15/R16 audit map exists as exact evidence-path metadata only.
+- bounded artifact/audit map diff-check tooling exists for R16-013 validation only.
+- `state/artifacts/r16_artifact_audit_map_check_report.json` exists as a committed validation/check report state artifact only, not runtime memory, not product runtime, not a context-load planner, not a context budget estimator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution.
 - no context-load planner exists yet.
 - no role-run envelope exists yet.
 - no handoff packet exists yet.
@@ -521,7 +527,7 @@ Status gates must accept:
 
 Status gates must reject:
 
-- reject `R16-012` or later implementation claims.
+- reject `R16-014` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -762,3 +768,24 @@ R16-012 is accepted only if:
 - focused R16-012 validation and status gates pass.
 
 After R16-012, R16 is active through `R16-012` only. `R16-013` through `R16-026` remain planned only. R16-012 generated the bounded R15/R16 audit map only through `tools/R16AuditMapGenerator.psm1`, `tools/new_r16_audit_map.ps1`, `tools/validate_r16_audit_map.ps1`, `tests/test_r16_audit_map_generator.ps1`, generated audit map state artifact `state/audit/r16_r15_r16_audit_map.json`, fixtures under `tests/fixtures/r16_audit_map_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/`. `state/audit/r16_r15_r16_audit_map.json` is a committed generated audit map state artifact only. The audit map is not runtime memory. The audit map is not product runtime. The audit map is not a context-load planner. The audit map is not artifact-map diff/check tooling. No artifact-map diff/check tooling exists yet. No context-load planner exists yet. No context budget estimator exists yet. No role-run envelope exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+
+R16-013 is accepted only if:
+
+- the report contract exists at `contracts/artifacts/r16_artifact_audit_map_check_report.contract.json`;
+- the checker module exists at `tools/R16ArtifactAuditMapCheck.psm1`;
+- the checker CLI exists at `tools/test_r16_artifact_audit_map_refs.ps1`;
+- the report validator CLI exists at `tools/validate_r16_artifact_audit_map_check_report.ps1`;
+- the focused test exists at `tests/test_r16_artifact_audit_map_check.ps1`;
+- the generated check report exists at `state/artifacts/r16_artifact_audit_map_check_report.json`;
+- the valid fixture exists at `tests/fixtures/r16_artifact_audit_map_check/valid_check_report.json`;
+- invalid fixtures exist for missing artifact map ref, missing audit map ref, missing evidence path, wildcard path, broad repo-root path, directory-only proof claim, stale generated_from without caveat, report-as-machine-proof misuse, runtime memory claim, context planner claim, role-run envelope claim, handoff packet claim, workflow drill claim, R16-014 implementation claim, R13 boundary change, R14 caveat removal, and R15 caveat removal;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/`;
+- the check tooling loads and validates `state/artifacts/r16_artifact_map.json` and `state/audit/r16_r15_r16_audit_map.json`;
+- missing exact refs, wildcard refs, broad repo-root refs, directory-only proof refs, report-as-machine-proof misuse, uncaveated stale refs, runtime/product/agent/integration overclaims, context-load planner claims, role workflow claims, R16-014-or-later implementation claims, R16-027-or-later task claims, and R13/R14/R15 boundary changes fail closed;
+- the known R15 stale generated_from caveats for `r15_final_proof_review_package.json` and `evidence_index.json` are accepted only because they remain explicit;
+- `state/artifacts/r16_artifact_audit_map_check_report.json` is recorded as a committed validation/check report state artifact only, not runtime memory, not product runtime, not a context-load planner, not a context budget estimator, not a role-run envelope, not a RACI transition gate, not a handoff packet, and not workflow execution;
+- no context-load planner, context budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, runtime memory, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-014 implementation, or R16-027-or-later claim is made;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-013 validation and status gates pass.
+
+After R16-013, R16 is active through `R16-013` only. `R16-014` through `R16-026` remain planned only. R16-013 added bounded artifact/audit map diff-check tooling and a committed check report only through `contracts/artifacts/r16_artifact_audit_map_check_report.contract.json`, `tools/R16ArtifactAuditMapCheck.psm1`, `tools/test_r16_artifact_audit_map_refs.ps1`, `tools/validate_r16_artifact_audit_map_check_report.ps1`, `tests/test_r16_artifact_audit_map_check.ps1`, generated validation/check report state artifact `state/artifacts/r16_artifact_audit_map_check_report.json`, fixtures under `tests/fixtures/r16_artifact_audit_map_check/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/`. `state/artifacts/r16_artifact_audit_map_check_report.json` is a committed validation/check report state artifact only. The check report is not runtime memory. The check report is not product runtime. The check report is not a context-load planner. The check report is not a context budget estimator. The check report is not a role-run envelope. The check report is not a RACI transition gate. The check report is not a handoff packet. The check report is not workflow execution. No context-load planner exists yet. No context budget estimator exists yet. No role-run envelope exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
