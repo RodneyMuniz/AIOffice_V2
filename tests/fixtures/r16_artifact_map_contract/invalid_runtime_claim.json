@@ -1,0 +1,1480 @@
+{
+    "artifact_type":  "r16_artifact_map_contract",
+    "contract_version":  "v1",
+    "artifact_map_contract_id":  "aioffice-r16-009-artifact-map-contract-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-009",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+    "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+    "contract_mode":  {
+                          "mode":  "artifact_map_contract_only_not_generated_map",
+                          "contract_only":  true,
+                          "artifact_map_generation_claimed":  false,
+                          "artifact_map_generator_claimed":  false,
+                          "generated_artifact_map_exists":  false,
+                          "operational_artifact_map_generated":  false,
+                          "artifact_map_generator_implemented":  false,
+                          "audit_map_implemented":  false,
+                          "context_load_planner_implemented":  false,
+                          "context_budget_estimator_implemented":  false,
+                          "role_run_envelope_implemented":  false,
+                          "raci_transition_gate_implemented":  false,
+                          "handoff_packet_implemented":  false,
+                          "workflow_drill_run":  false,
+                          "runtime_memory_implemented":  true,
+                          "runtime_memory_loading_implemented":  false,
+                          "persistent_memory_runtime_implemented":  false,
+                          "retrieval_runtime_implemented":  false,
+                          "vector_search_runtime_implemented":  false,
+                          "product_runtime_implemented":  false,
+                          "productized_ui_implemented":  false,
+                          "actual_autonomous_agents_implemented":  false,
+                          "true_multi_agent_execution_implemented":  false,
+                          "external_integrations_implemented":  false
+                      },
+    "dependency_refs":  [
+                            {
+                                "ref_id":  "r16_memory_pack_validation_report",
+                                "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "committed_state",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-008",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_memory_pack_validation_report_contract",
+                                "path":  "contracts/memory/r16_memory_pack_validation_report.contract.json",
+                                "artifact_class":  "contract",
+                                "artifact_role":  "contract_authority",
+                                "authority_class":  "contract_authority",
+                                "evidence_kind":  "contract_schema",
+                                "source_task":  "R16-008",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_by_itself_true",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_role_memory_packs",
+                                "path":  "state/memory/r16_role_memory_packs.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "committed_state",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-007",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_role_memory_pack_model",
+                                "path":  "state/memory/r16_role_memory_pack_model.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "committed_state",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-006",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_memory_layers",
+                                "path":  "state/memory/r16_memory_layers.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "committed_state",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-005",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_kpi_baseline_target_scorecard",
+                                "path":  "state/governance/r16_kpi_baseline_target_scorecard.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "committed_state",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-003",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_planning_authority_reference",
+                                "path":  "state/governance/r16_planning_authority_reference.json",
+                                "artifact_class":  "state_artifact",
+                                "artifact_role":  "planning_authority",
+                                "authority_class":  "state_authority",
+                                "evidence_kind":  "generated_state_artifact",
+                                "source_task":  "R16-002",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "proof_if_validator_backed",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_milestone_authority",
+                                "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                "artifact_class":  "governance_document",
+                                "artifact_role":  "milestone_authority",
+                                "authority_class":  "milestone_authority",
+                                "evidence_kind":  "narrative_context",
+                                "source_task":  "R16-001",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "context_only",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "document_authority_index",
+                                "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                "artifact_class":  "authority_document",
+                                "artifact_role":  "governance_authority",
+                                "authority_class":  "governance_authority",
+                                "evidence_kind":  "narrative_context",
+                                "source_task":  "pre-R16",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "context_only",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "kpi_domain_model",
+                                "path":  "governance/KPI_DOMAIN_MODEL.md",
+                                "artifact_class":  "governance_document",
+                                "artifact_role":  "governance_authority",
+                                "authority_class":  "governance_authority",
+                                "evidence_kind":  "narrative_context",
+                                "source_task":  "pre-R16",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "context_only",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "milestone_reporting_standard",
+                                "path":  "governance/MILESTONE_REPORTING_STANDARD.md",
+                                "artifact_class":  "governance_document",
+                                "artifact_role":  "governance_authority",
+                                "authority_class":  "governance_authority",
+                                "evidence_kind":  "narrative_context",
+                                "source_task":  "pre-R16",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "context_only",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            },
+                            {
+                                "ref_id":  "r16_008_validation_manifest",
+                                "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_008_memory_pack_validation_stale_ref_detection/validation_manifest.md",
+                                "artifact_class":  "validation_manifest",
+                                "artifact_role":  "proof_manifest",
+                                "authority_class":  "proof_authority",
+                                "evidence_kind":  "validation_manifest",
+                                "source_task":  "R16-008",
+                                "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                "proof_status":  "context_only",
+                                "exact_path_only":  true,
+                                "broad_scan_allowed":  false,
+                                "wildcard_allowed":  false,
+                                "stale_state":  "fresh",
+                                "caveat_id":  "",
+                                "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8"
+                            }
+                        ],
+    "allowed_artifact_classes":  [
+                                     "governance_document",
+                                     "authority_document",
+                                     "contract",
+                                     "tool",
+                                     "cli_wrapper",
+                                     "test",
+                                     "fixture",
+                                     "state_artifact",
+                                     "proof_review_package",
+                                     "validation_manifest",
+                                     "report",
+                                     "operator_artifact",
+                                     "generated_artifact",
+                                     "external_evidence",
+                                     "deprecated_context",
+                                     "cleanup_candidate",
+                                     "unknown"
+                                 ],
+    "allowed_artifact_roles":  [
+                                   "constitutional_authority",
+                                   "governance_authority",
+                                   "milestone_authority",
+                                   "planning_authority",
+                                   "contract_authority",
+                                   "validation_tool",
+                                   "generation_tool",
+                                   "focused_test",
+                                   "valid_fixture",
+                                   "invalid_fixture",
+                                   "committed_state",
+                                   "proof_manifest",
+                                   "proof_review",
+                                   "operator_report",
+                                   "evidence_context",
+                                   "non_claim_record",
+                                   "stale_ref_caveat",
+                                   "dependency_ref",
+                                   "source_ref",
+                                   "inspection_target"
+                               ],
+    "allowed_authority_classes":  [
+                                      "constitutional_authority",
+                                      "governance_authority",
+                                      "milestone_authority",
+                                      "contract_authority",
+                                      "state_authority",
+                                      "proof_authority",
+                                      "report_context",
+                                      "operator_context",
+                                      "external_evidence_context",
+                                      "deprecated_context",
+                                      "unknown_authority"
+                                  ],
+    "allowed_evidence_kinds":  [
+                                   "committed_machine_evidence",
+                                   "contract_schema",
+                                   "validator_module",
+                                   "cli_wrapper",
+                                   "focused_test",
+                                   "valid_fixture",
+                                   "invalid_fixture",
+                                   "generated_state_artifact",
+                                   "validation_manifest",
+                                   "proof_review_package",
+                                   "operator_report",
+                                   "external_replay",
+                                   "narrative_context",
+                                   "stale_ref_caveat",
+                                   "non_claim",
+                                   "rejected_claim"
+                               ],
+    "allowed_lifecycle_states":  [
+                                     "active",
+                                     "current",
+                                     "planned",
+                                     "superseded",
+                                     "deprecated",
+                                     "cleanup_candidate",
+                                     "historical",
+                                     "unknown"
+                                 ],
+    "allowed_proof_statuses":  [
+                                   "proof_by_itself_true",
+                                   "proof_by_itself_false",
+                                   "proof_if_validator_backed",
+                                   "proof_if_external_replay_backed",
+                                   "context_only",
+                                   "rejected_as_overclaim",
+                                   "stale_with_caveat",
+                                   "stale_without_caveat_rejected",
+                                   "unknown"
+                               ],
+    "artifact_record_schema":  {
+                                   "required_fields":  [
+                                                           "artifact_id",
+                                                           "path",
+                                                           "artifact_class",
+                                                           "artifact_role",
+                                                           "authority_class",
+                                                           "evidence_kind",
+                                                           "lifecycle_state",
+                                                           "proof_status",
+                                                           "source_task",
+                                                           "source_milestone",
+                                                           "owner_role",
+                                                           "source_refs",
+                                                           "dependency_refs",
+                                                           "generated_from_head",
+                                                           "generated_from_tree",
+                                                           "exact_path_only",
+                                                           "broad_scan_allowed",
+                                                           "wildcard_allowed",
+                                                           "inspection_route",
+                                                           "caveats",
+                                                           "non_claims",
+                                                           "deterministic_order"
+                                                       ],
+                                   "artifact_id_policy":  "unique, stable, deterministic, milestone-scoped",
+                                   "path_policy":  "repo-relative exact path only; broad repo roots and wildcard paths are invalid",
+                                   "proof_boundary":  "artifact records can point to evidence but cannot convert reports, plans, or narrative context into implementation proof"
+                               },
+    "source_ref_schema":  {
+                              "required_fields":  [
+                                                      "ref_id",
+                                                      "path",
+                                                      "source_task",
+                                                      "source_milestone",
+                                                      "artifact_class",
+                                                      "authority_class",
+                                                      "evidence_kind",
+                                                      "proof_status",
+                                                      "exact_path_only",
+                                                      "broad_scan_allowed",
+                                                      "wildcard_allowed",
+                                                      "stale_state",
+                                                      "caveat_id",
+                                                      "generated_from_head",
+                                                      "generated_from_tree",
+                                                      "machine_proof",
+                                                      "implementation_proof"
+                                                  ],
+                              "source_reference_policy":  "each source ref must identify one exact repo-relative path, source task, evidence kind, proof status, and stale-ref treatment"
+                          },
+    "relationship_schema":  {
+                                "required_fields":  [
+                                                        "relationship_id",
+                                                        "relationship_type",
+                                                        "from_artifact_id",
+                                                        "to_artifact_id",
+                                                        "dependency_kind",
+                                                        "required",
+                                                        "evidence_kind",
+                                                        "proof_status",
+                                                        "deterministic_order"
+                                                    ],
+                                "allowed_relationship_types":  [
+                                                                   "depends_on",
+                                                                   "validated_by",
+                                                                   "wraps",
+                                                                   "exercises",
+                                                                   "models",
+                                                                   "supersedes",
+                                                                   "caveats",
+                                                                   "inspects"
+                                                               ],
+                                "relationship_policy":  "relationships must use deterministic ordering and known artifact ids only"
+                            },
+    "inspection_route_schema":  {
+                                    "required_fields":  [
+                                                            "route_id",
+                                                            "route_kind",
+                                                            "path",
+                                                            "expected_reader_role",
+                                                            "exact_command",
+                                                            "broad_scan_allowed",
+                                                            "wildcard_allowed",
+                                                            "fallback_route",
+                                                            "inspection_notes"
+                                                        ],
+                                    "route_policy":  "inspection routes must name an exact file path and exact command; broad scans and wildcards are invalid"
+                                },
+    "caveat_schema":  {
+                          "required_fields":  [
+                                                  "caveat_id",
+                                                  "caveat_type",
+                                                  "applies_to_ref_id",
+                                                  "applies_to_path",
+                                                  "declared_boundary",
+                                                  "observed_boundary",
+                                                  "accepted_reason",
+                                                  "preserved_scope",
+                                                  "deterministic_order"
+                                              ],
+                          "caveat_policy":  "stale refs require explicit caveats naming the affected ref, path, declared boundary, observed boundary, accepted reason, and preserved scope"
+                      },
+    "exact_path_policy":  {
+                              "policy_id":  "repo_relative_exact_paths_only",
+                              "repo_relative_exact_paths_required":  true,
+                              "missing_path_rejected":  true,
+                              "broad_repo_root_path_rejected":  true,
+                              "wildcard_path_rejected":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "full_repo_scan_allowed":  false
+                          },
+    "deterministic_ordering_policy":  {
+                                          "policy_id":  "stable_sorted_explicit_order",
+                                          "deterministic_output_required":  true,
+                                          "records_sorted_by_deterministic_order":  true,
+                                          "relationships_sorted_by_deterministic_order":  true,
+                                          "duplicate_artifact_ids_rejected":  true,
+                                          "non_deterministic_ordering_rejected":  true
+                                      },
+    "stale_ref_policy":  {
+                             "policy_id":  "fail_closed_unless_explicit_caveat",
+                             "stale_ref_requires_caveat":  true,
+                             "stale_ref_accepted_without_caveat":  false,
+                             "stale_without_caveat_rejected":  true,
+                             "caveat_must_name_ref_and_boundary":  true,
+                             "r16_008_passed_with_caveats_preserved":  true
+                         },
+    "proof_treatment_policy":  {
+                                   "policy_id":  "contracts_and_validators_do_not_upgrade_context_into_runtime_proof",
+                                   "generated_reports_as_machine_proof_allowed":  false,
+                                   "planning_reports_as_implementation_proof_allowed":  false,
+                                   "artifact_map_contract_is_generated_artifact_map":  false,
+                                   "artifact_map_contract_is_runtime_memory":  false,
+                                   "artifact_map_contract_is_retrieval_runtime":  false,
+                                   "artifact_map_contract_is_vector_runtime":  false,
+                                   "artifact_map_contract_is_workflow_execution":  false,
+                                   "validator_backed_state_artifacts_required_for_machine_evidence":  true,
+                                   "narrative_context_is_context_only":  true
+                               },
+    "overclaim_rejection_policy":  {
+                                       "artifact_map_generation_claimed":  false,
+                                       "artifact_map_generator_claimed":  false,
+                                       "generated_artifact_map_claimed":  false,
+                                       "artifact_map_contract_treated_as_generated_artifact_map":  false,
+                                       "audit_map_claimed":  false,
+                                       "context_load_planner_claimed":  false,
+                                       "context_budget_estimator_claimed":  false,
+                                       "role_run_envelope_claimed":  false,
+                                       "raci_transition_gate_claimed":  false,
+                                       "handoff_packet_claimed":  false,
+                                       "workflow_drill_claimed":  false,
+                                       "runtime_memory_claimed":  false,
+                                       "runtime_memory_loading_claimed":  false,
+                                       "persistent_memory_runtime_claimed":  false,
+                                       "retrieval_runtime_claimed":  false,
+                                       "vector_search_runtime_claimed":  false,
+                                       "actual_autonomous_agents_claimed":  false,
+                                       "true_multi_agent_execution_claimed":  false,
+                                       "product_runtime_claimed":  false,
+                                       "productized_ui_claimed":  false,
+                                       "external_integration_claimed":  false,
+                                       "main_merge_claimed":  false,
+                                       "solved_codex_compaction_claimed":  false,
+                                       "solved_codex_reliability_claimed":  false,
+                                       "r16_010_implementation_claimed":  false,
+                                       "r16_027_or_later_task_exists":  false,
+                                       "r13_closure_claimed":  false,
+                                       "r14_caveat_removed":  false,
+                                       "r15_caveat_removed":  false,
+                                       "r13_partial_gate_conversion_claimed":  false
+                                   },
+    "current_posture":  {
+                            "active_through_task":  "R16-009",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004",
+                                                   "R16-005",
+                                                   "R16-006",
+                                                   "R16-007",
+                                                   "R16-008",
+                                                   "R16-009"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-010",
+                                                  "R16-011",
+                                                  "R16-012",
+                                                  "R16-013",
+                                                  "R16-014",
+                                                  "R16-015",
+                                                  "R16-016",
+                                                  "R16-017",
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "posture_statement":  "R16 is active through R16-009 only; R16-010 through R16-026 remain planned only.",
+                            "r16_010_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "artifact_map_generation_claimed":  false,
+                            "artifact_map_generator_claimed":  false,
+                            "generated_artifact_map_exists":  false,
+                            "artifact_map_contract_treated_as_generated_artifact_map":  false,
+                            "artifact_map_generator_implemented":  false,
+                            "audit_map_implemented":  false,
+                            "context_load_planner_implemented":  false,
+                            "context_budget_estimator_implemented":  false,
+                            "role_run_envelope_implemented":  false,
+                            "raci_transition_gate_implemented":  false,
+                            "handoff_packet_implemented":  false,
+                            "workflow_drill_run":  false,
+                            "product_runtime_implemented":  false,
+                            "productized_ui_implemented":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "true_multi_agent_execution_implemented":  false,
+                            "persistent_memory_runtime_implemented":  false,
+                            "runtime_memory_implemented":  false,
+                            "runtime_memory_loading_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "main_merge_completed":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false,
+                            "r13_closure_claimed":  false,
+                            "r14_caveat_removed":  false,
+                            "r15_caveat_removed":  false,
+                            "r13_partial_gate_conversion_claimed":  false
+                        },
+    "non_claims":  [
+                       "no product runtime",
+                       "no productized UI",
+                       "no actual autonomous agents",
+                       "no true multi-agent execution",
+                       "no persistent memory runtime",
+                       "no runtime memory loading",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no external integrations",
+                       "no GitHub Projects integration",
+                       "no Linear integration",
+                       "no Symphony integration",
+                       "no custom board integration",
+                       "no external board sync",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "no main merge",
+                       "no R13 closure",
+                       "no R14 caveat removal",
+                       "no R15 caveat removal",
+                       "no R13 partial-gate conversion",
+                       "no R16-010 implementation",
+                       "no R16-027 or later task",
+                       "no generated artifact map",
+                       "no artifact map generator",
+                       "no audit map",
+                       "no context-load planner",
+                       "no context budget estimator",
+                       "no role-run envelope",
+                       "no RACI transition gate",
+                       "no handoff packet",
+                       "no workflow drill",
+                       "artifact map contract is model/contract proof only",
+                       "artifact map contract is not a generated artifact map",
+                       "artifact map contract is not runtime memory",
+                       "artifact map contract is not retrieval or vector runtime",
+                       "artifact map contract is not audit execution",
+                       "artifact map contract is not workflow execution"
+                   ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates":  [
+                                                                   "API/custom-runner bypass",
+                                                                   "current operator control room",
+                                                                   "skill invocation evidence",
+                                                                   "operator demo"
+                                                               ]
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false,
+                                             "r13_partial_gates_converted_to_passed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "audited_head":  "d9685030a0556a528684d28367db83f4c72f7fc9",
+                                             "audited_tree":  "7529230df0c1f5bec3625ba654b035a2af824e9b",
+                                             "post_audit_support_commit":  "3058bd6ed5067c97f744c92b9b9235004f0568b0",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "validation_commands":  [
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_artifact_map_contract.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_artifact_map_contract.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_memory_pack_validation.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_memory_pack_validation_report.ps1 -ReportPath state\\memory\\r16_memory_pack_validation_report.json -MemoryLayersPath state\\memory\\r16_memory_layers.json -RoleModelPath state\\memory\\r16_role_memory_pack_model.json -RolePacksPath state\\memory\\r16_role_memory_packs.json -ContractPath contracts\\memory\\r16_memory_pack_validation_report.contract.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_role_memory_pack_generator.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_role_memory_packs.ps1 -PacksPath state\\memory\\r16_role_memory_packs.json -ModelPath state\\memory\\r16_role_memory_pack_model.json -MemoryLayersPath state\\memory\\r16_memory_layers.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_role_memory_pack_model.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_role_memory_pack_model.ps1 -ModelPath state\\memory\\r16_role_memory_pack_model.json -ContractPath contracts\\memory\\r16_role_memory_pack_model.contract.json -MemoryLayersPath state\\memory\\r16_memory_layers.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_memory_layer_generator.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_memory_layers.ps1 -MemoryLayersPath state\\memory\\r16_memory_layers.json -ContractPath contracts\\memory\\r16_memory_layer.contract.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_memory_layer_contract.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_memory_layer_contract.ps1 -ContractPath contracts\\memory\\r16_memory_layer.contract.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_kpi_baseline_target_scorecard.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\\governance\\r16_kpi_baseline_target_scorecard.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r16_planning_authority_reference.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r16_planning_authority_reference.ps1 -PacketPath state\\governance\\r16_planning_authority_reference.json",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_milestone_reporting_standard.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_milestone_reporting_standard.ps1",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "git diff --check",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "git status --short",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "git rev-parse HEAD",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "git rev-parse \"HEAD^{tree}\"",
+                                    "expected_result":  "pass_or_recorded_status"
+                                },
+                                {
+                                    "command":  "git branch --show-current",
+                                    "expected_result":  "pass_or_recorded_status"
+                                }
+                            ],
+    "invalid_state_rules":  [
+                                {
+                                    "rule_id":  "missing_path_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_artifact_class_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_artifact_role_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_authority_class_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_evidence_kind_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_lifecycle_state_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "unknown_proof_status_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "broad_repo_root_path_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "wildcard_path_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "generated_report_as_machine_proof_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "planning_report_as_implementation_proof_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "stale_ref_without_caveat_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "missing_inspection_route_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "duplicate_artifact_id_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "non_deterministic_ordering_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "artifact_map_generation_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "artifact_map_generator_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "audit_map_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "context_load_planner_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "runtime_memory_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "retrieval_runtime_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "vector_search_runtime_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "actual_autonomous_agents_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "true_multi_agent_execution_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "product_runtime_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "external_integration_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "r16_010_implementation_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "r16_027_or_later_task_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "r13_closure_claim_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "r14_caveat_removal_rejected",
+                                    "fail_closed":  true
+                                },
+                                {
+                                    "rule_id":  "r15_caveat_removal_rejected",
+                                    "fail_closed":  true
+                                }
+                            ],
+    "contract_model_records":  [
+                                   {
+                                       "artifact_id":  "r16_artifact_map_contract",
+                                       "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                                       "artifact_class":  "contract",
+                                       "artifact_role":  "contract_authority",
+                                       "authority_class":  "contract_authority",
+                                       "evidence_kind":  "contract_schema",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_by_itself_true",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "governance_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_artifact_map_contract_self_ref",
+                                                               "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "contract",
+                                                               "authority_class":  "contract_authority",
+                                                               "evidence_kind":  "contract_schema",
+                                                               "proof_status":  "proof_by_itself_true",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  true,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_artifact_map_contract_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                                                                "expected_reader_role":  "governance_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath contracts/artifacts/r16_artifact_map.contract.json",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  1
+                                   },
+                                   {
+                                       "artifact_id":  "r16_artifact_map_contract_validator",
+                                       "path":  "tools/R16ArtifactMapContract.psm1",
+                                       "artifact_class":  "tool",
+                                       "artifact_role":  "validation_tool",
+                                       "authority_class":  "contract_authority",
+                                       "evidence_kind":  "validator_module",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_by_itself_true",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "validation_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_artifact_map_contract_validator_self_ref",
+                                                               "path":  "tools/R16ArtifactMapContract.psm1",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "tool",
+                                                               "authority_class":  "contract_authority",
+                                                               "evidence_kind":  "validator_module",
+                                                               "proof_status":  "proof_by_itself_true",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  true,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_artifact_map_contract_validator_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "tools/R16ArtifactMapContract.psm1",
+                                                                "expected_reader_role":  "validation_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath tools/R16ArtifactMapContract.psm1",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  2
+                                   },
+                                   {
+                                       "artifact_id":  "r16_artifact_map_contract_cli",
+                                       "path":  "tools/validate_r16_artifact_map_contract.ps1",
+                                       "artifact_class":  "cli_wrapper",
+                                       "artifact_role":  "validation_tool",
+                                       "authority_class":  "contract_authority",
+                                       "evidence_kind":  "cli_wrapper",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_by_itself_true",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "validation_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_artifact_map_contract_cli_self_ref",
+                                                               "path":  "tools/validate_r16_artifact_map_contract.ps1",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "cli_wrapper",
+                                                               "authority_class":  "contract_authority",
+                                                               "evidence_kind":  "cli_wrapper",
+                                                               "proof_status":  "proof_by_itself_true",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  true,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_artifact_map_contract_cli_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "tools/validate_r16_artifact_map_contract.ps1",
+                                                                "expected_reader_role":  "validation_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath tools/validate_r16_artifact_map_contract.ps1",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  3
+                                   },
+                                   {
+                                       "artifact_id":  "r16_artifact_map_contract_test",
+                                       "path":  "tests/test_r16_artifact_map_contract.ps1",
+                                       "artifact_class":  "test",
+                                       "artifact_role":  "focused_test",
+                                       "authority_class":  "proof_authority",
+                                       "evidence_kind":  "focused_test",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_if_validator_backed",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "test_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_artifact_map_contract_test_self_ref",
+                                                               "path":  "tests/test_r16_artifact_map_contract.ps1",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "test",
+                                                               "authority_class":  "proof_authority",
+                                                               "evidence_kind":  "focused_test",
+                                                               "proof_status":  "proof_if_validator_backed",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_artifact_map_contract_test_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "tests/test_r16_artifact_map_contract.ps1",
+                                                                "expected_reader_role":  "test_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath tests/test_r16_artifact_map_contract.ps1",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  4
+                                   },
+                                   {
+                                       "artifact_id":  "r16_artifact_map_contract_valid_fixture",
+                                       "path":  "tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                                       "artifact_class":  "fixture",
+                                       "artifact_role":  "valid_fixture",
+                                       "authority_class":  "proof_authority",
+                                       "evidence_kind":  "valid_fixture",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "proof_if_validator_backed",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "proof_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_artifact_map_contract_valid_fixture_self_ref",
+                                                               "path":  "tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "fixture",
+                                                               "authority_class":  "proof_authority",
+                                                               "evidence_kind":  "valid_fixture",
+                                                               "proof_status":  "proof_if_validator_backed",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_artifact_map_contract_valid_fixture_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                                                                "expected_reader_role":  "test_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  5
+                                   },
+                                   {
+                                       "artifact_id":  "r16_009_proof_review",
+                                       "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                       "artifact_class":  "proof_review_package",
+                                       "artifact_role":  "proof_review",
+                                       "authority_class":  "proof_authority",
+                                       "evidence_kind":  "proof_review_package",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "context_only",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "proof_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_009_proof_review_self_ref",
+                                                               "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "proof_review_package",
+                                                               "authority_class":  "proof_authority",
+                                                               "evidence_kind":  "proof_review_package",
+                                                               "proof_status":  "context_only",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_009_proof_review_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                                                "expected_reader_role":  "proof_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  6
+                                   },
+                                   {
+                                       "artifact_id":  "r16_009_evidence_index",
+                                       "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/evidence_index.json",
+                                       "artifact_class":  "proof_review_package",
+                                       "artifact_role":  "proof_manifest",
+                                       "authority_class":  "proof_authority",
+                                       "evidence_kind":  "proof_review_package",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "context_only",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "proof_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_009_evidence_index_self_ref",
+                                                               "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/evidence_index.json",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "proof_review_package",
+                                                               "authority_class":  "proof_authority",
+                                                               "evidence_kind":  "proof_review_package",
+                                                               "proof_status":  "context_only",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_009_evidence_index_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/evidence_index.json",
+                                                                "expected_reader_role":  "proof_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/evidence_index.json",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  7
+                                   },
+                                   {
+                                       "artifact_id":  "r16_009_validation_manifest",
+                                       "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                       "artifact_class":  "validation_manifest",
+                                       "artifact_role":  "proof_manifest",
+                                       "authority_class":  "proof_authority",
+                                       "evidence_kind":  "validation_manifest",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "context_only",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "proof_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_009_validation_manifest_self_ref",
+                                                               "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "validation_manifest",
+                                                               "authority_class":  "proof_authority",
+                                                               "evidence_kind":  "validation_manifest",
+                                                               "proof_status":  "context_only",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_009_validation_manifest_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                                                "expected_reader_role":  "proof_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  8
+                                   },
+                                   {
+                                       "artifact_id":  "r16_milestone_authority_context",
+                                       "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                       "artifact_class":  "governance_document",
+                                       "artifact_role":  "milestone_authority",
+                                       "authority_class":  "milestone_authority",
+                                       "evidence_kind":  "narrative_context",
+                                       "lifecycle_state":  "active",
+                                       "proof_status":  "context_only",
+                                       "source_task":  "R16-009",
+                                       "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                       "owner_role":  "governance_operator",
+                                       "source_refs":  [
+                                                           {
+                                                               "ref_id":  "r16_milestone_authority_context_self_ref",
+                                                               "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                                               "source_task":  "R16-009",
+                                                               "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+                                                               "artifact_class":  "governance_document",
+                                                               "authority_class":  "milestone_authority",
+                                                               "evidence_kind":  "narrative_context",
+                                                               "proof_status":  "context_only",
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "stale_state":  "fresh",
+                                                               "caveat_id":  "",
+                                                               "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                                               "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                                               "machine_proof":  false,
+                                                               "implementation_proof":  false
+                                                           }
+                                                       ],
+                                       "dependency_refs":  [
+
+                                                           ],
+                                       "generated_from_head":  "7bd0edf5b6d5561aeeda96024334a40530665d88",
+                                       "generated_from_tree":  "1eff15f9841aa513116fb5d5763d8f4bcb1eebe8",
+                                       "exact_path_only":  true,
+                                       "broad_scan_allowed":  false,
+                                       "wildcard_allowed":  false,
+                                       "inspection_route":  {
+                                                                "route_id":  "r16_milestone_authority_context_inspection",
+                                                                "route_kind":  "exact_file_read",
+                                                                "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                                                "expected_reader_role":  "governance_operator",
+                                                                "exact_command":  "Get-Content -LiteralPath governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                                                "broad_scan_allowed":  false,
+                                                                "wildcard_allowed":  false,
+                                                                "fallback_route":  "none",
+                                                                "inspection_notes":  "Inspect this exact repo-relative path only; do not infer from a repository-wide scan."
+                                                            },
+                                       "caveats":  [
+
+                                                   ],
+                                       "non_claims":  [
+                                                          "R16-009 defines the artifact map contract only.",
+                                                          "This artifact is not a generated artifact map, runtime memory, audit map, context-load planner, or workflow execution."
+                                                      ],
+                                       "deterministic_order":  9
+                                   }
+                               ],
+    "contract_model_relationships":  [
+                                         {
+                                             "relationship_id":  "r16_artifact_map_contract_validated_by_module",
+                                             "relationship_type":  "validated_by",
+                                             "from_artifact_id":  "r16_artifact_map_contract",
+                                             "to_artifact_id":  "r16_artifact_map_contract_validator",
+                                             "dependency_kind":  "contract_validation",
+                                             "required":  true,
+                                             "evidence_kind":  "contract_schema",
+                                             "proof_status":  "proof_if_validator_backed",
+                                             "deterministic_order":  1
+                                         },
+                                         {
+                                             "relationship_id":  "r16_artifact_map_contract_cli_wraps_module",
+                                             "relationship_type":  "wraps",
+                                             "from_artifact_id":  "r16_artifact_map_contract_cli",
+                                             "to_artifact_id":  "r16_artifact_map_contract_validator",
+                                             "dependency_kind":  "cli_wrapper",
+                                             "required":  true,
+                                             "evidence_kind":  "contract_schema",
+                                             "proof_status":  "proof_if_validator_backed",
+                                             "deterministic_order":  2
+                                         },
+                                         {
+                                             "relationship_id":  "r16_artifact_map_contract_test_exercises_contract",
+                                             "relationship_type":  "exercises",
+                                             "from_artifact_id":  "r16_artifact_map_contract_test",
+                                             "to_artifact_id":  "r16_artifact_map_contract",
+                                             "dependency_kind":  "focused_test",
+                                             "required":  true,
+                                             "evidence_kind":  "contract_schema",
+                                             "proof_status":  "proof_if_validator_backed",
+                                             "deterministic_order":  3
+                                         },
+                                         {
+                                             "relationship_id":  "r16_artifact_map_contract_fixture_models_contract",
+                                             "relationship_type":  "models",
+                                             "from_artifact_id":  "r16_artifact_map_contract_valid_fixture",
+                                             "to_artifact_id":  "r16_artifact_map_contract",
+                                             "dependency_kind":  "valid_fixture",
+                                             "required":  true,
+                                             "evidence_kind":  "contract_schema",
+                                             "proof_status":  "proof_if_validator_backed",
+                                             "deterministic_order":  4
+                                         }
+                                     ]
+}

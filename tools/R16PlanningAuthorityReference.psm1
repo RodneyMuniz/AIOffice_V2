@@ -506,14 +506,14 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 8 -or $snapshot.PlannedStart -ne 9 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-008 only with R16-009 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 9 -or $snapshot.PlannedStart -ne 10 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-009 only with R16-010 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-008 only",
-            "R16-009 through R16-026 remain planned only",
+            "R16 active through R16-009 only",
+            "R16-010 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
@@ -521,15 +521,17 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "R16-006 added the role-specific memory pack model only",
             "R16-007 generated baseline role memory packs only",
             "R16-008 added memory pack validation and stale-ref detection only",
+            "R16-009 defined the artifact map contract only",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are not actual agents",
             "Generated baseline role memory packs do not perform work or workflow execution",
-            "No artifact maps are implemented yet",
-            "No audit maps are implemented yet",
-            "No context-load planner is implemented yet",
-            "No role-run envelopes are implemented yet",
+            "No generated artifact map exists yet",
+            "No artifact map generator exists yet",
+            "No audit map exists yet",
+            "No context-load planner exists yet",
+            "No role-run envelopes exist yet",
             "state/governance/r16_planning_authority_reference.json",
             "state/governance/r16_kpi_baseline_target_scorecard.json",
             "state/memory/r16_role_memory_pack_model.json",
@@ -560,12 +562,13 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-009 or later implementation" -Pattern '(?i)\bR16-(00[9]|0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-010 or later implementation" -Pattern '(?i)\bR16-(0[1-2][0-9])\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated role memory packs treated as runtime memory, agents, or workflow execution" -Pattern '(?i)\b(generated role memory pack|generated role memory packs|generated baseline role memory pack|generated baseline role memory packs|baseline role memory pack|baseline role memory packs|role-specific memory pack|role-specific memory packs)\b(?!\s+model\b).{0,180}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|actual agents|actual autonomous agents|agent runtime|perform work|workflow execution|perform workflow execution|external integration|external integrations)\b'
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map implementation" -Pattern '(?i)\b(artifact map|artifact maps|audit map|audit maps)\b.{0,160}\b(implemented|implementation complete|created|exists|ships)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(artifact map|artifact maps|audit map|audit maps)\b|\b(artifact map runtime|artifact maps runtime|audit map runtime|audit maps runtime)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map generation or generator implementation" -Pattern '(?i)\b(generated artifact map|operational artifact map|artifact map generator|artifact map runtime|artifact maps runtime|audit map|audit maps|audit map runtime|audit maps runtime)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|claimed)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(generated artifact map|operational artifact map|audit map|audit maps)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map contract treated as generated artifact map" -Pattern '(?i)\bartifact map contract\b.{0,160}\b(generated artifact map|operational artifact map|generated map|runtime memory|retrieval runtime|vector runtime|audit execution|workflow execution)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "context-load planner implementation" -Pattern '(?i)\b(context-load planner|context load planner|context-load plan|context load plan)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b|\b(implements|implemented|created|ships)\b.{0,80}\b(context-load planner|context load planner|context-load plan|context load plan)\b'
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "role-run envelope or handoff packet implementation" -Pattern '(?i)\b(role-run envelope|role run envelope|handoff packet|handoff packets)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "role-run envelope or handoff packet implementation" -Pattern '(?i)\b(role-run envelope|role-run envelopes|role run envelope|role run envelopes|handoff packet|handoff packets)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-027 or later task" -Pattern '(?i)\bR16-(0(?:2[7-9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned|active)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16 closure" -Pattern '(?i)\bR16\b.{0,160}\b(is now closed|is closed|closed in repo truth|formally closed|closeout package exists|final proof package complete|accepted as closed)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "product runtime" -Pattern '(?i)\b(product runtime|production runtime|productized UI|productized control-room behavior|full UI app)\b'

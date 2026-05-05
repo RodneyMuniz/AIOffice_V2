@@ -1,15 +1,10 @@
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true)]
-    [string]$ReportPath,
-    [Parameter(Mandatory = $true)]
-    [string]$MemoryLayersPath,
-    [Parameter(Mandatory = $true)]
-    [string]$RoleModelPath,
-    [Parameter(Mandatory = $true)]
-    [string]$RolePacksPath,
-    [Parameter(Mandatory = $true)]
-    [string]$ContractPath,
+    [string]$ReportPath = "state\memory\r16_memory_pack_validation_report.json",
+    [string]$MemoryLayersPath = "state\memory\r16_memory_layers.json",
+    [string]$RoleModelPath = "state\memory\r16_role_memory_pack_model.json",
+    [string]$RolePacksPath = "state\memory\r16_role_memory_packs.json",
+    [string]$ContractPath = "contracts\memory\r16_memory_pack_validation_report.contract.json",
     [string]$RepositoryRoot
 )
 

@@ -1,0 +1,139 @@
+{
+    "artifact_type":  "r16_009_artifact_map_contract_evidence_index",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-009",
+    "evidence_entries":  [
+                             {
+                                 "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                                 "evidence_kind":  "contract",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tools/R16ArtifactMapContract.psm1",
+                                 "evidence_kind":  "tooling",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tools/validate_r16_artifact_map_contract.ps1",
+                                 "evidence_kind":  "tooling",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/test_r16_artifact_map_contract.ps1",
+                                 "evidence_kind":  "test",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json",
+                                 "evidence_kind":  "fixture",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/fixtures/r16_artifact_map_contract/invalid_missing_required_field.json",
+                                 "evidence_kind":  "fixture",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/fixtures/r16_artifact_map_contract/invalid_runtime_claim.json",
+                                 "evidence_kind":  "fixture",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/fixtures/r16_artifact_map_contract/invalid_generated_map_claim.json",
+                                 "evidence_kind":  "fixture",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "tests/fixtures/r16_artifact_map_contract/invalid_broad_scan_policy.json",
+                                 "evidence_kind":  "fixture",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                 "evidence_kind":  "proof_review",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/evidence_index.json",
+                                 "evidence_kind":  "proof_review",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             },
+                             {
+                                 "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                 "evidence_kind":  "validation_manifest",
+                                 "required_for_r16_009":  true,
+                                 "proof_treatment":  "contract_model_evidence_only",
+                                 "non_claim":  "not a generated artifact map, generator, runtime memory, audit map, context-load planner, role-run envelope, handoff packet, workflow drill, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability"
+                             }
+                         ],
+    "supplemental_files_retained":  [
+
+                                    ],
+    "local_wip_files_removed_before_commit":  [
+                                                  "scratch/debug_report.json",
+                                                  "state/artifacts/r16_artifact_map_contract_sample.json",
+                                                  "state/fixtures/valid/artifacts/r16_artifact_map_contract.valid.json",
+                                                  "state/fixtures/invalid/artifacts/r16_artifact_map_contract/",
+                                                  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/README.md",
+                                                  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/non_claims.json"
+                                              ],
+    "current_posture":  {
+                            "active_through_task":  "R16-009",
+                            "planned_only":  [
+                                                 "R16-010",
+                                                 "R16-011",
+                                                 "R16-012",
+                                                 "R16-013",
+                                                 "R16-014",
+                                                 "R16-015",
+                                                 "R16-016",
+                                                 "R16-017",
+                                                 "R16-018",
+                                                 "R16-019",
+                                                 "R16-020",
+                                                 "R16-021",
+                                                 "R16-022",
+                                                 "R16-023",
+                                                 "R16-024",
+                                                 "R16-025",
+                                                 "R16-026"
+                                             ]
+                        },
+    "non_claims":  [
+                       "no generated artifact map",
+                       "no artifact map generator",
+                       "no audit map",
+                       "no context-load planner",
+                       "no role-run envelope",
+                       "no handoff packet",
+                       "no workflow drill",
+                       "no product runtime",
+                       "no runtime memory",
+                       "no autonomous agents",
+                       "no external integrations",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability"
+                   ]
+}

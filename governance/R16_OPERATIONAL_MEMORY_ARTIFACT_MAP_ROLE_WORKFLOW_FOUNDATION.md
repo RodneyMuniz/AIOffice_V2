@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-008` only
+**Milestone status:** Active in repo truth through `R16-009` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -40,6 +40,8 @@ R16-006 adds the role-specific memory pack model only through `contracts/memory/
 R16-007 generated baseline role memory packs only through `tools/R16RoleMemoryPackGenerator.psm1`, `tools/new_r16_role_memory_packs.ps1`, `tools/validate_r16_role_memory_packs.ps1`, `tests/test_r16_role_memory_pack_generator.ps1`, generated baseline state artifact `state/memory/r16_role_memory_packs.json`, fixtures under `state/fixtures/valid/memory/` and `state/fixtures/invalid/memory/r16_role_memory_packs/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_007_baseline_role_memory_packs/`. Generated baseline role memory packs are committed state artifacts, not runtime memory. Generated baseline role memory packs are not actual agents. Generated baseline role memory packs do not perform work or workflow execution.
 
 R16-008 added memory pack validation and stale-ref detection only through `contracts/memory/r16_memory_pack_validation_report.contract.json`, `tools/R16MemoryPackValidation.psm1`, `tools/test_r16_memory_pack_refs.ps1`, `tools/validate_r16_memory_pack_validation_report.ps1`, `tests/test_r16_memory_pack_validation.ps1`, committed validation report state artifact `state/memory/r16_memory_pack_validation_report.json`, valid fixture `state/fixtures/valid/memory/r16_memory_pack_validation_report.valid.json`, invalid fixtures under `state/fixtures/invalid/memory/r16_memory_pack_validation_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_008_memory_pack_validation_stale_ref_detection/`. The memory pack validation report is a committed validation report state artifact only; the memory pack validation report is not runtime memory, not an artifact map, not an audit map, not a context-load planner, and not workflow execution.
+
+R16-009 defined the artifact map contract only through `contracts/artifacts/r16_artifact_map.contract.json`, `tools/R16ArtifactMapContract.psm1`, `tools/validate_r16_artifact_map_contract.ps1`, `tests/test_r16_artifact_map_contract.ps1`, fixtures under `tests/fixtures/r16_artifact_map_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/`. The artifact map contract is model/contract proof only; it is not a generated artifact map, not an artifact map generator, not runtime memory, not retrieval/vector runtime, not an audit map, not a context-load planner, and not workflow execution.
 
 ## Purpose
 
@@ -332,8 +334,20 @@ Required evidence deliverables:
 - Done when: stale generated_from boundaries are detected and either fail closed or carry explicit accepted caveats; missing exact refs, broad repo root refs, wildcard refs, proof-treatment misuse, role-policy drift, forbidden runtime/agent/integration/artifact-map/audit-map/context-load/workflow claims, R16-009 or later implementation claims, R16-027 or later task claims, and R13/R14/R15 boundary changes fail closed; and `state/memory/r16_memory_pack_validation_report.json` is recorded as a committed validation report state artifact only, not runtime memory.
 
 ### `R16-009` Define artifact map contract
-- Status: planned
+- Status: done
 - Purpose: define exact artifact map structure for milestone-scoped evidence and authority paths.
+- Durable output:
+  - `contracts/artifacts/r16_artifact_map.contract.json`
+  - `tools/R16ArtifactMapContract.psm1`
+  - `tools/validate_r16_artifact_map_contract.ps1`
+  - `tests/test_r16_artifact_map_contract.ps1`
+  - `tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json`
+  - `tests/fixtures/r16_artifact_map_contract/invalid_missing_required_field.json`
+  - `tests/fixtures/r16_artifact_map_contract/invalid_runtime_claim.json`
+  - `tests/fixtures/r16_artifact_map_contract/invalid_generated_map_claim.json`
+  - `tests/fixtures/r16_artifact_map_contract/invalid_broad_scan_policy.json`
+  - `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/`
+- Done when: artifact classes, artifact roles, authority classes, evidence kinds, source refs, relationships, inspection routes, caveats, proof treatment, stale-ref handling, deterministic ordering, non-claims, and preserved R13/R14/R15 boundaries are machine-checkable while generated artifact maps, artifact map generators, audit maps, context-load planners, role-run envelopes, handoff packets, workflow drills, runtime/product/agent/integration/retrieval/vector overclaims, R16-010 implementation claims, and R16-027-or-later task claims fail closed.
 
 ### `R16-010` Implement artifact map generator for milestone scope
 - Status: planned
@@ -405,8 +419,10 @@ Required evidence deliverables:
 
 ## Validation Requirements
 
-R16-008 validation must run and record:
+R16-009 validation must run and record:
 
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_artifact_map_contract.ps1`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_artifact_map_contract.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_memory_pack_validation.ps1`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r16_memory_pack_validation_report.ps1 -ReportPath state\memory\r16_memory_pack_validation_report.json -MemoryLayersPath state\memory\r16_memory_layers.json -RoleModelPath state\memory\r16_role_memory_pack_model.json -RolePacksPath state\memory\r16_role_memory_packs.json -ContractPath contracts\memory\r16_memory_pack_validation_report.contract.json`
 - `powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r16_role_memory_pack_generator.ps1`
@@ -436,16 +452,18 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-008` only.
-- `R16-009` through `R16-026` remain planned only.
+- R16 active through `R16-009` only.
+- `R16-010` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
 - memory pack validation report exists as a committed validation report state artifact only, not runtime memory, not an artifact map, not an audit map, not a context-load planner, and not workflow execution.
+- artifact map contract exists as model/contract proof only.
+- no generated artifact map exists yet.
 
 Status gates must reject:
 
-- reject `R16-009` or later implementation claims.
+- reject `R16-010` or later implementation claims.
 - `R16-027` or later tasks.
 - R16 closed.
 - reject main merge.
@@ -468,6 +486,14 @@ Status gates must reject:
 - reject generated baseline role memory packs treated as workflow execution.
 - reject role memory pack generator runtime overclaims.
 - reject role-specific memory pack model treated as actual agents.
+- reject artifact map contract treated as a generated artifact map.
+- reject artifact map generator claims.
+- reject generated artifact map claims.
+- reject audit map claims.
+- reject context-load planner claims.
+- reject role-run envelope claims.
+- reject handoff packet claims.
+- reject workflow drill claims.
 
 ## Compaction and Restart Recovery Strategy
 
@@ -607,3 +633,20 @@ R16-008 is accepted only if:
 - focused R16-008 validation and status gates pass.
 
 After R16-008, R16 is active through `R16-008` only. `R16-009` through `R16-026` remain planned only. R16-008 added memory pack validation and stale-ref detection only. The memory pack validation report is a committed validation report state artifact only; the memory pack validation report is not runtime memory, not an artifact map, not an audit map, not a context-load planner, and not workflow execution. No artifact maps are implemented yet. No audit maps are implemented yet. No context-load planners are implemented yet. No role-run envelopes are implemented yet. No handoff packets are implemented yet. No workflow drills are implemented yet.
+
+R16-009 is accepted only if:
+
+- the artifact map contract exists at `contracts/artifacts/r16_artifact_map.contract.json`;
+- the validator module exists at `tools/R16ArtifactMapContract.psm1`;
+- the contract validator CLI exists at `tools/validate_r16_artifact_map_contract.ps1`;
+- the focused test exists at `tests/test_r16_artifact_map_contract.ps1`;
+- the valid fixture exists at `tests/fixtures/r16_artifact_map_contract/valid_artifact_map_contract.json`;
+- the invalid fixtures under `tests/fixtures/r16_artifact_map_contract/` cover missing required field, runtime memory claim, generated artifact map claim, and broad scan policy rejection;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/`;
+- the contract requires artifact classes, artifact roles, authority classes, evidence kinds, lifecycle states, proof statuses, source refs, relationships, inspection routes, caveats, proof treatment, stale-ref policy, exact-path policy, deterministic ordering, owner/source task fields, overclaim rejection rules, current posture, non-claims, preserved boundaries, validation commands, and invalid-state rules;
+- missing exact refs, uncaveated stale refs, broad/wildcard refs, proof-treatment overclaims, duplicate artifact ids, non-deterministic ordering, R13/R14/R15 boundary changes, R16-010 implementation claims, and R16-027-or-later task claims fail closed;
+- `contracts/artifacts/r16_artifact_map.contract.json` is recorded as a contract/model artifact only, not a generated artifact map, not an artifact map generator, not runtime memory, not retrieval/vector runtime, not an audit map, not a context-load planner, and not workflow execution;
+- no generated artifact map, artifact map generator, audit map, context-load planner, budget estimator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-010 implementation, or R16-027-or-later claim is made;
+- focused R16-009 validation and status gates pass.
+
+After R16-009, R16 is active through `R16-009` only. `R16-010` through `R16-026` remain planned only. R16-009 defined the artifact map contract only. No generated artifact map exists yet. No artifact map generator exists yet. No audit map exists yet. No context-load planner exists yet. No role-run envelopes exist yet. No handoff packets exist yet. No workflow drills exist yet. The artifact map contract is not runtime memory, not retrieval/vector runtime, not an audit map, not a context-load planner, and not workflow execution.
