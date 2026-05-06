@@ -60,7 +60,6 @@ try {
     }
 
     foreach ($forbiddenPath in @(
-        "tools\R16ContextBudgetEstimator.psm1",
         "tools\R16OverBudgetFailClosedValidator.psm1",
         "contracts\workflow\r16_role_run_envelope.contract.json",
         "contracts\workflow\r16_handoff_packet.contract.json",

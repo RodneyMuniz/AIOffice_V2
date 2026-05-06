@@ -506,14 +506,14 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 15 -or $snapshot.PlannedStart -ne 16 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-015 only with R16-016 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 16 -or $snapshot.PlannedStart -ne 17 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-016 only with R16-017 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-015 only",
-            "R16-016 through R16-026 remain planned only",
+            "R16 active through R16-016 only",
+            "R16-017 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
@@ -528,6 +528,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "R16-013 added bounded artifact/audit map diff-check tooling and a committed check report",
             "R16-014 added the context-load plan contract only",
             "R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact",
+            "R16-016 implemented a bounded context budget estimator with approximation fields",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
@@ -561,7 +562,12 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "The context-load plan is not a RACI transition gate",
             "The context-load plan is not a handoff packet",
             "The context-load plan is not workflow execution",
-            "No context budget estimator exists yet",
+            "state/context/r16_context_budget_estimate.json",
+            "committed generated context budget estimate state artifact only",
+            "The estimate is approximate only",
+            "The estimate is not exact provider tokenization",
+            "The estimate is not exact provider billing",
+            "The estimate is not an over-budget fail-closed validator",
             "No over-budget fail-closed validator exists yet",
             "No role-run envelopes exist yet",
             "No RACI transition gate exists yet",
@@ -597,7 +603,9 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-016 or later implementation" -Pattern '(?i)\bR16-(0(?:1[6-9]|2[0-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-017 or later implementation" -Pattern '(?i)\bR16-(0(?:1[7-9]|2[0-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider token count" -Pattern '(?i)\b(exact provider token count|exact provider tokenization|exact provider tokenizer|provider tokenizer used|exact tokenizer)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider billing" -Pattern '(?i)\b(exact provider billing|exact provider bill|provider bill|provider billing|provider pricing used|exact provider pricing)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated role memory packs treated as runtime memory, agents, or workflow execution" -Pattern '(?i)\b(generated role memory pack|generated role memory packs|generated baseline role memory pack|generated baseline role memory packs|baseline role memory pack|baseline role memory packs|role-specific memory pack|role-specific memory packs)\b(?!\s+model\b).{0,180}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|actual agents|actual autonomous agents|agent runtime|perform work|workflow execution|perform workflow execution|external integration|external integrations)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16 closure" -Pattern '(?i)\bR16\b.{0,160}\b(is now closed|is closed|closed in repo truth|formally closed|closeout package exists|final proof package complete|accepted as closed)\b'

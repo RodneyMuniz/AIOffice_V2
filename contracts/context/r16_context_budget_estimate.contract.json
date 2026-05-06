@@ -1,0 +1,246 @@
+{
+  "artifact_type": "r16_context_budget_estimate_contract",
+  "contract_version": "v1",
+  "estimate_contract_id": "aioffice-r16-016-context-budget-estimate-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-016",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "f5e8d228bc9993e59ca7907b1fc427381b365daa",
+  "generated_from_tree": "ca0ff6c829cfdd029a1b97ad931243df6c598500",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_context_load_plan_contract",
+      "path": "contracts/context/r16_context_load_plan.contract.json",
+      "source_task": "R16-014",
+      "proof_treatment": "contract/model artifact only",
+      "deterministic_order": 1
+    },
+    {
+      "ref_id": "r16_context_load_plan_state",
+      "path": "state/context/r16_context_load_plan.json",
+      "source_task": "R16-015",
+      "proof_treatment": "committed generated context-load plan state artifact only",
+      "deterministic_order": 2
+    },
+    {
+      "ref_id": "r16_context_load_planner_module",
+      "path": "tools/R16ContextLoadPlanner.psm1",
+      "source_task": "R16-015",
+      "proof_treatment": "context-load planner tooling",
+      "deterministic_order": 3
+    },
+    {
+      "ref_id": "r16_context_load_plan_validator",
+      "path": "tools/validate_r16_context_load_plan.ps1",
+      "source_task": "R16-015",
+      "proof_treatment": "context-load plan validator CLI",
+      "deterministic_order": 4
+    },
+    {
+      "ref_id": "r16_015_proof_review",
+      "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/proof_review.json",
+      "source_task": "R16-015",
+      "proof_treatment": "proof-review package",
+      "deterministic_order": 5
+    },
+    {
+      "ref_id": "r16_015_validation_manifest",
+      "path": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/validation_manifest.md",
+      "source_task": "R16-015",
+      "proof_treatment": "validation manifest",
+      "deterministic_order": 6
+    }
+  ],
+  "estimate_schema": {
+    "required_fields": [
+      "artifact_type",
+      "estimate_version",
+      "estimate_id",
+      "source_milestone",
+      "source_task",
+      "repository",
+      "branch",
+      "generation_boundary",
+      "context_load_plan_ref",
+      "estimate_mode",
+      "estimation_method",
+      "summary_estimates",
+      "load_item_estimates",
+      "current_posture",
+      "preserved_boundaries",
+      "finding_summary",
+      "aggregate_verdict",
+      "non_claims"
+    ]
+  },
+  "load_item_estimate_schema": {
+    "required_fields": [
+      "estimate_item_id",
+      "load_item_id",
+      "path",
+      "exists",
+      "byte_count",
+      "line_count",
+      "estimated_tokens_lower_bound",
+      "estimated_tokens_upper_bound",
+      "estimate_basis",
+      "exact_provider_token_count_claimed",
+      "exact_provider_billing_claimed",
+      "deterministic_order"
+    ]
+  },
+  "approximation_policy": {
+    "deterministic_local_file_metrics_required": true,
+    "byte_count_allowed": true,
+    "line_count_allowed": true,
+    "rough_token_ranges_allowed": true,
+    "approximate_token_formula_required": true,
+    "approximate_token_formula": "lower_bound = ceil(byte_count / 5); upper_bound = ceil(byte_count / 3)",
+    "cost_proxy_fields_allowed_only_when_non_provider_billing": true,
+    "cost_proxy_units": "relative_cost_proxy_units_not_currency_not_provider_billing",
+    "exact_paths_only": true,
+    "network_access_allowed": false,
+    "provider_tokenizer_allowed": false,
+    "provider_pricing_allowed": false
+  },
+  "no_exact_provider_claim_policy": {
+    "exact_provider_token_counts_allowed": false,
+    "exact_provider_tokenization_claims_allowed": false,
+    "exact_provider_billing_claims_allowed": false,
+    "exact_provider_pricing_claims_allowed": false,
+    "billing_estimate_may_not_be_called_provider_bill": true
+  },
+  "budget_category_policy": {
+    "category_source": "estimated_tokens_upper_bound",
+    "small_max_upper_bound": 25000,
+    "medium_max_upper_bound": 75000,
+    "large_max_upper_bound": 150000,
+    "very_large_above_upper_bound": 150000,
+    "over_budget_fail_closed_enforcement_allowed": false,
+    "r16_017_owns_over_budget_fail_closed_validation": true
+  },
+  "validation_policy": {
+    "contract_must_load": true,
+    "context_load_plan_must_load_and_validate": true,
+    "context_load_plan_ref_loaded_and_validated_required": true,
+    "load_items_must_match_context_load_plan": true,
+    "load_item_paths_must_be_repo_relative_exact_files": true,
+    "load_item_paths_must_exist": true,
+    "load_item_paths_must_be_tracked": true,
+    "wildcard_paths_rejected": true,
+    "broad_repo_root_paths_rejected": true,
+    "directory_only_refs_rejected": true,
+    "scratch_or_local_only_refs_rejected": true,
+    "remote_unverified_refs_rejected": true,
+    "over_budget_fail_closed_validation_implemented": false
+  },
+  "overclaim_detection_policy": {
+    "claim_flags": {
+      "context_budget_estimator": true,
+      "estimate_is_approximate": true,
+      "exact_provider_token_count": false,
+      "exact_provider_tokenization": false,
+      "exact_provider_billing": false,
+      "exact_provider_pricing": false,
+      "over_budget_fail_closed_validator": false,
+      "runtime_memory_loading": false,
+      "persistent_memory_runtime": false,
+      "retrieval_runtime": false,
+      "vector_search_runtime": false,
+      "product_runtime": false,
+      "productized_ui": false,
+      "actual_autonomous_agents": false,
+      "true_multi_agent_execution": false,
+      "role_run_envelope": false,
+      "raci_transition_gate": false,
+      "handoff_packet": false,
+      "workflow_drill": false,
+      "external_integrations": false,
+      "solved_codex_compaction": false,
+      "solved_codex_reliability": false,
+      "main_merge": false,
+      "r13_closure": false,
+      "r14_caveat_removal": false,
+      "r15_caveat_removal": false,
+      "r13_partial_gate_conversion": false,
+      "r16_017_or_later_implementation": false,
+      "r16_027_or_later_task": false
+    }
+  },
+  "current_posture": {
+    "active_through_task": "R16-016",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011",
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016"
+    ],
+    "planned_tasks": [
+      "R16-017",
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ],
+    "r16_017_or_later_implementation_claimed": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  },
+  "non_claims": [
+    "no exact provider token count",
+    "no exact provider tokenization",
+    "no exact provider billing",
+    "no exact provider pricing",
+    "no over-budget fail-closed validator",
+    "no role-run envelope",
+    "no RACI transition gate",
+    "no handoff packet",
+    "no workflow drill",
+    "no product runtime",
+    "no runtime memory",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no autonomous agents",
+    "no external integrations",
+    "no solved Codex compaction",
+    "no solved Codex reliability",
+    "R13 remains failed/partial and not closed",
+    "R14 caveats remain preserved",
+    "R15 caveats remain preserved",
+    "R16-017 through R16-026 remain planned only"
+  ]
+}
