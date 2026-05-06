@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-021` only
+**Milestone status:** Active in repo truth through `R16-022` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -66,6 +66,8 @@ R16-019 generated role-run envelopes as committed state artifacts only through `
 R16-020 adds bounded RACI transition gate validation/reporting only through `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated RACI transition gate report state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`. `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only. The RACI transition gate report blocks all evaluated execution transitions because the guard remains `failed_closed_over_budget` and the generated role-run envelopes remain non-executable. This is not runtime execution. No workflow drill exists yet.
 
 R16-021 adds bounded handoff packet generation/reporting only through `contracts/workflow/r16_handoff_packet_report.contract.json`, `tools/R16HandoffPacketGenerator.psm1`, `tools/new_r16_handoff_packets.ps1`, `tools/validate_r16_handoff_packet_report.ps1`, `tests/test_r16_handoff_packet_generator.ps1`, generated handoff packet report state artifact `state/workflow/r16_handoff_packet_report.json`, fixtures under `tests/fixtures/r16_handoff_packet_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/`. `state/workflow/r16_handoff_packet_report.json` is a committed generated handoff packet report state artifact only. All generated handoff packets are blocked/not executable because the R16-020 transition gate blocks all evaluated transitions and the R16-017 guard remains `failed_closed_over_budget`. This is not runtime execution, not runtime handoff execution, and not a workflow drill.
+
+R16-022 adds bounded restart/compaction recovery drill reporting only through `contracts/workflow/r16_restart_compaction_recovery_drill.contract.json`, `tools/R16RestartCompactionRecoveryDrill.psm1`, `tools/new_r16_restart_compaction_recovery_drill.ps1`, `tools/validate_r16_restart_compaction_recovery_drill.ps1`, `tests/test_r16_restart_compaction_recovery_drill.ps1`, generated restart/compaction recovery drill state artifact `state/workflow/r16_restart_compaction_recovery_drill.json`, fixtures under `tests/fixtures/r16_restart_compaction_recovery_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/`. `state/workflow/r16_restart_compaction_recovery_drill.json` is a committed generated restart/compaction recovery drill state artifact only. The recovery drill uses exact repo-backed inputs only; exact recovery input count is 11; raw chat history is not canonical state; full repo scan is not used. The guard remains `failed_closed_over_budget` with upper bound `1333321` and threshold `150000`; handoffs remain blocked/not executable with zero executable handoffs; no executable transitions are claimed. This does not solve Codex compaction, does not solve Codex reliability, and is not autonomous recovery, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, or external integrations.
 
 ## Purpose
 
@@ -486,8 +488,8 @@ Required evidence deliverables:
 - Purpose: create bounded handoff packet report/state artifacts with exact scoped context and evidence refs while keeping every generated handoff blocked/not executable.
 
 ### `R16-022` Run bounded Codex restart/compaction recovery drill using memory pack plus artifact map
-- Status: planned
-- Purpose: prove bounded re-entry from generated artifacts without claiming solved compaction.
+- Status: done
+- Purpose: record bounded restart/compaction recovery drill reporting only from exact repo-backed inputs, with raw chat history non-canonical, no full repo scan, failed-closed guard posture preserved, and no solved compaction/reliability, autonomous recovery, runtime memory, executable handoff, or executable transition claim.
 
 ### `R16-023` Run bounded role-handoff drill from PM to Developer to QA to Auditor using generated handoff packets
 - Status: planned
@@ -540,8 +542,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-021` only.
-- `R16-022` through `R16-026` remain planned only.
+- R16 active through `R16-022` only.
+- `R16-023` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -599,12 +601,16 @@ Status gates must accept:
 - R16-021 adds bounded handoff packet generation/reporting only.
 - `state/workflow/r16_handoff_packet_report.json` is a committed generated handoff packet report state artifact only.
 - all generated handoff packets are blocked/not executable because the R16-020 transition gate blocks all evaluated transitions and the R16-017 guard remains `failed_closed_over_budget`.
+- R16-022 adds bounded restart/compaction recovery drill reporting only.
+- `state/workflow/r16_restart_compaction_recovery_drill.json` is a committed generated restart/compaction recovery drill state artifact only.
+- recovery uses exact repo-backed inputs only, exact recovery input count is 11, raw chat history is not canonical state, and full repo scan is not used.
+- handoffs remain blocked/not executable, executable handoffs are zero, and no executable transitions are claimed.
 - this is not runtime execution.
-- no workflow drill exists yet.
+- no workflow drill beyond the bounded recovery drill artifact is claimed.
 
 Status gates must reject:
 
-- reject `R16-022` or later implementation claims.
+- reject `R16-023` or later implementation claims.
 - reject exact provider token count claims.
 - reject exact provider billing claims.
 - `R16-027` or later tasks.
@@ -1016,3 +1022,24 @@ R16-021 is accepted only if:
 - focused R16-021 validation, dependent R16 validations, status gates, and posture validators pass.
 
 After R16-021, R16 is active through `R16-021` only. `R16-022` through `R16-026` remain planned only. R16-021 adds bounded handoff packet generation/reporting only through `contracts/workflow/r16_handoff_packet_report.contract.json`, `tools/R16HandoffPacketGenerator.psm1`, `tools/new_r16_handoff_packets.ps1`, `tools/validate_r16_handoff_packet_report.ps1`, `tests/test_r16_handoff_packet_generator.ps1`, generated state artifact `state/workflow/r16_handoff_packet_report.json`, fixtures under `tests/fixtures/r16_handoff_packet_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/`. `state/workflow/r16_handoff_packet_report.json` is a committed generated handoff packet report state artifact only. All generated handoff packets are blocked/not executable because the R16-020 transition gate blocks all evaluated transitions and the R16-017 guard remains `failed_closed_over_budget`. This is not runtime execution. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+
+R16-022 is accepted only if:
+
+- the restart/compaction recovery drill contract exists at `contracts/workflow/r16_restart_compaction_recovery_drill.contract.json`;
+- the restart/compaction recovery drill module exists at `tools/R16RestartCompactionRecoveryDrill.psm1`;
+- the generator CLI exists at `tools/new_r16_restart_compaction_recovery_drill.ps1`;
+- the report validator CLI exists at `tools/validate_r16_restart_compaction_recovery_drill.ps1`;
+- the focused restart/compaction recovery drill test exists at `tests/test_r16_restart_compaction_recovery_drill.ps1`;
+- the generated report exists at `state/workflow/r16_restart_compaction_recovery_drill.json` as a committed generated restart/compaction recovery drill state artifact only;
+- fixture coverage exists under `tests/fixtures/r16_restart_compaction_recovery_drill/`;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/`;
+- exact recovery input count is 11 and all recovery inputs are exact repo-backed inputs only;
+- raw chat history is not canonical state and full repo scan is not used;
+- the guard remains `failed_closed_over_budget` with upper bound `1333321` and threshold `150000`;
+- all handoffs remain blocked/not executable, executable handoff count is 0, and no executable transitions are claimed;
+- no runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous recovery, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability is claimed;
+- R16-023 through R16-026 remain planned only;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-022 validation, dependent R16 validations, status gates, and posture validators pass.
+
+After R16-022, R16 is active through `R16-022` only. `R16-023` through `R16-026` remain planned only. R16-022 adds bounded restart/compaction recovery drill reporting only through `contracts/workflow/r16_restart_compaction_recovery_drill.contract.json`, `tools/R16RestartCompactionRecoveryDrill.psm1`, `tools/new_r16_restart_compaction_recovery_drill.ps1`, `tools/validate_r16_restart_compaction_recovery_drill.ps1`, `tests/test_r16_restart_compaction_recovery_drill.ps1`, generated state artifact `state/workflow/r16_restart_compaction_recovery_drill.json`, fixtures under `tests/fixtures/r16_restart_compaction_recovery_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/`. `state/workflow/r16_restart_compaction_recovery_drill.json` is a committed generated restart/compaction recovery drill state artifact only. Recovery uses exact repo-backed inputs only; raw chat history is not canonical state; full repo scan is not used. This does not solve Codex compaction, does not solve Codex reliability, and is not autonomous recovery. No runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, external integrations, executable handoffs, or executable transitions are claimed.

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_context_budget_guard_ref",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.context_budget_guard_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027context_budget_guard_ref\u0027"
+                         ]
+}

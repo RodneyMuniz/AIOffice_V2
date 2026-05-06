@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_required_top_level_field",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.restart_scenario",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027restart_scenario\u0027"
+                         ]
+}

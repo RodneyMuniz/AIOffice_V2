@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_raw_chat_history_canonical_state",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.raw_chat_history_policy.raw_chat_history_as_canonical_state",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "raw chat history as canonical state"
+                         ]
+}

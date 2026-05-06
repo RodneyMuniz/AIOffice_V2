@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_artifact_map_ref",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.artifact_map_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027artifact_map_ref\u0027"
+                         ]
+}

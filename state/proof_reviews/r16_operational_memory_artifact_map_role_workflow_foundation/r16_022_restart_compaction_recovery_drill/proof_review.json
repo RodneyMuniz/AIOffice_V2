@@ -1,0 +1,105 @@
+{
+  "artifact_type": "r16_022_restart_compaction_recovery_drill_proof_review",
+  "source_task": "R16-022",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "previous_remote_baseline": "1c63e143738b2bc837ed8c9c45e179cbe7bc7412",
+  "scope_verdict": "accepted_bounded_restart_compaction_recovery_drill_reporting_with_blocked_execution",
+  "scope_statement": "R16-022 adds bounded restart/compaction recovery drill reporting only.",
+  "contract_path": "contracts/workflow/r16_restart_compaction_recovery_drill.contract.json",
+  "validator_module_path": "tools/R16RestartCompactionRecoveryDrill.psm1",
+  "generator_cli_path": "tools/new_r16_restart_compaction_recovery_drill.ps1",
+  "report_validator_cli_path": "tools/validate_r16_restart_compaction_recovery_drill.ps1",
+  "focused_test_path": "tests/test_r16_restart_compaction_recovery_drill.ps1",
+  "state_artifact_path": "state/workflow/r16_restart_compaction_recovery_drill.json",
+  "fixture_root": "tests/fixtures/r16_restart_compaction_recovery_drill/",
+  "report_summary": {
+    "restart_compaction_recovery_drill_id": "aioffice-r16-022-restart-compaction-recovery-drill-v1",
+    "aggregate_verdict": "passed_bounded_restart_recovery_drill_with_blocked_execution",
+    "exact_recovery_input_count": 11,
+    "exact_repo_backed_inputs_only": true,
+    "raw_chat_history_is_canonical_state": false,
+    "full_repo_scan_used": false,
+    "guard_verdict": "failed_closed_over_budget",
+    "estimated_tokens_upper_bound": 1333321,
+    "max_estimated_tokens_upper_bound": 150000,
+    "blocked_handoff_count": 4,
+    "executable_handoff_count": 0,
+    "executable_transition_count": 0,
+    "state_artifact_treatment": "committed generated restart/compaction recovery drill state artifact only"
+  },
+  "blocked_execution_basis": {
+    "all_generated_handoff_packets_blocked": true,
+    "block_reason": "All generated handoff packets remain blocked/not executable because the R16-020 transition gate blocks all evaluated transitions and the R16-017 guard remains failed_closed_over_budget.",
+    "handoff_packet_execution_exists": false,
+    "executable_handoffs_exist": false,
+    "executable_transitions_exist": false,
+    "workflow_drill_execution_beyond_this_artifact": false,
+    "runtime_execution_performed": false
+  },
+  "current_posture": {
+    "active_through_task": "R16-022",
+    "complete_tasks_include": [
+      "R16-022"
+    ],
+    "planned_tasks": [
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ],
+    "restart_compaction_recovery_drill_report_exists": true,
+    "generated_recovery_drill_report_is_state_artifact_only": true,
+    "raw_chat_history_is_not_canonical_state": true,
+    "full_repo_scan_is_not_used": true,
+    "runtime_memory_exists": false,
+    "retrieval_runtime_exists": false,
+    "vector_search_runtime_exists": false,
+    "product_runtime_exists": false,
+    "autonomous_recovery_exists": false,
+    "autonomous_agents_exist": false,
+    "external_integrations_exist": false,
+    "executable_handoffs_exist": false,
+    "executable_transitions_exist": false,
+    "solved_codex_compaction_claimed": false,
+    "solved_codex_reliability_claimed": false
+  },
+  "validation_summary": {
+    "status": "passed",
+    "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/validation_manifest.md"
+  },
+  "non_claims": [
+    "R16-022 adds bounded restart/compaction recovery drill reporting only.",
+    "state/workflow/r16_restart_compaction_recovery_drill.json is a committed generated restart/compaction recovery drill state artifact only.",
+    "The drill uses exact repo-backed inputs only.",
+    "Exact recovery input count is 11.",
+    "Raw chat history is not canonical state.",
+    "Full repo scan is not used.",
+    "The guard remains failed_closed_over_budget.",
+    "Handoffs remain blocked/not executable.",
+    "No executable transitions exist.",
+    "No executable handoffs exist.",
+    "No solved Codex compaction or solved Codex reliability is claimed.",
+    "No autonomous recovery is claimed.",
+    "No runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, or external integrations are claimed.",
+    "R16-023 through R16-026 remain planned only."
+  ],
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  }
+}

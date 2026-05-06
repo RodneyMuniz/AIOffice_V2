@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_autonomous_agent_claim",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.restart_scenario.actual_autonomous_agents_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "autonomous-agent claim"
+                         ]
+}

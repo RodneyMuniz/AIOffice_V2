@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_wildcard_path",
+    "base_fixture":  "valid_restart_compaction_recovery_drill.json",
+    "mutation_path":  "$.exact_recovery_inputs[0].path",
+    "mutation_value":  "state/memory/*.json",
+    "expected_failure":  [
+                             "wildcard path"
+                         ]
+}

@@ -2394,8 +2394,8 @@ function Test-R16OpeningStatus {
         throw "R16 authority does not match KANBAN for the live R16 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 21 -or $kanbanSnapshot.PlannedStart -ne 22 -or $kanbanSnapshot.PlannedThrough -ne 26) {
-        throw "R16 status must keep R16 active through R16-021 only with R16-022 through R16-026 planned only."
+    if ($kanbanSnapshot.DoneThrough -ne 22 -or $kanbanSnapshot.PlannedStart -ne 23 -or $kanbanSnapshot.PlannedThrough -ne 26) {
+        throw "R16 status must keep R16 active through R16-022 only with R16-023 through R16-026 planned only."
     }
 
     $r16TaskMatches = [regex]::Matches($Texts.Kanban, '(?m)^###\s+`(R16-\d{3})`')
@@ -2423,16 +2423,16 @@ function Test-R16OpeningStatus {
             $Texts.R16Authority
         ))
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-021` only' -Message "README must declare R16 active on the R16 branch through R16-021 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active in repo truth through `R16-021` only\.' -Message "ACTIVE_STATE must declare R16 as the active milestone through R16-021 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-022` only' -Message "README must declare R16 active on the R16 branch through R16-022 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active in repo truth through `R16-022` only\.' -Message "ACTIVE_STATE must declare R16 as the active milestone through R16-022 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`' -Message "KANBAN must declare R16 as the active milestone."
-    Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Milestone status:\*\*\s+Active in repo truth through `R16-021` only' -Message "R16 authority must declare R16 active through R16-021 only."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Milestone status:\*\*\s+Active in repo truth through `R16-022` only' -Message "R16 authority must declare R16 active through R16-022 only."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Source R15 branch:\*\*\s+`release/r15-knowledge-base-agent-identity-memory-raci-foundations`' -Message "R16 authority must record the source R15 branch."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Starting head:\*\*\s+`3058bd6ed5067c97f744c92b9b9235004f0568b0`' -Message "R16 authority must record the starting head."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Starting tree:\*\*\s+`045886694b19b90f70f08bcffc0e1b321b5c28a0`' -Message "R16 authority must record the starting tree."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'd9685030a0556a528684d28367db83f4c72f7fc9' -Message "R16 authority must record the audited R15 boundary head."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '7529230df0c1f5bec3625ba654b035a2af824e9b' -Message "R16 authority must record the audited R15 boundary tree."
-    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'R16-022` through `R16-026` remain planned only|R16-022 through R16-026 remain planned only' -Message "R16 authority must keep R16-022 through R16-026 planned only."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'R16-023` through `R16-026` remain planned only|R16-023 through R16-026 remain planned only' -Message "R16 authority must keep R16-023 through R16-026 planned only."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16 Opened As Operational Memory Artifact Map And Role-Bound Workflow Foundation' -Message "DECISION_LOG must record the R16 opening decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-002 Installed Planning Authority References' -Message "DECISION_LOG must record the R16-002 planning authority decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-003 Added KPI Baseline And Target Scorecard' -Message "DECISION_LOG must record the R16-003 KPI scorecard decision."
@@ -2454,6 +2454,7 @@ function Test-R16OpeningStatus {
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-019 Generated Role-Run Envelopes' -Message "DECISION_LOG must record the R16-019 role-run envelope generator decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-020 Bounded RACI Transition Gate Report' -Message "DECISION_LOG must record the R16-020 RACI transition gate decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-021 Bounded Handoff Packet Generator' -Message "DECISION_LOG must record the R16-021 handoff packet generator decision."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R16-022 Bounded Restart Compaction Recovery Drill' -Message "DECISION_LOG must record the R16-022 restart/compaction recovery drill decision."
 
     Assert-RegexMatch -Text $r16CurrentText -Pattern '(?i)R13 remains failed/partial.*R13-018.*not closed' -Message "Status docs must preserve R13 failed/partial through R13-018 while R16 is active."
     Assert-RegexMatch -Text $r16CurrentText -Pattern '(?i)API/custom-runner bypass.*remain partial|API/custom-runner bypass gate remains partial' -Message "Status docs must preserve API/custom-runner bypass as partial while R16 is active."
@@ -2609,6 +2610,14 @@ function Test-R16OpeningStatus {
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'state/workflow/r16_handoff_packet_report\.json' -Message "R16 authority must cite the R16-021 committed handoff packet report state artifact."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tests/fixtures/r16_handoff_packet_generator/' -Message "R16 authority must cite the R16-021 handoff packet generator fixtures."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/' -Message "R16 authority must cite the R16-021 proof-review package."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'contracts/workflow/r16_restart_compaction_recovery_drill\.contract\.json' -Message "R16 authority must cite the R16-022 restart/compaction recovery drill contract."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tools/R16RestartCompactionRecoveryDrill\.psm1' -Message "R16 authority must cite the R16-022 restart/compaction recovery drill module."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tools/new_r16_restart_compaction_recovery_drill\.ps1' -Message "R16 authority must cite the R16-022 generator CLI."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tools/validate_r16_restart_compaction_recovery_drill\.ps1' -Message "R16 authority must cite the R16-022 report validator CLI."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tests/test_r16_restart_compaction_recovery_drill\.ps1' -Message "R16 authority must cite the R16-022 focused test."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'state/workflow/r16_restart_compaction_recovery_drill\.json' -Message "R16 authority must cite the R16-022 committed restart/compaction recovery drill state artifact."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'tests/fixtures/r16_restart_compaction_recovery_drill/' -Message "R16 authority must cite the R16-022 restart/compaction recovery drill fixtures."
+    Assert-RegexMatch -Text $Texts.R16Authority -Pattern 'state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/' -Message "R16 authority must cite the R16-022 proof-review package."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-002 installed and validated planning authority references only' -Message "Status docs must state that R16-002 installed and validated planning authority references only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-003 added KPI baseline and target scorecard only' -Message "Status docs must state that R16-003 added KPI baseline and target scorecard only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-004 defined the memory layer contract only' -Message "Status docs must state that R16-004 defined the memory layer contract only."
@@ -2629,6 +2638,7 @@ function Test-R16OpeningStatus {
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-019 generated role-run envelopes as committed state artifacts only|R16-019 generates role-run envelopes as committed state artifacts only' -Message "Status docs must state that R16-019 generated role-run envelopes as committed state artifacts only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-020 adds bounded RACI transition gate validation/reporting only' -Message "Status docs must state that R16-020 adds bounded RACI transition gate validation/reporting only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-021 adds bounded handoff packet generation/reporting only' -Message "Status docs must state that R16-021 adds bounded handoff packet generation/reporting only."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'R16-022 adds bounded restart/compaction recovery drill reporting only' -Message "Status docs must state that R16-022 adds bounded restart/compaction recovery drill reporting only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'context-load plan contract is model/contract proof only|context-load plan contract is a contract/model artifact only' -Message "Status docs must state that the R16-014 context-load plan contract is contract/model proof only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'KPI targets are (targets, not achieved implementation evidence|not achieved implementation evidence|not achieved scores)' -Message "Status docs must state that KPI targets are not achieved implementation evidence."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'baseline generated memory layers are committed state artifacts, not runtime memory|generated baseline memory layers are committed state artifacts, not runtime memory' -Message "Status docs must state that generated baseline memory layers are state artifacts, not runtime memory."
@@ -2689,11 +2699,17 @@ function Test-R16OpeningStatus {
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'This is not runtime execution|this is not runtime execution' -Message "Status docs must state that R16-020 is not runtime execution."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'state/workflow/r16_handoff_packet_report\.json`? is a committed generated handoff packet report state artifact only|handoff packet report is a committed generated state artifact only' -Message "Status docs must state that the R16-021 handoff packet report is a committed state artifact only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'All generated handoff packets are blocked/not executable because the R16-020 transition gate blocks all evaluated transitions and the R16-017 guard remains `?failed_closed_over_budget`?|all generated handoff packets are blocked/not executable' -Message "Status docs must state that all generated handoff packets are blocked/not executable."
-    Assert-RegexMatch -Text $r16CurrentText -Pattern 'No workflow drills are implemented yet|No workflow drill is implemented yet|No workflow drills exist yet|No workflow drill exists yet' -Message "Status docs must state that no workflow drill is implemented yet."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'state/workflow/r16_restart_compaction_recovery_drill\.json`? is a committed generated restart/compaction recovery drill state artifact only|restart/compaction recovery drill state artifact only' -Message "Status docs must state that the R16-022 recovery drill report is a committed state artifact only."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'Recovery uses exact repo-backed inputs only|recovery uses exact repo-backed inputs only' -Message "Status docs must state that R16-022 recovery uses exact repo-backed inputs only."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'exact recovery input count is 11' -Message "Status docs must state that R16-022 has exactly 11 recovery inputs."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'raw chat history is not canonical state' -Message "Status docs must state that raw chat history is not canonical state."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'full repo scan is not used' -Message "Status docs must state that full repo scan is not used."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'no executable transitions are claimed|not executable handoffs or executable transitions|not executable handoffs, not executable transitions|not executable handoffs, and not executable transitions' -Message "Status docs must state that executable transitions are not claimed."
+    Assert-RegexMatch -Text $r16CurrentText -Pattern 'No workflow drill beyond the bounded recovery drill artifact is claimed|no workflow drill beyond the bounded recovery drill artifact is claimed' -Message "Status docs must limit workflow drill claims to the bounded recovery drill artifact."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'memory pack validation report is a committed validation report state artifact only|memory pack validation report is a committed state artifact only' -Message "Status docs must state that the R16-008 validation report is a committed state artifact only."
     Assert-RegexMatch -Text $r16CurrentText -Pattern 'memory pack validation report is not runtime memory' -Message "Status docs must state that the R16-008 validation report is not runtime memory."
 
-    Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "R16-022 or later implementation" -Pattern '(?i)\bR16-(0(?:2[2-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "R16-023 or later implementation" -Pattern '(?i)\bR16-(0(?:2[3-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "exact provider token count" -Pattern '(?i)\b(exact provider token count|exact provider tokenization|exact provider tokenizer|provider tokenizer used|exact tokenizer)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "exact provider billing" -Pattern '(?i)\b(exact provider billing|exact provider bill|provider bill|provider billing|provider pricing used|exact provider pricing)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
@@ -2708,6 +2724,9 @@ function Test-R16OpeningStatus {
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "executable or runtime handoff packet implementation" -Pattern '(?i)\b(handoff packet|handoff packets|handoff packet report)\b.{0,180}\b((?<!non-)(?<!not )executable|runtime|runs|executes|workflow drill|autonomous|product runtime|handoff execution)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "RACI transition gate runtime/execution overclaim" -Pattern '(?i)\b(RACI transition gate|RACI transition gates|RACI transition gate report)\b.{0,160}\b(runtime execution|runtime|executes|executed transition|executes role handoffs|handoff packet generated|workflow drill ran|product runtime|autonomous)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "workflow drill implementation" -Pattern '(?i)\b(workflow drill|workflow drills)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime|ran)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "role-handoff drill artifact" -Pattern '(?i)\b(role-handoff drill|role handoff drill)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "audit-readiness drill artifact" -Pattern '(?i)\b(audit-readiness drill|audit readiness drill)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "friction metrics artifact" -Pattern '(?i)\b(friction metrics|friction metric)\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "R16-027 or later task" -Pattern '(?i)\bR16-(0(?:2[7-9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned|active)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "main merge" -Pattern '(?i)\b(main merge|merged to main|main contains R16|R16.*merged to main)\b'
     Assert-NoForbiddenPositiveClaim -Text $r16CurrentText -Context "Status docs" -ClaimLabel "product runtime" -Pattern '(?i)\b(product runtime|production runtime|productized UI|productized control-room behavior|full UI app)\b'
