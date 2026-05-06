@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_transition_allowed_target_not_executable",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions[2].decision",
+    "mutation_value":  "allowed",
+    "expected_failure":  [
+                             "target envelope executable=false"
+                         ]
+}

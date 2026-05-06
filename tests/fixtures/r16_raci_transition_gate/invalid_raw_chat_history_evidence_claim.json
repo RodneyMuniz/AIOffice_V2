@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_raw_chat_history_evidence_claim",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.required_evidence_policy.raw_chat_history_as_evidence_allowed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "raw chat history evidence claim"
+                         ]
+}

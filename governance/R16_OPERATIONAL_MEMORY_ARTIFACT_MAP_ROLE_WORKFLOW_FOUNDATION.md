@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-019` only
+**Milestone status:** Active in repo truth through `R16-020` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -58,6 +58,12 @@ R16-015 implemented the exact context-load planner and generated a committed con
 R16-016 implemented a bounded context budget estimator with approximation fields through `contracts/context/r16_context_budget_estimate.contract.json`, `tools/R16ContextBudgetEstimator.psm1`, `tools/new_r16_context_budget_estimate.ps1`, `tools/validate_r16_context_budget_estimate.ps1`, `tests/test_r16_context_budget_estimator.ps1`, generated context budget estimate state artifact `state/context/r16_context_budget_estimate.json`, valid fixture `tests/fixtures/r16_context_budget_estimator/valid_context_budget_estimate.json`, invalid fixtures under `tests/fixtures/r16_context_budget_estimator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`. `state/context/r16_context_budget_estimate.json` is a committed generated context budget estimate state artifact only. The estimate is approximate only. The estimate is not exact provider tokenization. The estimate is not exact provider billing. The estimate is not an over-budget fail-closed validator.
 
 R16-017 added a bounded over-budget context guard and no-full-repo-scan enforcement only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, generated context budget guard report state artifact `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. The guard can fail closed on over-budget context plans. The guard is not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not a role-run envelope, not a RACI transition gate, not a handoff packet, not a workflow drill, not autonomous agents, not external integrations, and not solved Codex compaction or solved Codex reliability.
+
+R16-018 defines the role-run envelope contract only through `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`. The role-run envelope contract is contract/model proof only.
+
+R16-019 generated role-run envelopes as committed state artifacts only through `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, generated role-run envelope state artifact `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`. `state/workflow/r16_role_run_envelopes.json` is a committed generated role-run envelope state artifact only. All generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`.
+
+R16-020 adds bounded RACI transition gate validation/reporting only through `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated RACI transition gate report state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`. `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only. The RACI transition gate report blocks all evaluated execution transitions because the guard remains `failed_closed_over_budget` and the generated role-run envelopes remain non-executable. This is not runtime execution. No handoff packet exists yet. No workflow drill exists yet.
 
 ## Purpose
 
@@ -468,8 +474,10 @@ Required evidence deliverables:
 - Done when: role-run envelopes are generated as committed state artifacts only, all generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`, and no RACI transition gate, handoff packet, workflow drill, runtime memory, retrieval/vector runtime, product runtime, autonomous agents, external integrations, R16-020+ implementation, or R13/R14/R15 boundary weakening is claimed.
 
 ### `R16-020` Add RACI transition gate validator using role-run envelope, card state, required evidence, and allowed actions
-- Status: planned
+- Status: done
 - Purpose: enforce role, state, evidence, and allowed-action transition gates.
+- Durable output: `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`.
+- Done when: the RACI transition gate report validates as a committed state artifact only, all evaluated transitions are blocked while the guard remains `failed_closed_over_budget` and generated role-run envelopes remain non-executable, and no handoff packet, workflow drill, runtime execution, runtime memory, retrieval/vector runtime, product runtime, autonomous agents, external integrations, R16-021+ implementation, or R13/R14/R15 boundary weakening is claimed.
 
 ### `R16-021` Add handoff packet generator tying card state, role, memory pack, context-load plan, and evidence refs together
 - Status: planned
@@ -530,8 +538,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-019` only.
-- `R16-020` through `R16-026` remain planned only.
+- R16 active through `R16-020` only.
+- `R16-021` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -583,7 +591,10 @@ Status gates must accept:
 - `state/workflow/r16_role_run_envelopes.json` is a committed generated role-run envelope state artifact only.
 - the role-run envelope generator is bounded state-artifact generation only.
 - all generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`.
-- no RACI transition gate exists yet.
+- R16-020 adds bounded RACI transition gate validation/reporting only.
+- `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only.
+- all evaluated execution transitions are blocked due to `failed_closed_over_budget` and non-executable envelopes.
+- this is not runtime execution.
 - no handoff packet exists yet.
 - no workflow drill exists yet.
 
@@ -963,3 +974,22 @@ R16-019 is accepted only if:
 - focused R16-019 validation, dependent R16 validations, status gates, and posture validators pass.
 
 After R16-019, R16 is active through `R16-019` only. `R16-020` through `R16-026` remain planned only. R16-019 generated role-run envelopes as committed state artifacts only through `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, generated state artifact `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`. The role-run envelope contract is contract/model proof only. The role-run envelope generator is bounded state-artifact generation only. All generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+
+R16-020 is accepted only if:
+
+- the RACI transition gate report contract exists at `contracts/workflow/r16_raci_transition_gate_report.contract.json`;
+- the RACI transition gate validator/report module exists at `tools/R16RaciTransitionGate.psm1`;
+- the generator/test CLI exists at `tools/test_r16_raci_transition_gate.ps1`;
+- the report validator CLI exists at `tools/validate_r16_raci_transition_gate_report.ps1`;
+- the focused gate test exists at `tests/test_r16_raci_transition_gate.ps1`;
+- the generated report exists at `state/workflow/r16_raci_transition_gate_report.json` as a committed state artifact only;
+- fixture coverage exists under `tests/fixtures/r16_raci_transition_gate/`, with one full valid fixture and compact mutation specs for invalid fixtures;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`;
+- all evaluated execution transitions are blocked while the R16-017 guard remains `failed_closed_over_budget` and R16-019 generated role-run envelopes remain non-executable;
+- no handoff packet exists yet;
+- no workflow drill exists yet;
+- no runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability is claimed;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-020 validation, dependent R16 validations, status gates, and posture validators pass.
+
+After R16-020, R16 is active through `R16-020` only. `R16-021` through `R16-026` remain planned only. R16-020 adds bounded RACI transition gate validation/reporting only through `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`. `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only. The report blocks all evaluated execution transitions because the R16-017 guard remains `failed_closed_over_budget` and the R16-019 envelopes remain non-executable. This is not runtime execution. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

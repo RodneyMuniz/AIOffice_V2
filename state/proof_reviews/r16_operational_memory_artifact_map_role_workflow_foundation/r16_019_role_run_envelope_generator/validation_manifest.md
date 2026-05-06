@@ -2,7 +2,7 @@
 
 Status: passed.
 
-This manifest is for the R16-019 role-run envelope generator and committed role-run envelope state artifact only. It keeps the R16-017 context budget guard as repo truth: `state/context/r16_context_budget_guard_report.json` remains `failed_closed_over_budget` with approximate upper bound `1323518` over the configured threshold `150000`.
+This manifest is for the R16-019 role-run envelope generator and committed role-run envelope state artifact only. It keeps the R16-017 context budget guard as repo truth: `state/context/r16_context_budget_guard_report.json` remains `failed_closed_over_budget` with approximate upper bound `1328267` over the configured threshold `150000`.
 
 All generated envelopes are non-executable while the guard is failed closed. R16-019 does not create a mitigation, weaken the threshold, implement a RACI transition gate, implement a handoff packet, run a workflow drill, or add runtime memory/retrieval/vector/product runtime.
 

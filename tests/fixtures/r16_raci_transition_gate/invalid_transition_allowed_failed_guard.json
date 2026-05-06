@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_transition_allowed_failed_guard",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions[0].decision",
+    "mutation_value":  "allowed",
+    "expected_failure":  [
+                             "allowed while",
+                             "failed_closed_over_budget"
+                         ]
+}

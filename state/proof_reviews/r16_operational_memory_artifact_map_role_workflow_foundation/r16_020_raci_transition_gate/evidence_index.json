@@ -1,0 +1,46 @@
+{
+  "artifact_type": "r16_020_raci_transition_gate_evidence_index",
+  "source_task": "R16-020",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "contract": "contracts/workflow/r16_raci_transition_gate_report.contract.json",
+  "validator_module": "tools/R16RaciTransitionGate.psm1",
+  "generator_test_cli": "tools/test_r16_raci_transition_gate.ps1",
+  "report_validator_cli": "tools/validate_r16_raci_transition_gate_report.ps1",
+  "focused_test": "tests/test_r16_raci_transition_gate.ps1",
+  "state_artifact": "state/workflow/r16_raci_transition_gate_report.json",
+  "fixtures": {
+    "valid_fixture": "tests/fixtures/r16_raci_transition_gate/valid_raci_transition_gate_report.json",
+    "invalid_fixture_glob": "tests/fixtures/r16_raci_transition_gate/invalid_*.json",
+    "invalid_fixture_format": "compact mutation spec with fixture_id, base_fixture, mutation_path, mutation_value, and expected_failure"
+  },
+  "dependency_refs": [
+    "contracts/workflow/r16_role_run_envelope.contract.json",
+    "state/workflow/r16_role_run_envelopes.json",
+    "state/context/r16_context_budget_guard_report.json",
+    "state/context/r16_context_budget_estimate.json",
+    "state/context/r16_context_load_plan.json",
+    "state/memory/r16_role_memory_packs.json",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+  ],
+  "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/proof_review.json",
+  "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/validation_manifest.md",
+  "status_surfaces_changed": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md",
+    "governance/DOCUMENT_AUTHORITY_INDEX.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "tools/StatusDocGate.psm1",
+    "tests/test_status_doc_gate.ps1"
+  ],
+  "non_claims": [
+    "R16-020 adds bounded RACI transition gate validation/reporting only.",
+    "The gate report is a committed state artifact only.",
+    "All evaluated transitions are blocked because the guard is failed_closed_over_budget and the generated role-run envelopes are non-executable.",
+    "No handoff packet, workflow drill, runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, or external integrations are claimed.",
+    "R16-021 through R16-026 remain planned only."
+  ]
+}

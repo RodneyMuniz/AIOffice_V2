@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_required_evidence_ref",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions[0].required_evidence_refs",
+    "mutation_value":  "__REMOVE_REQUIRED_EVIDENCE:state/context/r16_context_budget_guard_report.json__",
+    "expected_failure":  [
+                             "missing required evidence ref"
+                         ]
+}

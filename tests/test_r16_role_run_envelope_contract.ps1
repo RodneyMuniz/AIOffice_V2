@@ -57,11 +57,10 @@ try {
         "state\workflow\r16_handoff_packets.json",
         "contracts\workflow\r16_handoff_packet.contract.json",
         "contracts\workflow\r16_raci_transition_gate.contract.json",
-        "tools\R16RaciTransitionGate.psm1",
         "tools\R16HandoffPacketGenerator.psm1"
     )) {
         if (Test-Path -LiteralPath (Join-Path $repoRoot $forbiddenPath)) {
-            $failures += "FAIL forbidden R16-020+ overbuild artifact exists: $forbiddenPath"
+            $failures += "FAIL forbidden R16-021+ or non-report workflow overbuild artifact exists: $forbiddenPath"
         }
     }
 

@@ -290,7 +290,6 @@ try {
     foreach ($forbiddenPath in @(
         "contracts\workflow\r16_handoff_packet.contract.json",
         "contracts\workflow\r16_raci_transition_gate.contract.json",
-        "tools\R16RaciTransitionGate.psm1",
         "tools\R16HandoffPacketGenerator.psm1",
         "state\workflow\r16_handoff_packets.json",
         "state\workflow\r16_workflow_drill.json"
@@ -300,6 +299,10 @@ try {
         }
     }
 
+    $guardReport = Get-Content -LiteralPath (Join-Path $repoRoot "state\context\r16_context_budget_guard_report.json") -Raw | ConvertFrom-Json
+    $expectedEstimatedUpperBound = [int64]$guardReport.evaluated_budget.estimated_tokens_upper_bound
+    $expectedMaxUpperBound = [int64]$guardReport.evaluated_budget.max_estimated_tokens_upper_bound
+
     $stateResult = & $testEnvelopes -Path $stateArtifactRel -RepositoryRoot $repoRoot
     if ($stateResult.SourceTask -ne "R16-019" -or $stateResult.ActiveThroughTask -ne "R16-019" -or $stateResult.PlannedTaskStart -ne "R16-020" -or $stateResult.PlannedTaskEnd -ne "R16-026") {
         $failures += "FAIL committed artifact: expected R16-019 identity and R16 active through R16-019 only with R16-020 through R16-026 planned only."
@@ -307,8 +310,8 @@ try {
     elseif ($stateResult.EnvelopeCount -ne 8 -or $stateResult.BlockedEnvelopeCount -ne 8 -or $stateResult.ExecutableEnvelopeCount -ne 0 -or $stateResult.AggregateVerdict -ne "passed_with_all_envelopes_blocked_by_guard") {
         $failures += "FAIL committed artifact: expected eight deterministic envelopes, all blocked, none executable, and aggregate verdict passed_with_all_envelopes_blocked_by_guard."
     }
-    elseif ($stateResult.BudgetGuardVerdict -ne "failed_closed_over_budget" -or $stateResult.EstimatedTokensUpperBound -ne 1323518 -or $stateResult.MaxEstimatedTokensUpperBound -ne 150000) {
-        $failures += "FAIL committed artifact: expected failed_closed_over_budget guard values 1323518 over 150000 to be preserved."
+    elseif ($stateResult.BudgetGuardVerdict -ne "failed_closed_over_budget" -or $stateResult.EstimatedTokensUpperBound -ne $expectedEstimatedUpperBound -or $stateResult.MaxEstimatedTokensUpperBound -ne $expectedMaxUpperBound) {
+        $failures += ("FAIL committed artifact: expected failed_closed_over_budget guard values {0} over {1} to be preserved." -f $expectedEstimatedUpperBound, $expectedMaxUpperBound)
     }
     else {
         Write-Output ("PASS committed R16-019 role-run envelopes: {0}" -f (Join-Path $repoRoot $stateArtifactRel))

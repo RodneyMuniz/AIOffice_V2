@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_action_not_in_allowed_actions",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions[1].action_type",
+    "mutation_value":  "prepare_task_scope",
+    "expected_failure":  [
+                             "action not in allowed_actions"
+                         ]
+}

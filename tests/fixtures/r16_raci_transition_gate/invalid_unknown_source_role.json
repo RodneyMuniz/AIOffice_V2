@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_unknown_source_role",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions[0].source_role_id",
+    "mutation_value":  "unknown_role",
+    "expected_failure":  [
+                             "unknown source role"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_evaluated_transitions",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.evaluated_transitions",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027evaluated_transitions\u0027"
+                         ]
+}

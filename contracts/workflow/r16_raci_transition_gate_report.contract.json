@@ -1,0 +1,158 @@
+{
+  "artifact_type": "r16_raci_transition_gate_report_contract",
+  "contract_version": "v1",
+  "raci_transition_gate_report_contract_id": "aioffice-r16-020-raci-transition-gate-report-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-020",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_role_run_envelope_contract",
+      "path": "contracts/workflow/r16_role_run_envelope.contract.json",
+      "source_task": "R16-018",
+      "proof_treatment": "committed role-run envelope contract",
+      "deterministic_order": 1
+    },
+    {
+      "ref_id": "r16_role_run_envelopes",
+      "path": "state/workflow/r16_role_run_envelopes.json",
+      "source_task": "R16-019",
+      "proof_treatment": "committed generated role-run envelope state artifact only",
+      "deterministic_order": 2
+    },
+    {
+      "ref_id": "r16_context_budget_guard_report",
+      "path": "state/context/r16_context_budget_guard_report.json",
+      "source_task": "R16-017",
+      "proof_treatment": "committed generated context budget guard report state artifact only",
+      "deterministic_order": 3
+    },
+    {
+      "ref_id": "r16_context_budget_estimate",
+      "path": "state/context/r16_context_budget_estimate.json",
+      "source_task": "R16-016",
+      "proof_treatment": "committed generated context budget estimate state artifact only; approximate only",
+      "deterministic_order": 4
+    },
+    {
+      "ref_id": "r16_context_load_plan",
+      "path": "state/context/r16_context_load_plan.json",
+      "source_task": "R16-015",
+      "proof_treatment": "committed generated context-load plan state artifact only",
+      "deterministic_order": 5
+    },
+    {
+      "ref_id": "r16_role_memory_packs",
+      "path": "state/memory/r16_role_memory_packs.json",
+      "source_task": "R16-007",
+      "proof_treatment": "committed generated role memory pack state artifact only",
+      "deterministic_order": 6
+    },
+    {
+      "ref_id": "r16_authority_card_state",
+      "path": "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+      "source_task": "R16-019",
+      "proof_treatment": "milestone authority and card-state boundary; not machine proof by itself",
+      "deterministic_order": 7
+    }
+  ],
+  "required_report_fields": [
+    "artifact_type",
+    "gate_version",
+    "gate_id",
+    "source_milestone",
+    "source_task",
+    "repository",
+    "branch",
+    "generation_boundary",
+    "role_run_envelopes_ref",
+    "role_run_envelope_contract_ref",
+    "context_budget_guard_ref",
+    "context_budget_estimate_ref",
+    "context_load_plan_ref",
+    "role_memory_packs_ref",
+    "card_state_ref",
+    "gate_mode",
+    "evaluated_transitions",
+    "blocked_transition_count",
+    "allowed_transition_count",
+    "required_evidence_policy",
+    "allowed_action_policy",
+    "no_full_repo_scan_policy",
+    "current_posture",
+    "preserved_boundaries",
+    "finding_summary",
+    "aggregate_verdict",
+    "validation_commands",
+    "non_claims"
+  ],
+  "transition_evaluation_policy": {
+    "source_role_must_exist_in_generated_envelopes": true,
+    "target_role_must_exist_in_generated_envelopes": true,
+    "source_envelope_must_be_executable_for_allowed_transition": true,
+    "target_envelope_must_be_executable_for_allowed_transition": true,
+    "action_must_exist_in_source_role_allowed_actions": true,
+    "required_evidence_refs_must_be_exact_repo_relative_tracked_files": true,
+    "context_budget_guard_failed_closed_over_budget_blocks_execution": true,
+    "current_guard_expected_verdict": "failed_closed_over_budget",
+    "allowed_transition_count_expected_while_guard_failed_closed": 0
+  },
+  "required_evidence_policy": {
+    "repo_relative_exact_paths_only": true,
+    "tracked_files_only": true,
+    "wildcard_paths_allowed": false,
+    "directory_only_refs_allowed": false,
+    "scratch_temp_refs_allowed": false,
+    "absolute_paths_allowed": false,
+    "parent_traversal_allowed": false,
+    "url_or_remote_refs_allowed": false,
+    "raw_chat_history_as_evidence_allowed": false,
+    "generated_reports_as_machine_proof_allowed": false
+  },
+  "no_full_repo_scan_policy": {
+    "broad_repo_scan_allowed": false,
+    "full_repo_scan_allowed": false,
+    "wildcard_path_expansion_allowed": false,
+    "deterministic_exact_refs_only": true
+  },
+  "handoff_boundary_policy": {
+    "handoff_packet_generation_allowed": false,
+    "workflow_drill_allowed": false,
+    "runtime_execution_allowed": false,
+    "product_runtime_allowed": false,
+    "autonomous_agent_execution_allowed": false,
+    "external_integration_execution_allowed": false
+  },
+  "current_posture_policy": {
+    "report_active_through_task": "R16-020",
+    "status_surfaces_may_remain_active_through_r16_019_for_this_pass": true,
+    "planned_task_start": "R16-021",
+    "planned_task_end": "R16-026"
+  },
+  "non_claims": [
+    "R16-020 adds a bounded local RACI transition gate validator and report artifact only",
+    "no executable transitions while guard is failed_closed_over_budget",
+    "no handoff packet",
+    "no workflow drill",
+    "no runtime memory",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no product runtime",
+    "no autonomous agents",
+    "no external integrations",
+    "R16-021 through R16-026 remain planned only",
+    "R13 remains failed/partial and not closed",
+    "R14 caveats remain preserved",
+    "R15 caveats remain preserved"
+  ],
+  "invalid_state_policy": {
+    "missing_required_field_fails_closed": true,
+    "unsafe_evidence_ref_fails_closed": true,
+    "unknown_role_fails_closed": true,
+    "unknown_action_fails_closed": true,
+    "allowed_transition_under_failed_closed_guard_fails_closed": true,
+    "runtime_or_handoff_overclaim_fails_closed": true,
+    "future_task_or_boundary_overclaim_fails_closed": true
+  }
+}

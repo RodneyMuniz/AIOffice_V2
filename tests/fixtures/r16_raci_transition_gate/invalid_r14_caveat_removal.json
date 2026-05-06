@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_r14_caveat_removal",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.preserved_boundaries.r14.caveats_removed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "r14",
+                             "caveat removal"
+                         ]
+}

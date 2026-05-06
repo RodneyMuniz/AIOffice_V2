@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_required_top_level_field",
+    "base_fixture":  "valid_raci_transition_gate_report.json",
+    "mutation_path":  "$.gate_mode",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027gate_mode\u0027"
+                         ]
+}
