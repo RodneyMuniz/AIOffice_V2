@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_scratch_temp_ref",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].memory_pack_ref.path",
+    "mutation_value":  "scratch/r16_handoff_packet.tmp.json",
+    "expected_failure":  [
+                             "scratch/temp path"
+                         ]
+}

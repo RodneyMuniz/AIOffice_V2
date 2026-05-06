@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_absolute_path",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].memory_pack_ref.path",
+    "mutation_value":  "C:/tmp/r16_handoff_packet.json",
+    "expected_failure":  [
+                             "absolute path"
+                         ]
+}

@@ -287,7 +287,6 @@ try {
 
     foreach ($forbiddenPath in @(
         "contracts\workflow\r16_handoff_packet.contract.json",
-        "tools\R16HandoffPacketGenerator.psm1",
         "state\workflow\r16_handoff_packets.json",
         "state\workflow\r16_workflow_drill.json",
         "state\memory\r16_runtime_memory.json",

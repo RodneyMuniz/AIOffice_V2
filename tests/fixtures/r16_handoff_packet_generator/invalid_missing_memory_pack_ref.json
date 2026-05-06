@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_memory_pack_ref",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].memory_pack_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027memory_pack_ref\u0027"
+                         ]
+}

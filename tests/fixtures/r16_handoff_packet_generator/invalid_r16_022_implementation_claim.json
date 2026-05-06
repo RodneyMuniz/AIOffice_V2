@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r16_022_implementation_claim",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.current_posture.r16_022_implementation_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R16-022 implementation claim"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_report_as_machine_proof_misuse",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.required_evidence_policy.generated_reports_as_machine_proof_allowed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "report-as-machine-proof misuse"
+                         ]
+}

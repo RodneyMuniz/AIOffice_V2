@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_runtime_memory_claim",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.generation_mode.runtime_memory_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "runtime memory claim"
+                         ]
+}

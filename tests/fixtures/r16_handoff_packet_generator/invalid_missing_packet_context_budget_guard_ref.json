@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_packet_context_budget_guard_ref",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].context_budget_guard_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027context_budget_guard_ref\u0027"
+                         ]
+}

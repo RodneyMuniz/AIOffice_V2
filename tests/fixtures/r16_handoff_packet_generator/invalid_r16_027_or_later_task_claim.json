@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r16_027_or_later_task_claim",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.current_posture.r16_027_or_later_task_exists",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R16-027 or later task claim"
+                         ]
+}

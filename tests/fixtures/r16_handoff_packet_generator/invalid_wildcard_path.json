@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_wildcard_path",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].memory_pack_ref.path",
+    "mutation_value":  "state/memory/*.json",
+    "expected_failure":  [
+                             "wildcard path"
+                         ]
+}

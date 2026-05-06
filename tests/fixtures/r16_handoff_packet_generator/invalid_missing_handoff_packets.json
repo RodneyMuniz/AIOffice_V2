@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_handoff_packets",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027handoff_packets\u0027"
+                         ]
+}

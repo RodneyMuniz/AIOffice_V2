@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_transition_decision",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].transition_decision",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027transition_decision\u0027"
+                         ]
+}

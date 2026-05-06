@@ -74,7 +74,6 @@ try {
         "contracts\workflow\r16_handoff_packet.contract.json",
         "contracts\workflow\r16_raci_transition_gate.contract.json",
         "state\workflow\r16_handoff_packets.json",
-        "tools\R16HandoffPacketGenerator.psm1",
         "state\memory\r16_runtime_memory.json",
         "state\retrieval\r16_vector_index.json"
     )) {

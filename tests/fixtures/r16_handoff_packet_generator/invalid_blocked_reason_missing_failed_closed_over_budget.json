@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_blocked_reason_missing_failed_closed_over_budget",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].blocked_reason",
+    "mutation_value":  "R16-020 gate blocks this handoff, but the guard verdict is omitted.",
+    "expected_failure":  [
+                             "blocked_reason",
+                             "failed_closed_over_budget"
+                         ]
+}

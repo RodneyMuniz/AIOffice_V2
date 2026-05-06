@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_runtime_handoff_execution_claim",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[0].handoff_constraints.runtime_handoff_execution_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "runtime handoff execution claim"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_handoff_executable_guard_failed_closed_over_budget",
+    "base_fixture":  "valid_handoff_packet_report.json",
+    "mutation_path":  "$.handoff_packets[1].executable",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "guard is failed_closed_over_budget"
+                         ]
+}
