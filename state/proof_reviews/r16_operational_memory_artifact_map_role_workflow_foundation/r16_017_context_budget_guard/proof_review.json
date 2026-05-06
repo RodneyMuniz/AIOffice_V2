@@ -1,0 +1,94 @@
+{
+  "artifact_type": "r16_017_context_budget_guard_proof_review",
+  "source_task": "R16-017",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "previous_remote_baseline": "c2ffe362e2a98b7182c44fdd0f3b4e03f4594341",
+  "scope_verdict": "accepted_bounded_over_budget_context_guard_and_no_full_repo_scan_enforcement_only",
+  "contract_path": "contracts/context/r16_context_budget_guard.contract.json",
+  "guard_module_path": "tools/R16ContextBudgetGuard.psm1",
+  "tool_test_path": "tools/test_r16_context_budget_guard.ps1",
+  "validator_cli_path": "tools/validate_r16_context_budget_guard_report.ps1",
+  "test_path": "tests/test_r16_context_budget_guard.ps1",
+  "generated_report_path": "state/context/r16_context_budget_guard_report.json",
+  "input_refs": {
+    "context_load_plan_ref": "state/context/r16_context_load_plan.json",
+    "context_load_plan_source_task": "R16-015",
+    "context_budget_estimate_ref": "state/context/r16_context_budget_estimate.json",
+    "context_budget_estimate_source_task": "R16-016"
+  },
+  "generation_boundary": {
+    "input_head": "c2ffe362e2a98b7182c44fdd0f3b4e03f4594341",
+    "input_tree": "f5d37a08ee0933251661c02bf016295633fbd2c6"
+  },
+  "guard_summary": {
+    "max_estimated_tokens_upper_bound": 150000,
+    "estimated_tokens_upper_bound": 1314676,
+    "threshold_exceeded": true,
+    "aggregate_verdict": "failed_closed_over_budget",
+    "guard_mode": "deterministic_local_only"
+  },
+  "current_posture": {
+    "active_through_task": "R16-017",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011",
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016",
+      "R16-017"
+    ],
+    "planned_tasks": [
+      "R16-018",
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ]
+  },
+  "validation_summary": {
+    "status": "passed",
+    "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/validation_manifest.md"
+  },
+  "non_claims": [
+    "R16-017 adds bounded over-budget and no-full-repo-scan guard only.",
+    "The guard can fail closed on over-budget context plans.",
+    "No exact provider token count or exact provider billing is claimed.",
+    "No runtime memory, retrieval runtime, vector search runtime, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, autonomous agents, or external integrations are claimed.",
+    "No solved Codex compaction or solved Codex reliability is claimed.",
+    "No R16-018 through R16-026 implementation is claimed."
+  ],
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-016` only
+**Milestone status:** Active in repo truth through `R16-017` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -56,6 +56,8 @@ R16-014 added the context-load plan contract only through `contracts/context/r16
 R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, generated context-load plan state artifact `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. The context-load plan is not runtime memory. The context-load plan is not runtime memory loading. The context-load plan is not retrieval runtime. The context-load plan is not vector search runtime. The context-load plan is not product runtime. The context-load plan is not a context budget estimator. The context-load plan is not an over-budget fail-closed validator. The context-load plan is not a role-run envelope. The context-load plan is not a RACI transition gate. The context-load plan is not a handoff packet. The context-load plan is not workflow execution.
 
 R16-016 implemented a bounded context budget estimator with approximation fields through `contracts/context/r16_context_budget_estimate.contract.json`, `tools/R16ContextBudgetEstimator.psm1`, `tools/new_r16_context_budget_estimate.ps1`, `tools/validate_r16_context_budget_estimate.ps1`, `tests/test_r16_context_budget_estimator.ps1`, generated context budget estimate state artifact `state/context/r16_context_budget_estimate.json`, valid fixture `tests/fixtures/r16_context_budget_estimator/valid_context_budget_estimate.json`, invalid fixtures under `tests/fixtures/r16_context_budget_estimator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`. `state/context/r16_context_budget_estimate.json` is a committed generated context budget estimate state artifact only. The estimate is approximate only. The estimate is not exact provider tokenization. The estimate is not exact provider billing. The estimate is not an over-budget fail-closed validator.
+
+R16-017 added a bounded over-budget context guard and no-full-repo-scan enforcement only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, generated context budget guard report state artifact `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. The guard can fail closed on over-budget context plans. The guard is not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not a role-run envelope, not a RACI transition gate, not a handoff packet, not a workflow drill, not autonomous agents, not external integrations, and not solved Codex compaction or solved Codex reliability.
 
 ## Purpose
 
@@ -448,8 +450,10 @@ Required evidence deliverables:
 - Done when: estimator output loads and validates `state/context/r16_context_load_plan.json`, measures exact file paths with deterministic local byte and line counts, records approximate token bounds and relative cost proxy units, marks exact provider token counts and exact provider billing false, preserves R13/R14/R15 boundaries, and rejects wildcard paths, broad scans, directory-only refs, local scratch refs, remote unverified refs, exact provider token claims, exact provider billing claims, over-budget fail-closed validator claims, role-run envelope claims, RACI transition gate claims, handoff packet claims, workflow drill claims, R16-017-or-later implementation claims, and R13/R14/R15 boundary overclaims.
 
 ### `R16-017` Add over-budget fail-closed validation and no-full-repo-scan rules
-- Status: planned
+- Status: done
 - Purpose: reject over-budget plans and broad full-repo scan requests.
+- Durable output: `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, generated state artifact `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`.
+- Done when: the guard reads `state/context/r16_context_load_plan.json` and `state/context/r16_context_budget_estimate.json`, rejects wildcard, directory-only, scratch/temp, absolute, parent traversal, URL/remote, broad/full-repo scan, exact provider tokenization, exact provider billing, runtime/product/agent/integration, role workflow, R16-018+, and R13/R14/R15 boundary weakening claims, and records `failed_closed_over_budget` when the approximate upper bound exceeds the configured threshold.
 
 ### `R16-018` Define role-run envelope contract
 - Status: planned
@@ -522,8 +526,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-016` only.
-- `R16-017` through `R16-026` remain planned only.
+- R16 active through `R16-017` only.
+- `R16-018` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -557,7 +561,18 @@ Status gates must accept:
 - the estimate is not exact provider tokenization.
 - the estimate is not exact provider billing.
 - the estimate is not an over-budget fail-closed validator.
-- no over-budget fail-closed validator exists yet.
+- R16-017 adds bounded over-budget/no-full-repo-scan guard only.
+- `state/context/r16_context_budget_guard_report.json` exists as a committed generated context budget guard report state artifact only.
+- the guard can fail closed on over-budget context plans.
+- the guard is not runtime memory.
+- the guard is not retrieval runtime.
+- the guard is not vector search runtime.
+- the guard is not product runtime.
+- the guard is not a role-run envelope.
+- the guard is not a RACI transition gate.
+- the guard is not a handoff packet.
+- the guard is not a workflow drill.
+- the guard is not solved Codex compaction or solved Codex reliability.
 - no role-run envelope exists yet.
 - no RACI transition gate exists yet.
 - no handoff packet exists yet.
@@ -565,7 +580,7 @@ Status gates must accept:
 
 Status gates must reject:
 
-- reject `R16-017` or later implementation claims.
+- reject `R16-018` or later implementation claims.
 - reject exact provider token count claims.
 - reject exact provider billing claims.
 - `R16-027` or later tasks.
@@ -868,3 +883,44 @@ R16-015 is accepted only if:
 - focused R16-015 validation and status gates pass.
 
 After R16-015, R16 is active through `R16-015` only. `R16-016` through `R16-026` remain planned only. R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, generated state artifact `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. The context-load plan is not runtime memory. The context-load plan is not runtime memory loading. The context-load plan is not retrieval runtime. The context-load plan is not vector search runtime. The context-load plan is not product runtime. The context-load plan is not a context budget estimator. The context-load plan is not an over-budget fail-closed validator. The context-load plan is not a role-run envelope. The context-load plan is not a RACI transition gate. The context-load plan is not a handoff packet. The context-load plan is not workflow execution. No context budget estimator exists yet. No over-budget fail-closed validator exists yet. No role-run envelope exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+
+R16-016 is accepted only if:
+
+- the context budget estimate contract exists at `contracts/context/r16_context_budget_estimate.contract.json`;
+- the estimator module exists at `tools/R16ContextBudgetEstimator.psm1`;
+- the generator CLI exists at `tools/new_r16_context_budget_estimate.ps1`;
+- the validator CLI exists at `tools/validate_r16_context_budget_estimate.ps1`;
+- the focused test exists at `tests/test_r16_context_budget_estimator.ps1`;
+- the generated context budget estimate exists at `state/context/r16_context_budget_estimate.json`;
+- the valid fixture exists at `tests/fixtures/r16_context_budget_estimator/valid_context_budget_estimate.json`;
+- invalid fixtures exist for wildcard path, directory-only path, broad scan claim, scratch/temp path, remote path, exact token count claim, exact provider billing claim, over-budget validator claim, runtime memory claim, retrieval runtime claim, vector search claim, role-run envelope claim, RACI transition gate claim, handoff packet claim, workflow drill claim, R16-017 implementation claim, R13 boundary change, R14 caveat removal, and R15 caveat removal;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`;
+- the estimate loads and validates `state/context/r16_context_load_plan.json`, measures exact file paths with deterministic local byte and line counts, and records approximate token bounds and relative cost proxy units only;
+- `state/context/r16_context_budget_estimate.json` is recorded as a committed generated context budget estimate state artifact only, approximate only, not exact provider tokenization, not exact provider billing, and not an over-budget fail-closed validator;
+- no over-budget fail-closed validator, role-run envelope, RACI transition gate, handoff packet, workflow drill, product runtime, runtime memory, agent runtime, integration, retrieval/vector runtime, main merge, solved Codex, R13 closure, R14 caveat removal, R15 caveat removal, R13 partial-gate conversion, R16-017 implementation, or R16-027-or-later claim is made;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-016 validation and status gates pass.
+
+After R16-016, R16 was active through `R16-016` only. `R16-017` through `R16-026` remained planned only. R16-016 implemented a bounded context budget estimator with approximation fields through `contracts/context/r16_context_budget_estimate.contract.json`, `tools/R16ContextBudgetEstimator.psm1`, `tools/new_r16_context_budget_estimate.ps1`, `tools/validate_r16_context_budget_estimate.ps1`, `tests/test_r16_context_budget_estimator.ps1`, generated state artifact `state/context/r16_context_budget_estimate.json`, fixtures under `tests/fixtures/r16_context_budget_estimator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`. `state/context/r16_context_budget_estimate.json` is a committed generated context budget estimate state artifact only. The estimate is approximate only. The estimate is not exact provider tokenization. The estimate is not exact provider billing. The estimate is not an over-budget fail-closed validator. No over-budget fail-closed validator existed yet. No role-run envelope existed yet. No RACI transition gate existed yet. No handoff packet existed yet. No workflow drill existed yet. No product runtime, runtime memory, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability were claimed.
+
+R16-017 is accepted only if:
+
+- the context budget guard contract exists at `contracts/context/r16_context_budget_guard.contract.json`;
+- the guard module exists at `tools/R16ContextBudgetGuard.psm1`;
+- the guard test/generation CLI exists at `tools/test_r16_context_budget_guard.ps1`;
+- the guard report validator CLI exists at `tools/validate_r16_context_budget_guard_report.ps1`;
+- the focused test exists at `tests/test_r16_context_budget_guard.ps1`;
+- the generated context budget guard report exists at `state/context/r16_context_budget_guard_report.json`;
+- the fixtures exist under `tests/fixtures/r16_context_budget_guard/`;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`;
+- the guard reads the committed context-load plan at `state/context/r16_context_load_plan.json` and the committed context budget estimate at `state/context/r16_context_budget_estimate.json`;
+- the guard validates only exact repo-relative tracked file paths and rejects wildcard, directory-only, scratch/temp, absolute, parent traversal, URL, remote/unverified ref, broad repo scan, and full-repo scan inputs;
+- the guard rejects exact provider tokenization claims, exact provider billing claims, runtime memory claims, retrieval runtime claims, vector search runtime claims, role-run envelope claims, RACI transition gate claims, handoff packet claims, workflow drill claims, product runtime claims, autonomous agent claims, external integration claims, solved Codex compaction claims, solved Codex reliability claims, R16-018-or-later implementation claims, R16-027-or-later task claims, and R13/R14/R15 boundary weakening;
+- the current report records a configured `max_estimated_tokens_upper_bound` of `150000`, compares it to the R16-016 approximate `estimated_tokens_upper_bound`, records the over-budget finding, and returns an aggregate verdict such as `failed_closed_over_budget`;
+- `state/context/r16_context_budget_guard_report.json` is recorded as a committed generated context budget guard report state artifact only;
+- the guard can fail closed on over-budget context plans;
+- the guard is not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not a role-run envelope, not a RACI transition gate, not a handoff packet, not a workflow drill, not autonomous agents, not external integrations, and not solved Codex compaction or solved Codex reliability;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-017 validation and status gates pass.
+
+After R16-017, R16 is active through `R16-017` only. `R16-018` through `R16-026` remain planned only. R16-017 adds bounded over-budget/no-full-repo-scan guard only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, generated state artifact `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. The guard can fail closed on over-budget context plans. The guard is not runtime memory. The guard is not retrieval runtime. The guard is not vector search runtime. The guard is not product runtime. The guard is not a role-run envelope. The guard is not a RACI transition gate. The guard is not a handoff packet. The guard is not a workflow drill. No role-run envelope exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

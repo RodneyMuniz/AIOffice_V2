@@ -1,0 +1,1059 @@
+{
+    "artifact_type":  "r16_context_budget_guard_report",
+    "guard_version":  "v1",
+    "guard_id":  "aioffice-r16-017-context-budget-guard-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-017",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generation_boundary":  {
+                                "input_head":  "c2ffe362e2a98b7182c44fdd0f3b4e03f4594341",
+                                "input_tree":  "f5d37a08ee0933251661c02bf016295633fbd2c6"
+                            },
+    "context_load_plan_ref":  {
+                                  "path":  "state/context/r16_context_load_plan.json",
+                                  "source_task":  "R16-015",
+                                  "loaded_and_validated":  true,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false
+                              },
+    "context_budget_estimate_ref":  {
+                                        "path":  "state/context/r16_context_budget_estimate.json",
+                                        "source_task":  "R16-016",
+                                        "loaded_and_validated":  true,
+                                        "exact_path_only":  true,
+                                        "broad_scan_allowed":  false
+                                    },
+    "configured_budget_thresholds":  {
+                                         "max_estimated_tokens_upper_bound":  150000,
+                                         "threshold_source":  "explicit configured threshold",
+                                         "threshold_exceeded_verdict":  "failed_closed_over_budget"
+                                     },
+    "evaluated_budget":  {
+                             "estimated_tokens_lower_bound":  788809,
+                             "estimated_tokens_upper_bound":  1314676,
+                             "max_estimated_tokens_upper_bound":  150000,
+                             "threshold_exceeded":  true,
+                             "budget_category":  "very_large",
+                             "exact_provider_token_count_claimed":  false,
+                             "exact_provider_billing_claimed":  false,
+                             "provider_tokenizer_used":  false,
+                             "provider_pricing_used":  false
+                         },
+    "guard_mode":  {
+                       "deterministic_local_only":  true,
+                       "reads_committed_context_load_plan":  true,
+                       "reads_committed_context_budget_estimate":  true,
+                       "fail_closed_on_over_budget":  true,
+                       "fail_closed_on_no_full_repo_scan_policy_violation":  true,
+                       "provider_tokenizer_used":  false,
+                       "provider_pricing_used":  false,
+                       "exact_provider_token_count_claimed":  false,
+                       "exact_provider_billing_claimed":  false,
+                       "runtime_memory_implemented":  false,
+                       "retrieval_runtime_implemented":  false,
+                       "vector_search_runtime_implemented":  false,
+                       "role_run_envelope_implemented":  false,
+                       "raci_transition_gate_implemented":  false,
+                       "handoff_packet_implemented":  false,
+                       "workflow_drill_run":  false,
+                       "product_runtime_implemented":  false,
+                       "actual_autonomous_agents_implemented":  false,
+                       "external_integrations_implemented":  false,
+                       "solved_codex_compaction":  false,
+                       "solved_codex_reliability":  false
+                   },
+    "no_full_repo_scan_policy":  {
+                                     "repo_relative_exact_paths_only":  true,
+                                     "tracked_files_only":  true,
+                                     "wildcard_paths_allowed":  false,
+                                     "directory_only_paths_allowed":  false,
+                                     "scratch_temp_paths_allowed":  false,
+                                     "absolute_paths_allowed":  false,
+                                     "parent_traversal_allowed":  false,
+                                     "url_or_remote_refs_allowed":  false,
+                                     "broad_repo_scan_allowed":  false,
+                                     "full_repo_scan_allowed":  false,
+                                     "raw_chat_history_loading_allowed":  false,
+                                     "broad_or_full_repo_scan_claims_rejected":  true
+                                 },
+    "evaluated_load_items":  [
+                                 {
+                                     "load_item_id":  "role_memory_packs_state",
+                                     "estimate_item_id":  "estimate_item_001",
+                                     "path":  "state/memory/r16_role_memory_packs.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  521660,
+                                     "deterministic_order":  1
+                                 },
+                                 {
+                                     "load_item_id":  "role_memory_pack_model_state",
+                                     "estimate_item_id":  "estimate_item_002",
+                                     "path":  "state/memory/r16_role_memory_pack_model.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  65925,
+                                     "deterministic_order":  2
+                                 },
+                                 {
+                                     "load_item_id":  "memory_pack_validation_report_state",
+                                     "estimate_item_id":  "estimate_item_003",
+                                     "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  55229,
+                                     "deterministic_order":  3
+                                 },
+                                 {
+                                     "load_item_id":  "status_readme",
+                                     "estimate_item_id":  "estimate_item_004",
+                                     "path":  "README.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  21433,
+                                     "deterministic_order":  4
+                                 },
+                                 {
+                                     "load_item_id":  "status_active_state",
+                                     "estimate_item_id":  "estimate_item_005",
+                                     "path":  "governance/ACTIVE_STATE.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  39585,
+                                     "deterministic_order":  5
+                                 },
+                                 {
+                                     "load_item_id":  "status_kanban",
+                                     "estimate_item_id":  "estimate_item_006",
+                                     "path":  "execution/KANBAN.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  43252,
+                                     "deterministic_order":  6
+                                 },
+                                 {
+                                     "load_item_id":  "status_decision_log",
+                                     "estimate_item_id":  "estimate_item_007",
+                                     "path":  "governance/DECISION_LOG.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  88794,
+                                     "deterministic_order":  7
+                                 },
+                                 {
+                                     "load_item_id":  "document_authority_index",
+                                     "estimate_item_id":  "estimate_item_008",
+                                     "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  21674,
+                                     "deterministic_order":  8
+                                 },
+                                 {
+                                     "load_item_id":  "r16_authority",
+                                     "estimate_item_id":  "estimate_item_009",
+                                     "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  33388,
+                                     "deterministic_order":  9
+                                 },
+                                 {
+                                     "load_item_id":  "artifact_map_state",
+                                     "estimate_item_id":  "estimate_item_010",
+                                     "path":  "state/artifacts/r16_artifact_map.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  195493,
+                                     "deterministic_order":  10
+                                 },
+                                 {
+                                     "load_item_id":  "audit_map_state",
+                                     "estimate_item_id":  "estimate_item_011",
+                                     "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  206015,
+                                     "deterministic_order":  11
+                                 },
+                                 {
+                                     "load_item_id":  "artifact_audit_map_check_report",
+                                     "estimate_item_id":  "estimate_item_012",
+                                     "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  7742,
+                                     "deterministic_order":  12
+                                 },
+                                 {
+                                     "load_item_id":  "context_load_plan_contract",
+                                     "estimate_item_id":  "estimate_item_013",
+                                     "path":  "contracts/context/r16_context_load_plan.contract.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  2930,
+                                     "deterministic_order":  13
+                                 },
+                                 {
+                                     "load_item_id":  "r16_014_proof_review",
+                                     "estimate_item_id":  "estimate_item_014",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  958,
+                                     "deterministic_order":  14
+                                 },
+                                 {
+                                     "load_item_id":  "r16_014_evidence_index",
+                                     "estimate_item_id":  "estimate_item_015",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  1123,
+                                     "deterministic_order":  15
+                                 },
+                                 {
+                                     "load_item_id":  "r16_014_validation_manifest",
+                                     "estimate_item_id":  "estimate_item_016",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  1567,
+                                     "deterministic_order":  16
+                                 },
+                                 {
+                                     "load_item_id":  "r15_final_proof_review_package",
+                                     "estimate_item_id":  "estimate_item_017",
+                                     "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  2401,
+                                     "deterministic_order":  17
+                                 },
+                                 {
+                                     "load_item_id":  "r15_final_evidence_index",
+                                     "estimate_item_id":  "estimate_item_018",
+                                     "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  4559,
+                                     "deterministic_order":  18
+                                 },
+                                 {
+                                     "load_item_id":  "r15_external_audit_r16_planning_report",
+                                     "estimate_item_id":  "estimate_item_019",
+                                     "path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                     "exact_repo_relative_tracked_file":  true,
+                                     "exists":  true,
+                                     "tracked":  true,
+                                     "invalid_reasons":  [
+
+                                                         ],
+                                     "estimated_tokens_upper_bound":  948,
+                                     "deterministic_order":  19
+                                 }
+                             ],
+    "path_policy_evaluations":  [
+                                    {
+                                        "path_context":  "context_load_plan.role_memory_pack_ref.path",
+                                        "path":  "state/memory/r16_role_memory_packs.json",
+                                        "normalized_path":  "state/memory/r16_role_memory_packs.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.artifact_map_ref.path",
+                                        "path":  "state/artifacts/r16_artifact_map.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.audit_map_ref.path",
+                                        "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "normalized_path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.check_report_ref.path",
+                                        "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[0].load_items[0].path",
+                                        "path":  "state/memory/r16_role_memory_packs.json",
+                                        "normalized_path":  "state/memory/r16_role_memory_packs.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[0].load_items[1].path",
+                                        "path":  "state/memory/r16_role_memory_pack_model.json",
+                                        "normalized_path":  "state/memory/r16_role_memory_pack_model.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[0].load_items[2].path",
+                                        "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                        "normalized_path":  "state/memory/r16_memory_pack_validation_report.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[0].path",
+                                        "path":  "README.md",
+                                        "normalized_path":  "README.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[1].path",
+                                        "path":  "governance/ACTIVE_STATE.md",
+                                        "normalized_path":  "governance/ACTIVE_STATE.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[2].path",
+                                        "path":  "execution/KANBAN.md",
+                                        "normalized_path":  "execution/KANBAN.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[3].path",
+                                        "path":  "governance/DECISION_LOG.md",
+                                        "normalized_path":  "governance/DECISION_LOG.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[4].path",
+                                        "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                        "normalized_path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[1].load_items[5].path",
+                                        "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                        "normalized_path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[2].load_items[0].path",
+                                        "path":  "state/artifacts/r16_artifact_map.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[2].load_items[1].path",
+                                        "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "normalized_path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[2].load_items[2].path",
+                                        "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[3].load_items[0].path",
+                                        "path":  "contracts/context/r16_context_load_plan.contract.json",
+                                        "normalized_path":  "contracts/context/r16_context_load_plan.contract.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[3].load_items[1].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[3].load_items[2].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[3].load_items[3].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[4].load_items[0].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[4].load_items[1].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.load_groups[4].load_items[2].path",
+                                        "path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                        "normalized_path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.accepted_caveats[0].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_load_plan.accepted_caveats[1].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.context_load_plan_ref.path",
+                                        "path":  "state/context/r16_context_load_plan.json",
+                                        "normalized_path":  "state/context/r16_context_load_plan.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[0].path",
+                                        "path":  "state/memory/r16_role_memory_packs.json",
+                                        "normalized_path":  "state/memory/r16_role_memory_packs.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[1].path",
+                                        "path":  "state/memory/r16_role_memory_pack_model.json",
+                                        "normalized_path":  "state/memory/r16_role_memory_pack_model.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[2].path",
+                                        "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                        "normalized_path":  "state/memory/r16_memory_pack_validation_report.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[3].path",
+                                        "path":  "README.md",
+                                        "normalized_path":  "README.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[4].path",
+                                        "path":  "governance/ACTIVE_STATE.md",
+                                        "normalized_path":  "governance/ACTIVE_STATE.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[5].path",
+                                        "path":  "execution/KANBAN.md",
+                                        "normalized_path":  "execution/KANBAN.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[6].path",
+                                        "path":  "governance/DECISION_LOG.md",
+                                        "normalized_path":  "governance/DECISION_LOG.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[7].path",
+                                        "path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                        "normalized_path":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[8].path",
+                                        "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                        "normalized_path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[9].path",
+                                        "path":  "state/artifacts/r16_artifact_map.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[10].path",
+                                        "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "normalized_path":  "state/audit/r16_r15_r16_audit_map.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[11].path",
+                                        "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "normalized_path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[12].path",
+                                        "path":  "contracts/context/r16_context_load_plan.contract.json",
+                                        "normalized_path":  "contracts/context/r16_context_load_plan.contract.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[13].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[14].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[15].path",
+                                        "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                        "normalized_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[16].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[17].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.load_item_estimates[18].path",
+                                        "path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                        "normalized_path":  "governance/reports/AIOffice_V2_R15_External_Audit_and_R16_Planning_Report_v2.md",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.accepted_caveats[0].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    },
+                                    {
+                                        "path_context":  "context_budget_estimate.accepted_caveats[1].path",
+                                        "path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "normalized_path":  "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json",
+                                        "exact_repo_relative_tracked_file":  true,
+                                        "exists":  true,
+                                        "is_leaf":  true,
+                                        "tracked":  true,
+                                        "invalid_reasons":  [
+
+                                                            ]
+                                    }
+                                ],
+    "current_posture":  {
+                            "active_through_task":  "R16-017",
+                            "complete_tasks":  [
+                                                   "R16-001",
+                                                   "R16-002",
+                                                   "R16-003",
+                                                   "R16-004",
+                                                   "R16-005",
+                                                   "R16-006",
+                                                   "R16-007",
+                                                   "R16-008",
+                                                   "R16-009",
+                                                   "R16-010",
+                                                   "R16-011",
+                                                   "R16-012",
+                                                   "R16-013",
+                                                   "R16-014",
+                                                   "R16-015",
+                                                   "R16-016",
+                                                   "R16-017"
+                                               ],
+                            "planned_tasks":  [
+                                                  "R16-018",
+                                                  "R16-019",
+                                                  "R16-020",
+                                                  "R16-021",
+                                                  "R16-022",
+                                                  "R16-023",
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "r16_018_or_later_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false
+                        },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed_partial_through_r13_018_only",
+                                             "closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates_converted_to_passed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats_through_r14_006_only",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats_through_r15_009_only",
+                                             "caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "validation_findings":  [
+                                {
+                                    "finding_id":  "estimated_tokens_upper_bound_exceeds_threshold",
+                                    "severity":  "blocker",
+                                    "category":  "budget",
+                                    "message":  "estimated_tokens_upper_bound 1314676 exceeds configured threshold 150000; guard fails closed.",
+                                    "fail_closed":  true,
+                                    "deterministic_order":  1,
+                                    "evidence":  {
+                                                     "estimated_tokens_upper_bound":  1314676,
+                                                     "max_estimated_tokens_upper_bound":  150000
+                                                 }
+                                }
+                            ],
+    "finding_summary":  {
+                            "pass_count":  0,
+                            "warning_count":  0,
+                            "fail_count":  0,
+                            "blocker_count":  1,
+                            "over_budget_count":  1,
+                            "policy_violation_count":  0,
+                            "open_violation_count":  1
+                        },
+    "aggregate_verdict":  "failed_closed_over_budget",
+    "validation_commands":  [
+                                {
+                                    "command_id":  "tools_test_r16_context_budget_guard",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/test_r16_context_budget_guard.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tools/R16ContextBudgetGuard.psm1",
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "command_id":  "validate_r16_context_budget_guard_report",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_context_budget_guard_report.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "state/context/r16_context_budget_guard_report.json",
+                                    "deterministic_order":  2
+                                },
+                                {
+                                    "command_id":  "test_r16_context_budget_guard",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_context_budget_guard.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tests/test_r16_context_budget_guard.ps1",
+                                    "deterministic_order":  3
+                                },
+                                {
+                                    "command_id":  "validate_r16_context_budget_estimate",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_context_budget_estimate.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "state/context/r16_context_budget_estimate.json",
+                                    "deterministic_order":  4
+                                },
+                                {
+                                    "command_id":  "test_r16_context_budget_estimator",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_context_budget_estimator.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tests/test_r16_context_budget_estimator.ps1",
+                                    "deterministic_order":  5
+                                },
+                                {
+                                    "command_id":  "validate_r16_context_load_plan",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_context_load_plan.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "state/context/r16_context_load_plan.json",
+                                    "deterministic_order":  6
+                                },
+                                {
+                                    "command_id":  "test_r16_context_load_planner",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_context_load_planner.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tests/test_r16_context_load_planner.ps1",
+                                    "deterministic_order":  7
+                                },
+                                {
+                                    "command_id":  "validate_status_doc_gate",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_status_doc_gate.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "governance/ACTIVE_STATE.md",
+                                    "deterministic_order":  8
+                                },
+                                {
+                                    "command_id":  "test_status_doc_gate",
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_status_doc_gate.ps1",
+                                    "expected_result":  "PASS",
+                                    "validates_path":  "tests/test_status_doc_gate.ps1",
+                                    "deterministic_order":  9
+                                }
+                            ],
+    "non_claims":  [
+                       "R16-017 adds bounded over-budget and no-full-repo-scan guard only",
+                       "no exact provider token count",
+                       "no exact provider tokenization",
+                       "no exact provider billing",
+                       "no exact provider pricing",
+                       "no runtime memory",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no role-run envelope",
+                       "no RACI transition gate",
+                       "no handoff packet",
+                       "no workflow drill",
+                       "no product runtime",
+                       "no autonomous agents",
+                       "no external integrations",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "R13 remains failed/partial and not closed",
+                       "R14 caveats remain preserved",
+                       "R15 caveats remain preserved",
+                       "R16-018 through R16-026 remain planned only"
+                   ]
+}
