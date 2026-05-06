@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_blocked_reason_missing_failed_closed_over_budget",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].blocked_reason",
+    "mutation_value":  "blocked without naming the guard verdict",
+    "expected_failure":  [
+                             "blocked_reason",
+                             "failed_closed_over_budget"
+                         ]
+}

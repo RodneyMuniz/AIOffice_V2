@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_budget_guard_status",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].budget_guard_status",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "budget_guard_status"
+                         ]
+}

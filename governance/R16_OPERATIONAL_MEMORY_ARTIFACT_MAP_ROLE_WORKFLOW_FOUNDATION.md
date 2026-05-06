@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-018` only
+**Milestone status:** Active in repo truth through `R16-019` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -462,8 +462,10 @@ Required evidence deliverables:
 - Done when: the contract defines future role-run envelope identity, role catalog, allowed actions, forbidden actions, required inputs, memory pack refs, context-load plan refs, budget estimate refs, context budget guard refs, evidence refs, output expectations, handoff constraints, and non-claims while preserving the failed_closed_over_budget guard block and avoiding any generated envelope, generator, RACI transition gate, handoff packet, or workflow drill.
 
 ### `R16-019` Implement role-run envelope generator for PM, Architect, Developer, QA, Auditor, Knowledge Curator, and Release/Closeout
-- Status: planned
+- Status: done
 - Purpose: generate bounded role-run envelopes for the named roles.
+- Durable output: `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, generated state artifact `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`.
+- Done when: role-run envelopes are generated as committed state artifacts only, all generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`, and no RACI transition gate, handoff packet, workflow drill, runtime memory, retrieval/vector runtime, product runtime, autonomous agents, external integrations, R16-020+ implementation, or R13/R14/R15 boundary weakening is claimed.
 
 ### `R16-020` Add RACI transition gate validator using role-run envelope, card state, required evidence, and allowed actions
 - Status: planned
@@ -528,8 +530,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-018` only.
-- `R16-019` through `R16-026` remain planned only.
+- R16 active through `R16-019` only.
+- `R16-020` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -577,15 +579,17 @@ Status gates must accept:
 - the guard is not solved Codex compaction or solved Codex reliability.
 - R16-018 defines the role-run envelope contract only.
 - the role-run envelope contract is contract/model proof only.
-- no generated role-run envelope exists yet.
-- no role-run envelope generator exists yet.
+- R16-019 generated role-run envelopes as committed state artifacts only.
+- `state/workflow/r16_role_run_envelopes.json` is a committed generated role-run envelope state artifact only.
+- the role-run envelope generator is bounded state-artifact generation only.
+- all generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`.
 - no RACI transition gate exists yet.
 - no handoff packet exists yet.
 - no workflow drill exists yet.
 
 Status gates must reject:
 
-- reject `R16-019` or later implementation claims.
+- reject `R16-020` or later implementation claims.
 - reject exact provider token count claims.
 - reject exact provider billing claims.
 - `R16-027` or later tasks.
@@ -944,4 +948,18 @@ R16-018 is accepted only if:
 - R13 failed/partial and R14/R15 caveated postures are preserved;
 - focused R16-018 validation, dependent R16 validations, status gates, and posture validators pass.
 
-After R16-018, R16 is active through `R16-018` only. `R16-019` through `R16-026` remain planned only. R16-018 defines the role-run envelope contract only through `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`. The role-run envelope contract is contract/model proof only. No generated role-run envelope exists yet. No role-run envelope generator exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. The R16-017 guard remains `failed_closed_over_budget`. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+R16-019 is accepted only if:
+
+- the role-run envelope generator exists at `tools/R16RoleRunEnvelopeGenerator.psm1`;
+- the generator CLI exists at `tools/new_r16_role_run_envelopes.ps1`;
+- the validator CLI exists at `tools/validate_r16_role_run_envelopes.ps1`;
+- the focused generator test exists at `tests/test_r16_role_run_envelope_generator.ps1`;
+- generated role-run envelopes exist at `state/workflow/r16_role_run_envelopes.json` as a committed state artifact only;
+- fixture coverage exists under `tests/fixtures/r16_role_run_envelope_generator/`, with one full valid fixture and compact mutation specs for invalid fixtures;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`;
+- all generated role-run envelopes are non-executable while the R16-017 guard remains `failed_closed_over_budget`;
+- the generator rejects missing required fields, missing or duplicate role envelopes, invalid role IDs, role display name mismatch, missing memory/context/budget refs, executable envelopes under the failed-closed guard, unsafe refs, broad/full repo scan claims, runtime/product/agent/integration claims, RACI transition gate claims, handoff packet claims, workflow drill claims, R16-020+ implementation claims, R16-027-or-later task claims, and R13/R14/R15 boundary weakening;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-019 validation, dependent R16 validations, status gates, and posture validators pass.
+
+After R16-019, R16 is active through `R16-019` only. `R16-020` through `R16-026` remain planned only. R16-019 generated role-run envelopes as committed state artifacts only through `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, generated state artifact `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`. The role-run envelope contract is contract/model proof only. The role-run envelope generator is bounded state-artifact generation only. All generated role-run envelopes are non-executable while the guard is `failed_closed_over_budget`. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

@@ -54,17 +54,14 @@ try {
     }
 
     foreach ($forbiddenPath in @(
-        "state\workflow\r16_role_run_envelopes.json",
         "state\workflow\r16_handoff_packets.json",
         "contracts\workflow\r16_handoff_packet.contract.json",
         "contracts\workflow\r16_raci_transition_gate.contract.json",
-        "tools\R16RoleRunEnvelopeGenerator.psm1",
-        "tools\new_r16_role_run_envelopes.ps1",
         "tools\R16RaciTransitionGate.psm1",
         "tools\R16HandoffPacketGenerator.psm1"
     )) {
         if (Test-Path -LiteralPath (Join-Path $repoRoot $forbiddenPath)) {
-            $failures += "FAIL forbidden R16-018 overbuild artifact exists: $forbiddenPath"
+            $failures += "FAIL forbidden R16-020+ overbuild artifact exists: $forbiddenPath"
         }
     }
 
@@ -75,8 +72,8 @@ try {
     elseif ($contractResult.RoleCount -lt 8 -or $contractResult.RequiredInputRefCount -lt 5 -or $contractResult.GuardVerdict -ne "failed_closed_over_budget" -or -not $contractResult.GuardBlocksExecution) {
         $failures += "FAIL committed contract: expected complete role catalog, required input refs, and failed_closed_over_budget as a block."
     }
-    elseif ($contractResult.GeneratedRoleRunEnvelopesExist -or $contractResult.RoleRunEnvelopeGeneratorExists -or $contractResult.RaciTransitionGateExists -or $contractResult.HandoffPacketExists -or $contractResult.WorkflowDrillExists) {
-        $failures += "FAIL committed contract: expected no generated envelopes, no generator, no RACI transition gate, no handoff packet, and no workflow drill."
+    elseif ($contractResult.RaciTransitionGateExists -or $contractResult.HandoffPacketExists -or $contractResult.WorkflowDrillExists) {
+        $failures += "FAIL committed contract: expected no RACI transition gate, no handoff packet, and no workflow drill."
     }
     elseif ($contractResult.R13Closed -or $contractResult.R14CaveatsRemoved -or $contractResult.R15CaveatsRemoved) {
         $failures += "FAIL committed contract: expected R13/R14/R15 boundaries to remain preserved."
@@ -87,8 +84,8 @@ try {
     }
 
     $validFixtureResult = & $testContract -Path $validFixtureRel -RepositoryRoot $repoRoot
-    if ($validFixtureResult.SourceTask -ne "R16-018" -or $validFixtureResult.RoleCount -lt 8 -or $validFixtureResult.GuardVerdict -ne "failed_closed_over_budget" -or $validFixtureResult.GeneratedRoleRunEnvelopesExist -or $validFixtureResult.RoleRunEnvelopeGeneratorExists) {
-        $failures += "FAIL valid fixture: expected R16-018 contract identity, complete role catalog, failed_closed_over_budget blocking, and no generated envelope/runtime claims."
+    if ($validFixtureResult.SourceTask -ne "R16-018" -or $validFixtureResult.RoleCount -lt 8 -or $validFixtureResult.GuardVerdict -ne "failed_closed_over_budget" -or $validFixtureResult.RaciTransitionGateExists -or $validFixtureResult.HandoffPacketExists -or $validFixtureResult.WorkflowDrillExists) {
+        $failures += "FAIL valid fixture: expected R16-018 contract identity, complete role catalog, failed_closed_over_budget blocking, and no RACI transition gate, handoff packet, or workflow drill."
     }
     else {
         Write-Output ("PASS valid fixture: {0}" -f (Join-Path $repoRoot $validFixtureRel))

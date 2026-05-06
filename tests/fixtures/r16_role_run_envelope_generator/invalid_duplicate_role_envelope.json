@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_duplicate_role_envelope",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes",
+    "mutation_value":  "__DUPLICATE_FIRST_ITEM__",
+    "expected_failure":  [
+                             "envelopes role_id",
+                             "must contain exactly"
+                         ]
+}

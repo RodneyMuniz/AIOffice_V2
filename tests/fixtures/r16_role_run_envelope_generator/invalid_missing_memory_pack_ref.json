@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_memory_pack_ref",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].memory_pack_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "memory_pack_ref"
+                         ]
+}

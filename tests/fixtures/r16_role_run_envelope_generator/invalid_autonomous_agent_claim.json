@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_autonomous_agent_claim",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.generation_mode.actual_autonomous_agents_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "autonomous-agent claim"
+                         ]
+}

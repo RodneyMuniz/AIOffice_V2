@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_exact_provider_billing_claim",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].budget_guard_status.exact_provider_billing_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "exact provider billing claim"
+                         ]
+}

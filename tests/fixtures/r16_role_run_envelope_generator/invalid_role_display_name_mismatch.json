@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_role_display_name_mismatch",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].role_display_name",
+    "mutation_value":  "Operator Mismatch",
+    "expected_failure":  [
+                             "role display name mismatch"
+                         ]
+}

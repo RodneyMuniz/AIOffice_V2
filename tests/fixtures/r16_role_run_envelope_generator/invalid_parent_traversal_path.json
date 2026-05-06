@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_parent_traversal_path",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].memory_pack_ref.path",
+    "mutation_value":  "../state/memory/r16_role_memory_packs.json",
+    "expected_failure":  [
+                             "parent traversal path"
+                         ]
+}

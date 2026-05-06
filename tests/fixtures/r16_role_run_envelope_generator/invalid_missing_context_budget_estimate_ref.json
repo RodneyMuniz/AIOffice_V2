@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_context_budget_estimate_ref",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].context_budget_estimate_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "context_budget_estimate_ref"
+                         ]
+}

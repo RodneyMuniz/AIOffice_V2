@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r16_020_implementation_claim",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.current_posture.r16_020_or_later_implementation_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R16-020 implementation claim"
+                         ]
+}

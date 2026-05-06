@@ -4,7 +4,7 @@ Status: passed.
 
 This manifest is for the R16-018 role-run envelope contract only. It records a machine-checkable contract for future role-run envelopes and does not generate role-run envelopes, implement a role-run envelope generator, implement a RACI transition gate, implement a handoff packet, or run workflow drills.
 
-The current R16-017 guard report remains repo truth: `state/context/r16_context_budget_guard_report.json` has aggregate verdict `failed_closed_over_budget` because the approximate upper bound is `1319047` and the configured threshold is `150000`. R16-018 does not create a mitigation and does not weaken R16-017.
+The current R16-017 guard report remains repo truth: `state/context/r16_context_budget_guard_report.json` has aggregate verdict `failed_closed_over_budget` because the approximate upper bound is `1323518` and the configured threshold is `150000`. R16-018 does not create a mitigation and does not weaken R16-017.
 
 ## Required Commands
 

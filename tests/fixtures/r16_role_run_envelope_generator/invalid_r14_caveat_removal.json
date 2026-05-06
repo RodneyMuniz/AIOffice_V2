@@ -1,0 +1,11 @@
+{
+    "fixture_id":  "invalid_r14_caveat_removal",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.preserved_boundaries.r14.caveats_removed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R14 caveat removal",
+                             "r14",
+                             "caveat removal"
+                         ]
+}

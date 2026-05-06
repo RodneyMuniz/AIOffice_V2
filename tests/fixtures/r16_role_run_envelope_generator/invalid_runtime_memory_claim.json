@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_runtime_memory_claim",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.generation_mode.runtime_memory_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "runtime memory claim"
+                         ]
+}

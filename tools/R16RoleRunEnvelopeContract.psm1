@@ -9,7 +9,7 @@ $script:Branch = "release/r16-operational-memory-artifact-map-role-workflow-foun
 $script:BaselineHead = "9d7a9c1409b1d7cfa77f902d073ab1e5ba99581a"
 $script:ContractId = "aioffice-r16-018-role-run-envelope-contract-v1"
 $script:CurrentGuardVerdict = "failed_closed_over_budget"
-$script:CurrentEstimatedUpperBound = 1319047
+$script:CurrentEstimatedUpperBound = 1323518
 $script:MaxEstimatedUpperBound = 150000
 
 $script:RequiredTopLevelFields = @(

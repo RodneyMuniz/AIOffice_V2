@@ -73,17 +73,14 @@ try {
     foreach ($forbiddenPath in @(
         "contracts\workflow\r16_handoff_packet.contract.json",
         "contracts\workflow\r16_raci_transition_gate.contract.json",
-        "state\workflow\r16_role_run_envelopes.json",
         "state\workflow\r16_handoff_packets.json",
-        "tools\R16RoleRunEnvelopeGenerator.psm1",
-        "tools\new_r16_role_run_envelopes.ps1",
         "tools\R16RaciTransitionGate.psm1",
         "tools\R16HandoffPacketGenerator.psm1",
         "state\memory\r16_runtime_memory.json",
         "state\retrieval\r16_vector_index.json"
     )) {
         if (Test-Path -LiteralPath (Join-Path $repoRoot $forbiddenPath)) {
-            $failures += "FAIL forbidden R16-017 overbuild artifact exists: $forbiddenPath"
+            $failures += "FAIL forbidden R16-020+ overbuild artifact exists: $forbiddenPath"
         }
     }
 
@@ -117,8 +114,8 @@ try {
     }
 
     $stateValidation = & $testReport -Path "state\context\r16_context_budget_guard_report.json" -RepositoryRoot $repoRoot
-    if ($stateValidation.ActiveThroughTask -ne "R16-017" -or $stateValidation.PlannedTaskStart -ne "R16-018" -or $stateValidation.PlannedTaskEnd -ne "R16-026" -or $stateValidation.AggregateVerdict -ne "failed_closed_over_budget" -or $stateValidation.EstimatedTokensUpperBound -ne 1319047 -or $stateValidation.MaxEstimatedTokensUpperBound -ne 150000) {
-        $failures += "FAIL committed state guard report: expected failed_closed_over_budget for current approximate upper bound 1319047 over threshold 150000."
+    if ($stateValidation.ActiveThroughTask -ne "R16-017" -or $stateValidation.PlannedTaskStart -ne "R16-018" -or $stateValidation.PlannedTaskEnd -ne "R16-026" -or $stateValidation.AggregateVerdict -ne "failed_closed_over_budget" -or $stateValidation.EstimatedTokensUpperBound -ne 1323518 -or $stateValidation.MaxEstimatedTokensUpperBound -ne 150000) {
+        $failures += "FAIL committed state guard report: expected failed_closed_over_budget for current approximate upper bound 1323518 over threshold 150000."
     }
     else {
         Write-Output ("PASS committed state guard report: approximate_upper_bound={0}, threshold={1}, verdict={2}" -f $stateValidation.EstimatedTokensUpperBound, $stateValidation.MaxEstimatedTokensUpperBound, $stateValidation.AggregateVerdict)

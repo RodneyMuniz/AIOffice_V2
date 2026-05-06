@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_role_id",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].role_id",
+    "mutation_value":  "invalid_role",
+    "expected_failure":  [
+                             "envelopes role_id",
+                             "must contain exactly"
+                         ]
+}

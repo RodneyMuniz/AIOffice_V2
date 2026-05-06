@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_scratch_temp_ref",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].memory_pack_ref.path",
+    "mutation_value":  "scratch/r16_role_run_envelope.tmp.json",
+    "expected_failure":  [
+                             "scratch/temp path"
+                         ]
+}

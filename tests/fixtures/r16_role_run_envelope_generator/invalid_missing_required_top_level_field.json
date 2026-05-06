@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_required_top_level_field",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027envelopes\u0027"
+                         ]
+}

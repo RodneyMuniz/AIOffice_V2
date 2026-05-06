@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_raw_chat_history_loading_claim",
+    "base_fixture":  "valid_role_run_envelopes.json",
+    "mutation_path":  "$.envelopes[0].no_full_repo_scan_attestation.raw_chat_history_loaded",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "raw chat history loading claim"
+                         ]
+}

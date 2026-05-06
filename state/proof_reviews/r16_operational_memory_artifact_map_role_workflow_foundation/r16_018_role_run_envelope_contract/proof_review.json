@@ -26,7 +26,7 @@
   "guard_summary": {
     "guard_report_ref": "state/context/r16_context_budget_guard_report.json",
     "max_estimated_tokens_upper_bound": 150000,
-    "estimated_tokens_upper_bound": 1319047,
+    "estimated_tokens_upper_bound": 1323518,
     "aggregate_verdict": "failed_closed_over_budget",
     "failed_closed_over_budget_blocks_future_envelope_execution": true,
     "r16_018_creates_mitigation": false,

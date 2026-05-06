@@ -366,7 +366,7 @@
     "preserve_guard_report_as_current_repo_truth": true,
     "current_guard_report_ref": "state/context/r16_context_budget_guard_report.json",
     "current_guard_verdict": "failed_closed_over_budget",
-    "estimated_tokens_upper_bound": 1319047,
+    "estimated_tokens_upper_bound": 1323518,
     "max_estimated_tokens_upper_bound": 150000,
     "valid_statuses_when_failed_closed_over_budget": [
       "blocked",
