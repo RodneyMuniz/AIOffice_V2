@@ -1,0 +1,595 @@
+{
+  "artifact_type": "r16_role_run_envelope_contract",
+  "contract_version": "v1",
+  "role_run_envelope_contract_id": "aioffice-r16-018-role-run-envelope-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-018",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "9d7a9c1409b1d7cfa77f902d073ab1e5ba99581a",
+  "dependency_refs": [
+    {
+      "ref_id": "r16_role_memory_packs",
+      "path": "state/memory/r16_role_memory_packs.json",
+      "source_task": "R16-007",
+      "proof_treatment": "committed generated role memory pack state artifact only",
+      "deterministic_order": 1
+    },
+    {
+      "ref_id": "r16_role_memory_pack_model",
+      "path": "state/memory/r16_role_memory_pack_model.json",
+      "source_task": "R16-006",
+      "proof_treatment": "committed role memory pack model state artifact only",
+      "deterministic_order": 2
+    },
+    {
+      "ref_id": "r16_context_load_plan",
+      "path": "state/context/r16_context_load_plan.json",
+      "source_task": "R16-015",
+      "proof_treatment": "committed generated context-load plan state artifact only",
+      "deterministic_order": 3
+    },
+    {
+      "ref_id": "r16_context_budget_estimate",
+      "path": "state/context/r16_context_budget_estimate.json",
+      "source_task": "R16-016",
+      "proof_treatment": "committed generated context budget estimate state artifact only",
+      "deterministic_order": 4
+    },
+    {
+      "ref_id": "r16_context_budget_guard_report",
+      "path": "state/context/r16_context_budget_guard_report.json",
+      "source_task": "R16-017",
+      "proof_treatment": "committed generated context budget guard report state artifact only",
+      "deterministic_order": 5
+    },
+    {
+      "ref_id": "r16_context_budget_guard_contract",
+      "path": "contracts/context/r16_context_budget_guard.contract.json",
+      "source_task": "R16-017",
+      "proof_treatment": "guard contract dependency; R16-018 must not weaken it",
+      "deterministic_order": 6
+    },
+    {
+      "ref_id": "r16_authority",
+      "path": "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+      "source_task": "R16-018",
+      "proof_treatment": "milestone authority and status boundary",
+      "deterministic_order": 7
+    }
+  ],
+  "role_catalog": [
+    {
+      "role_id": "operator",
+      "role_display_name": "Operator",
+      "authority_boundary": "May approve scope, unblock decisions, and reject overclaims; does not bypass guard policies.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "approve_or_reject_scope",
+        "record_operator_decision"
+      ],
+      "forbidden_action_categories": [
+        "full_repo_scan",
+        "runtime_memory",
+        "external_integration_execution"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 1
+    },
+    {
+      "role_id": "project_manager",
+      "role_display_name": "Project Manager",
+      "authority_boundary": "May coordinate task scope and handoff constraints from exact refs only.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "prepare_task_scope",
+        "record_handoff_constraints"
+      ],
+      "forbidden_action_categories": [
+        "raci_transition_gate_execution",
+        "handoff_packet_generation",
+        "workflow_drill_execution"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 2
+    },
+    {
+      "role_id": "architect",
+      "role_display_name": "Architect",
+      "authority_boundary": "May review architecture-facing exact refs and define bounded implementation constraints.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "define_design_constraints",
+        "prepare_evidence_summary"
+      ],
+      "forbidden_action_categories": [
+        "product_runtime",
+        "external_integration_execution",
+        "autonomous_agent_execution"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 3
+    },
+    {
+      "role_id": "developer",
+      "role_display_name": "Developer",
+      "authority_boundary": "May implement scoped future tasks only when an envelope is executable and guard policy permits.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "make_scoped_code_change",
+        "run_scoped_validation"
+      ],
+      "forbidden_action_categories": [
+        "broad_repo_scan",
+        "raw_chat_history_load",
+        "runtime_memory"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 4
+    },
+    {
+      "role_id": "qa",
+      "role_display_name": "QA",
+      "authority_boundary": "May validate scoped artifacts and record evidence gaps without converting partial gates.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "run_scoped_validation",
+        "record_findings"
+      ],
+      "forbidden_action_categories": [
+        "r13_closure",
+        "r14_caveat_removal",
+        "r15_caveat_removal"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 5
+    },
+    {
+      "role_id": "evidence_auditor",
+      "role_display_name": "Evidence Auditor",
+      "authority_boundary": "May inspect exact evidence refs and proof treatment; cannot treat reports as machine proof.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "verify_proof_treatment",
+        "prepare_evidence_summary"
+      ],
+      "forbidden_action_categories": [
+        "report_as_machine_proof",
+        "full_repo_scan",
+        "exact_provider_tokenization_claim"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 6
+    },
+    {
+      "role_id": "knowledge_curator",
+      "role_display_name": "Knowledge Curator",
+      "authority_boundary": "May curate exact artifact and memory refs without implementing retrieval or vector runtime.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "classify_artifact_ref",
+        "prepare_memory_ref_summary"
+      ],
+      "forbidden_action_categories": [
+        "retrieval_runtime",
+        "vector_search_runtime",
+        "runtime_memory"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 7
+    },
+    {
+      "role_id": "release_closeout_agent",
+      "role_display_name": "Release Closeout Agent",
+      "authority_boundary": "May assemble scoped release evidence and closeout expectations when later tasks authorize it.",
+      "allowed_action_categories": [
+        "review_exact_refs",
+        "prepare_closeout_evidence",
+        "record_release_constraints"
+      ],
+      "forbidden_action_categories": [
+        "main_merge",
+        "r16_027_or_later_task",
+        "workflow_drill_execution"
+      ],
+      "required_input_ref_types": [
+        "memory_pack_ref",
+        "context_load_plan_ref",
+        "context_budget_guard_ref",
+        "evidence_refs"
+      ],
+      "deterministic_order": 8
+    }
+  ],
+  "role_alias_policy": {
+    "canonical_role_ids_required": true,
+    "role_id_must_match_catalog": true,
+    "role_display_name_must_match_catalog": true,
+    "aliases_allowed": false,
+    "freeform_role_ids_allowed": false
+  },
+  "required_envelope_fields": [
+    "envelope_id",
+    "role_id",
+    "role_display_name",
+    "source_task",
+    "target_task_or_card_ref",
+    "allowed_actions",
+    "forbidden_actions",
+    "required_inputs",
+    "memory_pack_ref",
+    "context_load_plan_ref",
+    "context_budget_estimate_ref",
+    "context_budget_guard_ref",
+    "budget_guard_status",
+    "no_full_repo_scan_attestation",
+    "evidence_refs",
+    "output_expectations",
+    "handoff_constraints",
+    "non_claims",
+    "envelope_execution_status",
+    "executable",
+    "blocked_reason",
+    "deterministic_order"
+  ],
+  "allowed_action_model": {
+    "allowed_action_categories": [
+      "review_exact_refs",
+      "approve_or_reject_scope",
+      "record_operator_decision",
+      "prepare_task_scope",
+      "record_handoff_constraints",
+      "define_design_constraints",
+      "prepare_evidence_summary",
+      "make_scoped_code_change",
+      "run_scoped_validation",
+      "record_findings",
+      "verify_proof_treatment",
+      "classify_artifact_ref",
+      "prepare_memory_ref_summary",
+      "prepare_closeout_evidence",
+      "record_release_constraints"
+    ],
+    "action_schema": {
+      "required_fields": [
+        "action_id",
+        "action_type",
+        "action_summary",
+        "allowed_scope",
+        "dependency_ref_ids",
+        "evidence_required",
+        "deterministic_order"
+      ]
+    },
+    "execution_boundary": {
+      "future_envelope_actions_must_be_declared": true,
+      "disallow_execution_when_guard_failed_closed_over_budget": true,
+      "runtime_executor_implemented": false,
+      "role_run_envelope_generator_implemented": false,
+      "generated_envelopes_created": false
+    }
+  },
+  "forbidden_action_model": {
+    "required_forbidden_actions": [
+      "broad_repo_scan",
+      "full_repo_scan",
+      "wildcard_context_load",
+      "directory_only_context_ref",
+      "scratch_or_temp_ref",
+      "absolute_path_ref",
+      "parent_traversal_ref",
+      "url_or_remote_ref",
+      "raw_chat_history_load",
+      "report_as_machine_proof",
+      "exact_provider_tokenization_claim",
+      "exact_provider_billing_claim",
+      "runtime_memory_load",
+      "retrieval_runtime",
+      "vector_search_runtime",
+      "product_runtime",
+      "autonomous_agent_execution",
+      "external_integration_execution",
+      "raci_transition_gate_execution",
+      "handoff_packet_generation",
+      "workflow_drill_execution",
+      "r16_019_or_later_execution",
+      "r16_027_or_later_task",
+      "r13_closure",
+      "r14_caveat_removal",
+      "r15_caveat_removal"
+    ],
+    "claim_flags": {
+      "exact_provider_tokenization_claimed": false,
+      "exact_provider_billing_claimed": false,
+      "runtime_memory_claimed": false,
+      "retrieval_runtime_claimed": false,
+      "vector_search_runtime_claimed": false,
+      "product_runtime_claimed": false,
+      "autonomous_agent_claimed": false,
+      "external_integration_claimed": false,
+      "raci_transition_gate_implemented": false,
+      "handoff_packet_implemented": false,
+      "workflow_drill_run": false,
+      "r16_019_or_later_implementation_claimed": false,
+      "r16_027_or_later_task_exists": false,
+      "r13_closure_claimed": false,
+      "r13_partial_gate_conversion_claimed": false,
+      "r14_caveat_removal_claimed": false,
+      "r15_caveat_removal_claimed": false
+    }
+  },
+  "required_input_refs": {
+    "future_envelope_required_input_fields": [
+      "memory_pack_ref",
+      "context_load_plan_ref",
+      "context_budget_estimate_ref",
+      "context_budget_guard_ref",
+      "evidence_refs"
+    ],
+    "ref_schema": {
+      "required_fields": [
+        "ref_id",
+        "path",
+        "source_task",
+        "proof_treatment",
+        "machine_proof",
+        "deterministic_order"
+      ]
+    },
+    "canonical_refs": [
+      {
+        "ref_id": "memory_pack_ref",
+        "path": "state/memory/r16_role_memory_packs.json",
+        "source_task": "R16-007",
+        "proof_treatment": "committed generated role memory pack state artifact only",
+        "machine_proof": true,
+        "deterministic_order": 1
+      },
+      {
+        "ref_id": "context_load_plan_ref",
+        "path": "state/context/r16_context_load_plan.json",
+        "source_task": "R16-015",
+        "proof_treatment": "committed generated context-load plan state artifact only",
+        "machine_proof": true,
+        "deterministic_order": 2
+      },
+      {
+        "ref_id": "context_budget_estimate_ref",
+        "path": "state/context/r16_context_budget_estimate.json",
+        "source_task": "R16-016",
+        "proof_treatment": "committed generated context budget estimate state artifact only",
+        "machine_proof": true,
+        "deterministic_order": 3
+      },
+      {
+        "ref_id": "context_budget_guard_ref",
+        "path": "state/context/r16_context_budget_guard_report.json",
+        "source_task": "R16-017",
+        "proof_treatment": "committed generated context budget guard report state artifact only",
+        "machine_proof": true,
+        "deterministic_order": 4
+      },
+      {
+        "ref_id": "r16_authority_evidence_ref",
+        "path": "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+        "source_task": "R16-018",
+        "proof_treatment": "status authority; not machine proof by itself",
+        "machine_proof": false,
+        "deterministic_order": 5
+      }
+    ]
+  },
+  "context_budget_guard_policy": {
+    "must_not_bypass_r16_017_guard": true,
+    "failed_closed_over_budget_blocks_execution": true,
+    "preserve_guard_report_as_current_repo_truth": true,
+    "current_guard_report_ref": "state/context/r16_context_budget_guard_report.json",
+    "current_guard_verdict": "failed_closed_over_budget",
+    "estimated_tokens_upper_bound": 1319047,
+    "max_estimated_tokens_upper_bound": 150000,
+    "valid_statuses_when_failed_closed_over_budget": [
+      "blocked",
+      "not_executable"
+    ],
+    "r16_018_creates_mitigation": false,
+    "r16_018_weakens_r16_017": false
+  },
+  "no_full_repo_scan_policy": {
+    "repo_relative_exact_tracked_paths_only": true,
+    "tracked_files_only": true,
+    "broad_repo_root_refs_allowed": false,
+    "broad_repo_scan_allowed": false,
+    "full_repo_scan_allowed": false,
+    "wildcard_paths_allowed": false,
+    "directory_only_refs_allowed": false,
+    "scratch_temp_paths_allowed": false,
+    "absolute_paths_allowed": false,
+    "parent_traversal_allowed": false,
+    "url_or_remote_refs_allowed": false,
+    "raw_chat_history_loading_allowed": false,
+    "report_as_machine_proof_allowed": false
+  },
+  "evidence_ref_policy": {
+    "exact_repo_relative_tracked_paths_only": true,
+    "machine_proof_requires_validator": true,
+    "report_as_machine_proof_allowed": false,
+    "raw_chat_history_as_evidence_allowed": false,
+    "operator_report_as_machine_proof_allowed": false
+  },
+  "handoff_boundary_policy": {
+    "handoff_constraints_required": true,
+    "handoff_packet_implemented": false,
+    "raci_transition_gate_implemented": false,
+    "workflow_drill_run": false
+  },
+  "current_posture": {
+    "active_through_task": "R16-018",
+    "complete_tasks": [
+      "R16-001",
+      "R16-002",
+      "R16-003",
+      "R16-004",
+      "R16-005",
+      "R16-006",
+      "R16-007",
+      "R16-008",
+      "R16-009",
+      "R16-010",
+      "R16-011",
+      "R16-012",
+      "R16-013",
+      "R16-014",
+      "R16-015",
+      "R16-016",
+      "R16-017",
+      "R16-018"
+    ],
+    "planned_tasks": [
+      "R16-019",
+      "R16-020",
+      "R16-021",
+      "R16-022",
+      "R16-023",
+      "R16-024",
+      "R16-025",
+      "R16-026"
+    ],
+    "role_run_envelope_contract_defined": true,
+    "generated_role_run_envelopes_exist": false,
+    "role_run_envelope_generator_exists": false,
+    "raci_transition_gate_exists": false,
+    "handoff_packet_exists": false,
+    "workflow_drill_exists": false,
+    "r16_019_or_later_implementation_claimed": false,
+    "r16_027_or_later_task_exists": false
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  },
+  "non_claims": [
+    "R16-018 defines the role-run envelope contract only",
+    "no generated role-run envelopes",
+    "no role-run envelope generator",
+    "no RACI transition gate",
+    "no handoff packet",
+    "no workflow drill",
+    "no runtime memory",
+    "no retrieval runtime",
+    "no vector search runtime",
+    "no product runtime",
+    "no autonomous agents",
+    "no external integrations",
+    "no solved Codex compaction",
+    "no solved Codex reliability",
+    "R16-019 through R16-026 remain planned only",
+    "R13 remains failed/partial and not closed",
+    "R14 caveats remain preserved",
+    "R15 caveats remain preserved",
+    "R15 stale generated_from caveats remain preserved",
+    "R16-017 guard remains failed_closed_over_budget for the current context load plan"
+  ],
+  "invalid_state_policy": {
+    "claim_flags": {
+      "broad_repo_scan_allowed": false,
+      "full_repo_scan_allowed": false,
+      "wildcard_paths_allowed": false,
+      "directory_only_refs_allowed": false,
+      "raw_chat_history_loading_allowed": false,
+      "report_as_machine_proof_allowed": false,
+      "exact_provider_tokenization_claimed": false,
+      "exact_provider_billing_claimed": false,
+      "runtime_memory_claimed": false,
+      "retrieval_runtime_claimed": false,
+      "vector_search_runtime_claimed": false,
+      "product_runtime_claimed": false,
+      "autonomous_agent_claimed": false,
+      "external_integration_claimed": false,
+      "raci_transition_gate_implemented": false,
+      "handoff_packet_implemented": false,
+      "workflow_drill_run": false,
+      "r16_019_or_later_implementation_claimed": false,
+      "r16_027_or_later_task_exists": false,
+      "r13_closure_claimed": false,
+      "r13_partial_gate_conversion_claimed": false,
+      "r14_caveat_removal_claimed": false,
+      "r15_caveat_removal_claimed": false
+    },
+    "rejected_states": [
+      "broad_repo_scan",
+      "full_repo_scan",
+      "wildcard_context_load",
+      "directory_only_context_ref",
+      "scratch_or_temp_ref",
+      "absolute_path_ref",
+      "parent_traversal_ref",
+      "url_or_remote_ref",
+      "raw_chat_history_load",
+      "report_as_machine_proof",
+      "exact_provider_tokenization_claim",
+      "exact_provider_billing_claim",
+      "runtime_memory_load",
+      "retrieval_runtime",
+      "vector_search_runtime",
+      "product_runtime",
+      "autonomous_agent_execution",
+      "external_integration_execution",
+      "raci_transition_gate_execution",
+      "handoff_packet_generation",
+      "workflow_drill_execution",
+      "r16_019_or_later_execution",
+      "r16_027_or_later_task",
+      "r13_closure",
+      "r14_caveat_removal",
+      "r15_caveat_removal"
+    ]
+  }
+}

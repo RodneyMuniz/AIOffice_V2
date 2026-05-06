@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-017` only
+**Milestone status:** Active in repo truth through `R16-018` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -456,8 +456,10 @@ Required evidence deliverables:
 - Done when: the guard reads `state/context/r16_context_load_plan.json` and `state/context/r16_context_budget_estimate.json`, rejects wildcard, directory-only, scratch/temp, absolute, parent traversal, URL/remote, broad/full-repo scan, exact provider tokenization, exact provider billing, runtime/product/agent/integration, role workflow, R16-018+, and R13/R14/R15 boundary weakening claims, and records `failed_closed_over_budget` when the approximate upper bound exceeds the configured threshold.
 
 ### `R16-018` Define role-run envelope contract
-- Status: planned
+- Status: done
 - Purpose: define role-bound execution envelopes, allowed actions, evidence needs, and handoff exits.
+- Durable output: `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`.
+- Done when: the contract defines future role-run envelope identity, role catalog, allowed actions, forbidden actions, required inputs, memory pack refs, context-load plan refs, budget estimate refs, context budget guard refs, evidence refs, output expectations, handoff constraints, and non-claims while preserving the failed_closed_over_budget guard block and avoiding any generated envelope, generator, RACI transition gate, handoff packet, or workflow drill.
 
 ### `R16-019` Implement role-run envelope generator for PM, Architect, Developer, QA, Auditor, Knowledge Curator, and Release/Closeout
 - Status: planned
@@ -526,8 +528,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-017` only.
-- `R16-018` through `R16-026` remain planned only.
+- R16 active through `R16-018` only.
+- `R16-019` through `R16-026` remain planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -573,14 +575,17 @@ Status gates must accept:
 - the guard is not a handoff packet.
 - the guard is not a workflow drill.
 - the guard is not solved Codex compaction or solved Codex reliability.
-- no role-run envelope exists yet.
+- R16-018 defines the role-run envelope contract only.
+- the role-run envelope contract is contract/model proof only.
+- no generated role-run envelope exists yet.
+- no role-run envelope generator exists yet.
 - no RACI transition gate exists yet.
 - no handoff packet exists yet.
 - no workflow drill exists yet.
 
 Status gates must reject:
 
-- reject `R16-018` or later implementation claims.
+- reject `R16-019` or later implementation claims.
 - reject exact provider token count claims.
 - reject exact provider billing claims.
 - `R16-027` or later tasks.
@@ -924,3 +929,19 @@ R16-017 is accepted only if:
 - focused R16-017 validation and status gates pass.
 
 After R16-017, R16 is active through `R16-017` only. `R16-018` through `R16-026` remain planned only. R16-017 adds bounded over-budget/no-full-repo-scan guard only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, generated state artifact `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. The guard can fail closed on over-budget context plans. The guard is not runtime memory. The guard is not retrieval runtime. The guard is not vector search runtime. The guard is not product runtime. The guard is not a role-run envelope. The guard is not a RACI transition gate. The guard is not a handoff packet. The guard is not a workflow drill. No role-run envelope exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+
+R16-018 is accepted only if:
+
+- the role-run envelope contract exists at `contracts/workflow/r16_role_run_envelope.contract.json`;
+- the role-run envelope contract validator module exists at `tools/R16RoleRunEnvelopeContract.psm1`;
+- the role-run envelope contract validator CLI exists at `tools/validate_r16_role_run_envelope_contract.ps1`;
+- the focused contract test exists at `tests/test_r16_role_run_envelope_contract.ps1`;
+- the fixtures exist under `tests/fixtures/r16_role_run_envelope_contract/`;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`;
+- the contract defines role identities, allowed actions, forbidden actions, required inputs, memory pack refs, context-load plan refs, context budget estimate refs, context budget guard refs, evidence refs, output expectations, handoff constraints, and non-claims;
+- the contract preserves the current R16-017 guard report as `failed_closed_over_budget` and requires that status to block future executable envelopes unless a later explicit machine-checkable mitigation is approved;
+- the contract rejects broad/full-repo scan claims, wildcard or directory-only refs, raw chat history loading, report-as-machine-proof misuse, exact provider tokenization claims, exact provider billing claims, runtime memory claims, retrieval/vector runtime claims, product runtime claims, autonomous agent claims, external integration claims, RACI transition gate claims, handoff packet claims, workflow drill claims, R16-019-or-later implementation claims, R16-027-or-later task claims, and R13/R14/R15 boundary weakening;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-018 validation, dependent R16 validations, status gates, and posture validators pass.
+
+After R16-018, R16 is active through `R16-018` only. `R16-019` through `R16-026` remain planned only. R16-018 defines the role-run envelope contract only through `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`. The role-run envelope contract is contract/model proof only. No generated role-run envelope exists yet. No role-run envelope generator exists yet. No RACI transition gate exists yet. No handoff packet exists yet. No workflow drill exists yet. The R16-017 guard remains `failed_closed_over_budget`. No product runtime, runtime memory, retrieval/vector runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.

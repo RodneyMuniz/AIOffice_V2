@@ -1,0 +1,5 @@
+{
+  "no_full_repo_scan_policy": {
+    "wildcard_paths_allowed": true
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "external_integration_claimed": true
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "raci_transition_gate_implemented": true
+    }
+  }
+}

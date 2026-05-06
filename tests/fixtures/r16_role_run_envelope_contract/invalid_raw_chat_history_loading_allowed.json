@@ -1,0 +1,5 @@
+{
+  "no_full_repo_scan_policy": {
+    "raw_chat_history_loading_allowed": true
+  }
+}

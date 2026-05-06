@@ -1,0 +1,8 @@
+{
+  "future_envelope_candidate_fixture": {
+    "role_id": "developer",
+    "budget_guard_status": "failed_closed_over_budget",
+    "envelope_execution_status": "executable",
+    "executable": true
+  }
+}

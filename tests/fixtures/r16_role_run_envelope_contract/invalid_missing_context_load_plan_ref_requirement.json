@@ -1,0 +1,13 @@
+{
+  "required_envelope_fields": [
+    "envelope_id",
+    "role_id",
+    "role_display_name",
+    "source_task",
+    "target_task_or_card_ref",
+    "allowed_actions",
+    "forbidden_actions",
+    "required_inputs",
+    "memory_pack_ref"
+  ]
+}

@@ -506,14 +506,14 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 17 -or $snapshot.PlannedStart -ne 18 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-017 only with R16-018 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 18 -or $snapshot.PlannedStart -ne 19 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-018 only with R16-019 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-017 only",
-            "R16-018 through R16-026 remain planned only",
+            "R16 active through R16-018 only",
+            "R16-019 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
@@ -530,6 +530,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact",
             "R16-016 implemented a bounded context budget estimator with approximation fields",
             "R16-017 adds bounded over-budget/no-full-repo-scan guard only",
+            "R16-018 defines the role-run envelope contract only",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
@@ -580,7 +581,8 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "The guard is not a RACI transition gate",
             "The guard is not a handoff packet",
             "The guard is not a workflow drill",
-            "No role-run envelopes exist yet",
+            "No generated role-run envelopes exist yet",
+            "No role-run envelope generator exists yet",
             "No RACI transition gate exists yet",
             "No handoff packet exists yet",
             "No workflow drill exists yet",
@@ -614,7 +616,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-018 or later implementation" -Pattern '(?i)\bR16-(0(?:1[8-9]|2[0-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-019 or later implementation" -Pattern '(?i)\bR16-(0(?:1[9]|2[0-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider token count" -Pattern '(?i)\b(exact provider token count|exact provider tokenization|exact provider tokenizer|provider tokenizer used|exact tokenizer)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider billing" -Pattern '(?i)\b(exact provider billing|exact provider bill|provider bill|provider billing|provider pricing used|exact provider pricing)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'
@@ -623,7 +625,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map or audit map runtime overclaim" -Pattern '(?i)\b(artifact map|audit map)\b.{0,180}\b(runtime|runtime memory|product runtime|context-load planner|workflow execution|retrieval runtime|vector search runtime|agent runtime|external integration)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "artifact map contract treated as generated artifact map" -Pattern '(?i)\bartifact map contract\b.{0,160}\b(generated artifact map|operational artifact map|generated map|runtime memory|retrieval runtime|vector runtime|audit execution|workflow execution)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "context-load plan runtime or budget overclaim" -Pattern '(?i)\b(context-load plan|context load plan|context-load planner|context load planner)\b.{0,180}\b(runtime memory|runtime memory loading|retrieval runtime|vector search runtime|product runtime|context budget estimator|over-budget fail-closed validator|role-run envelope|RACI transition gate|handoff packet|workflow execution)\b'
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "role-run envelope or handoff packet implementation" -Pattern '(?i)\b(role-run envelope|role-run envelopes|role run envelope|role run envelopes|handoff packet|handoff packets)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated role-run envelope or handoff packet implementation" -Pattern '(?i)\b(generated role-run envelope|generated role-run envelopes|role-run envelope generator|role run envelope generator|handoff packet|handoff packets)\b.{0,160}\b(implemented|implementation complete|created|exists|ships|runtime)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-027 or later task" -Pattern '(?i)\bR16-(0(?:2[7-9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned|active)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "product runtime" -Pattern '(?i)\b(product runtime|production runtime|productized UI|productized control-room behavior|full UI app)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "true agent or multi-agent runtime" -Pattern '(?i)\b(actual autonomous agents|actual agents implemented|true multi-agent execution|true multi-agent runtime|multi-agent runtime|agent runtime|direct agent access runtime)\b'

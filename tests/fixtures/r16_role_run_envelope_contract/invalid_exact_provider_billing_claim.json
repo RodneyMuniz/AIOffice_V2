@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "exact_provider_billing_claimed": true
+    }
+  }
+}

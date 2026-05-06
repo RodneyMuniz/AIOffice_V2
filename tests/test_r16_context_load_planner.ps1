@@ -61,10 +61,14 @@ try {
 
     foreach ($forbiddenPath in @(
         "tools\R16OverBudgetFailClosedValidator.psm1",
-        "contracts\workflow\r16_role_run_envelope.contract.json",
         "contracts\workflow\r16_handoff_packet.contract.json",
+        "contracts\workflow\r16_raci_transition_gate.contract.json",
         "state\workflow\r16_role_run_envelopes.json",
-        "state\workflow\r16_handoff_packets.json"
+        "state\workflow\r16_handoff_packets.json",
+        "tools\R16RoleRunEnvelopeGenerator.psm1",
+        "tools\new_r16_role_run_envelopes.ps1",
+        "tools\R16RaciTransitionGate.psm1",
+        "tools\R16HandoffPacketGenerator.psm1"
     )) {
         if (Test-Path -LiteralPath (Join-Path $repoRoot $forbiddenPath)) {
             $failures += "FAIL forbidden R16-015 overbuild artifact exists: $forbiddenPath"

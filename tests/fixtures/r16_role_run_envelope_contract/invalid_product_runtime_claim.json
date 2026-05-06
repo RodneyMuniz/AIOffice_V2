@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "product_runtime_claimed": true
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "autonomous_agent_claimed": true
+    }
+  }
+}

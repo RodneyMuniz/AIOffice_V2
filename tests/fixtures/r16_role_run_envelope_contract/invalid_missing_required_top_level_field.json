@@ -1,0 +1,11 @@
+{
+  "artifact_type": "r16_role_run_envelope_contract",
+  "contract_version": "v1",
+  "role_run_envelope_contract_id": "aioffice-r16-018-role-run-envelope-contract-v1",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "source_task": "R16-018",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "generated_from_head": "9d7a9c1409b1d7cfa77f902d073ab1e5ba99581a",
+  "dependency_refs": []
+}

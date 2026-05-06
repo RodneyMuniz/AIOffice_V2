@@ -1,0 +1,25 @@
+{
+  "role_catalog": [
+    {
+      "role_id": "operator"
+    },
+    {
+      "role_id": "project_manager"
+    },
+    {
+      "role_id": "architect"
+    },
+    {
+      "role_id": "developer"
+    },
+    {
+      "role_id": "evidence_auditor"
+    },
+    {
+      "role_id": "knowledge_curator"
+    },
+    {
+      "role_id": "release_closeout_agent"
+    }
+  ]
+}

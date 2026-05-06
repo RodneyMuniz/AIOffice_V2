@@ -1,0 +1,7 @@
+{
+  "invalid_state_policy": {
+    "claim_flags": {
+      "workflow_drill_run": true
+    }
+  }
+}
