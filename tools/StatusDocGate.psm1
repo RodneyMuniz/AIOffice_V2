@@ -322,6 +322,33 @@ function Get-R16TaskStatusMap {
     return $statusMap
 }
 
+function Get-R17TaskStatusMap {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [Parameter(Mandatory = $true)]
+        [string]$Context
+    )
+
+    $matches = [regex]::Matches($Text, '(?ms)^###\s+`(R17-\d{3})`.*?^\-\s+Status:\s+(done|planned)\s*$')
+    if ($matches.Count -eq 0) {
+        throw "$Context does not define any R17 task status headings."
+    }
+
+    $statusMap = @{}
+    foreach ($match in $matches) {
+        $taskId = $match.Groups[1].Value
+        $status = $match.Groups[2].Value
+        if ($statusMap.ContainsKey($taskId)) {
+            throw "$Context defines duplicate task status entries for '$taskId'."
+        }
+
+        $statusMap[$taskId] = $status
+    }
+
+    return $statusMap
+}
+
 function Get-ContiguousDoneThroughFromStatusMap {
     param(
         [Parameter(Mandatory = $true)]
@@ -859,8 +886,18 @@ function Assert-NoForbiddenPositiveClaim {
     )
 
     $lines = $Text -split "\r?\n"
+    $insideNegativeClaimSection = $false
     foreach ($line in $lines) {
-        if ($line -match $Pattern -and -not (Test-LineHasNegation -Line $line)) {
+        if ($line -match '(?i)^\s*(#{1,6}\s+)?(non-claims?|nonclaims|rejected claims?|rejected-claims?|rejected claims and non-claims|non-claim boundary)\s*:?\s*$') {
+            $insideNegativeClaimSection = $true
+            continue
+        }
+
+        if ($insideNegativeClaimSection -and $line -match '^\s*#{1,6}\s+') {
+            $insideNegativeClaimSection = $false
+        }
+
+        if ($line -match $Pattern -and -not $insideNegativeClaimSection -and -not (Test-LineHasNegation -Line $line)) {
             throw "$Context claims $ClaimLabel. Offending line: $line"
         }
     }
@@ -2377,7 +2414,8 @@ function Test-R15OpeningStatus {
 function Test-R16OpeningStatus {
     param(
         [Parameter(Mandatory = $true)]
-        [System.Collections.IDictionary]$Texts
+        [System.Collections.IDictionary]$Texts,
+        [switch]$AllowR17Active
     )
 
     if (-not $Texts.Contains("R16Authority")) {
@@ -2429,9 +2467,16 @@ function Test-R16OpeningStatus {
             $Texts.R16Authority
         ))
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-026` only' -Message "README must declare R16 active on the R16 branch through R16-026 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active in repo truth through `R16-026` only\.' -Message "ACTIVE_STATE must declare R16 as the active milestone through R16-026 only."
-    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`' -Message "KANBAN must declare R16 as the active milestone."
+    if ($AllowR17Active) {
+        Assert-RegexMatch -Text $Texts.Readme -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope through `R16-026` only|R16 is complete for bounded foundation scope through `R16-026` only' -Message "README must declare R16 complete for bounded foundation scope through R16-026 only while R17 is active."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope through `R16-026` only|R16 is complete for bounded foundation scope through `R16-026` only' -Message "ACTIVE_STATE must declare R16 complete for bounded foundation scope through R16-026 only while R17 is active."
+        Assert-RegexMatch -Text $Texts.Kanban -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope through `R16-026` only|R16 is complete for bounded foundation scope through `R16-026` only' -Message "KANBAN must declare R16 complete for bounded foundation scope through R16-026 only while R17 is active."
+    }
+    else {
+        Assert-RegexMatch -Text $Texts.Readme -Pattern '`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-026` only' -Message "README must declare R16 active on the R16 branch through R16-026 only."
+        Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active in repo truth through `R16-026` only\.' -Message "ACTIVE_STATE must declare R16 as the active milestone through R16-026 only."
+        Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`' -Message "KANBAN must declare R16 as the active milestone."
+    }
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Milestone status:\*\*\s+Active in repo truth through `R16-026` only' -Message "R16 authority must declare R16 active through R16-026 only."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Source R15 branch:\*\*\s+`release/r15-knowledge-base-agent-identity-memory-raci-foundations`' -Message "R16 authority must record the source R15 branch."
     Assert-RegexMatch -Text $Texts.R16Authority -Pattern '\*\*Starting head:\*\*\s+`3058bd6ed5067c97f744c92b9b9235004f0568b0`' -Message "R16 authority must record the starting head."
@@ -2825,6 +2870,120 @@ function Test-R16OpeningStatus {
     return $kanbanSnapshot
 }
 
+function Test-R17OpeningStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IDictionary]$Texts
+    )
+
+    if (-not $Texts.Contains("R17Authority")) {
+        throw "R17 authority document must exist when R17 is active."
+    }
+
+    $kanbanTaskStatuses = Get-R17TaskStatusMap -Text $Texts.Kanban -Context "KANBAN"
+    $authorityTaskStatuses = Get-R17TaskStatusMap -Text $Texts.R17Authority -Context "R17 authority"
+
+    foreach ($taskId in $kanbanTaskStatuses.Keys) {
+        if ($authorityTaskStatuses[$taskId] -ne $kanbanTaskStatuses[$taskId]) {
+            throw "R17 authority does not match KANBAN for status '$taskId'."
+        }
+    }
+
+    $kanbanSnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanTaskStatuses -Context "KANBAN" -TaskPrefix "R17" -TaskCount 28
+    $authoritySnapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $authorityTaskStatuses -Context "R17 authority" -TaskPrefix "R17" -TaskCount 28
+
+    if ($authoritySnapshot.DoneThrough -ne $kanbanSnapshot.DoneThrough -or $authoritySnapshot.PlannedStart -ne $kanbanSnapshot.PlannedStart -or $authoritySnapshot.PlannedThrough -ne $kanbanSnapshot.PlannedThrough) {
+        throw "R17 authority does not match KANBAN for the live R17 task status boundary."
+    }
+
+    if ($kanbanSnapshot.DoneThrough -ne 3 -or $kanbanSnapshot.PlannedStart -ne 4 -or $kanbanSnapshot.PlannedThrough -ne 28) {
+        throw "R17 status must keep R17 active through R17-003 only with R17-004 through R17-028 planned only."
+    }
+
+    $unexpectedR17HeadingMatch = [regex]::Match($Texts.Kanban, '(?m)^###\s+`?(R17-(?:0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,}))`?')
+    if ($unexpectedR17HeadingMatch.Success) {
+        throw "KANBAN defines unexpected R17 task '$($unexpectedR17HeadingMatch.Groups[1].Value)'."
+    }
+
+    $r17CurrentText = [string]::Join([Environment]::NewLine, @(
+            $Texts.Readme,
+            $Texts.ActiveState,
+            $Texts.Kanban,
+            $Texts.DecisionLog,
+            $Texts.R13Authority,
+            $Texts.R14Authority,
+            $Texts.R15Authority,
+            $Texts.R16Authority,
+            $Texts.R17Authority
+        ))
+
+    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-003` only' -Message "README must declare R17 active on the R17 branch through R17-003 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is now active in repo truth through `R17-003` only\.' -Message "ACTIVE_STATE must declare R17 as the active milestone through R17-003 only."
+    Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`' -Message "KANBAN must declare R17 as the active milestone."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Status after this pass:\*\*\s+Active through `R17-003` only\.' -Message "R17 authority must declare R17 active through R17-003 only."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Branch:\*\*\s+`release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`' -Message "R17 authority must record the R17 branch."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Starting head:\*\*\s+`5bae17229ea10dee4ce072b258f828220b9d1d8d`' -Message "R17 authority must record the final R16 starting head."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Starting tree:\*\*\s+`9de1a7b733f400da78f8e683ae4111977c70f1fb`' -Message "R17 authority must record the final R16 starting tree."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '`R17-004` through `R17-028` remain planned only' -Message "R17 authority must keep R17-004 through R17-028 planned only."
+
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R16 is complete for bounded foundation scope through `R16-026` only|R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope through `R16-026` only' -Message "Status docs must state R16 complete for bounded foundation scope through R16-026 only."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-001`? installed approved planning artifacts|`R17-001` installed approved planning artifacts' -Message "Status docs must state R17-001 installed approved planning artifacts."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-002`? opened R17 in repo truth|`R17-002` opened R17 in repo truth' -Message "Status docs must state R17-002 opened R17 in repo truth."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-003`? added the R17 KPI baseline/target scorecard|`R17-003` added the R17 KPI baseline/target scorecard' -Message "Status docs must state R17-003 added the KPI baseline/target scorecard."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-004`? through `?R17-028`? remain planned only|`R17-004` through `R17-028` remain planned only' -Message "Status docs must state R17-004 through R17-028 remain planned only."
+
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'governance/reports/AIOffice_V2_R16_External_Audit_and_R17_Planning_Report_v1\.md' -Message "R17 authority must cite the R16 external audit/R17 planning report."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'governance/plans/AIOffice_V2_Revised_R17_Agentic_Operating_Surface_A2A_Runtime_Kanban_Release_Cycle_Plan_v1\.md' -Message "R17 authority must cite the revised R17 plan."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/planning/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_001_planning_artifact_manifest\.md' -Message "R17 authority must cite the R17-001 planning artifact manifest."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/governance/r17_kpi_baseline_target_scorecard\.json' -Message "R17 authority must cite the R17 KPI scorecard."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'contracts/governance/r17_kpi_baseline_target_scorecard\.contract\.json' -Message "R17 authority must cite the R17 KPI scorecard contract."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tools/validate_r17_kpi_baseline_target_scorecard\.ps1' -Message "R17 authority must cite the R17 KPI validator."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tests/test_r17_kpi_baseline_target_scorecard\.ps1' -Message "R17 authority must cite the R17 KPI test."
+
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17 Opened As Agentic Operating Surface Milestone' -Message "DECISION_LOG must record the R17 opening decision."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R13 remains failed/partial.*R13-018.*not closed' -Message "Status docs must preserve R13 failed/partial through R13-018 while R17 is active."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R14 remains accepted with caveats.*R14-006|R14.*accepted with caveats.*R14-006' -Message "Status docs must preserve R14 accepted with caveats through R14-006."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R15 remains accepted with caveats.*R15-009|R15.*accepted with caveats.*R15-009' -Message "Status docs must preserve R15 accepted with caveats through R15-009."
+
+    foreach ($nonClaimPattern in @(
+            'no external audit acceptance',
+            'no main merge',
+            'no R13 closure',
+            'no R14 caveat removal',
+            'no R15 caveat removal',
+            'no solved Codex compaction',
+            'no solved Codex reliability',
+            'no product runtime yet',
+            'no production runtime',
+            'no autonomous agents yet',
+            'no A2A runtime yet',
+            'no executable handoffs yet',
+            'no executable transitions yet',
+            'no Evidence Auditor API runtime yet',
+            'no Dev/Codex executor adapter runtime yet',
+            'no QA/Test Agent adapter runtime yet',
+            'no Kanban product runtime yet'
+        )) {
+        Assert-RegexMatch -Text $r17CurrentText -Pattern ([regex]::Escape($nonClaimPattern)) -Message "Status docs must preserve R17 non-claim '$nonClaimPattern'."
+    }
+
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R17-004 or later implementation" -Pattern '(?i)\bR17-(0(?:0[4-9]|1[0-9]|2[0-8])|[1-9][0-9]{2,})\b.{0,180}\b(done|complete|completed|implemented|executed|ran|exercised|working|available|ships)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R17-029 or later task" -Pattern '(?i)\bR17-(0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned|active)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "external audit acceptance" -Pattern '(?i)\b(external audit acceptance|external audit accepted|external acceptance)\b.{0,120}\b(done|complete|completed|accepted|approved|claimed|exists|achieved)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "main merge" -Pattern '(?i)\b(main merge|merged to main|main contains R17|R17.*merged to main)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R13 closure" -Pattern '(?i)\bR13\b.{0,120}\b(is now closed|is closed|formally closed|closed in repo truth|closeout package exists|final-head support exists|merged to main|main merge exists)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R14 caveat removal" -Pattern '(?i)\bR14\b.{0,120}\b(accepted without caveats|uncaveated acceptance|caveats removed|cleanly accepted|accepted cleanly)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R15 caveat removal" -Pattern '(?i)\bR15\b.{0,120}\b(accepted without caveats|uncaveated acceptance|caveats removed|cleanly accepted|accepted cleanly)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "product or production runtime" -Pattern '(?i)\b(product runtime|production runtime|Kanban product runtime)\b.{0,120}\b(done|complete|completed|implemented|executed|ran|exists|working|available|ships|claimed)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "autonomous or true multi-agent runtime" -Pattern '(?i)\b(autonomous agents|actual autonomous agents|true multi-agent execution|true multi-agent runtime|multi-agent runtime)\b.{0,120}\b(done|complete|completed|implemented|executed|ran|exists|working|available|ships|claimed)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "A2A runtime or cycles working" -Pattern '(?i)\b(A2A runtime|A2A cycles|four A2A cycles)\b.{0,140}\b(done|complete|completed|implemented|executed|ran|exercised|working|available|ships|claimed)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "adapter runtime working" -Pattern '(?i)\b(Dev/Codex executor adapter|Developer/Codex executor adapter|QA/Test Agent adapter|Evidence Auditor API adapter|Evidence Auditor API runtime)\b.{0,140}\b(done|complete|completed|implemented|executed|ran|working|available|ships|claimed|exists)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "Kanban UI working" -Pattern '(?i)\b(Kanban UI|Kanban interface|Kanban product runtime)\b.{0,140}\b(done|complete|completed|implemented|executed|ran|working|available|ships|claimed|exists)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "solved Codex compaction or reliability" -Pattern '(?i)\b(solved Codex compaction|solved Codex context compaction|solved Codex reliability|Codex reliability solved|Codex compaction solved)\b'
+
+    return $kanbanSnapshot
+}
+
 function Test-StatusDocGate {
     [CmdletBinding()]
     param(
@@ -2880,6 +3039,11 @@ function Test-StatusDocGate {
     $r16AuthorityPath = Resolve-PathValue -PathValue "governance\R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md" -AnchorPath $resolvedRepositoryRoot
     if (Test-Path -LiteralPath $r16AuthorityPath) {
         $paths["R16Authority"] = (Resolve-Path -LiteralPath $r16AuthorityPath).Path
+    }
+
+    $r17AuthorityPath = Resolve-PathValue -PathValue "governance\R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md" -AnchorPath $resolvedRepositoryRoot
+    if (Test-Path -LiteralPath $r17AuthorityPath) {
+        $paths["R17Authority"] = (Resolve-Path -LiteralPath $r17AuthorityPath).Path
     }
 
     $texts = [ordered]@{}
@@ -2947,7 +3111,8 @@ function Test-StatusDocGate {
     $r13Opened = $combinedText -match 'R13 API-First QA Pipeline and Operator Control-Room Product Slice`\s+is now (?:the )?active'
     $r14Opened = $combinedText -match 'R14 Product Vision Pivot and Governance Enforcement`\s+is now active|## Active Milestone\s+`R14 Product Vision Pivot and Governance Enforcement`|R14 Product Vision Pivot and Governance Enforcement`\s+is accepted with caveats as (?:a )?narrow.*R14-006'
     $r15Opened = $combinedText -match 'R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`\s+is now active|## Active Milestone\s+`R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`|R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations`\s+is accepted with caveats'
-    $r16Opened = $combinedText -match 'R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active|## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`'
+    $r16Opened = $combinedText -match 'R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is now active|R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope|R16 is complete for bounded foundation scope through `?R16-026`? only|## Active Milestone\s+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`'
+    $r17Opened = $combinedText -match 'R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is now active|R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is active|## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`'
     Assert-MostRecentlyClosedMilestoneConsistency -Texts $texts -R8Closed $r8Closed -R9Closed $r9Closed -R10Closed $r10Closed -R11Closed $r11Closed -R12Closed $r12Closed
     $r9Snapshot = $null
     $r10Snapshot = $null
@@ -2957,6 +3122,7 @@ function Test-StatusDocGate {
     $r14Snapshot = $null
     $r15Snapshot = $null
     $r16Snapshot = $null
+    $r17Snapshot = $null
 
     if (-not $r8Closed) {
         Assert-RegexMatch -Text $texts.Readme -Pattern 'R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner`\s+is now the active milestone' -Message "README must declare R8 as the active milestone."
@@ -2986,7 +3152,10 @@ function Test-StatusDocGate {
                                 $r15Snapshot = Test-R15OpeningStatus -Texts $texts -AllowR16Active:$r16Opened
                             }
                             if ($r16Opened) {
-                                $r16Snapshot = Test-R16OpeningStatus -Texts $texts
+                                $r16Snapshot = Test-R16OpeningStatus -Texts $texts -AllowR17Active:$r17Opened
+                            }
+                            if ($r17Opened) {
+                                $r17Snapshot = Test-R17OpeningStatus -Texts $texts
                             }
                         }
                     }
@@ -3052,7 +3221,7 @@ function Test-StatusDocGate {
         throw "Status docs must not open a successor milestone after R10 opening."
     }
 
-    $activeMilestone = if ($r16Opened) { "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation" } elseif ($r15Opened) { "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations" } elseif ($r14Opened) { "R14 Product Vision Pivot and Governance Enforcement" } elseif ($r13Opened) { "R13 API-First QA Pipeline and Operator Control-Room Product Slice" } elseif ($r12Opened) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r12Closed) { "none" } elseif ($r11Opened) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
+    $activeMilestone = if ($r17Opened) { "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle" } elseif ($r16Opened) { "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation" } elseif ($r15Opened) { "R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations" } elseif ($r14Opened) { "R14 Product Vision Pivot and Governance Enforcement" } elseif ($r13Opened) { "R13 API-First QA Pipeline and Operator Control-Room Product Slice" } elseif ($r12Opened) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r12Closed) { "none" } elseif ($r11Opened) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "none" } elseif ($r10Opened) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Opened) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "none" } else { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" }
     $mostRecentlyClosedMilestone = if ($r12Closed) { "R12 External API Runner, Actionable QA, and Operator Control-Room Workflow Pilot" } elseif ($r11Closed) { "R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot" } elseif ($r10Closed) { "R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation" } elseif ($r9Closed) { "R9 Isolated QA and Continuity-Managed Milestone Execution Pilot" } elseif ($r8Closed) { "R8 Remote-Gated QA Subagent and Clean-Checkout Proof Runner" } else { "R7 Fault-Managed Continuity and Rollback Drill" }
 
     return [pscustomobject]@{
@@ -3085,6 +3254,9 @@ function Test-StatusDocGate {
         R16DoneThrough = if ($null -eq $r16Snapshot) { $null } else { $r16Snapshot.DoneThrough }
         R16PlannedStart = if ($null -eq $r16Snapshot) { $null } else { $r16Snapshot.PlannedStart }
         R16PlannedThrough = if ($null -eq $r16Snapshot) { $null } else { $r16Snapshot.PlannedThrough }
+        R17DoneThrough = if ($null -eq $r17Snapshot) { $null } else { $r17Snapshot.DoneThrough }
+        R17PlannedStart = if ($null -eq $r17Snapshot) { $null } else { $r17Snapshot.PlannedStart }
+        R17PlannedThrough = if ($null -eq $r17Snapshot) { $null } else { $r17Snapshot.PlannedThrough }
         R8RemainsOpen = (-not $r8Closed)
         R8Closed = $r8Closed
         R9Opened = $r9Opened
@@ -3099,6 +3271,7 @@ function Test-StatusDocGate {
         R14Opened = $r14Opened
         R15Opened = $r15Opened
         R16Opened = $r16Opened
+        R17Opened = $r17Opened
     }
 }
 

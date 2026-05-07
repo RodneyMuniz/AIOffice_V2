@@ -3,9 +3,15 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`
+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
 
 Current posture:
+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is complete for bounded foundation scope through `R16-026` only. R16 produced a bounded final proof/review package candidate and final-head support packet only. R16 did not claim external audit acceptance, main merge, runtime execution, product runtime, autonomous agents, true multi-agent execution, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.
+
+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-003` only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` through `R17-028` remain planned only. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but none of those planned capabilities are claimed as implemented yet.
+
+R17 non-claims: no external audit acceptance, no main merge, no R13 closure, no R14 caveat removal, no R15 caveat removal, no solved Codex compaction, no solved Codex reliability, no product runtime yet, no production runtime, no autonomous agents yet, no A2A runtime yet, no executable handoffs yet, no executable transitions yet, no Evidence Auditor API runtime yet, no Dev/Codex executor adapter runtime yet, no QA/Test Agent adapter runtime yet, and no Kanban product runtime yet.
+
 `R10 Real External Runner Artifact Identity and Final-Head Clean Replay Foundation` is now closed narrowly after `R10-008` Phase 2 post-push final-head support verified candidate closeout commit `cfebd351922b192585ed5f9d3ca56bee30ea16ae` as the remote branch head. The Phase 1 candidate package is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/`, and the Phase 2 support packet is `state/proof_reviews/r10_real_external_runner_artifact_identity_and_final_head_clean_replay_foundation/final_head_support/final_remote_head_support_packet.json`. The narrow closeout claim is only that one successful bounded external runner proof run exists from R10-005G, one external-runner-consuming QA signoff exists from R10-006, one two-phase final-head support procedure exists from R10-007, one Phase 1 candidate closeout package exists from R10-008, one Phase 2 post-push final-head support packet exists after the candidate push, and no successor milestone is opened. R10 does not prove broad CI/product coverage, UI or control-room productization, Standard runtime, multi-repo orchestration, swarms, broad autonomous milestone execution, unattended automatic resume, solved Codex context compaction, hours-long unattended milestone execution, destructive rollback, or general Codex reliability.
 
 `R11 Controlled External Cycle Controller and Repo-Truth Resume Pilot` is now closed narrowly in repo truth after `R11-009` Phase 2 post-push final-head support. R11 opens after R10 closeout head `91035cfbb34f531684943d0bfd8c3ba660f48f08`; R10 remains the prior closed milestone and is not reopened or widened. `R11-001` through `R11-009` are complete. The Phase 1 candidate closeout package is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/`, the candidate closeout commit is `545232bfd06df86018917bc677e6ba3374b3b9c4`, and the Phase 2 support packet is `state/proof_reviews/r11_controlled_external_cycle_controller_and_repo_truth_resume_pilot/final_head_support/final_remote_head_support_packet.json`. R11 closeout is limited to the bounded controlled-cycle pilot, R11-008 cycle evidence, the R11-009 candidate closeout package, and the R11-009 post-push final-head support packet. R11 does not claim unattended automatic resume, real production QA, production runtime, broad autonomous milestone execution, UI/control-room productization, Standard runtime, multi-repo orchestration, swarms, solved Codex context compaction, hours-long unattended execution, destructive rollback, broad CI/product coverage, productized control-room behavior, general Codex reliability, or any claim beyond one bounded R11 controlled-cycle pilot. The R11 closeout itself did not open R12 or any successor milestone.
@@ -18,7 +24,7 @@ Current posture:
 
 `R15 Knowledge Base, Agent Identity, Memory, and RACI Foundations` is accepted with caveats by external audit as a bounded foundation milestone only through `R15-009`, at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R15 opens from R14 head `43653f3dd2e18b46c9e7b02f0c9c095848aee6fc` and locally observed R14 tree `2af1a4aaa858af315e9b4d106d0643b5ce4ebfcc`. The post-audit support commit is `3058bd6ed5067c97f744c92b9b9235004f0568b0` and does not change R15 scope. The R15-009 stale `generated_from_head` and `generated_from_tree` caveat remains preserved for `r15_final_proof_review_package.json` and `evidence_index.json`.
 
-`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is now active on branch `release/r16-operational-memory-artifact-map-role-workflow-foundation` through `R16-026` only. R16-026 adds a bounded final proof/review package candidate and final-head support packet only through `contracts/governance/r16_final_proof_review_package.contract.json`, `tools/R16FinalProofReviewPackage.psm1`, `tools/new_r16_final_proof_review_package.ps1`, `tools/validate_r16_final_proof_review_package.ps1`, `tests/test_r16_final_proof_review_package.ps1`, fixtures under `tests/fixtures/r16_final_proof_review_package/`, generated final proof/review package candidate `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json`, generated final evidence index `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json`, final-head support packet `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json`, and validation manifest `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/validation_manifest.md`. R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. R16-016 implemented a bounded context budget estimator with approximation fields through `contracts/context/r16_context_budget_estimate.contract.json`, `tools/R16ContextBudgetEstimator.psm1`, `tools/new_r16_context_budget_estimate.ps1`, `tools/validate_r16_context_budget_estimate.ps1`, `tests/test_r16_context_budget_estimator.ps1`, `state/context/r16_context_budget_estimate.json`, fixtures under `tests/fixtures/r16_context_budget_estimator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`. R16-017 added a bounded over-budget context guard and no-full-repo-scan enforcement only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. R16-018 defines the role-run envelope contract only through `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`. R16-019 generated role-run envelopes as committed state artifacts only through `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`. R16-020 adds bounded RACI transition gate validation/reporting only through `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`. R16-021 adds bounded handoff packet generation/reporting only through `contracts/workflow/r16_handoff_packet_report.contract.json`, `tools/R16HandoffPacketGenerator.psm1`, `tools/new_r16_handoff_packets.ps1`, `tools/validate_r16_handoff_packet_report.ps1`, `tests/test_r16_handoff_packet_generator.ps1`, generated state artifact `state/workflow/r16_handoff_packet_report.json`, fixtures under `tests/fixtures/r16_handoff_packet_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/`. R16-022 adds bounded restart/compaction recovery drill reporting only through `contracts/workflow/r16_restart_compaction_recovery_drill.contract.json`, `tools/R16RestartCompactionRecoveryDrill.psm1`, `tools/new_r16_restart_compaction_recovery_drill.ps1`, `tools/validate_r16_restart_compaction_recovery_drill.ps1`, `tests/test_r16_restart_compaction_recovery_drill.ps1`, generated state artifact `state/workflow/r16_restart_compaction_recovery_drill.json`, fixtures under `tests/fixtures/r16_restart_compaction_recovery_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/`. R16-023 adds bounded role-handoff drill reporting only through `contracts/workflow/r16_role_handoff_drill.contract.json`, `tools/R16RoleHandoffDrill.psm1`, `tools/new_r16_role_handoff_drill.ps1`, `tools/validate_r16_role_handoff_drill.ps1`, `tests/test_r16_role_handoff_drill.ps1`, generated state artifact `state/workflow/r16_role_handoff_drill.json`, fixtures under `tests/fixtures/r16_role_handoff_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/`. R16-024 adds bounded audit-readiness drill reporting only through `contracts/audit/r16_audit_readiness_drill.contract.json`, `tools/R16AuditReadinessDrill.psm1`, `tools/new_r16_audit_readiness_drill.ps1`, `tools/validate_r16_audit_readiness_drill.ps1`, `tests/test_r16_audit_readiness_drill.ps1`, generated state artifact `state/audit/r16_audit_readiness_drill.json`, fixtures under `tests/fixtures/r16_audit_readiness_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/`. The recovery drill report, role-handoff drill report, and audit-readiness drill report are committed generated state artifacts only. The audit-readiness drill uses exact repo-backed refs only, exact audit input count 12, proof-review ref count 5, and evidence inspection route count 7. Evidence can be inspected through exact audit/artifact map refs and proof-review refs; raw chat history is not canonical evidence, and broad/full repo scan is not used. R16-025 adds bounded friction metrics reporting only through `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`. The friction metrics report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning, captures Codex auto-compaction failures as operator-observed process evidence rather than machine proof, captures fixture bloat and compact fixture mitigation, captures the untracked-file visibility gap, captures deterministic byte/line drift, and keeps the failed-closed guard expected and unresolved. This is not external audit acceptance, not final R16 audit acceptance, not main merge, not R13 closure, not R14 caveat removal, not R15 caveat removal, not solved Codex compaction, not solved Codex reliability, not runtime execution, not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not autonomous agents, not external integrations, not executable handoffs, and not executable transitions. This is not closeout completion and not runtime execution, not runtime handoff execution, not autonomous recovery, not executable handoffs, and not executable transitions. No runtime handoff execution exists. No workflow drill execution beyond bounded report artifacts is claimed. No product runtime, runtime memory, retrieval runtime, vector search runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
+`R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is complete for bounded foundation scope through `R16-026` only. R16-026 adds a bounded final proof/review package candidate and final-head support packet only through `contracts/governance/r16_final_proof_review_package.contract.json`, `tools/R16FinalProofReviewPackage.psm1`, `tools/new_r16_final_proof_review_package.ps1`, `tools/validate_r16_final_proof_review_package.ps1`, `tests/test_r16_final_proof_review_package.ps1`, fixtures under `tests/fixtures/r16_final_proof_review_package/`, generated final proof/review package candidate `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json`, generated final evidence index `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json`, final-head support packet `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json`, and validation manifest `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/validation_manifest.md`. R16-015 implemented the exact context-load planner and generated a committed context-load plan state artifact only through `tools/R16ContextLoadPlanner.psm1`, `tools/new_r16_context_load_plan.ps1`, `tools/validate_r16_context_load_plan.ps1`, `tests/test_r16_context_load_planner.ps1`, `state/context/r16_context_load_plan.json`, fixtures under `tests/fixtures/r16_context_load_planner/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/`. R16-016 implemented a bounded context budget estimator with approximation fields through `contracts/context/r16_context_budget_estimate.contract.json`, `tools/R16ContextBudgetEstimator.psm1`, `tools/new_r16_context_budget_estimate.ps1`, `tools/validate_r16_context_budget_estimate.ps1`, `tests/test_r16_context_budget_estimator.ps1`, `state/context/r16_context_budget_estimate.json`, fixtures under `tests/fixtures/r16_context_budget_estimator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/`. R16-017 added a bounded over-budget context guard and no-full-repo-scan enforcement only through `contracts/context/r16_context_budget_guard.contract.json`, `tools/R16ContextBudgetGuard.psm1`, `tools/test_r16_context_budget_guard.ps1`, `tools/validate_r16_context_budget_guard_report.ps1`, `tests/test_r16_context_budget_guard.ps1`, `state/context/r16_context_budget_guard_report.json`, fixtures under `tests/fixtures/r16_context_budget_guard/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/`. R16-018 defines the role-run envelope contract only through `contracts/workflow/r16_role_run_envelope.contract.json`, `tools/R16RoleRunEnvelopeContract.psm1`, `tools/validate_r16_role_run_envelope_contract.ps1`, `tests/test_r16_role_run_envelope_contract.ps1`, fixtures under `tests/fixtures/r16_role_run_envelope_contract/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/`. R16-019 generated role-run envelopes as committed state artifacts only through `tools/R16RoleRunEnvelopeGenerator.psm1`, `tools/new_r16_role_run_envelopes.ps1`, `tools/validate_r16_role_run_envelopes.ps1`, `tests/test_r16_role_run_envelope_generator.ps1`, `state/workflow/r16_role_run_envelopes.json`, compact mutation fixtures under `tests/fixtures/r16_role_run_envelope_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/`. R16-020 adds bounded RACI transition gate validation/reporting only through `contracts/workflow/r16_raci_transition_gate_report.contract.json`, `tools/R16RaciTransitionGate.psm1`, `tools/test_r16_raci_transition_gate.ps1`, `tools/validate_r16_raci_transition_gate_report.ps1`, `tests/test_r16_raci_transition_gate.ps1`, generated state artifact `state/workflow/r16_raci_transition_gate_report.json`, fixtures under `tests/fixtures/r16_raci_transition_gate/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/`. R16-021 adds bounded handoff packet generation/reporting only through `contracts/workflow/r16_handoff_packet_report.contract.json`, `tools/R16HandoffPacketGenerator.psm1`, `tools/new_r16_handoff_packets.ps1`, `tools/validate_r16_handoff_packet_report.ps1`, `tests/test_r16_handoff_packet_generator.ps1`, generated state artifact `state/workflow/r16_handoff_packet_report.json`, fixtures under `tests/fixtures/r16_handoff_packet_generator/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/`. R16-022 adds bounded restart/compaction recovery drill reporting only through `contracts/workflow/r16_restart_compaction_recovery_drill.contract.json`, `tools/R16RestartCompactionRecoveryDrill.psm1`, `tools/new_r16_restart_compaction_recovery_drill.ps1`, `tools/validate_r16_restart_compaction_recovery_drill.ps1`, `tests/test_r16_restart_compaction_recovery_drill.ps1`, generated state artifact `state/workflow/r16_restart_compaction_recovery_drill.json`, fixtures under `tests/fixtures/r16_restart_compaction_recovery_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/`. R16-023 adds bounded role-handoff drill reporting only through `contracts/workflow/r16_role_handoff_drill.contract.json`, `tools/R16RoleHandoffDrill.psm1`, `tools/new_r16_role_handoff_drill.ps1`, `tools/validate_r16_role_handoff_drill.ps1`, `tests/test_r16_role_handoff_drill.ps1`, generated state artifact `state/workflow/r16_role_handoff_drill.json`, fixtures under `tests/fixtures/r16_role_handoff_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/`. R16-024 adds bounded audit-readiness drill reporting only through `contracts/audit/r16_audit_readiness_drill.contract.json`, `tools/R16AuditReadinessDrill.psm1`, `tools/new_r16_audit_readiness_drill.ps1`, `tools/validate_r16_audit_readiness_drill.ps1`, `tests/test_r16_audit_readiness_drill.ps1`, generated state artifact `state/audit/r16_audit_readiness_drill.json`, fixtures under `tests/fixtures/r16_audit_readiness_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/`. The recovery drill report, role-handoff drill report, and audit-readiness drill report are committed generated state artifacts only. The audit-readiness drill uses exact repo-backed refs only, exact audit input count 12, proof-review ref count 5, and evidence inspection route count 7. Evidence can be inspected through exact audit/artifact map refs and proof-review refs; raw chat history is not canonical evidence, and broad/full repo scan is not used. R16-025 adds bounded friction metrics reporting only through `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`. The friction metrics report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning, captures Codex auto-compaction failures as operator-observed process evidence rather than machine proof, captures fixture bloat and compact fixture mitigation, captures the untracked-file visibility gap, captures deterministic byte/line drift, and keeps the failed-closed guard expected and unresolved. This is not external audit acceptance, not final R16 audit acceptance, not main merge, not R13 closure, not R14 caveat removal, not R15 caveat removal, not solved Codex compaction, not solved Codex reliability, not runtime execution, not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not autonomous agents, not external integrations, not executable handoffs, and not executable transitions. This is not closeout completion and not runtime execution, not runtime handoff execution, not autonomous recovery, not executable handoffs, and not executable transitions. No runtime handoff execution exists. No workflow drill execution beyond bounded report artifacts is claimed. No product runtime, runtime memory, retrieval runtime, vector search runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed.
 
 R13-001 through R13-011 remain the bounded evidence slices already recorded for opening, lifecycle contracts, issue detection, fix queue, bounded fix packet, demo failure-to-fix proof, local custom runner, skill registry/invocations, current control-room artifacts, operator demo, and passed/imported external replay. R13-012 adds bounded signoff evidence at `state/signoff/r13_meaningful_qa_signoff/`, with decision `accepted_bounded_scope`, aggregate verdict `passed`, and scope `bounded R13 representative QA failure-to-fix loop and evidence-backed operator workflow slice`. R13-013 adds bounded repo-truth continuity mitigation evidence at `state/continuity/r13_compaction_mitigation/`, records `accepted_as_generation_identity_not_current_identity`, cites signoff generation head `fb2179bb7b66d3d7dd1fd4eb2683aed825f01577` and durable R13-012 commit head `9f80291b0f3049ec1dd15635079705db031383fd`, and does not solve Codex compaction generally.
 
@@ -26,7 +32,7 @@ R13-014 adds the cycle evidence package only through `state/cycles/r13_api_first
 
 The meaningful QA loop hard gate is delivered only for that bounded representative scope, not for full product or production QA. API/custom-runner bypass, current operator control-room, skill invocation evidence, and operator demo remain partial. R13-018 is an operator report artifact only, R13 is not closed, and R14 does not change any R13 partial gate status. `runner.external_replay` is registered but not executed, and `control_room.refresh` is registered but not executed.
 
-Current R16 status: R16 active through R16-026 only. R16-026 produces a bounded final proof/review package candidate and final-head support packet only. R16-016 implemented a bounded context budget estimator with approximation fields. R16-017 adds bounded over-budget/no-full-repo-scan guard only. R16-018 defines the role-run envelope contract only. R16-019 generated role-run envelopes as committed state artifacts only. R16-020 adds bounded RACI transition gate validation/reporting only. R16-021 adds bounded handoff packet generation/reporting only. R16-022 adds bounded restart/compaction recovery drill reporting only. R16-023 adds bounded role-handoff drill reporting only. R16-024 adds bounded audit-readiness drill reporting only. R16-025 adds bounded friction metrics reporting only. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. `state/context/r16_context_budget_estimate.json` is a committed generated context budget estimate state artifact only. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. `state/workflow/r16_role_run_envelopes.json` is a committed generated role-run envelope state artifact only. `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only. `state/workflow/r16_handoff_packet_report.json` is a committed generated handoff packet report state artifact only. `state/workflow/r16_restart_compaction_recovery_drill.json` is a committed generated restart/compaction recovery drill state artifact only. `state/workflow/r16_role_handoff_drill.json` is a committed generated role-handoff drill state artifact only. `state/audit/r16_audit_readiness_drill.json` is a committed generated audit-readiness drill state artifact only. `state/governance/r16_friction_metrics_report.json` is a committed generated friction metrics report state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json` is a committed generated final proof/review package candidate state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json` is a committed generated final evidence index state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json` is a committed generated final-head support packet state artifact only. R16-001 through R16-025 evidence refs are indexed with 25 exact evidence refs, 25 proof-review refs, and 25 validation-manifest refs. R16-026 is a candidate package/final-head support task only. Recovery uses exact repo-backed inputs only; raw chat history is not canonical state; full repo scan is not used. The role handoff chain is `project_manager -> developer -> qa -> evidence_auditor`. All core handoffs are blocked/not executable because the R16-020 transition gate blocks transitions and the R16-017 guard remains `failed_closed_over_budget`. Audit-readiness inputs are exact repo-backed refs only; exact audit input count is 12, proof-review ref count is 5, and evidence inspection route count is 7. Evidence can be inspected through exact audit/artifact map refs and proof-review refs. raw chat history is not canonical evidence, and broad/full repo scan is not used. R16-025 adds bounded friction metrics reporting only through `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`. The friction metrics report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning, captures Codex auto-compaction failures as operator-observed process evidence rather than machine proof, captures fixture bloat and compact fixture mitigation, captures the untracked-file visibility gap, captures deterministic byte/line drift, and keeps the failed-closed guard expected and unresolved. This is not external audit acceptance, not final R16 audit acceptance, not main merge, not R13 closure, not R14 caveat removal, not R15 caveat removal, not solved Codex compaction, not solved Codex reliability, not runtime execution, not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not autonomous agents, not external integrations, not executable handoffs, and not executable transitions. This is not closeout completion and not runtime execution, not runtime handoff execution, not autonomous recovery, not executable handoffs, and not executable transitions. No runtime handoff execution exists. No product runtime, runtime memory, retrieval runtime, vector search runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed. R15 remains accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted with caveats through R14-006 only.
+Current R16 status: R16 is complete for bounded foundation scope through R16-026 only. R16-026 produces a bounded final proof/review package candidate and final-head support packet only. R16-016 implemented a bounded context budget estimator with approximation fields. R16-017 adds bounded over-budget/no-full-repo-scan guard only. R16-018 defines the role-run envelope contract only. R16-019 generated role-run envelopes as committed state artifacts only. R16-020 adds bounded RACI transition gate validation/reporting only. R16-021 adds bounded handoff packet generation/reporting only. R16-022 adds bounded restart/compaction recovery drill reporting only. R16-023 adds bounded role-handoff drill reporting only. R16-024 adds bounded audit-readiness drill reporting only. R16-025 adds bounded friction metrics reporting only. `state/context/r16_context_load_plan.json` is a committed generated context-load plan state artifact only. `state/context/r16_context_budget_estimate.json` is a committed generated context budget estimate state artifact only. `state/context/r16_context_budget_guard_report.json` is a committed generated context budget guard report state artifact only. `state/workflow/r16_role_run_envelopes.json` is a committed generated role-run envelope state artifact only. `state/workflow/r16_raci_transition_gate_report.json` is a committed generated RACI transition gate report state artifact only. `state/workflow/r16_handoff_packet_report.json` is a committed generated handoff packet report state artifact only. `state/workflow/r16_restart_compaction_recovery_drill.json` is a committed generated restart/compaction recovery drill state artifact only. `state/workflow/r16_role_handoff_drill.json` is a committed generated role-handoff drill state artifact only. `state/audit/r16_audit_readiness_drill.json` is a committed generated audit-readiness drill state artifact only. `state/governance/r16_friction_metrics_report.json` is a committed generated friction metrics report state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json` is a committed generated final proof/review package candidate state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json` is a committed generated final evidence index state artifact only. `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json` is a committed generated final-head support packet state artifact only. R16-001 through R16-025 evidence refs are indexed with 25 exact evidence refs, 25 proof-review refs, and 25 validation-manifest refs. R16-026 is a candidate package/final-head support task only. Recovery uses exact repo-backed inputs only; raw chat history is not canonical state; full repo scan is not used. The role handoff chain is `project_manager -> developer -> qa -> evidence_auditor`. All core handoffs are blocked/not executable because the R16-020 transition gate blocks transitions and the R16-017 guard remains `failed_closed_over_budget`. Audit-readiness inputs are exact repo-backed refs only; exact audit input count is 12, proof-review ref count is 5, and evidence inspection route count is 7. Evidence can be inspected through exact audit/artifact map refs and proof-review refs. raw chat history is not canonical evidence, and broad/full repo scan is not used. R16-025 adds bounded friction metrics reporting only through `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`. The friction metrics report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning, captures Codex auto-compaction failures as operator-observed process evidence rather than machine proof, captures fixture bloat and compact fixture mitigation, captures the untracked-file visibility gap, captures deterministic byte/line drift, and keeps the failed-closed guard expected and unresolved. This is not external audit acceptance, not final R16 audit acceptance, not main merge, not R13 closure, not R14 caveat removal, not R15 caveat removal, not solved Codex compaction, not solved Codex reliability, not runtime execution, not runtime memory, not retrieval runtime, not vector search runtime, not product runtime, not autonomous agents, not external integrations, not executable handoffs, and not executable transitions. This is not closeout completion and not runtime execution, not runtime handoff execution, not autonomous recovery, not executable handoffs, and not executable transitions. No runtime handoff execution exists. No product runtime, runtime memory, retrieval runtime, vector search runtime, actual autonomous agents, external integrations, solved Codex compaction, or solved Codex reliability are claimed. R15 remains accepted with caveats by external audit as a bounded foundation milestone only at audited head `d9685030a0556a528684d28367db83f4c72f7fc9` and audited tree `7529230df0c1f5bec3625ba654b035a2af824e9b`. R14 remains accepted with caveats through R14-006 only.
 
 Active branch:
 `release/r16-operational-memory-artifact-map-role-workflow-foundation`
@@ -71,6 +77,258 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+### `R17-001` Install R16 external audit/R17 planning report and revised R17 release plan
+- Status: done
+- Order: 1
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: final R16 head `5bae17229ea10dee4ce072b258f828220b9d1d8d`, final R16 tree `9de1a7b733f400da78f8e683ae4111977c70f1fb`, operator approval, and approved local planning artifacts
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: `governance/reports/AIOffice_V2_R16_External_Audit_and_R17_Planning_Report_v1.md`, `governance/plans/AIOffice_V2_Revised_R17_Agentic_Operating_Surface_A2A_Runtime_Kanban_Release_Cycle_Plan_v1.md`, and `state/planning/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_001_planning_artifact_manifest.md`
+- Done when: approved operator artifacts are installed as planning/report artifacts only and no external-audit, main-merge, product-runtime, A2A-runtime, autonomous-agent, solved-Codex, or historical-boundary claim is added
+
+### `R17-002` Open R17 in repo truth
+- Status: done
+- Order: 2
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-001`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: R17 branch, R17 authority document, status-surface updates, decision-log update, and R17 task boundary through `R17-003`
+- Done when: R17 is active through `R17-003` only, `R17-004` through `R17-028` remain planned only, and R13/R14/R15/R16 boundaries are preserved
+
+### `R17-003` Add R17 KPI baseline and target scorecard
+- Status: done
+- Order: 3
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-002`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: `state/governance/r17_kpi_baseline_target_scorecard.json`, `contracts/governance/r17_kpi_baseline_target_scorecard.contract.json`, `tools/validate_r17_kpi_baseline_target_scorecard.ps1`, and `tests/test_r17_kpi_baseline_target_scorecard.ps1`
+- Done when: the ten-domain R17 KPI baseline/target scorecard validates, target scores remain future requirements only, and no R17-004-or-later implementation is claimed
+
+### `R17-004` Define governed card contract
+- Status: planned
+- Order: 4
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-003`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card fields, lanes, owner, current agent, packet refs, evidence refs, blockers, and user decision fields fail closed when invalid
+
+### `R17-005` Define board state and board event contracts
+- Status: planned
+- Order: 5
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-004`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves board events can replay into board state deterministically
+
+### `R17-006` Implement board state store and event ledger
+- Status: planned
+- Order: 6
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-005`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card creation, assignment, movement, blocker, and closure-request events validate
+
+### `R17-007` Build Kanban interface MVP
+- Status: planned
+- Order: 7
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-006`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves the operator can see the required R17 lanes and current card state
+
+### `R17-008` Add card detail evidence drawer
+- Status: planned
+- Order: 8
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-007`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card detail shows packet, memory refs, Dev output, QA result, audit verdict, tool-call log, and evidence refs
+
+### `R17-009` Define Orchestrator identity and authority contract
+- Status: planned
+- Order: 9
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-008`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves Orchestrator can create and route cards and invoke adapters without closing without user approval or bypassing QA/audit
+
+### `R17-010` Implement Orchestrator loop state machine
+- Status: planned
+- Order: 10
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-009`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves approved card states validate from intake through closed or blocked
+
+### `R17-011` Add operator interaction endpoint/surface
+- Status: planned
+- Order: 11
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-010`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves one operator instruction creates a card and task packet
+
+### `R17-012` Define agent registry and identity packets
+- Status: planned
+- Order: 12
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-011`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves required agents have identity, authority, tool, memory, and output definitions
+
+### `R17-013` Implement R16 memory/artifact map loader for live agents
+- Status: planned
+- Order: 13
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-012`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves agent packets load only approved memory/artifact refs and avoid broad repo scans in the happy path
+
+### `R17-014` Define agent invocation log
+- Status: planned
+- Order: 14
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-013`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves every invocation records timestamp, card ID, agent ID, input/output refs, status, and evidence ref
+
+### `R17-015` Define common tool adapter contract
+- Status: planned
+- Order: 15
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-014`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves adapters fail closed on missing packet refs, unapproved tool, or missing output status
+
+### `R17-016` Implement Developer/Codex executor adapter
+- Status: planned
+- Order: 16
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-015`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves Orchestrator sends bounded implementation packets and receives captured output, diff, and status
+
+### `R17-017` Implement QA/Test Agent adapter
+- Status: planned
+- Order: 17
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-016`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves QA can pass, fail, open defects, request fixes, and cannot implement
+
+### `R17-018` Implement Evidence Auditor API adapter
+- Status: planned
+- Order: 18
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-017`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves Auditor reviews evidence and non-claims while unable to merge, close, or rewrite evidence
+
+### `R17-019` Add tool-call ledger
+- Status: planned
+- Order: 19
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-018`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves every adapter call records input packet, output packet, status, cost estimate if available, error/retry data, and evidence hash/ref
+
+### `R17-020` Define A2A message and handoff contracts
+- Status: planned
+- Order: 20
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-019`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves required message types validate
+
+### `R17-021` Implement A2A dispatcher
+- Status: planned
+- Order: 21
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-020`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves unauthorized handoffs fail closed and board events are written for dispatch and return
+
+### `R17-022` Add stop, retry, pause, block, and re-entry controls
+- Status: planned
+- Order: 22
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-021`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves failed or interrupted runs can stop, retry, block, or resume from packet, with repeated failure requiring user decision
+
+### `R17-023` Exercise Cycle 1: Orchestrator to PM/Architect to Board
+- Status: planned
+- Order: 23
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-022`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves the user submits once, a card appears, and a task packet becomes ready for Dev without manual prompt construction
+
+### `R17-024` Exercise Cycle 2: Orchestrator to Developer/Codex to Board
+- Status: planned
+- Order: 24
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-023`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card movement from Ready for Dev to In Dev to Ready for QA
+
+### `R17-025` Exercise Cycle 3: Orchestrator to QA/Test to Developer fix loop
+- Status: planned
+- Order: 25
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-024`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card movement through In QA, Fix Required, In Dev, Ready for QA, and Ready for Audit
+
+### `R17-026` Exercise Cycle 4: Orchestrator to Evidence Auditor API to Release/Closeout
+- Status: planned
+- Order: 26
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-025`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves card movement through Ready for Audit, In Audit, and Ready for User Review; closure still requires user approval
+
+### `R17-027` Add observability, friction metrics, secret/cost gates, and external replay path
+- Status: planned
+- Order: 27
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-026`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future evidence proves the operator sees active agent/tool/output, zero happy-path manual prompt transfers are measured, API keys are safe, and an external evidence path exists or is honestly blocked
+
+### `R17-028` Produce R17 final report, KPI movement package, and final proof/review package
+- Status: planned
+- Order: 28
+- Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+- Depends on: `R17-027`
+- Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
+- Durable output: planned only
+- Done when: future final validation passes, four cycles complete, non-claims are preserved, and no main-merge or external-audit overclaim is made unless evidenced
 
 ### `R16-001` Open R16 in repo truth
 - Status: done

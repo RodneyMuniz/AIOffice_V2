@@ -1,0 +1,691 @@
+{
+  "artifact_type": "r17_kpi_baseline_target_scorecard",
+  "contract_version": "v1",
+  "scorecard_id": "aioffice-r17-003-kpi-baseline-target-scorecard-v1",
+  "source_milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "source_task": "R17-003",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "generated_from_head": "5bae17229ea10dee4ce072b258f828220b9d1d8d",
+  "generated_from_tree": "9de1a7b733f400da78f8e683ae4111977c70f1fb",
+  "scoring_model_ref": {
+    "path": "governance/KPI_DOMAIN_MODEL.md",
+    "authority_class": "Class C",
+    "proof_treatment": "scoring_model_not_implementation_proof",
+    "proof_by_itself": false
+  },
+  "reporting_standard_ref": {
+    "path": "governance/MILESTONE_REPORTING_STANDARD.md",
+    "authority_class": "Class D",
+    "proof_treatment": "reporting_standard_not_implementation_proof",
+    "proof_by_itself": false
+  },
+  "planning_artifact_refs": [
+    {
+      "path": "governance/reports/AIOffice_V2_R16_External_Audit_and_R17_Planning_Report_v1.md",
+      "authority_class": "Class G",
+      "proof_treatment": "operator_audit_planning_artifact_not_proof_by_itself",
+      "proof_by_itself": false
+    },
+    {
+      "path": "governance/plans/AIOffice_V2_Revised_R17_Agentic_Operating_Surface_A2A_Runtime_Kanban_Release_Cycle_Plan_v1.md",
+      "authority_class": "Class G",
+      "proof_treatment": "operator_release_plan_not_implementation_proof",
+      "proof_by_itself": false
+    }
+  ],
+  "scorecard_mode": "baseline_and_target_not_achievement",
+  "current_posture": {
+    "active_through_task": "R17-003",
+    "complete_tasks": [
+      "R17-001",
+      "R17-002",
+      "R17-003"
+    ],
+    "planned_tasks": [
+      "R17-004",
+      "R17-005",
+      "R17-006",
+      "R17-007",
+      "R17-008",
+      "R17-009",
+      "R17-010",
+      "R17-011",
+      "R17-012",
+      "R17-013",
+      "R17-014",
+      "R17-015",
+      "R17-016",
+      "R17-017",
+      "R17-018",
+      "R17-019",
+      "R17-020",
+      "R17-021",
+      "R17-022",
+      "R17-023",
+      "R17-024",
+      "R17-025",
+      "R17-026",
+      "R17-027",
+      "R17-028"
+    ],
+    "current_achievement_scope": "R17-003 adds KPI baseline and target scorecard only; current scores reflect R16 final bounded foundation posture and exclude R17 target ambition.",
+    "r17_004_or_later_implementation_claimed": false,
+    "r17_029_or_later_task_exists": false,
+    "live_a2a_runtime_implemented": false,
+    "kanban_product_runtime_implemented": false,
+    "developer_codex_executor_adapter_runtime_implemented": false,
+    "qa_test_agent_adapter_runtime_implemented": false,
+    "evidence_auditor_api_runtime_implemented": false,
+    "four_a2a_cycles_exercised": false,
+    "product_runtime_implemented": false,
+    "production_runtime_implemented": false,
+    "actual_autonomous_agents_implemented": false,
+    "true_multi_agent_execution_implemented": false,
+    "solved_codex_compaction": false,
+    "solved_codex_reliability": false,
+    "main_merge_completed": false,
+    "external_audit_acceptance_claimed": false
+  },
+  "priority_domains": [
+    {
+      "domain": "Product Experience & Double-Diamond Workflow",
+      "current_maturity": 1.75,
+      "target_maturity": 3.5,
+      "target_uplift": 1.75,
+      "priority_reason": "R17 must make the operator workflow visible and usable through the Orchestrator and board surface.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Board & Work Orchestration",
+      "current_maturity": 3,
+      "target_maturity": 4,
+      "target_uplift": 1,
+      "priority_reason": "R17 must convert Markdown/stateful planning into a visible board/card lifecycle and event ledger.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Agent Workforce & RACI",
+      "current_maturity": 3.5,
+      "target_maturity": 4.25,
+      "target_uplift": 0.75,
+      "priority_reason": "R17 must show bounded invocations, logs, and RACI separation instead of role narration.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Knowledge, Memory & Context Compression",
+      "current_maturity": 3.5,
+      "target_maturity": 4,
+      "target_uplift": 0.5,
+      "priority_reason": "R17 must use R16 scoped memory/artifact refs in live task packets without broad scans in the happy path.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Execution Harness & QA",
+      "current_maturity": 3.25,
+      "target_maturity": 4,
+      "target_uplift": 0.75,
+      "priority_reason": "R17 must put Developer/Codex and QA/Test Agent adapters into the controlled release cycle.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Architecture & Integrations",
+      "current_maturity": 2,
+      "target_maturity": 3.5,
+      "target_uplift": 1.5,
+      "priority_reason": "R17 must implement bounded adapter architecture for Developer/Codex, QA/Test, Evidence Auditor API, and board surfaces.",
+      "target_is_achievement": false
+    },
+    {
+      "domain": "Security, Safety & Cost Controls",
+      "current_maturity": 3,
+      "target_maturity": 4,
+      "target_uplift": 1,
+      "priority_reason": "R17 must add stop/retry/re-entry, secret, cost, timeout, and runaway-loop controls.",
+      "target_is_achievement": false
+    }
+  ],
+  "domain_scores": [
+    {
+      "domain": "Product Experience & Double-Diamond Workflow",
+      "weight": 12,
+      "current_maturity": 1.75,
+      "current_score": 35,
+      "current_score_basis": "baseline/current achieved only from R16 final posture; no live R17 product surface exists yet",
+      "evidence_confidence": "D",
+      "evidence_posture": "R16 report and governance evidence; no live UI or product loop yet",
+      "evidence_cap": 40,
+      "cap_applied": true,
+      "evidence_refs": [
+        "governance/reports/AIOffice_V2_R16_External_Audit_and_R17_Planning_Report_v1.md",
+        "governance/VISION.md"
+      ],
+      "target_maturity": 3.5,
+      "target_score": 70,
+      "target_evidence_cap": 80,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires an exercised Orchestrator-to-board workflow and visible operator surface.",
+      "required_r17_closeout_evidence": [
+        "Kanban/control surface",
+        "card lifecycle evidence",
+        "operator decision gate",
+        "screenshots or equivalent artifacts"
+      ],
+      "next_correction": "Implement board and Orchestrator workflow before raising achieved product-experience maturity.",
+      "risks": [
+        "Planning docs may be mistaken for product experience.",
+        "Visible product behavior must not be claimed until exercised."
+      ]
+    },
+    {
+      "domain": "Board & Work Orchestration",
+      "weight": 12,
+      "current_maturity": 3,
+      "current_score": 60,
+      "current_score_basis": "baseline/current achieved only; R16 has role/workflow artifacts but no live board",
+      "evidence_confidence": "C",
+      "evidence_posture": "Committed R16 workflow artifacts and Markdown KANBAN, without live board runtime",
+      "evidence_cap": 60,
+      "cap_applied": true,
+      "evidence_refs": [
+        "execution/KANBAN.md",
+        "state/workflow/r16_role_run_envelopes.json",
+        "state/workflow/r16_handoff_packet_report.json"
+      ],
+      "target_maturity": 4,
+      "target_score": 80,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires live card state, board event ledger, transition validation, and UI/control surface.",
+      "required_r17_closeout_evidence": [
+        "board/card/event contracts",
+        "board state store",
+        "event replay",
+        "visible Kanban state"
+      ],
+      "next_correction": "Define card and board contracts before claiming live board orchestration.",
+      "risks": [
+        "Markdown KANBAN is not the R17 Kanban product runtime.",
+        "Board state must remain repo-bound and auditable."
+      ]
+    },
+    {
+      "domain": "Agent Workforce & RACI",
+      "weight": 14,
+      "current_maturity": 3.5,
+      "current_score": 70,
+      "current_score_basis": "baseline/current achieved only; R16 role envelopes and drills exist but are non-executable",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed role/RACI artifacts, transition gates, and blocked drill reports",
+      "evidence_cap": 70,
+      "cap_applied": true,
+      "evidence_refs": [
+        "state/workflow/r16_role_run_envelopes.json",
+        "state/workflow/r16_raci_transition_gate_report.json",
+        "state/workflow/r16_role_handoff_drill.json"
+      ],
+      "target_maturity": 4.25,
+      "target_score": 85,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires bounded A2A invocations, logs, role-bound outputs, and four audited cycles.",
+      "required_r17_closeout_evidence": [
+        "agent registry",
+        "identity packets",
+        "A2A message logs",
+        "tool-call ledger",
+        "role-bound outputs"
+      ],
+      "next_correction": "Implement agent registry and invocation logging before claiming agent workforce maturity movement.",
+      "risks": [
+        "Role labels can be mistaken for actual agents.",
+        "Fake multi-agent narration must not be accepted as proof."
+      ]
+    },
+    {
+      "domain": "Knowledge, Memory & Context Compression",
+      "weight": 12,
+      "current_maturity": 3.5,
+      "current_score": 70,
+      "current_score_basis": "baseline/current achieved only; R16 produced scoped memory/artifact/context artifacts but no live loader",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed R16 memory, artifact map, audit map, context-load, budget, and guard artifacts",
+      "evidence_cap": 70,
+      "cap_applied": true,
+      "evidence_refs": [
+        "state/memory/r16_memory_layers.json",
+        "state/artifacts/r16_artifact_map.json",
+        "state/context/r16_context_load_plan.json",
+        "state/context/r16_context_budget_guard_report.json"
+      ],
+      "target_maturity": 4,
+      "target_score": 80,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires live scoped memory loading into task packets and no broad scans in the happy path.",
+      "required_r17_closeout_evidence": [
+        "memory loader module",
+        "loaded-ref logs",
+        "task packets",
+        "context budget checks"
+      ],
+      "next_correction": "Bind R16 refs into R17 agent packets before claiming live memory/context maturity.",
+      "risks": [
+        "R16 artifacts can be mistaken for live memory runtime.",
+        "Codex compaction remains unsolved."
+      ]
+    },
+    {
+      "domain": "Execution Harness & QA",
+      "weight": 14,
+      "current_maturity": 3.25,
+      "current_score": 65,
+      "current_score_basis": "baseline/current achieved only; R16 validation is strong locally but lacks Dev/QA adapter runtime",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed local validation and proof-review packages, no Developer/Codex or QA/Test adapter runtime",
+      "evidence_cap": 70,
+      "cap_applied": true,
+      "evidence_refs": [
+        "tests/test_status_doc_gate.ps1",
+        "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/validation_manifest.md"
+      ],
+      "target_maturity": 4,
+      "target_score": 80,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires Developer/Codex adapter, QA/Test Agent adapter, defect/fix loop, and validation logs.",
+      "required_r17_closeout_evidence": [
+        "executor adapter evidence",
+        "QA adapter evidence",
+        "test results",
+        "defect/fix packets",
+        "validation logs"
+      ],
+      "next_correction": "Implement common adapter contract before claiming in-cycle execution/QA maturity.",
+      "risks": [
+        "Executor output cannot self-certify QA.",
+        "QA must not implement fixes."
+      ]
+    },
+    {
+      "domain": "Governance, Evidence & Audit",
+      "weight": 8,
+      "current_maturity": 3.5,
+      "current_score": 70,
+      "current_score_basis": "baseline/current achieved only; R16 evidence is strong but no Evidence Auditor API runtime exists",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed R16 proof-review package candidate and status gates, without external audit acceptance",
+      "evidence_cap": 80,
+      "cap_applied": true,
+      "evidence_refs": [
+        "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json",
+        "governance/MILESTONE_REPORTING_STANDARD.md"
+      ],
+      "target_maturity": 4.25,
+      "target_score": 85,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires Evidence Auditor API request/response/verdict artifacts and non-claim/rejected-claim audit.",
+      "required_r17_closeout_evidence": [
+        "audit request",
+        "audit response",
+        "audit verdict",
+        "non-claim review",
+        "final proof package"
+      ],
+      "next_correction": "Define audit adapter contract and safety metadata before claiming API audit movement.",
+      "risks": [
+        "Report text can be mistaken for audit acceptance.",
+        "External audit acceptance needs concrete request/response and verdict evidence."
+      ]
+    },
+    {
+      "domain": "Architecture & Integrations",
+      "weight": 8,
+      "current_maturity": 2,
+      "current_score": 40,
+      "current_score_basis": "baseline/current achieved only; R16 architecture is internal and adapter direction only",
+      "evidence_confidence": "D",
+      "evidence_posture": "Architecture direction and internal contracts only; no external adapters implemented",
+      "evidence_cap": 40,
+      "cap_applied": true,
+      "evidence_refs": [
+        "governance/ARCHITECTURE_AND_INTEGRATION_DIRECTION.md",
+        "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+      ],
+      "target_maturity": 3.5,
+      "target_score": 70,
+      "target_evidence_cap": 80,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires bounded adapter implementation for Developer/Codex, QA/Test, Evidence Auditor API, and board surface.",
+      "required_r17_closeout_evidence": [
+        "Codex executor adapter",
+        "QA adapter",
+        "Evidence Auditor API adapter",
+        "board surface",
+        "config/secrets/cost gates"
+      ],
+      "next_correction": "Implement adapter contracts and bounded runtime surfaces before claiming integration maturity.",
+      "risks": [
+        "Adapter direction is not adapter runtime.",
+        "External integrations remain non-claims until implemented."
+      ]
+    },
+    {
+      "domain": "Release & Environment Strategy",
+      "weight": 6,
+      "current_maturity": 3.5,
+      "current_score": 70,
+      "current_score_basis": "baseline/current achieved only; R16 has final-head support and branch discipline but no R17 release cycle runner yet",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed branch/final-head support and status discipline",
+      "evidence_cap": 80,
+      "cap_applied": true,
+      "evidence_refs": [
+        "governance/ACTIVE_STATE.md",
+        "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json"
+      ],
+      "target_maturity": 4,
+      "target_score": 80,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires exercised release-cycle runner, final package, final-head support, and validation manifest.",
+      "required_r17_closeout_evidence": [
+        "end-to-end cycle package",
+        "final report",
+        "final-head support",
+        "validation manifest"
+      ],
+      "next_correction": "Keep final proof packaging separate from current opening evidence.",
+      "risks": [
+        "R17 opening can be mistaken for closeout readiness.",
+        "Main merge remains a non-claim."
+      ]
+    },
+    {
+      "domain": "Security, Safety & Cost Controls",
+      "weight": 8,
+      "current_maturity": 3,
+      "current_score": 60,
+      "current_score_basis": "baseline/current achieved only; R16 guard/non-claim controls exist but no R17 runtime stop/cost controls yet",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed R16 context guard and non-claim controls",
+      "evidence_cap": 70,
+      "cap_applied": true,
+      "evidence_refs": [
+        "state/context/r16_context_budget_guard_report.json",
+        "governance/SECURITY_SAFETY_AND_COST_CONTROL_MODEL.md"
+      ],
+      "target_maturity": 4,
+      "target_score": 80,
+      "target_evidence_cap": 90,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires secret/cost gates plus stop/retry/re-entry controls exercised in adapter flow.",
+      "required_r17_closeout_evidence": [
+        "secret gate",
+        "cost budget",
+        "max tool calls and retries",
+        "timeouts",
+        "stop command",
+        "re-entry packet"
+      ],
+      "next_correction": "Define and exercise R17 safety controls before claiming safety maturity movement.",
+      "risks": [
+        "API keys must never be committed.",
+        "Runaway tool/API loops need fail-closed limits."
+      ]
+    },
+    {
+      "domain": "Continuous Improvement & Auto-Research",
+      "weight": 6,
+      "current_maturity": 3,
+      "current_score": 60,
+      "current_score_basis": "baseline/current achieved only; R16 friction metrics exist but are not board-visible improvement cards yet",
+      "evidence_confidence": "B",
+      "evidence_posture": "Committed R16 friction metrics report and KPI/reporting standards",
+      "evidence_cap": 70,
+      "cap_applied": true,
+      "evidence_refs": [
+        "state/governance/r16_friction_metrics_report.json",
+        "governance/KPI_DOMAIN_MODEL.md"
+      ],
+      "target_maturity": 3.75,
+      "target_score": 75,
+      "target_evidence_cap": 85,
+      "target_is_achievement": false,
+      "target_treated_as_evidence": false,
+      "target_rationale": "R17 target requires friction metrics to become board-visible cards and KPI movement evidence.",
+      "required_r17_closeout_evidence": [
+        "manual-friction counters",
+        "improvement cards",
+        "event log",
+        "KPI movement report"
+      ],
+      "next_correction": "Convert R16 friction lessons into board-visible R17 work items.",
+      "risks": [
+        "Auto-research remains governed proposal territory only.",
+        "Continuous improvement should not bypass evidence gates."
+      ]
+    }
+  ],
+  "weighted_aggregate": {
+    "mode": "current_achieved_baseline_only",
+    "score": 60.1,
+    "maturity_equivalent": 3.005,
+    "targets_included": false,
+    "achieved_scope": "Current achieved evidence through R17-003 only, based on R16 final bounded foundation posture and R17 opening artifacts."
+  },
+  "target_aggregate": {
+    "mode": "target_by_r17_closeout_not_achieved",
+    "score": 78.8,
+    "maturity_equivalent": 3.94,
+    "achieved": false,
+    "requires_future_evidence": true,
+    "target_scope": "Target maturity if future R17 tasks produce evidence by closeout."
+  },
+  "target_posture_requirements": {
+    "visible_board_card_lifecycle_required": true,
+    "orchestrator_controlled_card_creation_and_routing_required": true,
+    "developer_codex_executor_adapter_required": true,
+    "qa_test_agent_adapter_required": true,
+    "evidence_auditor_api_adapter_required": true,
+    "tool_call_ledger_required": true,
+    "agent_invocation_log_required": true,
+    "stop_retry_reentry_controls_required": true,
+    "four_exercised_a2a_cycles_required": true,
+    "zero_manual_gpt_to_codex_prompt_transfer_happy_path_by_closeout_required": true
+  },
+  "evidence_caps": {
+    "cap_rule_ref": "governance/KPI_DOMAIN_MODEL.md#5-score-cap-rules",
+    "current_scores_must_not_exceed_caps": true,
+    "targets_do_not_override_current_caps": true,
+    "score_caps_applied": true,
+    "cap_exception_claimed": false
+  },
+  "confidence_model": {
+    "allowed_values": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "ref": "governance/KPI_DOMAIN_MODEL.md#4-evidence-confidence",
+    "confidence_independent_from_maturity": true
+  },
+  "maturity_scale": [
+    {
+      "value": 0,
+      "label": "Absent"
+    },
+    {
+      "value": 1,
+      "label": "Described"
+    },
+    {
+      "value": 2,
+      "label": "Designed"
+    },
+    {
+      "value": 3,
+      "label": "Implemented"
+    },
+    {
+      "value": 4,
+      "label": "Exercised"
+    },
+    {
+      "value": 5,
+      "label": "Operationalized"
+    }
+  ],
+  "previous_reference_runs": [
+    {
+      "run_id": "R16-026",
+      "evidence_ref": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json",
+      "evidence_backed": true,
+      "metric": "bounded R16 final proof/review package candidate",
+      "comparability": "reference only; R17 scorecard records target posture for a new productization milestone"
+    }
+  ],
+  "target_not_achievement_disclaimer": {
+    "target_scores_are_achieved_scores": false,
+    "target_scores_are_current_evidence": false,
+    "target_scores_close_r17": false,
+    "target_scores_require_future_evidence": true,
+    "statement": "Targets express R17 closeout ambition only and cannot be counted as achieved implementation evidence."
+  },
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed/partial",
+      "active_through": "R13-018",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates": [
+        "API/custom-runner bypass",
+        "current operator control room",
+        "skill invocation evidence",
+        "operator demo"
+      ]
+    },
+    "r14": {
+      "status": "accepted_with_caveats",
+      "through": "R14-006",
+      "caveats_removed": false,
+      "product_runtime": false,
+      "r13_partial_gates_converted_to_passed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats",
+      "through": "R15-009",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true,
+      "stale_generated_from_caveat_files": [
+        "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/r15_final_proof_review_package.json",
+        "state/proof_reviews/r15_knowledge_base_agent_identity_memory_and_raci_foundations/r15_009_final_proof_review_package/evidence_index.json"
+      ]
+    },
+    "r16": {
+      "status": "complete_bounded_foundation_scope",
+      "through": "R16-026",
+      "final_head": "5bae17229ea10dee4ce072b258f828220b9d1d8d",
+      "final_tree": "9de1a7b733f400da78f8e683ae4111977c70f1fb",
+      "guard_posture": "failed_closed_over_budget",
+      "guard_upper_bound": 1364079,
+      "guard_threshold": 150000,
+      "external_audit_acceptance_claimed": false,
+      "main_merge_completed": false,
+      "product_runtime_implemented": false,
+      "a2a_runtime_implemented": false,
+      "autonomous_agents_implemented": false,
+      "solved_codex_compaction": false,
+      "solved_codex_reliability": false
+    }
+  },
+  "non_claims": [
+    "no external audit acceptance",
+    "no main merge",
+    "no R13 closure",
+    "no R14 caveat removal",
+    "no R15 caveat removal",
+    "no solved Codex compaction",
+    "no solved Codex reliability",
+    "no product runtime yet",
+    "no production runtime",
+    "no autonomous agents yet",
+    "no A2A runtime yet",
+    "no executable handoffs yet",
+    "no executable transitions yet",
+    "no Evidence Auditor API runtime yet",
+    "no Dev/Codex executor adapter runtime yet",
+    "no QA/Test Agent adapter runtime yet",
+    "no Kanban product runtime yet",
+    "no R17-004 or later implementation yet",
+    "KPI targets are not achieved scores"
+  ],
+  "validation_commands": [
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r17_kpi_baseline_target_scorecard.ps1 -ScorecardPath state\\governance\\r17_kpi_baseline_target_scorecard.json",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r17_kpi_baseline_target_scorecard.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+      "expected_result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "expected_result": "passed"
+    }
+  ],
+  "invalid_state_rules": [
+    {
+      "rule_id": "missing_or_extra_kpi_domain_rejected",
+      "description": "The scorecard must contain exactly the approved 10 KPI domains."
+    },
+    {
+      "rule_id": "wrong_weight_sum_rejected",
+      "description": "Domain weights must match the KPI model and sum to 100."
+    },
+    {
+      "rule_id": "invalid_maturity_or_confidence_rejected",
+      "description": "Maturity outside 0..5 and confidence outside A..E fail validation."
+    },
+    {
+      "rule_id": "score_above_cap_rejected",
+      "description": "Current achieved scores cannot exceed evidence caps."
+    },
+    {
+      "rule_id": "target_as_achievement_rejected",
+      "description": "Targets cannot be counted as achieved implementation evidence."
+    },
+    {
+      "rule_id": "r17_004_or_later_implementation_claim_rejected",
+      "description": "R17-003 cannot claim R17-004 or later implementation."
+    },
+    {
+      "rule_id": "runtime_adapter_a2a_agent_overclaims_rejected",
+      "description": "Product runtime, adapter runtime, A2A runtime, autonomous-agent, and multi-agent overclaims fail validation."
+    },
+    {
+      "rule_id": "preserved_boundary_changes_rejected",
+      "description": "R13 closure, R14 caveat removal, R15 caveat removal, R16 overclaim, main merge, or external audit acceptance fail validation."
+    }
+  ]
+}

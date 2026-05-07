@@ -24,7 +24,19 @@ else {
     ("R8-{0} through R8-{1} planned" -f $validation.PlannedStart.ToString("000"), $validation.PlannedThrough.ToString("000"))
 }
 
-if ($validation.R16Opened) {
+if ($validation.R17Opened) {
+    $r17PlannedSummary = if ($null -eq $validation.R17PlannedStart) {
+        "no planned R17 successor task"
+    }
+    elseif ($validation.R17PlannedStart -eq $validation.R17PlannedThrough) {
+        ("R17-{0} planned" -f $validation.R17PlannedStart.ToString("000"))
+    }
+    else {
+        ("R17-{0} through R17-{1} planned" -f $validation.R17PlannedStart.ToString("000"), $validation.R17PlannedThrough.ToString("000"))
+    }
+    Write-Output ("VALID: status-doc gate records R8 closed with tasks through R8-{0} complete, most recently closed milestone '{1}', R10 through R10-{2} closed, R11 through R11-{3} closed, R12 through R12-{4} closed, R13 failed/partial through R13-{5} only, R14 accepted with caveats through R14-{6}, R15 accepted with caveats through R15-{7}, R16 complete through R16-{8}, and active milestone '{9}' through R17-{10} with {11}; R17-004 or later implementation claims, external audit acceptance, main merge, R13 closure, R14/R15 caveat removal, product/production runtime, autonomous-agent runtime, A2A runtime, executable handoff/transition, adapter-runtime, Kanban product runtime, and solved-Codex claims are rejected." -f $validation.DoneThrough.ToString("000"), $validation.MostRecentlyClosedMilestone, $validation.R10DoneThrough.ToString("000"), $validation.R11DoneThrough.ToString("000"), $validation.R12DoneThrough.ToString("000"), $validation.R13DoneThrough.ToString("000"), $validation.R14DoneThrough.ToString("000"), $validation.R15DoneThrough.ToString("000"), $validation.R16DoneThrough.ToString("000"), $validation.ActiveMilestone, $validation.R17DoneThrough.ToString("000"), $r17PlannedSummary)
+}
+elseif ($validation.R16Opened) {
     $r16PlannedSummary = if ($null -eq $validation.R16PlannedStart) {
         "no planned R16 successor task"
     }
