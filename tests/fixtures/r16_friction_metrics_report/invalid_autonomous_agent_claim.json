@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_autonomous_agent_claim",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.current_posture.autonomous_agents_exist",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "autonomous-agent claim"
+                         ]
+}

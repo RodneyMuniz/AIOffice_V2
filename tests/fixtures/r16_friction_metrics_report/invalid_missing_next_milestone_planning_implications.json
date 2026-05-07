@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_next_milestone_planning_implications",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.next_milestone_planning_implications",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027next_milestone_planning_implications\u0027"
+                         ]
+}

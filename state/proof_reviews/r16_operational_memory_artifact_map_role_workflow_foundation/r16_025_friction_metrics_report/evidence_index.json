@@ -1,0 +1,129 @@
+{
+  "artifact_type": "r16_025_friction_metrics_report_evidence_index",
+  "source_task": "R16-025",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "contract": "contracts/governance/r16_friction_metrics_report.contract.json",
+  "validator_module": "tools/R16FrictionMetricsReport.psm1",
+  "generator_cli": "tools/new_r16_friction_metrics_report.ps1",
+  "report_validator_cli": "tools/validate_r16_friction_metrics_report.ps1",
+  "focused_test": "tests/test_r16_friction_metrics_report.ps1",
+  "state_artifact": "state/governance/r16_friction_metrics_report.json",
+  "fixtures": {
+    "valid_fixture": "tests/fixtures/r16_friction_metrics_report/valid_friction_metrics_report.json",
+    "invalid_fixture_glob": "tests/fixtures/r16_friction_metrics_report/invalid_*.json",
+    "invalid_fixture_format": "compact mutation spec with fixture_id, base_fixture, mutation_path, mutation_value, and expected_failure"
+  },
+  "exact_metric_input_refs": [
+    "state/context/r16_context_load_plan.json",
+    "state/context/r16_context_budget_estimate.json",
+    "state/context/r16_context_budget_guard_report.json",
+    "state/memory/r16_role_memory_packs.json",
+    "state/workflow/r16_role_run_envelopes.json",
+    "state/workflow/r16_raci_transition_gate_report.json",
+    "state/workflow/r16_handoff_packet_report.json",
+    "state/workflow/r16_restart_compaction_recovery_drill.json",
+    "state/workflow/r16_role_handoff_drill.json",
+    "state/audit/r16_audit_readiness_drill.json",
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+  ],
+  "proof_review_refs": [
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/proof_review.json",
+    "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/proof_review.json"
+  ],
+  "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/proof_review.json",
+  "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/validation_manifest.md",
+  "status_surfaces_changed": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md",
+    "governance/DOCUMENT_AUTHORITY_INDEX.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "tools/StatusDocGate.psm1",
+    "tools/validate_status_doc_gate.ps1",
+    "tools/R16PlanningAuthorityReference.psm1",
+    "tests/test_status_doc_gate.ps1",
+    "tests/test_r16_planning_authority_reference.ps1",
+    "tests/test_r16_kpi_baseline_target_scorecard.ps1",
+    "tests/test_r16_memory_layer_contract.ps1"
+  ],
+  "deterministic_generated_artifacts": [
+    "state/governance/r16_friction_metrics_report.json",
+    "tests/fixtures/r16_friction_metrics_report/valid_friction_metrics_report.json"
+  ],
+  "deterministic_regenerated_due_to_status_drift": [
+    "state/context/r16_context_budget_estimate.json",
+    "state/context/r16_context_budget_guard_report.json",
+    "state/workflow/r16_role_run_envelopes.json",
+    "state/workflow/r16_raci_transition_gate_report.json",
+    "state/workflow/r16_handoff_packet_report.json",
+    "state/workflow/r16_restart_compaction_recovery_drill.json",
+    "state/workflow/r16_role_handoff_drill.json",
+    "state/audit/r16_audit_readiness_drill.json",
+    "state/governance/r16_friction_metrics_report.json"
+  ],
+  "deterministic_fixture_refreshes_due_to_status_drift": [
+    "tests/fixtures/r16_context_budget_estimator/valid_context_budget_estimate.json",
+    "tests/fixtures/r16_context_budget_guard/current_over_budget_estimate.fixture.json",
+    "tests/fixtures/r16_role_run_envelope_generator/valid_role_run_envelopes.json",
+    "tests/fixtures/r16_raci_transition_gate/valid_raci_transition_gate_report.json",
+    "tests/fixtures/r16_handoff_packet_generator/valid_handoff_packet_report.json",
+    "tests/fixtures/r16_restart_compaction_recovery_drill/valid_restart_compaction_recovery_drill.json",
+    "tests/fixtures/r16_role_handoff_drill/valid_role_handoff_drill.json",
+    "tests/fixtures/r16_audit_readiness_drill/valid_audit_readiness_drill.json",
+    "tests/fixtures/r16_friction_metrics_report/valid_friction_metrics_report.json"
+  ],
+  "guard_posture": {
+    "guard_verdict": "failed_closed_over_budget",
+    "initial_guard_upper_bound_before_status_regeneration": 1349301,
+    "latest_accepted_guard_upper_bound": 1356909,
+    "threshold": 150000,
+    "failed_closed_guard_is_expected_signal": true,
+    "failed_closed_guard_is_unresolved": true
+  },
+  "friction_categories": [
+    "codex_auto_compaction_failures",
+    "fixture_bloat_full_copy_invalids",
+    "untracked_file_visibility_gap",
+    "deterministic_byte_line_drift",
+    "validator_allowlist_update_cost",
+    "finalization_split_pressure",
+    "powershell_tooling_friction",
+    "large_generated_json_context_pressure",
+    "failed_closed_guard_is_expected",
+    "runtime_non_solution_boundary"
+  ],
+  "next_milestone_planning_implications": [
+    "split_finalization_b1_b2",
+    "keep_compact_fixture_strategy",
+    "preserve_untracked_line_counting",
+    "prefer_targeted_field_extraction",
+    "treat_failed_closed_guard_as_expected_signal",
+    "keep_future_task_allowlists_narrow"
+  ],
+  "non_claims": [
+    "R16-025 adds bounded friction metrics reporting only.",
+    "The friction metrics report is a committed generated state artifact only.",
+    "Codex auto-compaction failures are operator-observed process evidence, not machine proof.",
+    "Failed-closed guard remains expected and unresolved.",
+    "No final R16 audit acceptance, closeout completion, or final proof package completion is claimed.",
+    "No runtime execution, executable handoffs, or executable transitions exist.",
+    "No runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, or external integrations are claimed.",
+    "No solved Codex compaction or solved Codex reliability is claimed.",
+    "R16-026 remains planned only.",
+    "R13 remains failed/partial and not closed.",
+    "R14 caveats remain preserved.",
+    "R15 caveats remain preserved."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_absolute_path",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.exact_metric_inputs[0].path",
+    "mutation_value":  "C:/tmp/r16_friction_metrics_report.json",
+    "expected_failure":  [
+                             "absolute path"
+                         ]
+}

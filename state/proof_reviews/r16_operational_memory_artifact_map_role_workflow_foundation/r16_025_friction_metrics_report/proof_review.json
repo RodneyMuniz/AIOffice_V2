@@ -1,0 +1,132 @@
+{
+  "artifact_type": "r16_025_friction_metrics_report_proof_review",
+  "source_task": "R16-025",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "previous_remote_baseline": "1095788c2f6dc54e021b2507561f1c5a53494a08",
+  "scope_verdict": "accepted_bounded_friction_metrics_report_only_with_guard_failed_closed",
+  "scope_statement": "R16-025 adds bounded friction metrics reporting only.",
+  "contract_path": "contracts/governance/r16_friction_metrics_report.contract.json",
+  "validator_module_path": "tools/R16FrictionMetricsReport.psm1",
+  "generator_cli_path": "tools/new_r16_friction_metrics_report.ps1",
+  "report_validator_cli_path": "tools/validate_r16_friction_metrics_report.ps1",
+  "focused_test_path": "tests/test_r16_friction_metrics_report.ps1",
+  "state_artifact_path": "state/governance/r16_friction_metrics_report.json",
+  "fixture_root": "tests/fixtures/r16_friction_metrics_report/",
+  "report_summary": {
+    "report_id": "aioffice-r16-025-friction-metrics-report-v1",
+    "aggregate_verdict": "passed_bounded_friction_metrics_report_with_guard_failed_closed",
+    "guard_verdict": "failed_closed_over_budget",
+    "initial_guard_upper_bound_before_status_regeneration": 1349301,
+    "latest_accepted_guard_upper_bound": 1356909,
+    "threshold": 150000,
+    "state_artifact_treatment": "committed generated friction metrics report state artifact only",
+    "captures_operational_friction": true,
+    "captures_context_pressure": true,
+    "codex_auto_compaction_failures_evidence_class": "operator_observed_process_evidence",
+    "codex_auto_compaction_failures_machine_proof": false,
+    "failed_closed_guard_is_expected_signal": true,
+    "failed_closed_guard_is_unresolved": true
+  },
+  "friction_categories": [
+    "codex_auto_compaction_failures",
+    "fixture_bloat_full_copy_invalids",
+    "untracked_file_visibility_gap",
+    "deterministic_byte_line_drift",
+    "validator_allowlist_update_cost",
+    "finalization_split_pressure",
+    "powershell_tooling_friction",
+    "large_generated_json_context_pressure",
+    "failed_closed_guard_is_expected",
+    "runtime_non_solution_boundary"
+  ],
+  "next_milestone_planning_implications": [
+    "split_finalization_b1_b2",
+    "keep_compact_fixture_strategy",
+    "preserve_untracked_line_counting",
+    "prefer_targeted_field_extraction",
+    "treat_failed_closed_guard_as_expected_signal",
+    "keep_future_task_allowlists_narrow"
+  ],
+  "evidence_policy": {
+    "exact_repo_backed_artifacts_are_canonical_metric_inputs": true,
+    "operator_observed_process_evidence_is_machine_proof": false,
+    "raw_chat_history_is_canonical_evidence": false,
+    "broad_repo_scan_used": false,
+    "full_repo_scan_used": false,
+    "generated_friction_metrics_report_is_machine_proof": false
+  },
+  "current_posture": {
+    "active_through_task": "R16-025",
+    "active_through_scope": "R16-025 bounded friction metrics reporting only",
+    "r16_026_planned_only": true,
+    "planned_tasks": [
+      "R16-026"
+    ],
+    "friction_metrics_report_exists": true,
+    "generated_friction_metrics_report_is_state_artifact_only": true,
+    "final_r16_audit_acceptance_claimed": false,
+    "closeout_completion_claimed": false,
+    "final_proof_package_completion_claimed": false,
+    "runtime_execution_exists": false,
+    "runtime_memory_exists": false,
+    "retrieval_runtime_exists": false,
+    "vector_search_runtime_exists": false,
+    "product_runtime_exists": false,
+    "autonomous_agents_exist": false,
+    "external_integrations_exist": false,
+    "executable_handoffs_exist": false,
+    "executable_transitions_exist": false,
+    "solved_codex_compaction_claimed": false,
+    "solved_codex_reliability_claimed": false
+  },
+  "validation_summary": {
+    "status": "passed_r16_025b_focused_and_dependent_validation_sweep",
+    "deterministic_regeneration_required": true,
+    "regeneration_reason": "Narrow R16-025 status edits changed deterministic byte and line metrics, cascading the guard upper bound from 1349301 to 1356909 while preserving threshold 150000 and failed_closed_over_budget posture.",
+    "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/validation_manifest.md"
+  },
+  "non_claims": [
+    "R16-025 adds bounded friction metrics reporting only.",
+    "state/governance/r16_friction_metrics_report.json is a committed generated friction metrics report state artifact only.",
+    "The report captures R16 operational friction and context pressure for final R16 audit and next-milestone planning.",
+    "The report captures Codex auto-compaction failures as operator-observed process evidence, not machine proof.",
+    "The report captures fixture bloat and compact fixture mitigation.",
+    "The report captures the untracked-file visibility gap.",
+    "The report captures deterministic byte/line drift and regeneration cascade cost.",
+    "The report captures validator allowlist update cost.",
+    "The report captures finalization split pressure.",
+    "The report captures PowerShell/tooling friction.",
+    "The report captures large generated JSON context pressure.",
+    "The failed-closed guard remains an expected signal, not a failed task.",
+    "The report captures runtime non-solution boundaries.",
+    "No final R16 audit acceptance is claimed.",
+    "No closeout completion is claimed.",
+    "No final proof package completion is claimed.",
+    "No runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, or external integrations are claimed.",
+    "No executable handoffs or executable transitions are claimed.",
+    "No solved Codex compaction or solved Codex reliability is claimed.",
+    "R16-026 remains planned only.",
+    "R13 remains failed/partial and not closed.",
+    "R14 caveats remain preserved.",
+    "R15 caveats remain preserved."
+  ],
+  "preserved_boundaries": {
+    "r13": {
+      "status": "failed_partial_through_r13_018_only",
+      "closed": false,
+      "partial_gates_remain_partial": true,
+      "partial_gates_converted_to_passed": false
+    },
+    "r14": {
+      "status": "accepted_with_caveats_through_r14_006_only",
+      "caveats_removed": false
+    },
+    "r15": {
+      "status": "accepted_with_caveats_through_r15_009_only",
+      "caveats_removed": false,
+      "stale_generated_from_caveat_preserved": true
+    }
+  }
+}

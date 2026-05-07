@@ -90,13 +90,13 @@ try {
     }
 
     $status = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if (-not $status.R16Opened -or $status.R16DoneThrough -ne 24 -or $status.R16PlannedStart -ne 25 -or $status.R16PlannedThrough -ne 26) {
-        $failures += "FAIL status posture: expected R16 active through R16-024 only with R16-025 through R16-026 planned only."
-    }
-    else {
-        Write-Output "PASS status posture: R16 active through R16-024 only; R16-025 through R16-026 remain planned only."
-        $validPassed += 1
-    }
+if (-not $status.R16Opened -or $status.R16DoneThrough -ne 25 -or $status.R16PlannedStart -ne 26 -or $status.R16PlannedThrough -ne 26) {
+    $failures += "FAIL status posture: expected R16 active through R16-025 only with R16-026 planned only."
+}
+else {
+    Write-Output "PASS status posture: R16 active through R16-025 only; R16-026 remains planned only."
+    $validPassed += 1
+}
 
     $expectedInvalidFragments = @{
         "missing-kpi-domain.invalid.json" = @("domain_scores", "domains")

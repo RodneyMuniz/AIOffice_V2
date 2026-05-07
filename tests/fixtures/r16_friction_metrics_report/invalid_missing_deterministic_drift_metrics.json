@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_deterministic_drift_metrics",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.deterministic_drift_metrics",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027deterministic_drift_metrics\u0027"
+                         ]
+}

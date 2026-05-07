@@ -1,6 +1,6 @@
 # R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation
 
-**Milestone status:** Active in repo truth through `R16-024` only
+**Milestone status:** Active in repo truth through `R16-025` only
 **Source R15 branch:** `release/r15-knowledge-base-agent-identity-memory-raci-foundations`
 **Starting head:** `3058bd6ed5067c97f744c92b9b9235004f0568b0`
 **Starting tree:** `045886694b19b90f70f08bcffc0e1b321b5c28a0`
@@ -505,8 +505,10 @@ Required evidence deliverables:
 - Durable output: `contracts/audit/r16_audit_readiness_drill.contract.json`, `tools/R16AuditReadinessDrill.psm1`, `tools/new_r16_audit_readiness_drill.ps1`, `tools/validate_r16_audit_readiness_drill.ps1`, `tests/test_r16_audit_readiness_drill.ps1`, generated state artifact `state/audit/r16_audit_readiness_drill.json`, fixtures under `tests/fixtures/r16_audit_readiness_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/`.
 
 ### `R16-025` Capture friction metrics: loaded files, exact refs, manual steps, context budget, restart recovery steps, stale-ref findings
-- Status: planned
-- Purpose: measure operational friction reduction in bounded drills.
+- Status: done
+- Purpose: record bounded friction metrics reporting only for R16 operational friction and context pressure, with Codex auto-compaction failures captured as operator-observed process evidence rather than machine proof.
+- Durable output: `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`.
+- Done when: bounded friction metrics reporting exists as a committed generated state artifact only, captures operational friction and context-pressure findings for final R16 audit and next-milestone planning, captures fixture bloat and compact fixture mitigation, captures the untracked-file visibility gap, captures deterministic byte/line drift and regeneration cascade cost, keeps the guard `failed_closed_over_budget` as an expected unresolved signal, and makes no final audit acceptance, closeout completion, final proof package completion, runtime execution, runtime memory, retrieval/vector runtime, product runtime, autonomous agents, external integrations, executable handoff, executable transition, solved Codex compaction, solved Codex reliability, R16-026 implementation, or R13/R14/R15 boundary weakening claim.
 
 ### `R16-026` Produce R16 final proof/review package and final-head support packet
 - Status: planned
@@ -547,8 +549,8 @@ Status gates must accept:
 - R13 failed/partial through `R13-018` only.
 - R14 accepted with caveats through `R14-006` only.
 - R15 accepted with caveats through `R15-009` only.
-- R16 active through `R16-024` only.
-- `R16-025` through `R16-026` remain planned only.
+- R16 active through `R16-025` only.
+- `R16-026` remains planned only.
 - deterministic baseline memory layer generation exists as state artifact evidence only, not runtime memory.
 - role-specific memory pack model exists as model/state evidence only.
 - generated baseline role memory packs exist as committed state artifacts only, not runtime memory and not actual agents.
@@ -620,11 +622,17 @@ Status gates must accept:
 - audit inputs are exact repo-backed refs only, exact audit input count is 12, proof-review ref count is 5, and evidence inspection route count is 7.
 - evidence can be inspected through exact audit/artifact map refs and proof-review refs.
 - raw chat history is not canonical evidence, and broad/full repo scan is not used.
+- R16-025 adds bounded friction metrics reporting only.
+- `state/governance/r16_friction_metrics_report.json` is a committed generated friction metrics report state artifact only.
+- the report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning.
+- Codex auto-compaction failures are captured as operator-observed process evidence, not machine proof.
+- the report captures fixture bloat and compact fixture mitigation, the untracked-file visibility gap, deterministic byte/line drift, regeneration cascade cost, validator allowlist update cost, finalization split pressure, PowerShell/tooling friction, large generated JSON context pressure, failed-closed guard posture, and runtime non-solution boundaries.
+- the failed-closed guard remains expected and unresolved.
 - this is not final R16 audit acceptance, not closeout completion, and not final proof package completion.
 
 Status gates must reject:
 
-- reject `R16-025` or later implementation claims.
+- reject `R16-026` implementation, final proof, or closeout claims.
 - reject exact provider token count claims.
 - reject exact provider billing claims.
 - `R16-027` or later tasks.
@@ -1097,3 +1105,28 @@ R16-024 is accepted only if:
 - focused R16-024 validation, dependent R16 validations, status gates, and posture validators pass.
 
 After R16-024, R16 is active through `R16-024` only. `R16-025` through `R16-026` remain planned only. R16-024 adds bounded audit-readiness drill reporting only through `contracts/audit/r16_audit_readiness_drill.contract.json`, `tools/R16AuditReadinessDrill.psm1`, `tools/new_r16_audit_readiness_drill.ps1`, `tools/validate_r16_audit_readiness_drill.ps1`, `tests/test_r16_audit_readiness_drill.ps1`, generated state artifact `state/audit/r16_audit_readiness_drill.json`, fixtures under `tests/fixtures/r16_audit_readiness_drill/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/`. `state/audit/r16_audit_readiness_drill.json` is a committed generated audit-readiness drill state artifact only. Audit inputs are exact repo-backed refs only. Exact audit input count is 12, proof-review ref count is 5, and evidence inspection route count is 7. Evidence can be inspected through exact audit/artifact map refs and proof-review refs. Raw chat history is not canonical evidence, and broad/full repo scan is not used. This does not claim final R16 audit acceptance, closeout completion, final proof package completion, runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.
+
+R16-025 is accepted only if:
+
+- the friction metrics report contract exists at `contracts/governance/r16_friction_metrics_report.contract.json`;
+- the friction metrics report module exists at `tools/R16FrictionMetricsReport.psm1`;
+- the generator CLI exists at `tools/new_r16_friction_metrics_report.ps1`;
+- the report validator CLI exists at `tools/validate_r16_friction_metrics_report.ps1`;
+- the focused friction metrics report test exists at `tests/test_r16_friction_metrics_report.ps1`;
+- the generated report exists at `state/governance/r16_friction_metrics_report.json` as a committed generated friction metrics report state artifact only;
+- fixture coverage exists under `tests/fixtures/r16_friction_metrics_report/`;
+- the proof-review package exists at `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`;
+- Codex auto-compaction failures are captured as operator-observed process evidence, not machine proof;
+- fixture bloat and compact fixture mitigation are captured;
+- the untracked-file visibility gap is captured;
+- deterministic byte/line drift and regeneration cascade cost are captured;
+- validator allowlist update cost, finalization split pressure, PowerShell/tooling friction, large generated JSON context pressure, failed-closed guard posture, and runtime non-solution boundaries are captured;
+- next-milestone planning implications are explicit;
+- the guard remains `failed_closed_over_budget` with threshold `150000`;
+- the failed-closed guard remains an expected unresolved signal, not a failed task;
+- no final R16 audit acceptance, closeout completion, final proof package completion, runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability is claimed;
+- `R16-026` remains planned only;
+- R13 failed/partial and R14/R15 caveated postures are preserved;
+- focused R16-025 validation, dependent R16 validations, status gates, and posture validators pass.
+
+After R16-025, R16 is active through `R16-025` only. `R16-026` remains planned only. R16-025 adds bounded friction metrics reporting only through `contracts/governance/r16_friction_metrics_report.contract.json`, `tools/R16FrictionMetricsReport.psm1`, `tools/new_r16_friction_metrics_report.ps1`, `tools/validate_r16_friction_metrics_report.ps1`, `tests/test_r16_friction_metrics_report.ps1`, generated state artifact `state/governance/r16_friction_metrics_report.json`, fixtures under `tests/fixtures/r16_friction_metrics_report/`, and proof-review package `state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/`. `state/governance/r16_friction_metrics_report.json` is a committed generated friction metrics report state artifact only. The report captures operational friction and context-pressure findings for final R16 audit and next-milestone planning. Codex auto-compaction failures are captured as operator-observed process evidence, not machine proof. The report captures fixture bloat and compact fixture mitigation, the untracked-file visibility gap, deterministic byte/line drift and regeneration cascade cost, validator allowlist update cost, finalization split pressure, PowerShell/tooling friction, large generated JSON context pressure, the failed-closed guard as expected and unresolved, and runtime non-solution boundaries. This does not claim final R16 audit acceptance, closeout completion, final proof package completion, runtime execution, runtime memory, retrieval runtime, vector search runtime, product runtime, autonomous agents, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.

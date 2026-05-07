@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_exact_provider_billing_claim",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.context_budget_history.exact_provider_billing_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "exact provider billing claim"
+                         ]
+}

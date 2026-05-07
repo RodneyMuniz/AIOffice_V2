@@ -60,13 +60,13 @@ try {
     }
 
     $statusSnapshot = & $assertStatus -RepositoryRoot $repoRoot
-    if ($statusSnapshot.DoneThrough -ne 24 -or $statusSnapshot.PlannedStart -ne 25 -or $statusSnapshot.PlannedThrough -ne 26) {
-        $failures += "FAIL status posture: expected R16 active through R16-024 only with R16-025 through R16-026 planned only."
-    }
-    else {
-        Write-Output "PASS status posture: R16 active through R16-024 only; R16-025 through R16-026 remain planned only."
-        $validPassed += 1
-    }
+if ($statusSnapshot.DoneThrough -ne 25 -or $statusSnapshot.PlannedStart -ne 26 -or $statusSnapshot.PlannedThrough -ne 26) {
+    $failures += "FAIL status posture: expected R16 active through R16-025 only with R16-026 planned only."
+}
+else {
+    Write-Output "PASS status posture: R16 active through R16-025 only; R16-026 remains planned only."
+    $validPassed += 1
+}
 
     if ($stateResult.NonClaims -notcontains "no memory layers implemented yet" -or $stateResult.NonClaims -notcontains "no artifact maps implemented yet" -or $stateResult.NonClaims -notcontains "no role-run envelopes implemented yet") {
         $failures += "FAIL non-claims: expected explicit no memory layer, no artifact map, and no role-run envelope implementation statements."

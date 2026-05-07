@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r13_closure_or_partial_gate_conversion_claim",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.preserved_boundaries.r13.closed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R13 closure or partial-gate conversion claim"
+                         ]
+}

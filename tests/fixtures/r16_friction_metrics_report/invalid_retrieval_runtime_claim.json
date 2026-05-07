@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_retrieval_runtime_claim",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.current_posture.retrieval_runtime_exists",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "retrieval runtime claim"
+                         ]
+}

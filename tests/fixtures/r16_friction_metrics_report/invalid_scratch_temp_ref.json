@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_scratch_temp_ref",
+    "base_fixture":  "valid_friction_metrics_report.json",
+    "mutation_path":  "$.exact_metric_inputs[0].path",
+    "mutation_value":  "scratch/r16_friction_metrics.tmp.json",
+    "expected_failure":  [
+                             "scratch/temp path"
+                         ]
+}
