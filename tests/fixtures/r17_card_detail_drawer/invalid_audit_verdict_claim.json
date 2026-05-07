@@ -1,0 +1,1 @@
+{"operation":"set","path":["output_placeholders","audit_verdict","status"],"value":"accepted","expected_fragment":"audit_verdict"}

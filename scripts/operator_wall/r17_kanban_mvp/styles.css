@@ -191,6 +191,13 @@ main {
   box-shadow: var(--shadow);
 }
 
+.kanban-card:focus,
+.kanban-card.is-selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
 .card-title {
   display: grid;
   gap: 7px;
@@ -237,6 +244,114 @@ main {
   gap: 14px;
 }
 
+.card-detail-drawer {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background: #fbfcf8;
+  box-shadow: var(--shadow);
+}
+
+.drawer-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-heading h2 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.drawer-status {
+  display: grid;
+  gap: 4px;
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.drawer-status span,
+.drawer-status strong {
+  overflow-wrap: anywhere;
+}
+
+.drawer-status span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.drawer-status strong {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.drawer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
+.detail-block {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.detail-block h3 {
+  margin-top: 0;
+}
+
+.identity-block,
+.event-block,
+.evidence-block {
+  grid-column: span 2;
+}
+
+.placeholder-block {
+  border-top: 3px solid var(--danger);
+}
+
+.compact-list {
+  gap: 6px;
+}
+
+.event-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.event-list li {
+  overflow-wrap: anywhere;
+}
+
+.event-list strong,
+.event-list span {
+  display: block;
+}
+
+.event-list strong {
+  font-size: 0.78rem;
+}
+
+.event-list span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .panel {
   min-width: 0;
   padding: 16px;
@@ -265,8 +380,23 @@ main {
 
 @media (max-width: 920px) {
   .topbar,
-  .details-grid {
+  .details-grid,
+  .drawer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .drawer-heading {
+    display: grid;
+  }
+
+  .drawer-status {
+    min-width: 0;
+  }
+
+  .identity-block,
+  .event-block,
+  .evidence-block {
+    grid-column: span 1;
   }
 
   main,

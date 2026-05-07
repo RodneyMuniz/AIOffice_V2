@@ -1,0 +1,1 @@
+{"operation":"set","path":["canonical_truth","orchestrator_runtime_implemented"],"value":true,"expected_fragment":"orchestrator_runtime_implemented"}

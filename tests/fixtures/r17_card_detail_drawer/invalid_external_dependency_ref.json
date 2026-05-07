@@ -1,0 +1,1 @@
+{"operation":"append","path":["evidence_refs"],"value":"https://example.invalid/remote.js","expected_fragment":"external dependency"}

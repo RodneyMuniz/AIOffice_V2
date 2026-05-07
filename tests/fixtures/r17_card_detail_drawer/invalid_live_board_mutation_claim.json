@@ -1,0 +1,1 @@
+{"operation":"set","path":["canonical_truth","live_board_mutation_implemented"],"value":true,"expected_fragment":"live_board_mutation_implemented"}

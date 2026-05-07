@@ -1,0 +1,1 @@
+{"operation":"set","path":["output_placeholders","qa_result","status"],"value":"passed","expected_fragment":"qa_result"}

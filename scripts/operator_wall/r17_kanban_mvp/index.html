@@ -24,6 +24,149 @@
         <div class="lane-board" id="lane-board"></div>
       </section>
 
+      <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">Selected card: R17-005</p>
+            <h2 id="card-detail-title">Selected Card Detail</h2>
+          </div>
+          <div class="drawer-status">
+            <span>ready for user review</span>
+            <strong>read-only evidence drawer</strong>
+          </div>
+        </div>
+
+        <div class="drawer-grid">
+          <article class="detail-block identity-block">
+            <h3>Card Identity</h3>
+            <dl class="card-fields">
+              <dt>Card</dt>
+              <dd>R17-005</dd>
+              <dt>Task</dt>
+              <dd>R17-005</dd>
+              <dt>Title</dt>
+              <dd>Implement bounded repo-backed board state store and deterministic replay checks</dd>
+              <dt>Milestone</dt>
+              <dd>R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle</dd>
+              <dt>Current lane</dt>
+              <dd>ready_for_user_review</dd>
+              <dt>Owner role</dt>
+              <dd>operator</dd>
+              <dt>Current agent</dt>
+              <dd>codex_local_repository_worker</dd>
+              <dt>Status</dt>
+              <dd>ready_for_user_review</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Decision State</h3>
+            <dl class="card-fields">
+              <dt>User decision</dt>
+              <dd>yes</dd>
+              <dt>Closure approval</dt>
+              <dd>yes</dd>
+              <dt>Unresolved blockers</dt>
+              <dd>none</dd>
+              <dt>Final replay lane</dt>
+              <dd>ready_for_user_review</dd>
+              <dt>Closure status</dt>
+              <dd>not_closed_user_approval_required</dd>
+              <dt>Closure note</dt>
+              <dd>closure still requires user approval</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Acceptance Criteria</h3>
+            <ul class="plain-list compact-list">
+              <li>Create the bounded R17 board state folder and generated seed card, seed events, board state, and replay report artifacts.</li>
+              <li>Replay seed events deterministically into the generated board state artifact.</li>
+              <li>Validate card and event inputs against the R17-004 contract field shapes and R17-005 boundary rules.</li>
+              <li>Reject unknown card, invalid lane, invalid role, closure without user approval, role-policy violations, runtime overclaims, external audit acceptance, main merge, solved Codex claims, and R13/R14/R15/R16 boundary rewrites.</li>
+              <li>Keep R17-006 through R17-028 planned only and preserve all R17-005 non-claims.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block">
+            <h3>QA Criteria</h3>
+            <ul class="plain-list compact-list">
+              <li>The R17-004 board contract validator and tests still pass.</li>
+              <li>The R17-005 board state store generator, validator, and focused tests pass.</li>
+              <li>The status-doc gate continues to reject R17-006+ and runtime overclaims.</li>
+              <li>The replay report aggregate verdict is generated_r17_board_state_store_candidate.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block placeholder-block">
+            <h3>Output Placeholders</h3>
+            <dl class="card-fields">
+              <dt>Dev output</dt>
+              <dd>not_implemented_in_r17_007; no real Dev output</dd>
+              <dt>QA result</dt>
+              <dd>not_implemented_in_r17_007; no real QA result</dd>
+              <dt>Audit verdict</dt>
+              <dd>not_implemented_in_r17_007; no real audit verdict</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json</li>
+              <li>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</li>
+              <li>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl</li>
+              <li>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_006_kanban_mvp/</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_007_card_detail_evidence_drawer/</li>
+            </ul>
+          </article>
+
+          <article class="detail-block">
+            <h3>Memory And Task Packet Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md - bounded repo ref only, not runtime memory loading</li>
+              <li>contracts/board/r17_card.contract.json - bounded repo ref only, not runtime memory loading</li>
+              <li>contracts/board/r17_board_state.contract.json - bounded repo ref only, not runtime memory loading</li>
+              <li>contracts/board/r17_board_event.contract.json - bounded repo ref only, not runtime memory loading</li>
+              <li>Task packet ref: governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md#r17-005-define-board-state-and-board-event-contracts - bounded repo ref only, not executable handoff</li>
+            </ul>
+          </article>
+
+          <article class="detail-block event-block">
+            <h3>Event History</h3>
+            <ol class="event-list">
+              <li><strong>r17_005_event_001_card_created</strong><span>card_created by operator, intake to intake, transition allowed: yes, user approval present: no</span></li>
+              <li><strong>r17_005_event_002_lane_transition_requested</strong><span>lane_transition_requested by project_manager, intake to define, transition allowed: yes, user approval present: no</span></li>
+              <li><strong>r17_005_event_003_card_updated</strong><span>card_updated by operator, define to define, transition allowed: yes, user approval present: no</span></li>
+              <li><strong>r17_005_event_004_ready_for_user_review</strong><span>lane_transition_requested by release_closeout, define to ready_for_user_review, transition allowed: yes, user approval present: no</span></li>
+              <li><strong>r17_005_event_005_user_decision_requested</strong><span>user_decision_requested by release_closeout, ready_for_user_review to ready_for_user_review, transition allowed: no, user approval present: no</span></li>
+            </ol>
+          </article>
+
+          <article class="detail-block">
+            <h3>Non-Claims And Rejected Claims</h3>
+            <ul class="plain-list compact-list">
+              <li>no live board mutation</li>
+              <li>no Orchestrator runtime</li>
+              <li>no A2A runtime</li>
+              <li>no autonomous agents</li>
+              <li>no Dev/Codex adapter runtime</li>
+              <li>no QA/Test Agent adapter runtime</li>
+              <li>no Evidence Auditor API runtime</li>
+              <li>no executable handoffs</li>
+              <li>no executable transitions</li>
+              <li>no external audit acceptance</li>
+              <li>no main merge</li>
+              <li>no product runtime</li>
+              <li>no production runtime</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="details-grid" aria-label="Replay and evidence">
         <article class="panel">
           <h2>Replay Summary</h2>
@@ -39,5 +182,31 @@
         </article>
       </section>
     </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var drawer = document.getElementById("card-detail-drawer");
+        var cards = Array.prototype.slice.call(document.querySelectorAll(".kanban-card"));
+        cards.forEach(function (card) {
+          if (card.textContent.indexOf("R17-005") < 0) return;
+          card.classList.add("is-selected");
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-controls", "card-detail-drawer");
+          card.setAttribute("aria-pressed", "true");
+          var reveal = function () {
+            card.classList.add("is-selected");
+            if (drawer) drawer.removeAttribute("hidden");
+          };
+          card.addEventListener("click", reveal);
+          card.addEventListener("focus", reveal);
+          card.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              reveal();
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
