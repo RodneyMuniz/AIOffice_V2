@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_project_manager_to_developer_handoff",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.evaluated_handoffs[0].target_role_id",
+    "mutation_value":  "architect",
+    "expected_failure":  [
+                             "missing project_manager -\u003e developer handoff"
+                         ]
+}

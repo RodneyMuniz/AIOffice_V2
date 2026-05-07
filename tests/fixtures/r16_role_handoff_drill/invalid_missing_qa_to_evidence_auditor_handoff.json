@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_qa_to_evidence_auditor_handoff",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.evaluated_handoffs[2].target_role_id",
+    "mutation_value":  "release_closeout_agent",
+    "expected_failure":  [
+                             "missing qa -\u003e evidence_auditor handoff"
+                         ]
+}

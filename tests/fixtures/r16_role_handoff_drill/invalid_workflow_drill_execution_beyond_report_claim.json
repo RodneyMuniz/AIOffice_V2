@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_workflow_drill_execution_beyond_report_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.workflow_drill_execution_beyond_this_report_artifact",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "workflow drill execution claim beyond this report artifact"
+                         ]
+}

@@ -1,0 +1,73 @@
+{
+  "artifact_type": "r16_023_role_handoff_drill_evidence_index",
+  "source_task": "R16-023",
+  "source_milestone": "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+  "contract": "contracts/workflow/r16_role_handoff_drill.contract.json",
+  "validator_module": "tools/R16RoleHandoffDrill.psm1",
+  "generator_cli": "tools/new_r16_role_handoff_drill.ps1",
+  "report_validator_cli": "tools/validate_r16_role_handoff_drill.ps1",
+  "focused_test": "tests/test_r16_role_handoff_drill.ps1",
+  "state_artifact": "state/workflow/r16_role_handoff_drill.json",
+  "fixtures": {
+    "valid_fixture": "tests/fixtures/r16_role_handoff_drill/valid_role_handoff_drill.json",
+    "invalid_fixture_glob": "tests/fixtures/r16_role_handoff_drill/invalid_*.json",
+    "invalid_fixture_format": "compact mutation spec with fixture_id, base_fixture, mutation_path, mutation_value, and expected_failure"
+  },
+  "dependency_refs": [
+    "state/workflow/r16_restart_compaction_recovery_drill.json",
+    "state/workflow/r16_handoff_packet_report.json",
+    "state/workflow/r16_raci_transition_gate_report.json",
+    "state/workflow/r16_role_run_envelopes.json",
+    "state/context/r16_context_budget_guard_report.json",
+    "state/context/r16_context_budget_estimate.json",
+    "state/context/r16_context_load_plan.json",
+    "state/memory/r16_role_memory_packs.json",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+  ],
+  "proof_review": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/proof_review.json",
+  "validation_manifest": "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/validation_manifest.md",
+  "status_surfaces_changed": [
+    "README.md",
+    "governance/ACTIVE_STATE.md",
+    "execution/KANBAN.md",
+    "governance/DECISION_LOG.md",
+    "governance/DOCUMENT_AUTHORITY_INDEX.md",
+    "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+    "tools/StatusDocGate.psm1",
+    "tools/validate_status_doc_gate.ps1",
+    "tests/test_status_doc_gate.ps1",
+    "tests/test_r16_planning_authority_reference.ps1",
+    "tests/test_r16_kpi_baseline_target_scorecard.ps1",
+    "tests/test_r16_memory_layer_contract.ps1"
+  ],
+  "deterministic_generated_artifacts": [
+    "state/workflow/r16_role_handoff_drill.json",
+    "tests/fixtures/r16_role_handoff_drill/valid_role_handoff_drill.json"
+  ],
+  "deterministic_regenerated_due_to_status_drift": [
+    "state/context/r16_context_budget_estimate.json",
+    "state/context/r16_context_budget_guard_report.json",
+    "state/workflow/r16_role_run_envelopes.json",
+    "state/workflow/r16_raci_transition_gate_report.json",
+    "state/workflow/r16_handoff_packet_report.json",
+    "state/workflow/r16_restart_compaction_recovery_drill.json",
+    "state/workflow/r16_role_handoff_drill.json",
+    "tests/fixtures/r16_role_handoff_drill/valid_role_handoff_drill.json"
+  ],
+  "non_claims": [
+    "R16-023 adds bounded role-handoff drill reporting only.",
+    "The role-handoff drill report is a committed state artifact only.",
+    "The role handoff chain is project_manager -> developer -> qa -> evidence_auditor.",
+    "All core chain handoffs are blocked/not executable because the R16-020 transition gate blocks transitions and the guard remains failed_closed_over_budget.",
+    "No runtime handoff execution, executable handoffs, or executable transitions exist.",
+    "No autonomous agents or autonomous recovery are claimed.",
+    "No runtime memory, retrieval runtime, vector search runtime, product runtime, or external integrations are claimed.",
+    "No solved Codex compaction or solved Codex reliability is claimed.",
+    "R16-024 through R16-026 remain planned only.",
+    "R13 remains failed/partial and not closed.",
+    "R14 caveats remain preserved.",
+    "R15 caveats remain preserved."
+  ]
+}

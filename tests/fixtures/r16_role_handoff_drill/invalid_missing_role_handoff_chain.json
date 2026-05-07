@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_role_handoff_chain",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.role_handoff_chain",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027role_handoff_chain\u0027"
+                         ]
+}

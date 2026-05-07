@@ -256,7 +256,6 @@ try {
     }
 
     foreach ($forbiddenPath in @(
-        "state\workflow\r16_role_handoff_drill.json",
         "state\workflow\r16_audit_readiness_drill.json",
         "state\memory\r16_runtime_memory.json",
         "state\retrieval\r16_vector_index.json",

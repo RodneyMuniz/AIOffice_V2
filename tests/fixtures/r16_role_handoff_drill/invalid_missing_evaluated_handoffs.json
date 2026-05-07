@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_evaluated_handoffs",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.evaluated_handoffs",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027evaluated_handoffs\u0027"
+                         ]
+}

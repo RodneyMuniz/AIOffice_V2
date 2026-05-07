@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_blocked_reason_missing_failed_closed_over_budget",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.evaluated_handoffs[0].blocked_reason",
+    "mutation_value":  "R16-020 transition gate blocks this handoff, but the guard verdict is omitted.",
+    "expected_failure":  [
+                             "blocked_reason",
+                             "failed_closed_over_budget"
+                         ]
+}

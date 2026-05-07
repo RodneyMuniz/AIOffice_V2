@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_handoff_marked_executable",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.evaluated_handoffs[0].handoff_executable",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "handoff marked executable"
+                         ]
+}

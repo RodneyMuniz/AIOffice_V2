@@ -1,0 +1,842 @@
+{
+    "artifact_type":  "r16_role_handoff_drill",
+    "drill_version":  "v1",
+    "drill_id":  "aioffice-r16-023-role-handoff-drill-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-023",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generation_boundary":  "R16-023A implementation pass creates a bounded role-handoff drill report from exact repo-backed generated artifacts only; it inspects Project Manager to Developer to QA to Evidence Auditor handoff packets and does not claim runtime handoff execution, executable handoffs, executable transitions, workflow drill execution beyond this report artifact, runtime memory, retrieval/vector runtime, product runtime, autonomous agents, autonomous recovery, external integrations, solved Codex compaction, or solved Codex reliability.",
+    "drill_execution_boundary":  {
+                                     "artifact_only_report":  true,
+                                     "generated_from_exact_repo_backed_inputs_only":  true,
+                                     "runtime_handoff_execution_claimed":  false,
+                                     "runtime_handoff_execution_performed":  false,
+                                     "workflow_drill_execution_beyond_this_report_artifact":  false,
+                                     "executable_handoffs_claimed":  false,
+                                     "executable_transitions_claimed":  false,
+                                     "runtime_memory_implemented":  false,
+                                     "retrieval_runtime_implemented":  false,
+                                     "vector_search_runtime_implemented":  false,
+                                     "product_runtime_implemented":  false,
+                                     "autonomous_recovery_claimed":  false,
+                                     "actual_autonomous_agents_implemented":  false,
+                                     "external_integrations_implemented":  false,
+                                     "exact_provider_tokenization_claimed":  false,
+                                     "exact_provider_billing_claimed":  false,
+                                     "solved_codex_compaction":  false,
+                                     "solved_codex_reliability":  false,
+                                     "deterministic_order":  1
+                                 },
+    "exact_input_refs":  [
+                             {
+                                 "ref_id":  "handoff_packet_report_ref",
+                                 "path":  "state/workflow/r16_handoff_packet_report.json",
+                                 "source_task":  "R16-021",
+                                 "proof_treatment":  "committed generated handoff packet report state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "handoff_packet_report",
+                                 "deterministic_order":  1
+                             },
+                             {
+                                 "ref_id":  "restart_compaction_recovery_drill_ref",
+                                 "path":  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                 "source_task":  "R16-022",
+                                 "proof_treatment":  "committed generated restart/compaction recovery drill state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "restart_compaction_recovery_drill",
+                                 "deterministic_order":  2
+                             },
+                             {
+                                 "ref_id":  "raci_transition_gate_report_ref",
+                                 "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                 "source_task":  "R16-020",
+                                 "proof_treatment":  "committed generated RACI transition gate report state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "raci_transition_gate",
+                                 "deterministic_order":  3
+                             },
+                             {
+                                 "ref_id":  "role_run_envelopes_ref",
+                                 "path":  "state/workflow/r16_role_run_envelopes.json",
+                                 "source_task":  "R16-019",
+                                 "proof_treatment":  "committed generated role-run envelope state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "role_run_envelopes",
+                                 "deterministic_order":  4
+                             },
+                             {
+                                 "ref_id":  "context_budget_guard_ref",
+                                 "path":  "state/context/r16_context_budget_guard_report.json",
+                                 "source_task":  "R16-017",
+                                 "proof_treatment":  "committed generated context budget guard report state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "context_budget_guard",
+                                 "deterministic_order":  5
+                             },
+                             {
+                                 "ref_id":  "context_budget_estimate_ref",
+                                 "path":  "state/context/r16_context_budget_estimate.json",
+                                 "source_task":  "R16-016",
+                                 "proof_treatment":  "committed generated context budget estimate state artifact only; approximate only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "context_budget_estimate",
+                                 "deterministic_order":  6
+                             },
+                             {
+                                 "ref_id":  "context_load_plan_ref",
+                                 "path":  "state/context/r16_context_load_plan.json",
+                                 "source_task":  "R16-015",
+                                 "proof_treatment":  "committed generated context-load plan state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "context_load_plan",
+                                 "deterministic_order":  7
+                             },
+                             {
+                                 "ref_id":  "role_memory_packs_ref",
+                                 "path":  "state/memory/r16_role_memory_packs.json",
+                                 "source_task":  "R16-007",
+                                 "proof_treatment":  "committed generated role memory pack state artifact only; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "role_memory_packs",
+                                 "deterministic_order":  8
+                             },
+                             {
+                                 "ref_id":  "card_state_ref",
+                                 "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                 "source_task":  "R16-022",
+                                 "proof_treatment":  "milestone authority and card-state boundary; not machine proof by itself; exact role-handoff drill input",
+                                 "machine_proof":  false,
+                                 "exact_path_only":  true,
+                                 "broad_scan_allowed":  false,
+                                 "wildcard_allowed":  false,
+                                 "input_role":  "governance_card_state",
+                                 "deterministic_order":  9
+                             }
+                         ],
+    "role_handoff_chain":  [
+                               {
+                                   "chain_step_id":  "r16-023-role-handoff-chain-001-project_manager-to-developer",
+                                   "source_role_id":  "project_manager",
+                                   "target_role_id":  "developer",
+                                   "required_core_handoff":  true,
+                                   "handoff_packet_required":  true,
+                                   "runtime_execution_permitted":  false,
+                                   "deterministic_order":  1
+                               },
+                               {
+                                   "chain_step_id":  "r16-023-role-handoff-chain-002-developer-to-qa",
+                                   "source_role_id":  "developer",
+                                   "target_role_id":  "qa",
+                                   "required_core_handoff":  true,
+                                   "handoff_packet_required":  true,
+                                   "runtime_execution_permitted":  false,
+                                   "deterministic_order":  2
+                               },
+                               {
+                                   "chain_step_id":  "r16-023-role-handoff-chain-003-qa-to-evidence_auditor",
+                                   "source_role_id":  "qa",
+                                   "target_role_id":  "evidence_auditor",
+                                   "required_core_handoff":  true,
+                                   "handoff_packet_required":  true,
+                                   "runtime_execution_permitted":  false,
+                                   "deterministic_order":  3
+                               }
+                           ],
+    "handoff_packet_report_ref":  {
+                                      "ref_id":  "handoff_packet_report_ref",
+                                      "path":  "state/workflow/r16_handoff_packet_report.json",
+                                      "source_task":  "R16-021",
+                                      "proof_treatment":  "committed generated handoff packet report state artifact only; exact role-handoff drill input",
+                                      "machine_proof":  false,
+                                      "exact_path_only":  true,
+                                      "broad_scan_allowed":  false,
+                                      "wildcard_allowed":  false,
+                                      "input_role":  "handoff_packet_report",
+                                      "deterministic_order":  1
+                                  },
+    "restart_compaction_recovery_drill_ref":  {
+                                                  "ref_id":  "restart_compaction_recovery_drill_ref",
+                                                  "path":  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                                  "source_task":  "R16-022",
+                                                  "proof_treatment":  "committed generated restart/compaction recovery drill state artifact only; exact role-handoff drill input",
+                                                  "machine_proof":  false,
+                                                  "exact_path_only":  true,
+                                                  "broad_scan_allowed":  false,
+                                                  "wildcard_allowed":  false,
+                                                  "input_role":  "restart_compaction_recovery_drill",
+                                                  "deterministic_order":  2
+                                              },
+    "raci_transition_gate_report_ref":  {
+                                            "ref_id":  "raci_transition_gate_report_ref",
+                                            "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                            "source_task":  "R16-020",
+                                            "proof_treatment":  "committed generated RACI transition gate report state artifact only; exact role-handoff drill input",
+                                            "machine_proof":  false,
+                                            "exact_path_only":  true,
+                                            "broad_scan_allowed":  false,
+                                            "wildcard_allowed":  false,
+                                            "input_role":  "raci_transition_gate",
+                                            "deterministic_order":  3
+                                        },
+    "role_run_envelopes_ref":  {
+                                   "ref_id":  "role_run_envelopes_ref",
+                                   "path":  "state/workflow/r16_role_run_envelopes.json",
+                                   "source_task":  "R16-019",
+                                   "proof_treatment":  "committed generated role-run envelope state artifact only; exact role-handoff drill input",
+                                   "machine_proof":  false,
+                                   "exact_path_only":  true,
+                                   "broad_scan_allowed":  false,
+                                   "wildcard_allowed":  false,
+                                   "input_role":  "role_run_envelopes",
+                                   "deterministic_order":  4
+                               },
+    "context_budget_guard_ref":  {
+                                     "ref_id":  "context_budget_guard_ref",
+                                     "path":  "state/context/r16_context_budget_guard_report.json",
+                                     "source_task":  "R16-017",
+                                     "proof_treatment":  "committed generated context budget guard report state artifact only; exact role-handoff drill input",
+                                     "machine_proof":  false,
+                                     "exact_path_only":  true,
+                                     "broad_scan_allowed":  false,
+                                     "wildcard_allowed":  false,
+                                     "input_role":  "context_budget_guard",
+                                     "deterministic_order":  5
+                                 },
+    "context_budget_estimate_ref":  {
+                                        "ref_id":  "context_budget_estimate_ref",
+                                        "path":  "state/context/r16_context_budget_estimate.json",
+                                        "source_task":  "R16-016",
+                                        "proof_treatment":  "committed generated context budget estimate state artifact only; approximate only; exact role-handoff drill input",
+                                        "machine_proof":  false,
+                                        "exact_path_only":  true,
+                                        "broad_scan_allowed":  false,
+                                        "wildcard_allowed":  false,
+                                        "input_role":  "context_budget_estimate",
+                                        "deterministic_order":  6
+                                    },
+    "context_load_plan_ref":  {
+                                  "ref_id":  "context_load_plan_ref",
+                                  "path":  "state/context/r16_context_load_plan.json",
+                                  "source_task":  "R16-015",
+                                  "proof_treatment":  "committed generated context-load plan state artifact only; exact role-handoff drill input",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "input_role":  "context_load_plan",
+                                  "deterministic_order":  7
+                              },
+    "role_memory_packs_ref":  {
+                                  "ref_id":  "role_memory_packs_ref",
+                                  "path":  "state/memory/r16_role_memory_packs.json",
+                                  "source_task":  "R16-007",
+                                  "proof_treatment":  "committed generated role memory pack state artifact only; exact role-handoff drill input",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "input_role":  "role_memory_packs",
+                                  "deterministic_order":  8
+                              },
+    "card_state_ref":  {
+                           "ref_id":  "card_state_ref",
+                           "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                           "source_task":  "R16-022",
+                           "proof_treatment":  "milestone authority and card-state boundary; not machine proof by itself; exact role-handoff drill input",
+                           "machine_proof":  false,
+                           "exact_path_only":  true,
+                           "broad_scan_allowed":  false,
+                           "wildcard_allowed":  false,
+                           "input_role":  "governance_card_state",
+                           "deterministic_order":  9
+                       },
+    "drill_evidence_policy":  {
+                                  "repo_relative_exact_paths_only":  true,
+                                  "tracked_files_only":  true,
+                                  "exact_input_count":  9,
+                                  "required_input_paths":  [
+                                                               "state/workflow/r16_handoff_packet_report.json",
+                                                               "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                                               "state/workflow/r16_raci_transition_gate_report.json",
+                                                               "state/workflow/r16_role_run_envelopes.json",
+                                                               "state/context/r16_context_budget_guard_report.json",
+                                                               "state/context/r16_context_budget_estimate.json",
+                                                               "state/context/r16_context_load_plan.json",
+                                                               "state/memory/r16_role_memory_packs.json",
+                                                               "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+                                                           ],
+                                  "generated_reports_as_machine_proof_allowed":  false,
+                                  "report_as_machine_proof_allowed":  false,
+                                  "raw_chat_history_as_evidence_allowed":  false,
+                                  "deterministic_order":  1
+                              },
+    "drill_steps":  [
+                        {
+                            "step_id":  "role_handoff_drill_step_001",
+                            "action":  "Load exact role-handoff drill input refs only.",
+                            "input_ref_ids":  [
+                                                  "handoff_packet_report_ref",
+                                                  "restart_compaction_recovery_drill_ref",
+                                                  "raci_transition_gate_report_ref",
+                                                  "role_run_envelopes_ref",
+                                                  "context_budget_guard_ref",
+                                                  "context_budget_estimate_ref",
+                                                  "context_load_plan_ref",
+                                                  "role_memory_packs_ref",
+                                                  "card_state_ref"
+                                              ],
+                            "result":  "Exact repo-relative tracked input set identified without raw chat history and without broad or full repo scan.",
+                            "deterministic_order":  1
+                        },
+                        {
+                            "step_id":  "role_handoff_drill_step_002",
+                            "action":  "Reconstruct the deterministic Project Manager to Developer to QA to Evidence Auditor handoff chain from generated handoff packets.",
+                            "input_ref_ids":  [
+                                                  "handoff_packet_report_ref"
+                                              ],
+                            "result":  "All three core chain handoff packets exist in the R16-021 generated handoff packet report.",
+                            "deterministic_order":  2
+                        },
+                        {
+                            "step_id":  "role_handoff_drill_step_003",
+                            "action":  "Cross-check each core handoff against the R16-020 transition gate and failed_closed_over_budget guard posture.",
+                            "input_ref_ids":  [
+                                                  "raci_transition_gate_report_ref",
+                                                  "context_budget_guard_ref"
+                                              ],
+                            "result":  "Each core handoff is blocked/not executable by R16-020 transition gate basis and failed_closed_over_budget.",
+                            "deterministic_order":  3
+                        },
+                        {
+                            "step_id":  "role_handoff_drill_step_004",
+                            "action":  "Preserve non-runtime drill boundaries.",
+                            "input_ref_ids":  [
+                                                  "restart_compaction_recovery_drill_ref",
+                                                  "card_state_ref"
+                                              ],
+                            "result":  "No runtime handoff execution, executable handoff, executable transition, or workflow drill execution beyond this report artifact is claimed.",
+                            "deterministic_order":  4
+                        }
+                    ],
+    "evaluated_handoffs":  [
+                               {
+                                   "evaluated_handoff_id":  "r16-023-evaluated-handoff-001-project_manager-to-developer",
+                                   "source_role_id":  "project_manager",
+                                   "target_role_id":  "developer",
+                                   "action_type":  "prepare_task_scope",
+                                   "handoff_packet_id":  "r16-021-handoff-packet-001-project_manager-to-developer",
+                                   "handoff_packet_ref":  {
+                                                              "ref_id":  "handoff_packet_report_ref",
+                                                              "path":  "state/workflow/r16_handoff_packet_report.json",
+                                                              "source_task":  "R16-021",
+                                                              "proof_treatment":  "generated handoff packet inspected from R16-021 report; state artifact only",
+                                                              "machine_proof":  false,
+                                                              "exact_path_only":  true,
+                                                              "broad_scan_allowed":  false,
+                                                              "wildcard_allowed":  false,
+                                                              "handoff_packet_id":  "r16-021-handoff-packet-001-project_manager-to-developer",
+                                                              "deterministic_order":  1
+                                                          },
+                                   "transition_id":  "r16-020-raci-transition-001-project_manager-to-developer",
+                                   "transition_gate_ref":  {
+                                                               "ref_id":  "raci_transition_gate_report_ref",
+                                                               "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                                               "source_task":  "R16-020",
+                                                               "proof_treatment":  "R16-020 RACI transition gate decision inspected; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "transition_id":  "r16-020-raci-transition-001-project_manager-to-developer",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "source_envelope_ref":  {
+                                                               "ref_id":  "source_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "source role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-002-project_manager",
+                                                               "role_id":  "project_manager",
+                                                               "deterministic_order":  1
+                                                           },
+                                   "target_envelope_ref":  {
+                                                               "ref_id":  "target_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "target role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-004-developer",
+                                                               "role_id":  "developer",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "packet_found":  true,
+                                   "transition_found":  true,
+                                   "reconstructed_from_generated_handoff_packet":  true,
+                                   "transition_decision":  {
+                                                               "decision":  "blocked",
+                                                               "execution_permitted":  false,
+                                                               "context_budget_guard_verdict":  "failed_closed_over_budget",
+                                                               "blocked_reasons":  [
+                                                                                       "context_budget_guard_failed_closed_over_budget",
+                                                                                       "source_envelope_non_executable",
+                                                                                       "target_envelope_non_executable"
+                                                                                   ],
+                                                               "deterministic_order":  1
+                                                           },
+                                   "block_basis":  [
+                                                       "R16-020 transition gate decision blocks this handoff",
+                                                       "context budget guard remains failed_closed_over_budget",
+                                                       "source and target role-run envelopes are non-executable under the current guard posture"
+                                                   ],
+                                   "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-001-project_manager-to-developer\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                   "guard_verdict":  "failed_closed_over_budget",
+                                   "estimated_tokens_upper_bound":  1344377,
+                                   "threshold":  150000,
+                                   "no_mitigation":  true,
+                                   "handoff_executable":  false,
+                                   "executable":  false,
+                                   "transition_execution_permitted":  false,
+                                   "handoff_execution_status":  "blocked",
+                                   "runtime_handoff_execution_performed":  false,
+                                   "runtime_handoff_execution_claimed":  false,
+                                   "workflow_drill_execution_beyond_this_report_artifact":  false,
+                                   "deterministic_order":  1
+                               },
+                               {
+                                   "evaluated_handoff_id":  "r16-023-evaluated-handoff-002-developer-to-qa",
+                                   "source_role_id":  "developer",
+                                   "target_role_id":  "qa",
+                                   "action_type":  "run_scoped_validation",
+                                   "handoff_packet_id":  "r16-021-handoff-packet-002-developer-to-qa",
+                                   "handoff_packet_ref":  {
+                                                              "ref_id":  "handoff_packet_report_ref",
+                                                              "path":  "state/workflow/r16_handoff_packet_report.json",
+                                                              "source_task":  "R16-021",
+                                                              "proof_treatment":  "generated handoff packet inspected from R16-021 report; state artifact only",
+                                                              "machine_proof":  false,
+                                                              "exact_path_only":  true,
+                                                              "broad_scan_allowed":  false,
+                                                              "wildcard_allowed":  false,
+                                                              "handoff_packet_id":  "r16-021-handoff-packet-002-developer-to-qa",
+                                                              "deterministic_order":  1
+                                                          },
+                                   "transition_id":  "r16-020-raci-transition-002-developer-to-qa",
+                                   "transition_gate_ref":  {
+                                                               "ref_id":  "raci_transition_gate_report_ref",
+                                                               "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                                               "source_task":  "R16-020",
+                                                               "proof_treatment":  "R16-020 RACI transition gate decision inspected; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "transition_id":  "r16-020-raci-transition-002-developer-to-qa",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "source_envelope_ref":  {
+                                                               "ref_id":  "source_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "source role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-004-developer",
+                                                               "role_id":  "developer",
+                                                               "deterministic_order":  1
+                                                           },
+                                   "target_envelope_ref":  {
+                                                               "ref_id":  "target_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "target role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-005-qa",
+                                                               "role_id":  "qa",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "packet_found":  true,
+                                   "transition_found":  true,
+                                   "reconstructed_from_generated_handoff_packet":  true,
+                                   "transition_decision":  {
+                                                               "decision":  "blocked",
+                                                               "execution_permitted":  false,
+                                                               "context_budget_guard_verdict":  "failed_closed_over_budget",
+                                                               "blocked_reasons":  [
+                                                                                       "context_budget_guard_failed_closed_over_budget",
+                                                                                       "source_envelope_non_executable",
+                                                                                       "target_envelope_non_executable"
+                                                                                   ],
+                                                               "deterministic_order":  1
+                                                           },
+                                   "block_basis":  [
+                                                       "R16-020 transition gate decision blocks this handoff",
+                                                       "context budget guard remains failed_closed_over_budget",
+                                                       "source and target role-run envelopes are non-executable under the current guard posture"
+                                                   ],
+                                   "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-002-developer-to-qa\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                   "guard_verdict":  "failed_closed_over_budget",
+                                   "estimated_tokens_upper_bound":  1344377,
+                                   "threshold":  150000,
+                                   "no_mitigation":  true,
+                                   "handoff_executable":  false,
+                                   "executable":  false,
+                                   "transition_execution_permitted":  false,
+                                   "handoff_execution_status":  "blocked",
+                                   "runtime_handoff_execution_performed":  false,
+                                   "runtime_handoff_execution_claimed":  false,
+                                   "workflow_drill_execution_beyond_this_report_artifact":  false,
+                                   "deterministic_order":  2
+                               },
+                               {
+                                   "evaluated_handoff_id":  "r16-023-evaluated-handoff-003-qa-to-evidence_auditor",
+                                   "source_role_id":  "qa",
+                                   "target_role_id":  "evidence_auditor",
+                                   "action_type":  "record_findings",
+                                   "handoff_packet_id":  "r16-021-handoff-packet-003-qa-to-evidence_auditor",
+                                   "handoff_packet_ref":  {
+                                                              "ref_id":  "handoff_packet_report_ref",
+                                                              "path":  "state/workflow/r16_handoff_packet_report.json",
+                                                              "source_task":  "R16-021",
+                                                              "proof_treatment":  "generated handoff packet inspected from R16-021 report; state artifact only",
+                                                              "machine_proof":  false,
+                                                              "exact_path_only":  true,
+                                                              "broad_scan_allowed":  false,
+                                                              "wildcard_allowed":  false,
+                                                              "handoff_packet_id":  "r16-021-handoff-packet-003-qa-to-evidence_auditor",
+                                                              "deterministic_order":  1
+                                                          },
+                                   "transition_id":  "r16-020-raci-transition-003-qa-to-evidence_auditor",
+                                   "transition_gate_ref":  {
+                                                               "ref_id":  "raci_transition_gate_report_ref",
+                                                               "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                                               "source_task":  "R16-020",
+                                                               "proof_treatment":  "R16-020 RACI transition gate decision inspected; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "transition_id":  "r16-020-raci-transition-003-qa-to-evidence_auditor",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "source_envelope_ref":  {
+                                                               "ref_id":  "source_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "source role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-005-qa",
+                                                               "role_id":  "qa",
+                                                               "deterministic_order":  1
+                                                           },
+                                   "target_envelope_ref":  {
+                                                               "ref_id":  "target_envelope_ref",
+                                                               "path":  "state/workflow/r16_role_run_envelopes.json",
+                                                               "source_task":  "R16-019",
+                                                               "proof_treatment":  "target role-run envelope lookup in generated envelopes; state artifact only",
+                                                               "machine_proof":  false,
+                                                               "exact_path_only":  true,
+                                                               "broad_scan_allowed":  false,
+                                                               "wildcard_allowed":  false,
+                                                               "envelope_id":  "r16-019-role-run-envelope-006-evidence_auditor",
+                                                               "role_id":  "evidence_auditor",
+                                                               "deterministic_order":  2
+                                                           },
+                                   "packet_found":  true,
+                                   "transition_found":  true,
+                                   "reconstructed_from_generated_handoff_packet":  true,
+                                   "transition_decision":  {
+                                                               "decision":  "blocked",
+                                                               "execution_permitted":  false,
+                                                               "context_budget_guard_verdict":  "failed_closed_over_budget",
+                                                               "blocked_reasons":  [
+                                                                                       "context_budget_guard_failed_closed_over_budget",
+                                                                                       "source_envelope_non_executable",
+                                                                                       "target_envelope_non_executable"
+                                                                                   ],
+                                                               "deterministic_order":  1
+                                                           },
+                                   "block_basis":  [
+                                                       "R16-020 transition gate decision blocks this handoff",
+                                                       "context budget guard remains failed_closed_over_budget",
+                                                       "source and target role-run envelopes are non-executable under the current guard posture"
+                                                   ],
+                                   "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-003-qa-to-evidence_auditor\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                   "guard_verdict":  "failed_closed_over_budget",
+                                   "estimated_tokens_upper_bound":  1344377,
+                                   "threshold":  150000,
+                                   "no_mitigation":  true,
+                                   "handoff_executable":  false,
+                                   "executable":  false,
+                                   "transition_execution_permitted":  false,
+                                   "handoff_execution_status":  "blocked",
+                                   "runtime_handoff_execution_performed":  false,
+                                   "runtime_handoff_execution_claimed":  false,
+                                   "workflow_drill_execution_beyond_this_report_artifact":  false,
+                                   "deterministic_order":  3
+                               }
+                           ],
+    "blocked_handoff_count":  3,
+    "executable_handoff_count":  0,
+    "executable_transition_count":  0,
+    "role_chain_summary":  {
+                               "core_chain_role_sequence":  [
+                                                                "project_manager",
+                                                                "developer",
+                                                                "qa",
+                                                                "evidence_auditor"
+                                                            ],
+                               "core_chain_handoff_count":  3,
+                               "core_chain_reconstructed_from_generated_packets":  true,
+                               "required_core_handoffs_present":  true,
+                               "source_handoff_packet_count":  4,
+                               "source_handoff_packet_blocked_count":  4,
+                               "source_handoff_packet_executable_count":  0,
+                               "observed_downstream_candidates":  [
+                                                                      {
+                                                                          "source_role_id":  "evidence_auditor",
+                                                                          "target_role_id":  "release_closeout_agent",
+                                                                          "handoff_packet_id":  "r16-021-handoff-packet-004-evidence_auditor-to-release_closeout_agent",
+                                                                          "observed_downstream_candidate_only":  true,
+                                                                          "required_for_core_chain":  false,
+                                                                          "executable":  false,
+                                                                          "handoff_execution_status":  "blocked",
+                                                                          "deterministic_order":  1
+                                                                      }
+                                                                  ],
+                               "observed_downstream_candidate_count":  1,
+                               "blocked_handoff_count":  3,
+                               "executable_handoff_count":  0,
+                               "executable_transition_count":  0,
+                               "active_through_task_in_report_only":  "R16-023",
+                               "planned_tasks_remain":  [
+                                                            "R16-024",
+                                                            "R16-025",
+                                                            "R16-026"
+                                                        ],
+                               "runtime_handoff_execution_performed":  false,
+                               "workflow_drill_execution_beyond_this_report_artifact":  false,
+                               "deterministic_order":  1
+                           },
+    "no_full_repo_scan_policy":  {
+                                     "repo_relative_exact_paths_only":  true,
+                                     "tracked_files_only":  true,
+                                     "exact_input_refs_only":  true,
+                                     "exact_dependency_refs_only":  true,
+                                     "required_input_paths":  [
+                                                                  "state/workflow/r16_handoff_packet_report.json",
+                                                                  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                                                  "state/workflow/r16_raci_transition_gate_report.json",
+                                                                  "state/workflow/r16_role_run_envelopes.json",
+                                                                  "state/context/r16_context_budget_guard_report.json",
+                                                                  "state/context/r16_context_budget_estimate.json",
+                                                                  "state/context/r16_context_load_plan.json",
+                                                                  "state/memory/r16_role_memory_packs.json",
+                                                                  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md"
+                                                              ],
+                                     "no_wildcard_path_expansion":  true,
+                                     "broad_repo_scan_allowed":  false,
+                                     "broad_repo_scan_performed":  false,
+                                     "full_repo_scan_allowed":  false,
+                                     "full_repo_scan_performed":  false,
+                                     "wildcard_paths_allowed":  false,
+                                     "wildcard_path_expansion_performed":  false,
+                                     "directory_only_refs_allowed":  false,
+                                     "scratch_temp_refs_allowed":  false,
+                                     "absolute_paths_allowed":  false,
+                                     "parent_traversal_allowed":  false,
+                                     "url_or_remote_refs_allowed":  false,
+                                     "deterministic_order":  1
+                                 },
+    "raw_chat_history_policy":  {
+                                    "canonical_state_source":  "exact_repo_backed_artifacts_only",
+                                    "raw_chat_history_as_canonical_state":  false,
+                                    "raw_chat_history_loaded":  false,
+                                    "raw_chat_history_loading_allowed":  false,
+                                    "raw_chat_history_as_evidence_allowed":  false,
+                                    "raw_chat_history_may_be_human_context_but_not_authority":  true,
+                                    "deterministic_order":  1
+                                },
+    "finding_summary":  {
+                            "exact_input_count":  9,
+                            "core_chain_handoff_count":  3,
+                            "source_handoff_packet_count":  4,
+                            "source_handoff_packet_blocked_count":  4,
+                            "source_handoff_packet_executable_count":  0,
+                            "blocked_handoff_count":  3,
+                            "executable_handoff_count":  0,
+                            "allowed_transition_count":  0,
+                            "blocked_transition_count":  4,
+                            "executable_transition_count":  0,
+                            "executable_envelope_count":  0,
+                            "blocked_envelope_count":  8,
+                            "guard_verdict":  "failed_closed_over_budget",
+                            "estimated_tokens_upper_bound":  1344377,
+                            "threshold":  150000,
+                            "no_mitigation":  true,
+                            "all_core_handoffs_blocked_not_executable":  true,
+                            "raw_chat_history_canonical_state_used":  false,
+                            "full_repo_scan_used":  false,
+                            "runtime_handoff_execution_performed":  false,
+                            "workflow_drill_execution_beyond_this_report_artifact":  false,
+                            "runtime_memory_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "product_runtime_implemented":  false,
+                            "autonomous_recovery_claimed":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false
+                        },
+    "aggregate_verdict":  "passed_bounded_role_handoff_drill_with_all_handoffs_blocked",
+    "validation_commands":  [
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/new_r16_role_handoff_drill.ps1",
+                                    "deterministic_order":  1
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_role_handoff_drill.ps1",
+                                    "deterministic_order":  2
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_role_handoff_drill.ps1",
+                                    "deterministic_order":  3
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_restart_compaction_recovery_drill.ps1",
+                                    "deterministic_order":  4
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_restart_compaction_recovery_drill.ps1",
+                                    "deterministic_order":  5
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_handoff_packet_report.ps1",
+                                    "deterministic_order":  6
+                                },
+                                {
+                                    "command":  "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_handoff_packet_generator.ps1",
+                                    "deterministic_order":  7
+                                }
+                            ],
+    "current_posture":  {
+                            "active_through_task":  "R16-023",
+                            "active_through_scope":  "R16-023 bounded role-handoff drill report only",
+                            "previous_accepted_task":  "R16-022",
+                            "r16_023_report_only":  true,
+                            "r16_024_through_r16_026_planned_only":  true,
+                            "planned_tasks":  [
+                                                  "R16-024",
+                                                  "R16-025",
+                                                  "R16-026"
+                                              ],
+                            "guard_verdict":  "failed_closed_over_budget",
+                            "no_mitigation":  true,
+                            "handoff_packets_blocked":  true,
+                            "executable_handoffs_exist":  false,
+                            "executable_transitions_exist":  false,
+                            "executable_envelopes_exist":  false,
+                            "runtime_handoff_execution_claimed":  false,
+                            "workflow_drill_execution_beyond_this_report_artifact":  false,
+                            "runtime_memory_implemented":  false,
+                            "retrieval_runtime_implemented":  false,
+                            "vector_search_runtime_implemented":  false,
+                            "product_runtime_implemented":  false,
+                            "autonomous_recovery_claimed":  false,
+                            "actual_autonomous_agents_implemented":  false,
+                            "external_integrations_implemented":  false,
+                            "r16_024_implementation_claimed":  false,
+                            "r16_027_or_later_task_exists":  false,
+                            "main_merge_claimed":  false
+                        },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed_partial_through_r13_018_only",
+                                             "closed":  false,
+                                             "r13_closed":  false,
+                                             "partial_gates_converted_to_passed":  false,
+                                             "caveat_preserved":  true
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats_through_r14_006_only",
+                                             "caveats_removed":  false,
+                                             "r14_caveats_removed":  false,
+                                             "caveat_preserved":  true
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats_through_r15_009_only",
+                                             "caveats_removed":  false,
+                                             "r15_caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "non_claims":  [
+                       "R16-023 is a bounded role-handoff drill report only",
+                       "role handoff chain inspection uses generated handoff packets only",
+                       "raw chat history is not canonical state",
+                       "no full repo scan",
+                       "no wildcard path expansion",
+                       "guard remains failed_closed_over_budget",
+                       "no mitigation",
+                       "no executable handoffs",
+                       "no executable transitions",
+                       "no executable envelopes",
+                       "no runtime handoff execution",
+                       "no workflow drill execution beyond this bounded report artifact",
+                       "no runtime memory",
+                       "no retrieval runtime",
+                       "no vector search runtime",
+                       "no product runtime",
+                       "no autonomous recovery",
+                       "no autonomous agents",
+                       "no external integrations",
+                       "no solved Codex compaction",
+                       "no solved Codex reliability",
+                       "R16-024 through R16-026 remain planned only",
+                       "R16-027 or later not claimed",
+                       "R13 remains failed/partial and not closed",
+                       "R14 caveats remain preserved",
+                       "R15 caveats remain preserved",
+                       "no main merge"
+                   ]
+}

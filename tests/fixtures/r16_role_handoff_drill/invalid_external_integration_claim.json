@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_external_integration_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.external_integrations_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "external-integration claim"
+                         ]
+}

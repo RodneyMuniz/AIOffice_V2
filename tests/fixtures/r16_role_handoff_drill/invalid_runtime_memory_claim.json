@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_runtime_memory_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.runtime_memory_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "runtime memory claim"
+                         ]
+}

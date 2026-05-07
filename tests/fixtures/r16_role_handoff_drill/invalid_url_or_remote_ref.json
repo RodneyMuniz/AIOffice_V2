@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_url_or_remote_ref",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.handoff_packet_report_ref.path",
+    "mutation_value":  "https://example.invalid/r16_handoff_packet_report.json",
+    "expected_failure":  [
+                             "URL or remote ref"
+                         ]
+}

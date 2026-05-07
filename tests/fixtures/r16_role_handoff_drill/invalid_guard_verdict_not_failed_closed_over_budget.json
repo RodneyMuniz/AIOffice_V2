@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_guard_verdict_not_failed_closed_over_budget",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.current_posture.guard_verdict",
+    "mutation_value":  "passed",
+    "expected_failure":  [
+                             "guard verdict must be failed_closed_over_budget"
+                         ]
+}

@@ -378,6 +378,12 @@ function Test-TextHasNegation {
         return $true
     }
 
+    $zeroExecutablePosturePattern = '(?i)\b((0|zero)\s+executable|executable\s+(handoff|handoffs|transition|transitions|envelope|envelopes)\s+count\s+(is|=)\s+(0|zero))\b'
+    $positiveRuntimePattern = '(?i)\b(runtime\s+(exists|implemented|runs?)|runs?|executes?|executed|ran|handoff execution\s+exists|workflow drill\s+(ran|runs|exists)|autonomous|product runtime)\b'
+    if ($Text -match $zeroExecutablePosturePattern -and $Text -notmatch $positiveRuntimePattern) {
+        return $true
+    }
+
     return $Text -match '(?i)\b(no|not|without|does not|do not|must not|never|non-claim|non_claim|not implemented|not claimed|planned only|false|prohibited|forbidden|disallowed|reject|rejected|rejecting|claim|claims|fails validation|fail validation|fail-closed|only|operator artifact only|planning authority only)\b'
 }
 
@@ -506,14 +512,14 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 22 -or $snapshot.PlannedStart -ne 23 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-022 only with R16-023 through R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 23 -or $snapshot.PlannedStart -ne 24 -or $snapshot.PlannedThrough -ne 26) {
+        throw "Status docs must keep R16 active through R16-023 only with R16-024 through R16-026 planned only."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-022 only",
-            "R16-023 through R16-026 remain planned only",
+            "R16 active through R16-023 only",
+            "R16-024 through R16-026 remain planned only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
@@ -535,6 +541,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "R16-020 adds bounded RACI transition gate validation/reporting only",
             "R16-021 adds bounded handoff packet generation/reporting only",
             "R16-022 adds bounded restart/compaction recovery drill reporting only",
+            "R16-023 adds bounded role-handoff drill reporting only",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
@@ -600,7 +607,12 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "committed generated restart/compaction recovery drill state artifact only",
             "raw chat history is not canonical state",
             "full repo scan is not used",
-            "No workflow drill beyond the bounded recovery drill artifact is claimed",
+            "state/workflow/r16_role_handoff_drill.json",
+            "committed generated role-handoff drill state artifact only",
+            "role handoff chain is",
+            "all core handoffs are blocked/not executable",
+            "No runtime handoff execution exists",
+            "No workflow drill execution beyond bounded report artifacts is claimed",
             "state/governance/r16_planning_authority_reference.json",
             "state/governance/r16_kpi_baseline_target_scorecard.json",
             "state/memory/r16_role_memory_pack_model.json",
@@ -631,7 +643,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-023 or later implementation" -Pattern '(?i)\bR16-(0(?:2[3-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-024 or later implementation" -Pattern '(?i)\bR16-(0(?:2[4-6]))\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider token count" -Pattern '(?i)\b(exact provider token count|exact provider tokenization|exact provider tokenizer|provider tokenizer used|exact tokenizer)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider billing" -Pattern '(?i)\b(exact provider billing|exact provider bill|provider bill|provider billing|provider pricing used|exact provider pricing)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'

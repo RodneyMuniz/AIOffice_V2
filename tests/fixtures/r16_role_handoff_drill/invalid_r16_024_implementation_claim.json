@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r16_024_implementation_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.current_posture.r16_024_implementation_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R16-024 implementation claim"
+                         ]
+}

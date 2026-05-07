@@ -30,8 +30,8 @@
                                          "threshold_exceeded_verdict":  "failed_closed_over_budget"
                                      },
     "evaluated_budget":  {
-                             "estimated_tokens_lower_bound":  803593,
-                             "estimated_tokens_upper_bound":  1339312,
+                             "estimated_tokens_lower_bound":  806632,
+                             "estimated_tokens_upper_bound":  1344377,
                              "max_estimated_tokens_upper_bound":  150000,
                              "threshold_exceeded":  true,
                              "budget_category":  "very_large",
@@ -127,7 +127,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  22244,
+                                     "estimated_tokens_upper_bound":  22756,
                                      "deterministic_order":  4
                                  },
                                  {
@@ -140,7 +140,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  42528,
+                                     "estimated_tokens_upper_bound":  43059,
                                      "deterministic_order":  5
                                  },
                                  {
@@ -153,7 +153,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  45636,
+                                     "estimated_tokens_upper_bound":  46349,
                                      "deterministic_order":  6
                                  },
                                  {
@@ -166,7 +166,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  93121,
+                                     "estimated_tokens_upper_bound":  94022,
                                      "deterministic_order":  7
                                  },
                                  {
@@ -179,7 +179,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  28226,
+                                     "estimated_tokens_upper_bound":  29635,
                                      "deterministic_order":  8
                                  },
                                  {
@@ -192,7 +192,7 @@
                                      "invalid_reasons":  [
 
                                                          ],
-                                     "estimated_tokens_upper_bound":  41007,
+                                     "estimated_tokens_upper_bound":  42006,
                                      "deterministic_order":  9
                                  },
                                  {
@@ -949,11 +949,11 @@
                                     "finding_id":  "estimated_tokens_upper_bound_exceeds_threshold",
                                     "severity":  "blocker",
                                     "category":  "budget",
-                                    "message":  "estimated_tokens_upper_bound 1339312 exceeds configured threshold 150000; guard fails closed.",
+                                    "message":  "estimated_tokens_upper_bound 1344377 exceeds configured threshold 150000; guard fails closed.",
                                     "fail_closed":  true,
                                     "deterministic_order":  1,
                                     "evidence":  {
-                                                     "estimated_tokens_upper_bound":  1339312,
+                                                     "estimated_tokens_upper_bound":  1344377,
                                                      "max_estimated_tokens_upper_bound":  150000
                                                  }
                                 }

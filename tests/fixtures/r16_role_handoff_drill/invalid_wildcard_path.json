@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_wildcard_path",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.handoff_packet_report_ref.path",
+    "mutation_value":  "state/workflow/*.json",
+    "expected_failure":  [
+                             "wildcard path"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_runtime_handoff_execution_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.runtime_handoff_execution_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "runtime handoff execution claim"
+                         ]
+}

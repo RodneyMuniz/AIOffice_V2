@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_autonomous_agent_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.actual_autonomous_agents_implemented",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "autonomous-agent claim"
+                         ]
+}

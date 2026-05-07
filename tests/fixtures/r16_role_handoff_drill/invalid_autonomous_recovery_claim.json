@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_autonomous_recovery_claim",
+    "base_fixture":  "valid_role_handoff_drill.json",
+    "mutation_path":  "$.drill_execution_boundary.autonomous_recovery_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "autonomous recovery claim"
+                         ]
+}
