@@ -1,0 +1,1 @@
+{"case_id":"invalid_main_merge_claim_event","base_event_index":0,"set_fields":{"claims":["main_merge"]},"expected_refusal":"main_merge"}

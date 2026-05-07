@@ -1,0 +1,1 @@
+{"case_id":"invalid_r14_caveat_removal_claim_event","base_event_index":0,"set_fields":{"claims":["r14_caveat_removal"]},"expected_refusal":"R14_caveat_removal"}

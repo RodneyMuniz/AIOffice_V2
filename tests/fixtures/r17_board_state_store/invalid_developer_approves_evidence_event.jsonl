@@ -1,0 +1,1 @@
+{"case_id":"invalid_developer_approves_evidence_event","base_event_index":0,"set_fields":{"actor_role":"developer","claims":["Developer approves evidence sufficiency"]},"expected_refusal":"Developer approves evidence sufficiency"}

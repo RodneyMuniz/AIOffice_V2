@@ -1,0 +1,1 @@
+{"case_id":"invalid_r13_closure_claim_event","base_event_index":0,"set_fields":{"claims":["r13_closure"]},"expected_refusal":"R13_closure"}

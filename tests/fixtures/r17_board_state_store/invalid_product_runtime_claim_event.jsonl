@@ -1,0 +1,1 @@
+{"case_id":"invalid_product_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["product_runtime"]},"expected_refusal":"product_runtime"}

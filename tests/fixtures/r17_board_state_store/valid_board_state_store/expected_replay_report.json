@@ -1,0 +1,70 @@
+﻿{
+    "artifact_type":  "r17_board_replay_report",
+    "contract_version":  "v1",
+    "generated_from_head":  "b8de8631152a1f0ce8debf9afb7683b3257c8714",
+    "generated_from_tree":  "9e6fc2732cfb787a52f2e39d2d929bec127dba19",
+    "board_id":  "r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle",
+    "input_card_count":  1,
+    "input_event_count":  5,
+    "replayed_event_count":  5,
+    "rejected_event_count":  0,
+    "final_lane_by_card":  {
+                               "R17-005":  "ready_for_user_review"
+                           },
+    "user_decisions_required":  [
+                                    {
+                                        "card_id":  "R17-005",
+                                        "task_id":  "R17-005",
+                                        "decision":  "user approval required before closure",
+                                        "requested_by_event_id":  "r17_005_event_004_ready_for_user_review"
+                                    }
+                                ],
+    "unresolved_blockers":  [
+
+                            ],
+    "non_claims":  [
+                       "R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only",
+                       "R17-005 does not implement Kanban UI",
+                       "R17-005 does not implement Orchestrator runtime",
+                       "R17-005 does not implement A2A runtime",
+                       "R17-005 does not implement Dev/Codex executor adapter",
+                       "R17-005 does not implement QA/Test Agent adapter",
+                       "R17-005 does not implement Evidence Auditor API adapter",
+                       "R17-005 does not call external APIs",
+                       "R17-005 does not call Codex as executor",
+                       "R17-005 does not claim autonomous agents",
+                       "R17-005 does not claim product runtime",
+                       "R17-005 does not claim executable handoffs",
+                       "R17-005 does not claim executable transitions",
+                       "R17-005 does not claim external audit acceptance",
+                       "R17-005 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-006 through R17-028 remain planned only",
+                       "R17-005 does not claim solved Codex compaction",
+                       "R17-005 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "R16_boundary_rewrite",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability",
+                            "product_runtime",
+                            "Kanban_runtime",
+                            "Orchestrator_runtime",
+                            "autonomous_agents",
+                            "A2A_runtime",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime"
+                        ],
+    "aggregate_verdict":  "generated_r17_board_state_store_candidate"
+}

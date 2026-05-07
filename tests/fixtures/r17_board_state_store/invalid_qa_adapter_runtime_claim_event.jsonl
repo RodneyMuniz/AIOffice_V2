@@ -1,0 +1,1 @@
+{"case_id":"invalid_qa_adapter_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["qa_test_agent_adapter_runtime"]},"expected_refusal":"QA_Test_Agent_adapter_runtime"}

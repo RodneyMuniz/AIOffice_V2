@@ -1,0 +1,1 @@
+{"case_id":"invalid_closed_without_user_approval_event","base_event_index":1,"set_fields":{"to_lane":"closed","transition_allowed":true,"user_approval_present":false},"expected_refusal":"closed without user approval"}

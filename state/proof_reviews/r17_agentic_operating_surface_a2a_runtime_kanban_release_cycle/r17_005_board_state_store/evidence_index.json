@@ -1,0 +1,49 @@
+{
+  "artifact_type": "r17_005_board_state_store_evidence_index",
+  "status": "validated_passed",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "task_id": "R17-005",
+  "scope": "bounded_repo_backed_board_state_store_generation_and_deterministic_event_replay_check_tooling_only",
+  "contract_refs": [
+    "contracts/board/r17_card.contract.json",
+    "contracts/board/r17_board_state.contract.json",
+    "contracts/board/r17_board_event.contract.json"
+  ],
+  "state_artifacts": [
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json"
+  ],
+  "tool_refs": [
+    "tools/R17BoardStateStore.psm1",
+    "tools/new_r17_board_state_store.ps1",
+    "tools/validate_r17_board_state_store.ps1"
+  ],
+  "test_refs": [
+    "tests/test_r17_board_state_store.ps1",
+    "tests/fixtures/r17_board_state_store/"
+  ],
+  "proof_review_refs": [
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/proof_review.md",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/evidence_index.json",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/validation_manifest.md"
+  ],
+  "non_claims": [
+    "R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only",
+    "R17-005 does not implement Kanban UI",
+    "R17-005 does not implement Orchestrator runtime",
+    "R17-005 does not implement A2A runtime",
+    "R17-005 does not implement Dev/Codex executor adapter",
+    "R17-005 does not implement QA/Test Agent adapter",
+    "R17-005 does not implement Evidence Auditor API adapter",
+    "R17-005 does not call external APIs",
+    "R17-005 does not call Codex as executor",
+    "R17-005 does not claim autonomous agents",
+    "R17-005 does not claim product runtime",
+    "R17-005 does not claim executable handoffs or executable transitions",
+    "R17-005 does not claim external audit acceptance",
+    "R17-005 does not claim main merge",
+    "R13, R14, R15, and R16 boundaries are preserved"
+  ]
+}

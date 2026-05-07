@@ -1,0 +1,1 @@
+{"case_id":"invalid_a2a_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["a2a_runtime"]},"expected_refusal":"A2A_runtime"}

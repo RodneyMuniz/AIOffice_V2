@@ -1,0 +1,1 @@
+{"case_id":"invalid_executable_handoff_claim_event","base_event_index":0,"set_fields":{"claims":["executable_handoffs"]},"expected_refusal":"executable_handoffs"}

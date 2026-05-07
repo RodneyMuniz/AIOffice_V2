@@ -1,0 +1,1 @@
+{"case_id":"invalid_solved_codex_compaction_claim_event","base_event_index":0,"set_fields":{"claims":["solved_codex_compaction"]},"expected_refusal":"solved_Codex_compaction"}

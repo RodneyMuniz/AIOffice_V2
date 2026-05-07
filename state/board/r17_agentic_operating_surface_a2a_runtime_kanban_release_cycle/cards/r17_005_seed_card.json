@@ -1,0 +1,121 @@
+﻿{
+    "artifact_type":  "r17_board_card",
+    "contract_version":  "v1",
+    "card_id":  "R17-005",
+    "milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "task_id":  "R17-005",
+    "title":  "Implement bounded repo-backed board state store and deterministic replay checks",
+    "description":  "R17-005 creates generated repo-backed board state artifacts plus deterministic event replay/check tooling using the R17-004 card, board-state, and board-event contracts. It is state-artifact generation only, not product runtime and not Kanban UI.",
+    "double_diamond_stage":  "develop",
+    "lane":  "intake",
+    "owner_role":  "operator",
+    "current_agent":  "codex_local_repository_worker",
+    "status":  "active",
+    "acceptance_criteria":  [
+                                "Create the bounded R17 board state folder and generated seed card, seed events, board state, and replay report artifacts.",
+                                "Replay seed events deterministically into the generated board state artifact.",
+                                "Validate card and event inputs against the R17-004 contract field shapes and R17-005 boundary rules.",
+                                "Reject unknown card, invalid lane, invalid role, closure without user approval, role-policy violations, runtime overclaims, external audit acceptance, main merge, solved Codex claims, and R13/R14/R15/R16 boundary rewrites.",
+                                "Keep R17-006 through R17-028 planned only and preserve all R17-005 non-claims."
+                            ],
+    "qa_criteria":  [
+                        "The R17-004 board contract validator and tests still pass.",
+                        "The R17-005 board state store generator, validator, and focused tests pass.",
+                        "The status-doc gate continues to reject R17-006+ and runtime overclaims.",
+                        "The replay report aggregate verdict is generated_r17_board_state_store_candidate."
+                    ],
+    "evidence_refs":  [
+                          "contracts/board/r17_card.contract.json",
+                          "contracts/board/r17_board_state.contract.json",
+                          "contracts/board/r17_board_event.contract.json",
+                          "tools/R17BoardContracts.psm1",
+                          "tools/R17BoardStateStore.psm1",
+                          "tools/new_r17_board_state_store.ps1",
+                          "tools/validate_r17_board_state_store.ps1",
+                          "tests/test_r17_board_contracts.ps1",
+                          "tests/test_r17_board_state_store.ps1",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/proof_review.md",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/evidence_index.json",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/validation_manifest.md"
+                      ],
+    "memory_refs":  [
+                        "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                        "contracts/board/r17_card.contract.json",
+                        "contracts/board/r17_board_state.contract.json",
+                        "contracts/board/r17_board_event.contract.json"
+                    ],
+    "task_packet_ref":  "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md#r17-005-define-board-state-and-board-event-contracts",
+    "blocker_refs":  [
+
+                     ],
+    "user_decision_required":  true,
+    "user_approval_required_for_closure":  true,
+    "allowed_next_lanes":  [
+                               "define",
+                               "ready_for_user_review",
+                               "blocked"
+                           ],
+    "forbidden_claims":  [
+                             "external_audit_acceptance",
+                             "main_merge",
+                             "R13_closure",
+                             "R14_caveat_removal",
+                             "R15_caveat_removal",
+                             "R16_boundary_rewrite",
+                             "solved_Codex_compaction",
+                             "solved_Codex_reliability",
+                             "product_runtime",
+                             "Kanban_runtime",
+                             "Orchestrator_runtime",
+                             "autonomous_agents",
+                             "A2A_runtime",
+                             "executable_handoffs",
+                             "executable_transitions",
+                             "Dev_Codex_executor_adapter_runtime",
+                             "QA_Test_Agent_adapter_runtime",
+                             "Evidence_Auditor_API_adapter_runtime"
+                         ],
+    "non_claims":  [
+                       "R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only",
+                       "R17-005 does not implement Kanban UI",
+                       "R17-005 does not implement Orchestrator runtime",
+                       "R17-005 does not implement A2A runtime",
+                       "R17-005 does not implement Dev/Codex executor adapter",
+                       "R17-005 does not implement QA/Test Agent adapter",
+                       "R17-005 does not implement Evidence Auditor API adapter",
+                       "R17-005 does not call external APIs",
+                       "R17-005 does not call Codex as executor",
+                       "R17-005 does not claim autonomous agents",
+                       "R17-005 does not claim product runtime",
+                       "R17-005 does not claim executable handoffs",
+                       "R17-005 does not claim executable transitions",
+                       "R17-005 does not claim external audit acceptance",
+                       "R17-005 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-006 through R17-028 remain planned only",
+                       "R17-005 does not claim solved Codex compaction",
+                       "R17-005 does not claim solved Codex reliability"
+                   ],
+    "audit_log_refs":  [
+                           "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/proof_review.md",
+                           "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json"
+                       ],
+    "created_by":  "operator",
+    "updated_by":  "codex",
+    "claims":  {
+                   "product_runtime_claimed":  false,
+                   "kanban_runtime_claimed":  false,
+                   "orchestrator_runtime_claimed":  false,
+                   "a2a_runtime_claimed":  false,
+                   "autonomous_agents_claimed":  false,
+                   "executable_handoffs_claimed":  false,
+                   "executable_transitions_claimed":  false,
+                   "external_audit_acceptance_claimed":  false,
+                   "main_merge_claimed":  false,
+                   "solved_codex_compaction_claimed":  false,
+                   "solved_codex_reliability_claimed":  false
+               }
+}

@@ -1,0 +1,1 @@
+{"case_id":"invalid_executable_transition_claim_event","base_event_index":0,"set_fields":{"claims":["executable_transitions"]},"expected_refusal":"executable_transitions"}

@@ -1,0 +1,1 @@
+{"case_id":"invalid_evidence_auditor_api_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["evidence_auditor_api_adapter_runtime"]},"expected_refusal":"Evidence_Auditor_API_adapter_runtime"}

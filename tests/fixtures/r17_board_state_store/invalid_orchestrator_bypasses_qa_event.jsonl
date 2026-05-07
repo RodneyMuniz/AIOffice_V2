@@ -1,0 +1,1 @@
+{"case_id":"invalid_orchestrator_bypasses_qa_event","base_event_index":0,"set_fields":{"actor_role":"orchestrator","claims":["Orchestrator bypasses QA gate"]},"expected_refusal":"Orchestrator bypasses QA/audit gates"}

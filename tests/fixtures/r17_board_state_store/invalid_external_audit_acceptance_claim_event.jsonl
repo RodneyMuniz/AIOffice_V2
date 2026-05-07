@@ -1,0 +1,1 @@
+{"case_id":"invalid_external_audit_acceptance_claim_event","base_event_index":0,"set_fields":{"claims":["external_audit_acceptance"]},"expected_refusal":"external_audit_acceptance"}

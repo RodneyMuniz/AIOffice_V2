@@ -1,0 +1,1 @@
+{"case_id":"invalid_lane_event","base_event_index":1,"set_fields":{"to_lane":"runtime_lane"},"expected_refusal":"not allowed"}

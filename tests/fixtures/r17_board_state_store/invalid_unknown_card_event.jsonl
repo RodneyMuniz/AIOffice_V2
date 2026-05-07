@@ -1,0 +1,1 @@
+{"case_id":"invalid_unknown_card_event","base_event_index":0,"set_fields":{"card_id":"R17-999"},"expected_refusal":"unknown card"}

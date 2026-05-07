@@ -1,0 +1,1 @@
+{"case_id":"invalid_dev_codex_adapter_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["dev_codex_executor_adapter_runtime"]},"expected_refusal":"Dev_Codex_executor_adapter_runtime"}

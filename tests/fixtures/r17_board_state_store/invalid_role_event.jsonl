@@ -1,0 +1,1 @@
+{"case_id":"invalid_role_event","base_event_index":0,"set_fields":{"actor_role":"runtime_agent"},"expected_refusal":"actor_role"}

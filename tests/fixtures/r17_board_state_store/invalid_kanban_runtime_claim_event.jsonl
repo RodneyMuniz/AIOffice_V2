@@ -1,0 +1,1 @@
+{"case_id":"invalid_kanban_runtime_claim_event","base_event_index":0,"set_fields":{"claims":["kanban_runtime"]},"expected_refusal":"Kanban_runtime"}

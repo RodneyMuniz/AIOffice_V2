@@ -1,0 +1,1 @@
+{"case_id":"invalid_auditor_implements_event","base_event_index":0,"set_fields":{"actor_role":"evidence_auditor","claims":["Auditor implements"]},"expected_refusal":"Auditor implements"}
