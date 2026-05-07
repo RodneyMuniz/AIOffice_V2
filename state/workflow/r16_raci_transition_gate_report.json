@@ -7,8 +7,8 @@
     "repository":  "RodneyMuniz/AIOffice_V2",
     "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
     "generation_boundary":  {
-                                "input_head":  "1095788c2f6dc54e021b2507561f1c5a53494a08",
-                                "input_tree":  "e29cac47663a985038c4e6166381f27fd0d6220d",
+                                "input_head":  "8f3453529c763476b597926f53a9dd1899dece0b",
+                                "input_tree":  "02192460db2834b7b02dc43c0949bf91f0207623",
                                 "source_boundary":  "deterministic local R16-020 gate report from exact committed refs only"
                             },
     "role_run_envelopes_ref":  {
@@ -761,7 +761,7 @@
                             "blocked_transition_count":  4,
                             "allowed_transition_count":  0,
                             "current_guard_verdict":  "failed_closed_over_budget",
-                            "estimated_tokens_upper_bound":  1356909,
+                            "estimated_tokens_upper_bound":  1364079,
                             "max_estimated_tokens_upper_bound":  150000,
                             "no_handoff_packet_generated":  true,
                             "no_workflow_drill_run":  true,

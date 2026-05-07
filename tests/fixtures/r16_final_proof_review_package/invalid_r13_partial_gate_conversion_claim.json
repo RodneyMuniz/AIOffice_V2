@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_r13_partial_gate_conversion_claim",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.preserved_boundaries.r13.partial_gates_converted_to_passed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "R13 partial-gate conversion claim"
+                         ]
+}

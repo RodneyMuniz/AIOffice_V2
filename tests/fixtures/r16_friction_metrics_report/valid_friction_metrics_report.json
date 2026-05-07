@@ -65,7 +65,7 @@
                                     "broad_scan_allowed":  false,
                                     "wildcard_allowed":  false,
                                     "machine_proof":  false,
-                                    "byte_count":  38314,
+                                    "byte_count":  38315,
                                     "line_count":  523,
                                     "deterministic_order":  2,
                                     "metric_role":  "context_budget_estimate_surface"
@@ -245,8 +245,8 @@
                                     "broad_scan_allowed":  false,
                                     "wildcard_allowed":  false,
                                     "machine_proof":  false,
-                                    "byte_count":  137568,
-                                    "line_count":  1132,
+                                    "byte_count":  139387,
+                                    "line_count":  1134,
                                     "deterministic_order":  14,
                                     "metric_role":  "milestone_authority_surface"
                                 }
@@ -378,7 +378,7 @@
                                    "context_budget_estimate_ref":  "state/context/r16_context_budget_estimate.json",
                                    "context_budget_guard_ref":  "state/context/r16_context_budget_guard_report.json",
                                    "latest_accepted_guard_verdict":  "failed_closed_over_budget",
-                                   "latest_accepted_upper_bound":  1356909,
+                                   "latest_accepted_upper_bound":  1364079,
                                    "threshold":  150000,
                                    "threshold_exceeded":  true,
                                    "budget_category":  "very_large",
@@ -395,7 +395,7 @@
                                   "guard_verdict":  "failed_closed_over_budget",
                                   "expected_failed_closed":  true,
                                   "failed_closed_is_expected_signal":  true,
-                                  "latest_accepted_upper_bound":  1356909,
+                                  "latest_accepted_upper_bound":  1364079,
                                   "threshold":  150000,
                                   "threshold_exceeded":  true,
                                   "mitigation_created":  false,
@@ -435,8 +435,8 @@
                                                                     },
                                                                     {
                                                                         "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
-                                                                        "byte_count":  137568,
-                                                                        "line_count":  1132
+                                                                        "byte_count":  139387,
+                                                                        "line_count":  1134
                                                                     }
                                                                 ],
                                 "exact_metric_input_files":  [
@@ -465,7 +465,7 @@
                                                                      "broad_scan_allowed":  false,
                                                                      "wildcard_allowed":  false,
                                                                      "machine_proof":  false,
-                                                                     "byte_count":  38314,
+                                                                     "byte_count":  38315,
                                                                      "line_count":  523,
                                                                      "deterministic_order":  2,
                                                                      "metric_role":  "context_budget_estimate_surface"
@@ -645,8 +645,8 @@
                                                                      "broad_scan_allowed":  false,
                                                                      "wildcard_allowed":  false,
                                                                      "machine_proof":  false,
-                                                                     "byte_count":  137568,
-                                                                     "line_count":  1132,
+                                                                     "byte_count":  139387,
+                                                                     "line_count":  1134,
                                                                      "deterministic_order":  14,
                                                                      "metric_role":  "milestone_authority_surface"
                                                                  }
@@ -734,7 +734,7 @@
                                         "deterministic_byte_line_drift_observed":  true,
                                         "exact_drift_occurrence_count":  "not_measured",
                                         "drift_source":  "status and proof edits changed files in the context-load plan",
-                                        "affected_guard_upper_bound_latest_accepted":  1356909,
+                                        "affected_guard_upper_bound_latest_accepted":  1364079,
                                         "threshold":  150000,
                                         "cascade_tasks":  [
                                                               "R16-016",
@@ -843,7 +843,7 @@
                                           "evidence_class":  "operator_observed_process_evidence",
                                           "machine_proof":  false,
                                           "summary":  "Status and proof edits changed deterministic byte/line inputs and cascaded through R16-016, R16-017, and R16-019 through R16-024.",
-                                          "latest_guard_upper_bound":  1356909
+                                          "latest_guard_upper_bound":  1364079
                                       },
                                       {
                                           "finding_id":  "validator_allowlist_update_cost",
@@ -878,7 +878,7 @@
                                           "evidence_class":  "committed_guard_artifact_plus_operator_observed_process_evidence",
                                           "machine_proof":  false,
                                           "summary":  "The context guard is correctly failed closed and should be treated as an expected signal, not a failed task.",
-                                          "latest_guard_upper_bound":  1356909,
+                                          "latest_guard_upper_bound":  1364079,
                                           "threshold":  150000
                                       },
                                       {
@@ -947,7 +947,7 @@
                             "exact_metric_input_count":  14,
                             "proof_review_ref_count":  8,
                             "audit_readiness_exact_input_count":  12,
-                            "latest_guard_upper_bound":  1356909,
+                            "latest_guard_upper_bound":  1364079,
                             "threshold":  150000,
                             "guard_verdict":  "failed_closed_over_budget",
                             "executable_handoff_count":  0,

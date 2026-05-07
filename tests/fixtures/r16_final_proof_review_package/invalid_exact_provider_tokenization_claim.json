@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_exact_provider_tokenization_claim",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.context_budget_summary.exact_provider_tokenization_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "exact provider tokenization claim"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_friction_metrics_summary",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.friction_metrics_summary",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027friction_metrics_summary\u0027"
+                         ]
+}

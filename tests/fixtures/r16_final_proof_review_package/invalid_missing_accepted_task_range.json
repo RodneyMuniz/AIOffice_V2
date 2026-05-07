@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_accepted_task_range",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.accepted_task_range",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027accepted_task_range\u0027"
+                         ]
+}

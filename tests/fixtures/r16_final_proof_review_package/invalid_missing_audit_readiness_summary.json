@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_audit_readiness_summary",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.audit_readiness_summary",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027audit_readiness_summary\u0027"
+                         ]
+}

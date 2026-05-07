@@ -291,8 +291,8 @@ try {
 
     $tempReportRel = Join-Path $tempRootRel "r16_friction_metrics_report.json"
     $generated = & $newReport -OutputPath $tempReportRel -RepositoryRoot $repoRoot
-    if ($generated.ActiveThroughTask -ne "R16-025" -or $generated.PlannedTaskStart -ne "R16-026" -or $generated.PlannedTaskEnd -ne "R16-026" -or $generated.AggregateVerdict -ne "passed_bounded_friction_metrics_report_with_guard_failed_closed" -or $generated.ExactMetricInputCount -ne 14 -or $generated.ProofReviewRefCount -ne 8 -or $generated.GuardVerdict -ne "failed_closed_over_budget" -or $generated.LatestGuardUpperBound -ne 1356909 -or $generated.Threshold -ne 150000) {
-        $failures += "FAIL generated report: expected R16 active through R16-025 in report only, R16-026 planned only, 14 exact metric inputs, 8 proof review refs, failed_closed_over_budget guard values 1356909 over 150000, and passed_bounded_friction_metrics_report_with_guard_failed_closed."
+    if ($generated.ActiveThroughTask -ne "R16-025" -or $generated.PlannedTaskStart -ne "R16-026" -or $generated.PlannedTaskEnd -ne "R16-026" -or $generated.AggregateVerdict -ne "passed_bounded_friction_metrics_report_with_guard_failed_closed" -or $generated.ExactMetricInputCount -ne 14 -or $generated.ProofReviewRefCount -ne 8 -or $generated.GuardVerdict -ne "failed_closed_over_budget" -or $generated.LatestGuardUpperBound -ne 1364079 -or $generated.Threshold -ne 150000) {
+        $failures += "FAIL generated report: expected R16 active through R16-025 in report only, R16-026 planned only, 14 exact metric inputs, 8 proof review refs, failed_closed_over_budget guard values 1364079 over 150000, and passed_bounded_friction_metrics_report_with_guard_failed_closed."
     }
     else {
         Write-Output ("PASS generated report: exact_metric_inputs={0}, proof_review_refs={1}, verdict={2}, guard={3}/{4}" -f $generated.ExactMetricInputCount, $generated.ProofReviewRefCount, $generated.AggregateVerdict, $generated.LatestGuardUpperBound, $generated.Threshold)
@@ -300,8 +300,8 @@ try {
     }
 
     $stateResult = & $testReport -Path $stateReportRel -RepositoryRoot $repoRoot
-    if ($stateResult.ActiveThroughTask -ne "R16-025" -or $stateResult.PlannedTaskStart -ne "R16-026" -or $stateResult.PlannedTaskEnd -ne "R16-026" -or $stateResult.ExactMetricInputCount -ne 14 -or $stateResult.ProofReviewRefCount -ne 8 -or $stateResult.GuardVerdict -ne "failed_closed_over_budget" -or $stateResult.LatestGuardUpperBound -ne 1356909 -or $stateResult.Threshold -ne 150000 -or $stateResult.FrictionFindingCount -lt 10 -or $stateResult.NextMilestoneImplicationCount -lt 5) {
-        $failures += "FAIL state R16-025 report: expected bounded friction metrics posture with guard 1356909 over 150000 and explicit next milestone implications."
+    if ($stateResult.ActiveThroughTask -ne "R16-025" -or $stateResult.PlannedTaskStart -ne "R16-026" -or $stateResult.PlannedTaskEnd -ne "R16-026" -or $stateResult.ExactMetricInputCount -ne 14 -or $stateResult.ProofReviewRefCount -ne 8 -or $stateResult.GuardVerdict -ne "failed_closed_over_budget" -or $stateResult.LatestGuardUpperBound -ne 1364079 -or $stateResult.Threshold -ne 150000 -or $stateResult.FrictionFindingCount -lt 10 -or $stateResult.NextMilestoneImplicationCount -lt 5) {
+        $failures += "FAIL state R16-025 report: expected bounded friction metrics posture with guard 1364079 over 150000 and explicit next milestone implications."
     }
     else {
         Write-Output ("PASS state report: exact_metric_inputs={0}, proof_review_refs={1}, friction_findings={2}, next_implications={3}, verdict={4}" -f $stateResult.ExactMetricInputCount, $stateResult.ProofReviewRefCount, $stateResult.FrictionFindingCount, $stateResult.NextMilestoneImplicationCount, $stateResult.AggregateVerdict)

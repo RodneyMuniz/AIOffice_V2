@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_current_guard_posture",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.current_guard_posture",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027current_guard_posture\u0027"
+                         ]
+}

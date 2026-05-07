@@ -415,7 +415,7 @@
                           },
     "blocked_execution_posture":  {
                                       "guard_verdict":  "failed_closed_over_budget",
-                                      "estimated_tokens_upper_bound":  1356909,
+                                      "estimated_tokens_upper_bound":  1364079,
                                       "max_estimated_tokens_upper_bound":  150000,
                                       "threshold":  150000,
                                       "threshold_exceeded":  true,
@@ -473,7 +473,7 @@
                             "planned_task_start":  "R16-023",
                             "planned_task_end":  "R16-026",
                             "guard_verdict":  "failed_closed_over_budget",
-                            "estimated_tokens_upper_bound":  1356909,
+                            "estimated_tokens_upper_bound":  1364079,
                             "max_estimated_tokens_upper_bound":  150000,
                             "threshold":  150000,
                             "no_mitigation":  true,

@@ -293,7 +293,7 @@
     "operator_observed_process_evidence_allowed": true,
     "operator_observed_process_evidence_machine_proof_allowed": false,
     "guard_verdict_required": "failed_closed_over_budget",
-    "latest_accepted_guard_upper_bound": 1356909,
+    "latest_accepted_guard_upper_bound": 1364079,
     "threshold": 150000,
     "aggregate_verdict_required": "passed_bounded_friction_metrics_report_with_guard_failed_closed",
     "r16_active_through_task_in_report_only": "R16-025",

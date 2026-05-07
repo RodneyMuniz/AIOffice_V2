@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_proof_review_refs",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.proof_review_refs",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027proof_review_refs\u0027"
+                         ]
+}

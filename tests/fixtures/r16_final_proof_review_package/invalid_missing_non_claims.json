@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_non_claims",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.non_claims",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027non_claims\u0027"
+                         ]
+}

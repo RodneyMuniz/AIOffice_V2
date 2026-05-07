@@ -512,14 +512,13 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $snapshot = Get-ContiguousDoneThroughFromStatusMap -StatusMap $kanbanStatus -Context "KANBAN"
-    if ($snapshot.DoneThrough -ne 25 -or $snapshot.PlannedStart -ne 26 -or $snapshot.PlannedThrough -ne 26) {
-        throw "Status docs must keep R16 active through R16-025 only with R16-026 planned only."
+    if ($snapshot.DoneThrough -ne 26 -or $null -ne $snapshot.PlannedStart -or $null -ne $snapshot.PlannedThrough) {
+        throw "Status docs must keep R16 active through R16-026 only with no planned R16 successor task."
     }
 
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($requiredText in @(
-            "R16 active through R16-025 only",
-            "R16-026 remains planned only",
+            "R16 active through R16-026 only",
             "R16-002 installed and validated planning authority references only",
             "R16-003 added KPI baseline and target scorecard only",
             "R16-004 defined the memory layer contract only",
@@ -544,6 +543,8 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "R16-023 adds bounded role-handoff drill reporting only",
             "R16-024 adds bounded audit-readiness drill reporting only",
             "R16-025 adds bounded friction metrics reporting only",
+            "R16-026 adds a bounded final proof/review package candidate",
+            "R16-026 is a candidate package/final-head support task only",
             "KPI targets are",
             "generated baseline memory layers are committed state artifacts, not runtime memory",
             "Generated baseline role memory packs are committed state artifacts, not runtime memory",
@@ -625,6 +626,9 @@ function Assert-R16PlanningAuthorityStatusPosture {
             "broad/full repo scan is not used",
             "state/governance/r16_friction_metrics_report.json",
             "committed generated friction metrics report state artifact only",
+            "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json",
+            "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json",
+            "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json",
             "operational friction and context",
             "operator-observed process evidence",
             "failed-closed guard remains expected and unresolved",
@@ -658,7 +662,7 @@ function Assert-R16PlanningAuthorityStatusPosture {
     }
 
     $stringValues = @($combinedText -split "\r?\n")
-    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-026 implementation or final proof package" -Pattern '(?i)\bR16-026\b.{0,160}\b(done|complete|completed|implemented|executed|ran|claimed|created)\b'
+    Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "R16-026 overclaim beyond candidate package support" -Pattern '(?i)\bR16-026\b.{0,200}\b(external audit acceptance|final R16 audit acceptance|main merge|merged to main|closeout completion|R16 closeout|runtime execution|product runtime|runtime memory|retrieval runtime|vector search runtime|autonomous agents|external integrations|executable handoffs|executable transitions|solved Codex compaction|solved Codex reliability)\b.{0,80}\b(done|complete|completed|accepted|approved|claimed|exists|achieved|implemented|executed|ran)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider token count" -Pattern '(?i)\b(exact provider token count|exact provider tokenization|exact provider tokenizer|provider tokenizer used|exact tokenizer)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "exact provider billing" -Pattern '(?i)\b(exact provider billing|exact provider bill|provider bill|provider billing|provider pricing used|exact provider pricing)\b'
     Assert-NoForbiddenPositiveClaim -Values $stringValues -Context "Status docs" -ClaimLabel "generated baseline memory layers treated as runtime memory" -Pattern '(?i)\b(generated baseline memory layers|baseline generated memory layers|baseline memory layers)\b.{0,160}\b(are runtime memory|as runtime memory|runtime memory loading|persistent memory runtime|retrieval runtime|vector search runtime|production memory runtime)\b'

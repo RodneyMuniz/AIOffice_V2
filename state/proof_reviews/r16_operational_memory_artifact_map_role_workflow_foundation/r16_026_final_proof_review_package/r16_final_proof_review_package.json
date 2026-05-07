@@ -1,0 +1,2666 @@
+{
+    "artifact_type":  "r16_final_proof_review_package",
+    "package_version":  "v1",
+    "package_id":  "aioffice-r16-026-final-proof-review-package-v1",
+    "source_milestone":  "R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation",
+    "source_task":  "R16-026",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
+    "generation_boundary":  {
+                                "implementation_pass_only":  true,
+                                "generated_package_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/r16_final_proof_review_package.json",
+                                "generated_evidence_index_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json",
+                                "generated_final_head_support_packet_path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/final_head_support_packet.json",
+                                "current_task_outputs_pending_finalization_commit":  true,
+                                "finalization_commit_completed":  false,
+                                "external_audit_acceptance_claimed":  false,
+                                "main_merge_claimed":  false,
+                                "runtime_execution_claimed":  false,
+                                "executable_handoffs_claimed":  false,
+                                "executable_transitions_claimed":  false,
+                                "broad_repo_scan_performed":  false,
+                                "full_repo_scan_performed":  false,
+                                "raw_chat_history_loaded":  false
+                            },
+    "generated_from_head":  "8f3453529c763476b597926f53a9dd1899dece0b",
+    "generated_from_tree":  "02192460db2834b7b02dc43c0949bf91f0207623",
+    "accepted_task_range":  {
+                                "start_task":  "R16-001",
+                                "end_task":  "R16-025",
+                                "task_count":  25,
+                                "accepted_tasks":  [
+                                                       "R16-001",
+                                                       "R16-002",
+                                                       "R16-003",
+                                                       "R16-004",
+                                                       "R16-005",
+                                                       "R16-006",
+                                                       "R16-007",
+                                                       "R16-008",
+                                                       "R16-009",
+                                                       "R16-010",
+                                                       "R16-011",
+                                                       "R16-012",
+                                                       "R16-013",
+                                                       "R16-014",
+                                                       "R16-015",
+                                                       "R16-016",
+                                                       "R16-017",
+                                                       "R16-018",
+                                                       "R16-019",
+                                                       "R16-020",
+                                                       "R16-021",
+                                                       "R16-022",
+                                                       "R16-023",
+                                                       "R16-024",
+                                                       "R16-025"
+                                                   ]
+                            },
+    "r16_026_package_status":  "candidate_or_generated_package_only",
+    "exact_evidence_refs":  [
+                                {
+                                    "ref_id":  "r16_001_governance_authority",
+                                    "path":  "governance/R16_OPERATIONAL_MEMORY_ARTIFACT_MAP_ROLE_WORKFLOW_FOUNDATION.md",
+                                    "source_task":  "R16-001",
+                                    "artifact_kind":  "governance_authority",
+                                    "proof_treatment":  "milestone opening and task-boundary authority; canonical exact repo-backed ref, not runtime proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  1,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  139387,
+                                    "line_count":  1134,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_002_planning_authority_reference",
+                                    "path":  "state/governance/r16_planning_authority_reference.json",
+                                    "source_task":  "R16-002",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "planning authority reference state artifact; evidence artifact only",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  2,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  12197,
+                                    "line_count":  303,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_003_kpi_baseline_target_scorecard",
+                                    "path":  "state/governance/r16_kpi_baseline_target_scorecard.json",
+                                    "source_task":  "R16-003",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "KPI baseline/target scorecard state artifact; target scoring, not achieved runtime proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  3,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  41131,
+                                    "line_count":  612,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_004_memory_layer_contract",
+                                    "path":  "contracts/memory/r16_memory_layer.contract.json",
+                                    "source_task":  "R16-004",
+                                    "artifact_kind":  "contract",
+                                    "proof_treatment":  "memory layer contract; schema/boundary evidence, not runtime memory proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  4,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  62779,
+                                    "line_count":  898,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_005_memory_layers",
+                                    "path":  "state/memory/r16_memory_layers.json",
+                                    "source_task":  "R16-005",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "deterministic memory layer state artifact; not runtime memory loading",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  5,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  214158,
+                                    "line_count":  2511,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_006_role_memory_pack_model",
+                                    "path":  "state/memory/r16_role_memory_pack_model.json",
+                                    "source_task":  "R16-006",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "role memory pack model state artifact; not autonomous-agent execution",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  6,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  197774,
+                                    "line_count":  2293,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_007_role_memory_packs",
+                                    "path":  "state/memory/r16_role_memory_packs.json",
+                                    "source_task":  "R16-007",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "baseline role memory packs state artifact; not runtime retrieval or memory",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  7,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  1564978,
+                                    "line_count":  13694,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_008_memory_pack_validation_report",
+                                    "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                    "source_task":  "R16-008",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "memory pack validation and stale-ref report; generated report is not automatically machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  8,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  165687,
+                                    "line_count":  2061,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_009_artifact_map_contract",
+                                    "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                                    "source_task":  "R16-009",
+                                    "artifact_kind":  "contract",
+                                    "proof_treatment":  "artifact map contract; schema/boundary evidence",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  9,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  110767,
+                                    "line_count":  1480,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_010_artifact_map",
+                                    "path":  "state/artifacts/r16_artifact_map.json",
+                                    "source_task":  "R16-010",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "artifact map state artifact; canonical map evidence, not runtime proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  10,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  586478,
+                                    "line_count":  7095,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_011_audit_map_contract",
+                                    "path":  "contracts/audit/r16_audit_map.contract.json",
+                                    "source_task":  "R16-011",
+                                    "artifact_kind":  "contract",
+                                    "proof_treatment":  "audit map contract; schema/boundary evidence",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  11,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  15864,
+                                    "line_count":  490,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_012_r15_r16_audit_map",
+                                    "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                    "source_task":  "R16-012",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "R15/R16 audit map state artifact; preserves R15 caveats",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  12,
+                                    "caveats":  [
+                                                    "R15 stale generated_from caveat remains preserved."
+                                                ],
+                                    "byte_count":  618045,
+                                    "line_count":  7347,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_013_artifact_audit_map_check",
+                                    "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                    "source_task":  "R16-013",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "artifact/audit map consistency report; generated report is not automatically machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  13,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  23225,
+                                    "line_count":  371,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_014_context_load_plan_contract",
+                                    "path":  "contracts/context/r16_context_load_plan.contract.json",
+                                    "source_task":  "R16-014",
+                                    "artifact_kind":  "contract",
+                                    "proof_treatment":  "context load plan contract; schema/boundary evidence",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  14,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  8788,
+                                    "line_count":  278,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_015_context_load_plan",
+                                    "path":  "state/context/r16_context_load_plan.json",
+                                    "source_task":  "R16-015",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "context load plan state artifact; exact refs only, no broad scan",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  15,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  54530,
+                                    "line_count":  748,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_016_context_budget_estimate",
+                                    "path":  "state/context/r16_context_budget_estimate.json",
+                                    "source_task":  "R16-016",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "approximate context budget estimate; no provider tokenization or billing",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  16,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  38315,
+                                    "line_count":  523,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_017_context_budget_guard",
+                                    "path":  "state/context/r16_context_budget_guard_report.json",
+                                    "source_task":  "R16-017",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "failed-closed context budget guard report; expected unresolved signal",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  17,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  69558,
+                                    "line_count":  1059,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_018_role_run_envelope_contract",
+                                    "path":  "contracts/workflow/r16_role_run_envelope.contract.json",
+                                    "source_task":  "R16-018",
+                                    "artifact_kind":  "contract",
+                                    "proof_treatment":  "role-run envelope contract; non-executable workflow boundary",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  18,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  19458,
+                                    "line_count":  595,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_019_role_run_envelopes",
+                                    "path":  "state/workflow/r16_role_run_envelopes.json",
+                                    "source_task":  "R16-019",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "role-run envelope state artifact; no executable envelopes or transitions",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  19,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  323339,
+                                    "line_count":  3857,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_020_raci_transition_gate",
+                                    "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                    "source_task":  "R16-020",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "RACI transition gate report; transitions remain blocked/non-executable",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  20,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  70053,
+                                    "line_count":  814,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_021_handoff_packet_report",
+                                    "path":  "state/workflow/r16_handoff_packet_report.json",
+                                    "source_task":  "R16-021",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "handoff packet report; handoffs remain non-executable",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  21,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  111373,
+                                    "line_count":  1284,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_022_restart_compaction_recovery_drill",
+                                    "path":  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                    "source_task":  "R16-022",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "restart/compaction recovery drill; Codex compaction captured, not solved",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  22,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  41986,
+                                    "line_count":  598,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_023_role_handoff_drill",
+                                    "path":  "state/workflow/r16_role_handoff_drill.json",
+                                    "source_task":  "R16-023",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "role-handoff drill; no executable handoffs or transitions",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  23,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  65740,
+                                    "line_count":  842,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_024_audit_readiness_drill",
+                                    "path":  "state/audit/r16_audit_readiness_drill.json",
+                                    "source_task":  "R16-024",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "audit-readiness drill report; no final R16 audit acceptance",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  24,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  60865,
+                                    "line_count":  842,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_025_friction_metrics_report",
+                                    "path":  "state/governance/r16_friction_metrics_report.json",
+                                    "source_task":  "R16-025",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "bounded friction metrics report; operator-observed process evidence is not machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  25,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  81880,
+                                    "line_count":  1037,
+                                    "tracked_file":  true
+                                }
+                            ],
+    "proof_review_refs":  [
+                              {
+                                  "ref_id":  "r16_001_opening_package",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/r16_opening_packet.json",
+                                  "source_task":  "R16-001",
+                                  "artifact_kind":  "opening_package",
+                                  "proof_treatment":  "opening package path; classified separately from proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  1,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  6218,
+                                  "line_count":  155,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_002_planning_authority_reference",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/validation_manifest.md",
+                                  "source_task":  "R16-002",
+                                  "artifact_kind":  "validation_manifest_only",
+                                  "proof_treatment":  "R16-002 uses manifest/non-claims package rather than proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  2,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3715,
+                                  "line_count":  53,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_003_kpi_baseline_target_scorecard",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_003_kpi_baseline_target_scorecard/validation_manifest.md",
+                                  "source_task":  "R16-003",
+                                  "artifact_kind":  "validation_manifest_only",
+                                  "proof_treatment":  "R16-003 uses manifest/non-claims package rather than proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  3,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4105,
+                                  "line_count":  58,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_004_memory_layer_contract",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/validation_manifest.md",
+                                  "source_task":  "R16-004",
+                                  "artifact_kind":  "validation_manifest_only",
+                                  "proof_treatment":  "R16-004 uses manifest/non-claims package rather than proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  4,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  5033,
+                                  "line_count":  61,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_005_deterministic_memory_layer_generator",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_005_deterministic_memory_layer_generator/generation_summary.json",
+                                  "source_task":  "R16-005",
+                                  "artifact_kind":  "generation_summary",
+                                  "proof_treatment":  "generation summary path for R16-005; classified separately from proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  5,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  1737,
+                                  "line_count":  42,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_006_role_memory_pack_model",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_006_role_memory_pack_model/validation_manifest.md",
+                                  "source_task":  "R16-006",
+                                  "artifact_kind":  "validation_manifest_only",
+                                  "proof_treatment":  "R16-006 uses manifest/non-claims package rather than proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  6,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  8100,
+                                  "line_count":  104,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_007_baseline_role_memory_packs",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_007_baseline_role_memory_packs/generation_summary.json",
+                                  "source_task":  "R16-007",
+                                  "artifact_kind":  "generation_summary",
+                                  "proof_treatment":  "generation summary path for R16-007; classified separately from proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  7,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  2240,
+                                  "line_count":  57,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_008_memory_pack_validation",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_008_memory_pack_validation_stale_ref_detection/detection_summary.json",
+                                  "source_task":  "R16-008",
+                                  "artifact_kind":  "detection_summary",
+                                  "proof_treatment":  "stale-ref detection summary path for R16-008; classified separately from proof_review.json",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  8,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4345,
+                                  "line_count":  93,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_009_artifact_map_contract",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/proof_review.json",
+                                  "source_task":  "R16-009",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-009",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  9,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4475,
+                                  "line_count":  69,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_010_artifact_map_generator",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/proof_review.json",
+                                  "source_task":  "R16-010",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-010",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  10,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4286,
+                                  "line_count":  102,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_011_audit_map_contract",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/proof_review.json",
+                                  "source_task":  "R16-011",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-011",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  11,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3709,
+                                  "line_count":  90,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_012_r15_r16_audit_map",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/proof_review.json",
+                                  "source_task":  "R16-012",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-012",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  12,
+                                  "caveats":  [
+                                                  "R15 stale generated_from caveat remains preserved."
+                                              ],
+                                  "byte_count":  3018,
+                                  "line_count":  82,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_013_artifact_audit_map_check",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/proof_review.json",
+                                  "source_task":  "R16-013",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-013",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  13,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3729,
+                                  "line_count":  92,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_014_context_load_plan_contract",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/proof_review.json",
+                                  "source_task":  "R16-014",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-014",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  14,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  2872,
+                                  "line_count":  78,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_015_context_load_planner",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/proof_review.json",
+                                  "source_task":  "R16-015",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-015",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  15,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4145,
+                                  "line_count":  114,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_016_context_budget_estimator",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/proof_review.json",
+                                  "source_task":  "R16-016",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-016",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  16,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4452,
+                                  "line_count":  124,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_017_context_budget_guard",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/proof_review.json",
+                                  "source_task":  "R16-017",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-017",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  17,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3472,
+                                  "line_count":  94,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_018_role_run_envelope_contract",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/proof_review.json",
+                                  "source_task":  "R16-018",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-018",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  18,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3547,
+                                  "line_count":  100,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_019_role_run_envelope_generator",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/proof_review.json",
+                                  "source_task":  "R16-019",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-019",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  19,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3763,
+                                  "line_count":  104,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_020_raci_transition_gate",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/proof_review.json",
+                                  "source_task":  "R16-020",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-020",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  20,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  3724,
+                                  "line_count":  84,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_021_handoff_packet_generator",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/proof_review.json",
+                                  "source_task":  "R16-021",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-021",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  21,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4360,
+                                  "line_count":  96,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_022_restart_compaction_recovery_drill",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/proof_review.json",
+                                  "source_task":  "R16-022",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-022",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  22,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  4981,
+                                  "line_count":  105,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_023_role_handoff_drill",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/proof_review.json",
+                                  "source_task":  "R16-023",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-023",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  23,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  5082,
+                                  "line_count":  110,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_024_audit_readiness_drill",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/proof_review.json",
+                                  "source_task":  "R16-024",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-024",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  24,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  5129,
+                                  "line_count":  113,
+                                  "tracked_file":  true
+                              },
+                              {
+                                  "ref_id":  "r16_025_friction_metrics_report",
+                                  "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/proof_review.json",
+                                  "source_task":  "R16-025",
+                                  "artifact_kind":  "proof_review",
+                                  "proof_treatment":  "proof-review package pointer for R16-025",
+                                  "authority_level":  "supporting",
+                                  "machine_proof":  false,
+                                  "exact_path_only":  true,
+                                  "broad_scan_allowed":  false,
+                                  "wildcard_allowed":  false,
+                                  "deterministic_order":  25,
+                                  "caveats":  [
+                                                  "none"
+                                              ],
+                                  "byte_count":  6579,
+                                  "line_count":  132,
+                                  "tracked_file":  true
+                              }
+                          ],
+    "validation_manifest_refs":  [
+                                     {
+                                         "ref_id":  "r16_001_opening",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/opening/validation_manifest.md",
+                                         "source_task":  "R16-001",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "opening validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  1,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4065,
+                                         "line_count":  51,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_002_planning_authority_reference",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_002_planning_authority_reference/validation_manifest.md",
+                                         "source_task":  "R16-002",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-002 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  2,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  3715,
+                                         "line_count":  53,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_003_kpi_baseline_target_scorecard",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_003_kpi_baseline_target_scorecard/validation_manifest.md",
+                                         "source_task":  "R16-003",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-003 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  3,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4105,
+                                         "line_count":  58,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_004_memory_layer_contract",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_004_memory_layer_contract/validation_manifest.md",
+                                         "source_task":  "R16-004",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-004 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  4,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5033,
+                                         "line_count":  61,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_005_memory_layers",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_005_deterministic_memory_layer_generator/validation_manifest.md",
+                                         "source_task":  "R16-005",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-005 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  5,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  6147,
+                                         "line_count":  47,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_006_role_memory_pack_model",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_006_role_memory_pack_model/validation_manifest.md",
+                                         "source_task":  "R16-006",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-006 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  6,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  8100,
+                                         "line_count":  104,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_007_role_memory_packs",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_007_baseline_role_memory_packs/validation_manifest.md",
+                                         "source_task":  "R16-007",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-007 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  7,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  9058,
+                                         "line_count":  116,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_008_memory_pack_validation",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_008_memory_pack_validation_stale_ref_detection/validation_manifest.md",
+                                         "source_task":  "R16-008",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-008 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  8,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  9153,
+                                         "line_count":  111,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_009_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_009_artifact_map_contract/validation_manifest.md",
+                                         "source_task":  "R16-009",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-009 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  9,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  3781,
+                                         "line_count":  40,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_010_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_010_artifact_map_generator/validation_manifest.md",
+                                         "source_task":  "R16-010",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-010 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  10,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4458,
+                                         "line_count":  43,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_011_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_011_audit_map_contract/validation_manifest.md",
+                                         "source_task":  "R16-011",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-011 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  11,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5505,
+                                         "line_count":  49,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_012_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_012_r15_r16_audit_map/validation_manifest.md",
+                                         "source_task":  "R16-012",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-012 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  12,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4959,
+                                         "line_count":  44,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_013_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_013_artifact_audit_map_check/validation_manifest.md",
+                                         "source_task":  "R16-013",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-013 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  13,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5719,
+                                         "line_count":  48,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_014_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_014_context_load_plan_contract/validation_manifest.md",
+                                         "source_task":  "R16-014",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-014 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  14,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4701,
+                                         "line_count":  44,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_015_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_015_context_load_planner/validation_manifest.md",
+                                         "source_task":  "R16-015",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-015 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  15,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5936,
+                                         "line_count":  59,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_016_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_016_context_budget_estimator/validation_manifest.md",
+                                         "source_task":  "R16-016",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-016 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  16,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  6702,
+                                         "line_count":  65,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_017_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_017_context_budget_guard/validation_manifest.md",
+                                         "source_task":  "R16-017",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-017 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  17,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  2946,
+                                         "line_count":  37,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_018_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_018_role_run_envelope_contract/validation_manifest.md",
+                                         "source_task":  "R16-018",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-018 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  18,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  3532,
+                                         "line_count":  43,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_019_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_019_role_run_envelope_generator/validation_manifest.md",
+                                         "source_task":  "R16-019",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-019 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  19,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  3271,
+                                         "line_count":  47,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_020_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_020_raci_transition_gate/validation_manifest.md",
+                                         "source_task":  "R16-020",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-020 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  20,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  3999,
+                                         "line_count":  49,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_021_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_021_handoff_packet_generator/validation_manifest.md",
+                                         "source_task":  "R16-021",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-021 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  21,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4379,
+                                         "line_count":  52,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_022_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_022_restart_compaction_recovery_drill/validation_manifest.md",
+                                         "source_task":  "R16-022",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-022 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  22,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  4673,
+                                         "line_count":  57,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_023_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_023_role_handoff_drill/validation_manifest.md",
+                                         "source_task":  "R16-023",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-023 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  23,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5312,
+                                         "line_count":  62,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_024_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_024_audit_readiness_drill/validation_manifest.md",
+                                         "source_task":  "R16-024",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-024 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  24,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5514,
+                                         "line_count":  70,
+                                         "tracked_file":  true
+                                     },
+                                     {
+                                         "ref_id":  "r16_025_validation_manifest",
+                                         "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_025_friction_metrics_report/validation_manifest.md",
+                                         "source_task":  "R16-025",
+                                         "artifact_kind":  "validation_manifest",
+                                         "proof_treatment":  "R16-025 validation manifest",
+                                         "authority_level":  "supporting",
+                                         "machine_proof":  false,
+                                         "exact_path_only":  true,
+                                         "broad_scan_allowed":  false,
+                                         "wildcard_allowed":  false,
+                                         "deterministic_order":  25,
+                                         "caveats":  [
+                                                         "none"
+                                                     ],
+                                         "byte_count":  5725,
+                                         "line_count":  66,
+                                         "tracked_file":  true
+                                     }
+                                 ],
+    "state_artifact_refs":  [
+                                {
+                                    "ref_id":  "r16_002_planning_authority_reference",
+                                    "path":  "state/governance/r16_planning_authority_reference.json",
+                                    "source_task":  "R16-002",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "planning authority reference state artifact; evidence artifact only",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  1,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  12197,
+                                    "line_count":  303,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_003_kpi_baseline_target_scorecard",
+                                    "path":  "state/governance/r16_kpi_baseline_target_scorecard.json",
+                                    "source_task":  "R16-003",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "KPI baseline/target scorecard state artifact; target scoring, not achieved runtime proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  2,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  41131,
+                                    "line_count":  612,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_005_memory_layers",
+                                    "path":  "state/memory/r16_memory_layers.json",
+                                    "source_task":  "R16-005",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "deterministic memory layer state artifact; not runtime memory loading",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  3,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  214158,
+                                    "line_count":  2511,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_006_role_memory_pack_model",
+                                    "path":  "state/memory/r16_role_memory_pack_model.json",
+                                    "source_task":  "R16-006",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "role memory pack model state artifact; not autonomous-agent execution",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  4,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  197774,
+                                    "line_count":  2293,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_007_role_memory_packs",
+                                    "path":  "state/memory/r16_role_memory_packs.json",
+                                    "source_task":  "R16-007",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "baseline role memory packs state artifact; not runtime retrieval or memory",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  5,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  1564978,
+                                    "line_count":  13694,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_008_memory_pack_validation_report",
+                                    "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                    "source_task":  "R16-008",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "memory pack validation and stale-ref report; generated report is not automatically machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  6,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  165687,
+                                    "line_count":  2061,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_010_artifact_map",
+                                    "path":  "state/artifacts/r16_artifact_map.json",
+                                    "source_task":  "R16-010",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "artifact map state artifact; canonical map evidence, not runtime proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  7,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  586478,
+                                    "line_count":  7095,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_012_r15_r16_audit_map",
+                                    "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                    "source_task":  "R16-012",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "R15/R16 audit map state artifact; preserves R15 caveats",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  8,
+                                    "caveats":  [
+                                                    "R15 stale generated_from caveat remains preserved."
+                                                ],
+                                    "byte_count":  618045,
+                                    "line_count":  7347,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_013_artifact_audit_map_check",
+                                    "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                    "source_task":  "R16-013",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "artifact/audit map consistency report; generated report is not automatically machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  9,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  23225,
+                                    "line_count":  371,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_015_context_load_plan",
+                                    "path":  "state/context/r16_context_load_plan.json",
+                                    "source_task":  "R16-015",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "context load plan state artifact; exact refs only, no broad scan",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  10,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  54530,
+                                    "line_count":  748,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_016_context_budget_estimate",
+                                    "path":  "state/context/r16_context_budget_estimate.json",
+                                    "source_task":  "R16-016",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "approximate context budget estimate; no provider tokenization or billing",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  11,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  38315,
+                                    "line_count":  523,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_017_context_budget_guard",
+                                    "path":  "state/context/r16_context_budget_guard_report.json",
+                                    "source_task":  "R16-017",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "failed-closed context budget guard report; expected unresolved signal",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  12,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  69558,
+                                    "line_count":  1059,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_019_role_run_envelopes",
+                                    "path":  "state/workflow/r16_role_run_envelopes.json",
+                                    "source_task":  "R16-019",
+                                    "artifact_kind":  "generated_state_artifact",
+                                    "proof_treatment":  "role-run envelope state artifact; no executable envelopes or transitions",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  13,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  323339,
+                                    "line_count":  3857,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_020_raci_transition_gate",
+                                    "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                    "source_task":  "R16-020",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "RACI transition gate report; transitions remain blocked/non-executable",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  14,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  70053,
+                                    "line_count":  814,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_021_handoff_packet_report",
+                                    "path":  "state/workflow/r16_handoff_packet_report.json",
+                                    "source_task":  "R16-021",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "handoff packet report; handoffs remain non-executable",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  15,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  111373,
+                                    "line_count":  1284,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_022_restart_compaction_recovery_drill",
+                                    "path":  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                    "source_task":  "R16-022",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "restart/compaction recovery drill; Codex compaction captured, not solved",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  16,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  41986,
+                                    "line_count":  598,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_023_role_handoff_drill",
+                                    "path":  "state/workflow/r16_role_handoff_drill.json",
+                                    "source_task":  "R16-023",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "role-handoff drill; no executable handoffs or transitions",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  17,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  65740,
+                                    "line_count":  842,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_024_audit_readiness_drill",
+                                    "path":  "state/audit/r16_audit_readiness_drill.json",
+                                    "source_task":  "R16-024",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "audit-readiness drill report; no final R16 audit acceptance",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  18,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  60865,
+                                    "line_count":  842,
+                                    "tracked_file":  true
+                                },
+                                {
+                                    "ref_id":  "r16_025_friction_metrics_report",
+                                    "path":  "state/governance/r16_friction_metrics_report.json",
+                                    "source_task":  "R16-025",
+                                    "artifact_kind":  "generated_report",
+                                    "proof_treatment":  "bounded friction metrics report; operator-observed process evidence is not machine proof",
+                                    "authority_level":  "primary",
+                                    "machine_proof":  false,
+                                    "exact_path_only":  true,
+                                    "broad_scan_allowed":  false,
+                                    "wildcard_allowed":  false,
+                                    "deterministic_order":  19,
+                                    "caveats":  [
+                                                    "none"
+                                                ],
+                                    "byte_count":  81880,
+                                    "line_count":  1037,
+                                    "tracked_file":  true
+                                }
+                            ],
+    "contract_refs":  [
+                          {
+                              "ref_id":  "r16_026_final_proof_review_package_contract",
+                              "path":  "contracts/governance/r16_final_proof_review_package.contract.json",
+                              "source_task":  "R16-026",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "current-task contract for final proof/review package candidate",
+                              "authority_level":  "current_task_output",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  1,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  9616,
+                              "line_count":  228,
+                              "tracked_file":  false
+                          },
+                          {
+                              "ref_id":  "r16_002_planning_authority_reference_contract",
+                              "path":  "contracts/governance/r16_planning_authority_reference.contract.json",
+                              "source_task":  "R16-002",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "planning authority reference contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  2,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  7548,
+                              "line_count":  215,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_003_kpi_scorecard_contract",
+                              "path":  "contracts/governance/r16_kpi_baseline_target_scorecard.contract.json",
+                              "source_task":  "R16-003",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "KPI baseline/target scorecard contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  3,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  8984,
+                              "line_count":  268,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_004_memory_layer_contract",
+                              "path":  "contracts/memory/r16_memory_layer.contract.json",
+                              "source_task":  "R16-004",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "memory layer contract; schema/boundary evidence, not runtime memory proof",
+                              "authority_level":  "primary",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  4,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  62779,
+                              "line_count":  898,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_006_role_memory_pack_model_contract",
+                              "path":  "contracts/memory/r16_role_memory_pack_model.contract.json",
+                              "source_task":  "R16-006",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "role memory pack model contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  5,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  197783,
+                              "line_count":  2293,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_008_memory_pack_validation_contract",
+                              "path":  "contracts/memory/r16_memory_pack_validation_report.contract.json",
+                              "source_task":  "R16-008",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "memory pack validation report contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  6,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  16794,
+                              "line_count":  503,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_009_artifact_map_contract",
+                              "path":  "contracts/artifacts/r16_artifact_map.contract.json",
+                              "source_task":  "R16-009",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "artifact map contract; schema/boundary evidence",
+                              "authority_level":  "primary",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  7,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  110767,
+                              "line_count":  1480,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_011_audit_map_contract",
+                              "path":  "contracts/audit/r16_audit_map.contract.json",
+                              "source_task":  "R16-011",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "audit map contract; schema/boundary evidence",
+                              "authority_level":  "primary",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  8,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  15864,
+                              "line_count":  490,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_014_context_load_plan_contract",
+                              "path":  "contracts/context/r16_context_load_plan.contract.json",
+                              "source_task":  "R16-014",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "context load plan contract; schema/boundary evidence",
+                              "authority_level":  "primary",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  9,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  8788,
+                              "line_count":  278,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_016_context_budget_estimate_contract",
+                              "path":  "contracts/context/r16_context_budget_estimate.contract.json",
+                              "source_task":  "R16-016",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "context budget estimate contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  10,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  8169,
+                              "line_count":  246,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_017_context_budget_guard_contract",
+                              "path":  "contracts/context/r16_context_budget_guard.contract.json",
+                              "source_task":  "R16-017",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "context budget guard contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  11,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  5709,
+                              "line_count":  178,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_018_role_run_envelope_contract",
+                              "path":  "contracts/workflow/r16_role_run_envelope.contract.json",
+                              "source_task":  "R16-018",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "role-run envelope contract; non-executable workflow boundary",
+                              "authority_level":  "primary",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  12,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  19458,
+                              "line_count":  595,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_020_raci_transition_gate_contract",
+                              "path":  "contracts/workflow/r16_raci_transition_gate_report.contract.json",
+                              "source_task":  "R16-020",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "RACI transition gate report contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  13,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  5993,
+                              "line_count":  158,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_021_handoff_packet_report_contract",
+                              "path":  "contracts/workflow/r16_handoff_packet_report.contract.json",
+                              "source_task":  "R16-021",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "handoff packet report contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  14,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  7618,
+                              "line_count":  202,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_022_restart_compaction_recovery_drill_contract",
+                              "path":  "contracts/workflow/r16_restart_compaction_recovery_drill.contract.json",
+                              "source_task":  "R16-022",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "restart/compaction recovery drill contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  15,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  9947,
+                              "line_count":  262,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_023_role_handoff_drill_contract",
+                              "path":  "contracts/workflow/r16_role_handoff_drill.contract.json",
+                              "source_task":  "R16-023",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "role-handoff drill contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  16,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  9495,
+                              "line_count":  251,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_024_audit_readiness_drill_contract",
+                              "path":  "contracts/audit/r16_audit_readiness_drill.contract.json",
+                              "source_task":  "R16-024",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "audit-readiness drill contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  17,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  13961,
+                              "line_count":  356,
+                              "tracked_file":  true
+                          },
+                          {
+                              "ref_id":  "r16_025_friction_metrics_report_contract",
+                              "path":  "contracts/governance/r16_friction_metrics_report.contract.json",
+                              "source_task":  "R16-025",
+                              "artifact_kind":  "contract",
+                              "proof_treatment":  "friction metrics report contract",
+                              "authority_level":  "supporting",
+                              "machine_proof":  false,
+                              "exact_path_only":  true,
+                              "broad_scan_allowed":  false,
+                              "wildcard_allowed":  false,
+                              "deterministic_order":  18,
+                              "caveats":  [
+                                              "none"
+                                          ],
+                              "byte_count":  17122,
+                              "line_count":  408,
+                              "tracked_file":  true
+                          }
+                      ],
+    "tool_refs":  [
+                      {
+                          "ref_id":  "r16_026_module",
+                          "path":  "tools/R16FinalProofReviewPackage.psm1",
+                          "source_task":  "R16-026",
+                          "artifact_kind":  "tool_module",
+                          "proof_treatment":  "current-task generator and validator module",
+                          "authority_level":  "current_task_output",
+                          "machine_proof":  false,
+                          "exact_path_only":  true,
+                          "broad_scan_allowed":  false,
+                          "wildcard_allowed":  false,
+                          "deterministic_order":  1,
+                          "caveats":  [
+                                          "none"
+                                      ],
+                          "byte_count":  122634,
+                          "line_count":  1901,
+                          "tracked_file":  false
+                      },
+                      {
+                          "ref_id":  "r16_026_new_script",
+                          "path":  "tools/new_r16_final_proof_review_package.ps1",
+                          "source_task":  "R16-026",
+                          "artifact_kind":  "tool_script",
+                          "proof_treatment":  "current-task generation script",
+                          "authority_level":  "current_task_output",
+                          "machine_proof":  false,
+                          "exact_path_only":  true,
+                          "broad_scan_allowed":  false,
+                          "wildcard_allowed":  false,
+                          "deterministic_order":  2,
+                          "caveats":  [
+                                          "none"
+                                      ],
+                          "byte_count":  1916,
+                          "line_count":  24,
+                          "tracked_file":  false
+                      },
+                      {
+                          "ref_id":  "r16_026_validate_script",
+                          "path":  "tools/validate_r16_final_proof_review_package.ps1",
+                          "source_task":  "R16-026",
+                          "artifact_kind":  "tool_script",
+                          "proof_treatment":  "current-task validation script",
+                          "authority_level":  "current_task_output",
+                          "machine_proof":  false,
+                          "exact_path_only":  true,
+                          "broad_scan_allowed":  false,
+                          "wildcard_allowed":  false,
+                          "deterministic_order":  3,
+                          "caveats":  [
+                                          "none"
+                                      ],
+                          "byte_count":  2324,
+                          "line_count":  26,
+                          "tracked_file":  false
+                      }
+                  ],
+    "test_refs":  [
+                      {
+                          "ref_id":  "r16_026_tests",
+                          "path":  "tests/test_r16_final_proof_review_package.ps1",
+                          "source_task":  "R16-026",
+                          "artifact_kind":  "test",
+                          "proof_treatment":  "current-task focused test harness",
+                          "authority_level":  "current_task_output",
+                          "machine_proof":  false,
+                          "exact_path_only":  true,
+                          "broad_scan_allowed":  false,
+                          "wildcard_allowed":  false,
+                          "deterministic_order":  1,
+                          "caveats":  [
+                                          "none"
+                                      ],
+                          "byte_count":  21882,
+                          "line_count":  432,
+                          "tracked_file":  false
+                      }
+                  ],
+    "current_guard_posture":  {
+                                  "guard_verdict":  "failed_closed_over_budget",
+                                  "expected_failed_closed":  true,
+                                  "failed_closed_is_expected_signal":  true,
+                                  "latest_accepted_upper_bound":  1364079,
+                                  "threshold":  150000,
+                                  "threshold_exceeded":  true,
+                                  "mitigation_created":  false,
+                                  "no_provider_tokenization":  true,
+                                  "no_provider_billing":  true,
+                                  "no_executable_envelopes":  true,
+                                  "no_executable_handoffs":  true,
+                                  "no_executable_transitions":  true,
+                                  "guard_remains_expected_and_unresolved":  true
+                              },
+    "context_budget_summary":  {
+                                   "context_budget_estimate_ref":  "state/context/r16_context_budget_estimate.json",
+                                   "context_budget_guard_ref":  "state/context/r16_context_budget_guard_report.json",
+                                   "guard_verdict":  "failed_closed_over_budget",
+                                   "latest_accepted_upper_bound":  1364079,
+                                   "threshold":  150000,
+                                   "threshold_exceeded":  true,
+                                   "exact_provider_tokenization_claimed":  false,
+                                   "exact_provider_billing_claimed":  false,
+                                   "provider_tokenizer_used":  false,
+                                   "provider_pricing_used":  false,
+                                   "mitigation_created":  false
+                               },
+    "friction_metrics_summary":  {
+                                     "source_ref":  "state/governance/r16_friction_metrics_report.json",
+                                     "source_task":  "R16-025",
+                                     "aggregate_verdict":  "passed_bounded_friction_metrics_report_with_guard_failed_closed",
+                                     "finding_ids":  [
+                                                         "codex_auto_compaction_failures",
+                                                         "fixture_bloat_full_copy_invalids",
+                                                         "untracked_file_visibility_gap",
+                                                         "deterministic_byte_line_drift",
+                                                         "validator_allowlist_update_cost",
+                                                         "finalization_split_pressure",
+                                                         "powershell_tooling_friction",
+                                                         "large_generated_json_context_pressure",
+                                                         "failed_closed_guard_is_expected",
+                                                         "runtime_non_solution_boundary"
+                                                     ],
+                                     "finding_count":  10,
+                                     "codex_auto_compaction_failures_captured":  true,
+                                     "codex_auto_compaction_failures_solved":  false,
+                                     "fixture_bloat_and_compact_mutation_fixture_mitigation":  true,
+                                     "untracked_file_visibility_gap_and_line_counting":  true,
+                                     "deterministic_byte_line_drift_and_regeneration_cascade_cost":  true,
+                                     "validator_allowlist_update_cost":  true,
+                                     "finalization_split_pressure_b1_b2_recommendation":  true,
+                                     "powershell_tooling_friction":  true,
+                                     "large_generated_json_context_pressure":  true,
+                                     "failed_closed_guard_expected_signal":  true,
+                                     "runtime_non_solution_boundary":  true,
+                                     "machine_proof":  false
+                                 },
+    "audit_readiness_summary":  {
+                                    "source_ref":  "state/audit/r16_audit_readiness_drill.json",
+                                    "source_task":  "R16-024",
+                                    "aggregate_verdict":  "passed_bounded_audit_readiness_drill_without_broad_scan",
+                                    "exact_audit_input_count":  12,
+                                    "proof_review_ref_count":  5,
+                                    "final_r16_audit_acceptance_claimed":  false,
+                                    "closeout_completion_claimed":  false,
+                                    "final_proof_package_completion_claimed":  false,
+                                    "machine_proof":  false
+                                },
+    "workflow_boundary_summary":  {
+                                      "role_run_envelope_ref":  "state/workflow/r16_role_run_envelopes.json",
+                                      "raci_transition_gate_ref":  "state/workflow/r16_raci_transition_gate_report.json",
+                                      "handoff_packet_report_ref":  "state/workflow/r16_handoff_packet_report.json",
+                                      "role_handoff_drill_ref":  "state/workflow/r16_role_handoff_drill.json",
+                                      "executable_handoff_count":  0,
+                                      "executable_transition_count":  0,
+                                      "executable_handoffs_exist":  false,
+                                      "executable_transitions_exist":  false,
+                                      "executable_envelopes_exist":  false,
+                                      "runtime_handoff_execution_claimed":  false
+                                  },
+    "accepted_scope_summary_by_phase":  [
+                                            {
+                                                "phase":  "Phase 1",
+                                                "task_range":  "R16-001 through R16-003",
+                                                "summary":  "R16 opening, planning authority, and KPI scorecard.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 2",
+                                                "task_range":  "R16-004 through R16-008",
+                                                "summary":  "Memory layer contracts, deterministic memory layers, role memory packs, and stale-ref validation.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 3",
+                                                "task_range":  "R16-009 through R16-013",
+                                                "summary":  "Artifact map, audit map, and artifact/audit consistency check.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 4",
+                                                "task_range":  "R16-014 through R16-017",
+                                                "summary":  "Context-load planner, budget estimator, and failed-closed guard.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 5",
+                                                "task_range":  "R16-018 through R16-021",
+                                                "summary":  "Role-run envelope contract/generator, RACI transition gate, and handoff packets.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 6",
+                                                "task_range":  "R16-022 through R16-025",
+                                                "summary":  "Restart/compaction recovery drill, role-handoff drill, audit-readiness drill, and friction metrics.",
+                                                "proof_status":  "accepted_task_refs_indexed"
+                                            },
+                                            {
+                                                "phase":  "Phase 7",
+                                                "task_range":  "R16-026",
+                                                "summary":  "R16-026 final proof/review package candidate and final-head support packet only.",
+                                                "proof_status":  "candidate_generated_artifacts_only"
+                                            }
+                                        ],
+    "blocked_execution_summary":  {
+                                      "guard_verdict":  "failed_closed_over_budget",
+                                      "latest_accepted_upper_bound":  1364079,
+                                      "threshold":  150000,
+                                      "guard_blocks_execution":  true,
+                                      "no_mitigation":  true,
+                                      "runtime_execution_claimed":  false,
+                                      "runtime_memory_claimed":  false,
+                                      "retrieval_runtime_claimed":  false,
+                                      "vector_search_runtime_claimed":  false,
+                                      "product_runtime_claimed":  false,
+                                      "autonomous_agent_claimed":  false,
+                                      "external_integration_claimed":  false,
+                                      "executable_handoffs_claimed":  false,
+                                      "executable_transitions_claimed":  false
+                                  },
+    "evidence_hygiene_findings":  [
+                                      {
+                                          "finding_id":  "generated_state_artifacts_not_runtime_proof",
+                                          "classification":  "generated state artifacts are evidence artifacts, not runtime proof",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "generated_reports_not_automatic_machine_proof",
+                                          "classification":  "generated reports are not automatically machine proof",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "operator_observed_process_evidence_not_machine_proof",
+                                          "classification":  "operator-observed process evidence is not machine proof",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "raw_chat_history_not_canonical_evidence",
+                                          "classification":  "raw chat history is not canonical evidence",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "exact_repo_backed_artifacts_are_canonical_refs",
+                                          "classification":  "exact repo-backed artifacts are canonical evidence refs",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "r15_stale_generated_from_caveat_preserved",
+                                          "classification":  "R15 stale generated_from caveat remains preserved",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "r13_failed_partial_not_closed",
+                                          "classification":  "R13 remains failed/partial and not closed",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "r14_caveats_preserved",
+                                          "classification":  "R14 caveats remain preserved",
+                                          "machine_proof":  false
+                                      },
+                                      {
+                                          "finding_id":  "r15_caveats_preserved",
+                                          "classification":  "R15 caveats remain preserved",
+                                          "machine_proof":  false
+                                      }
+                                  ],
+    "operational_friction_findings":  [
+                                          {
+                                              "finding_id":  "codex_auto_compaction_failures",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "Repeated automatic compaction failures created local-WIP recovery cycles."
+                                          },
+                                          {
+                                              "finding_id":  "fixture_bloat_full_copy_invalids",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "R16-019 initially produced around 150k+ unstaged/added lines from full-copy invalid fixtures; compact mutation specs mitigated it."
+                                          },
+                                          {
+                                              "finding_id":  "untracked_file_visibility_gap",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "git diff --stat and git diff --numstat omit untracked files, requiring explicit untracked line counting."
+                                          },
+                                          {
+                                              "finding_id":  "deterministic_byte_line_drift",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "Status and proof edits changed deterministic byte/line inputs and cascaded through R16-016, R16-017, and R16-019 through R16-024."
+                                          },
+                                          {
+                                              "finding_id":  "validator_allowlist_update_cost",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "Each newly authorized task artifact required narrow validator allowlist updates while keeping future tasks forbidden."
+                                          },
+                                          {
+                                              "finding_id":  "finalization_split_pressure",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "A/B split helped, but finalization pass B was still too large when proof, status, regeneration, validation, commit, and push were combined."
+                                          },
+                                          {
+                                              "finding_id":  "powershell_tooling_friction",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "rg.exe access denial, wrapper interpolation, array invocation, and short timeouts created PowerShell/tooling friction."
+                                          },
+                                          {
+                                              "finding_id":  "large_generated_json_context_pressure",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "Large generated state JSON files add context pressure and should be inspected through validators or targeted field extraction."
+                                          },
+                                          {
+                                              "finding_id":  "failed_closed_guard_is_expected",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "committed_guard_artifact_plus_operator_observed_process_evidence",
+                                              "machine_proof":  false,
+                                              "summary":  "The context guard is correctly failed closed and should be treated as an expected signal, not a failed task."
+                                          },
+                                          {
+                                              "finding_id":  "runtime_non_solution_boundary",
+                                              "source_task":  "R16-025",
+                                              "evidence_class":  "boundary_policy",
+                                              "machine_proof":  false,
+                                              "summary":  "R16 does not claim runtime memory, retrieval/vector runtime, product runtime, autonomous agents, executable handoffs/transitions, or solved Codex reliability."
+                                          }
+                                      ],
+    "final_validation_commands":  [
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tools/new_r16_final_proof_review_package.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_final_proof_review_package.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_final_proof_review_package.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_friction_metrics_report.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_friction_metrics_report.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_audit_readiness_drill.ps1",
+                                      "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_audit_readiness_drill.ps1"
+                                  ],
+    "current_posture":  {
+                            "accepted_through_task":  "R16-025",
+                            "current_task":  "R16-026",
+                            "r16_026_final_package_candidate_exists_only_as_generated_state_artifacts":  true,
+                            "r16_027_or_later_task_exists":  false,
+                            "external_audit_acceptance_claimed":  false,
+                            "final_external_audit_acceptance_claimed":  false,
+                            "main_merge_claimed":  false,
+                            "closeout_completion_claimed":  false,
+                            "final_proof_package_completion_claimed":  false,
+                            "runtime_execution_exists":  false,
+                            "runtime_execution_claimed":  false,
+                            "runtime_memory_exists":  false,
+                            "runtime_memory_claimed":  false,
+                            "retrieval_runtime_exists":  false,
+                            "retrieval_runtime_claimed":  false,
+                            "vector_search_runtime_exists":  false,
+                            "vector_search_runtime_claimed":  false,
+                            "product_runtime_exists":  false,
+                            "product_runtime_claimed":  false,
+                            "autonomous_agents_exist":  false,
+                            "autonomous_agent_claimed":  false,
+                            "external_integrations_exist":  false,
+                            "external_integration_claimed":  false,
+                            "executable_handoffs_exist":  false,
+                            "executable_transitions_exist":  false,
+                            "solved_codex_compaction":  false,
+                            "solved_codex_reliability":  false
+                        },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed_partial_through_r13_018_only",
+                                             "closed":  false,
+                                             "r13_closed":  false,
+                                             "partial_gates_remain_partial":  true,
+                                             "partial_gates_converted_to_passed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats_through_r14_006_only",
+                                             "caveats_removed":  false,
+                                             "r14_caveats_removed":  false,
+                                             "product_runtime":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats_through_r15_009_only",
+                                             "caveats_removed":  false,
+                                             "r15_caveats_removed":  false,
+                                             "stale_generated_from_caveat_preserved":  true
+                                         }
+                             },
+    "non_claims":  [
+                       "R16-026 is a generated final proof/review package candidate only.",
+                       "No external audit acceptance is claimed.",
+                       "No main merge is claimed.",
+                       "No R13 closure is claimed.",
+                       "R13 remains failed/partial and not closed.",
+                       "R14 caveats remain preserved.",
+                       "R15 caveats remain preserved.",
+                       "No solved Codex compaction is claimed.",
+                       "No solved Codex reliability is claimed.",
+                       "No runtime execution is claimed.",
+                       "No runtime memory is claimed.",
+                       "No retrieval runtime is claimed.",
+                       "No vector search runtime is claimed.",
+                       "No product runtime is claimed.",
+                       "No autonomous agents are claimed.",
+                       "No external integrations are claimed.",
+                       "No executable handoffs are claimed.",
+                       "No executable transitions are claimed.",
+                       "The context guard remains failed_closed_over_budget.",
+                       "The failed-closed guard remains expected and unresolved.",
+                       "Exact provider tokenization and billing are not claimed.",
+                       "Raw chat history is not canonical evidence.",
+                       "Generated state artifacts are evidence artifacts, not runtime proof.",
+                       "Generated reports are not automatically machine proof.",
+                       "Operator-observed process evidence is not machine proof.",
+                       "R16-027 or later is not claimed."
+                   ],
+    "external_audit_instructions":  {
+                                        "reviewer_should_use_exact_repo_backed_refs":  true,
+                                        "reviewer_should_not_treat_raw_chat_history_as_canonical":  true,
+                                        "reviewer_should_not_treat_generated_reports_as_automatic_machine_proof":  true,
+                                        "reviewer_may_run_final_validation_commands":  [
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tools/new_r16_final_proof_review_package.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_final_proof_review_package.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_final_proof_review_package.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_friction_metrics_report.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_friction_metrics_report.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_r16_audit_readiness_drill.ps1",
+                                                                                           "powershell -NoProfile -ExecutionPolicy Bypass -File tests/test_r16_audit_readiness_drill.ps1"
+                                                                                       ],
+                                        "no_external_audit_acceptance_claimed_by_this_package":  true,
+                                        "no_main_merge_claimed_by_this_package":  true
+                                    },
+    "no_full_repo_scan_policy":  {
+                                     "repo_relative_exact_paths_only":  true,
+                                     "canonical_refs_tracked_files_only":  true,
+                                     "broad_repo_scan_allowed":  false,
+                                     "broad_repo_scan_performed":  false,
+                                     "full_repo_scan_allowed":  false,
+                                     "full_repo_scan_performed":  false,
+                                     "wildcard_path_expansion_allowed":  false,
+                                     "wildcard_path_expansion_performed":  false,
+                                     "wildcard_paths_allowed":  false,
+                                     "directory_only_refs_allowed":  false,
+                                     "scratch_temp_refs_allowed":  false,
+                                     "absolute_paths_allowed":  false,
+                                     "parent_traversal_allowed":  false,
+                                     "url_or_remote_refs_allowed":  false
+                                 },
+    "raw_chat_history_policy":  {
+                                    "canonical_evidence_source":  "exact_repo_backed_artifacts_only",
+                                    "raw_chat_history_as_canonical_evidence":  false,
+                                    "raw_chat_history_as_canonical_state":  false,
+                                    "raw_chat_history_loaded":  false,
+                                    "raw_chat_history_loading_allowed":  false,
+                                    "raw_chat_history_as_evidence_allowed":  false
+                                },
+    "aggregate_verdict":  "generated_r16_final_proof_review_package_candidate"
+}

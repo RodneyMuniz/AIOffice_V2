@@ -613,7 +613,7 @@
                                        "r16_022_restart_compaction_recovery_drill_inspectable":  true,
                                        "r16_023_role_handoff_drill_inspectable":  true,
                                        "guard_verdict":  "failed_closed_over_budget",
-                                       "estimated_tokens_upper_bound":  1356909,
+                                       "estimated_tokens_upper_bound":  1364079,
                                        "threshold":  150000,
                                        "active_through_task_in_report_only":  "R16-024",
                                        "planned_tasks_remain":  [
@@ -627,7 +627,7 @@
                                    },
     "blocked_execution_summary":  {
                                       "guard_verdict":  "failed_closed_over_budget",
-                                      "estimated_tokens_upper_bound":  1356909,
+                                      "estimated_tokens_upper_bound":  1364079,
                                       "threshold":  150000,
                                       "no_mitigation":  true,
                                       "role_run_envelope_count":  8,
@@ -695,7 +695,7 @@
                             "evidence_inspection_route_count":  7,
                             "artifact_audit_check_fail_count":  0,
                             "guard_verdict":  "failed_closed_over_budget",
-                            "estimated_tokens_upper_bound":  1356909,
+                            "estimated_tokens_upper_bound":  1364079,
                             "threshold":  150000,
                             "executable_envelope_count":  0,
                             "allowed_transition_count":  0,

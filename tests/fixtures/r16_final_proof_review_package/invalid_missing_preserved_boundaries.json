@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_preserved_boundaries",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.preserved_boundaries",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027preserved_boundaries\u0027"
+                         ]
+}

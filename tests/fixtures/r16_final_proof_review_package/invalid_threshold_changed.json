@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_threshold_changed",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.current_guard_posture.threshold",
+    "mutation_value":  150001,
+    "expected_failure":  [
+                             "threshold must be 150000"
+                         ]
+}

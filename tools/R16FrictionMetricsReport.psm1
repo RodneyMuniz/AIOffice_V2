@@ -10,7 +10,7 @@ $script:ReportVersion = "v1"
 $script:ReportId = "aioffice-r16-025-friction-metrics-report-v1"
 $script:AggregateVerdict = "passed_bounded_friction_metrics_report_with_guard_failed_closed"
 $script:GuardVerdict = "failed_closed_over_budget"
-$script:ExpectedGuardUpperBound = 1356909
+$script:ExpectedGuardUpperBound = 1364079
 $script:ExpectedThreshold = 150000
 
 $script:RequiredTopLevelFields = [string[]]@(

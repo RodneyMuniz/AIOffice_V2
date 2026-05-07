@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_generated_from_head",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.generated_from_head",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027generated_from_head\u0027"
+                         ]
+}

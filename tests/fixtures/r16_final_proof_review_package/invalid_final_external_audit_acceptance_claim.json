@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_final_external_audit_acceptance_claim",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.current_posture.external_audit_acceptance_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "final external audit acceptance claim"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_full_repo_scan_claim",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.no_full_repo_scan_policy.full_repo_scan_performed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "full repo scan claim"
+                         ]
+}

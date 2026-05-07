@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_guard_verdict_not_failed_closed",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.current_guard_posture.guard_verdict",
+    "mutation_value":  "passed",
+    "expected_failure":  [
+                             "guard verdict"
+                         ]
+}

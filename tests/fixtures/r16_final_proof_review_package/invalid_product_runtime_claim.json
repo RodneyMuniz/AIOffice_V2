@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_product_runtime_claim",
+    "base_fixture":  "valid_final_proof_review_package.json",
+    "mutation_path":  "$.current_posture.product_runtime_exists",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "product runtime claim"
+                         ]
+}
