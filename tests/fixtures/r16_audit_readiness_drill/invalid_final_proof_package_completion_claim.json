@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_final_proof_package_completion_claim",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.current_posture.final_proof_package_completion_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "final proof package completion claim"
+                         ]
+}

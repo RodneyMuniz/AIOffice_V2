@@ -7,8 +7,8 @@
     "repository":  "RodneyMuniz/AIOffice_V2",
     "branch":  "release/r16-operational-memory-artifact-map-role-workflow-foundation",
     "generation_boundary":  {
-                                "input_head":  "d22bc4ae246d89381e90d000e01adb9a3bd4453d",
-                                "input_tree":  "49109c844606745ac0fbcfe67bc51e0fbcd0a528",
+                                "input_head":  "1159b4d3ee0a733ba7e4bebb6d57b974bd44698d",
+                                "input_tree":  "53f684b904abc221709bb558d51842b498c7c4d5",
                                 "source_boundary":  "deterministic local generation from exact committed refs only"
                             },
     "contract_ref":  {
@@ -418,7 +418,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -569,7 +569,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  1
                       },
                       {
@@ -850,7 +850,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -1001,7 +1001,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  2
                       },
                       {
@@ -1282,7 +1282,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -1433,7 +1433,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  3
                       },
                       {
@@ -1720,7 +1720,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -1871,7 +1871,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  4
                       },
                       {
@@ -2152,7 +2152,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -2303,7 +2303,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  5
                       },
                       {
@@ -2584,7 +2584,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -2735,7 +2735,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  6
                       },
                       {
@@ -3022,7 +3022,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -3173,7 +3173,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  7
                       },
                       {
@@ -3460,7 +3460,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+                                                      "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -3611,7 +3611,7 @@
                                          ],
                           "envelope_execution_status":  "blocked",
                           "executable":  false,
-                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000.",
+                          "blocked_reason":  "R16-017 context budget guard report aggregate_verdict failed_closed_over_budget blocks this R16-019 role-run envelope; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000.",
                           "deterministic_order":  8
                       }
                   ],

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_wildcard_path",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref.path",
+    "mutation_value":  "state/audit/*.json",
+    "expected_failure":  [
+                             "wildcard path"
+                         ]
+}

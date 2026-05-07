@@ -418,7 +418,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -850,7 +850,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -1282,7 +1282,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -1720,7 +1720,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -2152,7 +2152,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -2584,7 +2584,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -3022,7 +3022,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,
@@ -3460,7 +3460,7 @@
                                                        },
                           "budget_guard_status":  {
                                                       "aggregate_verdict":  "failed_closed_over_budget",
-                                                      "estimated_tokens_upper_bound":  1344377,
+          "estimated_tokens_upper_bound":  1349301,
                                                       "max_estimated_tokens_upper_bound":  150000,
                                                       "threshold_exceeded":  true,
                                                       "fail_closed":  true,

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_parent_traversal_path",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref.path",
+    "mutation_value":  "../state/audit/r16_r15_r16_audit_map.json",
+    "expected_failure":  [
+                             "parent traversal path"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_audit_map_ref",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027audit_map_ref\u0027"
+                         ]
+}

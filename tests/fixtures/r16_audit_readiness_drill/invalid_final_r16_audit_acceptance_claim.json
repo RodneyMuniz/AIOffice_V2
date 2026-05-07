@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_final_r16_audit_acceptance_claim",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.current_posture.final_r16_audit_acceptance_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "final R16 audit acceptance claim"
+                         ]
+}

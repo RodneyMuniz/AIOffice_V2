@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_role_handoff_drill_ref",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.role_handoff_drill_ref",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027role_handoff_drill_ref\u0027"
+                         ]
+}

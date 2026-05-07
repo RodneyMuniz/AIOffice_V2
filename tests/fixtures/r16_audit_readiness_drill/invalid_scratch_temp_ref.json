@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_scratch_temp_ref",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref.path",
+    "mutation_value":  "scratch/r16_audit_readiness_drill.tmp.json",
+    "expected_failure":  [
+                             "scratch/temp path"
+                         ]
+}

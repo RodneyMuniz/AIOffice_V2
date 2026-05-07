@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_solved_codex_compaction_claim",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_scope.solved_codex_compaction",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "solved Codex compaction claim"
+                         ]
+}

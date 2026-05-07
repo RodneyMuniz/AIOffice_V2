@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_raw_chat_history_as_canonical_evidence",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.raw_chat_history_policy.raw_chat_history_as_canonical_evidence",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "raw chat history as canonical evidence"
+                         ]
+}

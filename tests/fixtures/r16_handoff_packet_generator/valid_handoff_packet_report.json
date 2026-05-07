@@ -335,7 +335,7 @@
                                                             "r16_022_implementation_claimed":  false,
                                                             "deterministic_order":  1
                                                         },
-                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-001-project_manager-to-developer\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-001-project_manager-to-developer\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
                                 "executable":  false,
                                 "handoff_execution_status":  "blocked",
                                 "non_claims":  [
@@ -585,7 +585,7 @@
                                                             "r16_022_implementation_claimed":  false,
                                                             "deterministic_order":  1
                                                         },
-                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-002-developer-to-qa\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-002-developer-to-qa\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
                                 "executable":  false,
                                 "handoff_execution_status":  "blocked",
                                 "non_claims":  [
@@ -835,7 +835,7 @@
                                                             "r16_022_implementation_claimed":  false,
                                                             "deterministic_order":  1
                                                         },
-                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-003-qa-to-evidence_auditor\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-003-qa-to-evidence_auditor\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
                                 "executable":  false,
                                 "handoff_execution_status":  "blocked",
                                 "non_claims":  [
@@ -1085,7 +1085,7 @@
                                                             "r16_022_implementation_claimed":  false,
                                                             "deterministic_order":  1
                                                         },
-                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-004-evidence_auditor-to-release_closeout_agent\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1344377 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
+                                "blocked_reason":  "R16-020 RACI transition gate decision \u0027blocked\u0027 blocks transition \u0027r16-020-raci-transition-004-evidence_auditor-to-release_closeout_agent\u0027 and context budget guard remains failed_closed_over_budget; estimated_tokens_upper_bound 1349301 exceeds max_estimated_tokens_upper_bound 150000. This R16-021 handoff packet is not executable and does not run a workflow drill or runtime execution.",
                                 "executable":  false,
                                 "handoff_execution_status":  "blocked",
                                 "non_claims":  [
@@ -1232,7 +1232,7 @@
                             "blocked_transition_count":  4,
                             "allowed_transition_count":  0,
                             "current_guard_verdict":  "failed_closed_over_budget",
-                            "estimated_tokens_upper_bound":  1344377,
+                            "estimated_tokens_upper_bound":  1349301,
                             "max_estimated_tokens_upper_bound":  150000,
                             "no_executable_handoffs":  true,
                             "no_workflow_drill_run":  true,

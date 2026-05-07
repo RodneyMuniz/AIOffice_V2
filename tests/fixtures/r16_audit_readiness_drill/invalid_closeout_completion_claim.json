@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_closeout_completion_claim",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.current_posture.closeout_completion_claimed",
+    "mutation_value":  true,
+    "expected_failure":  [
+                             "closeout completion claim"
+                         ]
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_url_or_remote_ref",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref.path",
+    "mutation_value":  "https://example.invalid/r16_r15_r16_audit_map.json",
+    "expected_failure":  [
+                             "URL or remote ref"
+                         ]
+}

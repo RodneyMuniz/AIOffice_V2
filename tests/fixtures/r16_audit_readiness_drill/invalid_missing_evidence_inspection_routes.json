@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_evidence_inspection_routes",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.evidence_inspection_routes",
+    "mutation_value":  "__REMOVE_PROPERTY__",
+    "expected_failure":  [
+                             "missing required field \u0027evidence_inspection_routes\u0027"
+                         ]
+}

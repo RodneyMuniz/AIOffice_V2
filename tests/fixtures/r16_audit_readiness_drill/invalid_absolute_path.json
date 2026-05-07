@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_absolute_path",
+    "base_fixture":  "valid_audit_readiness_drill.json",
+    "mutation_path":  "$.audit_map_ref.path",
+    "mutation_value":  "C:/tmp/r16_audit_readiness_drill.json",
+    "expected_failure":  [
+                             "absolute path"
+                         ]
+}
