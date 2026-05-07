@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "solved_codex_compaction_claim",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "set_fields": {
+    "claims.solved_codex_compaction_claimed": true
+  },
+  "expected_refusal": "solved_codex_compaction_claimed must be false"
+}

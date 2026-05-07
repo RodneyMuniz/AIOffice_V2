@@ -1,0 +1,63 @@
+{
+  "artifact_type": "r17_board_event",
+  "contract_version": "v1",
+  "event_id": "R17-004-EVENT-CONTRACT-FIXTURE-001",
+  "card_id": "R17-004-CARD-001",
+  "event_type": "contract_validation",
+  "actor_role": "architect",
+  "agent_id": "none",
+  "from_lane": "ready_for_user_review",
+  "to_lane": "ready_for_user_review",
+  "timestamp_utc": "2026-05-08T00:00:00Z",
+  "input_ref": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "output_ref": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/validation_manifest.md",
+  "evidence_refs": [
+    "contracts/board/r17_board_event.contract.json",
+    "tools/validate_r17_board_contracts.ps1",
+    "tests/test_r17_board_contracts.ps1"
+  ],
+  "validation_refs": [
+    "tools/validate_r17_board_contracts.ps1",
+    "tests/test_r17_board_contracts.ps1"
+  ],
+  "transition_allowed": false,
+  "user_approval_present": false,
+  "non_claims": [
+    "R17-004 defines governed card, board-state, and board-event contracts only",
+    "R17-004 does not implement board state store",
+    "R17-004 does not implement Kanban UI",
+    "R17-004 does not implement Orchestrator runtime",
+    "R17-004 does not implement A2A runtime",
+    "R17-004 does not implement Dev/Codex executor adapter",
+    "R17-004 does not implement QA/Test Agent adapter",
+    "R17-004 does not implement Evidence Auditor API adapter",
+    "R17-004 does not claim product runtime",
+    "R17-004 does not claim autonomous agents",
+    "R17-004 does not claim executable handoffs",
+    "R17-004 does not claim executable transitions",
+    "R17-004 does not claim external audit acceptance",
+    "R17-004 does not claim main merge",
+    "R13 boundary preserved",
+    "R14 caveats preserved",
+    "R15 caveats preserved",
+    "R16 boundary preserved",
+    "R17-005 through R17-028 remain planned only",
+    "R17-004 does not claim solved Codex compaction",
+    "R17-004 does not claim solved Codex reliability"
+  ],
+  "rejected_claims": [
+    "external_audit_acceptance",
+    "main_merge",
+    "R13_closure",
+    "R14_caveat_removal",
+    "R15_caveat_removal",
+    "solved_Codex_compaction",
+    "solved_Codex_reliability",
+    "product_runtime",
+    "Kanban_runtime",
+    "autonomous_agents",
+    "A2A_runtime",
+    "executable_handoffs",
+    "executable_transitions"
+  ]
+}

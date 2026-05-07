@@ -8,7 +8,7 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is complete for bounded foundation scope through `R16-026` only. R16 produced a bounded final proof/review package candidate and final-head support packet only. R16 did not claim external audit acceptance, main merge, runtime execution, product runtime, autonomous agents, true multi-agent execution, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.
 
-`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-003` only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` through `R17-028` remain planned only. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but none of those planned capabilities are claimed as implemented yet.
+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-004` only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` defines governed card, board-state, and board-event contracts only. `R17-005` through `R17-028` remain planned only. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but none of those runtime/product capabilities are claimed as implemented yet.
 
 R17 non-claims: no external audit acceptance, no main merge, no R13 closure, no R14 caveat removal, no R15 caveat removal, no solved Codex compaction, no solved Codex reliability, no product runtime yet, no production runtime, no autonomous agents yet, no A2A runtime yet, no executable handoffs yet, no executable transitions yet, no Evidence Auditor API runtime yet, no Dev/Codex executor adapter runtime yet, no QA/Test Agent adapter runtime yet, and no Kanban product runtime yet.
 
@@ -105,14 +105,14 @@ Earlier closed milestone:
 - Durable output: `state/governance/r17_kpi_baseline_target_scorecard.json`, `contracts/governance/r17_kpi_baseline_target_scorecard.contract.json`, `tools/validate_r17_kpi_baseline_target_scorecard.ps1`, and `tests/test_r17_kpi_baseline_target_scorecard.ps1`
 - Done when: the ten-domain R17 KPI baseline/target scorecard validates, target scores remain future requirements only, and no R17-004-or-later implementation is claimed
 
-### `R17-004` Define governed card contract
-- Status: planned
+### `R17-004` Define governed card, board-state, and board-event contracts
+- Status: done
 - Order: 4
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
 - Depends on: `R17-003`
 - Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
-- Durable output: planned only
-- Done when: future evidence proves card fields, lanes, owner, current agent, packet refs, evidence refs, blockers, and user decision fields fail closed when invalid
+- Durable output: `contracts/board/r17_card.contract.json`, `contracts/board/r17_board_state.contract.json`, `contracts/board/r17_board_event.contract.json`, `tools/R17BoardContracts.psm1`, `tools/validate_r17_board_contracts.ps1`, `tests/test_r17_board_contracts.ps1`, fixtures under `tests/fixtures/r17_board_contracts/`, and proof-review package `state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/`
+- Done when: governed card, board-state, and board-event contract shape and fixture behavior validate, invalid lanes/roles/missing fields/closure-without-user-approval/unsupported claims fail closed, and R17-004 remains contract/model proof only without board state store, Kanban UI, Orchestrator runtime, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, or product runtime
 
 ### `R17-005` Define board state and board event contracts
 - Status: planned
@@ -120,8 +120,8 @@ Earlier closed milestone:
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
 - Depends on: `R17-004`
 - Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
-- Durable output: planned only
-- Done when: future evidence proves board events can replay into board state deterministically
+- Durable output: planned only; future scope must be reconciled against the R17-004 contract boundary before implementation.
+- Done when: future evidence beyond R17-004 proves board events can replay into governed board state deterministically without treating the R17-004 design contracts as a runtime store or executable transition system
 
 ### `R17-006` Implement board state store and event ledger
 - Status: planned

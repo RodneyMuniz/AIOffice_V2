@@ -1,0 +1,12 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "closed_without_user_approval",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "set_fields": {
+    "lane": "closed",
+    "status": "closed",
+    "user_approval_required_for_closure": false
+  },
+  "expected_refusal": "closed cards require user approval"
+}

@@ -1,0 +1,91 @@
+{
+  "artifact_type": "r17_004_board_contracts_evidence_index",
+  "contract_version": "v1",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "task_id": "R17-004",
+  "status": "validation_passed",
+  "scope": "board_contract_boundary_only_not_runtime",
+  "evidence_refs": [
+    {
+      "path": "contracts/board/r17_card.contract.json",
+      "evidence_type": "contract",
+      "authority_treatment": "machine_readable_contract_boundary"
+    },
+    {
+      "path": "contracts/board/r17_board_state.contract.json",
+      "evidence_type": "contract",
+      "authority_treatment": "machine_readable_contract_boundary"
+    },
+    {
+      "path": "contracts/board/r17_board_event.contract.json",
+      "evidence_type": "contract",
+      "authority_treatment": "machine_readable_contract_boundary"
+    },
+    {
+      "path": "tools/R17BoardContracts.psm1",
+      "evidence_type": "validator_module",
+      "authority_treatment": "contract_shape_and_fixture_behavior_validation_only"
+    },
+    {
+      "path": "tools/validate_r17_board_contracts.ps1",
+      "evidence_type": "validator_entrypoint",
+      "authority_treatment": "contract_shape_and_fixture_behavior_validation_only"
+    },
+    {
+      "path": "tests/test_r17_board_contracts.ps1",
+      "evidence_type": "test",
+      "authority_treatment": "contract_shape_and_fixture_behavior_test_only"
+    },
+    {
+      "path": "tests/fixtures/r17_board_contracts/",
+      "evidence_type": "fixtures",
+      "authority_treatment": "valid_and_invalid_contract_fixtures_only"
+    },
+    {
+      "path": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/proof_review.md",
+      "evidence_type": "operator_readable_review",
+      "authority_treatment": "operator_readable_summary_not_proof_by_itself"
+    },
+    {
+      "path": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/validation_manifest.md",
+      "evidence_type": "validation_manifest",
+      "authority_treatment": "passed_after_recorded_validation_commands"
+    }
+  ],
+  "non_claims": [
+    "R17-004 defines governed card, board-state, and board-event contracts only",
+    "R17-004 does not implement board state store",
+    "R17-004 does not implement Kanban UI",
+    "R17-004 does not implement Orchestrator runtime",
+    "R17-004 does not implement A2A runtime",
+    "R17-004 does not implement Dev/Codex executor adapter",
+    "R17-004 does not implement QA/Test Agent adapter",
+    "R17-004 does not implement Evidence Auditor API adapter",
+    "R17-004 does not claim product runtime",
+    "R17-004 does not claim autonomous agents",
+    "R17-004 does not claim executable handoffs",
+    "R17-004 does not claim executable transitions",
+    "R17-004 does not claim external audit acceptance",
+    "R17-004 does not claim main merge",
+    "R13 boundary preserved",
+    "R14 caveats preserved",
+    "R15 caveats preserved",
+    "R16 boundary preserved",
+    "R17-005 through R17-028 remain planned only",
+    "R17-004 does not claim solved Codex compaction",
+    "R17-004 does not claim solved Codex reliability"
+  ],
+  "runtime_claims": {
+    "board_state_store_implemented": false,
+    "kanban_ui_implemented": false,
+    "orchestrator_runtime_implemented": false,
+    "a2a_runtime_implemented": false,
+    "dev_codex_executor_adapter_implemented": false,
+    "qa_test_agent_adapter_implemented": false,
+    "evidence_auditor_api_adapter_implemented": false,
+    "autonomous_agents_implemented": false,
+    "executable_handoffs_implemented": false,
+    "executable_transitions_implemented": false,
+    "product_runtime_implemented": false
+  }
+}

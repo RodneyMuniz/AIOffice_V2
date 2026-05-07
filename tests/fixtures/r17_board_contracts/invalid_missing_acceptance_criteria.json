@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "missing_acceptance_criteria",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "remove_fields": [
+    "acceptance_criteria"
+  ],
+  "expected_refusal": "missing required field 'acceptance_criteria'"
+}

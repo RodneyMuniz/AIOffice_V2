@@ -4,11 +4,11 @@
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
 **Starting head:** `5bae17229ea10dee4ce072b258f828220b9d1d8d`
 **Starting tree:** `9de1a7b733f400da78f8e683ae4111977c70f1fb`
-**Status after this pass:** Active through `R17-003` only.
-**Opening scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status only.
-**Planned-only boundary:** `R17-004` through `R17-028` remain planned only after this pass.
+**Status after this pass:** Active through `R17-004` only.
+**Current scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status; R17-004 defines governed card, board-state, and board-event contracts only.
+**Planned-only boundary:** `R17-005` through `R17-028` remain planned only after this pass.
 
-This authority document opens R17 in repo truth after the completed R16 boundary. It does not implement the full R17 milestone.
+This authority document records the active R17 boundary after the completed R16 boundary. It does not implement the full R17 milestone.
 
 ## R16 Final Posture Summary
 
@@ -45,8 +45,8 @@ None of these planned capabilities are claimed as implemented by this opening pa
 
 | Phase | Scope | Task range | Status after this pass |
 | --- | --- | --- | --- |
-| Phase A | R16 audit/R17 planning installation, R17 opening, KPI baseline | `R17-001` through `R17-003` | Done in this opening pass |
-| Phase B | Board and Kanban product surface | `R17-004` through `R17-008` | Planned only |
+| Phase A | R16 audit/R17 planning installation, R17 opening, KPI baseline | `R17-001` through `R17-003` | Done |
+| Phase B | Board and Kanban product surface | `R17-004` through `R17-008` | `R17-004` done as contracts only; `R17-005` through `R17-008` planned only |
 | Phase C | Orchestrator runtime | `R17-009` through `R17-011` | Planned only |
 | Phase D | Agent registry and scoped memory loader | `R17-012` through `R17-014` | Planned only |
 | Phase E | Tool adapters and ledgers | `R17-015` through `R17-019` | Planned only |
@@ -77,19 +77,19 @@ None of these planned capabilities are claimed as implemented by this opening pa
 - Durable output: `state/governance/r17_kpi_baseline_target_scorecard.json`, `contracts/governance/r17_kpi_baseline_target_scorecard.contract.json`, `tools/validate_r17_kpi_baseline_target_scorecard.ps1`, and `tests/test_r17_kpi_baseline_target_scorecard.ps1`
 - Done when: the scorecard uses the ten-domain KPI model, separates current R16-derived baseline posture from R17 targets, and does not count targets as achieved implementation evidence.
 
-### `R17-004` Define governed card contract
-- Status: planned
+### `R17-004` Define governed card, board-state, and board-event contracts
+- Status: done
 - Order: 4
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
-- Durable output: planned only; expected future card contract, fixtures, validator, and test.
-- Done when: future evidence proves card fields, lanes, owner, current agent, packet refs, evidence refs, blockers, and user-decision fields fail closed when invalid.
+- Durable output: `contracts/board/r17_card.contract.json`, `contracts/board/r17_board_state.contract.json`, `contracts/board/r17_board_event.contract.json`, `tools/R17BoardContracts.psm1`, `tools/validate_r17_board_contracts.ps1`, `tests/test_r17_board_contracts.ps1`, fixtures under `tests/fixtures/r17_board_contracts/`, and proof-review package `state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/`.
+- Done when: governed card, board-state, and board-event contract shape and fixture behavior validate; invalid card ID, lane, owner role, acceptance criteria, evidence refs, closure approval, and unsupported claims fail closed; and no board state store, Kanban UI, Orchestrator runtime, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, or product runtime is implemented or claimed.
 
 ### `R17-005` Define board state and board event contracts
 - Status: planned
 - Order: 5
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
-- Durable output: planned only; expected future board state and board event contracts, fixtures, validators, and tests.
-- Done when: future evidence proves board events can replay into board state deterministically.
+- Durable output: planned only; future scope must be reconciled against the R17-004 contract boundary before implementation.
+- Done when: future evidence beyond R17-004 proves board events can replay into governed board state deterministically without treating the R17-004 design contracts as a runtime store or executable transition system.
 
 ### `R17-006` Implement board state store and event ledger
 - Status: planned
@@ -295,7 +295,7 @@ The machine-readable baseline/target scorecard is `state/governance/r17_kpi_base
 
 ## Non-Claims
 
-This R17 opening pass claims none of the following:
+This R17 active boundary through `R17-004` claims none of the following:
 
 - no external audit acceptance;
 - no main merge;
@@ -316,7 +316,10 @@ This R17 opening pass claims none of the following:
 - no Dev/Codex executor adapter runtime yet;
 - no QA/Test Agent adapter runtime yet;
 - no Kanban product runtime yet;
-- no R17-004 or later implementation yet;
+- no R17-005 or later implementation yet;
+- no board state store yet;
+- no Kanban UI yet;
+- no Orchestrator runtime yet;
 - no R18 opening.
 
 ## Rejected Claims
@@ -325,7 +328,8 @@ The following claims are rejected unless future committed evidence and user appr
 
 - the R16 report alone opens or proves R17;
 - the revised R17 plan alone implements R17 capability;
-- R17-004 through R17-028 are implemented by this pass;
+- R17-005 through R17-028 are implemented by this pass;
+- R17-004 implements board state store, Kanban UI, Orchestrator runtime, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, or product runtime;
 - R17 A2A cycles are working;
 - Dev/Codex adapter is working;
 - QA/Test Agent adapter is working;

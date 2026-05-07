@@ -1,0 +1,175 @@
+{
+  "artifact_type": "r17_board_card_contract",
+  "contract_version": "v1",
+  "contract_id": "aioffice-r17-004-board-card-contract-v1",
+  "source_milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "source_task": "R17-004",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "scope": "design_contract_only_not_runtime_state",
+  "purpose": "Define the governed R17 board card contract boundary without implementing a board state store, Kanban UI, Orchestrator runtime, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, or product runtime.",
+  "required_card_fields": [
+    "artifact_type",
+    "contract_version",
+    "card_id",
+    "milestone",
+    "task_id",
+    "title",
+    "description",
+    "double_diamond_stage",
+    "lane",
+    "owner_role",
+    "current_agent",
+    "status",
+    "acceptance_criteria",
+    "qa_criteria",
+    "evidence_refs",
+    "memory_refs",
+    "task_packet_ref",
+    "blocker_refs",
+    "user_decision_required",
+    "user_approval_required_for_closure",
+    "allowed_next_lanes",
+    "forbidden_claims",
+    "non_claims",
+    "audit_log_refs",
+    "created_by",
+    "updated_by"
+  ],
+  "allowed_double_diamond_stages": [
+    "discover",
+    "define",
+    "develop",
+    "deliver",
+    "feedback_improve"
+  ],
+  "allowed_lanes": [
+    "intake",
+    "define",
+    "ready_for_dev",
+    "in_dev",
+    "ready_for_qa",
+    "in_qa",
+    "fix_required",
+    "ready_for_audit",
+    "in_audit",
+    "ready_for_user_review",
+    "resolved",
+    "closed",
+    "blocked"
+  ],
+  "allowed_owner_roles": [
+    "user",
+    "operator",
+    "orchestrator",
+    "project_manager",
+    "architect",
+    "developer",
+    "qa",
+    "evidence_auditor",
+    "knowledge_curator",
+    "release_closeout"
+  ],
+  "allowed_statuses": [
+    "contract_fixture",
+    "planned",
+    "active",
+    "blocked",
+    "ready_for_user_review",
+    "resolved",
+    "closed"
+  ],
+  "required_policy_rules": [
+    {
+      "rule_id": "closed_requires_user_approval",
+      "statement": "Closed cards require explicit user approval."
+    },
+    {
+      "rule_id": "qa_must_not_implement",
+      "statement": "QA must not implement."
+    },
+    {
+      "rule_id": "developer_must_not_approve_evidence_sufficiency",
+      "statement": "Developer must not approve evidence sufficiency."
+    },
+    {
+      "rule_id": "auditor_must_not_implement",
+      "statement": "Auditor must not implement."
+    },
+    {
+      "rule_id": "orchestrator_must_not_bypass_qa_or_audit",
+      "statement": "Orchestrator must not bypass QA or audit gates."
+    },
+    {
+      "rule_id": "contracts_are_design_only_not_runtime",
+      "statement": "Generated board contracts are design/contracts only, not runtime execution."
+    },
+    {
+      "rule_id": "refs_do_not_implement_runtime_flows",
+      "statement": "A card may reference task packets, memory refs, evidence refs, and audit refs, but R17-004 must not implement those runtime flows."
+    },
+    {
+      "rule_id": "repo_truth_remains_canonical",
+      "statement": "Repo truth remains canonical."
+    },
+    {
+      "rule_id": "board_state_not_replacement_for_repo_truth",
+      "statement": "Board state is a governed product surface, not a replacement for repo truth."
+    },
+    {
+      "rule_id": "fake_multi_agent_narration_not_proof",
+      "statement": "Fake multi-agent narration is not accepted as proof."
+    },
+    {
+      "rule_id": "a2a_runtime_not_implemented_in_r17_004",
+      "statement": "A2A runtime remains not implemented in R17-004."
+    }
+  ],
+  "forbidden_claim_fields": [
+    "unsupported_agent_runtime_claimed",
+    "unsupported_a2a_runtime_claimed",
+    "unsupported_product_runtime_claimed",
+    "unsupported_autonomous_agent_claimed",
+    "external_audit_acceptance_claimed",
+    "main_merge_claimed",
+    "r13_closure_claimed",
+    "r14_caveat_removal_claimed",
+    "r15_caveat_removal_claimed",
+    "solved_codex_compaction_claimed",
+    "solved_codex_reliability_claimed"
+  ],
+  "required_non_claims": [
+    "R17-004 defines governed card, board-state, and board-event contracts only",
+    "R17-004 does not implement board state store",
+    "R17-004 does not implement Kanban UI",
+    "R17-004 does not implement Orchestrator runtime",
+    "R17-004 does not implement A2A runtime",
+    "R17-004 does not implement Dev/Codex executor adapter",
+    "R17-004 does not implement QA/Test Agent adapter",
+    "R17-004 does not implement Evidence Auditor API adapter",
+    "R17-004 does not claim product runtime",
+    "R17-004 does not claim autonomous agents",
+    "R17-004 does not claim executable handoffs",
+    "R17-004 does not claim executable transitions",
+    "R17-004 does not claim external audit acceptance",
+    "R17-004 does not claim main merge",
+    "R13 boundary preserved",
+    "R14 caveats preserved",
+    "R15 caveats preserved",
+    "R16 boundary preserved",
+    "R17-005 through R17-028 remain planned only",
+    "R17-004 does not claim solved Codex compaction",
+    "R17-004 does not claim solved Codex reliability"
+  ],
+  "runtime_boundaries": {
+    "board_state_store_implemented": false,
+    "kanban_ui_implemented": false,
+    "orchestrator_runtime_implemented": false,
+    "a2a_runtime_implemented": false,
+    "dev_codex_executor_adapter_implemented": false,
+    "qa_test_agent_adapter_implemented": false,
+    "evidence_auditor_api_adapter_implemented": false,
+    "autonomous_agents_implemented": false,
+    "product_runtime_implemented": false
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "artifact_type": "r17_board_state",
+  "contract_version": "v1",
+  "board_id": "R17-004-BOARD-CONTRACT-FIXTURE",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "active_through_task": "R17-004",
+  "canonical_truth": {
+    "repo_truth_is_canonical": true,
+    "board_state_replaces_repo_truth": false,
+    "fixture_only_not_runtime_state": true
+  },
+  "card_refs": [
+    {
+      "card_id": "R17-004-CARD-001",
+      "path": "tests/fixtures/r17_board_contracts/valid_card.json",
+      "proof_treatment": "fixture_only_not_runtime_state"
+    }
+  ],
+  "lane_order": [
+    "intake",
+    "define",
+    "ready_for_dev",
+    "in_dev",
+    "ready_for_qa",
+    "in_qa",
+    "fix_required",
+    "ready_for_audit",
+    "in_audit",
+    "ready_for_user_review",
+    "resolved",
+    "closed",
+    "blocked"
+  ],
+  "lane_policies": {
+    "intake": {
+      "requires_valid_card_id": true
+    },
+    "define": {
+      "requires_acceptance_criteria": true
+    },
+    "ready_for_dev": {
+      "requires_task_packet_ref_when_runtime_exists": true
+    },
+    "in_dev": {
+      "owner_role": "developer"
+    },
+    "ready_for_qa": {
+      "requires_dev_output_ref_when_runtime_exists": true
+    },
+    "in_qa": {
+      "owner_role": "qa",
+      "qa_must_not_implement": true
+    },
+    "fix_required": {
+      "requires_defect_ref_when_runtime_exists": true
+    },
+    "ready_for_audit": {
+      "requires_qa_pass_ref_when_runtime_exists": true
+    },
+    "in_audit": {
+      "owner_role": "evidence_auditor",
+      "auditor_must_not_implement": true
+    },
+    "ready_for_user_review": {
+      "requires_user_decision_when_closing": true
+    },
+    "resolved": {
+      "closure_still_requires_user_approval": true
+    },
+    "closed": {
+      "requires_user_approval": true
+    },
+    "blocked": {
+      "requires_blocker_ref_when_runtime_exists": true
+    }
+  },
+  "role_permissions": {
+    "qa": {
+      "can_implement": false
+    },
+    "developer": {
+      "can_approve_evidence_sufficiency": false
+    },
+    "evidence_auditor": {
+      "can_implement": false
+    },
+    "orchestrator": {
+      "can_bypass_qa_gate": false,
+      "can_bypass_audit_gate": false
+    }
+  },
+  "transition_policies": {
+    "closed_requires_user_approval": true,
+    "repo_truth_remains_canonical": true,
+    "board_state_replaces_repo_truth": false,
+    "runtime_transitions_implemented_in_r17_004": false,
+    "a2a_runtime_implemented_in_r17_004": false
+  },
+  "unresolved_blockers": [],
+  "user_decisions_required": [],
+  "non_claims": [
+    "R17-004 defines governed card, board-state, and board-event contracts only",
+    "R17-004 does not implement board state store",
+    "R17-004 does not implement Kanban UI",
+    "R17-004 does not implement Orchestrator runtime",
+    "R17-004 does not implement A2A runtime",
+    "R17-004 does not implement Dev/Codex executor adapter",
+    "R17-004 does not implement QA/Test Agent adapter",
+    "R17-004 does not implement Evidence Auditor API adapter",
+    "R17-004 does not claim product runtime",
+    "R17-004 does not claim autonomous agents",
+    "R17-004 does not claim executable handoffs",
+    "R17-004 does not claim executable transitions",
+    "R17-004 does not claim external audit acceptance",
+    "R17-004 does not claim main merge",
+    "R13 boundary preserved",
+    "R14 caveats preserved",
+    "R15 caveats preserved",
+    "R16 boundary preserved",
+    "R17-005 through R17-028 remain planned only",
+    "R17-004 does not claim solved Codex compaction",
+    "R17-004 does not claim solved Codex reliability"
+  ],
+  "generated_from_head": "6b7d118d3ad2ddf95fd3ff9e2dd84ca9ba835b57",
+  "generated_from_tree": "4376b73666facd8d73c1ed8f51b83d0534dc35c6"
+}

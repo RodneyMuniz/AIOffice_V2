@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "unsupported_autonomous_agent_claim",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "set_fields": {
+    "claims.unsupported_autonomous_agent_claimed": true
+  },
+  "expected_refusal": "unsupported_autonomous_agent_claimed must be false"
+}

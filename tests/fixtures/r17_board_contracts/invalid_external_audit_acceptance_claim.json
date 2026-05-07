@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "external_audit_acceptance_claim",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "set_fields": {
+    "claims.external_audit_acceptance_claimed": true
+  },
+  "expected_refusal": "external_audit_acceptance_claimed must be false"
+}

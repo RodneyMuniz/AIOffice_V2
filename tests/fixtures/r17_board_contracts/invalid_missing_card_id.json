@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "missing_card_id",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "remove_fields": [
+    "card_id"
+  ],
+  "expected_refusal": "missing required field 'card_id'"
+}

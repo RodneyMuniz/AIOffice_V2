@@ -1,0 +1,10 @@
+{
+  "artifact_type": "r17_board_contract_invalid_fixture",
+  "contract_version": "v1",
+  "case_id": "invalid_owner_role",
+  "base_fixture": "tests/fixtures/r17_board_contracts/valid_card.json",
+  "set_fields": {
+    "owner_role": "robot"
+  },
+  "expected_refusal": "owner_role value 'robot' is not allowed"
+}
