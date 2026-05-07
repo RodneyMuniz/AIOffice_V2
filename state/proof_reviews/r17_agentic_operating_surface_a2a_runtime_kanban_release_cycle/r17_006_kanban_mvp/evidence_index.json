@@ -1,0 +1,72 @@
+{
+  "artifact_type": "r17_006_kanban_mvp_evidence_index",
+  "contract_version": "v1",
+  "source_task": "R17-006",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "status": "passed",
+  "evidence_refs": [
+    {
+      "path": "scripts/operator_wall/r17_kanban_mvp/index.html",
+      "purpose": "Local/static read-only Kanban MVP entrypoint."
+    },
+    {
+      "path": "scripts/operator_wall/r17_kanban_mvp/styles.css",
+      "purpose": "Local static Kanban MVP styles."
+    },
+    {
+      "path": "scripts/operator_wall/r17_kanban_mvp/kanban.js",
+      "purpose": "Embedded generated snapshot and vanilla read-only renderer."
+    },
+    {
+      "path": "scripts/operator_wall/r17_kanban_mvp/README.md",
+      "purpose": "Operator instructions and boundary notes."
+    },
+    {
+      "path": "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+      "purpose": "Generated UI snapshot derived from R17-005 board state and replay report."
+    },
+    {
+      "path": "tools/R17KanbanMvp.psm1",
+      "purpose": "R17-006 generator and validator module."
+    },
+    {
+      "path": "tools/new_r17_kanban_mvp.ps1",
+      "purpose": "Deterministic generator wrapper."
+    },
+    {
+      "path": "tools/validate_r17_kanban_mvp.ps1",
+      "purpose": "R17-006 validator wrapper."
+    },
+    {
+      "path": "tests/test_r17_kanban_mvp.ps1",
+      "purpose": "Focused test harness for live state and compact invalid fixtures."
+    },
+    {
+      "path": "tests/fixtures/r17_kanban_mvp/",
+      "purpose": "Compact valid snapshot and invalid mutation fixtures."
+    },
+    {
+      "path": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+      "purpose": "R17-005 board state input artifact."
+    },
+    {
+      "path": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json",
+      "purpose": "R17-005 replay summary input artifact."
+    }
+  ],
+  "non_claims": [
+    "R17-006 is a read-only local/static Kanban MVP surface only",
+    "no live board mutation",
+    "no Orchestrator runtime",
+    "no A2A runtime",
+    "no Dev/Codex executor adapter runtime",
+    "no QA/Test Agent adapter runtime",
+    "no Evidence Auditor API runtime",
+    "no autonomous agents",
+    "no executable handoffs",
+    "no executable transitions",
+    "no external audit acceptance",
+    "no main merge",
+    "no product runtime"
+  ]
+}

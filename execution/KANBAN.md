@@ -8,7 +8,7 @@ This board tracks the current reset milestone structure only.
 Current posture:
 `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is complete for bounded foundation scope through `R16-026` only. R16 produced a bounded final proof/review package candidate and final-head support packet only. R16 did not claim external audit acceptance, main merge, runtime execution, product runtime, autonomous agents, true multi-agent execution, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.
 
-`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-005` only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` defines governed card, board-state, and board-event contracts only. `R17-005` implements bounded repo-backed board state store generation and deterministic event replay/check tooling only. `R17-006` through `R17-028` remain planned only. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but none of those runtime/product capabilities are claimed as implemented yet.
+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-006` only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` defines governed card, board-state, and board-event contracts only. `R17-005` implements bounded repo-backed board state store generation and deterministic event replay/check tooling only. `R17-006` implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts. `R17-007` through `R17-028` remain planned only. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but those runtime/product capabilities are not claimed as implemented by R17-006.
 
 R17 non-claims: no external audit acceptance, no main merge, no R13 closure, no R14 caveat removal, no R15 caveat removal, no solved Codex compaction, no solved Codex reliability, no product runtime yet, no production runtime, no autonomous agents yet, no A2A runtime yet, no executable handoffs yet, no executable transitions yet, no Evidence Auditor API runtime yet, no Dev/Codex executor adapter runtime yet, no QA/Test Agent adapter runtime yet, and no Kanban product runtime yet.
 
@@ -124,13 +124,13 @@ Earlier closed milestone:
 - Done when: the R17-005 seed card and seed events validate against the R17-004 contract shapes and R17-005 boundary rules, deterministic replay generates a board state artifact and replay report with verdict `generated_r17_board_state_store_candidate`, invalid event fixtures fail closed, user approval remains required for closure, and no Kanban UI, Orchestrator runtime, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, or product runtime is implemented or claimed
 
 ### `R17-006` Build Kanban interface MVP
-- Status: planned
+- Status: done
 - Order: 6
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
 - Depends on: `R17-005`
 - Authority: `governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md`
-- Durable output: planned only; expected future UI/control surface, UI smoke tests, and screenshots or equivalent artifacts
-- Done when: future evidence proves the operator can see the required R17 lanes and current card state without treating R17-005 repo-backed state artifacts as Kanban product runtime
+- Durable output: `scripts/operator_wall/r17_kanban_mvp/`, `state/ui/r17_kanban_mvp/r17_kanban_snapshot.json`, `tools/R17KanbanMvp.psm1`, `tools/new_r17_kanban_mvp.ps1`, `tools/validate_r17_kanban_mvp.ps1`, `tests/test_r17_kanban_mvp.ps1`, fixtures under `tests/fixtures/r17_kanban_mvp/`, and proof-review package `state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_006_kanban_mvp/`
+- Done when: the operator can open the local/static read-only Kanban MVP and see the required R17 lanes, the R17-005 seed card in its replayed current lane, evidence refs, replay summary, user-decision state, and non-claims without treating R17-005 repo-backed state artifacts or the R17-006 UI as Kanban product runtime
 
 ### `R17-007` Add card detail evidence drawer
 - Status: planned

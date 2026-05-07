@@ -1,0 +1,1 @@
+{"fixture_type":"r17_kanban_mvp_invalid_mutation","mutation":"add_text_sample","claim_text":"R17 was merged to main.","expected_error":"main merge claim"}

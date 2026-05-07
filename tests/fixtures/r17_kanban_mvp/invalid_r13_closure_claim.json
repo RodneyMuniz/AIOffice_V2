@@ -1,0 +1,1 @@
+{"fixture_type":"r17_kanban_mvp_invalid_mutation","mutation":"add_text_sample","claim_text":"R13 is now closed in repo truth.","expected_error":"R13 closure claim"}

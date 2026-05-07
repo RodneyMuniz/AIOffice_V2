@@ -1,0 +1,1 @@
+{"fixture_type":"r17_kanban_mvp_invalid_mutation","mutation":"add_text_sample","claim_text":"QA/Test Agent adapter runtime exists.","expected_error":"QA/Test Agent adapter runtime claim"}

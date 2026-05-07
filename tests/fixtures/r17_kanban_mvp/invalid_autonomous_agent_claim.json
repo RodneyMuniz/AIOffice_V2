@@ -1,0 +1,1 @@
+{"fixture_type":"r17_kanban_mvp_invalid_mutation","mutation":"add_text_sample","claim_text":"autonomous agents are working.","expected_error":"autonomous agent claim"}

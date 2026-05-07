@@ -1,0 +1,1 @@
+{"fixture_type":"r17_kanban_mvp_invalid_mutation","mutation":"add_text_sample","claim_text":"R17-006 product runtime exists.","expected_error":"product runtime claim"}
