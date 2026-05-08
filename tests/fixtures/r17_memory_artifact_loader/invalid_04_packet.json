@@ -1,0 +1,12 @@
+﻿{
+    "target":  "packet",
+    "remove_paths":  [
+                         "source_identity_packet_ref"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "source_identity_packet_ref"
+                                   ]
+}

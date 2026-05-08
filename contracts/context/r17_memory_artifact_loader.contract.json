@@ -1,0 +1,422 @@
+﻿{
+    "artifact_type":  "r17_memory_artifact_loader_contract",
+    "contract_version":  "v1",
+    "contract_id":  "aioffice-r17-013-memory-artifact-loader-contract-v1",
+    "source_milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "source_task":  "R17-013",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "scope":  "bounded_memory_artifact_loader_foundation_only_not_runtime",
+    "purpose":  "Define the deterministic exact-ref loader report, loaded-ref log, and future agent memory packet shape without implementing runtime memory, vector retrieval, live agent invocation, A2A runtime, adapters, API calls, product runtime, or production runtime.",
+    "required_report_fields":  [
+                                   "artifact_type",
+                                   "contract_version",
+                                   "report_id",
+                                   "source_task",
+                                   "r17_agent_registry_ref",
+                                   "r17_identity_packet_refs",
+                                   "r16_source_refs",
+                                   "loaded_ref_log_ref",
+                                   "agent_memory_packet_refs",
+                                   "summary",
+                                   "checks",
+                                   "aggregate_verdict",
+                                   "implementation_boundaries",
+                                   "non_claims",
+                                   "rejected_claims"
+                               ],
+    "required_loaded_ref_fields":  [
+                                       "ref_id",
+                                       "path",
+                                       "source_task",
+                                       "category",
+                                       "required",
+                                       "status",
+                                       "exact_repo_ref",
+                                       "tracked",
+                                       "exists",
+                                       "full_file_content_embedded",
+                                       "broad_repo_scan_used",
+                                       "raw_chat_history_used_as_canonical"
+                                   ],
+    "required_packet_fields":  [
+                                   "packet_id",
+                                   "source_task",
+                                   "agent_id",
+                                   "role_name",
+                                   "source_identity_packet_ref",
+                                   "approved_memory_refs",
+                                   "approved_artifact_refs",
+                                   "forbidden_refs",
+                                   "missing_refs",
+                                   "blocked_refs",
+                                   "context_budget_summary",
+                                   "guard_summary",
+                                   "evidence_refs",
+                                   "loaded_ref_count",
+                                   "broad_repo_scan_used",
+                                   "raw_chat_history_used_as_canonical",
+                                   "runtime_memory_engine_implemented",
+                                   "vector_retrieval_implemented",
+                                   "live_agent_invocation_implemented",
+                                   "a2a_runtime_implemented",
+                                   "adapter_runtime_implemented",
+                                   "external_api_calls_implemented",
+                                   "product_runtime_implemented",
+                                   "production_runtime_implemented",
+                                   "non_claims",
+                                   "rejected_claims"
+                               ],
+    "required_source_refs":  [
+                                 {
+                                     "ref_id":  "r17_agent_registry_contract",
+                                     "path":  "contracts/agents/r17_agent_registry.contract.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_registry",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_agent_identity_packet_contract",
+                                     "path":  "contracts/agents/r17_agent_identity_packet.contract.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_registry",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_agent_registry",
+                                     "path":  "state/agents/r17_agent_registry.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_registry",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_agent_registry_check_report",
+                                     "path":  "state/agents/r17_agent_registry_check_report.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_registry",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_user",
+                                     "path":  "state/agents/r17_agent_identities/user.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_operator",
+                                     "path":  "state/agents/r17_agent_identities/operator.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_orchestrator",
+                                     "path":  "state/agents/r17_agent_identities/orchestrator.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_project_manager",
+                                     "path":  "state/agents/r17_agent_identities/project_manager.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_architect",
+                                     "path":  "state/agents/r17_agent_identities/architect.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_developer",
+                                     "path":  "state/agents/r17_agent_identities/developer.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_qa_test_agent",
+                                     "path":  "state/agents/r17_agent_identities/qa_test_agent.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_evidence_auditor",
+                                     "path":  "state/agents/r17_agent_identities/evidence_auditor.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_knowledge_curator",
+                                     "path":  "state/agents/r17_agent_identities/knowledge_curator.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r17_identity_release_closeout",
+                                     "path":  "state/agents/r17_agent_identities/release_closeout.identity.json",
+                                     "source_task":  "R17-012",
+                                     "category":  "r17_identity_packet",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_context_load_plan",
+                                     "path":  "state/context/r16_context_load_plan.json",
+                                     "source_task":  "R16-015",
+                                     "category":  "memory",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_context_budget_estimate",
+                                     "path":  "state/context/r16_context_budget_estimate.json",
+                                     "source_task":  "R16-016",
+                                     "category":  "memory",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_context_budget_guard_report",
+                                     "path":  "state/context/r16_context_budget_guard_report.json",
+                                     "source_task":  "R16-017",
+                                     "category":  "guard",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_role_memory_packs",
+                                     "path":  "state/memory/r16_role_memory_packs.json",
+                                     "source_task":  "R16-007",
+                                     "category":  "memory",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_role_memory_pack_model",
+                                     "path":  "state/memory/r16_role_memory_pack_model.json",
+                                     "source_task":  "R16-006",
+                                     "category":  "memory",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_memory_pack_validation_report",
+                                     "path":  "state/memory/r16_memory_pack_validation_report.json",
+                                     "source_task":  "R16-008",
+                                     "category":  "memory",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_artifact_map",
+                                     "path":  "state/artifacts/r16_artifact_map.json",
+                                     "source_task":  "R16-010",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_audit_map",
+                                     "path":  "state/audit/r16_r15_r16_audit_map.json",
+                                     "source_task":  "R16-012",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_artifact_audit_map_check_report",
+                                     "path":  "state/artifacts/r16_artifact_audit_map_check_report.json",
+                                     "source_task":  "R16-013",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_role_run_envelopes",
+                                     "path":  "state/workflow/r16_role_run_envelopes.json",
+                                     "source_task":  "R16-019",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_raci_transition_gate_report",
+                                     "path":  "state/workflow/r16_raci_transition_gate_report.json",
+                                     "source_task":  "R16-020",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_handoff_packet_report",
+                                     "path":  "state/workflow/r16_handoff_packet_report.json",
+                                     "source_task":  "R16-021",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_restart_compaction_recovery_drill",
+                                     "path":  "state/workflow/r16_restart_compaction_recovery_drill.json",
+                                     "source_task":  "R16-022",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_role_handoff_drill",
+                                     "path":  "state/workflow/r16_role_handoff_drill.json",
+                                     "source_task":  "R16-023",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_audit_readiness_drill",
+                                     "path":  "state/audit/r16_audit_readiness_drill.json",
+                                     "source_task":  "R16-024",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_friction_metrics_report",
+                                     "path":  "state/governance/r16_friction_metrics_report.json",
+                                     "source_task":  "R16-025",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 },
+                                 {
+                                     "ref_id":  "r16_final_evidence_index",
+                                     "path":  "state/proof_reviews/r16_operational_memory_artifact_map_role_workflow_foundation/r16_026_final_proof_review_package/evidence_index.json",
+                                     "source_task":  "R16-026",
+                                     "category":  "artifact",
+                                     "required":  true
+                                 }
+                             ],
+    "exact_ref_policy":  {
+                             "repo_relative_exact_paths_only":  true,
+                             "broad_repo_scan_allowed":  false,
+                             "full_repo_scan_allowed":  false,
+                             "wildcard_paths_allowed":  false,
+                             "directory_only_refs_allowed":  false,
+                             "raw_chat_history_as_canonical_allowed":  false,
+                             "generated_markdown_only_evidence_allowed_as_proof":  false,
+                             "full_file_content_embedding_allowed":  false
+                         },
+    "fixture_policy":  {
+                           "compact_invalid_fixtures_required":  true,
+                           "fixture_payloads_must_not_duplicate_large_valid_state":  true
+                       },
+    "implementation_boundaries":  {
+                                      "broad_repo_scan_used":  false,
+                                      "raw_chat_history_used_as_canonical":  false,
+                                      "runtime_memory_engine_implemented":  false,
+                                      "vector_retrieval_implemented":  false,
+                                      "live_agent_invocation_implemented":  false,
+                                      "a2a_runtime_implemented":  false,
+                                      "adapter_runtime_implemented":  false,
+                                      "external_api_calls_implemented":  false,
+                                      "product_runtime_implemented":  false,
+                                      "production_runtime_implemented":  false,
+                                      "live_board_mutation_implemented":  false,
+                                      "runtime_card_creation_implemented":  false,
+                                      "executable_handoffs_implemented":  false,
+                                      "executable_transitions_implemented":  false,
+                                      "generated_markdown_only_evidence_used_as_proof":  false,
+                                      "fake_multi_agent_narration_as_proof":  false,
+                                      "dev_output_claimed":  false,
+                                      "qa_result_claimed":  false,
+                                      "audit_verdict_claimed":  false,
+                                      "external_audit_acceptance_claimed":  false,
+                                      "main_merge_claimed":  false,
+                                      "r13_closure_claimed":  false,
+                                      "r14_caveat_removal_claimed":  false,
+                                      "r15_caveat_removal_claimed":  false,
+                                      "solved_codex_compaction_claimed":  false,
+                                      "solved_codex_reliability_claimed":  false
+                                  },
+    "non_claims":  [
+                       "R17-013 implements a bounded deterministic memory/artifact loader foundation only",
+                       "R17-013 prepares scoped memory/artifact refs for future agent packets only",
+                       "R17-013 does not implement live agent runtime",
+                       "R17-013 does not invoke agents",
+                       "R17-013 does not implement A2A runtime",
+                       "R17-013 does not implement adapters",
+                       "R17-013 does not call external APIs",
+                       "R17-013 does not implement runtime memory engine",
+                       "R17-013 does not implement vector retrieval",
+                       "R17-013 does not use broad repo scan in the happy path",
+                       "R17-013 does not use raw chat history as canonical evidence",
+                       "R17-013 does not implement live board mutation",
+                       "R17-013 does not create runtime cards",
+                       "R17-013 does not implement product runtime",
+                       "R17-013 does not implement production runtime",
+                       "R17-013 does not produce real Dev output",
+                       "R17-013 does not produce real QA result",
+                       "R17-013 does not produce real audit verdict",
+                       "R17-013 does not claim external audit acceptance",
+                       "R17-013 does not claim main merge",
+                       "R17-013 does not close R13",
+                       "R17-013 does not remove R14 caveats",
+                       "R17-013 does not remove R15 caveats",
+                       "R17-013 does not solve Codex compaction",
+                       "R17-013 does not solve Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_agent_runtime",
+                            "runtime_agent_invocation",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "adapter_runtime",
+                            "external_API_calls",
+                            "runtime_memory_engine",
+                            "vector_retrieval_runtime",
+                            "broad_repo_scan_in_happy_path",
+                            "raw_chat_history_as_canonical_evidence",
+                            "live_board_mutation",
+                            "runtime_card_creation",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "fake_multi_agent_narration_as_proof",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability",
+                            "R17_014_or_later_implementation"
+                        ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "production_runtime_implemented":  false,
+                                             "runtime_memory_engine_implemented":  false,
+                                             "vector_retrieval_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "executable_handoffs_implemented":  false,
+                                             "executable_transitions_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}

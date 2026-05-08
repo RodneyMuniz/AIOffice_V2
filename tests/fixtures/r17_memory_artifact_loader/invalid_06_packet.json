@@ -1,0 +1,12 @@
+﻿{
+    "target":  "packet",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_memory_engine_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_memory_engine_implemented"
+                                   ]
+}

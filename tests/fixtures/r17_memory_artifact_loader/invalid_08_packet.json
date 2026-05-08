@@ -1,0 +1,12 @@
+﻿{
+    "target":  "packet",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "live_agent_invocation_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_agent_invocation_implemented"
+                                   ]
+}

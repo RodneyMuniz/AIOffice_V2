@@ -1,0 +1,12 @@
+﻿{
+    "target":  "packet",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "vector_retrieval_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "vector_retrieval_implemented"
+                                   ]
+}

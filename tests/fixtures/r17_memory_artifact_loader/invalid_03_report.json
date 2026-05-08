@@ -1,0 +1,12 @@
+﻿{
+    "target":  "report",
+    "remove_paths":  [
+                         "r17_agent_registry_ref"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "r17_agent_registry_ref"
+                                   ]
+}

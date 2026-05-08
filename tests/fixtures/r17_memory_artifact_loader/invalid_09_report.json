@@ -1,0 +1,12 @@
+﻿{
+    "target":  "report",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "implementation_boundaries.external_api_calls_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "external_api_calls_implemented"
+                                   ]
+}

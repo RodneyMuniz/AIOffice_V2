@@ -243,6 +243,81 @@
         </div>
       </section>
 
+      <section class="memory-loader-panel" id="memory-loader-panel" aria-labelledby="memory-loader-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-013 exact-ref loader foundation</p>
+            <h2 id="memory-loader-title">Memory/Artifact Loader</h2>
+          </div>
+          <div class="drawer-status memory-loader-status">
+            <span>not runtime memory</span>
+            <strong>no live agent runtime; no broad repo scan</strong>
+          </div>
+        </div>
+
+        <div class="memory-loader-grid">
+          <article class="detail-block">
+            <h3>Loader Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Report</dt>
+              <dd>state/context/r17_memory_artifact_loader_report.json</dd>
+              <dt>Loaded refs log</dt>
+              <dd>state/context/r17_memory_loaded_refs_log.json</dd>
+              <dt>Agent packets</dt>
+              <dd>10 future-use packets under state/agents/r17_agent_memory_packets/</dd>
+              <dt>Loaded refs</dt>
+              <dd>31 exact repo-backed refs</dd>
+              <dt>Missing/blocked refs</dt>
+              <dd>0 missing, 0 blocked</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>R16 Guard Context</h3>
+            <dl class="card-fields">
+              <dt>Guard verdict</dt>
+              <dd>failed_closed_over_budget</dd>
+              <dt>Upper bound</dt>
+              <dd>1364079 approximate tokens</dd>
+              <dt>Threshold</dt>
+              <dd>150000 approximate tokens</dd>
+              <dt>Runtime memory</dt>
+              <dd>false</dd>
+              <dt>Vector retrieval</dt>
+              <dd>false</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Scope Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-013 prepares scoped memory/artifact refs for future agent packets only.</li>
+              <li>R17-013 uses exact repo-backed refs from R17-012 and R16 committed state artifacts.</li>
+              <li>R17-013 does not implement live agent runtime, A2A runtime, adapters, external API calls, runtime memory engine, vector retrieval, live board mutation, runtime card creation, product runtime, or production runtime.</li>
+              <li>R17-013 does not use raw chat history as canonical evidence and does not treat generated Markdown-only evidence as proof by itself.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Source Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>state/agents/r17_agent_registry.json</li>
+              <li>10 exact state/agents/r17_agent_identities/ identity packet file refs recorded in the loaded-ref log</li>
+              <li>state/context/r16_context_load_plan.json</li>
+              <li>state/context/r16_context_budget_estimate.json</li>
+              <li>state/context/r16_context_budget_guard_report.json</li>
+              <li>state/memory/r16_role_memory_packs.json</li>
+              <li>state/artifacts/r16_artifact_map.json</li>
+              <li>state/audit/r16_r15_r16_audit_map.json</li>
+              <li>state/workflow/r16_role_run_envelopes.json</li>
+              <li>state/workflow/r16_raci_transition_gate_report.json</li>
+              <li>state/workflow/r16_handoff_packet_report.json</li>
+              <li>state/audit/r16_audit_readiness_drill.json</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

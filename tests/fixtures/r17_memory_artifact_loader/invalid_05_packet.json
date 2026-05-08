@@ -1,0 +1,12 @@
+﻿{
+    "target":  "packet",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "broad_repo_scan_used":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "broad_repo_scan_used"
+                                   ]
+}

@@ -1,0 +1,12 @@
+﻿{
+    "target":  "report",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "implementation_boundaries.fake_multi_agent_narration_as_proof":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "fake_multi_agent_narration_as_proof"
+                                   ]
+}

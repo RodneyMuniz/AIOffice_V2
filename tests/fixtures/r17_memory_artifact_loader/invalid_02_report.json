@@ -1,0 +1,12 @@
+﻿{
+    "target":  "report",
+    "remove_paths":  [
+                         "loaded_ref_log_ref"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "loaded_ref_log_ref"
+                                   ]
+}

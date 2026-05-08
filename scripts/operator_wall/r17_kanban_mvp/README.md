@@ -12,6 +12,8 @@ R17-011 adds a bounded operator intake preview panel. The panel shows the seed/r
 
 R17-012 adds a read-only agent workforce panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_agent_registry_snapshot.json` and shows the planned agent registry, role identity boundaries, allowed/forbidden action summaries, memory/evidence/tool boundaries, and explicit labels for `identity/registry only`, `no runtime agent invocation`, `no A2A runtime`, `no autonomous agents`, and `future adapter use requires later tasks`. The panel does not invoke agents, send A2A messages, call APIs, persist state, mutate board state, or create runtime cards.
 
+R17-013 adds a read-only memory/artifact loader panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_memory_loader_snapshot.json` and shows the bounded exact-ref loader report, loaded-ref log, future-use agent memory packet refs, R16 context budget and guard summary, missing/blocked ref counts, and non-claims. The panel does not implement runtime memory, vector retrieval, live agent runtime, A2A runtime, adapters, API calls, live board mutation, runtime card creation, product runtime, or production runtime.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server
@@ -22,6 +24,8 @@ Boundary:
 - no runtime card creation
 - no runtime agent execution
 - no live agent runtime
+- no runtime memory engine
+- no vector retrieval runtime
 - no Orchestrator runtime
 - no A2A runtime
 - no Dev/Codex executor adapter runtime

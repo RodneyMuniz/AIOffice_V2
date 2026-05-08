@@ -309,6 +309,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.memory-loader-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #6b4ca0;
+  border-radius: 8px;
+  background: #fbfaff;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -359,6 +369,10 @@ main {
 
 .agent-registry-status span {
   color: #6c4a12;
+}
+
+.memory-loader-status span {
+  color: #5a3b94;
 }
 
 .agent-labels {
@@ -505,6 +519,13 @@ main {
   padding-top: 12px;
 }
 
+.memory-loader-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
 .agent-boundaries article {
   min-width: 0;
   padding: 14px;
@@ -646,6 +667,7 @@ main {
   .event-summary-grid,
   .intake-layout,
   .agent-workforce-grid,
+  .memory-loader-grid,
   .agent-boundaries {
     grid-template-columns: 1fr;
   }

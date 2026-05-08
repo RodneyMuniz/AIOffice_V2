@@ -1,0 +1,7 @@
+﻿{
+    "target":  "report",
+    "operation":  "append_missing_source_ref",
+    "expected_failure_fragments":  [
+                                       "unresolved source refs"
+                                   ]
+}

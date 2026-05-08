@@ -1,0 +1,12 @@
+﻿{
+    "target":  "contract",
+    "remove_paths":  [
+                         "required_packet_fields"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "required_packet_fields"
+                                   ]
+}

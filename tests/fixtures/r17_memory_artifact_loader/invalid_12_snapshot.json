@@ -1,0 +1,12 @@
+﻿{
+    "target":  "snapshot",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.product_runtime_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "product_runtime_implemented"
+                                   ]
+}
