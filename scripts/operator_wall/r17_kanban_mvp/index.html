@@ -79,6 +79,170 @@
         </div>
       </section>
 
+      <section class="agent-workforce-panel" id="agent-workforce-panel" aria-labelledby="agent-workforce-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">identity/registry only</p>
+            <h2 id="agent-workforce-title">Agent Workforce</h2>
+          </div>
+          <div class="drawer-status agent-registry-status">
+            <span>no runtime agent invocation</span>
+            <strong>no A2A runtime; no autonomous agents; future adapter use requires later tasks</strong>
+          </div>
+        </div>
+
+        <div class="agent-labels" aria-label="R17-012 boundary labels">
+          <span>identity/registry only</span>
+          <span>no runtime agent invocation</span>
+          <span>no A2A runtime</span>
+          <span>no autonomous agents</span>
+          <span>future adapter use requires later tasks</span>
+        </div>
+
+        <div class="agent-workforce-grid">
+          <article class="agent-card">
+            <h3>User / Rodney <span>user</span></h3>
+            <p>Final authority for meaningful direction, closure, release, promotion, and acceptance decisions.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Approve closure, meaningful direction, and release decisions when evidence supports them.</dd>
+              <dt>Forbidden</dt>
+              <dd>Bypass repo truth or treat generated Markdown as proof without committed evidence.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Operator <span>operator</span></h3>
+            <p>Administers the local workflow surface, submits intake, and approves operational direction.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Submit intake, request clarification, route to PM or user, and administer local workflow state.</dd>
+              <dt>Forbidden</dt>
+              <dd>Invoke agents, send A2A messages, mutate live board state, or create runtime cards.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Orchestrator <span>orchestrator</span></h3>
+            <p>Coordinates and routes future packets without implementing, testing, approving evidence, or bypassing gates.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Classify intake, recommend routes, coordinate packet flow, and request user review.</dd>
+              <dt>Forbidden</dt>
+              <dd>Implement code, run QA, approve evidence sufficiency, bypass QA/audit gates, or send A2A messages.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Project Manager <span>project_manager</span></h3>
+            <p>Owns planning, routing, task packet readiness, and acceptance criteria.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Plan cards, define acceptance criteria, route work, and preserve status boundaries.</dd>
+              <dt>Forbidden</dt>
+              <dd>Implement, test, approve evidence sufficiency, override failed gates, or close without user approval.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Architect <span>architect</span></h3>
+            <p>Owns design and technical direction under explicit packet boundaries.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Define architecture direction, review design tradeoffs, and record technical constraints.</dd>
+              <dt>Forbidden</dt>
+              <dd>Implement without a future packet, perform QA validation, approve evidence, or bypass PM routing.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Developer <span>developer</span></h3>
+            <p>May implement only inside a future execution packet and must not approve evidence sufficiency.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Implement within a future execution packet and cite changed files and evidence refs.</dd>
+              <dt>Forbidden</dt>
+              <dd>Approve evidence sufficiency, run the QA gate, invoke external APIs without a packet, or claim R17-012 Dev output.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>QA/Test Agent <span>qa_test_agent</span></h3>
+            <p>May test and validate only against acceptance criteria.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Validate against acceptance criteria and report QA results only when a later packet enables it.</dd>
+              <dt>Forbidden</dt>
+              <dd>Implement code, rewrite evidence, approve release, or claim a real R17-012 QA result.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Evidence Auditor <span>evidence_auditor</span></h3>
+            <p>Reviews evidence sufficiency and rejected claims without implementation or evidence rewrite authority.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Review evidence sufficiency, reject unbacked claims, verify non-claims, and request missing evidence.</dd>
+              <dt>Forbidden</dt>
+              <dd>Implement, rewrite evidence, mutate board state, or claim a real R17-012 audit verdict.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Knowledge Curator <span>knowledge_curator</span></h3>
+            <p>Classifies artifacts and updates exact memory references while avoiding product execution.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Classify artifacts, update memory refs, propose cleanup, and maintain exact-ref boundaries.</dd>
+              <dt>Forbidden</dt>
+              <dd>Execute product work, invoke agents, approve evidence sufficiency, or remove caveats without user approval.</dd>
+            </dl>
+          </article>
+
+          <article class="agent-card">
+            <h3>Release/Closeout Agent <span>release_closeout</span></h3>
+            <p>Packages release posture and validation manifests while preserving gates and user approval requirements.</p>
+            <dl class="card-fields">
+              <dt>Runtime</dt>
+              <dd>false</dd>
+              <dt>Can do later</dt>
+              <dd>Package release posture, assemble validation manifests, request user closure, and summarize unresolved risks.</dd>
+              <dt>Forbidden</dt>
+              <dd>Override failed gates, close without user approval, claim external audit acceptance, merge to main, or implement.</dd>
+            </dl>
+          </article>
+        </div>
+
+        <div class="agent-boundaries">
+          <article>
+            <h3>Memory and Evidence Boundary</h3>
+            <p>All agents are exact-ref bounded to repo artifacts. Broad repo scans, raw chat history, fake multi-agent narration, and generated Markdown alone are not proof.</p>
+          </article>
+          <article>
+            <h3>Runtime Boundary</h3>
+            <p>R17-012 records identity packets only: no live agent runtime, no A2A runtime, no API calls, no adapter runtime, no executable handoffs, and no executable transitions.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

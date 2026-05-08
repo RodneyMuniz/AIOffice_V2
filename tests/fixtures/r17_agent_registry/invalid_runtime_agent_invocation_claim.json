@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_runtime_agent_invocation_claim",
+    "file_name":  "invalid_runtime_agent_invocation_claim.json",
+    "target":  "identity:operator",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.runtime_agent_invocation_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_agent_invocation_implemented"
+                                   ]
+}

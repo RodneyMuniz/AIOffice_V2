@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_r15_caveat_removal_claim",
+    "file_name":  "invalid_r15_caveat_removal_claim.json",
+    "target":  "check_report",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "claim_status.r15_caveat_removal_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "r15_caveat_removal_claimed"
+                                   ]
+}

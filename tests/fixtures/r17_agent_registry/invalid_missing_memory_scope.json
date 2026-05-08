@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_memory_scope",
+    "file_name":  "invalid_missing_memory_scope.json",
+    "target":  "identity:operator",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+                         "memory_scope"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "memory_scope"
+                                   ]
+}

@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_solved_codex_reliability_claim",
+    "file_name":  "invalid_solved_codex_reliability_claim.json",
+    "target":  "check_report",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "claim_status.solved_codex_reliability_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "solved_codex_reliability_claimed"
+                                   ]
+}

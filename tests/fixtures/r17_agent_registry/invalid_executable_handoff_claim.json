@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_executable_handoff_claim",
+    "file_name":  "invalid_executable_handoff_claim.json",
+    "target":  "identity:project_manager",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.executable_handoffs_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "executable_handoffs_implemented"
+                                   ]
+}

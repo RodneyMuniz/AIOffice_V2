@@ -299,6 +299,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.agent-workforce-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #8a6a18;
+  border-radius: 8px;
+  background: #fbfcfa;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -345,6 +355,30 @@ main {
 
 .intake-status span {
   color: #315f92;
+}
+
+.agent-registry-status span {
+  color: #6c4a12;
+}
+
+.agent-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 14px;
+}
+
+.agent-labels span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid #d8cda8;
+  border-radius: 999px;
+  background: #fffaf0;
+  color: #5a4214;
+  font-size: 0.76rem;
+  font-weight: 800;
 }
 
 .drawer-grid {
@@ -423,6 +457,76 @@ main {
   font-size: 0.78rem;
   line-height: 1.45;
   white-space: pre-wrap;
+}
+
+.agent-workforce-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
+.agent-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #d6dddb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.agent-card h3 {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.agent-card h3 span {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.agent-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.agent-boundaries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.agent-boundaries article {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #d8cda8;
+  border-radius: 8px;
+  background: #fffaf0;
+}
+
+.agent-boundaries h3,
+.agent-boundaries p {
+  margin: 0;
+}
+
+.agent-boundaries h3 {
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.agent-boundaries p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .detail-block h3 {
@@ -540,7 +644,9 @@ main {
   .details-grid,
   .drawer-grid,
   .event-summary-grid,
-  .intake-layout {
+  .intake-layout,
+  .agent-workforce-grid,
+  .agent-boundaries {
     grid-template-columns: 1fr;
   }
 

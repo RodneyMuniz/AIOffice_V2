@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_autonomous_agent_claim",
+    "file_name":  "invalid_autonomous_agent_claim.json",
+    "target":  "identity:orchestrator",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.autonomous_agent_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "autonomous_agent_implemented"
+                                   ]
+}

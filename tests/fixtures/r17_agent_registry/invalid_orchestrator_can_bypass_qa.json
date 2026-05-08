@@ -1,0 +1,20 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_orchestrator_can_bypass_qa",
+    "file_name":  "invalid_orchestrator_can_bypass_qa.json",
+    "target":  "identity:orchestrator",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "allowed_actions":  [
+                                               "bypass_qa_or_audit_gates"
+                                           ]
+                   },
+    "expected_failure_fragments":  [
+                                       "Orchestrator"
+                                   ]
+}

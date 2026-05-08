@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_dev_codex_adapter_runtime_claim",
+    "file_name":  "invalid_dev_codex_adapter_runtime_claim.json",
+    "target":  "identity:developer",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.dev_codex_adapter_runtime_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "dev_codex_adapter_runtime_implemented"
+                                   ]
+}

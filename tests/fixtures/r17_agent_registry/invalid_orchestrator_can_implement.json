@@ -1,0 +1,20 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_orchestrator_can_implement",
+    "file_name":  "invalid_orchestrator_can_implement.json",
+    "target":  "identity:orchestrator",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "allowed_actions":  [
+                                               "implement_code"
+                                           ]
+                   },
+    "expected_failure_fragments":  [
+                                       "Orchestrator"
+                                   ]
+}

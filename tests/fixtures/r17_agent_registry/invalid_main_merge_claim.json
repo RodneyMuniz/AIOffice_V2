@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_main_merge_claim",
+    "file_name":  "invalid_main_merge_claim.json",
+    "target":  "check_report",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "claim_status.main_merge_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed"
+                                   ]
+}

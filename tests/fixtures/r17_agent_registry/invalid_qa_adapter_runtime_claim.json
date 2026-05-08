@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_qa_adapter_runtime_claim",
+    "file_name":  "invalid_qa_adapter_runtime_claim.json",
+    "target":  "identity:qa_test_agent",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_boundaries.qa_test_agent_adapter_runtime_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "qa_test_agent_adapter_runtime_implemented"
+                                   ]
+}

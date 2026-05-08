@@ -1,0 +1,20 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_developer_can_approve_evidence",
+    "file_name":  "invalid_developer_can_approve_evidence.json",
+    "target":  "identity:developer",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "allowed_actions":  [
+                                               "approve_evidence_sufficiency"
+                                           ]
+                   },
+    "expected_failure_fragments":  [
+                                       "Developer"
+                                   ]
+}

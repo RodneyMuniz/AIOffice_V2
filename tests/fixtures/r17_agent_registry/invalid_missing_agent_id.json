@@ -1,0 +1,18 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_agent_id",
+    "file_name":  "invalid_missing_agent_id.json",
+    "target":  "identity:user",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+                         "agent_id"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "agent_id"
+                                   ]
+}

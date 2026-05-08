@@ -4,9 +4,9 @@
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
 **Starting head:** `5bae17229ea10dee4ce072b258f828220b9d1d8d`
 **Starting tree:** `9de1a7b733f400da78f8e683ae4111977c70f1fb`
-**Status after this pass:** Active through `R17-011` only.
-**Current scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status; R17-004 defines governed card, board-state, and board-event contracts only; R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only; R17-006 implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts; R17-007 implements a read-only card detail evidence drawer/panel only using the R17-005 board state/replay artifacts and R17-006 Kanban MVP snapshot/UI artifacts; R17-008 implements a read-only board event detail and evidence summary surface only using R17-005 board state/replay artifacts, R17-006 Kanban MVP snapshot/UI artifacts, and R17-007 card detail drawer artifacts; R17-009 defines the Orchestrator identity and authority contract only and creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only; R17-010 defines and validates a bounded Orchestrator loop state machine, generated seed evaluation, and transition check artifacts only; R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only.
-**Planned-only boundary:** `R17-012` through `R17-028` remain planned only after this pass.
+**Status after this pass:** Active through `R17-012` only.
+**Current scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status; R17-004 defines governed card, board-state, and board-event contracts only; R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only; R17-006 implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts; R17-007 implements a read-only card detail evidence drawer/panel only using the R17-005 board state/replay artifacts and R17-006 Kanban MVP snapshot/UI artifacts; R17-008 implements a read-only board event detail and evidence summary surface only using R17-005 board state/replay artifacts, R17-006 Kanban MVP snapshot/UI artifacts, and R17-007 card detail drawer artifacts; R17-009 defines the Orchestrator identity and authority contract only and creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only; R17-010 defines and validates a bounded Orchestrator loop state machine, generated seed evaluation, and transition check artifacts only; R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only; R17-012 defines the R17 agent registry and role identity packet set only, creating generated agent registry, role identity packets, registry check report, and UI workforce snapshot only.
+**Planned-only boundary:** `R17-013` through `R17-028` remain planned only after this pass.
 
 This authority document records the active R17 boundary after the completed R16 boundary. It does not implement the full R17 milestone.
 
@@ -48,7 +48,7 @@ None of these planned capabilities are claimed as implemented by this opening pa
 | Phase A | R16 audit/R17 planning installation, R17 opening, KPI baseline | `R17-001` through `R17-003` | Done |
 | Phase B | Board and Kanban product surface | `R17-004` through `R17-008` | `R17-004` done as contracts only; `R17-005` done as bounded repo-backed state store/replay tooling only; `R17-006` done as a read-only local/static Kanban MVP surface only; `R17-007` done as a read-only card detail evidence drawer/panel only; `R17-008` done as a read-only board event detail and evidence summary surface only |
 | Phase C | Orchestrator runtime | `R17-009` through `R17-011` | `R17-009` done as Orchestrator identity/authority contract and generated non-executable state-artifact proof only; `R17-010` done as bounded loop state-machine contract, generated non-executable seed evaluation, and transition check artifacts only; `R17-011` done as bounded operator intake preview and deterministic non-executable intake packet/proposal generation only |
-| Phase D | Agent registry and scoped memory loader | `R17-012` through `R17-014` | Planned only |
+| Phase D | Agent registry and scoped memory loader | `R17-012` through `R17-014` | `R17-012` done as agent registry and role identity packet model/generation only; `R17-013` and `R17-014` planned only |
 | Phase E | Tool adapters and ledgers | `R17-015` through `R17-019` | Planned only |
 | Phase F | A2A protocol and dispatcher | `R17-020` through `R17-022` | Planned only |
 | Phase G | Four required agentic A2A cycles | `R17-023` through `R17-026` | Planned only |
@@ -134,11 +134,11 @@ None of these planned capabilities are claimed as implemented by this opening pa
 - Done when: a seed operator request produces a governed operator-intake packet, non-executable Orchestrator intake proposal, check report, UI snapshot, and local/static intake preview panel while preserving no live Orchestrator runtime, no live board mutation, no runtime card creation, no A2A runtime, no adapters, no autonomous agents, no executable handoffs, no executable transitions, no external integrations, no production runtime, no product runtime, no real Dev output, no real QA result, and no real audit verdict.
 
 ### `R17-012` Define agent registry and identity packets
-- Status: planned
+- Status: done
 - Order: 12
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
-- Durable output: planned only; expected future agent identity contract, agent registry, validators, and tests.
-- Done when: future evidence proves required agents have identity, authority, tool, memory, and output definitions.
+- Durable output: `contracts/agents/r17_agent_registry.contract.json`, `contracts/agents/r17_agent_identity_packet.contract.json`, `state/agents/r17_agent_registry.json`, identity packets under `state/agents/r17_agent_identities/`, `state/agents/r17_agent_registry_check_report.json`, `state/ui/r17_kanban_mvp/r17_agent_registry_snapshot.json`, updated local/static Kanban MVP files under `scripts/operator_wall/r17_kanban_mvp/`, `tools/R17AgentRegistry.psm1`, `tools/new_r17_agent_registry.ps1`, `tools/validate_r17_agent_registry.ps1`, `tests/test_r17_agent_registry.ps1`, fixtures under `tests/fixtures/r17_agent_registry/`, and proof-review package `state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_012_agent_registry_identity_packets/`.
+- Done when: required agents have generated identity, authority, tool, memory, evidence, handoff, approval, and runtime false-flag boundaries; the registry check report validates the required agent set; the read-only workforce snapshot/UI panel shows the planned agents and authority boundaries; and no live agent runtime, A2A runtime, live Orchestrator runtime, live board mutation, runtime card creation, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, or real audit verdict is implemented or claimed.
 
 ### `R17-013` Implement R16 memory/artifact map loader for live agents
 - Status: planned
@@ -277,7 +277,7 @@ The four required future A2A cycles are:
 3. `R17-025`: Orchestrator to QA/Test to Developer fix loop.
 4. `R17-026`: Orchestrator to Evidence Auditor API to Release/Closeout.
 
-These cycles are not working yet and are not claimed by `R17-001` through `R17-011`.
+These cycles are not working yet and are not claimed by `R17-001` through `R17-012`.
 
 ## KPI Target Domains
 
@@ -295,11 +295,12 @@ The machine-readable baseline/target scorecard is `state/governance/r17_kpi_base
 
 ## Non-Claims
 
-This R17 active boundary through `R17-011` claims none of the following:
+This R17 active boundary through `R17-012` claims none of the following:
 
 - no external audit acceptance;
 - no live board mutation;
 - no runtime card creation;
+- no live agent runtime;
 - no main merge;
 - no R13 closure;
 - no R14 caveat removal;
@@ -321,7 +322,7 @@ This R17 active boundary through `R17-011` claims none of the following:
 - no real Dev output;
 - no real QA result;
 - no real audit verdict;
-- no R17-012 or later implementation yet;
+- no R17-013 or later implementation yet;
 - no Kanban runtime yet;
 - no Orchestrator runtime yet;
 - no R18 opening.
@@ -332,7 +333,8 @@ The following claims are rejected unless future committed evidence and user appr
 
 - the R16 report alone opens or proves R17;
 - the revised R17 plan alone implements R17 capability;
-- R17-012 through R17-028 are implemented by this pass;
+- R17-013 through R17-028 are implemented by this pass;
+- R17-012 implements live agent runtime, A2A runtime, live Orchestrator runtime, live board mutation, runtime card creation, Dev/Codex executor adapter, QA/Test Agent adapter, Evidence Auditor API adapter, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, or real audit verdict;
 - R17-011 implements live Orchestrator runtime, live board mutation, runtime card creation, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, or real audit verdict;
 - R17-010 implements Orchestrator runtime, live board mutation, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, or real audit verdict;
 - R17-009 implements Orchestrator runtime, live board mutation, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, or real audit verdict;

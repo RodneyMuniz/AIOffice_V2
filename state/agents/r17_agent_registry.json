@@ -1,0 +1,703 @@
+﻿{
+    "artifact_type":  "r17_agent_registry",
+    "contract_version":  "v1",
+    "registry_id":  "aioffice-r17-012-agent-registry-v1",
+    "source_milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "source_task":  "R17-012",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "75596dc25cb0d0a446aa18cdd51b866253d0ee00",
+    "generated_from_tree":  "c94392e752735d5a00f19dd0f4cb7149bd46c160",
+    "generated_state_artifact_only":  true,
+    "scope":  "agent_registry_and_role_identity_packet_set_only_not_runtime",
+    "purpose":  "Define planned R17 agents, role authority, memory, evidence, tool, and handoff boundaries for later tasks.",
+    "registry_contract_ref":  "contracts/agents/r17_agent_registry.contract.json",
+    "identity_packet_contract_ref":  "contracts/agents/r17_agent_identity_packet.contract.json",
+    "required_agent_ids":  [
+                               "user",
+                               "operator",
+                               "orchestrator",
+                               "project_manager",
+                               "architect",
+                               "developer",
+                               "qa_test_agent",
+                               "evidence_auditor",
+                               "knowledge_curator",
+                               "release_closeout"
+                           ],
+    "agent_count":  10,
+    "agents":  [
+                   {
+                       "agent_id":  "user",
+                       "role_name":  "User / Rodney",
+                       "role_type":  "human_final_authority",
+                       "description":  "Final authority for meaningful direction, closure, release, promotion, and acceptance decisions.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/user.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  3,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  true,
+                                                          "can_approve_meaningful_direction":  true,
+                                                          "can_approve_operational_direction":  true,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  false,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "operator",
+                                                                                                  "project_manager",
+                                                                                                  "release_closeout"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "operator",
+                       "role_name":  "Operator",
+                       "role_type":  "workflow_administrator",
+                       "description":  "Administers the local workflow surface, submits intake, and approves operational direction without executing runtime agents.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/operator.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  5,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  true,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "project_manager",
+                                                                                                  "user"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "orchestrator",
+                       "role_name":  "Orchestrator",
+                       "role_type":  "coordination_and_routing_agent",
+                       "description":  "Coordinates and routes future packets but does not implement, test, approve evidence sufficiency, or bypass gates.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/orchestrator.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  7,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "project_manager",
+                                                                                                  "architect",
+                                                                                                  "developer",
+                                                                                                  "qa_test_agent",
+                                                                                                  "evidence_auditor",
+                                                                                                  "release_closeout",
+                                                                                                  "user"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "project_manager",
+                       "role_name":  "Project Manager",
+                       "role_type":  "planning_and_routing_agent",
+                       "description":  "Owns planning, routing, task packet readiness, and acceptance criteria without implementing or testing.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/project_manager.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  5,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "architect",
+                                                                                                  "developer",
+                                                                                                  "qa_test_agent",
+                                                                                                  "evidence_auditor",
+                                                                                                  "release_closeout"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "architect",
+                       "role_name":  "Architect",
+                       "role_type":  "technical_direction_agent",
+                       "description":  "Owns design and technical direction, but does not implement unless a future packet explicitly assigns implementation.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/architect.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  4,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "developer",
+                                                                                                  "project_manager"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "developer",
+                       "role_name":  "Developer",
+                       "role_type":  "future_execution_agent",
+                       "description":  "May implement only inside a future execution packet and must not approve evidence sufficiency.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/developer.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  3,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "qa_test_agent",
+                                                                                                  "project_manager"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "qa_test_agent",
+                       "role_name":  "QA/Test Agent",
+                       "role_type":  "future_validation_agent",
+                       "description":  "May test and validate only against acceptance criteria and must not implement.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/qa_test_agent.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  3,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "developer",
+                                                                                                  "evidence_auditor",
+                                                                                                  "project_manager"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "evidence_auditor",
+                       "role_name":  "Evidence Auditor",
+                       "role_type":  "future_evidence_review_agent",
+                       "description":  "Reviews evidence sufficiency and rejected claims only, and must not implement or rewrite evidence.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/evidence_auditor.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  true,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "release_closeout",
+                                                                                                  "project_manager",
+                                                                                                  "developer",
+                                                                                                  "qa_test_agent"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "knowledge_curator",
+                       "role_name":  "Knowledge Curator",
+                       "role_type":  "knowledge_and_memory_agent",
+                       "description":  "Classifies and updates knowledge and memory references while avoiding product execution.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/knowledge_curator.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  4,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "project_manager",
+                                                                                                  "evidence_auditor",
+                                                                                                  "user"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   },
+                   {
+                       "agent_id":  "release_closeout",
+                       "role_name":  "Release/Closeout Agent",
+                       "role_type":  "release_packaging_agent",
+                       "description":  "Packages release posture and validation manifests while preserving failed gates and user approval requirements.",
+                       "identity_packet_ref":  "state/agents/r17_agent_identities/release_closeout.identity.json",
+                       "runtime_enabled":  false,
+                       "allowed_action_count":  4,
+                       "forbidden_action_count":  5,
+                       "approval_authority_summary":  {
+                                                          "can_approve_closure":  false,
+                                                          "can_approve_meaningful_direction":  false,
+                                                          "can_approve_operational_direction":  false,
+                                                          "can_approve_evidence_sufficiency":  false,
+                                                          "can_override_failed_gates":  false
+                                                      },
+                       "memory_scope_summary":  {
+                                                    "exact_repo_refs_only":  true,
+                                                    "allowed_ref_count":  23,
+                                                    "broad_repo_scan_allowed":  false,
+                                                    "raw_chat_history_as_canonical":  false
+                                                },
+                       "handoff_permissions_summary":  {
+                                                           "can_prepare_handoff_packet":  true,
+                                                           "allowed_future_handoff_targets":  [
+                                                                                                  "user",
+                                                                                                  "evidence_auditor",
+                                                                                                  "project_manager"
+                                                                                              ],
+                                                           "executable_handoffs_allowed":  false,
+                                                           "executable_transitions_allowed":  false
+                                                       },
+                       "runtime_boundary_flags":  {
+                                                      "runtime_agent_invocation_implemented":  false,
+                                                      "a2a_runtime_implemented":  false,
+                                                      "autonomous_agent_implemented":  false,
+                                                      "external_api_calls_implemented":  false,
+                                                      "dev_codex_adapter_runtime_implemented":  false,
+                                                      "qa_test_agent_adapter_runtime_implemented":  false,
+                                                      "evidence_auditor_api_runtime_implemented":  false,
+                                                      "executable_handoffs_implemented":  false,
+                                                      "executable_transitions_implemented":  false,
+                                                      "live_board_mutation_implemented":  false,
+                                                      "runtime_card_creation_implemented":  false,
+                                                      "product_runtime_implemented":  false,
+                                                      "production_runtime_implemented":  false
+                                                  }
+                   }
+               ],
+    "identity_packet_refs":  [
+                                 "state/agents/r17_agent_identities/user.identity.json",
+                                 "state/agents/r17_agent_identities/operator.identity.json",
+                                 "state/agents/r17_agent_identities/orchestrator.identity.json",
+                                 "state/agents/r17_agent_identities/project_manager.identity.json",
+                                 "state/agents/r17_agent_identities/architect.identity.json",
+                                 "state/agents/r17_agent_identities/developer.identity.json",
+                                 "state/agents/r17_agent_identities/qa_test_agent.identity.json",
+                                 "state/agents/r17_agent_identities/evidence_auditor.identity.json",
+                                 "state/agents/r17_agent_identities/knowledge_curator.identity.json",
+                                 "state/agents/r17_agent_identities/release_closeout.identity.json"
+                             ],
+    "runtime_boundaries":  {
+                               "runtime_agent_invocation_implemented":  false,
+                               "a2a_runtime_implemented":  false,
+                               "autonomous_agent_implemented":  false,
+                               "external_api_calls_implemented":  false,
+                               "dev_codex_adapter_runtime_implemented":  false,
+                               "qa_test_agent_adapter_runtime_implemented":  false,
+                               "evidence_auditor_api_runtime_implemented":  false,
+                               "executable_handoffs_implemented":  false,
+                               "executable_transitions_implemented":  false,
+                               "live_board_mutation_implemented":  false,
+                               "runtime_card_creation_implemented":  false,
+                               "product_runtime_implemented":  false,
+                               "production_runtime_implemented":  false
+                           },
+    "claim_status":  {
+                         "runtime_agent_invocation_claimed":  false,
+                         "a2a_runtime_claimed":  false,
+                         "autonomous_agent_claimed":  false,
+                         "external_api_call_claimed":  false,
+                         "dev_codex_adapter_runtime_claimed":  false,
+                         "qa_test_agent_adapter_runtime_claimed":  false,
+                         "evidence_auditor_api_runtime_claimed":  false,
+                         "executable_handoff_claimed":  false,
+                         "executable_transition_claimed":  false,
+                         "live_board_mutation_claimed":  false,
+                         "runtime_card_creation_claimed":  false,
+                         "product_runtime_claimed":  false,
+                         "production_runtime_claimed":  false,
+                         "dev_output_claimed":  false,
+                         "qa_result_claimed":  false,
+                         "audit_verdict_claimed":  false,
+                         "external_audit_acceptance_claimed":  false,
+                         "main_merge_claimed":  false,
+                         "r13_closure_claimed":  false,
+                         "r14_caveat_removal_claimed":  false,
+                         "r15_caveat_removal_claimed":  false,
+                         "solved_codex_compaction_claimed":  false,
+                         "solved_codex_reliability_claimed":  false
+                     },
+    "evidence_refs":  [
+                          "contracts/agents/r17_agent_registry.contract.json",
+                          "contracts/agents/r17_agent_identity_packet.contract.json",
+                          "state/agents/r17_agent_registry.json",
+                          "state/agents/r17_agent_identities/",
+                          "state/agents/r17_agent_registry_check_report.json",
+                          "state/ui/r17_kanban_mvp/r17_agent_registry_snapshot.json",
+                          "scripts/operator_wall/r17_kanban_mvp/index.html",
+                          "scripts/operator_wall/r17_kanban_mvp/styles.css",
+                          "scripts/operator_wall/r17_kanban_mvp/README.md",
+                          "tools/R17AgentRegistry.psm1",
+                          "tools/new_r17_agent_registry.ps1",
+                          "tools/validate_r17_agent_registry.ps1",
+                          "tests/test_r17_agent_registry.ps1",
+                          "tests/fixtures/r17_agent_registry/",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_012_agent_registry_identity_packets/"
+                      ],
+    "memory_refs":  [
+                        "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                        "execution/KANBAN.md",
+                        "governance/ACTIVE_STATE.md",
+                        "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                        "governance/DECISION_LOG.md",
+                        "governance/VISION.md",
+                        "state/governance/r17_kpi_baseline_target_scorecard.json",
+                        "contracts/board/r17_card.contract.json",
+                        "contracts/board/r17_board_state.contract.json",
+                        "contracts/board/r17_board_event.contract.json",
+                        "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+                        "state/agents/r17_orchestrator_identity_authority.json",
+                        "state/agents/r17_orchestrator_route_recommendation_seed.json",
+                        "state/agents/r17_orchestrator_authority_check_report.json",
+                        "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+                        "state/orchestration/r17_orchestrator_loop_state_machine.json",
+                        "state/orchestration/r17_orchestrator_loop_seed_evaluation.json",
+                        "state/orchestration/r17_orchestrator_loop_transition_check_report.json",
+                        "contracts/intake/r17_operator_intake.contract.json",
+                        "state/intake/r17_operator_intake_seed_packet.json",
+                        "state/intake/r17_orchestrator_intake_proposal.json",
+                        "state/intake/r17_operator_intake_check_report.json",
+                        "state/ui/r17_kanban_mvp/r17_operator_intake_snapshot.json"
+                    ],
+    "non_claims":  [
+                       "R17-012 defines the R17 agent registry and role identity packet set only",
+                       "R17-012 creates generated agent registry, role identity packet, registry check report, and UI workforce snapshot artifacts only",
+                       "R17-012 updates the local/static Kanban MVP with a read-only agent workforce panel only",
+                       "R17-012 does not implement live agent runtime",
+                       "R17-012 does not implement A2A runtime",
+                       "R17-012 does not invoke agents",
+                       "R17-012 does not implement live Orchestrator runtime",
+                       "R17-012 does not implement live board mutation",
+                       "R17-012 does not create runtime cards",
+                       "R17-012 does not implement Dev/Codex executor adapter",
+                       "R17-012 does not implement QA/Test Agent adapter",
+                       "R17-012 does not implement Evidence Auditor API adapter",
+                       "R17-012 does not call external APIs",
+                       "R17-012 does not call Codex as executor",
+                       "R17-012 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                       "R17-012 does not claim autonomous agents",
+                       "R17-012 does not claim product runtime",
+                       "R17-012 does not claim production runtime",
+                       "R17-012 does not claim executable handoffs or executable transitions",
+                       "R17-012 does not claim external audit acceptance",
+                       "R17-012 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-013 through R17-028 remain planned only",
+                       "R17-012 does not claim solved Codex compaction",
+                       "R17-012 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_agent_runtime",
+                            "runtime_agent_invocation",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "live_Orchestrator_runtime",
+                            "live_board_mutation",
+                            "runtime_card_creation",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime",
+                            "external_API_calls",
+                            "Codex_executor_call",
+                            "QA_Test_Agent_call",
+                            "Evidence_Auditor_call",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "Kanban_product_runtime",
+                            "agents_are_running",
+                            "agents_are_delegating_work",
+                            "agents_are_communicating_A2A",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "fake_multi_agent_narration_as_proof",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability"
+                        ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}

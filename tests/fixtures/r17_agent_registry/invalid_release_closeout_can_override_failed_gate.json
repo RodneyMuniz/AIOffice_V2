@@ -1,0 +1,20 @@
+﻿{
+    "artifact_type":  "r17_agent_registry_invalid_mutation",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_release_closeout_can_override_failed_gate",
+    "file_name":  "invalid_release_closeout_can_override_failed_gate.json",
+    "target":  "identity:release_closeout",
+    "operation":  "mutate",
+    "agent_id":  "",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "allowed_actions":  [
+                                               "override_failed_gates"
+                                           ]
+                   },
+    "expected_failure_fragments":  [
+                                       "Release/Closeout"
+                                   ]
+}
