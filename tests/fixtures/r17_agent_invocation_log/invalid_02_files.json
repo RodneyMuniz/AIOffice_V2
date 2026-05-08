@@ -1,0 +1,7 @@
+﻿{
+    "target":  "files",
+    "operation":  "missing_invocation_log",
+    "expected_failure_fragments":  [
+                                       "missing invocation log"
+                                   ]
+}

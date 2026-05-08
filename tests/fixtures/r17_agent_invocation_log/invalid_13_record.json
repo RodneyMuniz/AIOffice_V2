@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.adapter_call_performed":  true,
+                       "adapter_call_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "adapter_call_performed"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.autonomous_agent_executed":  true,
+                       "claim_status.autonomous_agent_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "autonomous_agent"
+                                   ]
+}

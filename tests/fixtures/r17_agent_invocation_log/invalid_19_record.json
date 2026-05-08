@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.live_orchestrator_runtime_invoked":  true,
+                       "claim_status.live_orchestrator_runtime_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_orchestrator_runtime"
+                                   ]
+}

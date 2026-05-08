@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.qa_result_claimed":  true,
+                       "claim_status.qa_result_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "qa_result_claimed"
+                                   ]
+}

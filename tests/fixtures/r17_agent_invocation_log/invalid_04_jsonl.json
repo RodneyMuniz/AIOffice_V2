@@ -1,0 +1,7 @@
+﻿{
+    "target":  "jsonl",
+    "operation":  "malformed_jsonl",
+    "expected_failure_fragments":  [
+                                       "malformed JSONL"
+                                   ]
+}

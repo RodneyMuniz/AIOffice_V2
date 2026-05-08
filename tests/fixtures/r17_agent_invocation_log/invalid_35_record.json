@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "claim_status.r17_015_plus_implementation_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "r17_015_plus_implementation"
+                                   ]
+}

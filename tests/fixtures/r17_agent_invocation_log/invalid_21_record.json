@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.executable_handoff_performed":  true,
+                       "claim_status.executable_handoff_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "executable_handoff"
+                                   ]
+}

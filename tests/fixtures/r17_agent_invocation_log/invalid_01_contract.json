@@ -1,0 +1,9 @@
+﻿{
+    "target":  "contract",
+    "remove_paths":  [
+                         "required_record_fields"
+                     ],
+    "expected_failure_fragments":  [
+                                       "required_record_fields"
+                                   ]
+}

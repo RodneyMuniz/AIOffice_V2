@@ -1,0 +1,8 @@
+﻿{
+    "target":  "ui_text",
+    "operation":  "external_ui_dependency",
+    "text":  "\u003cscript src=\"https://cdn.example.test/app.js\"\u003e\u003c/script\u003e",
+    "expected_failure_fragments":  [
+                                       "external dependency"
+                                   ]
+}

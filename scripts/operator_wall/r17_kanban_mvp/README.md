@@ -14,6 +14,8 @@ R17-012 adds a read-only agent workforce panel. The panel is backed by `state/ui
 
 R17-013 adds a read-only memory/artifact loader panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_memory_loader_snapshot.json` and shows the bounded exact-ref loader report, loaded-ref log, future-use agent memory packet refs, R16 context budget and guard summary, missing/blocked ref counts, and non-claims. The panel does not implement runtime memory, vector retrieval, live agent runtime, A2A runtime, adapters, API calls, live board mutation, runtime card creation, product runtime, or production runtime.
 
+R17-014 adds a read-only agent invocation log panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_agent_invocation_log_snapshot.json` and shows the repo-backed invocation log contract, seed JSONL log, check report, known R17-012 agent ids, R17-013 memory packet refs, and required false runtime flags including `actual_agent_invoked: false`, `runtime_dispatch_performed: false`, `adapter_call_performed: false`, `external_api_call_performed: false`, `a2a_message_sent: false`, and `product_runtime_executed: false`. The panel shows seed/foundation invocation records only and does not invoke agents, dispatch runtime work, call adapters, call external APIs, send A2A messages, mutate the board live, create runtime cards, implement product runtime, or implement production runtime.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server
@@ -26,9 +28,14 @@ Boundary:
 - no live agent runtime
 - no runtime memory engine
 - no vector retrieval runtime
+- no live agent invocation
 - no Orchestrator runtime
 - no A2A runtime
+- no A2A messages sent
 - no Dev/Codex executor adapter runtime
 - no QA/Test Agent adapter runtime
 - no Evidence Auditor API runtime
+- no adapter runtime
+- no external API calls
 - no product runtime
+- no production runtime

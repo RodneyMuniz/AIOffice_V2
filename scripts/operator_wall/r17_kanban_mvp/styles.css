@@ -319,6 +319,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.agent-invocation-log-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #2d7468;
+  border-radius: 8px;
+  background: #fafffd;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -373,6 +383,10 @@ main {
 
 .memory-loader-status span {
   color: #5a3b94;
+}
+
+.invocation-log-status span {
+  color: #2d7468;
 }
 
 .agent-labels {
@@ -526,6 +540,13 @@ main {
   padding-top: 14px;
 }
 
+.invocation-log-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
 .agent-boundaries article {
   min-width: 0;
   padding: 14px;
@@ -668,6 +689,7 @@ main {
   .intake-layout,
   .agent-workforce-grid,
   .memory-loader-grid,
+  .invocation-log-grid,
   .agent-boundaries {
     grid-template-columns: 1fr;
   }

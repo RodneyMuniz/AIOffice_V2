@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.dev_output_claimed":  true,
+                       "claim_status.dev_output_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "dev_output_claimed"
+                                   ]
+}

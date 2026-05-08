@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.vector_retrieval_performed":  true,
+                       "claim_status.vector_retrieval_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "vector_retrieval"
+                                   ]
+}

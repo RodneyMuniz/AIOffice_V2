@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "remove_paths":  [
+                         "input_packet_ref"
+                     ],
+    "expected_failure_fragments":  [
+                                       "input_packet_ref"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.executable_transition_performed":  true,
+                       "claim_status.executable_transition_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "executable_transition"
+                                   ]
+}

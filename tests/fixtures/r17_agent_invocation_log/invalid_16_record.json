@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.product_runtime_executed":  true,
+                       "product_runtime_executed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "product_runtime_executed"
+                                   ]
+}

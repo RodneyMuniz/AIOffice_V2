@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.runtime_dispatch_performed":  true,
+                       "runtime_dispatch_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_dispatch_performed"
+                                   ]
+}

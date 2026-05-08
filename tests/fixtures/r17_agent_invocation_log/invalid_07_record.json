@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "remove_paths":  [
+                         "memory_packet_ref"
+                     ],
+    "expected_failure_fragments":  [
+                                       "memory_packet_ref"
+                                   ]
+}

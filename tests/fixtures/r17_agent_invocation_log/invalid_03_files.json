@@ -1,0 +1,7 @@
+﻿{
+    "target":  "files",
+    "operation":  "missing_check_report",
+    "expected_failure_fragments":  [
+                                       "missing check report"
+                                   ]
+}

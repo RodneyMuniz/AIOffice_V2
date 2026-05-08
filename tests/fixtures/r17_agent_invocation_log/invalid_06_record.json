@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "agent_id":  "unknown_agent"
+                   },
+    "expected_failure_fragments":  [
+                                       "unknown agent_id"
+                                   ]
+}

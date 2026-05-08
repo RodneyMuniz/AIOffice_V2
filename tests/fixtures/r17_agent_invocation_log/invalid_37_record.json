@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.broad_repo_scan_output_included":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "broad_repo_scan_output_included"
+                                   ]
+}

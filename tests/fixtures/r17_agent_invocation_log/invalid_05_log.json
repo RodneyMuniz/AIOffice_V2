@@ -1,0 +1,7 @@
+﻿{
+    "target":  "log",
+    "operation":  "duplicate_invocation_id",
+    "expected_failure_fragments":  [
+                                       "duplicate invocation_id"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.external_audit_acceptance_claimed":  true,
+                       "claim_status.external_audit_acceptance_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "external_audit_acceptance"
+                                   ]
+}

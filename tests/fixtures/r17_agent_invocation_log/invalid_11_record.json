@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.actual_agent_invoked":  true,
+                       "actual_agent_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "actual_agent_invoked"
+                                   ]
+}

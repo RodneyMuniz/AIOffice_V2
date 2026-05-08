@@ -1,0 +1,7 @@
+﻿{
+    "target":  "fixture_coverage",
+    "operation":  "missing_compact_invalid_fixture_coverage",
+    "expected_failure_fragments":  [
+                                       "missing compact invalid fixture coverage"
+                                   ]
+}

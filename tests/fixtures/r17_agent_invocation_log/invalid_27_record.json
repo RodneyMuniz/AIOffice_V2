@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.audit_verdict_claimed":  true,
+                       "claim_status.audit_verdict_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "audit_verdict_claimed"
+                                   ]
+}

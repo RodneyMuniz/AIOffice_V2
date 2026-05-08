@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.r15_caveat_removal_claimed":  true,
+                       "claim_status.r15_caveat_removal_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "r15_caveat_removal"
+                                   ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "status":  "executed_live"
+                   },
+    "expected_failure_fragments":  [
+                                       "status"
+                                   ]
+}

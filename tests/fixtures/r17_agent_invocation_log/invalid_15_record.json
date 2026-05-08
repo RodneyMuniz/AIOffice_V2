@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.a2a_message_sent":  true,
+                       "a2a_message_sent":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ]
+}

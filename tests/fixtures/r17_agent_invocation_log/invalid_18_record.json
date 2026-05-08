@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.runtime_card_creation_performed":  true,
+                       "claim_status.runtime_card_creation_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_card_creation"
+                                   ]
+}

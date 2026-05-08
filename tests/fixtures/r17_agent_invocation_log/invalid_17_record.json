@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.live_board_mutation_performed":  true,
+                       "claim_status.live_board_mutation_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_board_mutation"
+                                   ]
+}

@@ -318,6 +318,82 @@
         </div>
       </section>
 
+      <section class="agent-invocation-log-panel" id="agent-invocation-log-panel" aria-labelledby="agent-invocation-log-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-014 repo-backed foundation</p>
+            <h2 id="agent-invocation-log-title">Agent Invocation Log</h2>
+          </div>
+          <div class="drawer-status invocation-log-status">
+            <span>seed/foundation invocation records only</span>
+            <strong>no live agent runtime; no A2A messages sent</strong>
+          </div>
+        </div>
+
+        <div class="invocation-log-grid">
+          <article class="detail-block">
+            <h3>Log Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Contract</dt>
+              <dd>contracts/runtime/r17_agent_invocation_log.contract.json</dd>
+              <dt>JSONL log</dt>
+              <dd>state/runtime/r17_agent_invocation_log.jsonl</dd>
+              <dt>Check report</dt>
+              <dd>state/runtime/r17_agent_invocation_log_check_report.json</dd>
+              <dt>Seed records</dt>
+              <dd>10 known R17 agent ids from the R17-012 registry</dd>
+              <dt>Status</dt>
+              <dd>not_implemented_seed</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Runtime Flags</h3>
+            <dl class="card-fields">
+              <dt>actual_agent_invoked: false</dt>
+              <dd>no agent was invoked by R17-014</dd>
+              <dt>runtime_dispatch_performed: false</dt>
+              <dd>no runtime dispatch was performed</dd>
+              <dt>adapter_call_performed: false</dt>
+              <dd>no adapter was called</dd>
+              <dt>external_api_call_performed: false</dt>
+              <dd>no external API call was made</dd>
+              <dt>a2a_message_sent: false</dt>
+              <dd>no A2A messages sent</dd>
+              <dt>product_runtime_executed: false</dt>
+              <dd>no product runtime executed</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Foundation Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-014 defines the agent invocation log foundation only.</li>
+              <li>R17-014 creates seed/foundation invocation records only.</li>
+              <li>Each seed row links a known R17-012 agent id to its R17-013 memory packet ref.</li>
+              <li>Input, output, board event, and tool call refs are explicit not_implemented_seed placeholders.</li>
+              <li>The panel is read-only and does not write files, mutate the board, create runtime cards, invoke agents, call adapters, call APIs, or send A2A messages.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Seed Record Coverage</h3>
+            <ul class="grouped-evidence-list">
+              <li><strong>user</strong><span>state/agents/r17_agent_memory_packets/user.memory_packet.json</span></li>
+              <li><strong>operator</strong><span>state/agents/r17_agent_memory_packets/operator.memory_packet.json</span></li>
+              <li><strong>orchestrator</strong><span>state/agents/r17_agent_memory_packets/orchestrator.memory_packet.json</span></li>
+              <li><strong>project_manager</strong><span>state/agents/r17_agent_memory_packets/project_manager.memory_packet.json</span></li>
+              <li><strong>architect</strong><span>state/agents/r17_agent_memory_packets/architect.memory_packet.json</span></li>
+              <li><strong>developer</strong><span>state/agents/r17_agent_memory_packets/developer.memory_packet.json</span></li>
+              <li><strong>qa_test_agent</strong><span>state/agents/r17_agent_memory_packets/qa_test_agent.memory_packet.json</span></li>
+              <li><strong>evidence_auditor</strong><span>state/agents/r17_agent_memory_packets/evidence_auditor.memory_packet.json</span></li>
+              <li><strong>knowledge_curator</strong><span>state/agents/r17_agent_memory_packets/knowledge_curator.memory_packet.json</span></li>
+              <li><strong>release_closeout</strong><span>state/agents/r17_agent_memory_packets/release_closeout.memory_packet.json</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.main_merge_claimed":  true,
+                       "claim_status.main_merge_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "main_merge"
+                                   ]
+}

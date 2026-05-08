@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.runtime_memory_engine_used":  true,
+                       "claim_status.runtime_memory_engine_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_memory_engine"
+                                   ]
+}

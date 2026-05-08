@@ -1,0 +1,10 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "runtime_flags.solved_codex_reliability_claimed":  true,
+                       "claim_status.solved_codex_reliability_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "solved_codex_reliability"
+                                   ]
+}

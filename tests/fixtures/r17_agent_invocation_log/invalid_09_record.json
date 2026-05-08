@@ -1,0 +1,11 @@
+﻿{
+    "target":  "record",
+    "set_values":  {
+                       "input_packet_ref":  "state/intake/r17_operator_intake_seed_packet.json",
+                       "output_packet_ref":  "",
+                       "not_implemented_seed":  false
+                   },
+    "expected_failure_fragments":  [
+                                       "output_packet_ref"
+                                   ]
+}
