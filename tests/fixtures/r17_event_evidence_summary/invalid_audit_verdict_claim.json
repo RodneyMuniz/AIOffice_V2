@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_audit_verdict_claim","mutation":{"set_path":"output_placeholders.audit_verdict.status","value":"real_audit_verdict_exists"},"expected_error_fragment":"audit_verdict"}

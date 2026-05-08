@@ -167,6 +167,175 @@
         </div>
       </section>
 
+      <section class="event-evidence-summary" id="event-evidence-summary" aria-labelledby="event-evidence-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-008 event and evidence inspection</p>
+            <h2 id="event-evidence-title">Board Event Detail And Evidence Summary</h2>
+          </div>
+          <div class="drawer-status event-status">
+            <span>R17-005 seed event log</span>
+            <strong>read-only local/static summary</strong>
+          </div>
+        </div>
+
+        <div class="event-summary-grid">
+          <article class="detail-block replay-block">
+            <h3>Replay Summary</h3>
+            <dl class="card-fields">
+              <dt>Aggregate verdict</dt>
+              <dd>generated_r17_board_state_store_candidate</dd>
+              <dt>Input cards</dt>
+              <dd>1</dd>
+              <dt>Input events</dt>
+              <dd>5</dd>
+              <dt>Replayed events</dt>
+              <dd>5</dd>
+              <dt>Rejected events</dt>
+              <dd>0</dd>
+              <dt>Final lane by card</dt>
+              <dd>R17-005: ready_for_user_review</dd>
+              <dt>User decisions</dt>
+              <dd>user approval required before closure</dd>
+              <dt>Unresolved blockers</dt>
+              <dd>none</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block transition-block">
+            <h3>Transition Summary</h3>
+            <dl class="card-fields">
+              <dt>Lane transitions</dt>
+              <dd>2</dd>
+              <dt>Final lane</dt>
+              <dd>ready_for_user_review</dd>
+              <dt>Closure status</dt>
+              <dd>not_closed_user_approval_required</dd>
+              <dt>Closure approval</dt>
+              <dd>required</dd>
+              <dt>Closed attempted</dt>
+              <dd>no</dd>
+              <dt>Closure state</dt>
+              <dd>pending user approval</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block placeholder-block">
+            <h3>Dev QA Audit Placeholders</h3>
+            <dl class="card-fields">
+              <dt>Dev output</dt>
+              <dd>not_implemented_in_r17_008; no real Dev output</dd>
+              <dt>QA result</dt>
+              <dd>not_implemented_in_r17_008; no real QA result</dd>
+              <dt>Audit verdict</dt>
+              <dd>not_implemented_in_r17_008; no real audit verdict</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Summary</h3>
+            <dl class="card-fields">
+              <dt>Total refs</dt>
+              <dd>31</dd>
+              <dt>Missing Evidence</dt>
+              <dd>none_recorded</dd>
+              <dt>Stale Evidence</dt>
+              <dd>none_recorded</dd>
+              <dt>Proof policy</dt>
+              <dd>Generated UI/report artifacts are operator-readable unless backed by validation evidence.</dd>
+            </dl>
+            <ul class="grouped-evidence-list">
+              <li><strong>board_state</strong><span>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json</span></li>
+              <li><strong>seed_card</strong><span>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span></li>
+              <li><strong>seed_event_log</strong><span>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl</span></li>
+              <li><strong>replay_report</strong><span>state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json</span></li>
+              <li><strong>kanban_snapshot</strong><span>state/ui/r17_kanban_mvp/r17_kanban_snapshot.json</span></li>
+              <li><strong>card_detail_snapshot</strong><span>state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json</span></li>
+              <li><strong>proof_review_packages</strong><span>R17-004, R17-005, R17-006, R17-007, and R17-008 proof-review package refs</span></li>
+              <li><strong>validation_manifests</strong><span>R17-004 through R17-008 validation manifests</span></li>
+              <li><strong>tooling</strong><span>R17 board, Kanban, card detail, and event/evidence summary tooling refs</span></li>
+              <li><strong>tests</strong><span>R17 board, Kanban, card detail, and event/evidence summary tests</span></li>
+              <li><strong>fixtures</strong><span>tests/fixtures/r17_event_evidence_summary/</span></li>
+            </ul>
+          </article>
+
+          <article class="detail-block event-timeline-block">
+            <h3>Event Timeline</h3>
+            <p class="event-count">Event count: 5</p>
+            <ol class="event-detail-list">
+              <li>
+                <strong>r17_005_event_001_card_created</strong>
+                <span>event_type: card_created; card_id: R17-005; actor_role: operator; agent_id: repo_backed_board_state_store_generator</span>
+                <span>from_lane: intake; to_lane: intake; transition_allowed: yes; user_approval_present: no</span>
+                <span>input_ref/output_ref: state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span>
+                <span>evidence_refs: R17 board contracts, R17BoardStateStore tooling, R17-005 proof_review.md</span>
+                <span>validation_refs: validate/test R17 board contracts and board state store</span>
+                <span>non_claims/rejected_claims: R17-005 non-claims and rejected claims from the seed event log</span>
+              </li>
+              <li>
+                <strong>r17_005_event_002_lane_transition_requested</strong>
+                <span>event_type: lane_transition_requested; card_id: R17-005; actor_role: project_manager; agent_id: repo_backed_board_state_store_generator</span>
+                <span>from_lane: intake; to_lane: define; transition_allowed: yes; user_approval_present: no</span>
+                <span>input_ref/output_ref: state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span>
+                <span>evidence_refs: R17 board contracts, R17BoardStateStore tooling, R17-005 proof_review.md</span>
+                <span>validation_refs: validate/test R17 board contracts and board state store</span>
+                <span>non_claims/rejected_claims: R17-005 non-claims and rejected claims from the seed event log</span>
+              </li>
+              <li>
+                <strong>r17_005_event_003_card_updated</strong>
+                <span>event_type: card_updated; card_id: R17-005; actor_role: operator; agent_id: repo_backed_board_state_store_generator</span>
+                <span>from_lane: define; to_lane: define; transition_allowed: yes; user_approval_present: no</span>
+                <span>input_ref/output_ref: state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span>
+                <span>evidence_refs: R17 board contracts, R17BoardStateStore tooling, R17-005 proof_review.md</span>
+                <span>validation_refs: validate/test R17 board contracts and board state store</span>
+                <span>non_claims/rejected_claims: R17-005 non-claims and rejected claims from the seed event log</span>
+              </li>
+              <li>
+                <strong>r17_005_event_004_ready_for_user_review</strong>
+                <span>event_type: lane_transition_requested; card_id: R17-005; actor_role: release_closeout; agent_id: repo_backed_board_state_store_generator</span>
+                <span>from_lane: define; to_lane: ready_for_user_review; transition_allowed: yes; user_approval_present: no</span>
+                <span>input_ref/output_ref: state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span>
+                <span>evidence_refs: R17 board contracts, R17BoardStateStore tooling, R17-005 proof_review.md</span>
+                <span>validation_refs: validate/test R17 board contracts and board state store</span>
+                <span>non_claims/rejected_claims: R17-005 non-claims and rejected claims from the seed event log</span>
+              </li>
+              <li>
+                <strong>r17_005_event_005_user_decision_requested</strong>
+                <span>event_type: user_decision_requested; card_id: R17-005; actor_role: release_closeout; agent_id: repo_backed_board_state_store_generator</span>
+                <span>from_lane: ready_for_user_review; to_lane: ready_for_user_review; transition_allowed: no; user_approval_present: no</span>
+                <span>input_ref/output_ref: state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json</span>
+                <span>evidence_refs: R17 board contracts, R17BoardStateStore tooling, R17-005 proof_review.md</span>
+                <span>validation_refs: validate/test R17 board contracts and board state store</span>
+                <span>non_claims/rejected_claims: R17-005 non-claims and rejected claims from the seed event log</span>
+              </li>
+            </ol>
+          </article>
+
+          <article class="detail-block">
+            <h3>Boundary And Non-Claims</h3>
+            <ul class="plain-list compact-list">
+              <li>no live board mutation</li>
+              <li>no Orchestrator runtime</li>
+              <li>no A2A runtime</li>
+              <li>no autonomous agents</li>
+              <li>no Dev/Codex executor adapter runtime</li>
+              <li>no QA/Test Agent adapter runtime</li>
+              <li>no Evidence Auditor API runtime</li>
+              <li>no executable handoffs</li>
+              <li>no executable transitions</li>
+              <li>no external audit acceptance</li>
+              <li>no main merge</li>
+              <li>no product runtime</li>
+              <li>no production runtime</li>
+              <li>no external integrations</li>
+              <li>no real Dev output</li>
+              <li>no real QA result</li>
+              <li>no real audit verdict</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="details-grid" aria-label="Replay and evidence">
         <article class="panel">
           <h2>Replay Summary</h2>

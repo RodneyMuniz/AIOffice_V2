@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_executable_transition_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 executable transitions implemented."},"expected_error_fragment":"executable transition claim"}

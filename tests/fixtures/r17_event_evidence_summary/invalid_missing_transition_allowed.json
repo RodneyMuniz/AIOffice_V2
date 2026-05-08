@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_transition_allowed","mutation":{"remove_path":"event_timeline.events.[0].transition_allowed"},"expected_error_fragment":"transition_allowed"}

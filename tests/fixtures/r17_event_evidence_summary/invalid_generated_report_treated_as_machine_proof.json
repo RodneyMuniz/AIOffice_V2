@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_generated_report_treated_as_machine_proof","mutation":{"set_path":"evidence_summary.generated_ui_report_artifacts_are_machine_proof_without_validation","value":true},"expected_error_fragment":"machine proof"}

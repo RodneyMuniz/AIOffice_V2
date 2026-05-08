@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_user_decision_state","mutation":{"remove_path":"transition_summary.user_decision_state"},"expected_error_fragment":"user_decision_state"}

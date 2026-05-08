@@ -1,0 +1,58 @@
+{
+  "artifact_type": "r17_008_event_evidence_summary_evidence_index",
+  "contract_version": "v1",
+  "source_task": "R17-008",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "status": "passed",
+  "primary_snapshot": "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json",
+  "static_ui_refs": [
+    "scripts/operator_wall/r17_kanban_mvp/index.html",
+    "scripts/operator_wall/r17_kanban_mvp/styles.css",
+    "scripts/operator_wall/r17_kanban_mvp/kanban.js",
+    "scripts/operator_wall/r17_kanban_mvp/README.md"
+  ],
+  "tooling_refs": [
+    "tools/R17EventEvidenceSummary.psm1",
+    "tools/new_r17_event_evidence_summary.ps1",
+    "tools/validate_r17_event_evidence_summary.ps1"
+  ],
+  "test_refs": [
+    "tests/test_r17_event_evidence_summary.ps1"
+  ],
+  "fixture_refs": [
+    "tests/fixtures/r17_event_evidence_summary/"
+  ],
+  "source_artifact_refs": [
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl",
+    "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json",
+    "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+    "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json"
+  ],
+  "proof_review_refs": [
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_006_kanban_mvp/",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_007_card_detail_evidence_drawer/",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_008_event_evidence_summary/"
+  ],
+  "non_claims": [
+    "no live board mutation",
+    "no Orchestrator runtime",
+    "no A2A runtime",
+    "no autonomous agents",
+    "no Dev/Codex adapter runtime",
+    "no QA/Test Agent adapter runtime",
+    "no Evidence Auditor API runtime",
+    "no executable handoffs",
+    "no executable transitions",
+    "no external audit acceptance",
+    "no main merge",
+    "no product runtime",
+    "no production runtime",
+    "no real Dev output",
+    "no real QA result",
+    "no real audit verdict"
+  ]
+}

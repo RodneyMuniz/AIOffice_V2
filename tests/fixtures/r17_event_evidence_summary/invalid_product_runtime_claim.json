@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_product_runtime_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 product runtime implemented."},"expected_error_fragment":"product or production runtime claim"}

@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_actor_role","mutation":{"remove_path":"event_timeline.events.[0].actor_role"},"expected_error_fragment":"actor_role"}

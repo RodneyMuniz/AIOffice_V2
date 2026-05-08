@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_a2a_runtime_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 A2A runtime implemented."},"expected_error_fragment":"A2A runtime claim"}

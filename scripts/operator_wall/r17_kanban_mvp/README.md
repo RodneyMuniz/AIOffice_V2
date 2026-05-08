@@ -6,6 +6,8 @@ This surface is generated from committed R17-005 board state and replay artifact
 
 R17-007 adds a read-only selected-card detail evidence drawer/panel for the R17-005 seed card. The drawer is backed by `state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json` and surfaces evidence refs, memory refs, task packet refs, event history, validation/proof refs, user-decision state, non-claims, rejected claims, and `not_implemented_in_r17_007` placeholders for Dev output, QA result, and audit verdict.
 
+R17-008 adds a read-only board event detail and evidence summary surface for the same R17-005 seed card. The summary is backed by `state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json` and surfaces replay summary, the five-event seed timeline, event-level evidence refs, validation refs, transition decisions, grouped evidence refs, missing/stale evidence summaries, user-decision state, non-claims, rejected claims, and `not_implemented_in_r17_008` placeholders for Dev output, QA result, and audit verdict.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server

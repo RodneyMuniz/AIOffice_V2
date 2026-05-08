@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_r13_closure_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R13 is now closed in repo truth."},"expected_error_fragment":"R13 closure claim"}

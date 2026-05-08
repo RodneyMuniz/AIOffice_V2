@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_evidence_summary","mutation":{"remove_path":"evidence_summary"},"expected_error_fragment":"evidence_summary"}

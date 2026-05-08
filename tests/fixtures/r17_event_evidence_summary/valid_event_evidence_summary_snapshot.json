@@ -1,0 +1,237 @@
+{
+  "artifact_type": "r17_event_evidence_summary_snapshot",
+  "contract_version": "v1",
+  "source_task": "R17-008",
+  "milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "active_through_task": "R17-008",
+  "generated_from_head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "generated_from_tree": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "ui_boundary_label": "Read-only board event detail and evidence summary, not runtime",
+  "local_open_path": "scripts/operator_wall/r17_kanban_mvp/index.html",
+  "selected_card_id": "R17-005",
+  "inspectable_card_ids": [
+    "R17-005"
+  ],
+  "generated_from_artifacts": {
+    "board_state": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+    "seed_card": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json",
+    "seed_event_log": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl",
+    "replay_report": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json",
+    "r17_006_kanban_snapshot": "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+    "r17_007_card_detail_snapshot": "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json",
+    "r17_004_proof_review_package": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/",
+    "r17_005_proof_review_package": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_005_board_state_store/",
+    "r17_006_proof_review_package": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_006_kanban_mvp/",
+    "r17_007_proof_review_package": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_007_card_detail_evidence_drawer/",
+    "r17_008_proof_review_package": "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_008_event_evidence_summary/"
+  },
+  "canonical_truth": {
+    "repo_truth_is_canonical": true,
+    "read_only_static_ui_only": true,
+    "live_board_mutation_implemented": false,
+    "product_runtime_implemented": false,
+    "production_runtime_implemented": false,
+    "kanban_product_runtime_implemented": false,
+    "orchestrator_runtime_implemented": false,
+    "a2a_runtime_implemented": false,
+    "autonomous_agents_implemented": false,
+    "dev_codex_executor_adapter_runtime_implemented": false,
+    "qa_test_agent_adapter_runtime_implemented": false,
+    "evidence_auditor_api_runtime_implemented": false,
+    "executable_handoffs_implemented": false,
+    "executable_transitions_implemented": false,
+    "external_integrations_implemented": false,
+    "external_audit_acceptance_claimed": false,
+    "main_merge_claimed": false
+  },
+  "replay_summary": {
+    "aggregate_verdict": "generated_r17_board_state_store_candidate",
+    "input_card_count": 1,
+    "input_event_count": 1,
+    "replayed_event_count": 1,
+    "rejected_event_count": 0,
+    "final_lane_by_card": {
+      "R17-005": "ready_for_user_review"
+    },
+    "user_decisions_required": [
+      {
+        "card_id": "R17-005",
+        "task_id": "R17-005",
+        "decision": "user approval required before closure",
+        "requested_by_event_id": "r17_005_event_004_ready_for_user_review"
+      }
+    ],
+    "unresolved_blockers": []
+  },
+  "event_timeline": {
+    "event_count": 1,
+    "events": [
+      {
+        "event_id": "r17_005_event_001_card_created",
+        "event_type": "card_created",
+        "card_id": "R17-005",
+        "actor_role": "operator",
+        "agent_id": "repo_backed_board_state_store_generator",
+        "from_lane": "intake",
+        "to_lane": "intake",
+        "transition_allowed": true,
+        "user_approval_present": false,
+        "input_ref": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json",
+        "output_ref": "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json",
+        "evidence_refs": [
+          "contracts/board/r17_card.contract.json"
+        ],
+        "validation_refs": [
+          "tools/validate_r17_board_contracts.ps1"
+        ],
+        "non_claims": [
+          "no live board mutation"
+        ],
+        "rejected_claims": [
+          "live_board_mutation"
+        ]
+      }
+    ]
+  },
+  "evidence_summary": {
+    "total_evidence_ref_count": 16,
+    "grouped_refs": {
+      "board_state": [
+        "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json"
+      ],
+      "seed_card": [
+        "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/cards/r17_005_seed_card.json"
+      ],
+      "seed_event_log": [
+        "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/events/r17_005_seed_events.jsonl"
+      ],
+      "replay_report": [
+        "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_replay_report.json"
+      ],
+      "kanban_snapshot": [
+        "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json"
+      ],
+      "card_detail_snapshot": [
+        "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json"
+      ],
+      "proof_review_packages": [
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_004_board_contracts/",
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_008_event_evidence_summary/"
+      ],
+      "validation_manifests": [
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_008_event_evidence_summary/validation_manifest.md"
+      ],
+      "tooling": [
+        "tools/R17EventEvidenceSummary.psm1"
+      ],
+      "tests": [
+        "tests/test_r17_event_evidence_summary.ps1"
+      ],
+      "fixtures": [
+        "tests/fixtures/r17_event_evidence_summary/"
+      ]
+    },
+    "missing_evidence_summary": {
+      "status": "none_recorded",
+      "items": []
+    },
+    "stale_evidence_summary": {
+      "status": "none_recorded",
+      "items": []
+    },
+    "generated_artifact_proof_policy": "Generated UI/report artifacts are operator-readable unless backed by validation evidence.",
+    "generated_ui_report_artifacts_are_machine_proof_without_validation": false
+  },
+  "transition_summary": {
+    "lane_transition_count": 0,
+    "final_lane_for_seed_card": "ready_for_user_review",
+    "closure_status": "not_closed_user_approval_required",
+    "user_approval_required_for_closure": true,
+    "closed_was_attempted": false,
+    "closure_blocked_or_pending_user_approval": true,
+    "closure_blocked_or_pending_user_approval_reason": "closure remains pending user approval; closed was not attempted",
+    "user_decision_state": {
+      "user_decision_required": true,
+      "user_decisions_required": [
+        {
+          "card_id": "R17-005",
+          "task_id": "R17-005",
+          "decision": "user approval required before closure",
+          "requested_by_event_id": "r17_005_event_004_ready_for_user_review"
+        }
+      ]
+    },
+    "transition_decisions": [
+      {
+        "event_id": "r17_005_event_001_card_created",
+        "from_lane": "intake",
+        "to_lane": "intake",
+        "transition_allowed": true,
+        "user_approval_present": false
+      }
+    ]
+  },
+  "output_placeholders": {
+    "dev_output": {
+      "status": "not_implemented_in_r17_008",
+      "boundary": "placeholder only; no Dev/Codex executor adapter runtime and no real Dev output"
+    },
+    "qa_result": {
+      "status": "not_implemented_in_r17_008",
+      "boundary": "placeholder only; no QA/Test Agent adapter runtime and no real QA result"
+    },
+    "audit_verdict": {
+      "status": "not_implemented_in_r17_008",
+      "boundary": "placeholder only; no Evidence Auditor API runtime and no real audit verdict"
+    }
+  },
+  "boundary_and_non_claims": {
+    "statement": "R17-008 implements read-only local/static event and evidence inspection only.",
+    "non_claims": [
+      "no live board mutation",
+      "no Orchestrator runtime",
+      "no A2A runtime",
+      "no autonomous agents",
+      "no Dev/Codex adapter runtime",
+      "no QA/Test Agent adapter runtime",
+      "no Evidence Auditor API runtime",
+      "no executable handoffs",
+      "no executable transitions",
+      "no external audit acceptance",
+      "no main merge",
+      "no product runtime",
+      "no production runtime",
+      "no external integrations",
+      "no real Dev output",
+      "no real QA result",
+      "no real audit verdict",
+      "no R13 closure",
+      "no R14 caveat removal",
+      "no R15 caveat removal",
+      "no solved Codex compaction",
+      "no solved Codex reliability"
+    ],
+    "rejected_claims": [
+      "live_board_mutation",
+      "Orchestrator_runtime",
+      "A2A_runtime",
+      "autonomous_agents",
+      "Dev_Codex_executor_adapter_runtime",
+      "QA_Test_Agent_adapter_runtime",
+      "Evidence_Auditor_API_adapter_runtime",
+      "executable_handoffs",
+      "executable_transitions",
+      "external_integrations",
+      "external_audit_acceptance",
+      "main_merge",
+      "product_runtime",
+      "production_runtime",
+      "R13_closure",
+      "R14_caveat_removal",
+      "R15_caveat_removal",
+      "solved_Codex_compaction",
+      "solved_Codex_reliability"
+    ]
+  }
+}

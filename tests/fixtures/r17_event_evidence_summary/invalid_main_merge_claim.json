@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_main_merge_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17 merged to main."},"expected_error_fragment":"main merge claim"}

@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_solved_codex_reliability_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 solved Codex reliability."},"expected_error_fragment":"solved Codex reliability claim"}

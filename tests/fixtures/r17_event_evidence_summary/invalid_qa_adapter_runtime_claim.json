@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_qa_adapter_runtime_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 QA/Test Agent adapter runtime implemented."},"expected_error_fragment":"QA/Test Agent adapter runtime claim"}

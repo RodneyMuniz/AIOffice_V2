@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_transition_summary","mutation":{"remove_path":"transition_summary"},"expected_error_fragment":"transition_summary"}

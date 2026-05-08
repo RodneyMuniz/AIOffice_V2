@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_evidence_grouping","mutation":{"remove_path":"evidence_summary.grouped_refs.tooling"},"expected_error_fragment":"tooling"}

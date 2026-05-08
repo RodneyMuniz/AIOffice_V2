@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_missing_event_id","mutation":{"remove_path":"event_timeline.events.[0].event_id"},"expected_error_fragment":"event_id"}

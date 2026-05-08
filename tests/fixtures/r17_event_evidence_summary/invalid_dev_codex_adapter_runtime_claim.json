@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_dev_codex_adapter_runtime_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 Dev/Codex executor adapter runtime implemented."},"expected_error_fragment":"Dev/Codex executor runtime claim"}

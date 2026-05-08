@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_qa_result_claim","mutation":{"set_path":"output_placeholders.qa_result.status","value":"real_qa_result_exists"},"expected_error_fragment":"qa_result"}

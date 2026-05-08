@@ -1,0 +1,1 @@
+{"fixture_id":"invalid_autonomous_agent_claim","mutation":{"set_path":"boundary_and_non_claims.statement","value":"R17-008 autonomous agents implemented."},"expected_error_fragment":"autonomous agent claim"}
