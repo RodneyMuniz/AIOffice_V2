@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_evidence_auditor_api_runtime_claim",
+    "source_task":  "R17-010",
+    "target":  "state_machine",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "mutation":  {
+                     "field":  "evidence_auditor_api_runtime_implemented",
+                     "value":  true,
+                     "kind":  "set_runtime_boundary"
+                 }
+}

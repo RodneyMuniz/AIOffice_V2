@@ -1,0 +1,12 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_missing_allowed_transition",
+    "source_task":  "R17-010",
+    "target":  "state_machine",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "mutation":  {
+                     "kind":  "remove_allowed_transition",
+                     "transition_id":  "qa_passed_to_audit_running"
+                 }
+}

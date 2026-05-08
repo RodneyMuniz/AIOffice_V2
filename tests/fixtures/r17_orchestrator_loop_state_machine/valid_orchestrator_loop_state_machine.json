@@ -1,0 +1,645 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine",
+    "contract_version":  "v1",
+    "state_id":  "aioffice-r17-010-orchestrator-loop-state-machine-state-v1",
+    "source_milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "source_task":  "R17-010",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "ce79fe5874b7460d0fa039fc7ad18a9e76c7ca6a",
+    "generated_from_tree":  "2dd134048d04bdec64b34b072c29056cc4a109e4",
+    "generated_from_contract":  "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+    "generated_state_artifact_only":  true,
+    "scope":  "contract_model_and_deterministic_validation_boundary_only_not_runtime",
+    "purpose":  "Define the bounded Orchestrator loop state-machine contract, allowed and forbidden transitions, evidence gates, user approval gates, stop/retry/re-entry states, and deterministic non-executable seed evaluation requirements without implementing Orchestrator runtime, live board mutation, A2A runtime, adapters, autonomous agents, executable handoffs, executable transitions, external integrations, product runtime, production runtime, or real Dev/QA/Audit outputs.",
+    "orchestrator_loop_states":  [
+                                     {
+                                         "state_id":  "intake",
+                                         "category":  "definition",
+                                         "terminal":  false,
+                                         "description":  "Initial card intake and scope capture."
+                                     },
+                                     {
+                                         "state_id":  "define",
+                                         "category":  "definition",
+                                         "terminal":  false,
+                                         "description":  "Work definition, criteria, evidence, and routing preparation."
+                                     },
+                                     {
+                                         "state_id":  "ready_for_dev",
+                                         "category":  "developer_gate",
+                                         "terminal":  false,
+                                         "description":  "Work is ready for a future Developer/Codex executor adapter, but R17-010 does not invoke one."
+                                     },
+                                     {
+                                         "state_id":  "dev_running",
+                                         "category":  "developer_gate",
+                                         "terminal":  false,
+                                         "description":  "Future developer execution state; not executable in R17-010."
+                                     },
+                                     {
+                                         "state_id":  "dev_done",
+                                         "category":  "developer_gate",
+                                         "terminal":  false,
+                                         "description":  "Future developer completion state required before QA."
+                                     },
+                                     {
+                                         "state_id":  "qa_running",
+                                         "category":  "qa_gate",
+                                         "terminal":  false,
+                                         "description":  "Future QA/Test Agent gate state; not executable in R17-010."
+                                     },
+                                     {
+                                         "state_id":  "qa_failed",
+                                         "category":  "qa_gate",
+                                         "terminal":  false,
+                                         "description":  "QA failure routes back to ready_for_dev."
+                                     },
+                                     {
+                                         "state_id":  "qa_passed",
+                                         "category":  "qa_gate",
+                                         "terminal":  false,
+                                         "description":  "QA pass is required before audit."
+                                     },
+                                     {
+                                         "state_id":  "audit_running",
+                                         "category":  "audit_gate",
+                                         "terminal":  false,
+                                         "description":  "Future Evidence Auditor gate state; not executable in R17-010."
+                                     },
+                                     {
+                                         "state_id":  "audit_failed",
+                                         "category":  "audit_gate",
+                                         "terminal":  false,
+                                         "description":  "Audit failure routes back to ready_for_dev."
+                                     },
+                                     {
+                                         "state_id":  "audit_passed",
+                                         "category":  "audit_gate",
+                                         "terminal":  false,
+                                         "description":  "Audit pass is required before ready_for_user_review."
+                                     },
+                                     {
+                                         "state_id":  "ready_for_user_review",
+                                         "category":  "user_gate",
+                                         "terminal":  false,
+                                         "description":  "Work waits for user review or closure decision."
+                                     },
+                                     {
+                                         "state_id":  "resolved",
+                                         "category":  "user_gate",
+                                         "terminal":  false,
+                                         "description":  "Work is technically resolved but not closed until user approval."
+                                     },
+                                     {
+                                         "state_id":  "closed",
+                                         "category":  "terminal",
+                                         "terminal":  true,
+                                         "description":  "Closed is terminal and requires explicit user approval."
+                                     },
+                                     {
+                                         "state_id":  "blocked",
+                                         "category":  "stop_retry_reentry",
+                                         "terminal":  false,
+                                         "description":  "Work is blocked pending a future decision or unblock event."
+                                     },
+                                     {
+                                         "state_id":  "stopped",
+                                         "category":  "stop_retry_reentry",
+                                         "terminal":  false,
+                                         "description":  "Work is safely stopped and must re-enter through reentry_required."
+                                     },
+                                     {
+                                         "state_id":  "retry_pending",
+                                         "category":  "stop_retry_reentry",
+                                         "terminal":  false,
+                                         "description":  "A bounded retry is pending and returns to define."
+                                     },
+                                     {
+                                         "state_id":  "reentry_required",
+                                         "category":  "stop_retry_reentry",
+                                         "terminal":  false,
+                                         "description":  "Re-entry requires exact repo-backed packet/evidence refs."
+                                     }
+                                 ],
+    "allowed_transitions":  [
+                                {
+                                    "transition_id":  "intake_to_define",
+                                    "from_state":  "intake",
+                                    "to_state":  "define",
+                                    "required_evidence":  [
+                                                              "scoped_card_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "define_to_ready_for_dev",
+                                    "from_state":  "define",
+                                    "to_state":  "ready_for_dev",
+                                    "required_evidence":  [
+                                                              "acceptance_criteria",
+                                                              "qa_criteria",
+                                                              "evidence_requirements"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "ready_for_dev_to_dev_running",
+                                    "from_state":  "ready_for_dev",
+                                    "to_state":  "dev_running",
+                                    "required_evidence":  [
+                                                              "developer_execution_packet_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "dev_running_to_dev_done",
+                                    "from_state":  "dev_running",
+                                    "to_state":  "dev_done",
+                                    "required_evidence":  [
+                                                              "developer_output_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "dev_done_to_qa_running",
+                                    "from_state":  "dev_done",
+                                    "to_state":  "qa_running",
+                                    "required_evidence":  [
+                                                              "developer_execution_completed"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "qa_running_to_qa_failed",
+                                    "from_state":  "qa_running",
+                                    "to_state":  "qa_failed",
+                                    "required_evidence":  [
+                                                              "qa_result_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "qa_failed_to_ready_for_dev",
+                                    "from_state":  "qa_failed",
+                                    "to_state":  "ready_for_dev",
+                                    "required_evidence":  [
+                                                              "qa_failure_ref",
+                                                              "fix_request_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "qa_running_to_qa_passed",
+                                    "from_state":  "qa_running",
+                                    "to_state":  "qa_passed",
+                                    "required_evidence":  [
+                                                              "qa_pass_result_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "qa_passed_to_audit_running",
+                                    "from_state":  "qa_passed",
+                                    "to_state":  "audit_running",
+                                    "required_evidence":  [
+                                                              "qa_passed"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "audit_running_to_audit_failed",
+                                    "from_state":  "audit_running",
+                                    "to_state":  "audit_failed",
+                                    "required_evidence":  [
+                                                              "audit_result_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "audit_failed_to_ready_for_dev",
+                                    "from_state":  "audit_failed",
+                                    "to_state":  "ready_for_dev",
+                                    "required_evidence":  [
+                                                              "audit_failure_ref",
+                                                              "fix_request_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "audit_running_to_audit_passed",
+                                    "from_state":  "audit_running",
+                                    "to_state":  "audit_passed",
+                                    "required_evidence":  [
+                                                              "audit_pass_result_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "audit_passed_to_ready_for_user_review",
+                                    "from_state":  "audit_passed",
+                                    "to_state":  "ready_for_user_review",
+                                    "required_evidence":  [
+                                                              "audit_passed"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "ready_for_user_review_to_resolved",
+                                    "from_state":  "ready_for_user_review",
+                                    "to_state":  "resolved",
+                                    "required_evidence":  [
+                                                              "user_review_decision_ref"
+                                                          ],
+                                    "user_approval_required":  true,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "resolved_to_closed",
+                                    "from_state":  "resolved",
+                                    "to_state":  "closed",
+                                    "required_evidence":  [
+                                                              "explicit_user_closure_approval_ref"
+                                                          ],
+                                    "user_approval_required":  true,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "any_non_closed_to_blocked",
+                                    "from_state_selector":  "any_non_closed_state",
+                                    "to_state":  "blocked",
+                                    "required_evidence":  [
+                                                              "blocker_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "any_non_closed_to_stopped",
+                                    "from_state_selector":  "any_non_closed_state",
+                                    "to_state":  "stopped",
+                                    "required_evidence":  [
+                                                              "stop_reason_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "stopped_to_reentry_required",
+                                    "from_state":  "stopped",
+                                    "to_state":  "reentry_required",
+                                    "required_evidence":  [
+                                                              "stop_state_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "reentry_required_to_retry_pending",
+                                    "from_state":  "reentry_required",
+                                    "to_state":  "retry_pending",
+                                    "required_evidence":  [
+                                                              "repo_backed_reentry_packet_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                },
+                                {
+                                    "transition_id":  "retry_pending_to_define",
+                                    "from_state":  "retry_pending",
+                                    "to_state":  "define",
+                                    "required_evidence":  [
+                                                              "retry_scope_ref"
+                                                          ],
+                                    "user_approval_required":  false,
+                                    "executable_in_r17_010":  false
+                                }
+                            ],
+    "blocked_transitions":  [
+                                {
+                                    "transition_id":  "intake_to_dev_running",
+                                    "from_state":  "intake",
+                                    "to_state":  "dev_running",
+                                    "reason":  "Developer execution cannot start from intake."
+                                },
+                                {
+                                    "transition_id":  "define_to_qa_running",
+                                    "from_state":  "define",
+                                    "to_state":  "qa_running",
+                                    "reason":  "Developer execution is required before QA."
+                                },
+                                {
+                                    "transition_id":  "ready_for_dev_to_qa_running",
+                                    "from_state":  "ready_for_dev",
+                                    "to_state":  "qa_running",
+                                    "reason":  "Developer execution is required before QA."
+                                },
+                                {
+                                    "transition_id":  "dev_running_to_audit_running",
+                                    "from_state":  "dev_running",
+                                    "to_state":  "audit_running",
+                                    "reason":  "QA pass is required before audit."
+                                },
+                                {
+                                    "transition_id":  "dev_done_to_audit_running",
+                                    "from_state":  "dev_done",
+                                    "to_state":  "audit_running",
+                                    "reason":  "QA pass is required before audit."
+                                },
+                                {
+                                    "transition_id":  "qa_failed_to_audit_running",
+                                    "from_state":  "qa_failed",
+                                    "to_state":  "audit_running",
+                                    "reason":  "QA failure must return to ready_for_dev."
+                                },
+                                {
+                                    "transition_id":  "qa_failed_to_closed",
+                                    "from_state":  "qa_failed",
+                                    "to_state":  "closed",
+                                    "reason":  "QA failure cannot close."
+                                },
+                                {
+                                    "transition_id":  "audit_failed_to_closed",
+                                    "from_state":  "audit_failed",
+                                    "to_state":  "closed",
+                                    "reason":  "Audit failure cannot close."
+                                },
+                                {
+                                    "transition_id":  "ready_for_user_review_to_closed_without_user_approval",
+                                    "from_state":  "ready_for_user_review",
+                                    "to_state":  "closed",
+                                    "condition":  "without_user_approval",
+                                    "reason":  "Closed requires explicit user approval."
+                                },
+                                {
+                                    "transition_id":  "resolved_to_closed_without_user_approval",
+                                    "from_state":  "resolved",
+                                    "to_state":  "closed",
+                                    "condition":  "without_user_approval",
+                                    "reason":  "Closed requires explicit user approval."
+                                },
+                                {
+                                    "transition_id":  "closed_to_any_state",
+                                    "from_state":  "closed",
+                                    "to_state_selector":  "any_state",
+                                    "reason":  "Closed is terminal."
+                                },
+                                {
+                                    "transition_id":  "any_state_to_closed_without_user_approval",
+                                    "from_state_selector":  "any_state",
+                                    "to_state":  "closed",
+                                    "condition":  "without_user_approval",
+                                    "reason":  "Any transition to closed requires explicit user approval."
+                                },
+                                {
+                                    "transition_id":  "any_state_to_main_merge",
+                                    "from_state_selector":  "any_state",
+                                    "to_state":  "main_merge",
+                                    "reason":  "Main merge is outside the R17-010 loop state machine."
+                                },
+                                {
+                                    "transition_id":  "any_state_to_external_audit_acceptance",
+                                    "from_state_selector":  "any_state",
+                                    "to_state":  "external_audit_acceptance",
+                                    "reason":  "External audit acceptance is outside the R17-010 loop state machine."
+                                }
+                            ],
+    "transition_requirements":  {
+                                    "developer_execution_required_before_qa":  true,
+                                    "qa_pass_required_before_audit":  true,
+                                    "audit_pass_required_before_ready_for_user_review":  true,
+                                    "user_approval_required_before_closed":  true,
+                                    "orchestrator_may_recommend_transitions_but_r17_010_does_not_execute_transitions":  true,
+                                    "transition_evaluation_is_deterministic_and_non_executable":  true,
+                                    "route_recommendation_is_not_execution_proof":  true,
+                                    "handoff_recommendation_is_not_executable_handoff":  true,
+                                    "audit_request_is_not_audit_verdict":  true,
+                                    "board_state_remains_repo_backed_generated_state_not_live_mutation":  true,
+                                    "repo_truth_remains_canonical":  true
+                                },
+    "role_gate_requirements":  {
+                                   "developer_gate":  {
+                                                          "required_before":  "qa_running",
+                                                          "developer_execution_required":  true,
+                                                          "dev_output_claim_allowed_in_r17_010":  false
+                                                      },
+                                   "qa_gate":  {
+                                                   "required_before":  "audit_running",
+                                                   "qa_pass_required":  true,
+                                                   "qa_result_claim_allowed_in_r17_010":  false,
+                                                   "qa_must_not_implement":  true
+                                               },
+                                   "audit_gate":  {
+                                                      "required_before":  "ready_for_user_review",
+                                                      "audit_pass_required":  true,
+                                                      "audit_verdict_claim_allowed_in_r17_010":  false,
+                                                      "auditor_must_not_implement":  true
+                                                  },
+                                   "user_gate":  {
+                                                     "required_before":  "closed",
+                                                     "explicit_user_approval_required":  true,
+                                                     "orchestrator_may_not_substitute_for_user_approval":  true
+                                                 },
+                                   "orchestrator_gate":  {
+                                                             "coordination_and_routing_only":  true,
+                                                             "may_recommend_transitions":  true,
+                                                             "may_execute_transitions":  false,
+                                                             "may_invoke_agents":  false,
+                                                             "may_mutate_board":  false,
+                                                             "may_call_external_apis":  false
+                                                         }
+                               },
+    "evidence_requirements":  {
+                                  "every_transition_evaluation_requires_state_machine_ref":  true,
+                                  "every_transition_evaluation_requires_card_or_route_ref":  true,
+                                  "ready_for_qa_requires_developer_execution_evidence":  true,
+                                  "audit_requires_qa_pass_evidence":  true,
+                                  "ready_for_user_review_requires_audit_pass_evidence":  true,
+                                  "closed_requires_user_approval_evidence":  true,
+                                  "route_recommendations_are_execution_proof":  false,
+                                  "handoff_recommendations_are_executable_handoffs":  false,
+                                  "audit_requests_are_audit_verdicts":  false,
+                                  "generated_markdown_is_machine_proof_without_validation":  false
+                              },
+    "user_approval_requirements":  {
+                                       "closure_requires_user_approval":  true,
+                                       "resolved_is_not_closed":  true,
+                                       "ready_for_user_review_waits_for_user_decision":  true,
+                                       "main_merge_requires_user_approval_and_separate_evidence":  true,
+                                       "external_audit_acceptance_requires_external_evidence_and_user_acceptance":  true,
+                                       "orchestrator_may_request_user_approval":  true,
+                                       "orchestrator_may_not_substitute_for_user_approval":  true
+                                   },
+    "stop_retry_reentry_states":  {
+                                      "blocked":  {
+                                                      "entry_from_any_non_closed_state_allowed":  true,
+                                                      "requires_blocker_ref":  true,
+                                                      "runtime_unblock_implemented_in_r17_010":  false
+                                                  },
+                                      "stopped":  {
+                                                      "entry_from_any_non_closed_state_allowed":  true,
+                                                      "requires_stop_reason_ref":  true,
+                                                      "runtime_stop_control_implemented_in_r17_010":  false
+                                                  },
+                                      "reentry_required":  {
+                                                               "entry_from":  "stopped",
+                                                               "requires_exact_repo_backed_packet_refs":  true
+                                                           },
+                                      "retry_pending":  {
+                                                            "entry_from":  "reentry_required",
+                                                            "returns_to":  "define",
+                                                            "repeated_failure_requires_user_decision":  true
+                                                        },
+                                      "qa_failed":  {
+                                                        "returns_to":  "ready_for_dev",
+                                                        "requires_qa_failure_ref":  true
+                                                    },
+                                      "audit_failed":  {
+                                                           "returns_to":  "ready_for_dev",
+                                                           "requires_audit_failure_ref":  true
+                                                       }
+                                  },
+    "seed_evaluation_requirements":  {
+                                         "source_card_id":  "R17-005",
+                                         "source_route_recommendation_seed":  "state/agents/r17_orchestrator_route_recommendation_seed.json",
+                                         "source_authority_check_report":  "state/agents/r17_orchestrator_authority_check_report.json",
+                                         "current_card_lane":  "ready_for_user_review",
+                                         "current_loop_state":  "ready_for_user_review",
+                                         "recommended_next_action":  "request_user_review_or_closure_decision",
+                                         "recommended_next_role":  "user",
+                                         "user_decision_required":  true,
+                                         "closure_requires_user_approval":  true,
+                                         "transition_executed":  false,
+                                         "board_mutation_performed":  false,
+                                         "runtime_orchestrator_invoked":  false,
+                                         "agent_invocation_performed":  false,
+                                         "a2a_message_sent":  false,
+                                         "api_call_performed":  false,
+                                         "dev_output_claimed":  false,
+                                         "qa_result_claimed":  false,
+                                         "audit_verdict_claimed":  false,
+                                         "non_executable_evaluation":  true
+                                     },
+    "non_claims":  [
+                       "R17-010 defines and validates a bounded Orchestrator loop state machine only",
+                       "R17-010 creates generated state-machine, seed evaluation, and transition check artifacts only",
+                       "R17-010 performs deterministic non-executable transition evaluation only",
+                       "R17-010 does not implement Orchestrator runtime",
+                       "R17-010 does not implement live board mutation",
+                       "R17-010 does not implement A2A runtime",
+                       "R17-010 does not implement Dev/Codex executor adapter",
+                       "R17-010 does not implement QA/Test Agent adapter",
+                       "R17-010 does not implement Evidence Auditor API adapter",
+                       "R17-010 does not call external APIs",
+                       "R17-010 does not call Codex as executor",
+                       "R17-010 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                       "R17-010 does not claim autonomous agents",
+                       "R17-010 does not claim product runtime",
+                       "R17-010 does not claim production runtime",
+                       "R17-010 does not claim executable handoffs or executable transitions",
+                       "R17-010 does not claim external audit acceptance",
+                       "R17-010 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-011 through R17-028 remain planned only",
+                       "R17-010 does not claim solved Codex compaction",
+                       "R17-010 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_board_mutation",
+                            "Orchestrator_runtime",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime",
+                            "external_API_calls",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability"
+                        ],
+    "runtime_boundaries":  {
+                               "orchestrator_runtime_implemented":  false,
+                               "live_board_mutation_implemented":  false,
+                               "a2a_runtime_implemented":  false,
+                               "dev_codex_adapter_runtime_implemented":  false,
+                               "qa_test_agent_adapter_runtime_implemented":  false,
+                               "evidence_auditor_api_runtime_implemented":  false,
+                               "external_api_calls_implemented":  false,
+                               "executable_handoffs_implemented":  false,
+                               "executable_transitions_implemented":  false,
+                               "autonomous_agents_implemented":  false,
+                               "product_runtime_implemented":  false,
+                               "production_runtime_implemented":  false
+                           },
+    "claim_status":  {
+                         "external_audit_acceptance_claimed":  false,
+                         "main_merge_claimed":  false,
+                         "r13_closure_claimed":  false,
+                         "r14_caveat_removal_claimed":  false,
+                         "r15_caveat_removal_claimed":  false,
+                         "solved_codex_compaction_claimed":  false,
+                         "solved_codex_reliability_claimed":  false
+                     },
+    "runtime_boundaries_extended":  {
+                                        "board_state_replaces_repo_truth":  false,
+                                        "route_recommendation_is_execution_proof":  false,
+                                        "handoff_recommendation_is_executable_handoff":  false,
+                                        "audit_request_is_audit_verdict":  false
+                                    },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}

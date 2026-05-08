@@ -1,0 +1,16 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_qa_before_dev",
+    "source_task":  "R17-010",
+    "target":  "transition",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "candidate":  {
+                      "evidence":  {
+                                       "developer_execution_completed":  false
+                                   },
+                      "to_state":  "qa_running",
+                      "from_state":  "define",
+                      "user_approval_present":  false
+                  }
+}

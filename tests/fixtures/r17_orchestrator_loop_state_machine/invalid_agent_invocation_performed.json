@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_agent_invocation_performed",
+    "source_task":  "R17-010",
+    "target":  "seed_evaluation",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "mutation":  {
+                     "field":  "agent_invocation_performed",
+                     "value":  true,
+                     "kind":  "set_seed_flag"
+                 }
+}

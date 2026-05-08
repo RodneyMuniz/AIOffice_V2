@@ -1,0 +1,16 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_main_merge_transition",
+    "source_task":  "R17-010",
+    "target":  "transition",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "candidate":  {
+                      "evidence":  {
+
+                                   },
+                      "to_state":  "main_merge",
+                      "from_state":  "ready_for_user_review",
+                      "user_approval_present":  true
+                  }
+}

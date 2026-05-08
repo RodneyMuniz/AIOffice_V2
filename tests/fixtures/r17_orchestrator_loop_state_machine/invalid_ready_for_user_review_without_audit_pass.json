@@ -1,0 +1,16 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_ready_for_user_review_without_audit_pass",
+    "source_task":  "R17-010",
+    "target":  "transition",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "candidate":  {
+                      "evidence":  {
+                                       "audit_passed":  false
+                                   },
+                      "to_state":  "ready_for_user_review",
+                      "from_state":  "audit_running",
+                      "user_approval_present":  false
+                  }
+}

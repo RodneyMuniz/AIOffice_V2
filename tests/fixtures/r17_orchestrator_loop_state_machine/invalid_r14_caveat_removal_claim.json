@@ -1,0 +1,14 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_r14_caveat_removal_claim",
+    "source_task":  "R17-010",
+    "target":  "state_machine",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "mutation":  {
+                     "field":  "caveats_removed",
+                     "boundary":  "r14",
+                     "value":  true,
+                     "kind":  "set_preserved_boundary"
+                 }
+}

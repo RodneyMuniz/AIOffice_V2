@@ -2896,8 +2896,8 @@ function Test-R17OpeningStatus {
         throw "R17 authority does not match KANBAN for the live R17 task status boundary."
     }
 
-    if ($kanbanSnapshot.DoneThrough -ne 9 -or $kanbanSnapshot.PlannedStart -ne 10 -or $kanbanSnapshot.PlannedThrough -ne 28) {
-        throw "R17 status must keep R17 active through R17-009 only with R17-010 through R17-028 planned only."
+    if ($kanbanSnapshot.DoneThrough -ne 10 -or $kanbanSnapshot.PlannedStart -ne 11 -or $kanbanSnapshot.PlannedThrough -ne 28) {
+        throw "R17 status must keep R17 active through R17-010 only with R17-011 through R17-028 planned only."
     }
 
     $unexpectedR17HeadingMatch = [regex]::Match($Texts.Kanban, '(?m)^###\s+`?(R17-(?:0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,}))`?')
@@ -2917,14 +2917,14 @@ function Test-R17OpeningStatus {
             $Texts.R17Authority
         ))
 
-    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-009` only' -Message "README must declare R17 active on the R17 branch through R17-009 only."
-    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is now active in repo truth through `R17-009` only\.' -Message "ACTIVE_STATE must declare R17 as the active milestone through R17-009 only."
+    Assert-RegexMatch -Text $Texts.Readme -Pattern '`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-010` only' -Message "README must declare R17 active on the R17 branch through R17-010 only."
+    Assert-RegexMatch -Text $Texts.ActiveState -Pattern '## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`\s+is now active in repo truth through `R17-010` only\.' -Message "ACTIVE_STATE must declare R17 as the active milestone through R17-010 only."
     Assert-RegexMatch -Text $Texts.Kanban -Pattern '## Active Milestone\s+`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`' -Message "KANBAN must declare R17 as the active milestone."
-    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Status after this pass:\*\*\s+Active through `R17-009` only\.' -Message "R17 authority must declare R17 active through R17-009 only."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Status after this pass:\*\*\s+Active through `R17-010` only\.' -Message "R17 authority must declare R17 active through R17-010 only."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Branch:\*\*\s+`release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`' -Message "R17 authority must record the R17 branch."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Starting head:\*\*\s+`5bae17229ea10dee4ce072b258f828220b9d1d8d`' -Message "R17 authority must record the final R16 starting head."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern '\*\*Starting tree:\*\*\s+`9de1a7b733f400da78f8e683ae4111977c70f1fb`' -Message "R17 authority must record the final R16 starting tree."
-    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '`R17-010` through `R17-028` remain planned only' -Message "R17 authority must keep R17-010 through R17-028 planned only."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern '`R17-011` through `R17-028` remain planned only' -Message "R17 authority must keep R17-011 through R17-028 planned only."
 
     Assert-RegexMatch -Text $r17CurrentText -Pattern 'R16 is complete for bounded foundation scope through `R16-026` only|R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation`\s+is complete for bounded foundation scope through `R16-026` only' -Message "Status docs must state R16 complete for bounded foundation scope through R16-026 only."
     Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-001`? installed approved planning artifacts|`R17-001` installed approved planning artifacts' -Message "Status docs must state R17-001 installed approved planning artifacts."
@@ -2937,7 +2937,9 @@ function Test-R17OpeningStatus {
     Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-008`? implements a read-only board event detail and evidence summary surface only|`R17-008` implements a read-only board event detail and evidence summary surface only' -Message "Status docs must state R17-008 implements a read-only board event detail and evidence summary surface only."
     Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-009`? defines the Orchestrator identity and authority contract only|`R17-009` defines the Orchestrator identity and authority contract only' -Message "Status docs must state R17-009 defines the Orchestrator identity and authority contract only."
     Assert-RegexMatch -Text $r17CurrentText -Pattern 'generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only' -Message "Status docs must state R17-009 creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only."
-    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-010`? through `?R17-028`? remain planned only|`R17-010` through `R17-028` remain planned only' -Message "Status docs must state R17-010 through R17-028 remain planned only."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-010`? defines and validates a bounded Orchestrator loop state machine|`R17-010` defines and validates a bounded Orchestrator loop state machine' -Message "Status docs must state R17-010 defines and validates a bounded Orchestrator loop state machine."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'generated seed evaluation, and transition check artifacts only' -Message "Status docs must state R17-010 creates generated seed evaluation and transition check artifacts only."
+    Assert-RegexMatch -Text $r17CurrentText -Pattern 'R17-011`? through `?R17-028`? remain planned only|`R17-011` through `R17-028` remain planned only' -Message "Status docs must state R17-011 through R17-028 remain planned only."
 
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'governance/reports/AIOffice_V2_R16_External_Audit_and_R17_Planning_Report_v1\.md' -Message "R17 authority must cite the R16 external audit/R17 planning report."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'governance/plans/AIOffice_V2_Revised_R17_Agentic_Operating_Surface_A2A_Runtime_Kanban_Release_Cycle_Plan_v1\.md' -Message "R17 authority must cite the revised R17 plan."
@@ -2981,6 +2983,16 @@ function Test-R17OpeningStatus {
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tests/test_r17_orchestrator_identity_authority\.ps1' -Message "R17 authority must cite the R17-009 test."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tests/fixtures/r17_orchestrator_identity_authority/' -Message "R17 authority must cite the R17-009 fixtures."
     Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_009_orchestrator_identity_authority/' -Message "R17 authority must cite the R17-009 proof-review package."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'contracts/orchestration/r17_orchestrator_loop_state_machine\.contract\.json' -Message "R17 authority must cite the R17-010 Orchestrator loop state-machine contract."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/orchestration/r17_orchestrator_loop_state_machine\.json' -Message "R17 authority must cite the R17-010 state-machine artifact."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/orchestration/r17_orchestrator_loop_seed_evaluation\.json' -Message "R17 authority must cite the R17-010 seed evaluation artifact."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/orchestration/r17_orchestrator_loop_transition_check_report\.json' -Message "R17 authority must cite the R17-010 transition check report."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tools/R17OrchestratorLoopStateMachine\.psm1' -Message "R17 authority must cite the R17-010 module."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tools/new_r17_orchestrator_loop_state_machine\.ps1' -Message "R17 authority must cite the R17-010 generator."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tools/validate_r17_orchestrator_loop_state_machine\.ps1' -Message "R17 authority must cite the R17-010 validator."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tests/test_r17_orchestrator_loop_state_machine\.ps1' -Message "R17 authority must cite the R17-010 test."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'tests/fixtures/r17_orchestrator_loop_state_machine/' -Message "R17 authority must cite the R17-010 fixtures."
+    Assert-RegexMatch -Text $Texts.R17Authority -Pattern 'state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_010_orchestrator_loop_state_machine/' -Message "R17 authority must cite the R17-010 proof-review package."
 
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17 Opened As Agentic Operating Surface Milestone' -Message "DECISION_LOG must record the R17 opening decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17-004 Board Contract Boundary' -Message "DECISION_LOG must record the R17-004 board contract boundary decision."
@@ -2989,6 +3001,7 @@ function Test-R17OpeningStatus {
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17-007 Card Detail Evidence Drawer Boundary' -Message "DECISION_LOG must record the R17-007 card detail evidence drawer boundary decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17-008 Board Event Detail and Evidence Summary Boundary' -Message "DECISION_LOG must record the R17-008 board event detail and evidence summary boundary decision."
     Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17-009 Orchestrator Identity and Authority Boundary' -Message "DECISION_LOG must record the R17-009 Orchestrator identity and authority boundary decision."
+    Assert-RegexMatch -Text $Texts.DecisionLog -Pattern 'R17-010 Orchestrator Loop State Machine Boundary' -Message "DECISION_LOG must record the R17-010 Orchestrator loop state-machine boundary decision."
     Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R13 remains failed/partial.*R13-018.*not closed' -Message "Status docs must preserve R13 failed/partial through R13-018 while R17 is active."
     Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R14 remains accepted with caveats.*R14-006|R14.*accepted with caveats.*R14-006' -Message "Status docs must preserve R14 accepted with caveats through R14-006."
     Assert-RegexMatch -Text $r17CurrentText -Pattern '(?i)R15 remains accepted with caveats.*R15-009|R15.*accepted with caveats.*R15-009' -Message "Status docs must preserve R15 accepted with caveats through R15-009."
@@ -3019,7 +3032,7 @@ function Test-R17OpeningStatus {
         Assert-RegexMatch -Text $r17CurrentText -Pattern ([regex]::Escape($nonClaimPattern)) -Message "Status docs must preserve R17 non-claim '$nonClaimPattern'."
     }
 
-    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R17-010 or later implementation" -Pattern '(?i)\bR17-(0(?:1[0-9]|2[0-8])|[1-9][0-9]{2,})\b.{0,180}\b(done|complete|completed|implemented|executed|ran|exercised|working|available|ships)\b'
+    Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R17-011 or later implementation" -Pattern '(?i)\bR17-(0(?:1[1-9]|2[0-8])|[1-9][0-9]{2,})\b.{0,180}\b(done|complete|completed|implemented|executed|ran|exercised|working|available|ships)\b'
     Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "R17-029 or later task" -Pattern '(?i)\bR17-(0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,160}\b(done|complete|completed|implemented|executed|ran|exists|created|planned|active)\b'
     Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "external audit acceptance" -Pattern '(?i)\b(external audit acceptance|external audit accepted|external acceptance)\b.{0,120}\b(done|complete|completed|accepted|approved|claimed|exists|achieved)\b'
     Assert-NoForbiddenPositiveClaim -Text $r17CurrentText -Context "Status docs" -ClaimLabel "main merge" -Pattern '(?i)\b(main merge|merged to main|main contains R17|R17.*merged to main)\b'

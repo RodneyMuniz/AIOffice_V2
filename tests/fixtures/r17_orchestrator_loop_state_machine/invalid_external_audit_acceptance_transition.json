@@ -1,0 +1,16 @@
+﻿{
+    "artifact_type":  "r17_orchestrator_loop_state_machine_invalid_fixture",
+    "fixture_id":  "invalid_external_audit_acceptance_transition",
+    "source_task":  "R17-010",
+    "target":  "transition",
+    "compact_fixture":  true,
+    "expected_result":  "rejected",
+    "candidate":  {
+                      "evidence":  {
+
+                                   },
+                      "to_state":  "external_audit_acceptance",
+                      "from_state":  "audit_passed",
+                      "user_approval_present":  true
+                  }
+}
