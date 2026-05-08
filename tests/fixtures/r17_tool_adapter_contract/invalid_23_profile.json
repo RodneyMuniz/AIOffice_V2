@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.live_board_mutation_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_board_mutation_claimed"
+                                   ]
+}

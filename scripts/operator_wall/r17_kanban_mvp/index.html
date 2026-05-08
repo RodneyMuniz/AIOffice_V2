@@ -394,6 +394,69 @@
         </div>
       </section>
 
+      <section class="tool-adapter-contract-panel" id="tool-adapter-contract-panel" aria-labelledby="tool-adapter-contract-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-015 contract foundation only</p>
+            <h2 id="tool-adapter-contract-title">Tool Adapter Contract</h2>
+          </div>
+          <div class="drawer-status tool-adapter-contract-status">
+            <span>disabled seed adapter profiles only</span>
+            <strong>no adapter runtime; no tool calls; no API calls</strong>
+          </div>
+        </div>
+
+        <div class="tool-adapter-grid">
+          <article class="detail-block">
+            <h3>Contract Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Contract</dt>
+              <dd>contracts/tools/r17_tool_adapter.contract.json</dd>
+              <dt>Seed profiles</dt>
+              <dd>state/tools/r17_tool_adapter_seed_profiles.json</dd>
+              <dt>Check report</dt>
+              <dd>state/tools/r17_tool_adapter_contract_check_report.json</dd>
+              <dt>UI snapshot</dt>
+              <dd>state/ui/r17_kanban_mvp/r17_tool_adapter_contract_snapshot.json</dd>
+              <dt>Status</dt>
+              <dd>not_implemented_seed</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Runtime Flags</h3>
+            <dl class="card-fields">
+              <dt>adapter_runtime_implemented: false</dt>
+              <dd>no adapter runtime exists in R17-015</dd>
+              <dt>actual_tool_call_performed: false</dt>
+              <dd>no tool calls were performed</dd>
+              <dt>external_api_call_performed: false</dt>
+              <dd>no API calls were performed</dd>
+              <dt>a2a_message_sent: false</dt>
+              <dd>no A2A messages were sent</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Seed Adapter Profiles</h3>
+            <ul class="grouped-evidence-list">
+              <li><strong>developer_codex_executor_adapter_future</strong><span>future Developer/Codex executor adapter profile only</span></li>
+              <li><strong>qa_test_agent_adapter_future</strong><span>future QA/Test Agent adapter profile only</span></li>
+              <li><strong>evidence_auditor_api_adapter_future</strong><span>future Evidence Auditor API adapter profile only</span></li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Foundation Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-015 defines the common tool adapter contract foundation only.</li>
+              <li>Each adapter profile is a disabled seed profile with explicit not_implemented_seed packet refs.</li>
+              <li>The panel is read-only and does not write files, mutate the board, create runtime cards, invoke agents, call adapters, call APIs, execute tool calls, or send A2A messages.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

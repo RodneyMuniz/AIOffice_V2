@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.executable_transition_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "executable_transition_claimed"
+                                   ]
+}

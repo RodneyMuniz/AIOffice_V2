@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.external_api_call_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "external_api_call_performed"
+                                   ]
+}

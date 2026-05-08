@@ -1,0 +1,7 @@
+﻿{
+    "target":  "ui_text",
+    "text":  "\u003cscript src=\"https://cdn.example.test/tool.js\"\u003e\u003c/script\u003e",
+    "expected_failure_fragments":  [
+                                       "forbidden external dependency"
+                                   ]
+}

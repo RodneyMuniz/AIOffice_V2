@@ -1,0 +1,9 @@
+﻿{
+    "target":  "report",
+    "set_values":  {
+                       "broad_repo_scan_output_included":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "broad_repo_scan_output_included"
+                                   ]
+}

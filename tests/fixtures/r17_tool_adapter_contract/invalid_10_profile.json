@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "remove_paths":  [
+                         "cost_policy"
+                     ],
+    "expected_failure_fragments":  [
+                                       "cost_policy"
+                                   ]
+}

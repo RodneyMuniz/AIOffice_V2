@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "production_runtime_executed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "production_runtime_executed"
+                                   ]
+}

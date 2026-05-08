@@ -1,0 +1,11 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "allowed_tool_boundary":  [
+                                                     "run_any_tool"
+                                                 ]
+                   },
+    "expected_failure_fragments":  [
+                                       "unapproved allowed_tool_boundary"
+                                   ]
+}

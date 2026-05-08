@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.runtime_card_creation_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_card_creation_claimed"
+                                   ]
+}

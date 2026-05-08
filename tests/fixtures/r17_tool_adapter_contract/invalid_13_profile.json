@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.adapter_runtime_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "adapter_runtime_implemented"
+                                   ]
+}

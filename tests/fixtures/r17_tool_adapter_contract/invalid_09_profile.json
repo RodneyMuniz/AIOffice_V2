@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "remove_paths":  [
+                         "secret_policy"
+                     ],
+    "expected_failure_fragments":  [
+                                       "secret_policy"
+                                   ]
+}

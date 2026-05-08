@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "input_packet_ref":  ""
+                   },
+    "expected_failure_fragments":  [
+                                       "input_packet_ref"
+                                   ]
+}

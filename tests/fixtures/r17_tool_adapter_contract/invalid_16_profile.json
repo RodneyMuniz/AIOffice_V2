@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.codex_executor_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "codex_executor_invoked"
+                                   ]
+}

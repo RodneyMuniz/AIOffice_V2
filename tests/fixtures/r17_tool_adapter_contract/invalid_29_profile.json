@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.runtime_memory_engine_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "runtime_memory_engine_claimed"
+                                   ]
+}

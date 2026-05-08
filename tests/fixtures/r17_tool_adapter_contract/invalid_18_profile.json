@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.evidence_auditor_api_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "evidence_auditor_api_invoked"
+                                   ]
+}

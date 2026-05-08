@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.agent_invocation_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "agent_invocation_performed"
+                                   ]
+}

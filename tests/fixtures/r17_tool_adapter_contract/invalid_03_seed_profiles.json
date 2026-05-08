@@ -1,0 +1,7 @@
+﻿{
+    "target":  "seed_profiles",
+    "operation":  "duplicate_adapter_id",
+    "expected_failure_fragments":  [
+                                       "duplicate adapter_id"
+                                   ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "report",
+    "set_values":  {
+                       "full_source_file_contents_embedded":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "full_source_file_contents_embedded"
+                                   ]
+}

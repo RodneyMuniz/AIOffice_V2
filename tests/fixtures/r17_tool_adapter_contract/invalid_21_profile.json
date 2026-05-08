@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.board_mutation_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "board_mutation_performed"
+                                   ]
+}

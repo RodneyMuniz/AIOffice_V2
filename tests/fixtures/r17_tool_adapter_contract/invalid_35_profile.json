@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.main_merge_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed"
+                                   ]
+}

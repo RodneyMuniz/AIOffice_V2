@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "adapter_type":  "unknown_adapter"
+                   },
+    "expected_failure_fragments":  [
+                                       "unknown adapter_type"
+                                   ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "runtime_flags.qa_test_agent_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "qa_test_agent_invoked"
+                                   ]
+}

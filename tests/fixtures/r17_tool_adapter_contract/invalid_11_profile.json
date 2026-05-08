@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "remove_paths":  [
+                         "timeout_policy"
+                     ],
+    "expected_failure_fragments":  [
+                                       "timeout_policy"
+                                   ]
+}

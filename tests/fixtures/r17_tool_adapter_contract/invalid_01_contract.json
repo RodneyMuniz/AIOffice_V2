@@ -1,0 +1,9 @@
+﻿{
+    "target":  "contract",
+    "remove_paths":  [
+                         "required_adapter_profile_fields"
+                     ],
+    "expected_failure_fragments":  [
+                                       "required_adapter_profile_fields"
+                                   ]
+}

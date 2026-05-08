@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "remove_paths":  [
+                         "tool_call_ref"
+                     ],
+    "expected_failure_fragments":  [
+                                       "tool_call_ref"
+                                   ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "remove_paths":  [
+                         "retry_policy"
+                     ],
+    "expected_failure_fragments":  [
+                                       "retry_policy"
+                                   ]
+}

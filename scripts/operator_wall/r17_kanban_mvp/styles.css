@@ -329,6 +329,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.tool-adapter-contract-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #7a6a25;
+  border-radius: 8px;
+  background: #fffdfa;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -387,6 +397,10 @@ main {
 
 .invocation-log-status span {
   color: #2d7468;
+}
+
+.tool-adapter-contract-status span {
+  color: #7a6a25;
 }
 
 .agent-labels {
@@ -547,6 +561,13 @@ main {
   padding-top: 14px;
 }
 
+.tool-adapter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
 .agent-boundaries article {
   min-width: 0;
   padding: 14px;
@@ -690,6 +711,7 @@ main {
   .agent-workforce-grid,
   .memory-loader-grid,
   .invocation-log-grid,
+  .tool-adapter-grid,
   .agent-boundaries {
     grid-template-columns: 1fr;
   }

@@ -1,0 +1,7 @@
+﻿{
+    "target":  "seed_profiles",
+    "operation":  "missing_seed_adapter_profiles",
+    "expected_failure_fragments":  [
+                                       "missing seed adapter profiles"
+                                   ]
+}

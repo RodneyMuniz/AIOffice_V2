@@ -16,6 +16,8 @@ R17-013 adds a read-only memory/artifact loader panel. The panel is backed by `s
 
 R17-014 adds a read-only agent invocation log panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_agent_invocation_log_snapshot.json` and shows the repo-backed invocation log contract, seed JSONL log, check report, known R17-012 agent ids, R17-013 memory packet refs, and required false runtime flags including `actual_agent_invoked: false`, `runtime_dispatch_performed: false`, `adapter_call_performed: false`, `external_api_call_performed: false`, `a2a_message_sent: false`, and `product_runtime_executed: false`. The panel shows seed/foundation invocation records only and does not invoke agents, dispatch runtime work, call adapters, call external APIs, send A2A messages, mutate the board live, create runtime cards, implement product runtime, or implement production runtime.
 
+R17-015 adds a read-only tool adapter contract panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_tool_adapter_contract_snapshot.json` and shows the common tool adapter contract, disabled seed adapter profiles for the future Developer/Codex executor, QA/Test Agent, and Evidence Auditor API adapters, and required false runtime flags including `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not implement adapter runtime, execute tool calls, call APIs, invoke Codex, invoke QA/Test Agent, invoke Evidence Auditor API, send A2A messages, mutate the board live, or create runtime cards.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server

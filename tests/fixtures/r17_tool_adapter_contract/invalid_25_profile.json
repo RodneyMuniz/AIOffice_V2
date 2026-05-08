@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.live_orchestrator_runtime_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_orchestrator_runtime_claimed"
+                                   ]
+}

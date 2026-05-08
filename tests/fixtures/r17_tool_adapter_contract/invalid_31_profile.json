@@ -1,0 +1,9 @@
+﻿{
+    "target":  "profile",
+    "set_values":  {
+                       "claim_status.dev_output_claimed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "dev_output_claimed"
+                                   ]
+}
