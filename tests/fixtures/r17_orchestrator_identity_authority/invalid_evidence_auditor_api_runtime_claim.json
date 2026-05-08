@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_evidence_auditor_api_runtime_claim",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "runtime_boundaries.evidence_auditor_api_runtime_implemented",
+    "expected_failure_fragment":  "evidence_auditor_api_runtime_implemented",
+    "value":  true
+}

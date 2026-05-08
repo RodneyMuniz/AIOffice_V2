@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_dev_output_claim",
+    "target":  "route_seed",
+    "operation":  "set",
+    "path":  "dev_output_claimed",
+    "expected_failure_fragment":  "dev_output_claimed",
+    "value":  true
+}

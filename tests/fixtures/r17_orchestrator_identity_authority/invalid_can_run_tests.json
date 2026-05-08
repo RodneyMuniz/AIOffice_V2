@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_can_run_tests",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "orchestrator_identity.can_run_tests",
+    "expected_failure_fragment":  "can_run_tests",
+    "value":  true
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_autonomous_agent_claim",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "runtime_boundaries.autonomous_agents_implemented",
+    "expected_failure_fragment":  "autonomous_agents_implemented",
+    "value":  true
+}

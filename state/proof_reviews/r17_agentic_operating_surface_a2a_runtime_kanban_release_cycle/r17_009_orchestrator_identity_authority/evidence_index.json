@@ -1,0 +1,41 @@
+{
+  "artifact_type": "r17_009_orchestrator_identity_authority_evidence_index",
+  "contract_version": "v1",
+  "source_milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "source_task": "R17-009",
+  "status": "passed",
+  "evidence_refs": [
+    "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+    "state/agents/r17_orchestrator_identity_authority.json",
+    "state/agents/r17_orchestrator_route_recommendation_seed.json",
+    "state/agents/r17_orchestrator_authority_check_report.json",
+    "tools/R17OrchestratorIdentityAuthority.psm1",
+    "tools/new_r17_orchestrator_identity_authority.ps1",
+    "tools/validate_r17_orchestrator_identity_authority.ps1",
+    "tests/test_r17_orchestrator_identity_authority.ps1",
+    "tests/fixtures/r17_orchestrator_identity_authority/",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_009_orchestrator_identity_authority/proof_review.md",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_009_orchestrator_identity_authority/validation_manifest.md"
+  ],
+  "non_claims": [
+    "R17-009 defines the Orchestrator identity and authority contract only",
+    "R17-009 creates generated Orchestrator identity/authority state and non-executable route recommendation seed artifacts only",
+    "R17-009 does not implement Orchestrator runtime",
+    "R17-009 does not implement live board mutation",
+    "R17-009 does not implement A2A runtime",
+    "R17-009 does not implement Dev/Codex executor adapter",
+    "R17-009 does not implement QA/Test Agent adapter",
+    "R17-009 does not implement Evidence Auditor API adapter",
+    "R17-009 does not implement external integrations",
+    "R17-009 does not call external APIs",
+    "R17-009 does not call Codex as executor",
+    "R17-009 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+    "R17-009 does not claim autonomous agents",
+    "R17-009 does not claim product runtime",
+    "R17-009 does not claim production runtime",
+    "R17-009 does not claim executable handoffs or executable transitions",
+    "R17-009 does not claim external audit acceptance",
+    "R17-009 does not claim main merge",
+    "R13, R14, R15, and R16 boundaries are preserved"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_missing_agent_id",
+    "target":  "identity_state",
+    "operation":  "remove",
+    "path":  "orchestrator_identity.agent_id",
+    "expected_failure_fragment":  "agent_id"
+}

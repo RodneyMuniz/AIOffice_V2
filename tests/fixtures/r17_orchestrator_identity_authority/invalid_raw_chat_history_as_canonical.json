@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_raw_chat_history_as_canonical",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "memory_scope_rules.raw_chat_history_is_canonical",
+    "expected_failure_fragment":  "raw chat history",
+    "value":  true
+}

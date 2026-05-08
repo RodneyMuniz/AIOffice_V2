@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_dev_codex_adapter_runtime_claim",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "runtime_boundaries.dev_codex_adapter_runtime_implemented",
+    "expected_failure_fragment":  "dev_codex_adapter_runtime_implemented",
+    "value":  true
+}

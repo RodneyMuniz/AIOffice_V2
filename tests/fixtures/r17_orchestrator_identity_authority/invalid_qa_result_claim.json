@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_qa_result_claim",
+    "target":  "route_seed",
+    "operation":  "set",
+    "path":  "qa_result_claimed",
+    "expected_failure_fragment":  "qa_result_claimed",
+    "value":  true
+}

@@ -1,0 +1,9 @@
+{
+    "fixture_type":  "r17_orchestrator_identity_authority_invalid_mutation",
+    "mutation_id":  "invalid_broad_repo_scan_memory_scope",
+    "target":  "identity_state",
+    "operation":  "set",
+    "path":  "memory_scope_rules.broad_repo_scan_allowed",
+    "expected_failure_fragment":  "broad repo scans",
+    "value":  true
+}
