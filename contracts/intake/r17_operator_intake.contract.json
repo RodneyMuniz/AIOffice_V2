@@ -1,0 +1,320 @@
+﻿{
+    "artifact_type":  "r17_operator_intake_contract",
+    "contract_version":  "v1",
+    "contract_id":  "aioffice-r17-011-operator-intake-contract-v1",
+    "source_milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "source_task":  "R17-011",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "scope":  "bounded_operator_intake_contract_and_static_preview_only",
+    "purpose":  "Define the governed operator intake packet and non-executable Orchestrator intake proposal boundary without implementing live Orchestrator runtime, live board mutation, runtime card creation, A2A runtime, adapters, external APIs, autonomous agents, executable handoffs, executable transitions, product runtime, or production runtime.",
+    "required_intake_fields":  [
+                                   "intake_id",
+                                   "source_task",
+                                   "submitted_by",
+                                   "submitted_at_utc",
+                                   "raw_operator_request",
+                                   "normalized_request",
+                                   "intent_type",
+                                   "requested_outcome",
+                                   "target_milestone",
+                                   "target_branch",
+                                   "urgency",
+                                   "acceptance_notes",
+                                   "constraints",
+                                   "explicit_non_goals",
+                                   "user_decision_required",
+                                   "evidence_refs",
+                                   "memory_refs",
+                                   "non_claims",
+                                   "rejected_claims"
+                               ],
+    "allowed_intent_types":  [
+                                 "create_work_card",
+                                 "request_status",
+                                 "request_user_decision",
+                                 "request_release_step",
+                                 "request_audit",
+                                 "request_qa",
+                                 "request_research",
+                                 "request_clarification"
+                             ],
+    "bounded_seed_intent_type":  "create_work_card",
+    "required_classification_fields":  [
+                                           "classification_id",
+                                           "source_intake_id",
+                                           "intent_type",
+                                           "requested_outcome",
+                                           "target_milestone",
+                                           "target_branch",
+                                           "recommended_loop_state",
+                                           "recommended_lane",
+                                           "recommended_owner_role",
+                                           "recommended_next_role",
+                                           "user_decision_required",
+                                           "evidence_refs",
+                                           "memory_refs",
+                                           "non_claims",
+                                           "rejected_claims"
+                                       ],
+    "required_orchestrator_proposal_fields":  [
+                                                  "proposal_id",
+                                                  "source_intake_id",
+                                                  "orchestrator_agent_id",
+                                                  "recommended_action",
+                                                  "recommended_loop_state",
+                                                  "recommended_card_id",
+                                                  "recommended_lane",
+                                                  "recommended_owner_role",
+                                                  "recommended_next_role",
+                                                  "user_decision_required",
+                                                  "closure_requires_user_approval",
+                                                  "non_executable_proposal",
+                                                  "runtime_orchestrator_invoked",
+                                                  "board_mutation_performed",
+                                                  "card_created",
+                                                  "agent_invocation_performed",
+                                                  "a2a_message_sent",
+                                                  "api_call_performed",
+                                                  "dev_output_claimed",
+                                                  "qa_result_claimed",
+                                                  "audit_verdict_claimed",
+                                                  "evidence_refs",
+                                                  "memory_refs",
+                                                  "non_claims",
+                                                  "rejected_claims"
+                                              ],
+    "required_card_proposal_fields":  [
+                                          "card_proposal_id",
+                                          "source_intake_id",
+                                          "proposed_card_id",
+                                          "proposed_task_id",
+                                          "title",
+                                          "description",
+                                          "double_diamond_stage",
+                                          "proposed_lane",
+                                          "proposed_owner_role",
+                                          "proposed_next_role",
+                                          "acceptance_criteria",
+                                          "qa_criteria",
+                                          "evidence_requirements",
+                                          "memory_refs",
+                                          "non_executable_card_proposal",
+                                          "runtime_card_created",
+                                          "live_board_mutation_performed",
+                                          "user_decision_required",
+                                          "closure_requires_user_approval",
+                                          "non_claims",
+                                          "rejected_claims"
+                                      ],
+    "required_user_decision_fields":  [
+                                          "user_decision_required",
+                                          "decision_type",
+                                          "next_expected_role",
+                                          "next_expected_future_task",
+                                          "copy_save_manual_until_future_runtime",
+                                          "closure_requires_user_approval"
+                                      ],
+    "evidence_requirements":  {
+                                  "seed_packet_must_reference_contract":  true,
+                                  "proposal_must_reference_seed_packet":  true,
+                                  "proposal_must_reference_orchestrator_authority":  true,
+                                  "proposal_must_reference_loop_state_machine":  true,
+                                  "check_report_must_reference_packet_and_proposal":  true,
+                                  "generated_markdown_is_operator_readable_only_unless_backed_by_validation":  true
+                              },
+    "memory_scope_rules":  {
+                               "exact_ref_only":  true,
+                               "broad_repo_scan_allowed":  false,
+                               "raw_chat_history_is_canonical":  false,
+                               "hidden_chat_memory_for_routing_allowed":  false,
+                               "repo_truth_must_remain_canonical":  true,
+                               "allowed_exact_refs":  [
+                                                          {
+                                                              "ref":  "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                                                              "boundary":  "exact repo ref only, not hidden chat memory"
+                                                          },
+                                                          {
+                                                              "ref":  "execution/KANBAN.md",
+                                                              "boundary":  "exact repo ref only, status surface not runtime board mutation"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/ACTIVE_STATE.md",
+                                                              "boundary":  "exact repo ref only, status surface"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                              "boundary":  "exact repo ref only, authority classification"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/DECISION_LOG.md",
+                                                              "boundary":  "exact repo ref only, decision authority"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/VISION.md",
+                                                              "boundary":  "exact repo ref only, product doctrine"
+                                                          },
+                                                          {
+                                                              "ref":  "state/governance/r17_kpi_baseline_target_scorecard.json",
+                                                              "boundary":  "exact repo ref only, target scores are not achieved implementation evidence"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_card.contract.json",
+                                                              "boundary":  "exact repo ref only, card contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_board_state.contract.json",
+                                                              "boundary":  "exact repo ref only, board state contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_board_event.contract.json",
+                                                              "boundary":  "exact repo ref only, board event contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+                                                              "boundary":  "exact repo ref only, Orchestrator authority model"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_identity_authority.json",
+                                                              "boundary":  "exact repo ref only, generated state artifact only"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_route_recommendation_seed.json",
+                                                              "boundary":  "exact repo ref only, non-executable route recommendation seed"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_authority_check_report.json",
+                                                              "boundary":  "exact repo ref only, authority compatibility report"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+                                                              "boundary":  "exact repo ref only, loop state-machine contract"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_state_machine.json",
+                                                              "boundary":  "exact repo ref only, generated non-runtime state-machine artifact"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_seed_evaluation.json",
+                                                              "boundary":  "exact repo ref only, deterministic non-executable seed evaluation"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_transition_check_report.json",
+                                                              "boundary":  "exact repo ref only, transition check report"
+                                                          },
+                                                          {
+                                                              "ref":  "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+                                                              "boundary":  "exact repo ref only, generated board state artifact"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only static UI snapshot"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only card detail snapshot"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only event/evidence snapshot"
+                                                          }
+                                                      ]
+                           },
+    "non_claims":  [
+                       "R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only",
+                       "R17-011 creates generated operator intake seed packet, non-executable Orchestrator intake proposal, check report, and UI snapshot only",
+                       "R17-011 updates the local/static Kanban MVP with an intake preview panel only",
+                       "R17-011 does not implement live Orchestrator runtime",
+                       "R17-011 does not implement live board mutation",
+                       "R17-011 does not create runtime cards",
+                       "R17-011 does not implement A2A runtime",
+                       "R17-011 does not implement Dev/Codex executor adapter",
+                       "R17-011 does not implement QA/Test Agent adapter",
+                       "R17-011 does not implement Evidence Auditor API adapter",
+                       "R17-011 does not call external APIs",
+                       "R17-011 does not call Codex as executor",
+                       "R17-011 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                       "R17-011 does not claim autonomous agents",
+                       "R17-011 does not claim product runtime",
+                       "R17-011 does not claim production runtime",
+                       "R17-011 does not claim executable handoffs or executable transitions",
+                       "R17-011 does not claim external audit acceptance",
+                       "R17-011 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-012 through R17-028 remain planned only",
+                       "R17-011 does not claim solved Codex compaction",
+                       "R17-011 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_board_mutation",
+                            "Orchestrator_runtime",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime",
+                            "external_API_calls",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability"
+                        ],
+    "runtime_boundaries":  {
+                               "operator_intake_runtime_server_implemented":  false,
+                               "live_orchestrator_runtime_implemented":  false,
+                               "live_board_mutation_implemented":  false,
+                               "card_creation_runtime_implemented":  false,
+                               "a2a_runtime_implemented":  false,
+                               "dev_codex_adapter_runtime_implemented":  false,
+                               "qa_test_agent_adapter_runtime_implemented":  false,
+                               "evidence_auditor_api_runtime_implemented":  false,
+                               "external_api_calls_implemented":  false,
+                               "executable_handoffs_implemented":  false,
+                               "executable_transitions_implemented":  false,
+                               "autonomous_agents_implemented":  false,
+                               "product_runtime_implemented":  false,
+                               "production_runtime_implemented":  false
+                           },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}

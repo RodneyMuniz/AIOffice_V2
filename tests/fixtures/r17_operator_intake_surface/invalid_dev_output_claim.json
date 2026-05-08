@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_dev_output_claim.json",
+    "target":  "orchestrator_intake_proposal",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "dev_output_claimed":  true
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

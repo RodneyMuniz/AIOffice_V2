@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_missing_intake_id.json",
+    "target":  "operator_intake_packet",
+    "remove_paths":  [
+                         "intake_id"
+                     ],
+    "set_values":  {
+
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

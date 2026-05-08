@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_card_created_runtime_claim.json",
+    "target":  "orchestrator_intake_proposal",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "card_created":  true
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

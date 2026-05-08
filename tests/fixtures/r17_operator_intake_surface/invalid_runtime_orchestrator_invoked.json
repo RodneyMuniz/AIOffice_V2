@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_runtime_orchestrator_invoked.json",
+    "target":  "orchestrator_intake_proposal",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_orchestrator_invoked":  true
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

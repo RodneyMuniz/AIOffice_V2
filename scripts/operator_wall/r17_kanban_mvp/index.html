@@ -24,6 +24,61 @@
         <div class="lane-board" id="lane-board"></div>
       </section>
 
+      <section class="operator-intake-panel" id="operator-intake-panel" aria-labelledby="operator-intake-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">local/static preview only</p>
+            <h2 id="operator-intake-title">Operator Intake Surface</h2>
+          </div>
+          <div class="drawer-status intake-status">
+            <span>copy/save generated JSON manually until future runtime task</span>
+            <strong>no board mutation, no Orchestrator runtime</strong>
+          </div>
+        </div>
+
+        <div class="intake-layout">
+          <article class="detail-block intake-request-block">
+            <h3>Raw Operator Request</h3>
+            <textarea id="operator-request" rows="5" spellcheck="false">Create a governed R17 work card to continue from the current read-only Kanban and Orchestrator state-machine foundation into an operator interaction surface.</textarea>
+            <div class="intake-actions">
+              <button type="button" id="generate-intake-preview">Generate Preview</button>
+              <button type="button" id="copy-intake-json">Copy JSON</button>
+              <span id="copy-status" aria-live="polite">Preview only; nothing is saved.</span>
+            </div>
+          </article>
+
+          <article class="detail-block">
+            <h3>Next Expected Future Task/Role</h3>
+            <dl class="card-fields" id="operator-next-step"></dl>
+          </article>
+
+          <article class="detail-block intake-preview-block">
+            <h3>Generated Intake Packet Preview</h3>
+            <pre id="intake-packet-preview" tabindex="0"></pre>
+          </article>
+
+          <article class="detail-block intake-preview-block">
+            <h3>Orchestrator Proposal Preview</h3>
+            <pre id="orchestrator-proposal-preview" tabindex="0"></pre>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Refs</h3>
+            <ul class="plain-list compact-list" id="operator-intake-evidence"></ul>
+          </article>
+
+          <article class="detail-block">
+            <h3>Memory Refs</h3>
+            <ul class="plain-list compact-list" id="operator-intake-memory"></ul>
+          </article>
+
+          <article class="detail-block">
+            <h3>Non-Claims</h3>
+            <ul class="plain-list compact-list" id="operator-intake-non-claims"></ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>
@@ -353,6 +408,240 @@
     </main>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        var intakeSurface = {
+          seedRequest: "Create a governed R17 work card to continue from the current read-only Kanban and Orchestrator state-machine foundation into an operator interaction surface.",
+          intakeId: "aioffice-r17-011-operator-intake-seed-packet-v1",
+          proposalId: "aioffice-r17-011-orchestrator-intake-proposal-v1",
+          evidenceRefs: [
+            "contracts/intake/r17_operator_intake.contract.json",
+            "state/intake/r17_operator_intake_seed_packet.json",
+            "state/intake/r17_orchestrator_intake_proposal.json",
+            "state/intake/r17_operator_intake_check_report.json",
+            "state/ui/r17_kanban_mvp/r17_operator_intake_snapshot.json",
+            "state/agents/r17_orchestrator_identity_authority.json",
+            "state/orchestration/r17_orchestrator_loop_state_machine.json",
+            "scripts/operator_wall/r17_kanban_mvp/index.html",
+            "scripts/operator_wall/r17_kanban_mvp/kanban.js"
+          ],
+          memoryRefs: [
+            "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+            "execution/KANBAN.md",
+            "governance/ACTIVE_STATE.md",
+            "governance/DOCUMENT_AUTHORITY_INDEX.md",
+            "governance/DECISION_LOG.md",
+            "governance/VISION.md",
+            "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+            "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+            "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json"
+          ],
+          nonClaims: [
+            "R17-011 implements bounded operator intake and deterministic proposal generation only",
+            "no live Orchestrator runtime",
+            "no live board mutation",
+            "no runtime card creation",
+            "no A2A runtime",
+            "no Dev/Codex executor adapter runtime",
+            "no QA/Test Agent adapter runtime",
+            "no Evidence Auditor API runtime",
+            "no external API calls",
+            "no executable handoffs",
+            "no executable transitions",
+            "no product runtime",
+            "no production runtime",
+            "no real Dev output",
+            "no real QA result",
+            "no real audit verdict"
+          ]
+        };
+
+        function text(value) {
+          if (value === true) return "yes";
+          if (value === false) return "no";
+          if (value === null || value === undefined || value === "") return "none";
+          return String(value);
+        }
+
+        function byId(id) {
+          return document.getElementById(id);
+        }
+
+        function create(tag, className, content) {
+          var node = document.createElement(tag);
+          if (className) node.className = className;
+          if (content !== undefined) node.textContent = content;
+          return node;
+        }
+
+        function renderList(id, values) {
+          var list = byId(id);
+          if (!list) return;
+          list.innerHTML = "";
+          values.forEach(function (value) {
+            list.append(create("li", "", value));
+          });
+        }
+
+        function buildIntakePacket(rawRequest) {
+          var snapshot = window.R17_KANBAN_SNAPSHOT || {};
+          return {
+            artifact_type: "r17_operator_intake_packet",
+            contract_version: "v1",
+            intake_id: intakeSurface.intakeId,
+            source_task: "R17-011",
+            submitted_by: "operator",
+            submitted_at_utc: "2026-05-08T00:00:00Z",
+            raw_operator_request: rawRequest,
+            normalized_request: rawRequest.trim(),
+            intent_type: "create_work_card",
+            requested_outcome: "bounded operator interaction/intake surface plus deterministic intake packet and non-executable Orchestrator proposal generation",
+            target_milestone: snapshot.milestone || "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+            target_branch: snapshot.branch || "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+            urgency: "normal",
+            acceptance_notes: [
+              "show where the operator submits intent",
+              "show how intent becomes a governed intake packet",
+              "show how Orchestrator would classify and propose work",
+              "show future card proposal shape without creating a runtime card"
+            ],
+            constraints: [
+              "local/static preview only",
+              "copy/save generated JSON manually until future runtime task",
+              "no browser file writes",
+              "no external calls",
+              "no board mutation",
+              "no Orchestrator runtime invocation"
+            ],
+            explicit_non_goals: [
+              "live Orchestrator runtime",
+              "live board mutation",
+              "runtime card creation",
+              "A2A runtime",
+              "adapter runtime"
+            ],
+            user_decision_required: false,
+            evidence_refs: intakeSurface.evidenceRefs,
+            memory_refs: intakeSurface.memoryRefs.map(function (ref) {
+              return { ref: ref, boundary: "exact repo ref only" };
+            }),
+            non_claims: intakeSurface.nonClaims,
+            rejected_claims: [
+              "live_board_mutation",
+              "Orchestrator_runtime",
+              "A2A_runtime",
+              "external_API_calls",
+              "product_runtime",
+              "production_runtime",
+              "real_Dev_output",
+              "real_QA_result",
+              "real_audit_verdict"
+            ]
+          };
+        }
+
+        function buildOrchestratorProposal(packet) {
+          return {
+            artifact_type: "r17_orchestrator_intake_proposal",
+            contract_version: "v1",
+            proposal_id: intakeSurface.proposalId,
+            source_intake_id: packet.intake_id,
+            orchestrator_agent_id: "orchestrator",
+            recommended_action: "create_governed_card_proposal",
+            recommended_loop_state: "intake",
+            recommended_card_id: "R17-011",
+            recommended_lane: "intake",
+            recommended_owner_role: "project_manager",
+            recommended_next_role: "project_manager",
+            user_decision_required: false,
+            closure_requires_user_approval: true,
+            non_executable_proposal: true,
+            runtime_orchestrator_invoked: false,
+            board_mutation_performed: false,
+            card_created: false,
+            agent_invocation_performed: false,
+            a2a_message_sent: false,
+            api_call_performed: false,
+            dev_output_claimed: false,
+            qa_result_claimed: false,
+            audit_verdict_claimed: false,
+            card_proposal: {
+              proposed_card_id: "R17-011",
+              proposed_task_id: "R17-011",
+              title: "Add operator interaction endpoint/surface",
+              proposed_lane: "intake",
+              proposed_owner_role: "project_manager",
+              proposed_next_role: "project_manager",
+              non_executable_card_proposal: true,
+              runtime_card_created: false,
+              live_board_mutation_performed: false,
+              closure_requires_user_approval: true
+            },
+            evidence_refs: packet.evidence_refs,
+            memory_refs: packet.memory_refs,
+            non_claims: packet.non_claims,
+            rejected_claims: packet.rejected_claims
+          };
+        }
+
+        function renderKeyValueList(id, rows) {
+          var list = byId(id);
+          if (!list) return;
+          list.innerHTML = "";
+          rows.forEach(function (row) {
+            list.append(create("dt", "", row[0]));
+            list.append(create("dd", "", text(row[1])));
+          });
+        }
+
+        function renderOperatorIntake() {
+          var request = byId("operator-request");
+          var intakePreview = byId("intake-packet-preview");
+          var proposalPreview = byId("orchestrator-proposal-preview");
+          if (!request || !intakePreview || !proposalPreview) return;
+
+          var packet = buildIntakePacket(request.value || intakeSurface.seedRequest);
+          var proposal = buildOrchestratorProposal(packet);
+          intakePreview.textContent = JSON.stringify(packet, null, 2);
+          proposalPreview.textContent = JSON.stringify(proposal, null, 2);
+
+          renderList("operator-intake-evidence", intakeSurface.evidenceRefs);
+          renderList("operator-intake-memory", intakeSurface.memoryRefs);
+          renderList("operator-intake-non-claims", intakeSurface.nonClaims);
+          renderKeyValueList("operator-next-step", [
+            ["Decision required", proposal.user_decision_required],
+            ["Next role", proposal.recommended_next_role],
+            ["Future task", "R17-012 remains planned only"],
+            ["Manual step", "copy/save generated JSON manually until future runtime task"],
+            ["Closure approval", proposal.closure_requires_user_approval]
+          ]);
+        }
+
+        function bindOperatorIntakeActions() {
+          var generate = byId("generate-intake-preview");
+          var copy = byId("copy-intake-json");
+          var status = byId("copy-status");
+          if (generate) generate.addEventListener("click", renderOperatorIntake);
+          if (copy) {
+            copy.addEventListener("click", function () {
+              var payload = [
+                byId("intake-packet-preview").textContent,
+                byId("orchestrator-proposal-preview").textContent
+              ].join("\n\n");
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(payload).then(function () {
+                  status.textContent = "Generated JSON copied; no files were written.";
+                }).catch(function () {
+                  status.textContent = "Copy unavailable; select the preview text manually.";
+                });
+              } else {
+                status.textContent = "Copy unavailable; select the preview text manually.";
+              }
+            });
+          }
+        }
+
+        renderOperatorIntake();
+        bindOperatorIntakeActions();
+
         var drawer = document.getElementById("card-detail-drawer");
         var cards = Array.prototype.slice.call(document.querySelectorAll(".kanban-card"));
         cards.forEach(function (card) {

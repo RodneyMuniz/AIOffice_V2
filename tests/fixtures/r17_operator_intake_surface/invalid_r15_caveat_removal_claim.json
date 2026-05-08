@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_r15_caveat_removal_claim.json",
+    "target":  "operator_intake_check_report",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "claim_status.r15_caveat_removal_claimed":  true
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

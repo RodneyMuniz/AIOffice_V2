@@ -28,6 +28,31 @@ body {
   line-height: 1.45;
 }
 
+button,
+textarea,
+pre {
+  font: inherit;
+}
+
+button {
+  min-height: 36px;
+  padding: 8px 12px;
+  border: 1px solid #b9c8c2;
+  border-radius: 8px;
+  background: #f8fbf9;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+button:hover,
+button:focus {
+  border-color: var(--accent);
+  outline: 2px solid rgba(15, 143, 131, 0.18);
+  outline-offset: 1px;
+}
+
 .topbar {
   display: grid;
   grid-template-columns: minmax(280px, 1fr) minmax(280px, 0.9fr);
@@ -264,6 +289,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.operator-intake-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #315f92;
+  border-radius: 8px;
+  background: #fbfcff;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -308,6 +343,10 @@ main {
   color: var(--accent-2);
 }
 
+.intake-status span {
+  color: #315f92;
+}
+
 .drawer-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(260px, 1fr));
@@ -328,6 +367,62 @@ main {
   grid-template-columns: repeat(3, minmax(260px, 1fr));
   gap: 12px;
   padding-top: 14px;
+}
+
+.intake-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(280px, 0.8fr) minmax(340px, 1.2fr) minmax(340px, 1.2fr);
+  gap: 12px;
+  padding-top: 14px;
+}
+
+.intake-request-block {
+  display: grid;
+  gap: 10px;
+}
+
+.intake-request-block textarea {
+  width: 100%;
+  min-height: 132px;
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.intake-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.intake-actions span {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.intake-preview-block {
+  grid-column: span 2;
+}
+
+.intake-preview-block pre {
+  min-height: 280px;
+  max-height: 460px;
+  margin: 0;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid #d5dce2;
+  border-radius: 8px;
+  background: #111816;
+  color: #eaf6f2;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
 }
 
 .detail-block h3 {
@@ -444,7 +539,8 @@ main {
   .topbar,
   .details-grid,
   .drawer-grid,
-  .event-summary-grid {
+  .event-summary-grid,
+  .intake-layout {
     grid-template-columns: 1fr;
   }
 
@@ -459,7 +555,8 @@ main {
   .identity-block,
   .event-block,
   .evidence-block,
-  .event-timeline-block {
+  .event-timeline-block,
+  .intake-preview-block {
     grid-column: span 1;
   }
 

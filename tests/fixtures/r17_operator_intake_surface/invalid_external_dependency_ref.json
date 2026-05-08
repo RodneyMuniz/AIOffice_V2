@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_external_dependency_ref.json",
+    "target":  "ui_external_dependency",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "index.html",
+    "append_text":  "\u003cscript src=\u0027https://example.invalid/runtime.js\u0027\u003e\u003c/script\u003e"
+}

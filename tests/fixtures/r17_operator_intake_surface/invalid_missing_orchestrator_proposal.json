@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_missing_orchestrator_proposal.json",
+    "target":  "artifact_set",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+
+                   },
+    "remove_artifact":  "proposal",
+    "ui_file":  "",
+    "append_text":  ""
+}

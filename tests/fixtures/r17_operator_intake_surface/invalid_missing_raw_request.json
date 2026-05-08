@@ -1,0 +1,14 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_missing_raw_request.json",
+    "target":  "operator_intake_packet",
+    "remove_paths":  [
+                         "raw_operator_request"
+                     ],
+    "set_values":  {
+
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

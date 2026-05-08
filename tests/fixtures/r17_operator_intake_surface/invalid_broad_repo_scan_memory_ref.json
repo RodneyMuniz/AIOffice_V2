@@ -1,0 +1,16 @@
+﻿{
+    "fixture_type":  "r17_operator_intake_surface_invalid_mutation",
+    "file_name":  "invalid_broad_repo_scan_memory_ref.json",
+    "target":  "operator_intake_packet",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "memory_refs":  [
+                                           "broad repo scan"
+                                       ]
+                   },
+    "remove_artifact":  "",
+    "ui_file":  "",
+    "append_text":  ""
+}

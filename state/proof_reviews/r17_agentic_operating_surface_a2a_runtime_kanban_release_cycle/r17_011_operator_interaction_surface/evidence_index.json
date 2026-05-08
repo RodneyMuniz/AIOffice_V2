@@ -1,0 +1,134 @@
+﻿{
+    "artifact_type":  "r17_operator_intake_surface_evidence_index",
+    "contract_version":  "v1",
+    "source_task":  "R17-011",
+    "evidence_package":  "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_011_operator_interaction_surface/",
+    "generated_state_artifact_only":  true,
+    "artifacts":  [
+                      {
+                          "path":  "contracts/intake/r17_operator_intake.contract.json",
+                          "role":  "operator intake contract"
+                      },
+                      {
+                          "path":  "state/intake/r17_operator_intake_seed_packet.json",
+                          "role":  "generated seed operator intake packet"
+                      },
+                      {
+                          "path":  "state/intake/r17_orchestrator_intake_proposal.json",
+                          "role":  "non-executable Orchestrator intake proposal"
+                      },
+                      {
+                          "path":  "state/intake/r17_operator_intake_check_report.json",
+                          "role":  "intake check report"
+                      },
+                      {
+                          "path":  "state/ui/r17_kanban_mvp/r17_operator_intake_snapshot.json",
+                          "role":  "operator intake UI snapshot"
+                      },
+                      {
+                          "path":  "scripts/operator_wall/r17_kanban_mvp/",
+                          "role":  "local/static Kanban MVP with intake preview panel"
+                      },
+                      {
+                          "path":  "tools/R17OperatorIntakeSurface.psm1",
+                          "role":  "generator and validator module"
+                      },
+                      {
+                          "path":  "tools/new_r17_operator_intake_surface.ps1",
+                          "role":  "generator wrapper"
+                      },
+                      {
+                          "path":  "tools/validate_r17_operator_intake_surface.ps1",
+                          "role":  "validator wrapper"
+                      },
+                      {
+                          "path":  "tests/test_r17_operator_intake_surface.ps1",
+                          "role":  "focused tests"
+                      },
+                      {
+                          "path":  "tests/fixtures/r17_operator_intake_surface/",
+                          "role":  "valid and compact invalid fixtures"
+                      }
+                  ],
+    "non_claims":  [
+                       "R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only",
+                       "R17-011 creates generated operator intake seed packet, non-executable Orchestrator intake proposal, check report, and UI snapshot only",
+                       "R17-011 updates the local/static Kanban MVP with an intake preview panel only",
+                       "R17-011 does not implement live Orchestrator runtime",
+                       "R17-011 does not implement live board mutation",
+                       "R17-011 does not create runtime cards",
+                       "R17-011 does not implement A2A runtime",
+                       "R17-011 does not implement Dev/Codex executor adapter",
+                       "R17-011 does not implement QA/Test Agent adapter",
+                       "R17-011 does not implement Evidence Auditor API adapter",
+                       "R17-011 does not call external APIs",
+                       "R17-011 does not call Codex as executor",
+                       "R17-011 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                       "R17-011 does not claim autonomous agents",
+                       "R17-011 does not claim product runtime",
+                       "R17-011 does not claim production runtime",
+                       "R17-011 does not claim executable handoffs or executable transitions",
+                       "R17-011 does not claim external audit acceptance",
+                       "R17-011 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-012 through R17-028 remain planned only",
+                       "R17-011 does not claim solved Codex compaction",
+                       "R17-011 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_board_mutation",
+                            "Orchestrator_runtime",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime",
+                            "external_API_calls",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability"
+                        ],
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}

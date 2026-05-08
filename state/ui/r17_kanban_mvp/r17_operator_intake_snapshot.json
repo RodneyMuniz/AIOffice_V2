@@ -1,0 +1,458 @@
+﻿{
+    "artifact_type":  "r17_operator_intake_snapshot",
+    "contract_version":  "v1",
+    "source_task":  "R17-011",
+    "milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "active_through_task":  "R17-011",
+    "generated_from_head":  "cdbbdc76ddb16bc1fafcb8acd3add7c2eedda193",
+    "generated_from_tree":  "1545a8d05a7051b7e9c461a10ebb2b7bd7f3f703",
+    "ui_boundary_label":  "local/static preview only",
+    "local_open_path":  "scripts/operator_wall/r17_kanban_mvp/index.html",
+    "seed_intake_packet_summary":  {
+                                       "intake_id":  "aioffice-r17-011-operator-intake-seed-packet-v1",
+                                       "seed_demo_intake_only":  true,
+                                       "raw_operator_request":  "Create a governed R17 work card to continue from the current read-only Kanban and Orchestrator state-machine foundation into an operator interaction surface.",
+                                       "intent_type":  "create_work_card",
+                                       "requested_outcome":  "bounded operator interaction/intake surface plus deterministic intake packet and non-executable Orchestrator proposal generation",
+                                       "target_branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+                                       "user_decision_required":  false,
+                                       "evidence_ref_count":  25,
+                                       "memory_ref_count":  22
+                                   },
+    "orchestrator_intake_proposal_summary":  {
+                                                 "proposal_id":  "aioffice-r17-011-orchestrator-intake-proposal-v1",
+                                                 "source_intake_id":  "aioffice-r17-011-operator-intake-seed-packet-v1",
+                                                 "orchestrator_agent_id":  "orchestrator",
+                                                 "recommended_action":  "create_governed_card_proposal",
+                                                 "recommended_loop_state":  "intake",
+                                                 "recommended_card_id":  "R17-011",
+                                                 "recommended_lane":  "intake",
+                                                 "recommended_owner_role":  "project_manager",
+                                                 "recommended_next_role":  "project_manager",
+                                                 "user_decision_required":  false,
+                                                 "closure_requires_user_approval":  true,
+                                                 "non_executable_proposal":  true
+                                             },
+    "user_decision_state":  {
+                                "user_decision_required":  false,
+                                "decision_type":  "none_for_seed_demo_generation",
+                                "next_expected_role":  "project_manager",
+                                "next_expected_future_task":  "R17-012 planned only; do not implement in R17-011",
+                                "copy_save_manual_until_future_runtime":  true,
+                                "closure_requires_user_approval":  true
+                            },
+    "recommended_card_proposal":  {
+                                      "card_proposal_id":  "aioffice-r17-011-card-proposal-v1",
+                                      "source_intake_id":  "aioffice-r17-011-operator-intake-seed-packet-v1",
+                                      "proposed_card_id":  "R17-011",
+                                      "proposed_task_id":  "R17-011",
+                                      "title":  "Add operator interaction endpoint/surface",
+                                      "description":  "Non-executable future card proposal for the R17-011 bounded operator interaction/intake surface and deterministic intake compilation layer.",
+                                      "double_diamond_stage":  "discover",
+                                      "proposed_lane":  "intake",
+                                      "proposed_owner_role":  "project_manager",
+                                      "proposed_next_role":  "project_manager",
+                                      "acceptance_criteria":  [
+                                                                  "Governed seed operator intake packet is generated and validated.",
+                                                                  "Non-executable Orchestrator intake proposal is generated and validated.",
+                                                                  "Static Kanban MVP exposes a local/static intake preview panel.",
+                                                                  "No live Orchestrator runtime, board mutation, runtime card creation, A2A runtime, adapters, external APIs, executable handoffs, executable transitions, product runtime, or production runtime is implemented or claimed."
+                                                              ],
+                                      "qa_criteria":  [
+                                                          "R17-011 generator, validator, and focused tests pass.",
+                                                          "Invalid compact fixtures fail closed for runtime and boundary overclaims.",
+                                                          "Static UI files contain no external dependency refs."
+                                                      ],
+                                      "evidence_requirements":  [
+                                                                    "contracts/intake/r17_operator_intake.contract.json",
+                                                                    "state/intake/r17_operator_intake_seed_packet.json",
+                                                                    "state/intake/r17_orchestrator_intake_proposal.json",
+                                                                    "state/intake/r17_operator_intake_check_report.json",
+                                                                    "state/ui/r17_kanban_mvp/r17_operator_intake_snapshot.json",
+                                                                    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_011_operator_interaction_surface/"
+                                                                ],
+                                      "memory_refs":  [
+                                                          {
+                                                              "ref":  "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                                                              "boundary":  "exact repo ref only, not hidden chat memory"
+                                                          },
+                                                          {
+                                                              "ref":  "execution/KANBAN.md",
+                                                              "boundary":  "exact repo ref only, status surface not runtime board mutation"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/ACTIVE_STATE.md",
+                                                              "boundary":  "exact repo ref only, status surface"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                                              "boundary":  "exact repo ref only, authority classification"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/DECISION_LOG.md",
+                                                              "boundary":  "exact repo ref only, decision authority"
+                                                          },
+                                                          {
+                                                              "ref":  "governance/VISION.md",
+                                                              "boundary":  "exact repo ref only, product doctrine"
+                                                          },
+                                                          {
+                                                              "ref":  "state/governance/r17_kpi_baseline_target_scorecard.json",
+                                                              "boundary":  "exact repo ref only, target scores are not achieved implementation evidence"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_card.contract.json",
+                                                              "boundary":  "exact repo ref only, card contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_board_state.contract.json",
+                                                              "boundary":  "exact repo ref only, board state contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/board/r17_board_event.contract.json",
+                                                              "boundary":  "exact repo ref only, board event contract model"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+                                                              "boundary":  "exact repo ref only, Orchestrator authority model"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_identity_authority.json",
+                                                              "boundary":  "exact repo ref only, generated state artifact only"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_route_recommendation_seed.json",
+                                                              "boundary":  "exact repo ref only, non-executable route recommendation seed"
+                                                          },
+                                                          {
+                                                              "ref":  "state/agents/r17_orchestrator_authority_check_report.json",
+                                                              "boundary":  "exact repo ref only, authority compatibility report"
+                                                          },
+                                                          {
+                                                              "ref":  "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+                                                              "boundary":  "exact repo ref only, loop state-machine contract"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_state_machine.json",
+                                                              "boundary":  "exact repo ref only, generated non-runtime state-machine artifact"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_seed_evaluation.json",
+                                                              "boundary":  "exact repo ref only, deterministic non-executable seed evaluation"
+                                                          },
+                                                          {
+                                                              "ref":  "state/orchestration/r17_orchestrator_loop_transition_check_report.json",
+                                                              "boundary":  "exact repo ref only, transition check report"
+                                                          },
+                                                          {
+                                                              "ref":  "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+                                                              "boundary":  "exact repo ref only, generated board state artifact"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only static UI snapshot"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only card detail snapshot"
+                                                          },
+                                                          {
+                                                              "ref":  "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json",
+                                                              "boundary":  "exact repo ref only, read-only event/evidence snapshot"
+                                                          }
+                                                      ],
+                                      "non_executable_card_proposal":  true,
+                                      "runtime_card_created":  false,
+                                      "live_board_mutation_performed":  false,
+                                      "user_decision_required":  false,
+                                      "closure_requires_user_approval":  true,
+                                      "non_claims":  [
+                                                         "R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only",
+                                                         "R17-011 creates generated operator intake seed packet, non-executable Orchestrator intake proposal, check report, and UI snapshot only",
+                                                         "R17-011 updates the local/static Kanban MVP with an intake preview panel only",
+                                                         "R17-011 does not implement live Orchestrator runtime",
+                                                         "R17-011 does not implement live board mutation",
+                                                         "R17-011 does not create runtime cards",
+                                                         "R17-011 does not implement A2A runtime",
+                                                         "R17-011 does not implement Dev/Codex executor adapter",
+                                                         "R17-011 does not implement QA/Test Agent adapter",
+                                                         "R17-011 does not implement Evidence Auditor API adapter",
+                                                         "R17-011 does not call external APIs",
+                                                         "R17-011 does not call Codex as executor",
+                                                         "R17-011 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                                                         "R17-011 does not claim autonomous agents",
+                                                         "R17-011 does not claim product runtime",
+                                                         "R17-011 does not claim production runtime",
+                                                         "R17-011 does not claim executable handoffs or executable transitions",
+                                                         "R17-011 does not claim external audit acceptance",
+                                                         "R17-011 does not claim main merge",
+                                                         "R13 boundary preserved",
+                                                         "R14 caveats preserved",
+                                                         "R15 caveats preserved",
+                                                         "R16 boundary preserved",
+                                                         "R17-012 through R17-028 remain planned only",
+                                                         "R17-011 does not claim solved Codex compaction",
+                                                         "R17-011 does not claim solved Codex reliability"
+                                                     ],
+                                      "rejected_claims":  [
+                                                              "live_board_mutation",
+                                                              "Orchestrator_runtime",
+                                                              "A2A_runtime",
+                                                              "autonomous_agents",
+                                                              "Dev_Codex_executor_adapter_runtime",
+                                                              "QA_Test_Agent_adapter_runtime",
+                                                              "Evidence_Auditor_API_adapter_runtime",
+                                                              "external_API_calls",
+                                                              "executable_handoffs",
+                                                              "executable_transitions",
+                                                              "external_integrations",
+                                                              "external_audit_acceptance",
+                                                              "main_merge",
+                                                              "product_runtime",
+                                                              "production_runtime",
+                                                              "real_Dev_output",
+                                                              "real_QA_result",
+                                                              "real_audit_verdict",
+                                                              "R13_closure",
+                                                              "R14_caveat_removal",
+                                                              "R15_caveat_removal",
+                                                              "solved_Codex_compaction",
+                                                              "solved_Codex_reliability"
+                                                          ]
+                                  },
+    "evidence_refs":  [
+                          "contracts/intake/r17_operator_intake.contract.json",
+                          "state/intake/r17_operator_intake_seed_packet.json",
+                          "state/intake/r17_orchestrator_intake_proposal.json",
+                          "state/intake/r17_operator_intake_check_report.json",
+                          "state/ui/r17_kanban_mvp/r17_operator_intake_snapshot.json",
+                          "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+                          "state/agents/r17_orchestrator_identity_authority.json",
+                          "state/agents/r17_orchestrator_authority_check_report.json",
+                          "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+                          "state/orchestration/r17_orchestrator_loop_state_machine.json",
+                          "state/orchestration/r17_orchestrator_loop_transition_check_report.json",
+                          "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+                          "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+                          "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json",
+                          "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json",
+                          "scripts/operator_wall/r17_kanban_mvp/index.html",
+                          "scripts/operator_wall/r17_kanban_mvp/styles.css",
+                          "scripts/operator_wall/r17_kanban_mvp/kanban.js",
+                          "scripts/operator_wall/r17_kanban_mvp/README.md",
+                          "tools/R17OperatorIntakeSurface.psm1",
+                          "tools/new_r17_operator_intake_surface.ps1",
+                          "tools/validate_r17_operator_intake_surface.ps1",
+                          "tests/test_r17_operator_intake_surface.ps1",
+                          "tests/fixtures/r17_operator_intake_surface/",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_011_operator_interaction_surface/"
+                      ],
+    "memory_refs":  [
+                        {
+                            "ref":  "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                            "boundary":  "exact repo ref only, not hidden chat memory"
+                        },
+                        {
+                            "ref":  "execution/KANBAN.md",
+                            "boundary":  "exact repo ref only, status surface not runtime board mutation"
+                        },
+                        {
+                            "ref":  "governance/ACTIVE_STATE.md",
+                            "boundary":  "exact repo ref only, status surface"
+                        },
+                        {
+                            "ref":  "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                            "boundary":  "exact repo ref only, authority classification"
+                        },
+                        {
+                            "ref":  "governance/DECISION_LOG.md",
+                            "boundary":  "exact repo ref only, decision authority"
+                        },
+                        {
+                            "ref":  "governance/VISION.md",
+                            "boundary":  "exact repo ref only, product doctrine"
+                        },
+                        {
+                            "ref":  "state/governance/r17_kpi_baseline_target_scorecard.json",
+                            "boundary":  "exact repo ref only, target scores are not achieved implementation evidence"
+                        },
+                        {
+                            "ref":  "contracts/board/r17_card.contract.json",
+                            "boundary":  "exact repo ref only, card contract model"
+                        },
+                        {
+                            "ref":  "contracts/board/r17_board_state.contract.json",
+                            "boundary":  "exact repo ref only, board state contract model"
+                        },
+                        {
+                            "ref":  "contracts/board/r17_board_event.contract.json",
+                            "boundary":  "exact repo ref only, board event contract model"
+                        },
+                        {
+                            "ref":  "contracts/agents/r17_orchestrator_identity_authority.contract.json",
+                            "boundary":  "exact repo ref only, Orchestrator authority model"
+                        },
+                        {
+                            "ref":  "state/agents/r17_orchestrator_identity_authority.json",
+                            "boundary":  "exact repo ref only, generated state artifact only"
+                        },
+                        {
+                            "ref":  "state/agents/r17_orchestrator_route_recommendation_seed.json",
+                            "boundary":  "exact repo ref only, non-executable route recommendation seed"
+                        },
+                        {
+                            "ref":  "state/agents/r17_orchestrator_authority_check_report.json",
+                            "boundary":  "exact repo ref only, authority compatibility report"
+                        },
+                        {
+                            "ref":  "contracts/orchestration/r17_orchestrator_loop_state_machine.contract.json",
+                            "boundary":  "exact repo ref only, loop state-machine contract"
+                        },
+                        {
+                            "ref":  "state/orchestration/r17_orchestrator_loop_state_machine.json",
+                            "boundary":  "exact repo ref only, generated non-runtime state-machine artifact"
+                        },
+                        {
+                            "ref":  "state/orchestration/r17_orchestrator_loop_seed_evaluation.json",
+                            "boundary":  "exact repo ref only, deterministic non-executable seed evaluation"
+                        },
+                        {
+                            "ref":  "state/orchestration/r17_orchestrator_loop_transition_check_report.json",
+                            "boundary":  "exact repo ref only, transition check report"
+                        },
+                        {
+                            "ref":  "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_board_state.json",
+                            "boundary":  "exact repo ref only, generated board state artifact"
+                        },
+                        {
+                            "ref":  "state/ui/r17_kanban_mvp/r17_kanban_snapshot.json",
+                            "boundary":  "exact repo ref only, read-only static UI snapshot"
+                        },
+                        {
+                            "ref":  "state/ui/r17_kanban_mvp/r17_card_detail_snapshot.json",
+                            "boundary":  "exact repo ref only, read-only card detail snapshot"
+                        },
+                        {
+                            "ref":  "state/ui/r17_kanban_mvp/r17_event_evidence_summary_snapshot.json",
+                            "boundary":  "exact repo ref only, read-only event/evidence snapshot"
+                        }
+                    ],
+    "runtime_boundary_flags":  {
+                                   "operator_intake_runtime_server_implemented":  false,
+                                   "live_orchestrator_runtime_implemented":  false,
+                                   "live_board_mutation_implemented":  false,
+                                   "card_creation_runtime_implemented":  false,
+                                   "a2a_runtime_implemented":  false,
+                                   "dev_codex_adapter_runtime_implemented":  false,
+                                   "qa_test_agent_adapter_runtime_implemented":  false,
+                                   "evidence_auditor_api_runtime_implemented":  false,
+                                   "external_api_calls_implemented":  false,
+                                   "executable_handoffs_implemented":  false,
+                                   "executable_transitions_implemented":  false,
+                                   "autonomous_agents_implemented":  false,
+                                   "product_runtime_implemented":  false,
+                                   "production_runtime_implemented":  false
+                               },
+    "proposal_execution_flags":  {
+                                     "runtime_orchestrator_invoked":  false,
+                                     "board_mutation_performed":  false,
+                                     "card_created":  false,
+                                     "agent_invocation_performed":  false,
+                                     "a2a_message_sent":  false,
+                                     "api_call_performed":  false,
+                                     "dev_output_claimed":  false,
+                                     "qa_result_claimed":  false,
+                                     "audit_verdict_claimed":  false
+                                 },
+    "non_claims":  [
+                       "R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only",
+                       "R17-011 creates generated operator intake seed packet, non-executable Orchestrator intake proposal, check report, and UI snapshot only",
+                       "R17-011 updates the local/static Kanban MVP with an intake preview panel only",
+                       "R17-011 does not implement live Orchestrator runtime",
+                       "R17-011 does not implement live board mutation",
+                       "R17-011 does not create runtime cards",
+                       "R17-011 does not implement A2A runtime",
+                       "R17-011 does not implement Dev/Codex executor adapter",
+                       "R17-011 does not implement QA/Test Agent adapter",
+                       "R17-011 does not implement Evidence Auditor API adapter",
+                       "R17-011 does not call external APIs",
+                       "R17-011 does not call Codex as executor",
+                       "R17-011 does not claim Dev output, QA result, or audit verdict beyond explicit not-implemented placeholders",
+                       "R17-011 does not claim autonomous agents",
+                       "R17-011 does not claim product runtime",
+                       "R17-011 does not claim production runtime",
+                       "R17-011 does not claim executable handoffs or executable transitions",
+                       "R17-011 does not claim external audit acceptance",
+                       "R17-011 does not claim main merge",
+                       "R13 boundary preserved",
+                       "R14 caveats preserved",
+                       "R15 caveats preserved",
+                       "R16 boundary preserved",
+                       "R17-012 through R17-028 remain planned only",
+                       "R17-011 does not claim solved Codex compaction",
+                       "R17-011 does not claim solved Codex reliability"
+                   ],
+    "rejected_claims":  [
+                            "live_board_mutation",
+                            "Orchestrator_runtime",
+                            "A2A_runtime",
+                            "autonomous_agents",
+                            "Dev_Codex_executor_adapter_runtime",
+                            "QA_Test_Agent_adapter_runtime",
+                            "Evidence_Auditor_API_adapter_runtime",
+                            "external_API_calls",
+                            "executable_handoffs",
+                            "executable_transitions",
+                            "external_integrations",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "product_runtime",
+                            "production_runtime",
+                            "real_Dev_output",
+                            "real_QA_result",
+                            "real_audit_verdict",
+                            "R13_closure",
+                            "R14_caveat_removal",
+                            "R15_caveat_removal",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability"
+                        ],
+    "claim_status":  {
+                         "external_audit_acceptance_claimed":  false,
+                         "main_merge_claimed":  false,
+                         "r13_closure_claimed":  false,
+                         "r14_caveat_removal_claimed":  false,
+                         "r15_caveat_removal_claimed":  false,
+                         "solved_codex_compaction_claimed":  false,
+                         "solved_codex_reliability_claimed":  false
+                     },
+    "preserved_boundaries":  {
+                                 "r13":  {
+                                             "status":  "failed/partial",
+                                             "active_through":  "R13-018",
+                                             "closed":  false
+                                         },
+                                 "r14":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R14-006",
+                                             "caveats_removed":  false
+                                         },
+                                 "r15":  {
+                                             "status":  "accepted_with_caveats",
+                                             "through":  "R15-009",
+                                             "caveats_removed":  false
+                                         },
+                                 "r16":  {
+                                             "status":  "complete_bounded_foundation_scope",
+                                             "through":  "R16-026",
+                                             "external_audit_acceptance_claimed":  false,
+                                             "main_merge_completed":  false,
+                                             "product_runtime_implemented":  false,
+                                             "a2a_runtime_implemented":  false,
+                                             "autonomous_agents_implemented":  false,
+                                             "solved_codex_compaction":  false,
+                                             "solved_codex_reliability":  false
+                                         }
+                             }
+}
