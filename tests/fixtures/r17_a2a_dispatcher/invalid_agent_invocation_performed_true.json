@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "agent_invocation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027agent_invocation_performed\u0027 must be false"
+                                   ]
+}

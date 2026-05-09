@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "runtime_card_creation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027runtime_card_creation_performed\u0027 must be false"
+                                   ]
+}

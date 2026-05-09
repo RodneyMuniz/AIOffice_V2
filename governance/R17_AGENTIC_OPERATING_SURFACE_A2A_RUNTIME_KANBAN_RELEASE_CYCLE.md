@@ -1,12 +1,12 @@
-﻿# R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle
+# R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle
 
 **Milestone name:** R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
 **Starting head:** `5bae17229ea10dee4ce072b258f828220b9d1d8d`
 **Starting tree:** `9de1a7b733f400da78f8e683ae4111977c70f1fb`
-**Status after this pass:** Active through `R17-020` only.
-**Current scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status; R17-004 defines governed card, board-state, and board-event contracts only; R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only; R17-006 implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts; R17-007 implements a read-only card detail evidence drawer/panel only using the R17-005 board state/replay artifacts and R17-006 Kanban MVP snapshot/UI artifacts; R17-008 implements a read-only board event detail and evidence summary surface only using R17-005 board state/replay artifacts, R17-006 Kanban MVP snapshot/UI artifacts, and R17-007 card detail drawer artifacts; R17-009 defines the Orchestrator identity and authority contract only and creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only; R17-010 defines and validates a bounded Orchestrator loop state machine, generated seed evaluation, and transition check artifacts only; R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only; R17-012 defines the R17 agent registry and role identity packet set only, creating generated agent registry, role identity packets, registry check report, and UI workforce snapshot only; R17-013 implements a bounded deterministic memory/artifact loader foundation only, creating generated memory/artifact loader report, loaded-ref log, future-use agent memory packets, and UI memory loader snapshot only; R17-014 defines the agent invocation log foundation only, creating seed/foundation invocation records only, a check report, and a read-only UI invocation log snapshot; R17-015 defines the common tool adapter contract foundation only, creating disabled seed adapter profiles, a check report, compact invalid fixtures, proof-review package, and a read-only UI tool adapter snapshot/panel only; R17-016 creates a disabled packet-only Developer/Codex executor adapter foundation only, creating generated adapter contract, request/result packets, check report, compact invalid fixtures, proof-review package, and read-only UI Codex executor adapter snapshot/panel only; R17-017 creates a disabled seed QA/Test Agent adapter foundation only, creating generated adapter contract, request/result/defect packets, check report, compact invalid fixtures, proof-review package, and read-only UI QA/Test Agent adapter snapshot/panel only; R17-018 creates a disabled seed Evidence Auditor API adapter foundation only, creating generated adapter contract, request/response/verdict packets, check report, compact invalid fixtures, proof-review package, and read-only UI Evidence Auditor API adapter snapshot/panel only; R17-019 creates a disabled/not-executed tool-call ledger foundation only, creating generated ledger contract, JSONL ledger seed records, check report, compact invalid fixtures, proof-review package, and read-only UI tool-call ledger snapshot only; and R17-020 defines A2A message and handoff contracts only, creating generated A2A message and handoff contracts, disabled/not-dispatched seed packets, check report, compact invalid fixtures, proof-review package, and read-only UI A2A contracts snapshot only.
-**Planned-only boundary:** `R17-021` through `R17-028` remain planned only after this pass.
+**Status after this pass:** Active through `R17-021` only.
+**Current scope:** R17-001 through R17-003 establish authority, planning, KPI baseline, and repo-truth status; R17-004 defines governed card, board-state, and board-event contracts only; R17-005 implements bounded repo-backed board state store generation and deterministic event replay/check tooling only; R17-006 implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts; R17-007 implements a read-only card detail evidence drawer/panel only using the R17-005 board state/replay artifacts and R17-006 Kanban MVP snapshot/UI artifacts; R17-008 implements a read-only board event detail and evidence summary surface only using R17-005 board state/replay artifacts, R17-006 Kanban MVP snapshot/UI artifacts, and R17-007 card detail drawer artifacts; R17-009 defines the Orchestrator identity and authority contract only and creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only; R17-010 defines and validates a bounded Orchestrator loop state machine, generated seed evaluation, and transition check artifacts only; R17-011 implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only; R17-012 defines the R17 agent registry and role identity packet set only, creating generated agent registry, role identity packets, registry check report, and UI workforce snapshot only; R17-013 implements a bounded deterministic memory/artifact loader foundation only, creating generated memory/artifact loader report, loaded-ref log, future-use agent memory packets, and UI memory loader snapshot only; R17-014 defines the agent invocation log foundation only, creating seed/foundation invocation records only, a check report, and a read-only UI invocation log snapshot; R17-015 defines the common tool adapter contract foundation only, creating disabled seed adapter profiles, a check report, compact invalid fixtures, proof-review package, and a read-only UI tool adapter snapshot/panel only; R17-016 creates a disabled packet-only Developer/Codex executor adapter foundation only, creating generated adapter contract, request/result packets, check report, compact invalid fixtures, proof-review package, and read-only UI Codex executor adapter snapshot/panel only; R17-017 creates a disabled seed QA/Test Agent adapter foundation only, creating generated adapter contract, request/result/defect packets, check report, compact invalid fixtures, proof-review package, and read-only UI QA/Test Agent adapter snapshot/panel only; R17-018 creates a disabled seed Evidence Auditor API adapter foundation only, creating generated adapter contract, request/response/verdict packets, check report, compact invalid fixtures, proof-review package, and read-only UI Evidence Auditor API adapter snapshot/panel only; R17-019 creates a disabled/not-executed tool-call ledger foundation only, creating generated ledger contract, JSONL ledger seed records, check report, compact invalid fixtures, proof-review package, and read-only UI tool-call ledger snapshot only; R17-020 defines A2A message and handoff contracts only, creating generated A2A message and handoff contracts, disabled/not-dispatched seed packets, check report, compact invalid fixtures, proof-review package, and read-only UI A2A contracts snapshot only; and R17-021 creates a bounded A2A dispatcher foundation only, consuming committed R17-020 seed A2A packets, validating deterministic route candidates, writing not-executed dispatch logs/check artifacts, compact invalid fixtures, a proof-review package, and a read-only UI dispatcher snapshot only.
+**Planned-only boundary:** `R17-022` through `R17-028` remain planned only after this pass.
 
 This authority document records the active R17 boundary after the completed R16 boundary. It does not implement the full R17 milestone.
 
@@ -50,7 +50,7 @@ None of these planned capabilities are claimed as implemented by this opening pa
 | Phase C | Orchestrator runtime | `R17-009` through `R17-011` | `R17-009` done as Orchestrator identity/authority contract and generated non-executable state-artifact proof only; `R17-010` done as bounded loop state-machine contract, generated non-executable seed evaluation, and transition check artifacts only; `R17-011` done as bounded operator intake preview and deterministic non-executable intake packet/proposal generation only |
 | Phase D | Agent registry and scoped memory loader | `R17-012` through `R17-014` | `R17-012` done as agent registry and role identity packet model/generation only; `R17-013` done as bounded deterministic memory/artifact loader foundation only; `R17-014` done as agent invocation log foundation only with seed/foundation invocation records |
 | Phase E | Tool adapters and ledgers | `R17-015` through `R17-019` | `R17-015` done as common tool adapter contract foundation only with disabled seed adapter profiles; `R17-016` done as disabled packet-only Developer/Codex executor adapter foundation only; `R17-017` done as disabled seed QA/Test Agent adapter foundation only; `R17-018` done as disabled seed Evidence Auditor API adapter foundation only; `R17-019` done as disabled/not-executed tool-call ledger foundation only |
-| Phase F | A2A protocol and dispatcher | `R17-020` through `R17-022` | `R17-020` done as A2A message and handoff contract foundation only with disabled/not-dispatched seed packets; `R17-021` and `R17-022` remain planned only |
+| Phase F | A2A protocol and dispatcher | `R17-020` through `R17-022` | `R17-020` done as A2A message and handoff contract foundation only with disabled/not-dispatched seed packets; `R17-021` done as a bounded seed-packet dispatcher foundation only with not-executed dispatch records; `R17-022` remains planned only |
 | Phase G | Four required agentic A2A cycles | `R17-023` through `R17-026` | Planned only |
 | Phase H | Observability, safety, external replay path, final package | `R17-027` through `R17-028` | Planned only |
 
@@ -200,11 +200,12 @@ None of these planned capabilities are claimed as implemented by this opening pa
 - Done when: the generated A2A message and handoff contracts, disabled/not-dispatched seed packets, check report, UI snapshot, compact invalid fixtures, validator, and focused test pass; every packet preserves registry-bound agent IDs, correlation/card IDs, evidence/authority refs, memory packet refs, invocation/tool-call/board refs, explicit false runtime flags, non-claims, and rejected claims; and no A2A runtime, dispatcher, message sending, message dispatch, agent invocation, adapter runtime, actual tool call, external API call, board mutation, runtime card creation, QA result, real audit verdict, external audit acceptance, main merge, or R17-021 or later completion claim is implemented or claimed.
 
 ### `R17-021` Implement A2A dispatcher
-- Status: planned
+- Status: done
 - Order: 21
 - Milestone: `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
-- Durable output: planned only; expected future dispatcher module, message log, validators, and tests.
-- Done when: future evidence proves unauthorized handoffs fail closed and board events are written for dispatch and return.
+- Depends on: `R17-020`
+- Durable output: `contracts/a2a/r17_a2a_dispatcher.contract.json`, `state/a2a/r17_a2a_dispatcher_routes.json`, `state/a2a/r17_a2a_dispatcher_dispatch_log.jsonl`, `state/a2a/r17_a2a_dispatcher_check_report.json`, `state/ui/r17_kanban_mvp/r17_a2a_dispatcher_snapshot.json`, tooling `tools/R17A2aDispatcher.psm1`, `tools/new_r17_a2a_dispatcher.ps1`, and `tools/validate_r17_a2a_dispatcher.ps1`, focused test `tests/test_r17_a2a_dispatcher.ps1`, compact fixtures under `tests/fixtures/r17_a2a_dispatcher/`, and proof-review package `state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_021_a2a_dispatcher/`.
+- Done when: the bounded dispatcher foundation validates committed R17-020 seed message/handoff packets, produces deterministic route candidates and not-executed dispatch log entries, rejects unauthorized handoffs and unsafe runtime/future-task claims with compact invalid fixtures, preserves exact repo-relative refs, and does not send A2A messages, invoke live agents, invoke Orchestrator runtime, invoke adapters, perform tool/API calls, mutate the board, create runtime cards, claim QA/audit results, claim external audit acceptance, claim main merge, or complete R17-022 or later.
 
 ### `R17-022` Add stop, retry, pause, block, and re-entry controls
 - Status: planned
@@ -280,7 +281,7 @@ The four required future A2A cycles are:
 3. `R17-025`: Orchestrator to QA/Test to Developer fix loop.
 4. `R17-026`: Orchestrator to Evidence Auditor API to Release/Closeout.
 
-These cycles are not working yet and are not claimed by `R17-001` through `R17-020`.
+These cycles are not working yet and are not claimed by `R17-001` through `R17-021`.
 
 ## KPI Target Domains
 
@@ -298,7 +299,7 @@ The machine-readable baseline/target scorecard is `state/governance/r17_kpi_base
 
 ## Non-Claims
 
-This R17 active boundary through `R17-020` claims none of the following:
+This R17 active boundary through `R17-021` claims none of the following:
 
 - no external audit acceptance;
 - no live board mutation;
@@ -316,7 +317,7 @@ This R17 active boundary through `R17-020` claims none of the following:
 - no autonomous agents yet;
 - no true multi-agent execution yet;
 - no A2A runtime yet;
-- no A2A dispatcher;
+- no live A2A dispatcher runtime;
 - no A2A messages sent;
 - no live agent invocation;
 - no adapter runtime;
@@ -337,7 +338,7 @@ This R17 active boundary through `R17-020` claims none of the following:
 - no real Dev output;
 - no real QA result;
 - no real audit verdict;
-- no R17-021 or later implementation yet;
+- no R17-022 or later implementation yet;
 - no Kanban runtime yet;
 - no Orchestrator runtime yet;
 - no R18 opening.
@@ -348,7 +349,8 @@ The following claims are rejected unless future committed evidence and user appr
 
 - the R16 report alone opens or proves R17;
 - the revised R17 plan alone implements R17 capability;
-- R17-021 through R17-028 are implemented by this pass;
+- R17-022 through R17-028 are implemented by this pass;
+- R17-021 implements live A2A runtime, live A2A message sending, live dispatch to agents or adapters, live Orchestrator runtime, adapter runtime, actual tool calls, external API calls, live board mutation, runtime card creation, autonomous agents, production runtime, product runtime, real Dev output, real QA result, real audit verdict, external audit acceptance, main merge, or future R17-022 or later completion;
 - R17-020 implements A2A runtime, A2A dispatcher, message sending, message dispatch, live agent invocation, live Orchestrator runtime, adapter runtime, actual tool calls, external API calls, live board mutation, runtime card creation, autonomous agents, runtime memory engine, vector retrieval, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, real audit verdict, or future R17-021 or later completion;
 - R17-019 implements tool-call runtime, ledger runtime, actual tool calls, adapter runtime invocation, Codex executor invocation, QA/Test Agent invocation, Evidence Auditor API invocation, external API calls, A2A runtime, A2A messages, live agent runtime, live Orchestrator runtime, live board mutation, runtime card creation, autonomous agents, runtime memory engine, vector retrieval, executable handoffs, executable transitions, external integrations, external audit acceptance, main merge, production runtime, product runtime, real Dev output, real QA result, real audit verdict, or future R17-020 or later completion;
 - R17-018 implements Evidence Auditor API invocation, external API calls, real audit verdict, external audit acceptance, adapter runtime, tool-call runtime, live tool calls, live agent runtime, live Orchestrator runtime, live board mutation, runtime card creation, A2A runtime, A2A messages, autonomous agents, runtime memory engine, vector retrieval, executable handoffs, executable transitions, external integrations, main merge, production runtime, product runtime, real Dev output, real QA result, or future R17-020 or later completion;

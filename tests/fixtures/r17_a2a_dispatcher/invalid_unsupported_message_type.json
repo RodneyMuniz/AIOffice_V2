@@ -1,0 +1,8 @@
+﻿{
+    "target":  "message",
+    "property":  "message_type",
+    "value":  "unsupported_status_ping",
+    "expected_failure_fragments":  [
+                                       "unsupported message_type"
+                                   ]
+}

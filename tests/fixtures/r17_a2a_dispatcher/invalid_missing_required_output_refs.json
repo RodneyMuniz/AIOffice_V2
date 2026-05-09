@@ -1,0 +1,10 @@
+﻿{
+    "target":  "handoff",
+    "property":  "required_output_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "required_output_refs must not be empty"
+                                   ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route_non_claim_append",
+    "property":  "non_claims",
+    "value":  "R17-022 is implemented by this pass.",
+    "expected_failure_fragments":  [
+                                       "future R17-022+"
+                                   ]
+}

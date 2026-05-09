@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "external_api_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027external_api_call_performed\u0027 must be false"
+                                   ]
+}

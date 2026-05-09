@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "qa_result_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027qa_result_claimed\u0027 must be false"
+                                   ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "a2a_message_sent",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027a2a_message_sent\u0027 must be false"
+                                   ]
+}

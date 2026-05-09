@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route_non_claim_append",
+    "property":  "non_claims",
+    "value":  "rg --files repo-wide file list",
+    "expected_failure_fragments":  [
+                                       "broad repo scan"
+                                   ]
+}

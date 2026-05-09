@@ -1,0 +1,10 @@
+﻿{
+    "target":  "handoff_allowed_message_types",
+    "property":  "allowed_message_types",
+    "value":  [
+                  "clarification_request"
+              ],
+    "expected_failure_fragments":  [
+                                       "not allowed by handoff"
+                                   ]
+}

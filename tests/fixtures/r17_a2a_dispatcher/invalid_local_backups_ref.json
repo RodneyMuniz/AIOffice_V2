@@ -1,0 +1,8 @@
+﻿{
+    "target":  "message_authority_append",
+    "property":  "authority_refs",
+    "value":  ".local_backups/r17_a2a_dispatcher.json",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ]
+}

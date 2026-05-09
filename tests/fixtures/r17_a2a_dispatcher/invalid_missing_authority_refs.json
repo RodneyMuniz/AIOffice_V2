@@ -1,0 +1,10 @@
+﻿{
+    "target":  "message",
+    "property":  "authority_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "authority_refs must not be empty"
+                                   ]
+}

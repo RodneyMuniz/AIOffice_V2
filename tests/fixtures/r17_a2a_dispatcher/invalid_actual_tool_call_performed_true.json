@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "actual_tool_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027actual_tool_call_performed\u0027 must be false"
+                                   ]
+}

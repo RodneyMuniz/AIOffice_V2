@@ -1,0 +1,8 @@
+﻿{
+    "target":  "message",
+    "property":  "to_agent_id",
+    "value":  "ghost_agent",
+    "expected_failure_fragments":  [
+                                       "unknown to_agent_id"
+                                   ]
+}

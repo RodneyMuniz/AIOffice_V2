@@ -1,0 +1,8 @@
+﻿{
+    "target":  "message_evidence_append",
+    "property":  "evidence_refs",
+    "value":  "state/a2a/*.json",
+    "expected_failure_fragments":  [
+                                       "wildcard"
+                                   ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "external_audit_acceptance_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027external_audit_acceptance_claimed\u0027 must be false"
+                                   ]
+}

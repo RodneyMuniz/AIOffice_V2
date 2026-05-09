@@ -1,0 +1,8 @@
+﻿{
+    "target":  "route",
+    "property":  "adapter_runtime_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027adapter_runtime_invoked\u0027 must be false"
+                                   ]
+}
