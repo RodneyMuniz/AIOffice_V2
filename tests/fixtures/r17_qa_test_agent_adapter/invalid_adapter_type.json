@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "adapter_type must be qa_test_agent_adapter"
+                                   ],
+    "set_values":  {
+                       "adapter_type":  "developer_codex_executor_adapter"
+                   }
+}

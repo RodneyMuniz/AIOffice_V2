@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "broad repo scan"
+                                   ],
+    "set_values":  {
+                       "allowed_validation_scope.broad_repo_scan_allowed":  true
+                   }
+}

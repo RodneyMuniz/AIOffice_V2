@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status executable_transition_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.executable_transition_claimed":  true
+                   }
+}

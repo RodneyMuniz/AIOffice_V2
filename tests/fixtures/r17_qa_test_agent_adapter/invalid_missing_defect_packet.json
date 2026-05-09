@@ -1,0 +1,6 @@
+﻿{
+    "target":  "missing_defect",
+    "expected_failure_fragments":  [
+                                       "defect packet is missing"
+                                   ]
+}

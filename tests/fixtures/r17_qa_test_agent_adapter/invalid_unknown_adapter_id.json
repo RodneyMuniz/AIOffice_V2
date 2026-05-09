@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "adapter_id is invalid"
+                                   ],
+    "set_values":  {
+                       "adapter_id":  "unknown_adapter"
+                   }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status runtime_card_creation_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.runtime_card_creation_claimed":  true
+                   }
+}

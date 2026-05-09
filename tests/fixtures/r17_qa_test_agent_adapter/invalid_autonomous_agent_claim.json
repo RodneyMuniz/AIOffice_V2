@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status autonomous_agent_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.autonomous_agent_claimed":  true
+                   }
+}

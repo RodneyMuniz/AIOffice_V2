@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status solved_codex_compaction_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.solved_codex_compaction_claimed":  true
+                   }
+}

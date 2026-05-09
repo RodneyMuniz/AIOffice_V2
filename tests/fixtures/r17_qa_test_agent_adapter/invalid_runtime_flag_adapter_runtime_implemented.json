@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags adapter_runtime_implemented must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.adapter_runtime_implemented":  true
+                   }
+}

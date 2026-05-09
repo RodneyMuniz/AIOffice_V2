@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags solved_codex_reliability_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.solved_codex_reliability_claimed":  true
+                   }
+}

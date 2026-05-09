@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "expected_failure_fragments":  [
+                                       "real QA result claim without committed validation evidence"
+                                   ],
+    "set_values":  {
+                       "committed_validation_evidence_present":  false,
+                       "qa_status":  "passed"
+                   }
+}

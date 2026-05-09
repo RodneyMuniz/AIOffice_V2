@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status main_merge_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.main_merge_claimed":  true
+                   }
+}

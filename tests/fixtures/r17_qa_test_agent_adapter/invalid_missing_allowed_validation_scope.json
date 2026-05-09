@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027allowed_validation_scope\u0027"
+                                   ],
+    "remove_paths":  [
+                         "allowed_validation_scope"
+                     ]
+}

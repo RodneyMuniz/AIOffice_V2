@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status r15_caveat_removal_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.r15_caveat_removal_claimed":  true
+                   }
+}

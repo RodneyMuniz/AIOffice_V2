@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags full_source_file_contents_embedded must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.full_source_file_contents_embedded":  true
+                   }
+}

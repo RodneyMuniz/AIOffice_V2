@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status r13_closure_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.r13_closure_claimed":  true
+                   }
+}

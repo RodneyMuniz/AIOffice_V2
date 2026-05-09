@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags agent_invocation_performed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.agent_invocation_performed":  true
+                   }
+}

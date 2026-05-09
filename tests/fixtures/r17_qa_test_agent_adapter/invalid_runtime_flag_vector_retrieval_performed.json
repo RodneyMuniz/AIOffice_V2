@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags vector_retrieval_performed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.vector_retrieval_performed":  true
+                   }
+}

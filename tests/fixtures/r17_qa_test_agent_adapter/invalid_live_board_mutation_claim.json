@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status live_board_mutation_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.live_board_mutation_claimed":  true
+                   }
+}

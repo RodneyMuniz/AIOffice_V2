@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "execution_mode"
+                                   ],
+    "set_values":  {
+                       "execution_mode":  "live_qa_execution"
+                   }
+}

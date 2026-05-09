@@ -1,0 +1,7 @@
+﻿{
+    "target":  "ui_text",
+    "expected_failure_fragments":  [
+                                       "forbidden external dependency"
+                                   ],
+    "text":  "\u003cscript src=\"https://example.invalid/app.js\"\u003e\u003c/script\u003e"
+}

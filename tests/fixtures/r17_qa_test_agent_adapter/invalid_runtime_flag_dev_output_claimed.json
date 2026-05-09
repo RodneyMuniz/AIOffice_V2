@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags dev_output_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.dev_output_claimed":  true
+                   }
+}

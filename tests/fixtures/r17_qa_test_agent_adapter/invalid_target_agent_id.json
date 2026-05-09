@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "target_agent_id must be qa_test_agent"
+                                   ],
+    "set_values":  {
+                       "target_agent_id":  "developer"
+                   }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags live_orchestrator_runtime_invoked must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.live_orchestrator_runtime_invoked":  true
+                   }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags qa_test_agent_invoked must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.qa_test_agent_invoked":  true
+                   }
+}

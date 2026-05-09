@@ -528,6 +528,80 @@
         </div>
       </section>
 
+      <section class="qa-test-agent-adapter-panel" id="qa-test-agent-adapter-panel" aria-labelledby="qa-test-agent-adapter-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-017 packet foundation only</p>
+            <h2 id="qa-test-agent-adapter-title">QA/Test Agent Adapter</h2>
+          </div>
+          <div class="drawer-status qa-test-agent-adapter-status">
+            <span>disabled seed foundation</span>
+            <strong>no QA/Test Agent invocation; no adapter runtime; no API calls</strong>
+          </div>
+        </div>
+
+        <div class="qa-test-agent-adapter-grid">
+          <article class="detail-block">
+            <h3>Packet Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Contract</dt>
+              <dd>contracts/tools/r17_qa_test_agent_adapter.contract.json</dd>
+              <dt>Request packet</dt>
+              <dd>state/tools/r17_qa_test_agent_adapter_request_packet.json</dd>
+              <dt>Result packet</dt>
+              <dd>state/tools/r17_qa_test_agent_adapter_result_packet.json</dd>
+              <dt>Defect packet</dt>
+              <dd>state/tools/r17_qa_test_agent_adapter_defect_packet.json</dd>
+              <dt>Check report</dt>
+              <dd>state/tools/r17_qa_test_agent_adapter_check_report.json</dd>
+              <dt>UI snapshot</dt>
+              <dd>state/ui/r17_kanban_mvp/r17_qa_test_agent_adapter_snapshot.json</dd>
+              <dt>Status</dt>
+              <dd>disabled_seed</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Runtime Flags</h3>
+            <dl class="card-fields">
+              <dt>qa_test_agent_invoked: false</dt>
+              <dd>no QA/Test Agent invocation happened</dd>
+              <dt>adapter_runtime_implemented: false</dt>
+              <dd>no adapter runtime exists in R17-017</dd>
+              <dt>actual_tool_call_performed: false</dt>
+              <dd>no tool calls were performed</dd>
+              <dt>external_api_call_performed: false</dt>
+              <dd>no API calls were performed</dd>
+              <dt>a2a_message_sent: false</dt>
+              <dd>no A2A messages were sent</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Packet Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-017 creates a disabled seed foundation for the future QA/Test Agent adapter.</li>
+              <li>The request packet points at the R17-015 common adapter seed profile, R17-014 QA invocation seed, QA memory packet, and R17-016 Codex result packet only.</li>
+              <li>The result packet records not_executed_disabled_foundation and contains no real QA result, validation execution, defect opening, or fix request.</li>
+              <li>The panel is read-only and does not write files, mutate the board, create runtime cards, invoke agents, call adapters, call APIs, execute tests, or invoke QA/Test Agent.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>contracts/tools/r17_qa_test_agent_adapter.contract.json</li>
+              <li>state/tools/r17_qa_test_agent_adapter_request_packet.json</li>
+              <li>state/tools/r17_qa_test_agent_adapter_result_packet.json</li>
+              <li>state/tools/r17_qa_test_agent_adapter_defect_packet.json</li>
+              <li>state/tools/r17_qa_test_agent_adapter_check_report.json</li>
+              <li>state/ui/r17_kanban_mvp/r17_qa_test_agent_adapter_snapshot.json</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_017_qa_test_agent_adapter/</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

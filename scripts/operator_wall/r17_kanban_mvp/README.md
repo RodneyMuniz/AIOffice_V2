@@ -20,6 +20,8 @@ R17-015 adds a read-only tool adapter contract panel. The panel is backed by `st
 
 R17-016 adds a read-only Developer/Codex executor adapter panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_codex_executor_adapter_snapshot.json` and shows the disabled packet-only adapter foundation, request packet, result packet, check report, and required false runtime flags including `codex_executor_invoked: false`, `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not invoke Codex, implement adapter runtime, execute tool calls, call APIs, send A2A messages, mutate the board live, create runtime cards, or claim real Dev output.
 
+R17-017 adds a read-only QA/Test Agent adapter panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_qa_test_agent_adapter_snapshot.json` and shows the disabled seed adapter foundation, request packet, result packet, defect packet, check report, and required false runtime flags including `qa_test_agent_invoked: false`, `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not invoke QA/Test Agent, implement adapter runtime, execute tests through a live adapter, execute tool calls, call APIs, send A2A messages, mutate the board live, create runtime cards, or claim a real QA result.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server

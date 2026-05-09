@@ -1,0 +1,11 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "forbidden_actions must not be empty"
+                                   ],
+    "set_values":  {
+                       "forbidden_actions":  [
+
+                                             ]
+                   }
+}
