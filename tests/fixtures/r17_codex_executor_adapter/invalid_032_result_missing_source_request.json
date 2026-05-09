@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_missing_source_request",
+    "expected_failure_fragments":  [
+                                       "result packet is missing required field \u0027source_request_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "source_request_ref"
+                     ]
+}

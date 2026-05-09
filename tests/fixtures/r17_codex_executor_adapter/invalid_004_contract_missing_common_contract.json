@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_missing_common_contract",
+    "expected_failure_fragments":  [
+                                       "contract is missing required field \u0027common_tool_adapter_contract_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "common_tool_adapter_contract_ref"
+                     ]
+}

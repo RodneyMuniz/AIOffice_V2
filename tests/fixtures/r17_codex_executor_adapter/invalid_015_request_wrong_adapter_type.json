@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_wrong_adapter_type",
+    "expected_failure_fragments":  [
+                                       "request packet adapter_type is invalid"
+                                   ],
+    "set_values":  {
+                       "adapter_type":  "evidence_auditor_api_adapter"
+                   }
+}

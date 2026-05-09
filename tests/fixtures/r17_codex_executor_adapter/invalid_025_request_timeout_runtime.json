@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_timeout_runtime",
+    "expected_failure_fragments":  [
+                                       "request packet timeout_policy must not implement runtime timeout"
+                                   ],
+    "set_values":  {
+                       "timeout_policy.timeout_runtime_implemented":  true
+                   }
+}

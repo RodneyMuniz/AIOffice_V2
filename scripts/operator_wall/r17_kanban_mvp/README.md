@@ -18,6 +18,8 @@ R17-014 adds a read-only agent invocation log panel. The panel is backed by `sta
 
 R17-015 adds a read-only tool adapter contract panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_tool_adapter_contract_snapshot.json` and shows the common tool adapter contract, disabled seed adapter profiles for the future Developer/Codex executor, QA/Test Agent, and Evidence Auditor API adapters, and required false runtime flags including `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not implement adapter runtime, execute tool calls, call APIs, invoke Codex, invoke QA/Test Agent, invoke Evidence Auditor API, send A2A messages, mutate the board live, or create runtime cards.
 
+R17-016 adds a read-only Developer/Codex executor adapter panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_codex_executor_adapter_snapshot.json` and shows the disabled packet-only adapter foundation, request packet, result packet, check report, and required false runtime flags including `codex_executor_invoked: false`, `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not invoke Codex, implement adapter runtime, execute tool calls, call APIs, send A2A messages, mutate the board live, create runtime cards, or claim real Dev output.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server
@@ -38,6 +40,7 @@ Boundary:
 - no QA/Test Agent adapter runtime
 - no Evidence Auditor API runtime
 - no adapter runtime
+- no Codex invocation
 - no external API calls
 - no product runtime
 - no production runtime

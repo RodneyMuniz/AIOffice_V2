@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_urls_allowed",
+    "expected_failure_fragments":  [
+                                       "contract exact_ref_policy must forbid URLs"
+                                   ],
+    "set_values":  {
+                       "exact_ref_policy.urls_allowed":  true
+                   }
+}

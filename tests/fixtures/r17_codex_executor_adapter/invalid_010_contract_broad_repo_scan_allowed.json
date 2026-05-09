@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_broad_repo_scan_allowed",
+    "expected_failure_fragments":  [
+                                       "contract must forbid broad repo scan output"
+                                   ],
+    "set_values":  {
+                       "exact_ref_policy.broad_repo_scan_output_allowed":  true
+                   }
+}

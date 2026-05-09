@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_missing_required_result_fields",
+    "expected_failure_fragments":  [
+                                       "contract is missing required field \u0027required_result_fields\u0027"
+                                   ],
+    "remove_paths":  [
+                         "required_result_fields"
+                     ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "ui_text",
+    "operation":  "ui_external_dependency",
+    "expected_failure_fragments":  [
+                                       "contains forbidden external dependency"
+                                   ],
+    "text":  "\u003clink href=\"https://example.com/x.css\"\u003e"
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_missing_invocation_ref",
+    "expected_failure_fragments":  [
+                                       "request packet is missing required field \u0027invocation_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "invocation_ref"
+                     ]
+}

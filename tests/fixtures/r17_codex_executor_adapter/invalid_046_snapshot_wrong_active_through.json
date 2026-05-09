@@ -1,0 +1,10 @@
+﻿{
+    "target":  "snapshot",
+    "operation":  "snapshot_wrong_active_through",
+    "expected_failure_fragments":  [
+                                       "UI snapshot active_through_task must be R17-016"
+                                   ],
+    "set_values":  {
+                       "active_through_task":  "R17-017"
+                   }
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_wrong_target_agent",
+    "expected_failure_fragments":  [
+                                       "request packet target_agent_id must be developer"
+                                   ],
+    "set_values":  {
+                       "target_agent_id":  "qa_test_agent"
+                   }
+}

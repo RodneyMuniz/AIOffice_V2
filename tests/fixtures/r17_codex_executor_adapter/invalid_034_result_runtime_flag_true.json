@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_runtime_flag_true",
+    "expected_failure_fragments":  [
+                                       "result packet runtime_flags actual_tool_call_performed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.actual_tool_call_performed":  true
+                   }
+}

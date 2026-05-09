@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_wrong_source_task",
+    "expected_failure_fragments":  [
+                                       "contract source_task must be R17-016"
+                                   ],
+    "set_values":  {
+                       "source_task":  "R17-017"
+                   }
+}

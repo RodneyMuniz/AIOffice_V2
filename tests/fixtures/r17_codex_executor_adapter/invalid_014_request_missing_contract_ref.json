@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_missing_contract_ref",
+    "expected_failure_fragments":  [
+                                       "request packet is missing required field \u0027contract_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "contract_ref"
+                     ]
+}

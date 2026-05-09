@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_retry_runtime",
+    "expected_failure_fragments":  [
+                                       "request packet retry_policy must not implement runtime retry"
+                                   ],
+    "set_values":  {
+                       "retry_policy.retry_runtime_implemented":  true
+                   }
+}

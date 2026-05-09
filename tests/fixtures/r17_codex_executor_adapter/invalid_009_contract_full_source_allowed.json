@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_full_source_allowed",
+    "expected_failure_fragments":  [
+                                       "contract must forbid generated artifact embedding full source file contents"
+                                   ],
+    "set_values":  {
+                       "exact_ref_policy.full_source_file_content_embedding_allowed":  true
+                   }
+}

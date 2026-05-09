@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_missing_artifact_type",
+    "expected_failure_fragments":  [
+                                       "contract is missing required field \u0027artifact_type\u0027"
+                                   ],
+    "remove_paths":  [
+                         "artifact_type"
+                     ]
+}

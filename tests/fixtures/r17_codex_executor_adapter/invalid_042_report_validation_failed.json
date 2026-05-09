@@ -1,0 +1,10 @@
+﻿{
+    "target":  "report",
+    "operation":  "report_validation_failed",
+    "expected_failure_fragments":  [
+                                       "check report validation_summary \u0027codex_invocation_disabled\u0027 must be passed"
+                                   ],
+    "set_values":  {
+                       "validation_summary.codex_invocation_disabled":  "failed"
+                   }
+}

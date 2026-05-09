@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_wrong_status",
+    "expected_failure_fragments":  [
+                                       "result packet status must be not_executed_disabled_foundation"
+                                   ],
+    "set_values":  {
+                       "status":  "succeeded"
+                   }
+}

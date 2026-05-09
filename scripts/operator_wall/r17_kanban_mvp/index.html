@@ -457,6 +457,77 @@
         </div>
       </section>
 
+      <section class="codex-executor-adapter-panel" id="codex-executor-adapter-panel" aria-labelledby="codex-executor-adapter-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-016 packet foundation only</p>
+            <h2 id="codex-executor-adapter-title">Developer/Codex Executor Adapter</h2>
+          </div>
+          <div class="drawer-status codex-executor-adapter-status">
+            <span>disabled packet-only foundation</span>
+            <strong>no Codex invocation; no adapter runtime; no API calls</strong>
+          </div>
+        </div>
+
+        <div class="codex-executor-adapter-grid">
+          <article class="detail-block">
+            <h3>Packet Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Contract</dt>
+              <dd>contracts/tools/r17_codex_executor_adapter.contract.json</dd>
+              <dt>Request packet</dt>
+              <dd>state/tools/r17_codex_executor_adapter_request_packet.json</dd>
+              <dt>Result packet</dt>
+              <dd>state/tools/r17_codex_executor_adapter_result_packet.json</dd>
+              <dt>Check report</dt>
+              <dd>state/tools/r17_codex_executor_adapter_check_report.json</dd>
+              <dt>UI snapshot</dt>
+              <dd>state/ui/r17_kanban_mvp/r17_codex_executor_adapter_snapshot.json</dd>
+              <dt>Status</dt>
+              <dd>disabled_packet_only</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Runtime Flags</h3>
+            <dl class="card-fields">
+              <dt>codex_executor_invoked: false</dt>
+              <dd>no Codex executor invocation happened</dd>
+              <dt>adapter_runtime_implemented: false</dt>
+              <dd>no adapter runtime exists in R17-016</dd>
+              <dt>actual_tool_call_performed: false</dt>
+              <dd>no tool calls were performed</dd>
+              <dt>external_api_call_performed: false</dt>
+              <dd>no API calls were performed</dd>
+              <dt>a2a_message_sent: false</dt>
+              <dd>no A2A messages were sent</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Packet Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-016 creates a disabled packet-only foundation for the future Developer/Codex executor adapter.</li>
+              <li>The request packet points at the R17-015 common adapter seed profile and the R17-014 developer invocation seed only.</li>
+              <li>The result packet records not_executed_disabled_foundation and contains no real Dev output, imported diff, imported status, or Codex transcript.</li>
+              <li>The panel is read-only and does not write files, mutate the board, create runtime cards, invoke agents, call adapters, call APIs, execute tool calls, or invoke Codex.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>contracts/tools/r17_codex_executor_adapter.contract.json</li>
+              <li>state/tools/r17_codex_executor_adapter_request_packet.json</li>
+              <li>state/tools/r17_codex_executor_adapter_result_packet.json</li>
+              <li>state/tools/r17_codex_executor_adapter_check_report.json</li>
+              <li>state/ui/r17_kanban_mvp/r17_codex_executor_adapter_snapshot.json</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_016_codex_executor_adapter/</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

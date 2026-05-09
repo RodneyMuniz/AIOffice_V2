@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_missing_result_id",
+    "expected_failure_fragments":  [
+                                       "result packet is missing required field \u0027result_id\u0027"
+                                   ],
+    "remove_paths":  [
+                         "result_id"
+                     ]
+}

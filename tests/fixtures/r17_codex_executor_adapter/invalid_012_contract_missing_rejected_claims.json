@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_missing_rejected_claims",
+    "expected_failure_fragments":  [
+                                       "contract is missing required field \u0027rejected_claims\u0027"
+                                   ],
+    "remove_paths":  [
+                         "rejected_claims"
+                     ]
+}

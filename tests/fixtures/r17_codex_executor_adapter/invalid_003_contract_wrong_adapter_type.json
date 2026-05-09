@@ -1,0 +1,10 @@
+﻿{
+    "target":  "contract",
+    "operation":  "contract_wrong_adapter_type",
+    "expected_failure_fragments":  [
+                                       "contract adapter_type is invalid"
+                                   ],
+    "set_values":  {
+                       "adapter_type":  "qa_test_agent_adapter"
+                   }
+}

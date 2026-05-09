@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_running_status",
+    "expected_failure_fragments":  [
+                                       "request packet status must be disabled_packet_only"
+                                   ],
+    "set_values":  {
+                       "status":  "running"
+                   }
+}

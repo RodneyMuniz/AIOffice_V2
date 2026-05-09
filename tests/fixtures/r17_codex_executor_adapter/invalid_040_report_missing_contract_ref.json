@@ -1,0 +1,10 @@
+﻿{
+    "target":  "report",
+    "operation":  "report_missing_contract_ref",
+    "expected_failure_fragments":  [
+                                       "check report is missing required field \u0027contract_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "contract_ref"
+                     ]
+}

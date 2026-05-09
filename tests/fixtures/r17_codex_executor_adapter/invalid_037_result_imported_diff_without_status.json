@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_imported_diff_without_status",
+    "expected_failure_fragments":  [
+                                       "result packet imported_diff_ref must remain not_imported for R17-016"
+                                   ],
+    "set_values":  {
+                       "imported_diff_ref":  "src/app.py"
+                   }
+}

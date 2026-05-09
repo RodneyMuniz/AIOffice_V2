@@ -1,0 +1,10 @@
+﻿{
+    "target":  "snapshot",
+    "operation":  "snapshot_missing_active_through",
+    "expected_failure_fragments":  [
+                                       "UI snapshot is missing required field \u0027active_through_task\u0027"
+                                   ],
+    "remove_paths":  [
+                         "active_through_task"
+                     ]
+}

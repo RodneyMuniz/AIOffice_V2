@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_execution_allowed",
+    "expected_failure_fragments":  [
+                                       "request packet execution_allowed must be false"
+                                   ],
+    "set_values":  {
+                       "execution_allowed":  true
+                   }
+}

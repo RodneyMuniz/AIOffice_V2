@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_codex_allowed",
+    "expected_failure_fragments":  [
+                                       "request packet codex_executor_invocation_allowed must be false"
+                                   ],
+    "set_values":  {
+                       "codex_executor_invocation_allowed":  true
+                   }
+}

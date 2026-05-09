@@ -1,0 +1,12 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_local_backup_ref",
+    "expected_failure_fragments":  [
+                                       "request packet evidence_ref path must not point at .local_backups"
+                                   ],
+    "set_values":  {
+                       "evidence_refs":  [
+                                             ".local_backups/secret.txt"
+                                         ]
+                   }
+}

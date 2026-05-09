@@ -1,0 +1,10 @@
+﻿{
+    "target":  "snapshot",
+    "operation":  "snapshot_status_codex_true",
+    "expected_failure_fragments":  [
+                                       "UI snapshot status_summary codex_executor_invoked must be false"
+                                   ],
+    "set_values":  {
+                       "status_summary.codex_executor_invoked":  true
+                   }
+}

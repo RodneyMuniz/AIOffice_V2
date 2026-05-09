@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_url_input_ref",
+    "expected_failure_fragments":  [
+                                       "request packet input_packet_ref path must not be a URL"
+                                   ],
+    "set_values":  {
+                       "input_packet_ref":  "https://example.com/packet.json"
+                   }
+}

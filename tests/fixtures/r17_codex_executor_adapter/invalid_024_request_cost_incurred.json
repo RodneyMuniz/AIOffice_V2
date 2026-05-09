@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_cost_incurred",
+    "expected_failure_fragments":  [
+                                       "request packet cost_policy must not claim incurred cost"
+                                   ],
+    "set_values":  {
+                       "cost_policy.cost_incurred":  true
+                   }
+}

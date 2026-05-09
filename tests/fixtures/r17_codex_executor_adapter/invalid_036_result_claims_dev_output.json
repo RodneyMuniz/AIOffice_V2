@@ -1,0 +1,10 @@
+﻿{
+    "target":  "result",
+    "operation":  "result_claims_dev_output",
+    "expected_failure_fragments":  [
+                                       "result packet developer_output_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "developer_output_claimed":  true
+                   }
+}

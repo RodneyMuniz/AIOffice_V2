@@ -1,0 +1,10 @@
+﻿{
+    "target":  "report",
+    "operation":  "report_wrong_aggregate",
+    "expected_failure_fragments":  [
+                                       "check report aggregate_verdict is invalid"
+                                   ],
+    "set_values":  {
+                       "aggregate_verdict":  "runtime_ready"
+                   }
+}

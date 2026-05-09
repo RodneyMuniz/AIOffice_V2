@@ -1,0 +1,10 @@
+﻿{
+    "target":  "request",
+    "operation":  "request_runtime_flag_true",
+    "expected_failure_fragments":  [
+                                       "request packet runtime_flags codex_executor_invoked must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.codex_executor_invoked":  true
+                   }
+}

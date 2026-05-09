@@ -339,6 +339,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.codex-executor-adapter-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #4f6f2d;
+  border-radius: 8px;
+  background: #fbfdf8;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -401,6 +411,10 @@ main {
 
 .tool-adapter-contract-status span {
   color: #7a6a25;
+}
+
+.codex-executor-adapter-status span {
+  color: #4f6f2d;
 }
 
 .agent-labels {
@@ -568,6 +582,13 @@ main {
   padding-top: 14px;
 }
 
+.codex-executor-adapter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
 .agent-boundaries article {
   min-width: 0;
   padding: 14px;
@@ -712,6 +733,7 @@ main {
   .memory-loader-grid,
   .invocation-log-grid,
   .tool-adapter-grid,
+  .codex-executor-adapter-grid,
   .agent-boundaries {
     grid-template-columns: 1fr;
   }
