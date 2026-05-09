@@ -1,0 +1,6 @@
+﻿{
+    "target":  "kanban_js",
+    "expected_failure_fragments":  [
+                                       "kanban.js churn"
+                                   ]
+}

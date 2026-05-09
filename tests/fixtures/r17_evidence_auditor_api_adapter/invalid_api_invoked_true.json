@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "evidence_auditor_api_invoked must be false"
+                                   ],
+    "set_values":  {
+                       "evidence_auditor_api_invoked":  true
+                   }
+}

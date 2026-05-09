@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027audit_response_packet_ref\u0027"
+                                   ],
+    "remove_paths":  [
+                         "audit_response_packet_ref"
+                     ]
+}

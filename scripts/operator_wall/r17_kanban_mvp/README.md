@@ -22,6 +22,8 @@ R17-016 adds a read-only Developer/Codex executor adapter panel. The panel is ba
 
 R17-017 adds a read-only QA/Test Agent adapter panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_qa_test_agent_adapter_snapshot.json` and shows the disabled seed adapter foundation, request packet, result packet, defect packet, check report, and required false runtime flags including `qa_test_agent_invoked: false`, `adapter_runtime_implemented: false`, `actual_tool_call_performed: false`, and `external_api_call_performed: false`. The panel does not invoke QA/Test Agent, implement adapter runtime, execute tests through a live adapter, execute tool calls, call APIs, send A2A messages, mutate the board live, create runtime cards, or claim a real QA result.
 
+R17-018 adds a read-only Evidence Auditor API adapter panel. The panel is backed by `state/ui/r17_kanban_mvp/r17_evidence_auditor_api_adapter_snapshot.json` and shows the disabled seed adapter foundation, request packet, response placeholder packet, verdict placeholder packet, check report, and required false runtime flags including `adapter_enabled: false`, `evidence_auditor_api_invoked: false`, `external_api_call_performed: false`, `audit_verdict_claimed: false`, `real_audit_verdict: false`, `external_audit_acceptance_claimed: false`, and `runtime_execution_performed: false`. The panel does not invoke Evidence Auditor API, perform external API calls, implement adapter runtime, execute tool calls, send A2A messages, mutate the board live, create runtime cards, claim external audit acceptance, or claim a real audit verdict.
+
 Boundary:
 - read-only surface over repo-backed artifacts
 - no server

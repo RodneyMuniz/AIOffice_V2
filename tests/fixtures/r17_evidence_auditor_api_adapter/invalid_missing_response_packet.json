@@ -1,0 +1,6 @@
+﻿{
+    "target":  "missing_response",
+    "expected_failure_fragments":  [
+                                       "response packet is missing"
+                                   ]
+}

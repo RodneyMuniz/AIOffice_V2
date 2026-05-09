@@ -1,0 +1,7 @@
+﻿{
+    "target":  "ui_text",
+    "expected_failure_fragments":  [
+                                       "index.html must expose R17-018 Evidence Auditor API adapter fragment"
+                                   ],
+    "text":  "\u003csection\u003eEvidence Auditor API Adapter\u003c/section\u003e"
+}

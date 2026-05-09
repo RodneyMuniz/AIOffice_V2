@@ -1,0 +1,11 @@
+﻿{
+    "target":  "response",
+    "expected_failure_fragments":  [
+                                       "external API response claim without committed external request/response evidence"
+                                   ],
+    "set_values":  {
+                       "committed_external_request_evidence_present":  false,
+                       "api_response_status":  "success",
+                       "committed_external_response_evidence_present":  false
+                   }
+}

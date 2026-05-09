@@ -1,0 +1,12 @@
+﻿{
+    "target":  "verdict",
+    "expected_failure_fragments":  [
+                                       "real audit verdict claim without committed external request/response/verdict evidence"
+                                   ],
+    "set_values":  {
+                       "committed_external_request_evidence_present":  false,
+                       "committed_external_verdict_evidence_present":  false,
+                       "audit_status":  "passed",
+                       "committed_external_response_evidence_present":  false
+                   }
+}

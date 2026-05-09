@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "adapter_type must be evidence_auditor_api_adapter"
+                                   ],
+    "set_values":  {
+                       "adapter_type":  "qa_test_agent_adapter"
+                   }
+}

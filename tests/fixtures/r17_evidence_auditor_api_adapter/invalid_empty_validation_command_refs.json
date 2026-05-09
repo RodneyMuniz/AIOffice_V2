@@ -1,0 +1,11 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "validation_command_refs must not be empty"
+                                   ],
+    "set_values":  {
+                       "validation_command_refs":  [
+
+                                                   ]
+                   }
+}

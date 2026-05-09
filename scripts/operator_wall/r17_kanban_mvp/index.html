@@ -602,6 +602,82 @@
         </div>
       </section>
 
+      <section class="evidence-auditor-api-adapter-panel" id="evidence-auditor-api-adapter-panel" aria-labelledby="evidence-auditor-api-adapter-title">
+        <div class="drawer-heading">
+          <div>
+            <p class="surface-label">R17-018 packet foundation only</p>
+            <h2 id="evidence-auditor-api-adapter-title">Evidence Auditor API Adapter</h2>
+          </div>
+          <div class="drawer-status evidence-auditor-api-adapter-status">
+            <span>disabled seed foundation</span>
+            <strong>no Evidence Auditor API invocation; no external API call; no real audit verdict</strong>
+          </div>
+        </div>
+
+        <div class="evidence-auditor-api-adapter-grid">
+          <article class="detail-block">
+            <h3>Packet Snapshot</h3>
+            <dl class="card-fields">
+              <dt>Contract</dt>
+              <dd>contracts/tools/r17_evidence_auditor_api_adapter.contract.json</dd>
+              <dt>Request packet</dt>
+              <dd>state/tools/r17_evidence_auditor_api_adapter_request_packet.json</dd>
+              <dt>Response packet</dt>
+              <dd>state/tools/r17_evidence_auditor_api_adapter_response_packet.json</dd>
+              <dt>Verdict packet</dt>
+              <dd>state/tools/r17_evidence_auditor_api_adapter_verdict_packet.json</dd>
+              <dt>Check report</dt>
+              <dd>state/tools/r17_evidence_auditor_api_adapter_check_report.json</dd>
+              <dt>UI snapshot</dt>
+              <dd>state/ui/r17_kanban_mvp/r17_evidence_auditor_api_adapter_snapshot.json</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Runtime Flags</h3>
+            <dl class="card-fields">
+              <dt>adapter_enabled: false</dt>
+              <dd>adapter remains disabled</dd>
+              <dt>evidence_auditor_api_invoked: false</dt>
+              <dd>no Evidence Auditor API invocation happened</dd>
+              <dt>external_api_call_performed: false</dt>
+              <dd>no external API call was performed</dd>
+              <dt>audit_verdict_claimed: false</dt>
+              <dd>no audit verdict is claimed</dd>
+              <dt>real_audit_verdict: false</dt>
+              <dd>no real audit verdict exists</dd>
+              <dt>external_audit_acceptance_claimed: false</dt>
+              <dd>no external audit acceptance is claimed</dd>
+              <dt>runtime_execution_performed: false</dt>
+              <dd>no adapter runtime was executed</dd>
+            </dl>
+          </article>
+
+          <article class="detail-block">
+            <h3>Packet Boundary</h3>
+            <ul class="plain-list compact-list">
+              <li>R17-018 creates a disabled seed foundation for the future Evidence Auditor API adapter.</li>
+              <li>The request packet points at the R17-015 common adapter seed profile, R17-014 Evidence Auditor invocation seed, Evidence Auditor memory packet, R17-016 Codex result packet, and R17-017 QA result packet only.</li>
+              <li>The response and verdict packets are placeholders and contain no external request, external response, real audit verdict, or external audit acceptance.</li>
+              <li>The panel is read-only and does not write files, mutate the board, create runtime cards, invoke agents, call adapters, call APIs, execute runtime, or invoke Evidence Auditor API.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block evidence-block">
+            <h3>Evidence Refs</h3>
+            <ul class="plain-list compact-list">
+              <li>contracts/tools/r17_evidence_auditor_api_adapter.contract.json</li>
+              <li>state/tools/r17_evidence_auditor_api_adapter_request_packet.json</li>
+              <li>state/tools/r17_evidence_auditor_api_adapter_response_packet.json</li>
+              <li>state/tools/r17_evidence_auditor_api_adapter_verdict_packet.json</li>
+              <li>state/tools/r17_evidence_auditor_api_adapter_check_report.json</li>
+              <li>state/ui/r17_kanban_mvp/r17_evidence_auditor_api_adapter_snapshot.json</li>
+              <li>state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_018_evidence_auditor_api_adapter/</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section class="card-detail-drawer" id="card-detail-drawer" aria-labelledby="card-detail-title">
         <div class="drawer-heading">
           <div>

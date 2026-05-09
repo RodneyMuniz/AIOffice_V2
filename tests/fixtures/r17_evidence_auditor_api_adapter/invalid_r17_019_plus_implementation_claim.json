@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "claim_status r17_019_plus_implementation_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "claim_status.r17_019_plus_implementation_claimed":  true
+                   }
+}

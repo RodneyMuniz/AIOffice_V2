@@ -359,6 +359,16 @@ main {
   box-shadow: var(--shadow);
 }
 
+.evidence-auditor-api-adapter-panel {
+  margin-bottom: 26px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #9a5c2f;
+  border-radius: 8px;
+  background: #fffaf6;
+  box-shadow: var(--shadow);
+}
+
 .drawer-heading {
   display: flex;
   align-items: start;
@@ -429,6 +439,10 @@ main {
 
 .qa-test-agent-adapter-status span {
   color: #7d4268;
+}
+
+.evidence-auditor-api-adapter-status span {
+  color: #9a5c2f;
 }
 
 .agent-labels {
@@ -610,6 +624,13 @@ main {
   padding-top: 14px;
 }
 
+.evidence-auditor-api-adapter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 12px;
+  padding-top: 14px;
+}
+
 .agent-boundaries article {
   min-width: 0;
   padding: 14px;
@@ -756,6 +777,7 @@ main {
   .tool-adapter-grid,
   .codex-executor-adapter-grid,
   .qa-test-agent-adapter-grid,
+  .evidence-auditor-api-adapter-grid,
   .agent-boundaries {
     grid-template-columns: 1fr;
   }

@@ -1,0 +1,6 @@
+﻿{
+    "target":  "missing_report",
+    "expected_failure_fragments":  [
+                                       "check report is missing"
+                                   ]
+}

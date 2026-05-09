@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "external API calls"
+                                   ],
+    "set_values":  {
+                       "allowed_validation_scope.external_api_calls_allowed":  true
+                   }
+}

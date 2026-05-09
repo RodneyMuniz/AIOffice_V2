@@ -1,0 +1,9 @@
+﻿{
+    "target":  "contract",
+    "expected_failure_fragments":  [
+                                       "missing required field"
+                                   ],
+    "remove_paths":  [
+                         "required_request_fields"
+                     ]
+}

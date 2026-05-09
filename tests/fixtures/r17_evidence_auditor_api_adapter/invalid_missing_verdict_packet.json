@@ -1,0 +1,6 @@
+﻿{
+    "target":  "missing_verdict",
+    "expected_failure_fragments":  [
+                                       "verdict packet is missing"
+                                   ]
+}

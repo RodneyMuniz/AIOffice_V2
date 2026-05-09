@@ -1,0 +1,9 @@
+﻿{
+    "target":  "verdict",
+    "expected_failure_fragments":  [
+                                       "external_audit_acceptance_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "external_audit_acceptance_claimed":  true
+                   }
+}

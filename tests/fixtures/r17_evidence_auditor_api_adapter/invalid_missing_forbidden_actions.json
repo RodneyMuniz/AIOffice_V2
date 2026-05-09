@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027forbidden_actions\u0027"
+                                   ],
+    "remove_paths":  [
+                         "forbidden_actions"
+                     ]
+}

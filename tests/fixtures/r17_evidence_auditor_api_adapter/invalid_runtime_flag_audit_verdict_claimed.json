@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags audit_verdict_claimed must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.audit_verdict_claimed":  true
+                   }
+}

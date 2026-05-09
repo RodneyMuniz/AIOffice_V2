@@ -1,0 +1,9 @@
+﻿{
+    "target":  "report",
+    "expected_failure_fragments":  [
+                                       "external_api_call_performed must be false"
+                                   ],
+    "set_values":  {
+                       "external_api_call_performed":  true
+                   }
+}

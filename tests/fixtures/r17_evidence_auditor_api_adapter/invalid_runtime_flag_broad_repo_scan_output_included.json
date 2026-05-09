@@ -1,0 +1,9 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "runtime_flags broad_repo_scan_output_included must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.broad_repo_scan_output_included":  true
+                   }
+}

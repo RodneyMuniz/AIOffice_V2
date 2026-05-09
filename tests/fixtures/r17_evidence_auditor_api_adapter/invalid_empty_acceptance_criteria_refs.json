@@ -1,0 +1,11 @@
+﻿{
+    "target":  "request",
+    "expected_failure_fragments":  [
+                                       "acceptance_criteria_refs must not be empty"
+                                   ],
+    "set_values":  {
+                       "acceptance_criteria_refs":  [
+
+                                                    ]
+                   }
+}
