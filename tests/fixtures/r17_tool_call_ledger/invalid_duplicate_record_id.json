@@ -1,0 +1,6 @@
+﻿{
+    "target":  "duplicate_record",
+    "expected_failure_fragments":  [
+                                       "Duplicate ledger_record_id"
+                                   ]
+}

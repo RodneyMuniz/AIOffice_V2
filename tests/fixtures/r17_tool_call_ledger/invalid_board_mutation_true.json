@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "board_mutation_performed"
+                                   ],
+    "property":  "board_mutation_performed",
+    "value":  true
+}

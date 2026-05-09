@@ -1,0 +1,8 @@
+﻿{
+    "target":  "runtime_flag",
+    "expected_failure_fragments":  [
+                                       "broad_repo_scan_output_included"
+                                   ],
+    "property":  "broad_repo_scan_output_included",
+    "value":  true
+}

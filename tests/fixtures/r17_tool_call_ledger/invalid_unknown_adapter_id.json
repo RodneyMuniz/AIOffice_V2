@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "unknown adapter_id"
+                                   ],
+    "property":  "adapter_id",
+    "value":  "unknown_adapter_future"
+}

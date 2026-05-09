@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "product_runtime_executed"
+                                   ],
+    "property":  "product_runtime_executed",
+    "value":  true
+}

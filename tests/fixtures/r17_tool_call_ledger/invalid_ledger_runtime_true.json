@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "ledger_runtime_implemented"
+                                   ],
+    "property":  "ledger_runtime_implemented",
+    "value":  true
+}

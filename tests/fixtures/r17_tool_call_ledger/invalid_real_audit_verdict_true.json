@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "real_audit_verdict"
+                                   ],
+    "property":  "real_audit_verdict",
+    "value":  true
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "runtime_flag",
+    "expected_failure_fragments":  [
+                                       "full_source_file_contents_embedded"
+                                   ],
+    "property":  "full_source_file_contents_embedded",
+    "value":  true
+}

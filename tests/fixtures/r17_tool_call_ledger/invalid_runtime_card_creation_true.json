@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "runtime_card_creation_performed"
+                                   ],
+    "property":  "runtime_card_creation_performed",
+    "value":  true
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "external_audit_acceptance_claimed"
+                                   ],
+    "property":  "external_audit_acceptance_claimed",
+    "value":  true
+}

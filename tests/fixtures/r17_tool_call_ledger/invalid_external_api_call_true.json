@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "external_api_call_performed"
+                                   ],
+    "property":  "external_api_call_performed",
+    "value":  true
+}

@@ -1,0 +1,7 @@
+﻿{
+    "target":  "evidence_append",
+    "expected_failure_fragments":  [
+                                       "wildcard"
+                                   ],
+    "value":  "state/**/*.json"
+}

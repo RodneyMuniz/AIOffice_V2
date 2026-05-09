@@ -1,0 +1,7 @@
+﻿{
+    "target":  "evidence_append",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ],
+    "value":  ".local_backups/r17_tool_call_ledger.json"
+}

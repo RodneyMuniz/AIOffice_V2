@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "evidence_auditor_api_invoked"
+                                   ],
+    "property":  "evidence_auditor_api_invoked",
+    "value":  true
+}

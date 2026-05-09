@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "qa_test_agent_invoked"
+                                   ],
+    "property":  "qa_test_agent_invoked",
+    "value":  true
+}

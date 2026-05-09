@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "status"
+                                   ],
+    "property":  "status",
+    "value":  "succeeded"
+}

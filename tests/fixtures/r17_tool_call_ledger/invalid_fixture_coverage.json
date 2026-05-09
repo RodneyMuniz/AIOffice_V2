@@ -1,0 +1,6 @@
+﻿{
+    "target":  "fixture_coverage",
+    "expected_failure_fragments":  [
+                                       "compact invalid fixture"
+                                   ]
+}

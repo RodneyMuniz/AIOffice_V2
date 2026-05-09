@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "execution_mode"
+                                   ],
+    "property":  "execution_mode",
+    "value":  "runtime_enabled"
+}

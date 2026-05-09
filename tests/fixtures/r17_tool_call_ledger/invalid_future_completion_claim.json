@@ -1,0 +1,7 @@
+﻿{
+    "target":  "non_claim_append",
+    "expected_failure_fragments":  [
+                                       "future R17-020"
+                                   ],
+    "value":  "R17-020 is done and implemented."
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "adapter_runtime_invoked"
+                                   ],
+    "property":  "adapter_runtime_invoked",
+    "value":  true
+}

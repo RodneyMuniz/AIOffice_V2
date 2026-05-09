@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "tool_call_runtime_implemented"
+                                   ],
+    "property":  "tool_call_runtime_implemented",
+    "value":  true
+}

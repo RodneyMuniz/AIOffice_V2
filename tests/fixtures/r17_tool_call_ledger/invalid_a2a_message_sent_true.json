@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ],
+    "property":  "a2a_message_sent",
+    "value":  true
+}

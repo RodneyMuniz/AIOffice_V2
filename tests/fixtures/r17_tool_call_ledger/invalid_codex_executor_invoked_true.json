@@ -1,0 +1,8 @@
+﻿{
+    "target":  "record",
+    "expected_failure_fragments":  [
+                                       "codex_executor_invoked"
+                                   ],
+    "property":  "codex_executor_invoked",
+    "value":  true
+}

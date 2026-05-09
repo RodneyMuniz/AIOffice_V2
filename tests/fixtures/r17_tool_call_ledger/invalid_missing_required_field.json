@@ -1,0 +1,7 @@
+﻿{
+    "target":  "remove_property",
+    "expected_failure_fragments":  [
+                                       "request_packet_ref"
+                                   ],
+    "property":  "request_packet_ref"
+}
