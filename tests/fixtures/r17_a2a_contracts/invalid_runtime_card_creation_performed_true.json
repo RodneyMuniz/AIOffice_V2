@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_runtime_card_creation_performed_true",
+    "target":  "message_runtime_flag",
+    "property":  "runtime_card_creation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime_card_creation_performed",
+                                       "must be false"
+                                   ]
+}

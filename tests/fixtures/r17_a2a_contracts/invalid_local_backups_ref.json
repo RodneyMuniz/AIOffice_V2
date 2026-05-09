@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_local_backups_ref",
+    "target":  "message_evidence_append",
+    "property":  null,
+    "value":  ".local_backups/r17/a2a.json",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ]
+}

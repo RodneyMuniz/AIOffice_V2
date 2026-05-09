@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_dispatched_true",
+    "target":  "message_runtime_flag",
+    "property":  "a2a_message_dispatched",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "a2a_message_dispatched",
+                                       "must be false"
+                                   ]
+}

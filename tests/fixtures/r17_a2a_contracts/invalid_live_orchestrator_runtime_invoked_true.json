@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_live_orchestrator_runtime_invoked_true",
+    "target":  "message_runtime_flag",
+    "property":  "live_orchestrator_runtime_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_orchestrator_runtime_invoked",
+                                       "must be false"
+                                   ]
+}

@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "target":  "message",
+    "property":  "authority_refs",
+    "value":  {
+
+              },
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ]
+}

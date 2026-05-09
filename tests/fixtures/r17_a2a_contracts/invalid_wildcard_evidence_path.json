@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_wildcard_evidence_path",
+    "target":  "message_evidence_append",
+    "property":  null,
+    "value":  "state/**/*.json",
+    "expected_failure_fragments":  [
+                                       "wildcard"
+                                   ]
+}

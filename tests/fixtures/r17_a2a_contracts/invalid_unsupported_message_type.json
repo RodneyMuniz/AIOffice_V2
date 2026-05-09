@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_unsupported_message_type",
+    "target":  "message",
+    "property":  "message_type",
+    "value":  "runtime_chat",
+    "expected_failure_fragments":  [
+                                       "unsupported message_type"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_actual_tool_call_performed_true",
+    "target":  "message_runtime_flag",
+    "property":  "actual_tool_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "actual_tool_call_performed",
+                                       "must be false"
+                                   ]
+}

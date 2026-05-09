@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_future_r17_021_completion_claim",
+    "target":  "message_non_claim_append",
+    "property":  null,
+    "value":  "R17-021 is implemented by this pass.",
+    "expected_failure_fragments":  [
+                                       "future R17-021+ completion claim"
+                                   ]
+}

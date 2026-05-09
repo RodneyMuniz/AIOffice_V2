@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_external_api_call_performed_true",
+    "target":  "message_runtime_flag",
+    "property":  "external_api_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "external_api_call_performed",
+                                       "must be false"
+                                   ]
+}

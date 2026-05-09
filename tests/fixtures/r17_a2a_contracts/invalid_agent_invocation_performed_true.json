@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_agent_invocation_performed_true",
+    "target":  "message_runtime_flag",
+    "property":  "agent_invocation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "agent_invocation_performed",
+                                       "must be false"
+                                   ]
+}

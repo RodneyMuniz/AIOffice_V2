@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_unknown_from_agent_id",
+    "target":  "message",
+    "property":  "from_agent_id",
+    "value":  "shadow_agent",
+    "expected_failure_fragments":  [
+                                       "unknown from_agent_id"
+                                   ]
+}

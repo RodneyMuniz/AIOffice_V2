@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_correlation_id",
+    "target":  "message",
+    "property":  "correlation_id",
+    "value":  "",
+    "expected_failure_fragments":  [
+                                       "missing correlation_id"
+                                   ]
+}

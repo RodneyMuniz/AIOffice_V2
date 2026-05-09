@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_qa_result_claimed_true",
+    "target":  "message_runtime_flag",
+    "property":  "qa_result_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "qa_result_claimed",
+                                       "must be false"
+                                   ]
+}

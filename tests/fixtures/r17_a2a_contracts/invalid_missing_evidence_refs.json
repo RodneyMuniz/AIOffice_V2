@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_missing_evidence_refs",
+    "target":  "message",
+    "property":  "evidence_refs",
+    "value":  {
+
+              },
+    "expected_failure_fragments":  [
+                                       "evidence_refs"
+                                   ]
+}

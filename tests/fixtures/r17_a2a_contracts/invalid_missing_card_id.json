@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_card_id",
+    "target":  "message",
+    "property":  "card_id",
+    "value":  "",
+    "expected_failure_fragments":  [
+                                       "missing card_id"
+                                   ]
+}

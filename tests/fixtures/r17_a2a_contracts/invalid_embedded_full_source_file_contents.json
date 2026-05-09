@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_embedded_full_source_file_contents",
+    "target":  "message_add_property",
+    "property":  "embedded_source",
+    "value":  "Set-StrictMode -Version Latest\nfunction Invoke-Runtime { param() }",
+    "expected_failure_fragments":  [
+                                       "full source file contents"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_a2a_runtime_implemented_true",
+    "target":  "message_runtime_flag",
+    "property":  "a2a_runtime_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "a2a_runtime_implemented",
+                                       "must be false"
+                                   ]
+}

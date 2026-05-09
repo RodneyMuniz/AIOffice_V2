@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_handoff_unsupported_message_type",
+    "target":  "handoff_allowed_message_type_append",
+    "property":  null,
+    "value":  "runtime_ping",
+    "expected_failure_fragments":  [
+                                       "unsupported allowed_message_type"
+                                   ]
+}

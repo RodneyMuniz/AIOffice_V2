@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_real_audit_verdict_true",
+    "target":  "message_runtime_flag",
+    "property":  "real_audit_verdict",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "real_audit_verdict",
+                                       "must be false"
+                                   ]
+}

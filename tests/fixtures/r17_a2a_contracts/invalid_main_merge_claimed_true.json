@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_main_merge_claimed_true",
+    "target":  "message_runtime_flag",
+    "property":  "main_merge_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed",
+                                       "must be false"
+                                   ]
+}

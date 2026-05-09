@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_handoff_missing_required_input_refs",
+    "target":  "handoff",
+    "property":  "required_input_refs",
+    "value":  {
+
+              },
+    "expected_failure_fragments":  [
+                                       "required_input_refs"
+                                   ]
+}
