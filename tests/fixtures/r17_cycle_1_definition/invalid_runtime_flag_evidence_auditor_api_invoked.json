@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_evidence_auditor_api_invoked.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.evidence_auditor_api_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "evidence_auditor_api_invoked"
+                                   ]
+}

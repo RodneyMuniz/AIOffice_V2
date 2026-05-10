@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_missing_operator_intent_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "remove",
+    "property":  "operator_intent_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "operator_intent_ref"
+                                   ]
+}

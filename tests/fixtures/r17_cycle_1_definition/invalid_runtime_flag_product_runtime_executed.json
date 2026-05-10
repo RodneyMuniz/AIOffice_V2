@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_product_runtime_executed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.product_runtime_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "product_runtime_executed"
+                                   ]
+}

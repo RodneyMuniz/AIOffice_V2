@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_local_backups_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "append",
+    "property":  "artifact_refs",
+    "value":  ".local_backups/r17_023.json",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ]
+}

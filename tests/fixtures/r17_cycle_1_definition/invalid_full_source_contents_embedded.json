@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_full_source_contents_embedded.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.full_source_file_contents_embedded",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "full_source_file_contents_embedded"
+                                   ]
+}

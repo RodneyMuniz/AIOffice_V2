@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_missing_orchestrator_packet_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "remove",
+    "property":  "orchestrator_packet_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "orchestrator_packet_ref"
+                                   ]
+}

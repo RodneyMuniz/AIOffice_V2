@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_live_agent_runtime_invoked.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_agent_runtime_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_agent_runtime_invoked"
+                                   ]
+}

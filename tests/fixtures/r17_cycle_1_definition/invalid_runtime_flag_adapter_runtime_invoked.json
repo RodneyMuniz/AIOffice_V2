@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_adapter_runtime_invoked.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.adapter_runtime_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "adapter_runtime_invoked"
+                                   ]
+}

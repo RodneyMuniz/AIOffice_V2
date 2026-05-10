@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_wildcard_evidence_path.json",
+    "target":  "orchestrator",
+    "mutation":  "append",
+    "property":  "evidence_refs",
+    "value":  "state/**/*.json",
+    "expected_failure_fragments":  [
+                                       "wildcard"
+                                   ]
+}

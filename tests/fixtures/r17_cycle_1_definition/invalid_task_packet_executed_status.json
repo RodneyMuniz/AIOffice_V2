@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_task_packet_executed_status.json",
+    "target":  "task_packet",
+    "mutation":  "set",
+    "property":  "status",
+    "value":  "executed",
+    "expected_failure_fragments":  [
+                                       "status"
+                                   ]
+}

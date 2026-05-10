@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_runtime_card_creation_performed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.runtime_card_creation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime_card_creation_performed"
+                                   ]
+}

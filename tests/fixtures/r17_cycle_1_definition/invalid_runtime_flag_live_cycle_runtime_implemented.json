@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_live_cycle_runtime_implemented.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_cycle_runtime_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_cycle_runtime_implemented"
+                                   ]
+}

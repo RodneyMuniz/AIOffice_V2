@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_qa_result_claimed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.qa_result_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "qa_result_claimed"
+                                   ]
+}

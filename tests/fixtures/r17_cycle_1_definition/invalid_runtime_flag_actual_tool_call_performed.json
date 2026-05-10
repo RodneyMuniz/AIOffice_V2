@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_actual_tool_call_performed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.actual_tool_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "actual_tool_call_performed"
+                                   ]
+}

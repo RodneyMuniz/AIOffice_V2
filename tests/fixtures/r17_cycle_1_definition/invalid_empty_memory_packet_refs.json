@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_empty_memory_packet_refs.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "memory_packet_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "memory_packet_refs"
+                                   ]
+}

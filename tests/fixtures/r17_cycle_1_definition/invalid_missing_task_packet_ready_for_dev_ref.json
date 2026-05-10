@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_missing_task_packet_ready_for_dev_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "remove",
+    "property":  "task_packet_ready_for_dev_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "task_packet_ready_for_dev_ref"
+                                   ]
+}

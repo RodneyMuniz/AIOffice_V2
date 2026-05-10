@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_dev_output_claimed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.dev_output_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "dev_output_claimed"
+                                   ]
+}

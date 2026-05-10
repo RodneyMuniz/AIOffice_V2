@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_external_api_call_performed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.external_api_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "external_api_call_performed"
+                                   ]
+}

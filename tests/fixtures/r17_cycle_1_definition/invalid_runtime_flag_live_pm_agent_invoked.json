@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_live_pm_agent_invoked.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_pm_agent_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_pm_agent_invoked"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_autonomous_agent_executed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.autonomous_agent_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "autonomous_agent_executed"
+                                   ]
+}

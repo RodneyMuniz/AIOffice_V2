@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_future_r17_024_completion_claim.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "orchestrator_decision",
+    "value":  "R17-024 completed implementation",
+    "expected_failure_fragments":  [
+                                       "future R17-024"
+                                   ]
+}

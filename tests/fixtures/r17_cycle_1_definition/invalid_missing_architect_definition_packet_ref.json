@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_missing_architect_definition_packet_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "remove",
+    "property":  "architect_definition_packet_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "architect_definition_packet_ref"
+                                   ]
+}

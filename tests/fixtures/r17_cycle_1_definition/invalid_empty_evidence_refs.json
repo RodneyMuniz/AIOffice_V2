@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_empty_evidence_refs.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "evidence_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "evidence_refs"
+                                   ]
+}

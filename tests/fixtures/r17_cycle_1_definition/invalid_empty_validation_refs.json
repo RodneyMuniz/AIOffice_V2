@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_empty_validation_refs.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "validation_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "validation_refs"
+                                   ]
+}

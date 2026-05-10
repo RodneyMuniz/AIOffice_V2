@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_task_packet_executed_flag.json",
+    "target":  "task_packet",
+    "mutation":  "set",
+    "property":  "task_execution.executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "task packet must not be executed"
+                                   ]
+}

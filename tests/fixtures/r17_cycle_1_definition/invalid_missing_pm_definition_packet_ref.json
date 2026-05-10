@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_missing_pm_definition_packet_ref.json",
+    "target":  "orchestrator",
+    "mutation":  "remove",
+    "property":  "pm_definition_packet_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "pm_definition_packet_ref"
+                                   ]
+}

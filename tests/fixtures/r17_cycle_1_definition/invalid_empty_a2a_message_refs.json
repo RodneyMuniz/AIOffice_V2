@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_empty_a2a_message_refs.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "a2a_message_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "a2a_message_refs"
+                                   ]
+}

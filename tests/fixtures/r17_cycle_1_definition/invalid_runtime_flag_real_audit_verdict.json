@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_real_audit_verdict.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.real_audit_verdict",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "real_audit_verdict"
+                                   ]
+}

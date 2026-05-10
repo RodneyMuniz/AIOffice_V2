@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_live_a2a_dispatch_performed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_a2a_dispatch_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_a2a_dispatch_performed"
+                                   ]
+}

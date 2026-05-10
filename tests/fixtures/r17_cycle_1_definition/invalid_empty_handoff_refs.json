@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_empty_handoff_refs.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "handoff_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "handoff_refs"
+                                   ]
+}

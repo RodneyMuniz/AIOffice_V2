@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_a2a_message_sent.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.a2a_message_sent",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ]
+}

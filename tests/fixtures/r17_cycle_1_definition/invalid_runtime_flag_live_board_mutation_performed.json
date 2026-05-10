@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_runtime_flag_live_board_mutation_performed.json",
+    "target":  "orchestrator",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_board_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_board_mutation_performed"
+                                   ]
+}
