@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "live_a2a_dispatch_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027live_a2a_dispatch_performed\u0027 must be false"
+                                   ]
+}

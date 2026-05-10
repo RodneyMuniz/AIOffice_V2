@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control_authority_append",
+    "property":  "authority_refs",
+    "value":  ".local_backups/r17_controls.json",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ]
+}

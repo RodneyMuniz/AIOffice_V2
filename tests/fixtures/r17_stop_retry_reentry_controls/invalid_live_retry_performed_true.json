@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "live_retry_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027live_retry_performed\u0027 must be false"
+                                   ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "real_audit_verdict",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027real_audit_verdict\u0027 must be false"
+                                   ]
+}

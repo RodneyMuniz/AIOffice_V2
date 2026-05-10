@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "source_dispatch_record_ref",
+    "value":  "",
+    "expected_failure_fragments":  [
+                                       "source_dispatch_record_ref path must not be empty"
+                                   ]
+}

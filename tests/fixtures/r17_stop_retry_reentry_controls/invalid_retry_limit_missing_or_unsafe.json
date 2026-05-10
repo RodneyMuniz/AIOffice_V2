@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "retry_limit",
+    "value":  9,
+    "expected_failure_fragments":  [
+                                       "retry_limit missing or unsafe"
+                                   ]
+}

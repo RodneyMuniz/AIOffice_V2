@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "board_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027board_mutation_performed\u0027 must be false"
+                                   ]
+}

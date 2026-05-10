@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control_evidence_append",
+    "property":  "evidence_refs",
+    "value":  "state/runtime/*.json",
+    "expected_failure_fragments":  [
+                                       "wildcard"
+                                   ]
+}

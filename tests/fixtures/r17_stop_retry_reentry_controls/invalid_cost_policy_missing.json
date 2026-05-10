@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "cost_policy",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "cost_policy missing"
+                                   ]
+}

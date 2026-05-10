@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "live_block_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027live_block_performed\u0027 must be false"
+                                   ]
+}

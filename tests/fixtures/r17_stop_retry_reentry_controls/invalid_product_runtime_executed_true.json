@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "product_runtime_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027product_runtime_executed\u0027 must be false"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "target":  "control",
+    "property":  "validation_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "validation_refs must not be empty"
+                                   ]
+}

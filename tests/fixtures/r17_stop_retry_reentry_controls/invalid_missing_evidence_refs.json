@@ -1,0 +1,10 @@
+﻿{
+    "target":  "control",
+    "property":  "evidence_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "evidence_refs must not be empty"
+                                   ]
+}

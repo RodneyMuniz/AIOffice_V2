@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control_non_claim_append",
+    "property":  "non_claims",
+    "value":  "function Invoke-LiveControl { Set-StrictMode -Version Latest }",
+    "expected_failure_fragments":  [
+                                       "embedded full source"
+                                   ]
+}

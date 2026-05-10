@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "source_handoff_ref",
+    "value":  "",
+    "expected_failure_fragments":  [
+                                       "source_handoff_ref path must not be empty"
+                                   ]
+}

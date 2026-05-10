@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "timeout_policy",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "timeout_policy missing"
+                                   ]
+}

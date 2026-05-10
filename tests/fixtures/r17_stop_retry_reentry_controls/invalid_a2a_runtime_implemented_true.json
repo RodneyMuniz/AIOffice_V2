@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "a2a_runtime_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027a2a_runtime_implemented\u0027 must be false"
+                                   ]
+}

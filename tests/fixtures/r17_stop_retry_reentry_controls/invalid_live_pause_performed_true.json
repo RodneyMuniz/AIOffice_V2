@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "live_pause_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "field \u0027live_pause_performed\u0027 must be false"
+                                   ]
+}

@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "source_a2a_message_ref",
+    "value":  "",
+    "expected_failure_fragments":  [
+                                       "source_a2a_message_ref path must not be empty"
+                                   ]
+}

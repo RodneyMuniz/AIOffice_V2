@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "control_action",
+    "value":  "resume_live_runtime",
+    "expected_failure_fragments":  [
+                                       "unsupported control_action"
+                                   ]
+}

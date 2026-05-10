@@ -1,0 +1,8 @@
+﻿{
+    "target":  "control",
+    "property":  "retry_count",
+    "value":  4,
+    "expected_failure_fragments":  [
+                                       "retry_count must not exceed retry_limit"
+                                   ]
+}
