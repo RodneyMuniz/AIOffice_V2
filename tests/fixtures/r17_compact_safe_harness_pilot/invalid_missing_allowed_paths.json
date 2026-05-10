@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_allowed_paths.json",
+    "mutation":  "remove_work_order_allowed_paths",
+    "expected_failure_fragments":  [
+                                       "allowed_paths"
+                                   ]
+}

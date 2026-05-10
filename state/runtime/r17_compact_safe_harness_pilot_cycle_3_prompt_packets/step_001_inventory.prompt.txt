@@ -1,0 +1,36 @@
+﻿R17-026 compact-safe harness pilot packet: step 001 inventory and WIP classification
+
+Goal:
+Run terminal Git inventory, classify any local WIP, and stop unless only ignored or untracked operator-local backup material is present.
+
+Baseline:
+- HEAD: a53f2b8788e451051563fee2180c49121a5038e5
+- Tree: 4eeb27d47fab40ef6fe5c743dab341b802fc1ba8
+
+Allowed paths:
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_resume_state.json
+
+Stop conditions:
+- HEAD or tree differ from the baseline.
+- Tracked unrelated local WIP exists before this step.
+- Historical R13/R14/R15/R16 evidence would be changed.
+- kanban.js would be changed.
+- The step would exceed compact line or artifact limits.
+
+Expected outputs:
+- terminal Git inventory summary
+- tracked WIP classification
+- continue-or-stop decision
+
+Validation commands:
+- git status --short --branch
+- git rev-parse HEAD
+- git rev-parse "HEAD^{tree}"
+- git diff --name-status
+- git diff --numstat
+
+Rules:
+- This is one small step for the future Cycle 3 QA/fix-loop.
+- Do not ask Codex to do the whole Cycle 3 QA/fix-loop in one session.
+- Do not invoke OpenAI APIs, Codex APIs, live agents, adapters, A2A runtime, product runtime, or live board mutation.
+- Do not claim QA results, audit verdicts, solved compaction, solved reliability, main merge, or no-manual-prompt-transfer success.

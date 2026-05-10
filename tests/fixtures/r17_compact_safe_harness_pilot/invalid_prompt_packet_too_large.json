@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_prompt_packet_too_large.json",
+    "mutation":  "set_prompt_packet_too_large",
+    "expected_failure_fragments":  [
+                                       "prompt packet word limit"
+                                   ]
+}

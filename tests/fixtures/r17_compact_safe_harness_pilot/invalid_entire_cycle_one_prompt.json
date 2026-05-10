@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_entire_cycle_one_prompt.json",
+    "mutation":  "set_entire_cycle_one_prompt",
+    "expected_failure_fragments":  [
+                                       "entire Cycle 3"
+                                   ]
+}

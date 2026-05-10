@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_no_manual_prompt_transfer_success.json",
+    "mutation":  "set_no_manual_prompt_transfer_true",
+    "expected_failure_fragments":  [
+                                       "no_manual_prompt_transfer_claimed"
+                                   ]
+}

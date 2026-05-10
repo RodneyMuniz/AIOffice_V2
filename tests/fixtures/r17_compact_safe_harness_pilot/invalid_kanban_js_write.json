@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_kanban_js_write.json",
+    "mutation":  "append_kanban_js_write",
+    "expected_failure_fragments":  [
+                                       "kanban.js"
+                                   ]
+}

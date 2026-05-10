@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_audit_verdict_claimed.json",
+    "mutation":  "set_audit_verdict_claimed_true",
+    "expected_failure_fragments":  [
+                                       "audit_verdict_claimed"
+                                   ]
+}

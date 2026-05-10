@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_future_r17_027_completion.json",
+    "mutation":  "set_future_r17_027_completion_claim",
+    "expected_failure_fragments":  [
+                                       "future R17-027"
+                                   ]
+}

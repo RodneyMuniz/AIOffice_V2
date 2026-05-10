@@ -1,0 +1,46 @@
+﻿R17-026 compact-safe harness pilot packet: step 002 contract and skeleton
+
+Goal:
+Create or repair only the R17-026 pilot contract, module, wrapper scripts, focused test, fixture manifest, and initial runtime skeleton paths.
+
+Baseline:
+- HEAD: a53f2b8788e451051563fee2180c49121a5038e5
+- Tree: 4eeb27d47fab40ef6fe5c743dab341b802fc1ba8
+
+Allowed paths:
+- contracts/runtime/r17_compact_safe_harness_pilot.contract.json
+- tools/R17CompactSafeHarnessPilot.psm1
+- tools/new_r17_compact_safe_harness_pilot.ps1
+- tools/validate_r17_compact_safe_harness_pilot.ps1
+- tests/test_r17_compact_safe_harness_pilot.ps1
+- tests/fixtures/r17_compact_safe_harness_pilot/fixture_manifest.json
+
+Stop conditions:
+- HEAD or tree differ from the baseline.
+- Tracked unrelated local WIP exists before this step.
+- Historical R13/R14/R15/R16 evidence would be changed.
+- kanban.js would be changed.
+- The step would exceed compact line or artifact limits.
+
+Expected outputs:
+- contract skeleton
+- generator script
+- validator script
+- focused test
+- fixture manifest
+
+Validation commands:
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_execution_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_compact_safe_execution_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+- git diff --check
+
+Rules:
+- This is one small step for the future Cycle 3 QA/fix-loop.
+- Do not ask Codex to do the whole Cycle 3 QA/fix-loop in one session.
+- Do not invoke OpenAI APIs, Codex APIs, live agents, adapters, A2A runtime, product runtime, or live board mutation.
+- Do not claim QA results, audit verdicts, solved compaction, solved reliability, main merge, or no-manual-prompt-transfer success.

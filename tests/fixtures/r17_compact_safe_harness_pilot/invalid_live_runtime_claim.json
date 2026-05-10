@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_live_runtime_claim.json",
+    "mutation":  "set_live_runtime_true",
+    "expected_failure_fragments":  [
+                                       "live_execution_harness_runtime_implemented"
+                                   ]
+}

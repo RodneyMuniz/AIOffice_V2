@@ -1,0 +1,52 @@
+﻿R17-026 compact-safe harness pilot packet: step 003 generate Cycle 3 work orders and prompt packets
+
+Goal:
+Generate the compact work-order set, resume state, check report, and eight short prompt packets that represent future Cycle 3 QA/fix-loop steps.
+
+Baseline:
+- HEAD: a53f2b8788e451051563fee2180c49121a5038e5
+- Tree: 4eeb27d47fab40ef6fe5c743dab341b802fc1ba8
+
+Allowed paths:
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_plan.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_work_orders.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_resume_state.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_check_report.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_001_inventory.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_002_contract_and_skeleton.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_003_generate_cycle_packets.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_004_generate_board_ui_proof.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_005_validate_and_repair.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_006_status_gate_update.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_007_stage_commit_push.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_008_resume_after_compact.prompt.txt
+
+Stop conditions:
+- HEAD or tree differ from the baseline.
+- Tracked unrelated local WIP exists before this step.
+- Historical R13/R14/R15/R16 evidence would be changed.
+- kanban.js would be changed.
+- The step would exceed compact line or artifact limits.
+
+Expected outputs:
+- Cycle 3 pilot plan
+- eight work orders
+- resume state
+- check report
+- eight prompt packets under 2000 words each
+
+Validation commands:
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_execution_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_compact_safe_execution_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+- git diff --check
+
+Rules:
+- This is one small step for the future Cycle 3 QA/fix-loop.
+- Do not ask Codex to do the whole Cycle 3 QA/fix-loop in one session.
+- Do not invoke OpenAI APIs, Codex APIs, live agents, adapters, A2A runtime, product runtime, or live board mutation.
+- Do not claim QA results, audit verdicts, solved compaction, solved reliability, main merge, or no-manual-prompt-transfer success.

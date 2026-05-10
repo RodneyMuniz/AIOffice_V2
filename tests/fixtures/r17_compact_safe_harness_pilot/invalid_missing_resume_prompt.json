@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_resume_prompt.json",
+    "mutation":  "remove_resume_prompt_packet",
+    "expected_failure_fragments":  [
+                                       "resume-after-compact"
+                                   ]
+}

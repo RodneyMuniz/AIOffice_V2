@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_qa_result_claimed.json",
+    "mutation":  "set_qa_result_claimed_true",
+    "expected_failure_fragments":  [
+                                       "qa_result_claimed"
+                                   ]
+}

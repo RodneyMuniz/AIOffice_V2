@@ -1,0 +1,66 @@
+﻿R17-026 compact-safe harness pilot packet: step 007 stage commit push
+
+Goal:
+After all validations pass, stage only scoped R17-026 pilot files and narrow status updates, commit, and push the release branch.
+
+Baseline:
+- HEAD: a53f2b8788e451051563fee2180c49121a5038e5
+- Tree: 4eeb27d47fab40ef6fe5c743dab341b802fc1ba8
+
+Allowed paths:
+- contracts/runtime/r17_compact_safe_harness_pilot.contract.json
+- tools/R17CompactSafeHarnessPilot.psm1
+- tools/new_r17_compact_safe_harness_pilot.ps1
+- tools/validate_r17_compact_safe_harness_pilot.ps1
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_plan.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_work_orders.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_resume_state.json
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_check_report.json
+- state/ui/r17_kanban_mvp/r17_compact_safe_harness_pilot_snapshot.json
+- tests/test_r17_compact_safe_harness_pilot.ps1
+- tests/fixtures/r17_compact_safe_harness_pilot/fixture_manifest.json
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_026_compact_safe_harness_pilot/proof_review.md
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_026_compact_safe_harness_pilot/evidence_index.json
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_026_compact_safe_harness_pilot/validation_manifest.md
+- README.md
+- execution/KANBAN.md
+- governance/ACTIVE_STATE.md
+- governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md
+- governance/DOCUMENT_AUTHORITY_INDEX.md
+- governance/DECISION_LOG.md
+- tools/StatusDocGate.psm1
+- tools/validate_status_doc_gate.ps1
+- tests/test_status_doc_gate.ps1
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_001_inventory.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_002_contract_and_skeleton.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_003_generate_cycle_packets.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_004_generate_board_ui_proof.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_005_validate_and_repair.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_006_status_gate_update.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_007_stage_commit_push.prompt.txt
+- state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/step_008_resume_after_compact.prompt.txt
+
+Stop conditions:
+- HEAD or tree differ from the baseline.
+- Tracked unrelated local WIP exists before this step.
+- Historical R13/R14/R15/R16 evidence would be changed.
+- kanban.js would be changed.
+- The step would exceed compact line or artifact limits.
+
+Expected outputs:
+- pre-stage git status
+- scoped staged file list
+- commit
+- push to release branch
+
+Validation commands:
+- git status --short
+- git diff --name-status
+- git diff --numstat
+- git diff --check
+
+Rules:
+- This is one small step for the future Cycle 3 QA/fix-loop.
+- Do not ask Codex to do the whole Cycle 3 QA/fix-loop in one session.
+- Do not invoke OpenAI APIs, Codex APIs, live agents, adapters, A2A runtime, product runtime, or live board mutation.
+- Do not claim QA results, audit verdicts, solved compaction, solved reliability, main merge, or no-manual-prompt-transfer success.
