@@ -1,0 +1,9 @@
+﻿R17-025 compact-safe harness work order: generate artifacts.
+
+Goal: create only the local harness foundation files for small, resumable Codex work packets.
+
+Generate the contract, plan, work orders, resume state, check report, five prompt packet examples, read-only UI snapshot, compact invalid fixtures, and proof-review package. Keep all work inside the explicit allowed paths from the contract.
+
+Do not create product runtime, live agent runtime, live A2A runtime, live Codex adapter runtime, OpenAI API integration, Codex API integration, autonomous invocation, actual tool-call execution, or no-manual-prompt-transfer success claims.
+
+Output: generated file list and any files intentionally left local-only and unstaged.

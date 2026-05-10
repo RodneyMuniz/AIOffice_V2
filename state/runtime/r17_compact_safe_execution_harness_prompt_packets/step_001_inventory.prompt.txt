@@ -1,0 +1,14 @@
+﻿R17-025 compact-safe harness work order: inventory.
+
+Goal: establish repo truth before changing anything.
+
+Run the required terminal-only inventory commands:
+git status --short --branch
+git rev-parse HEAD
+git rev-parse "HEAD^{tree}"
+git diff --name-status
+git diff --numstat
+
+Confirm baseline head 163baa4b61c4b552558fa1b450a919ba4459bb31 and tree f7492c1a2921b5c0933c4657409258d060bb5a97. Classify tracked and untracked work. Stop if unrelated tracked work, historical R13/R14/R15/R16 evidence writes, kanban.js writes, staged local-only backup notes, or future R17-026+ completion claims appear.
+
+Output: concise classification, safe next step, and whether the work order may continue.

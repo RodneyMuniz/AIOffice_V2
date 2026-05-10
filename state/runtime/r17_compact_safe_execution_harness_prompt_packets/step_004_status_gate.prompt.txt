@@ -1,0 +1,9 @@
+﻿R17-025 compact-safe harness work order: status gate.
+
+Goal: update only narrow repo-truth surfaces for the pivoted R17-025 boundary.
+
+Record that R17 is active through R17-025 only. Keep R17-026 through R17-028 planned only. Explain that R17-025 pivoted because repeated compaction failures proved the need for a compact-safe local execution harness before further cycle execution.
+
+Preserve caveats: no live runtime, no OpenAI API invocation, no Codex API invocation, no autonomous Codex invocation, no live agent runtime, no live A2A runtime, no adapter runtime, no actual tool call, no product runtime, no main merge, no no-manual-prompt-transfer success claim, and no solved Codex compaction or reliability claim.
+
+Output: changed status paths and status-doc validation result.

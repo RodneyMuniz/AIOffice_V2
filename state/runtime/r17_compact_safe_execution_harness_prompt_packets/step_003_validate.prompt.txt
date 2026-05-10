@@ -1,0 +1,11 @@
+﻿R17-025 compact-safe harness work order: validate and repair.
+
+Goal: prove the harness foundation is compact, scoped, and honest.
+
+Run:
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_execution_harness.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_compact_safe_execution_harness.ps1
+
+If validation fails, repair only the listed allowed paths, keep the change small, and rerun the same commands. Do not broaden write scope. Do not touch historical evidence. Do not modify kanban.js.
+
+Output: pass/fail summary, repaired paths if any, and remaining risk.

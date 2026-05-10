@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_artifact_over_size_limit.json",
+    "mutation":  "set_artifact_size_limit_tiny",
+    "expected_failure_fragments":  [
+                                       "compact size limit"
+                                   ]
+}

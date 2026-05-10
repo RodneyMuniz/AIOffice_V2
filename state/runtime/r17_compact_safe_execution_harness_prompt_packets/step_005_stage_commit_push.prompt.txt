@@ -1,0 +1,10 @@
+﻿R17-025 compact-safe harness work order: stage, commit, push.
+
+Goal: publish only validated R17-025 compact-safe harness foundation work.
+
+Before staging, run git status --short, git diff --name-status, and git diff --numstat. Confirm only scoped harness files plus narrow status/report/gate updates changed. Confirm the abandoned QA/fix-loop work is not staged, no local-only backup note is staged, no historical R13/R14/R15/R16 evidence changed, kanban.js is unchanged, and no R17-026+ completion or live-runtime claims exist.
+
+Stage only valid scoped files. Commit with:
+Add R17-025 compact safe execution harness foundation
+
+Push to release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle.

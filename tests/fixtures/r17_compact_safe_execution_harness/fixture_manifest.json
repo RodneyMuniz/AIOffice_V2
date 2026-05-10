@@ -1,0 +1,113 @@
+﻿{
+    "artifact_type":  "r17_compact_safe_execution_harness_fixture_manifest",
+    "contract_version":  "v1",
+    "source_task":  "R17-025",
+    "invalid_fixture_count":  15,
+    "fixtures":  [
+                     {
+                         "file":  "invalid_missing_baseline_head.json",
+                         "mutation":  "remove_contract_baseline_head",
+                         "expected_failure_fragments":  [
+                                                            "baseline_head"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_baseline_tree.json",
+                         "mutation":  "remove_contract_baseline_tree",
+                         "expected_failure_fragments":  [
+                                                            "baseline_tree"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_allowed_paths.json",
+                         "mutation":  "remove_work_order_allowed_paths",
+                         "expected_failure_fragments":  [
+                                                            "allowed_paths"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_broad_repo_write.json",
+                         "mutation":  "set_broad_allowed_path",
+                         "expected_failure_fragments":  [
+                                                            "broad repo write"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_local_backup_reference.json",
+                         "mutation":  "append_local_backup_token_reference",
+                         "expected_failure_fragments":  [
+                                                            "local backup"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_historical_r15_write.json",
+                         "mutation":  "append_historical_r15_write",
+                         "expected_failure_fragments":  [
+                                                            "historical R13/R14/R15/R16"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_kanban_js_write.json",
+                         "mutation":  "append_kanban_js_write",
+                         "expected_failure_fragments":  [
+                                                            "kanban.js"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_prompt_packet_too_large.json",
+                         "mutation":  "set_prompt_packet_too_large",
+                         "expected_failure_fragments":  [
+                                                            "prompt packet word limit"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_artifact_over_size_limit.json",
+                         "mutation":  "set_artifact_size_limit_tiny",
+                         "expected_failure_fragments":  [
+                                                            "compact size limit"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_openai_api_invoked.json",
+                         "mutation":  "set_openai_api_invoked_true",
+                         "expected_failure_fragments":  [
+                                                            "openai_api_invoked"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_codex_api_invoked.json",
+                         "mutation":  "set_codex_api_invoked_true",
+                         "expected_failure_fragments":  [
+                                                            "codex_api_invoked"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_autonomous_codex_invocation.json",
+                         "mutation":  "set_autonomous_codex_invocation_true",
+                         "expected_failure_fragments":  [
+                                                            "autonomous_codex_invocation_performed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_no_manual_prompt_transfer_success.json",
+                         "mutation":  "set_no_manual_prompt_transfer_true",
+                         "expected_failure_fragments":  [
+                                                            "no_manual_prompt_transfer_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_future_r17_026_completion.json",
+                         "mutation":  "set_future_r17_026_completion_claim",
+                         "expected_failure_fragments":  [
+                                                            "future R17-026"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_runtime_claim.json",
+                         "mutation":  "set_live_runtime_true",
+                         "expected_failure_fragments":  [
+                                                            "live_execution_harness_runtime_implemented"
+                                                        ]
+                     }
+                 ]
+}

@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_autonomous_codex_invocation.json",
+    "mutation":  "set_autonomous_codex_invocation_true",
+    "expected_failure_fragments":  [
+                                       "autonomous_codex_invocation_performed"
+                                   ]
+}

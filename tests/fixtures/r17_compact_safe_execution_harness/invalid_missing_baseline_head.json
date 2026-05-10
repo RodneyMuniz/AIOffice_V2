@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_baseline_head.json",
+    "mutation":  "remove_contract_baseline_head",
+    "expected_failure_fragments":  [
+                                       "baseline_head"
+                                   ]
+}
