@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_tool_call_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "tool_call_ledger_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "tool_call_ledger_refs"
+                                   ]
+}

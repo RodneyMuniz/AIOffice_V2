@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_audit_verdict_claim",
+    "target":  "dev_result",
+    "mutation":  "set",
+    "property":  "runtime_flags.audit_verdict_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "audit_verdict_claimed"
+                                   ]
+}

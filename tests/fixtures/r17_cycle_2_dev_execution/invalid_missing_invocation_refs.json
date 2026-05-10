@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_invocation_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "invocation_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "invocation_refs"
+                                   ]
+}

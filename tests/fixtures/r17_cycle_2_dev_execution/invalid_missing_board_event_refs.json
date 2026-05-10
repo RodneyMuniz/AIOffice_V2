@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_board_event_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "board_event_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "board_event_refs"
+                                   ]
+}

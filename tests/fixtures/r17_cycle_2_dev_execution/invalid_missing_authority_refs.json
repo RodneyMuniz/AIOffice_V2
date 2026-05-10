@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_authority_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "authority_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ]
+}

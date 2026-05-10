@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_live_codex_adapter_invoked",
+    "target":  "dev_result",
+    "mutation":  "set",
+    "property":  "runtime_flags.live_codex_executor_adapter_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_codex_executor_adapter_invoked"
+                                   ]
+}

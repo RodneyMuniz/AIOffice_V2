@@ -1,0 +1,9 @@
+﻿{
+    "name":  "invalid_missing_dev_diff_status_summary_ref",
+    "target":  "dev_result",
+    "mutation":  "remove",
+    "property":  "dev_diff_status_summary_ref",
+    "expected_failure_fragments":  [
+                                       "dev_diff_status_summary_ref"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_qa_result_claim",
+    "target":  "dev_result",
+    "mutation":  "set",
+    "property":  "runtime_flags.qa_result_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "qa_result_claimed"
+                                   ]
+}

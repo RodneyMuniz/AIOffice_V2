@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_validation_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "validation_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "validation_refs"
+                                   ]
+}

@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_control_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "control_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "control_refs"
+                                   ]
+}

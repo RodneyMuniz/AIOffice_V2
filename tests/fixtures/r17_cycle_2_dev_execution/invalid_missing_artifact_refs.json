@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_artifact_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "artifact_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "artifact_refs"
+                                   ]
+}

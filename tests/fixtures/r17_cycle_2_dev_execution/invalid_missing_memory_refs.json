@@ -1,0 +1,12 @@
+﻿{
+    "name":  "invalid_missing_memory_refs",
+    "target":  "dev_request",
+    "mutation":  "set",
+    "property":  "memory_packet_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "memory_packet_refs"
+                                   ]
+}

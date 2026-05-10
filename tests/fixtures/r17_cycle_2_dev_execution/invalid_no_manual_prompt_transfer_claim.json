@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_no_manual_prompt_transfer_claim",
+    "target":  "dev_result",
+    "mutation":  "set",
+    "property":  "runtime_flags.no_manual_prompt_transfer_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "no_manual_prompt_transfer_claimed"
+                                   ]
+}

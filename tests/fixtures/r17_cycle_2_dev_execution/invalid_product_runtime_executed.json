@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_product_runtime_executed",
+    "target":  "dev_result",
+    "mutation":  "set",
+    "property":  "runtime_flags.product_runtime_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "product_runtime_executed"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_broad_repo_scan_output",
+    "target":  "dev_diff",
+    "mutation":  "set",
+    "property":  "summary",
+    "value":  "BROAD_REPO_SCAN_OUTPUT_BEGIN all repo files",
+    "expected_failure_fragments":  [
+                                       "broad repo scan output"
+                                   ]
+}

@@ -1,0 +1,9 @@
+﻿{
+    "name":  "invalid_missing_dev_request_packet_ref",
+    "target":  "dev_result",
+    "mutation":  "remove",
+    "property":  "dev_request_packet_ref",
+    "expected_failure_fragments":  [
+                                       "dev_request_packet_ref"
+                                   ]
+}

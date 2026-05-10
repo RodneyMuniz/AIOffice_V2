@@ -1,0 +1,10 @@
+﻿{
+    "name":  "invalid_embedded_source_contents",
+    "target":  "dev_diff",
+    "mutation":  "set",
+    "property":  "summary",
+    "value":  "EMBEDDED_FULL_SOURCE_FILE_CONTENTS_BEGIN function x",
+    "expected_failure_fragments":  [
+                                       "full source file contents"
+                                   ]
+}
