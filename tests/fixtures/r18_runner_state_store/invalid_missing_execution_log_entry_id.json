@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_execution_log_entry_id",
+    "target":  "execution_log:first",
+    "operation":  "remove",
+    "path":  "log_entry_id",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "log_entry_id"
+                                   ]
+}

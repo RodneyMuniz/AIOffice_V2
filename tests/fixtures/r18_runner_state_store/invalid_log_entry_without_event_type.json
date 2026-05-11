@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_log_entry_without_event_type",
+    "target":  "execution_log:first",
+    "operation":  "remove",
+    "path":  "event_type",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "event_type"
+                                   ]
+}

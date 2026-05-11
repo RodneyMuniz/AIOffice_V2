@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_wrong_branch_identity",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "git_identity.branch",
+    "value":  "main",
+    "expected_failure_fragments":  [
+                                       "branch"
+                                   ]
+}

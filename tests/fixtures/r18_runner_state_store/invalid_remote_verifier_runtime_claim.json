@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_remote_verifier_runtime_claim",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "runtime_flags.remote_branch_verifier_runtime_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "remote_branch_verifier_runtime_implemented"
+                                   ]
+}

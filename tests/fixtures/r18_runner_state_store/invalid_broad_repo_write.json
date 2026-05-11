@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_broad_repo_write",
+    "target":  "contract",
+    "operation":  "set",
+    "path":  "path_policy.broad_repo_writes_allowed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "broad repo"
+                                   ]
+}

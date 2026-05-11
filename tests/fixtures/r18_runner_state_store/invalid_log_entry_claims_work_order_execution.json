@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_log_entry_claims_work_order_execution",
+    "target":  "execution_log:first",
+    "operation":  "set",
+    "path":  "runtime_flags.work_order_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "work_order_execution_performed"
+                                   ]
+}

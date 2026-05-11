@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_log_entry_claims_live_runner_runtime",
+    "target":  "execution_log:first",
+    "operation":  "set",
+    "path":  "runtime_flags.live_runner_runtime_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_runner_runtime_executed"
+                                   ]
+}

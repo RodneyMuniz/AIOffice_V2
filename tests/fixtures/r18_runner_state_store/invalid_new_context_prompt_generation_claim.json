@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_new_context_prompt_generation_claim",
+    "target":  "checkpoint",
+    "operation":  "set",
+    "path":  "new_context_prompt_generated",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "new_context_prompt_generated"
+                                   ]
+}

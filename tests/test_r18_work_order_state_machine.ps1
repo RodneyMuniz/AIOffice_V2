@@ -240,7 +240,7 @@ foreach ($assertion in @(
         @{ label = "runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no runner state store or resumable log positive claim exists"; script = { Assert-NoForbiddenPositiveClaims -Set (Get-ValidSet) } },
         @{ label = "API flags remain disabled"; script = { Assert-ApiFlagsDisabled -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-008 only"; script = { Assert-R18StatusBoundary } }
+        @{ label = "R18 status is active through R18-009 only"; script = { Assert-R18StatusBoundary } }
     )) {
     try {
         & $assertion.script

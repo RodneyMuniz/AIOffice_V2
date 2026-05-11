@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_historical_evidence_edit_permission",
+    "target":  "contract",
+    "operation":  "set",
+    "path":  "path_policy.historical_r13_r16_evidence_edits_allowed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "historical"
+                                   ]
+}

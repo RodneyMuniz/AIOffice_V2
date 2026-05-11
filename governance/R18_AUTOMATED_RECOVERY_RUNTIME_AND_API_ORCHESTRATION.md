@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-008` work-order execution state machine foundation only.
+**Status after this pass:** Active through `R18-009` runner state store and resumable execution log foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-008` are done. `R18-009` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-009` are done. `R18-010` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-009 through R18-028 are planned only.
+- R18-010 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -32,8 +32,15 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - CLI shell is not full work-order execution runtime.
 - R18-008 created work-order execution state machine foundation only.
 - Work-order state machine is not runtime execution.
-- Runner state store is not implemented.
-- Resumable execution log is not implemented.
+- R18-009 created runner state store and resumable execution log foundation only.
+- Runner state store is not live runner runtime.
+- Execution log is deterministic foundation evidence, not live execution evidence.
+- Resume checkpoint is not a continuation packet.
+- Compact failure detector is not implemented.
+- WIP classifier is not implemented.
+- Remote branch verifier runtime is not implemented.
+- Continuation packet generator is not implemented.
+- New-context prompt generator is not implemented.
 - No work orders were executed.
 - No board/card runtime mutation occurred.
 - No A2A messages were sent.
@@ -47,7 +54,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No Codex API invocation is claimed.
 - No autonomous Codex invocation is claimed.
 - No automatic new-thread creation is claimed.
-- No stage/commit/push was performed by the runner or state machine.
+- No stage/commit/push was performed by the runner or state store.
 - No main merge is claimed.
 - No solved Codex compaction or reliability is claimed.
 - No no-manual-prompt-transfer success is claimed yet.
@@ -151,16 +158,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_work_order_state_machine.contract.json`, `state/runtime/r18_work_order_state_machine.json`, `state/runtime/r18_work_order_transition_catalog.json`, `state/runtime/r18_work_order_seed_packets/`, `state/runtime/r18_work_order_transition_evaluations/`, `state/runtime/r18_work_order_state_machine_check_report.json`, `state/ui/r18_operator_surface/r18_work_order_state_machine_snapshot.json`, `tools/R18WorkOrderStateMachine.psm1`, `tools/new_r18_work_order_state_machine.ps1`, `tools/validate_r18_work_order_state_machine.ps1`, `tests/test_r18_work_order_state_machine.ps1`, `tests/fixtures/r18_work_order_state_machine/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/`.
 
 ### `R18-009` Implement runner state store and resumable execution log
-- Status: planned
+- Status: done
 - Purpose: Persist runner state and execution logs so continuation does not depend on chat memory.
-- Inputs: State machine, work-order packets, git inventory, validator outputs.
-- Outputs: State store contract, JSON/JSONL execution log, resume-state validator.
-- Acceptance criteria: Store records current work order, last completed step, next safe step, retry count, evidence refs, and git identity.
-- Validation expectation: Planned validator rejects missing baseline, missing step refs, or stale state.
-- Non-claims: Persisted state is not automatic recovery by itself.
+- Inputs: R18-008 state machine, R18-008 blocked seed work order, local runner CLI shell refs, intake/handoff/permission refs, git identity recorded from required preflight, validator outputs, and source authority refs.
+- Outputs: Runner state store contract, profile, seed runner state, JSONL state history, JSONL execution log, resume checkpoint, seed event artifacts, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Store records current work order, current state, previous state, last completed step, next safe step, retry count, bounded retry limit, git identity, authority refs, evidence refs, validation refs, stop conditions, escalation conditions, and a checkpoint ref while all runtime/API/continuation flags remain false.
+- Validation expectation: `tools/validate_r18_runner_state_store.ps1` and `tests/test_r18_runner_state_store.ps1` reject missing artifacts, missing state/log/checkpoint fields, unknown states/events, unbounded retry, missing git identity, wrong branch identity, missing authority/evidence/validation refs, missing stop conditions, continuation or new-context prompt claims, live runtime/API/A2A/agent/skill/recovery/board/product claims, operator-local backup paths, historical evidence edit permissions, broad repo writes, stage/commit/push claims, and R18-010+ completion claims.
+- Non-claims: Runner state store is a deterministic state/log foundation only, not live runner runtime. Execution log is deterministic foundation evidence, not live execution evidence. Resume checkpoint is not a continuation packet. No work orders were executed.
 - Dependencies: R18-008.
-- Failure/retry behavior: Corrupt or incomplete state blocks continuation and escalates.
-- Expected evidence refs: `state/runtime/r18_runner_state.json`, `state/runtime/r18_execution_log.jsonl`, fixtures.
+- Failure/retry behavior: Corrupt or incomplete state fails closed, blocks future continuation, and records escalation conditions; retry count is bounded and enforced.
+- Expected evidence refs: `contracts/runtime/r18_runner_state_store.contract.json`, `state/runtime/r18_runner_state_store_profile.json`, `state/runtime/r18_runner_state.json`, `state/runtime/r18_runner_state_history.jsonl`, `state/runtime/r18_execution_log.jsonl`, `state/runtime/r18_runner_resume_checkpoint.json`, `state/runtime/r18_runner_state_store_seed_events/`, `state/runtime/r18_runner_state_store_check_report.json`, `state/ui/r18_operator_surface/r18_runner_state_store_snapshot.json`, `tools/R18RunnerStateStore.psm1`, `tools/new_r18_runner_state_store.ps1`, `tools/validate_r18_runner_state_store.ps1`, `tests/test_r18_runner_state_store.ps1`, `tests/fixtures/r18_runner_state_store/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store/`.
 
 ### `R18-010` Implement compact failure detector
 - Status: planned

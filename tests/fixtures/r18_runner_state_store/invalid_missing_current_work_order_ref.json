@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_current_work_order_ref",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "current_work_order_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "current_work_order_ref"
+                                   ]
+}

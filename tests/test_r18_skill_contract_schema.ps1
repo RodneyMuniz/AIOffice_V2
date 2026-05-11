@@ -238,7 +238,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Test-R18SkillContractStatusTruth -RepositoryRoot $repoRoot
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-008 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-009 boundary."
     $validPassed += 1
 }
 catch {

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_runner_state_id",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "runner_state_id",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "runner_state_id"
+                                   ]
+}

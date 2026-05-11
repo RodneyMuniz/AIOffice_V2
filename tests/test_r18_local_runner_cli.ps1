@@ -223,7 +223,7 @@ foreach ($assertion in @(
         @{ label = "command types are exactly required"; script = { Assert-RequiredCommandTypes -Set (Get-ValidSet) } },
         @{ label = "runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "API flags remain disabled"; script = { Assert-ApiFlagsDisabled -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-008 only"; script = { Test-R18CliStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status is active through R18-009 only"; script = { Test-R18CliStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

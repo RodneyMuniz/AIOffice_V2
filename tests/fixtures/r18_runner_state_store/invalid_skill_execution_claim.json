@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_skill_execution_claim",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "runtime_flags.live_skill_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_skill_execution_performed"
+                                   ]
+}

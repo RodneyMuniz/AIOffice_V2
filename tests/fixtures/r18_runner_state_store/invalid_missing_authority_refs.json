@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "authority_refs",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ]
+}

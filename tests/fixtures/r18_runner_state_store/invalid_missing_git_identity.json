@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_git_identity",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "git_identity",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "git_identity"
+                                   ]
+}

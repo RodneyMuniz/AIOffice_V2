@@ -1567,15 +1567,22 @@ function Test-R18WorkOrderStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-008 only",
-            "R18-009 through R18-028 planned only",
+            "R18 active through R18-009 only",
+            "R18-010 through R18-028 planned only",
             "R18-007 created local runner/CLI shell foundation only",
             "CLI shell is dry-run only",
             "CLI shell is not full work-order execution runtime",
             "R18-008 created work-order execution state machine foundation only",
             "Work-order state machine is not runtime execution",
-            "Runner state store is not implemented",
-            "Resumable execution log is not implemented",
+            "R18-009 created runner state store and resumable execution log foundation only",
+            "Runner state store is not live runner runtime",
+            "Execution log is deterministic foundation evidence, not live execution evidence",
+            "Resume checkpoint is not a continuation packet",
+            "Compact failure detector is not implemented",
+            "WIP classifier is not implemented",
+            "Remote branch verifier runtime is not implemented",
+            "Continuation packet generator is not implemented",
+            "New-context prompt generator is not implemented",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
@@ -1585,12 +1592,12 @@ function Test-R18WorkOrderStatusTruth {
             "No recovery runtime was implemented",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
-            "No stage/commit/push was performed by the runner or state machine",
+            "No stage/commit/push was performed by the runner or state store",
             "No product runtime is claimed",
             "Main is not merged"
         )) {
         if ($combinedText -notlike "*$required*") {
-            throw "Status docs missing R18-008 truth: $required"
+            throw "Status docs missing current R18-009 truth: $required"
         }
     }
 
@@ -1601,23 +1608,23 @@ function Test-R18WorkOrderStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 8) {
+        if ($taskNumber -le 9) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-008."
+                throw "$taskId must be done after R18-009."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-008."
+                throw "$taskId must remain planned only after R18-009."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(00[9]|0[1-2][0-9])') {
-        throw "Status surface claims R18 beyond R18-008."
+    if ($combinedText -match 'R18 active through R18-(01[0-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-009."
     }
-    if ($combinedText -match '(?i)R18-009.{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-009 completion or active runtime."
+    if ($combinedText -match '(?i)R18-010.{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-010 or later completion."
     }
 }
 

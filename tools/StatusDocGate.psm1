@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-008 only",
-            "R18-009 through R18-028 planned only",
+            "R18 active through R18-009 only",
+            "R18-010 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3713,8 +3713,15 @@ function Test-StatusDocGate {
             "CLI shell is not full work-order execution runtime",
             "R18-008 created work-order execution state machine foundation only",
             "Work-order state machine is not runtime execution",
-            "Runner state store is not implemented",
-            "Resumable execution log is not implemented",
+            "R18-009 created runner state store and resumable execution log foundation only",
+            "Runner state store is not live runner runtime",
+            "Execution log is deterministic foundation evidence, not live execution evidence",
+            "Resume checkpoint is not a continuation packet",
+            "Compact failure detector is not implemented",
+            "WIP classifier is not implemented",
+            "Remote branch verifier runtime is not implemented",
+            "Continuation packet generator is not implemented",
+            "New-context prompt generator is not implemented",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
@@ -3725,7 +3732,7 @@ function Test-StatusDocGate {
             "No recovery runtime was implemented",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
-            "No stage/commit/push was performed by the runner or state machine",
+            "No stage/commit/push was performed by the runner or state store",
             "No product runtime is claimed",
             "R18 runtime implementation is not yet delivered",
             "Main is not merged"
@@ -3740,7 +3747,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 8) {
+        if ($taskNumber -le 9) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3782,8 +3789,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 8
-        R18PlannedStart = 9
+        R18DoneThrough = 9
+        R18PlannedStart = 10
         R18PlannedThrough = 28
     }
 }

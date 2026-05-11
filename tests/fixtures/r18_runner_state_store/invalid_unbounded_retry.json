@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_retry",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "max_retry_count",
+    "value":  99,
+    "expected_failure_fragments":  [
+                                       "bounded retry"
+                                   ]
+}

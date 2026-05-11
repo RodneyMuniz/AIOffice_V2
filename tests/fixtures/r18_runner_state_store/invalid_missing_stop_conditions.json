@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_stop_conditions",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "stop_conditions",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "stop_conditions"
+                                   ]
+}

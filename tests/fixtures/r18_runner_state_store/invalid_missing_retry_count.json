@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_retry_count",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "retry_count",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "retry_count"
+                                   ]
+}

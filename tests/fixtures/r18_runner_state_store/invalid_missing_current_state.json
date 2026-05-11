@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_current_state",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "current_state",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "current_state"
+                                   ]
+}

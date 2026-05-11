@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_unknown_state",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "current_state",
+    "value":  "executing_live_work",
+    "expected_failure_fragments":  [
+                                       "unknown state"
+                                   ]
+}

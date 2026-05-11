@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_log_entry_without_state_ref",
+    "target":  "execution_log:first",
+    "operation":  "remove",
+    "path":  "runner_state_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "runner_state_ref"
+                                   ]
+}

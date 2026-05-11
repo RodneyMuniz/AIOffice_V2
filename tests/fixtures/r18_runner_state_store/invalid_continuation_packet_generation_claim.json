@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_continuation_packet_generation_claim",
+    "target":  "checkpoint",
+    "operation":  "set",
+    "path":  "continuation_packet_generated",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "continuation_packet_generated"
+                                   ]
+}

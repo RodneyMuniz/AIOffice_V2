@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_compact_failure_detector_claim",
+    "target":  "state",
+    "operation":  "set",
+    "path":  "runtime_flags.compact_failure_detector_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "compact_failure_detector_implemented"
+                                   ]
+}

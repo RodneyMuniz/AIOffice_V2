@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_validation_refs",
+    "target":  "state",
+    "operation":  "remove",
+    "path":  "validation_refs",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "validation_refs"
+                                   ]
+}
