@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_automatic_new_thread_claim.json",
+    "mutation":  "set_automatic_new_thread_creation_true",
+    "expected_failure_fragments":  [
+                                       "automatic_new_thread_creation_performed"
+                                   ]
+}

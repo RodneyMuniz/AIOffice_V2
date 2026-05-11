@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_retry_limit.json",
+    "mutation":  "remove_failure_retry_limit",
+    "expected_failure_fragments":  [
+                                       "retry_limit"
+                                   ]
+}

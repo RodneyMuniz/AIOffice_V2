@@ -1,0 +1,266 @@
+﻿{
+    "artifact_type":  "r17_automated_recovery_loop_state_machine",
+    "contract_version":  "v1",
+    "source_task":  "R17-027",
+    "active_through_task":  "R17-027",
+    "planned_only_from":  "R17-028",
+    "planned_only_through":  "R17-028",
+    "baseline_head":  "66ce7ed7868fd70d418eba191ba8ece585b79bee",
+    "baseline_tree":  "8105cf5b4bdd3dc14d440fd952fd925b913aebae",
+    "remote_branch_ref":  "origin/release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "remote_verification_required":  true,
+    "states":  [
+                   "idle",
+                   "failure_detected",
+                   "preserve_local_state",
+                   "classify_wip",
+                   "generate_continuation_packet",
+                   "generate_new_context_packet",
+                   "resume_next_safe_step",
+                   "validate_recovery",
+                   "operator_escalation",
+                   "complete_foundation"
+               ],
+    "transitions":  [
+                        {
+                            "from":  "idle",
+                            "on":  "failure_event",
+                            "to":  "failure_detected"
+                        },
+                        {
+                            "from":  "failure_detected",
+                            "on":  "inventory_recorded",
+                            "to":  "preserve_local_state"
+                        },
+                        {
+                            "from":  "preserve_local_state",
+                            "on":  "state_preserved",
+                            "to":  "classify_wip"
+                        },
+                        {
+                            "from":  "classify_wip",
+                            "on":  "safe_wip",
+                            "to":  "generate_continuation_packet"
+                        },
+                        {
+                            "from":  "classify_wip",
+                            "on":  "unsafe_wip",
+                            "to":  "operator_escalation"
+                        },
+                        {
+                            "from":  "generate_continuation_packet",
+                            "on":  "packet_ready",
+                            "to":  "generate_new_context_packet"
+                        },
+                        {
+                            "from":  "generate_new_context_packet",
+                            "on":  "prompt_ready",
+                            "to":  "resume_next_safe_step"
+                        },
+                        {
+                            "from":  "resume_next_safe_step",
+                            "on":  "validation_requested",
+                            "to":  "validate_recovery"
+                        },
+                        {
+                            "from":  "validate_recovery",
+                            "on":  "validation_passed",
+                            "to":  "complete_foundation"
+                        },
+                        {
+                            "from":  "validate_recovery",
+                            "on":  "retry_limit_reached",
+                            "to":  "operator_escalation"
+                        }
+                    ],
+    "detected_failure_types":  [
+                                   "codex_compact_failure",
+                                   "stream_disconnected_before_completion",
+                                   "validation_failure",
+                                   "status_doc_gate_failure",
+                                   "unexpected_tracked_wip",
+                                   "remote_branch_moved",
+                                   "unsafe_historical_diff",
+                                   "generated_artifact_churn",
+                                   "operator_abort"
+                               ],
+    "continuation_packet_types":  [
+                                      "resume_existing_wip",
+                                      "abandon_wip_with_backup_note",
+                                      "continue_after_validation_failure",
+                                      "continue_after_compact_failure",
+                                      "new_context_resume",
+                                      "operator_decision_required"
+                                  ],
+    "local_inventory_commands":  [
+                                     "git status --short --branch",
+                                     "git rev-parse HEAD",
+                                     "git rev-parse \"HEAD^{tree}\"",
+                                     "git diff --name-status",
+                                     "git diff --numstat"
+                                 ],
+    "wip_classification":  {
+                               "classification":  "no_tracked_wip_at_generation",
+                               "tracked_wip_present":  false,
+                               "untracked_operator_backup_notes_present":  true,
+                               "untracked_operator_backup_notes_are_evidence":  false,
+                               "abandoned_qa_fix_loop_wip_present":  false,
+                               "action":  "continue_with_committed_R17_027_scope_only"
+                           },
+    "retry_limit":  2,
+    "escalation_policy":  {
+                              "retry_limit":  2,
+                              "retry_counter_source":  "continuation_packet.retry_attempt",
+                              "escalate_when":  [
+                                                    "retry_limit_reached",
+                                                    "unexpected_tracked_wip_detected",
+                                                    "remote_branch_moved",
+                                                    "unsafe_historical_diff_detected",
+                                                    "generated_artifact_churn_over_limit",
+                                                    "operator_abort"
+                                                ],
+                              "escalation_action":  "stop_and_request_operator_decision",
+                              "operator_decision_required_for":  [
+                                                                     "abandon_wip_with_backup_note",
+                                                                     "unexpected_tracked_wip",
+                                                                     "remote_branch_moved",
+                                                                     "unsafe_historical_diff",
+                                                                     "retry_limit_reached"
+                                                                 ]
+                          },
+    "completion_status":  "state_machine_modelled_not_live_runtime",
+    "evidence_refs":  [
+                          "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                          "state/runtime/r17_automated_recovery_loop_plan.json",
+                          "state/runtime/r17_automated_recovery_loop_state_machine.json",
+                          "state/runtime/r17_automated_recovery_loop_failure_events.jsonl",
+                          "state/runtime/r17_automated_recovery_loop_continuation_packets.json",
+                          "state/runtime/r17_automated_recovery_loop_new_context_packets.json",
+                          "state/runtime/r17_automated_recovery_loop_check_report.json",
+                          "state/runtime/r17_automated_recovery_loop_prompt_packets",
+                          "state/ui/r17_kanban_mvp/r17_automated_recovery_loop_snapshot.json",
+                          "tools/R17AutomatedRecoveryLoop.psm1",
+                          "tools/new_r17_automated_recovery_loop.ps1",
+                          "tools/validate_r17_automated_recovery_loop.ps1",
+                          "tests/test_r17_automated_recovery_loop.ps1",
+                          "tests/fixtures/r17_automated_recovery_loop/fixture_manifest.json",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/proof_review.md",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/evidence_index.json",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/validation_manifest.md"
+                      ],
+    "authority_refs":  [
+                           "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                           "execution/KANBAN.md",
+                           "governance/ACTIVE_STATE.md",
+                           "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                           "governance/DECISION_LOG.md",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_compact_safe_harness_pilot.contract.json"
+                       ],
+    "non_claims":  [
+                       "R17-027 creates an automated recovery-loop foundation only",
+                       "R17-027 models interruption detection, state preservation, WIP classification, continuation packets, new-context prompt packets, retry limits, and escalation policy",
+                       "R17-027 does not implement live recovery-loop runtime",
+                       "R17-027 does not perform automatic new-thread creation",
+                       "R17-027 does not create a Codex thread automatically",
+                       "R17-027 does not invoke OpenAI APIs",
+                       "R17-027 does not invoke Codex APIs",
+                       "R17-027 does not perform autonomous Codex invocation",
+                       "R17-027 does not implement live execution harness runtime",
+                       "R17-027 does not invoke live agent runtime",
+                       "R17-027 does not implement live A2A runtime",
+                       "R17-027 does not invoke adapter runtime",
+                       "R17-027 does not perform actual tool calls through product runtime",
+                       "R17-027 does not execute product runtime",
+                       "R17-027 does not claim no-manual-prompt-transfer success",
+                       "R17-027 does not solve Codex compaction",
+                       "R17-027 does not solve Codex reliability",
+                       "R17-027 does not claim main merge",
+                       "R17-027 does not close R17",
+                       "R17-028 remains planned only",
+                       "R13 remains failed/partial and not closed",
+                       "R14 caveats remain preserved",
+                       "R15 caveats remain preserved",
+                       "R16 remains complete for bounded foundation scope through R16-026 only"
+                   ],
+    "rejected_claims":  [
+                            "live_recovery_loop_runtime",
+                            "automatic_new_thread_creation",
+                            "automatic_Codex_thread_creation",
+                            "OpenAI_API_invocation",
+                            "Codex_API_invocation",
+                            "autonomous_Codex_invocation",
+                            "live_execution_harness_runtime",
+                            "live_agent_runtime",
+                            "live_A2A_runtime",
+                            "adapter_runtime",
+                            "actual_tool_call",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_Codex_compaction",
+                            "solved_Codex_reliability",
+                            "main_merge",
+                            "R17_closeout",
+                            "future_R17_028_completion",
+                            "historical_R13_R14_R15_R16_writes",
+                            "local_backup_directory_reference",
+                            "kanban_js_write_without_explicit_allowance",
+                            "wildcard_broad_repo_write",
+                            "full_milestone_history_in_new_context_packet",
+                            "whole_milestone_prompt",
+                            "previous_thread_memory_dependency"
+                        ],
+    "runtime_flags":  {
+                          "live_recovery_loop_runtime_implemented":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "codex_thread_created_automatically":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "live_execution_harness_runtime_implemented":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "adapter_runtime_invoked":  false,
+                          "actual_tool_call_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "main_merge_claimed":  false,
+                          "r17_closeout_claimed":  false
+                      },
+    "positive_claims":  {
+                            "automated_recovery_loop_foundation_created":  true,
+                            "failure_event_model_created":  true,
+                            "continuation_packet_model_created":  true,
+                            "new_context_resume_packet_model_created":  true,
+                            "compact_failure_recovery_path_modelled":  true,
+                            "retry_escalation_policy_created":  true,
+                            "future_work_can_resume_from_new_context_packet":  true
+                        },
+    "live_recovery_loop_runtime_implemented":  false,
+    "automatic_new_thread_creation_performed":  false,
+    "codex_thread_created_automatically":  false,
+    "openai_api_invoked":  false,
+    "codex_api_invoked":  false,
+    "autonomous_codex_invocation_performed":  false,
+    "live_execution_harness_runtime_implemented":  false,
+    "live_agent_runtime_invoked":  false,
+    "live_a2a_runtime_implemented":  false,
+    "adapter_runtime_invoked":  false,
+    "actual_tool_call_performed":  false,
+    "product_runtime_executed":  false,
+    "no_manual_prompt_transfer_claimed":  false,
+    "solved_codex_compaction_claimed":  false,
+    "solved_codex_reliability_claimed":  false,
+    "main_merge_claimed":  false,
+    "r17_closeout_claimed":  false,
+    "automated_recovery_loop_foundation_created":  true,
+    "failure_event_model_created":  true,
+    "continuation_packet_model_created":  true,
+    "new_context_resume_packet_model_created":  true,
+    "compact_failure_recovery_path_modelled":  true,
+    "retry_escalation_policy_created":  true,
+    "future_work_can_resume_from_new_context_packet":  true
+}

@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_solved_codex_reliability.json",
+    "mutation":  "set_solved_codex_reliability_true",
+    "expected_failure_fragments":  [
+                                       "solved_codex_reliability_claimed"
+                                   ]
+}

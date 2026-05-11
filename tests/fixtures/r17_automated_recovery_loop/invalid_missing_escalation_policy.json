@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_escalation_policy.json",
+    "mutation":  "remove_failure_escalation_policy",
+    "expected_failure_fragments":  [
+                                       "escalation_policy"
+                                   ]
+}

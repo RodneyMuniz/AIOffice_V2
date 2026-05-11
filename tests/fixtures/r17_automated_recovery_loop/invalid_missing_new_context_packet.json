@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_new_context_packet.json",
+    "mutation":  "remove_new_context_packets",
+    "expected_failure_fragments":  [
+                                       "new-context"
+                                   ]
+}

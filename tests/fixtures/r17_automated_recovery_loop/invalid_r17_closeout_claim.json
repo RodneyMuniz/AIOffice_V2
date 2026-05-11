@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_r17_closeout_claim.json",
+    "mutation":  "set_r17_closeout_true",
+    "expected_failure_fragments":  [
+                                       "r17_closeout_claimed"
+                                   ]
+}

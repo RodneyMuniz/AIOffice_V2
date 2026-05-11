@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_local_inventory_commands.json",
+    "mutation":  "remove_failure_local_inventory",
+    "expected_failure_fragments":  [
+                                       "local_inventory_commands"
+                                   ]
+}

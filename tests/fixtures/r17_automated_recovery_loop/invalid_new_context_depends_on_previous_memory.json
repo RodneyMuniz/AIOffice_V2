@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_new_context_depends_on_previous_memory.json",
+    "mutation":  "set_new_context_depends_on_previous_memory",
+    "expected_failure_fragments":  [
+                                       "previous thread memory"
+                                   ]
+}

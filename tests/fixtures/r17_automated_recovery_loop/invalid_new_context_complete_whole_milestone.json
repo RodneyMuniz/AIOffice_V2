@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_new_context_complete_whole_milestone.json",
+    "mutation":  "set_new_context_complete_whole_milestone",
+    "expected_failure_fragments":  [
+                                       "whole milestone"
+                                   ]
+}

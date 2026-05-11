@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_wip_classification.json",
+    "mutation":  "remove_failure_wip_classification",
+    "expected_failure_fragments":  [
+                                       "wip_classification"
+                                   ]
+}

@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_continuation_packet.json",
+    "mutation":  "remove_continuation_packets",
+    "expected_failure_fragments":  [
+                                       "continuation packet"
+                                   ]
+}

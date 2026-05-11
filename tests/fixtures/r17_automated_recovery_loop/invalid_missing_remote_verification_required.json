@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_missing_remote_verification_required.json",
+    "mutation":  "remove_failure_remote_verification",
+    "expected_failure_fragments":  [
+                                       "remote_verification_required"
+                                   ]
+}

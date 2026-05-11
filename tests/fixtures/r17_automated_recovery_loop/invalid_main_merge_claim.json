@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_main_merge_claim.json",
+    "mutation":  "set_main_merge_true",
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed"
+                                   ]
+}

@@ -1,0 +1,196 @@
+﻿{
+    "artifact_type":  "r17_automated_recovery_loop_fixture_manifest",
+    "contract_version":  "v1",
+    "source_task":  "R17-027",
+    "fixtures":  [
+                     {
+                         "file":  "invalid_missing_baseline_head.json",
+                         "mutation":  "remove_contract_baseline_head",
+                         "expected_failure_fragments":  [
+                                                            "baseline_head"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_baseline_tree.json",
+                         "mutation":  "remove_contract_baseline_tree",
+                         "expected_failure_fragments":  [
+                                                            "baseline_tree"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_remote_verification_required.json",
+                         "mutation":  "remove_failure_remote_verification",
+                         "expected_failure_fragments":  [
+                                                            "remote_verification_required"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_local_inventory_commands.json",
+                         "mutation":  "remove_failure_local_inventory",
+                         "expected_failure_fragments":  [
+                                                            "local_inventory_commands"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_wip_classification.json",
+                         "mutation":  "remove_failure_wip_classification",
+                         "expected_failure_fragments":  [
+                                                            "wip_classification"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_continuation_packet.json",
+                         "mutation":  "remove_continuation_packets",
+                         "expected_failure_fragments":  [
+                                                            "continuation packet"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_new_context_packet.json",
+                         "mutation":  "remove_new_context_packets",
+                         "expected_failure_fragments":  [
+                                                            "new-context"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_retry_limit.json",
+                         "mutation":  "remove_failure_retry_limit",
+                         "expected_failure_fragments":  [
+                                                            "retry_limit"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_escalation_policy.json",
+                         "mutation":  "remove_failure_escalation_policy",
+                         "expected_failure_fragments":  [
+                                                            "escalation_policy"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_broad_repo_write.json",
+                         "mutation":  "append_broad_allowed_path",
+                         "expected_failure_fragments":  [
+                                                            "broad repo write"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_local_backup_reference.json",
+                         "mutation":  "append_local_backup_reference",
+                         "expected_failure_fragments":  [
+                                                            "local backup"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_historical_r14_write.json",
+                         "mutation":  "append_historical_r14_write",
+                         "expected_failure_fragments":  [
+                                                            "historical R13/R14/R15/R16"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_kanban_js_write.json",
+                         "mutation":  "append_kanban_js_write",
+                         "expected_failure_fragments":  [
+                                                            "kanban.js"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_prompt_packet_too_large.json",
+                         "mutation":  "set_prompt_packet_too_large",
+                         "expected_failure_fragments":  [
+                                                            "word limit"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_new_context_depends_on_previous_memory.json",
+                         "mutation":  "set_new_context_depends_on_previous_memory",
+                         "expected_failure_fragments":  [
+                                                            "previous thread memory"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_new_context_complete_whole_milestone.json",
+                         "mutation":  "set_new_context_complete_whole_milestone",
+                         "expected_failure_fragments":  [
+                                                            "whole milestone"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_openai_api_invoked.json",
+                         "mutation":  "set_openai_api_invoked_true",
+                         "expected_failure_fragments":  [
+                                                            "openai_api_invoked"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_codex_api_invoked.json",
+                         "mutation":  "set_codex_api_invoked_true",
+                         "expected_failure_fragments":  [
+                                                            "codex_api_invoked"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_automatic_new_thread_claim.json",
+                         "mutation":  "set_automatic_new_thread_creation_true",
+                         "expected_failure_fragments":  [
+                                                            "automatic_new_thread_creation_performed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_autonomous_codex_invocation.json",
+                         "mutation":  "set_autonomous_codex_invocation_true",
+                         "expected_failure_fragments":  [
+                                                            "autonomous_codex_invocation_performed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_no_manual_prompt_transfer_success.json",
+                         "mutation":  "set_no_manual_prompt_transfer_true",
+                         "expected_failure_fragments":  [
+                                                            "no_manual_prompt_transfer_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_solved_codex_compaction.json",
+                         "mutation":  "set_solved_codex_compaction_true",
+                         "expected_failure_fragments":  [
+                                                            "solved_codex_compaction_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_solved_codex_reliability.json",
+                         "mutation":  "set_solved_codex_reliability_true",
+                         "expected_failure_fragments":  [
+                                                            "solved_codex_reliability_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_product_runtime_claim.json",
+                         "mutation":  "set_product_runtime_true",
+                         "expected_failure_fragments":  [
+                                                            "product_runtime_executed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_main_merge_claim.json",
+                         "mutation":  "set_main_merge_true",
+                         "expected_failure_fragments":  [
+                                                            "main_merge_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_r17_closeout_claim.json",
+                         "mutation":  "set_r17_closeout_true",
+                         "expected_failure_fragments":  [
+                                                            "r17_closeout_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_future_r17_028_completion.json",
+                         "mutation":  "set_future_r17_028_completion_claim",
+                         "expected_failure_fragments":  [
+                                                            "R17-028"
+                                                        ]
+                     }
+                 ]
+}

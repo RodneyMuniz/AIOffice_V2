@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_broad_repo_write.json",
+    "mutation":  "append_broad_allowed_path",
+    "expected_failure_fragments":  [
+                                       "broad repo write"
+                                   ]
+}

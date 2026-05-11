@@ -1,0 +1,101 @@
+﻿R17-027 step 007: stage, commit, and push.
+
+Repo: C:\Users\rodne\OneDrive\Documentos\AIOffice_V2
+Branch: release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle
+Source task: R17-027
+Baseline HEAD: 66ce7ed7868fd70d418eba191ba8ece585b79bee
+Baseline tree: 8105cf5b4bdd3dc14d440fd952fd925b913aebae
+Remote branch ref: origin/release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle
+Remote verification required: true
+
+Allowed paths:
+- contracts/runtime/r17_automated_recovery_loop.contract.json
+- tools/R17AutomatedRecoveryLoop.psm1
+- tools/new_r17_automated_recovery_loop.ps1
+- tools/validate_r17_automated_recovery_loop.ps1
+- state/runtime/r17_automated_recovery_loop_plan.json
+- state/runtime/r17_automated_recovery_loop_state_machine.json
+- state/runtime/r17_automated_recovery_loop_failure_events.jsonl
+- state/runtime/r17_automated_recovery_loop_continuation_packets.json
+- state/runtime/r17_automated_recovery_loop_new_context_packets.json
+- state/runtime/r17_automated_recovery_loop_check_report.json
+- state/ui/r17_kanban_mvp/r17_automated_recovery_loop_snapshot.json
+- tests/test_r17_automated_recovery_loop.ps1
+- tests/fixtures/r17_automated_recovery_loop/fixture_manifest.json
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/proof_review.md
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/evidence_index.json
+- state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_027_automated_recovery_loop/validation_manifest.md
+- README.md
+- execution/KANBAN.md
+- governance/ACTIVE_STATE.md
+- governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md
+- governance/DOCUMENT_AUTHORITY_INDEX.md
+- governance/DECISION_LOG.md
+- tools/StatusDocGate.psm1
+- tools/validate_status_doc_gate.ps1
+- tests/test_status_doc_gate.ps1
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_001_detect_failure.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_002_preserve_state.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_003_classify_wip.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_004_generate_continuation_packet.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_005_new_context_resume.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_006_validate_recovery.prompt.txt
+- state/runtime/r17_automated_recovery_loop_prompt_packets/step_007_stage_commit_push.prompt.txt
+
+Forbidden paths:
+- operator local backup directory
+- abandoned QA/fix-loop work outside R17-027 scope
+- historical R13/R14/R15/R16 evidence and authority paths
+- scripts/operator_wall/r17_kanban_mvp/kanban.js unless explicitly allowed
+- broad repository roots
+- unbounded wildcard write paths
+
+Validation commands:
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r17_automated_recovery_loop.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_automated_recovery_loop.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r17_automated_recovery_loop.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_execution_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r17_compact_safe_harness_pilot.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+- git diff --check
+
+Explicit non-claims:
+- R17-027 creates an automated recovery-loop foundation only
+- R17-027 models interruption detection, state preservation, WIP classification, continuation packets, new-context prompt packets, retry limits, and escalation policy
+- R17-027 does not implement live recovery-loop runtime
+- R17-027 does not perform automatic new-thread creation
+- R17-027 does not create a Codex thread automatically
+- R17-027 does not invoke OpenAI APIs
+- R17-027 does not invoke Codex APIs
+- R17-027 does not perform autonomous Codex invocation
+- R17-027 does not implement live execution harness runtime
+- R17-027 does not invoke live agent runtime
+- R17-027 does not implement live A2A runtime
+- R17-027 does not invoke adapter runtime
+- R17-027 does not perform actual tool calls through product runtime
+- R17-027 does not execute product runtime
+- R17-027 does not claim no-manual-prompt-transfer success
+- R17-027 does not solve Codex compaction
+- R17-027 does not solve Codex reliability
+- R17-027 does not claim main merge
+- R17-027 does not close R17
+- R17-028 remains planned only
+- R13 remains failed/partial and not closed
+- R14 caveats remain preserved
+- R15 caveats remain preserved
+- R16 remains complete for bounded foundation scope through R16-026 only
+
+Next step only: after all validation passes, stage only R17-027 automated recovery-loop scoped files and narrow status/gate updates, commit, and push the release branch.
+
+Expected outputs:
+- clean changed-file scope review
+- commit using: Add R17-027 automated recovery loop foundation
+- push to the R17 release branch
+
+Stop conditions:
+- abandoned QA/fix-loop WIP would be staged
+- operator local backup directory would be staged
+- R17-028 completion is claimed
+- live runtime or API execution is claimed
+- main merge or R17 closeout is claimed
