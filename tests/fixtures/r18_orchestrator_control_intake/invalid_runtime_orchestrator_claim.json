@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_runtime_orchestrator_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.orchestrator_runtime_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims Orchestrator runtime"
+                                   ]
+}

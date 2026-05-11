@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_bypass_permission_matrix",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "permission_matrix_ref.bypass_allowed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "permission matrix bypass"
+                                   ]
+}

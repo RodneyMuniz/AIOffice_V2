@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_evidence_obligations",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "evidence_obligations"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027evidence_obligations\u0027"
+                                   ]
+}

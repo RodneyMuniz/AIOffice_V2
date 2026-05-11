@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_operator_intent",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "operator_intent"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027operator_intent\u0027"
+                                   ]
+}

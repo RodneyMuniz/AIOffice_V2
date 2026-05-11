@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_target_scope",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "target_scope"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027target_scope\u0027"
+                                   ]
+}

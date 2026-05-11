@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_api_invocation_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.openai_api_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims OpenAI API invocation"
+                                   ]
+}

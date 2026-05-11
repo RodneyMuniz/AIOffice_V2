@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_bypass_a2a_handoff_validation",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "a2a_handoff_refs.validation_required_when_routing_implied":  false
+                   },
+    "expected_failure_fragments":  [
+                                       "bypasses A2A handoff validation"
+                                   ]
+}

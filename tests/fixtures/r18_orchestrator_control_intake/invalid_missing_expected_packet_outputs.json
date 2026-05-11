@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_expected_packet_outputs",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "expected_packet_outputs"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027expected_packet_outputs\u0027"
+                                   ]
+}

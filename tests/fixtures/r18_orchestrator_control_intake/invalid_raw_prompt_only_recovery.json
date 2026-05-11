@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_raw_prompt_only_recovery",
+    "source_task":  "R18-006",
+    "target":  "packet:recovery_resume_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "recovery_resume_constraints.raw_prompt_only_recovery_allowed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "raw prompt-only recovery"
+                                   ]
+}

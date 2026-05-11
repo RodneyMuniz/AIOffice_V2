@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_intake_id",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "intake_id"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027intake_id\u0027"
+                                   ]
+}

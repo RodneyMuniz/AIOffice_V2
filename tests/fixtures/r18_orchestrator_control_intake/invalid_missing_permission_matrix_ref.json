@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_permission_matrix_ref",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "permission_matrix_ref"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027permission_matrix_ref\u0027"
+                                   ]
+}

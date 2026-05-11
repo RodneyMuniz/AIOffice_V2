@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "authority_refs"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027authority_refs\u0027"
+                                   ]
+}

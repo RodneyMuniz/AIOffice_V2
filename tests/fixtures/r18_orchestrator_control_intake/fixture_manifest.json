@@ -1,0 +1,208 @@
+﻿{
+    "artifact_type":  "r18_orchestrator_control_intake_fixture_manifest",
+    "contract_version":  "v1",
+    "source_task":  "R18-006",
+    "fixture_count":  25,
+    "fixtures":  [
+                     {
+                         "file":  "invalid_missing_intake_id.json",
+                         "fixture_id":  "invalid_missing_intake_id",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027intake_id\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_operator_intent.json",
+                         "fixture_id":  "invalid_missing_operator_intent",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027operator_intent\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_unknown_intake_type.json",
+                         "fixture_id":  "invalid_unknown_intake_type",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "unknown intake_type"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_target_scope.json",
+                         "fixture_id":  "invalid_missing_target_scope",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027target_scope\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_authority_refs.json",
+                         "fixture_id":  "invalid_missing_authority_refs",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027authority_refs\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_agent_card_refs.json",
+                         "fixture_id":  "invalid_missing_agent_card_refs",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027agent_card_refs\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_skill_refs.json",
+                         "fixture_id":  "invalid_missing_skill_refs",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027skill_refs\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_permission_matrix_ref.json",
+                         "fixture_id":  "invalid_missing_permission_matrix_ref",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027permission_matrix_ref\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_expected_packet_outputs.json",
+                         "fixture_id":  "invalid_missing_expected_packet_outputs",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027expected_packet_outputs\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_evidence_obligations.json",
+                         "fixture_id":  "invalid_missing_evidence_obligations",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027evidence_obligations\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_validation_expectations.json",
+                         "fixture_id":  "invalid_missing_validation_expectations",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027validation_expectations\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_failure_routing.json",
+                         "fixture_id":  "invalid_missing_failure_routing",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027failure_routing\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_operator_decision_policy.json",
+                         "fixture_id":  "invalid_missing_operator_decision_policy",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027operator_decision_policy\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_unbounded_freeform_prompt.json",
+                         "fixture_id":  "invalid_unbounded_freeform_prompt",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "unbounded freeform prompt"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_raw_prompt_only_recovery.json",
+                         "fixture_id":  "invalid_raw_prompt_only_recovery",
+                         "target":  "packet:recovery_resume_request",
+                         "expected_failure_fragments":  [
+                                                            "raw prompt-only recovery"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_bypass_permission_matrix.json",
+                         "fixture_id":  "invalid_bypass_permission_matrix",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "permission matrix bypass"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_bypass_a2a_handoff_validation.json",
+                         "fixture_id":  "invalid_bypass_a2a_handoff_validation",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "bypasses A2A handoff validation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_runtime_orchestrator_claim.json",
+                         "fixture_id":  "invalid_runtime_orchestrator_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims Orchestrator runtime"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_chat_ui_claim.json",
+                         "fixture_id":  "invalid_live_chat_ui_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims live chat UI"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_board_runtime_mutation_claim.json",
+                         "fixture_id":  "invalid_board_runtime_mutation_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims board runtime mutation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_a2a_message_sent_claim.json",
+                         "fixture_id":  "invalid_a2a_message_sent_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims A2A message sent"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_skill_execution_claim.json",
+                         "fixture_id":  "invalid_skill_execution_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims live skill execution"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_api_invocation_claim.json",
+                         "fixture_id":  "invalid_api_invocation_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims OpenAI API invocation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_automatic_new_thread_creation_claim.json",
+                         "fixture_id":  "invalid_automatic_new_thread_creation_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims automatic new-thread creation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_r18_007_completion_claim.json",
+                         "fixture_id":  "invalid_r18_007_completion_claim",
+                         "target":  "packet:create_work_order_request",
+                         "expected_failure_fragments":  [
+                                                            "claims R18-007 or later completion"
+                                                        ]
+                     }
+                 ]
+}

@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_unknown_intake_type",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "intake_type":  "unknown_intake_type"
+                   },
+    "expected_failure_fragments":  [
+                                       "unknown intake_type"
+                                   ]
+}

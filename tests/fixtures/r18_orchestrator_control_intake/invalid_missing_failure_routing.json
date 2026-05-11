@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_failure_routing",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "failure_routing"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027failure_routing\u0027"
+                                   ]
+}

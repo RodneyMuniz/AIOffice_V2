@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_automatic_new_thread_creation_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.automatic_new_thread_creation_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims automatic new-thread creation"
+                                   ]
+}

@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_validation_expectations",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+                         "validation_expectations"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027validation_expectations\u0027"
+                                   ]
+}

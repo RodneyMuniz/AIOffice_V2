@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-005 only",
-            "R18-006 through R18-028 planned only",
+            "R18 active through R18-006 only",
+            "R18-007 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -137,6 +137,10 @@ function Assert-R18StatusAfterR18003 {
             "A2A handoff packets are not live A2A runtime",
             "R18-005 created role-to-skill permission matrix only",
             "Permission matrix is not runtime enforcement",
+            "R18-006 created Orchestrator chat/control intake contract and seed intake packets only",
+            "Intake packets are not a live chat UI",
+            "Intake packets are not Orchestrator runtime",
+            "No board/card runtime mutation occurred",
             "No A2A messages were sent",
             "No live agents were invoked",
             "No live skills were executed",
@@ -160,14 +164,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 5) {
+        if ($taskNumber -le 6) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-005."
+                throw "$taskId must be done after R18-006."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-005."
+                throw "$taskId must remain planned only after R18-006."
             }
         }
     }
@@ -240,7 +244,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Assert-R18StatusAfterR18003
-    Write-Output "PASS valid: R18 status is active through R18-005 only and R18-006 onward planned only."
+    Write-Output "PASS valid: R18 status is active through R18-006 only and R18-007 onward planned only."
     $validPassed += 1
 }
 catch {

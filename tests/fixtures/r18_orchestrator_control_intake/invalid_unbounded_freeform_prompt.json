@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_freeform_prompt",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "operator_intent_policy.unbounded_freeform_prompt_allowed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "unbounded freeform prompt"
+                                   ]
+}

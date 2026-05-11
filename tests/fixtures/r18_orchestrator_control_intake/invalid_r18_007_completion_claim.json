@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_r18_007_completion_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.r18_007_completed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims R18-007 or later completion"
+                                   ]
+}

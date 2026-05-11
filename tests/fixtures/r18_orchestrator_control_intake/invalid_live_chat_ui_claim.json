@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_live_chat_ui_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.live_chat_ui_implemented":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims live chat UI"
+                                   ]
+}

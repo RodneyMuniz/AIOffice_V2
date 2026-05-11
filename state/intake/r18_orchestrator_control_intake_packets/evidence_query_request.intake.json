@@ -1,0 +1,372 @@
+﻿{
+    "artifact_type":  "r18_orchestrator_control_intake_packet",
+    "contract_version":  "v1",
+    "intake_id":  "r18_006_evidence_query_request",
+    "intake_name":  "Evidence Query Request",
+    "intake_type":  "evidence_query_request",
+    "source_task":  "R18-006",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "intake_status":  "packet_only_not_routed",
+    "operator_intent":  "Request evidence refs, proof-review refs, validators, and non-claim posture.",
+    "normalized_intent":  "read_only_evidence_query_future_packet_only",
+    "operator_intent_policy":  {
+                                   "unbounded_freeform_prompt_allowed":  false,
+                                   "raw_prompt_only_recovery_allowed":  false,
+                                   "bounded_fields_required":  true,
+                                   "clarification_required_when_ambiguous":  true
+                               },
+    "target_scope":  {
+                         "milestone_id":  "R18",
+                         "task_id":  "R18-006",
+                         "card_id":  "aioffice-r18-002-agent_evidence_auditor-card-v1",
+                         "work_order_id":  "future_evidence_query_packet",
+                         "target_role":  "Evidence Auditor",
+                         "target_skill":  "generate_evidence_package",
+                         "intended_role_path":  [
+                                                    "Orchestrator",
+                                                    "Evidence Auditor"
+                                                ],
+                         "allowed_paths":  [
+                                               "contracts/intake/r18_orchestrator_control_intake.contract.json",
+                                               "state/intake/r18_orchestrator_control_intake_packets/",
+                                               "state/intake/r18_orchestrator_control_intake_registry.json",
+                                               "state/intake/r18_orchestrator_control_intake_check_report.json",
+                                               "state/ui/r18_operator_surface/r18_orchestrator_control_intake_snapshot.json",
+                                               "tools/R18OrchestratorControlIntake.psm1",
+                                               "tools/new_r18_orchestrator_control_intake.ps1",
+                                               "tools/validate_r18_orchestrator_control_intake.ps1",
+                                               "tests/test_r18_orchestrator_control_intake.ps1",
+                                               "tests/fixtures/r18_orchestrator_control_intake/",
+                                               "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/",
+                                               "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                                               "execution/KANBAN.md",
+                                               "governance/ACTIVE_STATE.md",
+                                               "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                                               "governance/DECISION_LOG.md",
+                                               "README.md",
+                                               "tools/StatusDocGate.psm1",
+                                               "tools/validate_status_doc_gate.ps1",
+                                               "tests/test_status_doc_gate.ps1",
+                                               "tools/R18AgentCardSchema.psm1",
+                                               "tools/R18SkillContractSchema.psm1",
+                                               "tools/R18A2AHandoffPacketSchema.psm1",
+                                               "tools/R18RoleSkillPermissionMatrix.psm1",
+                                               "tools/validate_r18_opening_authority.ps1",
+                                               "tests/test_r18_agent_card_schema.ps1",
+                                               "tests/test_r18_skill_contract_schema.ps1",
+                                               "tests/test_r18_a2a_handoff_packet_schema.ps1",
+                                               "tests/test_r18_role_skill_permission_matrix.ps1"
+                                           ],
+                         "forbidden_paths":  [
+                                                 ".local_backups/",
+                                                 "operator-local backup paths",
+                                                 "state/proof_reviews/r13_*",
+                                                 "state/proof_reviews/r14_*",
+                                                 "state/proof_reviews/r15_*",
+                                                 "state/proof_reviews/r16_*",
+                                                 "state/external_runs/",
+                                                 "main branch",
+                                                 "repository root broad write",
+                                                 "unbounded wildcard write paths"
+                                             ],
+                         "acceptance_criteria":  [
+                                                     "read_only_query",
+                                                     "proof_review_refs_reported",
+                                                     "validators_reported",
+                                                     "no_live_evidence_auditor_invocation"
+                                                 ],
+                         "status_boundary":  "R18 active through R18-006 only",
+                         "planned_only_boundary":  "R18-007 through R18-028 planned only"
+                     },
+    "requested_action":  {
+                             "action_id":  "evidence_query_packet",
+                             "description":  "Create a read-only evidence query packet for a future Evidence Auditor packet path.",
+                             "read_only":  true,
+                             "mutation_allowed":  false,
+                             "board_state_mutation_allowed":  false,
+                             "live_invocation_allowed":  false,
+                             "runtime_execution_allowed":  false,
+                             "bounded_packet_output_only":  true
+                         },
+    "source_surface":  {
+                           "surface_id":  "future_orchestrator_control_surface",
+                           "surface_status":  "contract_only_no_live_chat_ui",
+                           "live_chat_ui_implemented":  false,
+                           "runtime_controller_implemented":  false
+                       },
+    "orchestrator_agent_ref":  {
+                                   "role":  "Orchestrator",
+                                   "agent_id":  "agent_orchestrator",
+                                   "card_ref":  "state/agents/r18_agent_cards/agent_orchestrator.card.json",
+                                   "live_agent_invocation_allowed":  false
+                               },
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "contracts/skills/r18_skill_contract.contract.json",
+                           "state/skills/r18_skill_contracts/",
+                           "state/skills/r18_skill_registry.json",
+                           "contracts/a2a/r18_a2a_handoff_packet.contract.json",
+                           "state/a2a/r18_handoff_packets/",
+                           "state/a2a/r18_handoff_registry.json",
+                           "contracts/skills/r18_role_skill_permission_matrix.contract.json",
+                           "state/skills/r18_role_skill_permission_matrix.json",
+                           "state/skills/r18_role_skill_permission_matrix_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_compact_safe_harness_pilot.contract.json"
+                       ],
+    "agent_card_refs":  [
+                            {
+                                "role":  "Orchestrator",
+                                "agent_id":  "agent_orchestrator",
+                                "card_ref":  "state/agents/r18_agent_cards/agent_orchestrator.card.json"
+                            },
+                            {
+                                "role":  "Evidence Auditor",
+                                "agent_id":  "agent_evidence_auditor",
+                                "card_ref":  "state/agents/r18_agent_cards/agent_evidence_auditor.card.json"
+                            }
+                        ],
+    "skill_refs":  {
+                       "skill_id":  "generate_evidence_package",
+                       "registry_ref":  "state/skills/r18_skill_registry.json",
+                       "contract_ref":  "state/skills/r18_skill_contracts/generate_evidence_package.skill.json",
+                       "contract_status":  "contract_only_not_executed"
+                   },
+    "permission_matrix_ref":  {
+                                  "matrix_ref":  "state/skills/r18_role_skill_permission_matrix.json",
+                                  "contract_ref":  "contracts/skills/r18_role_skill_permission_matrix.contract.json",
+                                  "permission_id":  "evidence_auditor__generate_evidence_package",
+                                  "role":  "Evidence Auditor",
+                                  "skill_id":  "generate_evidence_package",
+                                  "permission_status":  "allowed",
+                                  "approval_gate_ref":  "not_required_contract_only",
+                                  "denied_permissions_route_to_failure":  true,
+                                  "bypass_allowed":  false
+                              },
+    "a2a_handoff_refs":  {
+                             "routing_implied":  true,
+                             "validation_required_when_routing_implied":  true,
+                             "refs":  [
+                                          "state/a2a/r18_handoff_registry.json",
+                                          "state/a2a/r18_handoff_packets/qa_test_to_evidence_auditor_validation_passed.handoff.json"
+                                      ],
+                             "live_dispatch_allowed":  false,
+                             "live_a2a_runtime_allowed":  false,
+                             "a2a_message_send_allowed":  false,
+                             "bypass_allowed":  false
+                         },
+    "required_input_refs":  [
+                                "evidence_ref_query_scope",
+                                "proof_review_ref_scope",
+                                "validator_ref_scope",
+                                "non_claim_scope"
+                            ],
+    "expected_packet_outputs":  [
+                                    "evidence_ref_summary_packet",
+                                    "proof_review_ref_summary_packet",
+                                    "validator_ref_summary_packet",
+                                    "non_claim_posture_packet"
+                                ],
+    "evidence_obligations":  [
+                                 "read_only_boundary_recorded",
+                                 "future_packet_route_only_recorded",
+                                 "live_evidence_auditor_invocation_false_flag_recorded"
+                             ],
+    "validation_expectations":  {
+                                    "checks":  [
+                                                   "intake_shape",
+                                                   "authority_refs",
+                                                   "agent_card_refs",
+                                                   "skill_refs",
+                                                   "permission_matrix_ref",
+                                                   "target_scope",
+                                                   "runtime_false_flags",
+                                                   "non_claims",
+                                                   "status_boundary"
+                                               ],
+                                    "validation_commands":  [
+                                                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_orchestrator_control_intake.ps1",
+                                                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_orchestrator_control_intake.ps1"
+                                                            ],
+                                    "expected_outputs":  [
+                                                             "validator_passed",
+                                                             "focused_tests_passed",
+                                                             "runtime_false_flags_preserved"
+                                                         ],
+                                    "fail_closed_on_missing_fields":  true,
+                                    "unknown_intake_type_rejected":  true,
+                                    "runtime_claims_rejected":  true
+                                },
+    "operator_decision_policy":  {
+                                     "decision_packet_required":  false,
+                                     "approval_scope":  "not_requested",
+                                     "approval_already_granted":  false,
+                                     "operator_approval_required_for":  [
+
+                                                                        ],
+                                     "missing_decision_blocks_action":  false,
+                                     "decision_may_be_inferred":  false,
+                                     "approval_bypass_allowed":  false
+                                 },
+    "failure_routing":  {
+                            "behavior":  "fail_closed_and_block_intake",
+                            "failure_routing_target_role":  "Orchestrator",
+                            "failure_routing_target_agent_id":  "agent_orchestrator",
+                            "failure_packet_required":  true,
+                            "block_on_denied_permission":  true,
+                            "stop_on_runtime_claim":  true,
+                            "retry_without_repair_allowed":  false,
+                            "bypass_allowed":  false,
+                            "failure_packet_requirements":  [
+                                                                "failure_reason",
+                                                                "blocking_evidence_refs",
+                                                                "requested_repair_scope",
+                                                                "non_claims_preserved"
+                                                            ]
+                        },
+    "retry_failover_policy":  {
+                                  "retry_count":  0,
+                                  "max_retry_count":  1,
+                                  "retry_count_required":  true,
+                                  "retry_limit_enforced":  true,
+                                  "unbounded_retry_allowed":  false,
+                                  "failure_packet_ref":  "not_applicable_for_seed_packet",
+                                  "escalation_reason":  "not_applicable_for_seed_packet",
+                                  "operator_decision_condition":  "retry_limit_reached_or_unsafe_state",
+                                  "failover_allowed_without_packet":  false
+                              },
+    "next_allowed_actions":  [
+                                 "validate_read_only_scope",
+                                 "create_future_evidence_query_packet",
+                                 "stop_before_live_invocation"
+                             ],
+    "allowed_paths":  [
+                          "contracts/intake/r18_orchestrator_control_intake.contract.json",
+                          "state/intake/r18_orchestrator_control_intake_packets/",
+                          "state/intake/r18_orchestrator_control_intake_registry.json",
+                          "state/intake/r18_orchestrator_control_intake_check_report.json",
+                          "state/ui/r18_operator_surface/r18_orchestrator_control_intake_snapshot.json",
+                          "tools/R18OrchestratorControlIntake.psm1",
+                          "tools/new_r18_orchestrator_control_intake.ps1",
+                          "tools/validate_r18_orchestrator_control_intake.ps1",
+                          "tests/test_r18_orchestrator_control_intake.ps1",
+                          "tests/fixtures/r18_orchestrator_control_intake/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/",
+                          "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                          "execution/KANBAN.md",
+                          "governance/ACTIVE_STATE.md",
+                          "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                          "governance/DECISION_LOG.md",
+                          "README.md",
+                          "tools/StatusDocGate.psm1",
+                          "tools/validate_status_doc_gate.ps1",
+                          "tests/test_status_doc_gate.ps1",
+                          "tools/R18AgentCardSchema.psm1",
+                          "tools/R18SkillContractSchema.psm1",
+                          "tools/R18A2AHandoffPacketSchema.psm1",
+                          "tools/R18RoleSkillPermissionMatrix.psm1",
+                          "tools/validate_r18_opening_authority.ps1",
+                          "tests/test_r18_agent_card_schema.ps1",
+                          "tests/test_r18_skill_contract_schema.ps1",
+                          "tests/test_r18_a2a_handoff_packet_schema.ps1",
+                          "tests/test_r18_role_skill_permission_matrix.ps1"
+                      ],
+    "forbidden_paths":  [
+                            ".local_backups/",
+                            "operator-local backup paths",
+                            "state/proof_reviews/r13_*",
+                            "state/proof_reviews/r14_*",
+                            "state/proof_reviews/r15_*",
+                            "state/proof_reviews/r16_*",
+                            "state/external_runs/",
+                            "main branch",
+                            "repository root broad write",
+                            "unbounded wildcard write paths"
+                        ],
+    "runtime_flags":  {
+                          "live_chat_ui_implemented":  false,
+                          "orchestrator_runtime_implemented":  false,
+                          "intake_routed_by_runtime":  false,
+                          "board_runtime_mutation_performed":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_skill_execution_performed":  false,
+                          "a2a_message_sent":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "local_runner_runtime_implemented":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_007_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "non_claims":  [
+                       "R18-006 created Orchestrator chat/control intake contract and seed intake packets only.",
+                       "Intake packets are contract and seed governance artifacts only.",
+                       "Intake packets are not a live chat UI.",
+                       "Intake packets are not Orchestrator runtime.",
+                       "No board/card runtime mutation occurred.",
+                       "No A2A messages were sent.",
+                       "No live agents were invoked.",
+                       "No live skills were executed.",
+                       "No A2A runtime was implemented.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18 is active through R18-006 only.",
+                       "R18-007 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "live_chat_ui",
+                            "orchestrator_runtime",
+                            "intake_routed_by_runtime",
+                            "board_runtime_mutation",
+                            "live_agent_runtime",
+                            "live_skill_execution",
+                            "a2a_message_sent",
+                            "live_a2a_runtime",
+                            "local_runner_runtime",
+                            "live_recovery_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_007_or_later_completion",
+                            "main_merge",
+                            "raw_prompt_only_recovery",
+                            "unbounded_freeform_prompt",
+                            "permission_matrix_bypass",
+                            "a2a_handoff_validation_bypass",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "wildcard_role",
+                            "wildcard_skill",
+                            "wildcard_path",
+                            "unbounded_next_action"
+                        ]
+}

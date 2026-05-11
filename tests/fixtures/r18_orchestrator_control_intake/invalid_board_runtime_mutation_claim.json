@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_board_runtime_mutation_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.board_runtime_mutation_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims board runtime mutation"
+                                   ]
+}

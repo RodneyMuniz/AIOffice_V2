@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_skill_execution_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.live_skill_execution_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims live skill execution"
+                                   ]
+}

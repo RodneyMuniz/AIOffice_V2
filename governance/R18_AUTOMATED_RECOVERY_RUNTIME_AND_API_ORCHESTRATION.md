@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-005` role-to-skill permission matrix foundation only.
+**Status after this pass:** Active through `R18-006` Orchestrator chat/control intake contract and seed intake packets only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-005` are done. `R18-006` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-006` are done. `R18-007` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-006 through R18-028 are planned only.
+- R18-007 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -24,6 +24,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - A2A handoff packets are not live A2A runtime.
 - R18-005 created role-to-skill permission matrix only.
 - Permission matrix is not runtime enforcement.
+- R18-006 created Orchestrator chat/control intake contract and seed intake packets only.
+- Intake packets are not a live chat UI.
+- Intake packets are not Orchestrator runtime.
+- No board/card runtime mutation occurred.
 - No A2A messages were sent.
 - No live agents were invoked.
 - No live skills were executed.
@@ -95,23 +99,23 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Inputs: Agent cards, skill registry, role authority model.
 - Outputs: Permission matrix contract, matrix artifact, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
 - Acceptance criteria: No role has wildcard authority; no role has all-skills authority; risky skills require operator approval; forbidden role/skill pairings fail closed; runtime false flags remain false.
-- Validation expectation: `tools/validate_r18_role_skill_permission_matrix.ps1` and `tests/test_r18_role_skill_permission_matrix.ps1` reject missing roles, roles not mapped to R18-002 agent cards, missing skills, skills not mapped to the R18-003 registry, wildcard or all-skills permissions, unbounded permissions, missing approval gates, missing evidence obligations, missing failure behavior, unsafe role escalation, API enablement, historical R13/R14/R15/R16 evidence edits, operator-local backup paths, broad repo writes, live runtime/API/A2A/agent/skill claims, R18-006+ completion claims, and status surfaces that advance R18 beyond R18-005.
+- Validation expectation: `tools/validate_r18_role_skill_permission_matrix.ps1` and `tests/test_r18_role_skill_permission_matrix.ps1` reject missing roles, roles not mapped to R18-002 agent cards, missing skills, skills not mapped to the R18-003 registry, wildcard or all-skills permissions, unbounded permissions, missing approval gates, missing evidence obligations, missing failure behavior, unsafe role escalation, API enablement, historical R13/R14/R15/R16 evidence edits, operator-local backup paths, broad repo writes, live runtime/API/A2A/agent/skill claims, role-skill matrix artifacts claiming R18-006+ completion, and status surfaces that advance R18 beyond R18-006.
 - Non-claims: Permission matrix is a governance/control artifact only and is not runtime enforcement. No A2A messages were sent, no live agents were invoked, no live skills were executed, no A2A runtime was implemented, no local runner runtime or recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, main is not merged, and no solved Codex compaction/reliability or no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-002, R18-003.
 - Failure/retry behavior: Unsafe matrix blocks all runtime work orders depending on it.
 - Expected evidence refs: `contracts/skills/r18_role_skill_permission_matrix.contract.json`, `state/skills/r18_role_skill_permission_matrix.json`, `state/skills/r18_role_skill_permission_matrix_check_report.json`, `state/ui/r18_operator_surface/r18_role_skill_permission_matrix_snapshot.json`, `tools/R18RoleSkillPermissionMatrix.psm1`, `tools/new_r18_role_skill_permission_matrix.ps1`, `tools/validate_r18_role_skill_permission_matrix.ps1`, `tests/test_r18_role_skill_permission_matrix.ps1`, `tests/fixtures/r18_role_skill_permission_matrix/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix/`.
 
 ### `R18-006` Build Orchestrator chat/control intake contract
-- Status: planned
+- Status: done
 - Purpose: Define the operator-facing control intake for cards, work orders, approvals, retries, and evidence inspection.
 - Inputs: R18 authority, board/card model, agent cards, skill matrix.
-- Outputs: Intake contract, seed intake packets, validation rules, tests.
-- Acceptance criteria: Intake captures operator intent, target card/work order, allowed commands, approval state, status/evidence query shape, and refusal rules.
-- Validation expectation: Planned validator rejects unsafe direct runtime claims, missing authority refs, and raw prompt-only recovery.
-- Non-claims: Intake contract is not a live chat UI or runtime controller.
+- Outputs: Intake contract, seed intake packets, registry, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Intake captures operator intent, normalized intent, target card/work order, allowed and forbidden paths, requested action, approval state, status/evidence query shape, refusal rules, runtime false flags, authority refs, agent card refs, skill refs, A2A handoff refs when routing is implied, and role-skill permission matrix refs.
+- Validation expectation: `tools/validate_r18_orchestrator_control_intake.ps1` and `tests/test_r18_orchestrator_control_intake.ps1` reject missing seed packets, missing required fields, unknown intake types, missing authority/agent/skill/permission refs, unbounded freeform prompts, raw prompt-only recovery, permission matrix bypass, A2A handoff validation bypass when routing is implied, unknown roles or skills, denied role-skill pairings without failure/block routing, wildcard roles/skills/paths, historical R13/R14/R15/R16 evidence edits, operator-local backup paths, live chat UI claims, Orchestrator runtime claims, board/card runtime mutation claims, live agent or skill invocation claims, A2A message sent claims, A2A/local runner/recovery runtime claims, API invocation claims, automatic new-thread creation claims, product runtime claims, solved Codex compaction/reliability claims, no-manual-prompt-transfer success claims, R18-007+ completion claims, and status surfaces that advance R18 beyond R18-006.
+- Non-claims: Intake contract and seed packets are not a live chat UI, not Orchestrator runtime, not board/card runtime mutation, not A2A runtime, not live agent invocation, not live skill execution, not local runner runtime, not recovery runtime, not API invocation, and not automatic new-thread creation.
 - Dependencies: R18-005.
 - Failure/retry behavior: Ambiguous or unsafe intake creates an operator clarification/decision packet.
-- Expected evidence refs: `contracts/intake/r18_orchestrator_control_intake.contract.json`, seed packets, check report.
+- Expected evidence refs: `contracts/intake/r18_orchestrator_control_intake.contract.json`, `state/intake/r18_orchestrator_control_intake_packets/`, `state/intake/r18_orchestrator_control_intake_registry.json`, `state/intake/r18_orchestrator_control_intake_check_report.json`, `state/ui/r18_operator_surface/r18_orchestrator_control_intake_snapshot.json`, `tools/R18OrchestratorControlIntake.psm1`, `tools/new_r18_orchestrator_control_intake.ps1`, `tools/validate_r18_orchestrator_control_intake.ps1`, `tests/test_r18_orchestrator_control_intake.ps1`, `tests/fixtures/r18_orchestrator_control_intake/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/`.
 
 ### `R18-007` Build local runner/CLI shell foundation
 - Status: planned

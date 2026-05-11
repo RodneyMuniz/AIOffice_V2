@@ -1415,8 +1415,8 @@ function Test-R18SkillContractStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-005 only",
-            "R18-006 through R18-028 planned only",
+            "R18 active through R18-006 only",
+            "R18-007 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -1425,6 +1425,10 @@ function Test-R18SkillContractStatusTruth {
             "A2A handoff packets are not live A2A runtime",
             "R18-005 created role-to-skill permission matrix only",
             "Permission matrix is not runtime enforcement",
+            "R18-006 created Orchestrator chat/control intake contract and seed intake packets only",
+            "Intake packets are not a live chat UI",
+            "Intake packets are not Orchestrator runtime",
+            "No board/card runtime mutation occurred",
             "No A2A messages were sent",
             "No live agents were invoked",
             "No live skills were executed",
@@ -1448,20 +1452,20 @@ function Test-R18SkillContractStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 5) {
+        if ($taskNumber -le 6) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-005."
+                throw "$taskId must be done after R18-006."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-005."
+                throw "$taskId must remain planned only after R18-006."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(00[6-9]|0[1-2][0-9])') {
-        throw "Status surface claims R18 beyond R18-005."
+    if ($combinedText -match 'R18 active through R18-(00[7-9]|0[1-2][0-9])') {
+        throw "Status surface claims R18 beyond R18-006."
     }
 }
 

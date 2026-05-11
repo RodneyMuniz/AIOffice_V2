@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "source_task":  "R18-006",
+    "target":  "packet:create_work_order_request",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.a2a_message_sent":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "claims A2A message sent"
+                                   ]
+}
