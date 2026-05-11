@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+                         "authority_refs"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ]
+}

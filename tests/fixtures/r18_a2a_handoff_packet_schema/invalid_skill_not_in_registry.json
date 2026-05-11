@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "skill_ref":  "unknown_skill"
+                   },
+    "expected_failure_fragments":  [
+                                       "unknown skill_ref"
+                                   ]
+}

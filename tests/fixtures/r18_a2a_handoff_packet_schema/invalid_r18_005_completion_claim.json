@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.r18_005_completed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "R18-005 or later completion"
+                                   ]
+}

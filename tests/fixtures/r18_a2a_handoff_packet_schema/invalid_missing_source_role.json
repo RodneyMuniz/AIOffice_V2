@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+                         "source_role"
+                     ],
+    "set_values":  {
+
+                   },
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027source_role\u0027"
+                                   ]
+}

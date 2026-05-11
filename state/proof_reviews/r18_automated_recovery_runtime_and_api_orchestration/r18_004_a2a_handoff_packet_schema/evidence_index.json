@@ -1,0 +1,130 @@
+﻿{
+    "artifact_type":  "r18_a2a_handoff_packet_schema_evidence_index",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-004",
+    "evidence_scope":  "schema_seed_handoff_packets_registry_validator_fixtures_status_only",
+    "entries":  [
+                    {
+                        "path":  "contracts/a2a/r18_a2a_handoff_packet.contract.json",
+                        "evidence_type":  "contract"
+                    },
+                    {
+                        "path":  "state/a2a/r18_handoff_packets/",
+                        "evidence_type":  "seed_handoff_packets"
+                    },
+                    {
+                        "path":  "state/a2a/r18_handoff_registry.json",
+                        "evidence_type":  "handoff_registry"
+                    },
+                    {
+                        "path":  "state/a2a/r18_a2a_handoff_check_report.json",
+                        "evidence_type":  "check_report"
+                    },
+                    {
+                        "path":  "state/ui/r18_operator_surface/r18_a2a_handoff_snapshot.json",
+                        "evidence_type":  "operator_surface_snapshot_state_only"
+                    },
+                    {
+                        "path":  "tools/R18A2AHandoffPacketSchema.psm1",
+                        "evidence_type":  "validator_generator_module"
+                    },
+                    {
+                        "path":  "tools/new_r18_a2a_handoff_packet_schema.ps1",
+                        "evidence_type":  "generator_wrapper"
+                    },
+                    {
+                        "path":  "tools/validate_r18_a2a_handoff_packet_schema.ps1",
+                        "evidence_type":  "validator_wrapper"
+                    },
+                    {
+                        "path":  "tests/test_r18_a2a_handoff_packet_schema.ps1",
+                        "evidence_type":  "focused_tests"
+                    },
+                    {
+                        "path":  "tests/fixtures/r18_a2a_handoff_packet_schema/",
+                        "evidence_type":  "invalid_fixtures"
+                    },
+                    {
+                        "path":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/proof_review.md",
+                        "evidence_type":  "proof_review"
+                    },
+                    {
+                        "path":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/validation_manifest.md",
+                        "evidence_type":  "validation_manifest"
+                    }
+                ],
+    "positive_claims":  [
+                            "r18_a2a_handoff_packet_schema_created",
+                            "r18_seed_handoff_packets_created",
+                            "r18_handoff_registry_created",
+                            "r18_a2a_handoff_validator_created",
+                            "r18_a2a_handoff_fixtures_created",
+                            "r18_a2a_handoff_proof_review_created"
+                        ],
+    "non_claims":  [
+                       "R18-004 created A2A handoff packet schema and seed handoff packets only.",
+                       "A2A handoff packets are schema/seed governance artifacts only; they are not live A2A runtime.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are not live agents.",
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are not live skill execution.",
+                       "No A2A messages were sent.",
+                       "No live A2A runtime was implemented.",
+                       "No live agents were invoked.",
+                       "No live skills were executed.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-005 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "a2a_message_sent",
+                            "live_a2a_runtime",
+                            "live_agent_runtime",
+                            "live_skill_execution",
+                            "live_recovery_runtime",
+                            "local_runner_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_005_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write",
+                            "wildcard_role",
+                            "wildcard_skill",
+                            "unbounded_next_action",
+                            "unbounded_retry"
+                        ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "contracts/skills/r18_skill_contract.contract.json",
+                           "state/skills/r18_skill_contracts/",
+                           "state/skills/r18_skill_registry.json",
+                           "state/skills/r18_skill_contract_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/a2a/r17_a2a_message.contract.json",
+                           "contracts/a2a/r17_a2a_handoff.contract.json",
+                           "contracts/a2a/r17_a2a_dispatcher.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json"
+                       ]
+}

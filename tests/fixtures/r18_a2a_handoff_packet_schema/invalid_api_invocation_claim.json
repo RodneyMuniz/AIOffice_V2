@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.openai_api_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "OpenAI API invocation"
+                                   ]
+}

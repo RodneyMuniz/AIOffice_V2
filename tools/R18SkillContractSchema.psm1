@@ -1415,13 +1415,17 @@ function Test-R18SkillContractStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-003 only",
-            "R18-004 through R18-028 planned only",
+            "R18 active through R18-004 only",
+            "R18-005 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
             "Skill contracts are not live skill execution",
-            "No A2A handoff schema was implemented",
+            "R18-004 created A2A handoff packet schema and seed handoff packets only",
+            "A2A handoff packets are not live A2A runtime",
+            "No A2A messages were sent",
+            "No live agents were invoked",
+            "No live skills were executed",
             "No A2A runtime was implemented",
             "No local runner runtime was implemented",
             "No recovery runtime was implemented",
@@ -1442,9 +1446,9 @@ function Test-R18SkillContractStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 3) {
+        if ($taskNumber -le 4) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-003."
+                throw "$taskId must be done after R18-004."
             }
         }
         else {
@@ -1454,8 +1458,8 @@ function Test-R18SkillContractStatusTruth {
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(00[4-9]|0[1-2][0-9])') {
-        throw "Status surface claims R18 beyond R18-003."
+    if ($combinedText -match 'R18 active through R18-(00[5-9]|0[1-2][0-9])') {
+        throw "Status surface claims R18 beyond R18-004."
     }
 }
 

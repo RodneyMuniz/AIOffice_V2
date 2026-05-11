@@ -1,0 +1,13 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "skill_ref":  "generate_bounded_artifacts"
+                   },
+    "expected_failure_fragments":  [
+                                       "target role",
+                                       "not allowed"
+                                   ]
+}

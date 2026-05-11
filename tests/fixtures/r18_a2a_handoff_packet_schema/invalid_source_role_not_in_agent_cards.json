@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "source_role":  "Unregistered Role"
+                   },
+    "expected_failure_fragments":  [
+                                       "source_role"
+                                   ]
+}

@@ -1,0 +1,277 @@
+﻿{
+    "artifact_type":  "r18_a2a_handoff_packet",
+    "contract_version":  "v1",
+    "handoff_id":  "orchestrator_to_project_manager_define_work_order",
+    "handoff_name":  "Orchestrator to Project Manager Define Work Order",
+    "source_task":  "R18-004",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "0e891bf3566d0a744d9fe0bfa33aa36584d484e1",
+    "generated_from_tree":  "f7abaebc9c8b051c8b0be84448c85772d92b8ca3",
+    "generated_state_artifact_only":  true,
+    "handoff_status":  "packet_only_not_dispatched",
+    "card_id":  "aioffice-r18-002-agent_project_manager-card-v1",
+    "work_order_id":  "r18-004-a2a-handoff-packet-schema-foundation",
+    "source_agent_id":  "agent_orchestrator",
+    "source_role":  "Orchestrator",
+    "target_agent_id":  "agent_project_manager",
+    "target_role":  "Project Manager",
+    "skill_ref":  "define_work_order",
+    "purpose":  "Turn operator-approved R18 task objective into bounded work-order scope with operator/task authority refs and status-doc constraints.",
+    "required_input_refs":  [
+                                "operator_task_authority_ref",
+                                "r18_status_doc_constraints_ref",
+                                "active_milestone_scope_ref",
+                                "r17_caveat_non_claims_ref"
+                            ],
+    "expected_outputs":  [
+                             "bounded_work_order_scope_packet",
+                             "acceptance_boundary_refs",
+                             "status_doc_constraint_refs",
+                             "evidence_expectation_refs"
+                         ],
+    "memory_refs":  [
+                        "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                        "execution/KANBAN.md",
+                        "governance/ACTIVE_STATE.md",
+                        "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                        "governance/DECISION_LOG.md",
+                        "state/governance/r18_opening_authority.json",
+                        "state/agents/r18_agent_cards/",
+                        "state/skills/r18_skill_registry.json",
+                        "state/skills/r18_skill_contracts/"
+                    ],
+    "evidence_refs":  [
+                          "contracts/a2a/r18_a2a_handoff_packet.contract.json",
+                          "state/a2a/r18_handoff_packets/",
+                          "state/a2a/r18_handoff_registry.json",
+                          "state/a2a/r18_a2a_handoff_check_report.json",
+                          "state/ui/r18_operator_surface/r18_a2a_handoff_snapshot.json",
+                          "tools/R18A2AHandoffPacketSchema.psm1",
+                          "tools/new_r18_a2a_handoff_packet_schema.ps1",
+                          "tools/validate_r18_a2a_handoff_packet_schema.ps1",
+                          "tests/test_r18_a2a_handoff_packet_schema.ps1",
+                          "tests/fixtures/r18_a2a_handoff_packet_schema/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/"
+                      ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "contracts/skills/r18_skill_contract.contract.json",
+                           "state/skills/r18_skill_contracts/",
+                           "state/skills/r18_skill_registry.json",
+                           "state/skills/r18_skill_contract_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/a2a/r17_a2a_message.contract.json",
+                           "contracts/a2a/r17_a2a_handoff.contract.json",
+                           "contracts/a2a/r17_a2a_dispatcher.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json"
+                       ],
+    "current_state":  {
+                          "card_status":  "bounded_card_context_available",
+                          "work_order_status":  "r18_004_schema_seed_governance_artifacts_only",
+                          "source_completion_status":  "source_packet_prepared_not_dispatched",
+                          "target_acceptance_status":  "target_must_validate_before_action"
+                      },
+    "next_allowed_actions":  [
+                                 "validate_operator_authority_refs",
+                                 "draft_bounded_work_order_scope",
+                                 "record_acceptance_boundary",
+                                 "return_to_orchestrator_if_scope_ambiguous"
+                             ],
+    "validation_expectations":  {
+                                    "checks":  [
+                                                   "handoff_shape",
+                                                   "operator_task_authority_refs",
+                                                   "status_doc_constraints",
+                                                   "required_input_refs",
+                                                   "non_claims"
+                                               ],
+                                    "validation_commands":  [
+                                                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_a2a_handoff_packet_schema.ps1",
+                                                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_a2a_handoff_packet_schema.ps1"
+                                                            ],
+                                    "expected_outputs":  [
+                                                             "validator_passed",
+                                                             "focused_tests_passed",
+                                                             "runtime_false_flags_preserved"
+                                                         ],
+                                    "failure_packet_required_on_validation_failure":  true
+                                },
+    "receiving_role_validation":  {
+                                      "handoff_shape":  true,
+                                      "authority_refs":  true,
+                                      "source_role":  true,
+                                      "target_role":  true,
+                                      "skill_permission":  true,
+                                      "required_input_refs":  true,
+                                      "expected_outputs":  true,
+                                      "path_policy":  true,
+                                      "evidence_obligations":  true,
+                                      "retry_limit":  true,
+                                      "non_claims":  true
+                                  },
+    "retry_failover_policy":  {
+                                  "max_retry_count":  1,
+                                  "retry_count_source":  "handoff_packet_retry_count_field",
+                                  "retry_limit_enforced":  true,
+                                  "unbounded_retry_allowed":  false,
+                                  "escalation_conditions":  [
+                                                                "missing_required_input_ref",
+                                                                "validator_failure",
+                                                                "unsafe_path_request"
+                                                            ],
+                                  "failure_routing_target":  "agent_orchestrator",
+                                  "operator_decision_required_when":  [
+                                                                          "retry_limit_reached",
+                                                                          "authority_conflict_detected",
+                                                                          "unsafe_wip_detected"
+                                                                      ]
+                              },
+    "failure_routing":  {
+                            "behavior":  "return_to_source_role",
+                            "failure_routing_target":  "agent_orchestrator",
+                            "failure_packet_required":  true,
+                            "failure_packet_requirements":  [
+                                                                "failure_reason",
+                                                                "blocking_evidence_refs",
+                                                                "requested_repair_scope",
+                                                                "non_claims_preserved"
+                                                            ]
+                        },
+    "approval_requirements":  {
+                                  "operator_approval_required_for":  [
+                                                                         "main_merge",
+                                                                         "milestone_closeout",
+                                                                         "external_audit_acceptance",
+                                                                         "api_enablement",
+                                                                         "automatic_new_thread_creation",
+                                                                         "unsafe_wip_abandonment"
+                                                                     ],
+                                  "decision_packet_required":  false,
+                                  "developer_codex_decision_authority":  false,
+                                  "qa_self_approval_allowed":  false,
+                                  "audit_self_approval_allowed":  false,
+                                  "release_manager_main_merge_without_operator_approval_allowed":  false,
+                                  "missing_approval_blocks_action":  true
+                              },
+    "allowed_paths":  [
+                          "contracts/a2a/r18_a2a_handoff_packet.contract.json",
+                          "state/a2a/r18_handoff_packets/",
+                          "state/a2a/r18_handoff_registry.json",
+                          "state/a2a/r18_a2a_handoff_check_report.json",
+                          "state/ui/r18_operator_surface/r18_a2a_handoff_snapshot.json",
+                          "tools/R18A2AHandoffPacketSchema.psm1",
+                          "tools/new_r18_a2a_handoff_packet_schema.ps1",
+                          "tools/validate_r18_a2a_handoff_packet_schema.ps1",
+                          "tests/test_r18_a2a_handoff_packet_schema.ps1",
+                          "tests/fixtures/r18_a2a_handoff_packet_schema/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/",
+                          "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                          "execution/KANBAN.md",
+                          "governance/ACTIVE_STATE.md",
+                          "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                          "governance/DECISION_LOG.md",
+                          "README.md",
+                          "tools/StatusDocGate.psm1",
+                          "tools/validate_status_doc_gate.ps1",
+                          "tests/test_status_doc_gate.ps1"
+                      ],
+    "forbidden_paths":  [
+                            ".local_backups/",
+                            "operator-local backup paths",
+                            "state/proof_reviews/r13_*",
+                            "state/proof_reviews/r14_*",
+                            "state/proof_reviews/r15_*",
+                            "state/proof_reviews/r16_*",
+                            "state/external_runs/",
+                            "main branch",
+                            "repository root broad write",
+                            "unbounded wildcard write paths"
+                        ],
+    "path_policy":  {
+                        "allowed_paths_must_be_exact_or_task_scoped":  true,
+                        "broad_repo_writes_allowed":  false,
+                        "operator_local_backup_paths_allowed":  false,
+                        "historical_r13_r16_evidence_edits_allowed":  false
+                    },
+    "runtime_flags":  {
+                          "a2a_message_sent":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_skill_execution_performed":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "local_runner_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_005_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "positive_claims":  [
+                            "r18_a2a_handoff_packet_schema_created",
+                            "r18_seed_handoff_packets_created",
+                            "r18_handoff_registry_created",
+                            "r18_a2a_handoff_validator_created",
+                            "r18_a2a_handoff_fixtures_created",
+                            "r18_a2a_handoff_proof_review_created"
+                        ],
+    "non_claims":  [
+                       "R18-004 created A2A handoff packet schema and seed handoff packets only.",
+                       "A2A handoff packets are schema/seed governance artifacts only; they are not live A2A runtime.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are not live agents.",
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are not live skill execution.",
+                       "No A2A messages were sent.",
+                       "No live A2A runtime was implemented.",
+                       "No live agents were invoked.",
+                       "No live skills were executed.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-005 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "a2a_message_sent",
+                            "live_a2a_runtime",
+                            "live_agent_runtime",
+                            "live_skill_execution",
+                            "live_recovery_runtime",
+                            "local_runner_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_005_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write",
+                            "wildcard_role",
+                            "wildcard_skill",
+                            "unbounded_next_action",
+                            "unbounded_retry"
+                        ]
+}

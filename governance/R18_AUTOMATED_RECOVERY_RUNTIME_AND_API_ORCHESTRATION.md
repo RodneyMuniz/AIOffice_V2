@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-003` skill contract schema foundation only.
+**Status after this pass:** Active through `R18-004` A2A handoff packet schema foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-003` are done. `R18-004` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-004` are done. `R18-005` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,12 +15,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-004 through R18-028 are planned only.
+- R18-005 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
 - Skill contracts are not live skill execution.
-- No A2A handoff schema was implemented.
+- R18-004 created A2A handoff packet schema and seed handoff packets only.
+- A2A handoff packets are not live A2A runtime.
+- No A2A messages were sent.
+- No live agents were invoked.
+- No live skills were executed.
 - No local runner runtime was implemented.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
@@ -72,16 +76,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/skills/r18_skill_contract.contract.json`, `state/skills/r18_skill_contracts/`, `state/skills/r18_skill_registry.json`, `state/skills/r18_skill_contract_check_report.json`, `state/ui/r18_operator_surface/r18_skill_contract_snapshot.json`, `tools/R18SkillContractSchema.psm1`, `tools/new_r18_skill_contract_schema.ps1`, `tools/validate_r18_skill_contract_schema.ps1`, `tests/test_r18_skill_contract_schema.ps1`, `tests/fixtures/r18_skill_contract_schema/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/`.
 
 ### `R18-004` Define A2A handoff packet schema and validator
-- Status: planned
-- Purpose: Define handoff packets that source and target roles can validate before any role action.
+- Status: done
+- Purpose: Define explicit, validated A2A handoff packets so source and target roles can validate bounded card/work-order context before any role action.
 - Inputs: R17 A2A contracts, R18 agent cards, R18 skill contracts.
-- Outputs: A2A handoff contract, seed packets, validator, tests, fixtures.
-- Acceptance criteria: Handoffs include source/target roles, card/work-order refs, authority refs, required inputs, expected outputs, validation commands, retry limit, failure packet ref, and status.
-- Validation expectation: Planned validator rejects missing authority, target mismatch, missing evidence, or unsupported next actions.
-- Non-claims: Handoff packets are not live A2A runtime.
+- Outputs: A2A handoff packet contract, eight seed packets, handoff registry, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Handoffs include source/target agent and role refs, card/work-order refs, skill refs, required inputs, expected outputs, memory refs, evidence refs, authority refs, current state, finite next allowed actions, validation expectations, receiving-role validation, bounded retry/failover policy, failure routing, approval requirements, path policy, runtime false flags, non-claims, and rejected claims.
+- Validation expectation: `tools/validate_r18_a2a_handoff_packet_schema.ps1` and `tests/test_r18_a2a_handoff_packet_schema.ps1` reject missing seed handoffs, missing required fields, unknown agents, role/card mismatches, unknown skills, target roles not allowed for skills, missing required refs, wildcard/unbounded next actions, missing validation expectations, unbounded retries, missing failure routing, broad repo writes, operator-local backup paths, historical R13/R14/R15/R16 evidence edits, live A2A/agent/skill/recovery/runtime/API claims, automatic new-thread creation, product runtime, R18-005+ completion claims, and status surfaces that advance R18 beyond R18-004.
+- Non-claims: Handoff packets are schema/seed governance artifacts only; no A2A messages were sent, no live A2A runtime was implemented, no live agents were invoked, no live skills were executed, no local runner runtime or recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, main is not merged, and no solved Codex compaction/reliability or no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-002, R18-003.
 - Failure/retry behavior: Invalid handoff routes to repair, block, or operator decision.
-- Expected evidence refs: `contracts/a2a/r18_handoff_packet.contract.json`, seed packets, check report.
+- Expected evidence refs: `contracts/a2a/r18_a2a_handoff_packet.contract.json`, `state/a2a/r18_handoff_packets/`, `state/a2a/r18_handoff_registry.json`, `state/a2a/r18_a2a_handoff_check_report.json`, `state/ui/r18_operator_surface/r18_a2a_handoff_snapshot.json`, `tools/R18A2AHandoffPacketSchema.psm1`, `tools/new_r18_a2a_handoff_packet_schema.ps1`, `tools/validate_r18_a2a_handoff_packet_schema.ps1`, `tests/test_r18_a2a_handoff_packet_schema.ps1`, `tests/fixtures/r18_a2a_handoff_packet_schema/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/`.
 
 ### `R18-005` Define explicit role-to-skill permission matrix
 - Status: planned

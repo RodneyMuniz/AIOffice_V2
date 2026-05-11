@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "retry_failover_policy.unbounded_retry_allowed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "unbounded retry"
+                                   ]
+}

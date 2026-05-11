@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.live_skill_execution_performed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live skill execution"
+                                   ]
+}

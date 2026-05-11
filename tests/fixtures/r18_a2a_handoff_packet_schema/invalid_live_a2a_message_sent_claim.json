@@ -1,0 +1,12 @@
+﻿{
+    "target":  "handoff:orchestrator_to_project_manager_define_work_order",
+    "remove_paths":  [
+
+                     ],
+    "set_values":  {
+                       "runtime_flags.a2a_message_sent":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "A2A message sent"
+                                   ]
+}
