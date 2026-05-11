@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_historical_evidence_edit_permission",
+    "target":  "event:first",
+    "operation":  "add_array_value",
+    "path":  "evidence_refs",
+    "expected_failure_fragments":  [
+                                       "historical R13/R14/R15/R16 evidence"
+                                   ],
+    "value":  "state/proof_reviews/r16_unsafe/edited.json",
+    "file":  "invalid_historical_evidence_edit_permission.json"
+}

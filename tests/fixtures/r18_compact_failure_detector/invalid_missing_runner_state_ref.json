@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_runner_state_ref",
+    "target":  "signal:first",
+    "operation":  "remove",
+    "path":  "runner_state_ref",
+    "expected_failure_fragments":  [
+                                       "runner_state_ref"
+                                   ],
+    "file":  "invalid_missing_runner_state_ref.json"
+}

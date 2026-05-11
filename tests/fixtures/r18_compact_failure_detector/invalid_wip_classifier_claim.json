@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_wip_classifier_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.wip_classifier_implemented",
+    "expected_failure_fragments":  [
+                                       "wip_classifier_implemented"
+                                   ],
+    "value":  true,
+    "file":  "invalid_wip_classifier_claim.json"
+}

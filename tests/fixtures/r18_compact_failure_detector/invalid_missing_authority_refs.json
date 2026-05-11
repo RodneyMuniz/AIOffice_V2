@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "target":  "event:first",
+    "operation":  "remove",
+    "path":  "authority_refs",
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ],
+    "file":  "invalid_missing_authority_refs.json"
+}

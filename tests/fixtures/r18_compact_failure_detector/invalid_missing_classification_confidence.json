@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_classification_confidence",
+    "target":  "event:first",
+    "operation":  "remove",
+    "path":  "classification_confidence",
+    "expected_failure_fragments":  [
+                                       "classification_confidence"
+                                   ],
+    "file":  "invalid_missing_classification_confidence.json"
+}

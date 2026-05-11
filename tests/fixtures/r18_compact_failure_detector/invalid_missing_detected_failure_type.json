@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_detected_failure_type",
+    "target":  "event:first",
+    "operation":  "remove",
+    "path":  "detected_failure_type",
+    "expected_failure_fragments":  [
+                                       "detected_failure_type"
+                                   ],
+    "file":  "invalid_missing_detected_failure_type.json"
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_execution_log_ref",
+    "target":  "signal:first",
+    "operation":  "remove",
+    "path":  "execution_log_ref",
+    "expected_failure_fragments":  [
+                                       "execution_log_ref"
+                                   ],
+    "file":  "invalid_missing_execution_log_ref.json"
+}

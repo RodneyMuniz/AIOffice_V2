@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_stage_commit_push_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.stage_commit_push_performed",
+    "expected_failure_fragments":  [
+                                       "stage_commit_push_performed"
+                                   ],
+    "value":  true,
+    "file":  "invalid_stage_commit_push_claim.json"
+}

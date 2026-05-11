@@ -3,7 +3,7 @@
 Last reconciled: 2026-05-12
 
 ## Status Summary
-R17 accepted and closed with caveats through R17-028 only. R17 accepted only as a bounded foundation/pivot milestone. R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success. R18 active through R18-009 only. R18-010 through R18-028 planned only. R18-002 created agent card schema and seed cards only. Agent cards are not live agents. R18-003 created skill contract schema and seed skill contracts only. Skill contracts are not live skill execution. R18-004 created A2A handoff packet schema and seed handoff packets only. A2A handoff packets are not live A2A runtime. R18-005 created role-to-skill permission matrix only. Permission matrix is not runtime enforcement. R18-006 created Orchestrator chat/control intake contract and seed intake packets only. Intake packets are not a live chat UI. Intake packets are not Orchestrator runtime. R18-007 created local runner/CLI shell foundation only. CLI shell is dry-run only. CLI shell is not full work-order execution runtime. R18-008 created work-order execution state machine foundation only. Work-order state machine is not runtime execution. R18-009 created runner state store and resumable execution log foundation only. Runner state store is not live runner runtime. Execution log is deterministic foundation evidence, not live execution evidence. Resume checkpoint is not a continuation packet. Compact failure detector is not implemented. WIP classifier is not implemented. Remote branch verifier runtime is not implemented. Continuation packet generator is not implemented. New-context prompt generator is not implemented. R18 runtime implementation is not yet delivered. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No A2A runtime was implemented. No local runner runtime was executed. No recovery runtime was implemented. No API invocation occurred. No automatic new-thread creation occurred. No stage/commit/push was performed by the runner or state store. No product runtime is claimed. Main is not merged.
+R17 accepted and closed with caveats through R17-028 only. R17 accepted only as a bounded foundation/pivot milestone. R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success. R18 active through R18-010 only. R18-011 through R18-028 planned only. R18-002 created agent card schema and seed cards only. Agent cards are not live agents. R18-003 created skill contract schema and seed skill contracts only. Skill contracts are not live skill execution. R18-004 created A2A handoff packet schema and seed handoff packets only. A2A handoff packets are not live A2A runtime. R18-005 created role-to-skill permission matrix only. Permission matrix is not runtime enforcement. R18-006 created Orchestrator chat/control intake contract and seed intake packets only. Intake packets are not a live chat UI. Intake packets are not Orchestrator runtime. R18-007 created local runner/CLI shell foundation only. CLI shell is dry-run only. CLI shell is not full work-order execution runtime. R18-008 created work-order execution state machine foundation only. Work-order state machine is not runtime execution. R18-009 created runner state store and resumable execution log foundation only. Runner state store is not live runner runtime. Execution log is deterministic foundation evidence, not live execution evidence. Resume checkpoint is not a continuation packet. R18-010 created compact failure detector foundation only. Failure detection is deterministic over seed signal artifacts only. Failure events are not recovery completion. WIP classifier is not implemented. Remote branch verifier runtime is not implemented. Continuation packet generator is not implemented. New-context prompt generator is not implemented. R18 runtime implementation is not yet delivered. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No A2A runtime was implemented. No live A2A runtime was implemented. No local runner runtime was executed. No recovery runtime was implemented. No recovery action was performed. No API invocation occurred. No automatic new-thread creation occurred. No stage/commit/push was performed by the runner or state store. No stage/commit/push was performed by the detector. No product runtime is claimed. Codex compaction is detected as a failure type, not solved. Main is not merged.
 
 R17 did not deliver live product runtime. R17 did not deliver four exercised A2A cycles. R17 did not deliver live A2A runtime. R17 did not deliver live automated recovery. R17 did not solve Codex compaction or reliability. R17 did not prove no-manual-prompt-transfer success.
 
@@ -15,8 +15,8 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - R17 accepted and closed with caveats through R17-028 only.
 - R17 accepted only as a bounded foundation/pivot milestone.
 - R17 did not deliver live product runtime, four exercised A2A cycles, live A2A runtime, live automated recovery, solved Codex compaction or reliability, or no-manual-prompt-transfer success.
-- R18 active through R18-009 only.
-- R18-010 through R18-028 planned only.
+- R18 active through R18-010 only.
+- R18-011 through R18-028 planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -37,7 +37,9 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - Runner state store is not live runner runtime.
 - Execution log is deterministic foundation evidence, not live execution evidence.
 - Resume checkpoint is not a continuation packet.
-- Compact failure detector is not implemented.
+- R18-010 created compact failure detector foundation only.
+- Failure detection is deterministic over seed signal artifacts only.
+- Failure events are not recovery completion.
 - WIP classifier is not implemented.
 - Remote branch verifier runtime is not implemented.
 - Continuation packet generator is not implemented.
@@ -48,13 +50,17 @@ The repo has closed out the first bounded V1 proof for the narrow boundary of su
 - No live agents were invoked.
 - No live skills were executed.
 - No A2A runtime was implemented.
+- No live A2A runtime was implemented.
 - No local runner runtime was executed.
 - No recovery runtime was implemented.
+- No recovery action was performed.
 - R18 runtime implementation is not yet delivered.
 - No API invocation occurred.
 - No automatic new-thread creation occurred.
 - No stage/commit/push was performed by the runner or state store.
+- No stage/commit/push was performed by the detector.
 - No product runtime is claimed.
+- Codex compaction is detected as a failure type, not solved.
 - Main is not merged.
 - The repo is operating from reset-era governance only.
 - The current product stance is admin-only and self-build first.

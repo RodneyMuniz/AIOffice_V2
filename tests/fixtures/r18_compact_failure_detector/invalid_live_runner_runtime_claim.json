@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_live_runner_runtime_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.live_runner_runtime_executed",
+    "expected_failure_fragments":  [
+                                       "live_runner_runtime_executed"
+                                   ],
+    "value":  true,
+    "file":  "invalid_live_runner_runtime_claim.json"
+}

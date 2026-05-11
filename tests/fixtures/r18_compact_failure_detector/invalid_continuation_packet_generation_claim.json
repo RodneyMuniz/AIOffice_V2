@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_continuation_packet_generation_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.continuation_packet_generated",
+    "expected_failure_fragments":  [
+                                       "continuation_packet_generated"
+                                   ],
+    "value":  true,
+    "file":  "invalid_continuation_packet_generation_claim.json"
+}

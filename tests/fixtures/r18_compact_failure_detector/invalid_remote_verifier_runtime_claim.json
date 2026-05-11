@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_remote_verifier_runtime_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.remote_branch_verifier_runtime_implemented",
+    "expected_failure_fragments":  [
+                                       "remote_branch_verifier_runtime_implemented"
+                                   ],
+    "value":  true,
+    "file":  "invalid_remote_verifier_runtime_claim.json"
+}

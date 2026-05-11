@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_stop_conditions",
+    "target":  "event:first",
+    "operation":  "remove",
+    "path":  "stop_conditions",
+    "expected_failure_fragments":  [
+                                       "stop_conditions"
+                                   ],
+    "file":  "invalid_missing_stop_conditions.json"
+}

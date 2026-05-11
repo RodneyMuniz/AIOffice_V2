@@ -1415,8 +1415,8 @@ function Test-R18SkillContractStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-009 only",
-            "R18-010 through R18-028 planned only",
+            "R18 active through R18-010 only",
+            "R18-011 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -1434,7 +1434,9 @@ function Test-R18SkillContractStatusTruth {
             "Runner state store is not live runner runtime",
             "Execution log is deterministic foundation evidence, not live execution evidence",
             "Resume checkpoint is not a continuation packet",
-            "Compact failure detector is not implemented",
+            "R18-010 created compact failure detector foundation only",
+            "Failure detection is deterministic over seed signal artifacts only",
+            "Failure events are not recovery completion",
             "WIP classifier is not implemented",
             "Remote branch verifier runtime is not implemented",
             "Continuation packet generator is not implemented",
@@ -1462,20 +1464,20 @@ function Test-R18SkillContractStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 9) {
+        if ($taskNumber -le 10) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-009."
+                throw "$taskId must be done after R18-010."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-009."
+                throw "$taskId must remain planned only after R18-010."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[0-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-009."
+    if ($combinedText -match 'R18 active through R18-(01[1-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-010."
     }
 }
 

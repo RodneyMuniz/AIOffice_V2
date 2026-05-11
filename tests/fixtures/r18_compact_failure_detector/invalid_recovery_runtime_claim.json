@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_recovery_runtime_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.recovery_runtime_implemented",
+    "expected_failure_fragments":  [
+                                       "recovery_runtime_implemented"
+                                   ],
+    "value":  true,
+    "file":  "invalid_recovery_runtime_claim.json"
+}

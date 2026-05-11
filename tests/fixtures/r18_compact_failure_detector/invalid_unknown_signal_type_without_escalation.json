@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_unknown_signal_type_without_escalation",
+    "target":  "signal:first",
+    "operation":  "set",
+    "path":  "signal_type",
+    "expected_failure_fragments":  [
+                                       "unknown signal type"
+                                   ],
+    "value":  "mystery_failure",
+    "file":  "invalid_unknown_signal_type_without_escalation.json"
+}

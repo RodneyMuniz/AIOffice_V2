@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-009` runner state store and resumable execution log foundation only.
+**Status after this pass:** Active through `R18-010` compact failure detector foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-009` are done. `R18-010` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-010` are done. `R18-011` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-010 through R18-028 are planned only.
+- R18-011 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -36,7 +36,9 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Runner state store is not live runner runtime.
 - Execution log is deterministic foundation evidence, not live execution evidence.
 - Resume checkpoint is not a continuation packet.
-- Compact failure detector is not implemented.
+- R18-010 created compact failure detector foundation only.
+- Failure detection is deterministic over seed signal artifacts only.
+- Failure events are not recovery completion.
 - WIP classifier is not implemented.
 - Remote branch verifier runtime is not implemented.
 - Continuation packet generator is not implemented.
@@ -47,6 +49,8 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No live agents were invoked.
 - No live skills were executed.
 - No local runner runtime was executed.
+- No live A2A runtime was implemented.
+- No recovery action was performed.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
 - No live A2A runtime is claimed.
@@ -55,8 +59,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No autonomous Codex invocation is claimed.
 - No automatic new-thread creation is claimed.
 - No stage/commit/push was performed by the runner or state store.
+- No stage/commit/push was performed by the detector.
 - No main merge is claimed.
-- No solved Codex compaction or reliability is claimed.
+- Codex compaction is detected as a failure type, not solved.
+- No solved Codex reliability is claimed.
 - No no-manual-prompt-transfer success is claimed yet.
 
 ## Task List
@@ -170,16 +176,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_runner_state_store.contract.json`, `state/runtime/r18_runner_state_store_profile.json`, `state/runtime/r18_runner_state.json`, `state/runtime/r18_runner_state_history.jsonl`, `state/runtime/r18_execution_log.jsonl`, `state/runtime/r18_runner_resume_checkpoint.json`, `state/runtime/r18_runner_state_store_seed_events/`, `state/runtime/r18_runner_state_store_check_report.json`, `state/ui/r18_operator_surface/r18_runner_state_store_snapshot.json`, `tools/R18RunnerStateStore.psm1`, `tools/new_r18_runner_state_store.ps1`, `tools/validate_r18_runner_state_store.ps1`, `tests/test_r18_runner_state_store.ps1`, `tests/fixtures/r18_runner_state_store/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store/`.
 
 ### `R18-010` Implement compact failure detector
-- Status: planned
-- Purpose: Detect compact/context/stream failure signals and record machine-readable failure events.
-- Inputs: Runner execution log, command results, operator failure note when needed.
-- Outputs: Failure event contract, detector, check report, tests.
-- Acceptance criteria: Detector classifies compact failure, stream disconnect, validation failure, status-doc gate failure, branch movement, unsafe WIP, generated churn, API/token budget failure, and operator abort.
-- Validation expectation: Planned validator rejects unknown unclassified failures unless escalated.
-- Non-claims: Detection is not recovery completion.
+- Status: done
+- Purpose: Create a deterministic compact/context/stream failure detector foundation over committed seed signal artifacts only.
+- Inputs: R18-009 runner state store refs, execution log refs, resume checkpoint refs, R17 automated recovery-loop authority refs, and seeded compact/context/stream/validation failure signal artifacts.
+- Outputs: Failure event contract, compact failure detector contract, detector profile, six seed signal samples, six detected failure events, detection results, check report, operator-surface snapshot, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Detector classifies seeded compact/backend stream disconnect, context compaction required, stream disconnect before completion, validation interrupted after compact, non-compact validation failure, and unknown failure escalation signals into deterministic failure event packets with runner state refs, evidence refs, authority refs, next safe step, stop conditions, and runtime false flags.
+- Validation expectation: `tools/validate_r18_compact_failure_detector.ps1` and `tests/test_r18_compact_failure_detector.ps1` reject missing artifacts, missing signal/event fields, unknown signal or detected failure types, missing runner state/execution log/resume checkpoint refs, missing evidence/authority refs, compact/non-compact misclassification, unknown failures without operator decision, runtime/API/recovery/WIP/remote/continuation/new-context/work-order/board/A2A/agent/skill/stage-commit-push claims, and status surfaces that advance R18 beyond R18-010.
+- Non-claims: Detection is not recovery completion. Failure events are not continuation packets or new-context prompts. No WIP classification, remote branch verification, recovery action, work-order execution, live monitoring, API invocation, automatic new-thread creation, or stage/commit/push was performed by the detector.
 - Dependencies: R18-009.
 - Failure/retry behavior: Unknown failure becomes operator decision required.
-- Expected evidence refs: `contracts/runtime/r18_failure_event.contract.json`, failure event fixtures.
+- Expected evidence refs: `contracts/runtime/r18_failure_event.contract.json`, `contracts/runtime/r18_compact_failure_detector.contract.json`, `state/runtime/r18_compact_failure_detector_profile.json`, `state/runtime/r18_compact_failure_signal_samples/`, `state/runtime/r18_detected_failure_events/`, `state/runtime/r18_compact_failure_detector_results.json`, `state/runtime/r18_compact_failure_detector_check_report.json`, `state/ui/r18_operator_surface/r18_compact_failure_detector_snapshot.json`, `tools/R18CompactFailureDetector.psm1`, `tools/new_r18_compact_failure_detector.ps1`, `tools/validate_r18_compact_failure_detector.ps1`, `tests/test_r18_compact_failure_detector.ps1`, `tests/fixtures/r18_compact_failure_detector/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector/`.
 
 ### `R18-011` Implement WIP classifier
 - Status: planned

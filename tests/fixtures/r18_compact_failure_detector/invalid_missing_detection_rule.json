@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_detection_rule",
+    "target":  "signal:first",
+    "operation":  "remove",
+    "path":  "expected_detection_rule",
+    "expected_failure_fragments":  [
+                                       "expected_detection_rule"
+                                   ],
+    "file":  "invalid_missing_detection_rule.json"
+}

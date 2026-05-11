@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_evidence_refs",
+    "target":  "event:first",
+    "operation":  "remove",
+    "path":  "evidence_refs",
+    "expected_failure_fragments":  [
+                                       "evidence_refs"
+                                   ],
+    "file":  "invalid_missing_evidence_refs.json"
+}

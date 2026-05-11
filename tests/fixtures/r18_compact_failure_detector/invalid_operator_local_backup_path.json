@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_operator_local_backup_path",
+    "target":  "event:first",
+    "operation":  "add_array_value",
+    "path":  "evidence_refs",
+    "expected_failure_fragments":  [
+                                       "operator local backup"
+                                   ],
+    "value":  ".local_backups/r18_010_operator_note.json",
+    "file":  "invalid_operator_local_backup_path.json"
+}

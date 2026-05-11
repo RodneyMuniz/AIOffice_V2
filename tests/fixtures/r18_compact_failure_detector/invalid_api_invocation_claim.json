@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_api_invocation_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.openai_api_invoked",
+    "expected_failure_fragments":  [
+                                       "openai_api_invoked"
+                                   ],
+    "value":  true,
+    "file":  "invalid_api_invocation_claim.json"
+}

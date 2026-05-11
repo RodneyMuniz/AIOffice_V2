@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.a2a_message_sent",
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ],
+    "value":  true,
+    "file":  "invalid_a2a_message_sent_claim.json"
+}

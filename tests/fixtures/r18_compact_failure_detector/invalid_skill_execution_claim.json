@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_skill_execution_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.live_skill_execution_performed",
+    "expected_failure_fragments":  [
+                                       "live_skill_execution_performed"
+                                   ],
+    "value":  true,
+    "file":  "invalid_skill_execution_claim.json"
+}

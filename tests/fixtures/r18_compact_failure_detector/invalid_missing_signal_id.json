@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_signal_id",
+    "target":  "signal:first",
+    "operation":  "remove",
+    "path":  "signal_id",
+    "expected_failure_fragments":  [
+                                       "signal_id"
+                                   ],
+    "file":  "invalid_missing_signal_id.json"
+}

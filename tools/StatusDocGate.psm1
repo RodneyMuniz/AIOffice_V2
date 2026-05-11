@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-009 only",
-            "R18-010 through R18-028 planned only",
+            "R18 active through R18-010 only",
+            "R18-011 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3717,7 +3717,9 @@ function Test-StatusDocGate {
             "Runner state store is not live runner runtime",
             "Execution log is deterministic foundation evidence, not live execution evidence",
             "Resume checkpoint is not a continuation packet",
-            "Compact failure detector is not implemented",
+            "R18-010 created compact failure detector foundation only",
+            "Failure detection is deterministic over seed signal artifacts only",
+            "Failure events are not recovery completion",
             "WIP classifier is not implemented",
             "Remote branch verifier runtime is not implemented",
             "Continuation packet generator is not implemented",
@@ -3728,12 +3730,16 @@ function Test-StatusDocGate {
             "No live agents were invoked",
             "No live skills were executed",
             "No A2A runtime was implemented",
+            "No live A2A runtime was implemented",
             "No local runner runtime was executed",
             "No recovery runtime was implemented",
+            "No recovery action was performed",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
             "No stage/commit/push was performed by the runner or state store",
+            "No stage/commit/push was performed by the detector",
             "No product runtime is claimed",
+            "Codex compaction is detected as a failure type, not solved",
             "R18 runtime implementation is not yet delivered",
             "Main is not merged"
         )) {
@@ -3747,7 +3753,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 9) {
+        if ($taskNumber -le 10) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3780,7 +3786,7 @@ function Test-StatusDocGate {
     return [pscustomobject]@{
         ActiveMilestone = "R18 Automated Recovery Runtime and API Orchestration"
         MostRecentlyClosedMilestone = "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle"
-        DoneThrough = 9
+        DoneThrough = 10
         PlannedStart = $null
         PlannedThrough = $null
         R17DoneThrough = 28
@@ -3789,8 +3795,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 9
-        R18PlannedStart = 10
+        R18DoneThrough = 10
+        R18PlannedStart = 11
         R18PlannedThrough = 28
     }
 }

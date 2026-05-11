@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_broad_repo_write",
+    "target":  "event:first",
+    "operation":  "add_array_value",
+    "path":  "authority_refs",
+    "expected_failure_fragments":  [
+                                       "broad repo write"
+                                   ],
+    "value":  "repository root broad write",
+    "file":  "invalid_broad_repo_write.json"
+}

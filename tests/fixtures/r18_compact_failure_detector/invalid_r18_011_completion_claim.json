@@ -1,0 +1,11 @@
+﻿{
+    "fixture_id":  "invalid_r18_011_completion_claim",
+    "target":  "event:first",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_011_completed",
+    "expected_failure_fragments":  [
+                                       "r18_011_completed"
+                                   ],
+    "value":  true,
+    "file":  "invalid_r18_011_completion_claim.json"
+}
