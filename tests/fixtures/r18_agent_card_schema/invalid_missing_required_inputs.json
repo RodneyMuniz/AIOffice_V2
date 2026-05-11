@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_solution_architect",
+    "remove_paths":  [
+                         "required_inputs"
+                     ],
+    "expected_failure_fragments":  [
+                                       "required_inputs"
+                                   ]
+}

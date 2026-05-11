@@ -1,0 +1,108 @@
+﻿{
+    "artifact_type":  "r18_agent_card_schema_evidence_index",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-002",
+    "evidence_scope":  "schema_seed_cards_validator_fixtures_status_only",
+    "entries":  [
+                    {
+                        "path":  "contracts/agents/r18_agent_card.contract.json",
+                        "evidence_type":  "contract"
+                    },
+                    {
+                        "path":  "state/agents/r18_agent_cards/",
+                        "evidence_type":  "seed_agent_cards"
+                    },
+                    {
+                        "path":  "state/agents/r18_agent_card_check_report.json",
+                        "evidence_type":  "check_report"
+                    },
+                    {
+                        "path":  "state/ui/r18_operator_surface/r18_agent_card_snapshot.json",
+                        "evidence_type":  "operator_surface_snapshot_state_only"
+                    },
+                    {
+                        "path":  "tools/R18AgentCardSchema.psm1",
+                        "evidence_type":  "validator_generator_module"
+                    },
+                    {
+                        "path":  "tools/new_r18_agent_card_schema.ps1",
+                        "evidence_type":  "generator_wrapper"
+                    },
+                    {
+                        "path":  "tools/validate_r18_agent_card_schema.ps1",
+                        "evidence_type":  "validator_wrapper"
+                    },
+                    {
+                        "path":  "tests/test_r18_agent_card_schema.ps1",
+                        "evidence_type":  "focused_tests"
+                    },
+                    {
+                        "path":  "tests/fixtures/r18_agent_card_schema/",
+                        "evidence_type":  "invalid_fixtures"
+                    },
+                    {
+                        "path":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/proof_review.md",
+                        "evidence_type":  "proof_review"
+                    },
+                    {
+                        "path":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/validation_manifest.md",
+                        "evidence_type":  "validation_manifest"
+                    }
+                ],
+    "positive_claims":  [
+                            "r18_agent_card_schema_created",
+                            "r18_seed_agent_cards_created",
+                            "r18_agent_card_validator_created",
+                            "r18_agent_card_fixtures_created",
+                            "r18_agent_card_proof_review_created"
+                        ],
+    "non_claims":  [
+                       "R18-002 creates agent card schema and seed cards only.",
+                       "Agent cards are governance/runtime contracts only; they are not live agents.",
+                       "No skills are implemented by R18-002.",
+                       "No live A2A runtime is implemented by R18-002.",
+                       "No live recovery runtime is implemented by R18-002.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-003 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "wildcard_skill_permission",
+                            "unbounded_skill_permission",
+                            "live_agent_runtime",
+                            "live_a2a_runtime",
+                            "live_recovery_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_003_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write"
+                        ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "state/agents/r17_agent_registry.json",
+                           "state/agents/r17_agent_identities/",
+                           "state/runtime/r17_agent_invocation_log.jsonl",
+                           "contracts/agents/r17_agent_registry.contract.json",
+                           "contracts/agents/r17_agent_identity_packet.contract.json"
+                       ]
+}

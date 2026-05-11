@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_developer_codex",
+    "remove_paths":  [
+                         "required_outputs"
+                     ],
+    "expected_failure_fragments":  [
+                                       "required_outputs"
+                                   ]
+}

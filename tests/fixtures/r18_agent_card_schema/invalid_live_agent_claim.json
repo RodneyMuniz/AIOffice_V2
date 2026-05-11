@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_orchestrator",
+    "set_values":  {
+                       "runtime_flags.live_agent_runtime_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "live_agent_runtime_invoked"
+                                   ]
+}

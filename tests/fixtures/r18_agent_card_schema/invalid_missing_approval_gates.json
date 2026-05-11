@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_project_manager",
+    "remove_paths":  [
+                         "approval_gates"
+                     ],
+    "expected_failure_fragments":  [
+                                       "approval_gates"
+                                   ]
+}

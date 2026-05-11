@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_orchestrator",
+    "remove_paths":  [
+                         "retry_failover_behavior"
+                     ],
+    "expected_failure_fragments":  [
+                                       "retry_failover_behavior"
+                                   ]
+}

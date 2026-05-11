@@ -1,0 +1,40 @@
+﻿{
+    "artifact_type":  "r18_agent_card_schema_fixture_manifest",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-002",
+    "fixture_style":  "compact_mutation_specs_applied_to_valid_seed_cards",
+    "fixture_count":  13,
+    "fixture_files":  [
+                          "invalid_missing_authority.json",
+                          "invalid_wildcard_skill_permission.json",
+                          "invalid_missing_forbidden_actions.json",
+                          "invalid_missing_required_inputs.json",
+                          "invalid_missing_required_outputs.json",
+                          "invalid_missing_memory_refs.json",
+                          "invalid_missing_evidence_obligations.json",
+                          "invalid_missing_handoff_rules.json",
+                          "invalid_missing_retry_failover_behavior.json",
+                          "invalid_missing_approval_gates.json",
+                          "invalid_live_agent_claim.json",
+                          "invalid_api_invocation_claim.json",
+                          "invalid_r18_003_completion_claim.json"
+                      ],
+    "non_claims":  [
+                       "R18-002 creates agent card schema and seed cards only.",
+                       "Agent cards are governance/runtime contracts only; they are not live agents.",
+                       "No skills are implemented by R18-002.",
+                       "No live A2A runtime is implemented by R18-002.",
+                       "No live recovery runtime is implemented by R18-002.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-003 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ]
+}

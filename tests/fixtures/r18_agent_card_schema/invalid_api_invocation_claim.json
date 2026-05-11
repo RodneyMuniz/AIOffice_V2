@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_developer_codex",
+    "set_values":  {
+                       "runtime_flags.openai_api_invoked":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "openai_api_invoked"
+                                   ]
+}

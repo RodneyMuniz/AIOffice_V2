@@ -1,0 +1,11 @@
+﻿{
+    "target":  "card:agent_developer_codex",
+    "set_values":  {
+                       "allowed_skills":  [
+                                              "*"
+                                          ]
+                   },
+    "expected_failure_fragments":  [
+                                       "wildcard or unbounded skill"
+                                   ]
+}

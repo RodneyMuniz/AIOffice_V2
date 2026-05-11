@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_project_manager",
+    "remove_paths":  [
+                         "forbidden_actions"
+                     ],
+    "expected_failure_fragments":  [
+                                       "forbidden_actions"
+                                   ]
+}

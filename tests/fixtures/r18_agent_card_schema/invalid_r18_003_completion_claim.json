@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_release_manager",
+    "set_values":  {
+                       "runtime_flags.r18_003_completed":  true
+                   },
+    "expected_failure_fragments":  [
+                                       "r18_003_completed"
+                                   ]
+}

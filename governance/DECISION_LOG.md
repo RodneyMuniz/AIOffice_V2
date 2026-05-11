@@ -1952,3 +1952,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R18 active through R18-001 only. R18-002 through R18-028 planned only.
 - Consequence: R18 runtime implementation is not yet delivered. No API invocation is claimed. Main is not merged.
 - Consequence: This transition is backed by `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`, `governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md`, and `state/governance/r18_opening_authority.json`.
+
+## D-0187 R18-002 Agent Card Schema Foundation
+- Date: 2026-05-11
+- Status: accepted
+- Decision: R18-002 creates the agent card schema, seven seed agent cards, validator, focused tests, fixtures, check report, operator-surface snapshot state artifact, and proof-review package only.
+- Consequence: R18 active through R18-002 only. R18-003 through R18-028 planned only.
+- Consequence: Agent cards are governance/runtime contracts only; agent cards are not live agents.
+- Consequence: No skills were implemented, no A2A runtime was implemented, no recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, and main is not merged.
+- Consequence: This decision does not claim live agent runtime, live A2A runtime, live recovery runtime, OpenAI API invocation, Codex API invocation, autonomous Codex invocation, automatic new-thread creation, product runtime, main merge, R18-003 completion, solved Codex compaction, solved Codex reliability, or no-manual-prompt-transfer success.
+- Consequence: This decision is backed by `contracts/agents/r18_agent_card.contract.json`, `state/agents/r18_agent_cards/`, `state/agents/r18_agent_card_check_report.json`, `state/ui/r18_operator_surface/r18_agent_card_snapshot.json`, `tools/R18AgentCardSchema.psm1`, `tools/validate_r18_agent_card_schema.ps1`, `tests/test_r18_agent_card_schema.ps1`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/`.

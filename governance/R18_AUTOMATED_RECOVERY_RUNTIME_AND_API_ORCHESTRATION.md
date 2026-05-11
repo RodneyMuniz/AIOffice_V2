@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-001` opening/status authority only.
+**Status after this pass:** Active through `R18-002` agent card schema foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` is done. `R18-002` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` and `R18-002` are done. `R18-003` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,11 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-002 through R18-028 are planned only.
+- R18-003 through R18-028 are planned only.
+- R18-002 created agent card schema and seed cards only.
+- Agent cards are not live agents.
+- No skills were implemented.
+- No product runtime is claimed.
 - No live recovery runtime is claimed.
 - No live A2A runtime is claimed.
 - No OpenAI API invocation is claimed.
@@ -41,13 +45,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `state/governance/r18_opening_authority.json`, this authority doc, status docs, decision log.
 
 ### `R18-002` Define agent card schema and validator
-- Status: planned
+- Status: done
 - Purpose: Define enforceable agent cards for role authority, allowed skills, evidence duties, and failover rules.
 - Inputs: R17 agent registry, R17 role identity packets, R18 authority.
-- Outputs: Agent card contract, seed cards, validator, focused tests, proof-review package.
+- Outputs: Agent card contract, seed cards, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
 - Acceptance criteria: Each card declares role, authority scope, allowed skills, forbidden actions, inputs, outputs, memory refs, handoff rules, retry behavior, and approval gates.
-- Validation expectation: Planned `tools/validate_r18_agent_card_schema.ps1` and focused tests fail closed on missing authority or unsafe permissions.
-- Non-claims: Agent cards are not live agents and do not invoke tools.
+- Validation expectation: `tools/validate_r18_agent_card_schema.ps1` and `tests/test_r18_agent_card_schema.ps1` fail closed on missing authority, wildcard skills, missing required duties, unsafe permissions, runtime/API claims, historical evidence edits, operator-local backup paths, broad repo writes, and R18-003+ completion claims.
+- Non-claims: Agent cards are not live agents, no skills were implemented, no A2A runtime was implemented, no recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, and main is not merged.
 - Dependencies: R18-001.
 - Failure/retry behavior: Missing required authority or wildcard skill permission blocks the card.
 - Expected evidence refs: `contracts/agents/r18_agent_card.contract.json`, generated cards, check report, fixtures.

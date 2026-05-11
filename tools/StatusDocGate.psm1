@@ -3683,8 +3683,8 @@ function Test-StatusDocGate {
     $r18State = Get-Content -LiteralPath $paths.R18State -Raw | ConvertFrom-Json
 
     Assert-R18StatusDocCondition -Condition ($decision.operator_approval_recorded -eq $true -and $decision.r17_closed -eq $true) -Message "R17 closeout requires operator approval."
-    Assert-R18StatusDocCondition -Condition ($r18State.r18_status -eq "active_through_r18_001_only") -Message "R18 must be active through R18-001 only."
-    Assert-R18StatusDocCondition -Condition ($r18State.active_task -eq "R18-001") -Message "R18 active task must be R18-001."
+    Assert-R18StatusDocCondition -Condition ($r18State.r18_status -eq "active_through_r18_001_only") -Message "R18 opening authority state must remain active through R18-001 only."
+    Assert-R18StatusDocCondition -Condition ($r18State.active_task -eq "R18-001") -Message "R18 opening authority active task must remain R18-001."
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
@@ -3695,10 +3695,17 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-001 only",
-            "R18-002 through R18-028 planned only",
+            "R18 active through R18-002 only",
+            "R18-003 through R18-028 planned only",
+            "R18-002 created agent card schema and seed cards only",
+            "Agent cards are not live agents",
+            "No skills were implemented",
+            "No A2A runtime was implemented",
+            "No recovery runtime was implemented",
+            "No API invocation occurred",
+            "No automatic new-thread creation occurred",
+            "No product runtime is claimed",
             "R18 runtime implementation is not yet delivered",
-            "No API invocation is claimed",
             "Main is not merged"
         )) {
         Assert-R18StatusDocCondition -Condition ($combinedText -like "*$required*") -Message "Status docs missing required transition wording: $required"
@@ -3711,8 +3718,8 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskId -eq "R18-001") {
-            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "R18-001 must be done."
+        if ($taskNumber -le 2) {
+            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "planned") -Message "$taskId must be planned only."
@@ -3726,6 +3733,9 @@ function Test-StatusDocGate {
             "R18 API invocation completed",
             "R18 live recovery runtime delivered",
             "R18 live A2A runtime delivered",
+            "R18 skills implemented",
+            "R18 A2A runtime implemented",
+            "R18 recovery runtime implemented",
             "R18 solved Codex compaction",
             "R18 solved Codex reliability",
             "R18 proved no-manual-prompt-transfer success",
@@ -3748,8 +3758,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 1
-        R18PlannedStart = 2
+        R18DoneThrough = 2
+        R18PlannedStart = 3
         R18PlannedThrough = 28
     }
 }

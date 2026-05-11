@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_qa_test",
+    "remove_paths":  [
+                         "memory_refs"
+                     ],
+    "expected_failure_fragments":  [
+                                       "memory_refs"
+                                   ]
+}

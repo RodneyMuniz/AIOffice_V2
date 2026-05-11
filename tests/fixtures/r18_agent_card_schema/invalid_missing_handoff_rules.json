@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_release_manager",
+    "remove_paths":  [
+                         "handoff_rules"
+                     ],
+    "expected_failure_fragments":  [
+                                       "handoff_rules"
+                                   ]
+}

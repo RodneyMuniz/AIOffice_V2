@@ -1,0 +1,9 @@
+﻿{
+    "target":  "card:agent_evidence_auditor",
+    "remove_paths":  [
+                         "evidence_obligations"
+                     ],
+    "expected_failure_fragments":  [
+                                       "evidence_obligations"
+                                   ]
+}
