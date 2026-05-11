@@ -233,7 +233,7 @@ foreach ($assertion in @(
         @{ label = "denied permissions route to failure/block behavior"; script = { Assert-DeniedPermissionRoutesToBlock } },
         @{ label = "runtime false flags remain false"; script = { Assert-RuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "API flags remain disabled"; script = { Assert-ApiFlagsDisabled -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-006 only"; script = { Test-R18IntakeStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status accepts the current active-through R18-007 boundary"; script = { Test-R18IntakeStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_local_runner_cli_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_r18_008_completion_claim",
+    "source_task":  "R18-007",
+    "target":  "input:status",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027r18_008_completed\u0027 must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.r18_008_completed":  true
+                   }
+}

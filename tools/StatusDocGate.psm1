@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-006 only",
-            "R18-007 through R18-028 planned only",
+            "R18 active through R18-007 only",
+            "R18-008 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3708,15 +3708,21 @@ function Test-StatusDocGate {
             "R18-006 created Orchestrator chat/control intake contract and seed intake packets only",
             "Intake packets are not a live chat UI",
             "Intake packets are not Orchestrator runtime",
+            "R18-007 created local runner/CLI shell foundation only",
+            "CLI shell is dry-run only",
+            "CLI shell is not full work-order execution runtime",
+            "Work-order execution state machine is not implemented",
+            "No work orders were executed",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
             "No live agents were invoked",
             "No live skills were executed",
             "No A2A runtime was implemented",
-            "No local runner runtime was implemented",
+            "No local runner runtime was executed",
             "No recovery runtime was implemented",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
+            "No stage/commit/push was performed by the runner",
             "No product runtime is claimed",
             "R18 runtime implementation is not yet delivered",
             "Main is not merged"
@@ -3731,7 +3737,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 6) {
+        if ($taskNumber -le 7) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3773,8 +3779,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 6
-        R18PlannedStart = 7
+        R18DoneThrough = 7
+        R18PlannedStart = 8
         R18PlannedThrough = 28
     }
 }

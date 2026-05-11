@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_local_runner_cli_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_execute_work_order_attempt",
+    "source_task":  "R18-007",
+    "target":  "input:status",
+    "expected_failure_fragments":  [
+                                       "requests work-order execution"
+                                   ],
+    "set_values":  {
+                       "requested_action.work_order_execution_requested":  true
+                   }
+}

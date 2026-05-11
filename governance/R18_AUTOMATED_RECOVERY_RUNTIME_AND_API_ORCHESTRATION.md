@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-006` Orchestrator chat/control intake contract and seed intake packets only.
+**Status after this pass:** Active through `R18-007` local runner/CLI shell foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-006` are done. `R18-007` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-007` are done. `R18-008` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-007 through R18-028 are planned only.
+- R18-008 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -27,11 +27,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - R18-006 created Orchestrator chat/control intake contract and seed intake packets only.
 - Intake packets are not a live chat UI.
 - Intake packets are not Orchestrator runtime.
+- R18-007 created local runner/CLI shell foundation only.
+- CLI shell is dry-run only.
+- CLI shell is not full work-order execution runtime.
+- Work-order execution state machine is not implemented.
+- No work orders were executed.
 - No board/card runtime mutation occurred.
 - No A2A messages were sent.
 - No live agents were invoked.
 - No live skills were executed.
-- No local runner runtime was implemented.
+- No local runner runtime was executed.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
 - No live A2A runtime is claimed.
@@ -39,6 +44,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No Codex API invocation is claimed.
 - No autonomous Codex invocation is claimed.
 - No automatic new-thread creation is claimed.
+- No stage/commit/push was performed by the runner.
 - No main merge is claimed.
 - No solved Codex compaction or reliability is claimed.
 - No no-manual-prompt-transfer success is claimed yet.
@@ -118,16 +124,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/intake/r18_orchestrator_control_intake.contract.json`, `state/intake/r18_orchestrator_control_intake_packets/`, `state/intake/r18_orchestrator_control_intake_registry.json`, `state/intake/r18_orchestrator_control_intake_check_report.json`, `state/ui/r18_operator_surface/r18_orchestrator_control_intake_snapshot.json`, `tools/R18OrchestratorControlIntake.psm1`, `tools/new_r18_orchestrator_control_intake.ps1`, `tools/validate_r18_orchestrator_control_intake.ps1`, `tests/test_r18_orchestrator_control_intake.ps1`, `tests/fixtures/r18_orchestrator_control_intake/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/`.
 
 ### `R18-007` Build local runner/CLI shell foundation
-- Status: planned
-- Purpose: Create the local shell foundation that later executes one bounded work order at a time.
-- Inputs: Work-order contract draft, path policy, validation command policy, branch policy.
-- Outputs: Runner CLI shell, dry-run command handling, help/status output, tests.
-- Acceptance criteria: CLI validates input shape, records branch/head/tree, refuses missing authority, and performs no broad writes.
-- Validation expectation: Planned validator and tests prove fail-closed dry-run behavior.
-- Non-claims: CLI shell foundation is not full recovery runtime.
+- Status: done
+- Purpose: Create a bounded local runner/CLI shell foundation that validates command shape, records branch/head/tree identity, loads approved intake packet refs, enforces dry-run path/authority checks, emits deterministic dry-run evidence, and refuses unsafe commands.
+- Inputs: R18 authority, R18-006 intake packet refs, path policy, validation command policy, branch policy.
+- Outputs: Local runner CLI contract, dry-run profile, command catalog, dry-run inputs/results, check report, snapshot, validator, invocation wrapper, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: CLI validates input shape, records branch/head/tree, refuses missing authority, refuses unsafe paths and unknown commands, validates explicit intake packet refs, and performs no work-order execution, skill execution, A2A dispatch, API invocation, board/card runtime mutation, or stage/commit/push.
+- Validation expectation: `tools/validate_r18_local_runner_cli.ps1` and `tests/test_r18_local_runner_cli.ps1` prove fail-closed dry-run behavior.
+- Non-claims: CLI shell foundation is not full work-order execution runtime, not the R18-008 state machine, not live runner runtime, not recovery runtime, not API invocation, and not no-manual-prompt-transfer success.
 - Dependencies: R18-006.
 - Failure/retry behavior: Missing work order, unsafe path, or unknown command exits nonzero with a failure packet.
-- Expected evidence refs: `tools/R18LocalRunner.psm1`, `tools/invoke_r18_local_runner.ps1`, test fixtures.
+- Expected evidence refs: `contracts/runtime/r18_local_runner_cli.contract.json`, `state/runtime/r18_local_runner_cli_profile.json`, `state/runtime/r18_local_runner_cli_command_catalog.json`, `state/runtime/r18_local_runner_cli_dry_run_inputs/`, `state/runtime/r18_local_runner_cli_dry_run_results/`, `state/runtime/r18_local_runner_cli_check_report.json`, `state/ui/r18_operator_surface/r18_local_runner_cli_snapshot.json`, `tools/R18LocalRunnerCli.psm1`, `tools/invoke_r18_local_runner_cli.ps1`, `tools/new_r18_local_runner_cli.ps1`, `tools/validate_r18_local_runner_cli.ps1`, `tests/test_r18_local_runner_cli.ps1`, `tests/fixtures/r18_local_runner_cli/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell/`.
 
 ### `R18-008` Implement work-order execution state machine foundation
 - Status: planned

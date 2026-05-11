@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_local_runner_cli_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_remote_head_missing",
+    "source_task":  "R18-007",
+    "target":  "input:inspect_repo",
+    "expected_failure_fragments":  [
+                                       "expected_remote_head is required"
+                                   ],
+    "set_values":  {
+                       "expected_remote_head":  ""
+                   }
+}

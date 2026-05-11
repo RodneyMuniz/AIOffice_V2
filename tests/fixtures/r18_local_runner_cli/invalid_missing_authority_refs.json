@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_local_runner_cli_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_authority_refs",
+    "source_task":  "R18-007",
+    "target":  "input:status",
+    "expected_failure_fragments":  [
+                                       "authority_refs must not be empty"
+                                   ],
+    "set_values":  {
+                       "authority_refs":  [
+
+                                          ]
+                   }
+}

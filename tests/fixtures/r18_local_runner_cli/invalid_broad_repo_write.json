@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_local_runner_cli_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_broad_repo_write",
+    "source_task":  "R18-007",
+    "target":  "input:status",
+    "expected_failure_fragments":  [
+                                       "broad repo write"
+                                   ],
+    "set_values":  {
+                       "allowed_paths":  [
+                                             "."
+                                         ]
+                   }
+}
