@@ -1941,3 +1941,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: R17-028 records that R17 delivered substantial foundations and two repo-backed packet-only cycle packages but did not achieve the original four exercised A2A cycle goal or live product/runtime loop.
 - Consequence: Repeated Codex compact failures remain the primary finding. Manual resume prompts are not accepted as the long-term solution; automated retry, continuation packets, new-context continuation, and optional API-level orchestration require future operator-approved work.
 - Consequence: This decision does not claim external audit acceptance, main merge, R13 closure, R14 caveat removal, R15 caveat removal, solved Codex compaction, solved Codex reliability, product runtime, production runtime, autonomous agents, true multi-agent execution, live recovery-loop runtime, automatic new-thread creation, OpenAI API invocation, Codex API invocation, autonomous Codex invocation, live execution harness runtime, live agent runtime, live A2A runtime, adapter runtime, actual tool call, live board mutation, QA result, audit verdict, no-manual-prompt-transfer success, R17 closeout without operator approval, or R18 opening.
+
+## D-0186 R17 Operator Closeout and R18 Opening Authority
+- Date: 2026-05-11
+- Status: accepted
+- Decision: The operator approves the external R17 audit recommendation, accepts and closes R17 with caveats through R17-028 only, and opens R18 through R18-001 opening/status authority only.
+- Consequence: R17 accepted and closed with caveats through R17-028 only.
+- Consequence: R17 accepted only as a bounded foundation/pivot milestone.
+- Consequence: R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success.
+- Consequence: R18 active through R18-001 only. R18-002 through R18-028 planned only.
+- Consequence: R18 runtime implementation is not yet delivered. No API invocation is claimed. Main is not merged.
+- Consequence: This transition is backed by `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`, `governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md`, and `state/governance/r18_opening_authority.json`.

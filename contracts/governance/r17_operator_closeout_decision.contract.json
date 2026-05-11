@@ -1,0 +1,50 @@
+{
+  "artifact_type": "r17_operator_closeout_decision_contract",
+  "contract_version": "v1",
+  "contract_id": "aioffice-r17-operator-closeout-decision-contract-v1",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "source_milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "required_decision_status": "operator_approved",
+  "required_decision_type": "accept_r17_bounded_foundation_with_caveats_and_open_r18",
+  "required_accepted_scope": "R17-001 through R17-028 only",
+  "required_accepted_as": "bounded_foundation_pivot_only",
+  "required_rejected_as": "live_product_runtime",
+  "required_true_fields": [
+    "r17_closed",
+    "r18_opening_authorized",
+    "operator_approval_recorded"
+  ],
+  "required_false_fields": [
+    "main_merge_claimed",
+    "product_runtime_claimed",
+    "four_exercised_a2a_cycles_claimed",
+    "live_a2a_runtime_claimed",
+    "live_recovery_runtime_claimed",
+    "automatic_new_thread_creation_claimed",
+    "openai_api_invoked",
+    "codex_api_invoked",
+    "autonomous_codex_invocation_claimed",
+    "no_manual_prompt_transfer_success_claimed",
+    "solved_codex_compaction_claimed",
+    "solved_codex_reliability_claimed"
+  ],
+  "required_ref_groups": [
+    "external_audit_artifact_refs",
+    "final_r17_package_refs",
+    "evidence_refs"
+  ],
+  "forbidden_committed_path_patterns": [
+    "^\\.local_backups/",
+    "^state/proof_reviews/r1[3-6]",
+    "^state/.*/r1[3-6]_",
+    "^governance/R1[3-6]_"
+  ],
+  "status_doc_requirements": [
+    "R17 accepted and closed with caveats through R17-028 only",
+    "R17 accepted only as a bounded foundation/pivot milestone",
+    "R18 active through R18-001 only",
+    "R18-002 through R18-028 planned only",
+    "main not merged"
+  ]
+}

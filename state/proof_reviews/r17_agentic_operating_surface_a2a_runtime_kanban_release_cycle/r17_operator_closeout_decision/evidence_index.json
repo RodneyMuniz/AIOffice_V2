@@ -1,0 +1,46 @@
+{
+  "artifact_type": "r17_operator_closeout_decision_evidence_index",
+  "contract_version": "v1",
+  "source_milestone": "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+  "source_task": "r17_operator_closeout_decision",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "decision_ref": "state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json",
+  "contract_ref": "contracts/governance/r17_operator_closeout_decision.contract.json",
+  "external_audit_artifact_refs": [
+    "governance/reports/AIOffice_V2_R17_External_Audit_and_R18_Planning_Report_v1.md",
+    "governance/plans/AIOffice_V2_Revised_R17_Plan.md"
+  ],
+  "final_r17_package_refs": [
+    "governance/reports/AIOffice_V2_R17_Final_Report_and_R18_Planning_Report_v1.md",
+    "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_evidence_package/",
+    "state/final_head_support/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_head_support_packet.json"
+  ],
+  "validation_refs": [
+    "tools/validate_r17_operator_closeout_decision.ps1",
+    "tests/test_r17_operator_closeout_decision.ps1",
+    "tools/validate_r17_final_evidence_package.ps1",
+    "tests/test_r17_final_evidence_package.ps1",
+    "tools/validate_status_doc_gate.ps1",
+    "tests/test_status_doc_gate.ps1"
+  ],
+  "runtime_flags": {
+    "r17_closed": true,
+    "operator_approval_recorded": true,
+    "r18_opening_authorized": true,
+    "main_merge_claimed": false,
+    "product_runtime_claimed": false,
+    "four_exercised_a2a_cycles_claimed": false,
+    "live_a2a_runtime_claimed": false,
+    "live_recovery_runtime_claimed": false,
+    "automatic_new_thread_creation_claimed": false,
+    "openai_api_invoked": false,
+    "codex_api_invoked": false,
+    "autonomous_codex_invocation_claimed": false,
+    "no_manual_prompt_transfer_success_claimed": false,
+    "solved_codex_compaction_claimed": false,
+    "solved_codex_reliability_claimed": false
+  },
+  "broad_repo_scan_output_committed": false,
+  "operator_local_backup_paths_committed": false
+}

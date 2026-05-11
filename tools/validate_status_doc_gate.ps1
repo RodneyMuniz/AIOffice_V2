@@ -24,7 +24,10 @@ else {
     ("R8-{0} through R8-{1} planned" -f $validation.PlannedStart.ToString("000"), $validation.PlannedThrough.ToString("000"))
 }
 
-if ($validation.R17Opened) {
+if ($validation.R18Opened) {
+    Write-Output ("VALID: status-doc gate records R17 accepted and closed with caveats through R17-{0} only, active milestone '{1}' through R18-{2}, R18-{3} through R18-{4} planned only, R18 runtime implementation not yet delivered, no API invocation, no live recovery runtime, no live A2A runtime, no solved Codex compaction/reliability, no no-manual-prompt-transfer success, and no main merge." -f $validation.R17DoneThrough.ToString("000"), $validation.ActiveMilestone, $validation.R18DoneThrough.ToString("000"), $validation.R18PlannedStart.ToString("000"), $validation.R18PlannedThrough.ToString("000"))
+}
+elseif ($validation.R17Opened) {
     $r17PlannedSummary = if ($null -eq $validation.R17PlannedStart) {
         "no planned R17 successor task"
     }

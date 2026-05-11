@@ -1,0 +1,29 @@
+{
+  "artifact_type": "r18_opening_authority_contract",
+  "contract_version": "v1",
+  "contract_id": "aioffice-r18-opening-authority-contract-v1",
+  "repository": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+  "required_source_decision_ref": "state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json",
+  "required_status": "active_through_r18_001_only",
+  "required_active_task": "R18-001",
+  "required_done_tasks": [
+    "R18-001"
+  ],
+  "required_planned_task_start": "R18-002",
+  "required_planned_task_end": "R18-028",
+  "required_false_fields": [
+    "r18_runtime_implementation_claimed",
+    "r18_api_invocation_claimed",
+    "openai_api_invoked",
+    "codex_api_invoked",
+    "autonomous_codex_invocation_claimed",
+    "live_recovery_runtime_claimed",
+    "live_a2a_runtime_claimed",
+    "main_merge_claimed",
+    "r18_closeout_claimed",
+    "solved_codex_compaction_claimed",
+    "solved_codex_reliability_claimed",
+    "no_manual_prompt_transfer_success_claimed"
+  ]
+}

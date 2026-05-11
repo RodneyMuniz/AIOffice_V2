@@ -3,9 +3,13 @@
 This board tracks the current reset milestone structure only.
 
 ## Active Milestone
-`R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle`
+`R18 Automated Recovery Runtime and API Orchestration`
 
 Current posture:
+R17 accepted and closed with caveats through R17-028 only. R17 accepted only as a bounded foundation/pivot milestone. R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success. R18 active through R18-001 only. R18-002 through R18-028 planned only. R18 runtime implementation is not yet delivered. No API invocation is claimed. Main is not merged.
+
+R17 did not deliver live product runtime. R17 did not deliver four exercised A2A cycles. R17 did not deliver live A2A runtime. R17 did not deliver live automated recovery. R17 did not solve Codex compaction or reliability. R17 did not prove no-manual-prompt-transfer success.
+
 `R16 Operational Memory, Artifact Map, and Role-Bound Workflow Foundation` is complete for bounded foundation scope through `R16-026` only. R16 produced a bounded final proof/review package candidate and final-head support packet only. R16 did not claim external audit acceptance, main merge, runtime execution, product runtime, autonomous agents, true multi-agent execution, external integrations, executable handoffs, executable transitions, solved Codex compaction, or solved Codex reliability.
 
 `R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle` is active on branch `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle` through `R17-028` final package only after this pass. `R17-001` installed approved planning artifacts. `R17-002` opened R17 in repo truth. `R17-003` added the R17 KPI baseline/target scorecard. `R17-004` defines governed card, board-state, and board-event contracts only. `R17-005` implements bounded repo-backed board state store generation and deterministic event replay/check tooling only. `R17-006` implements a read-only local/static Kanban MVP surface only using the R17-005 board state/replay artifacts. `R17-007` implements a read-only card detail evidence drawer/panel only using the R17-005 board state/replay artifacts and R17-006 Kanban MVP snapshot/UI artifacts. `R17-008` implements a read-only board event detail and evidence summary surface only using the R17-005 board state/replay artifacts, R17-006 Kanban MVP snapshot/UI artifacts, and R17-007 card detail drawer artifacts. `R17-009` defines the Orchestrator identity and authority contract only and creates generated Orchestrator identity/authority state, route recommendation seed, and authority check artifacts only. `R17-010` defines and validates a bounded Orchestrator loop state machine, generated seed evaluation, and transition check artifacts only. `R17-011` implements a bounded operator interaction/intake surface and deterministic intake packet/proposal generation only. `R17-012` defines the R17 agent registry and role identity packet set only, creating generated agent registry, role identity packets, registry check report, and UI workforce snapshot only. `R17-013` implements a bounded deterministic memory/artifact loader foundation only, creating generated memory/artifact loader report, loaded-ref log, future-use agent memory packets, and UI memory loader snapshot only. `R17-014` defines the agent invocation log foundation only, creating seed/foundation invocation records only, a check report, and a read-only UI invocation log snapshot. `R17-015` defines the common tool adapter contract foundation only, creating disabled seed adapter profiles, a check report, compact invalid fixtures, proof-review package, and a read-only UI tool adapter snapshot/panel only. `R17-016` creates a disabled packet-only Developer/Codex executor adapter foundation only, creating generated adapter contract, request/result packets, check report, compact invalid fixtures, proof-review package, and read-only UI Codex executor adapter snapshot/panel only. `R17-017` creates a disabled seed QA/Test Agent adapter foundation only, creating generated adapter contract, request/result/defect packets, check report, compact invalid fixtures, proof-review package, and read-only UI QA/Test Agent adapter snapshot/panel only. `R17-018` creates a disabled seed Evidence Auditor API adapter foundation only, creating generated adapter contract, request/response/verdict packets, check report, compact invalid fixtures, proof-review package, and read-only UI Evidence Auditor API adapter snapshot/panel only. `R17-019` creates a disabled/not-executed tool-call ledger foundation only, creating generated ledger contract, JSONL ledger seed records, check report, compact invalid fixtures, proof-review package, and read-only UI tool-call ledger snapshot only. `R17-020` defines A2A message and handoff contracts only, creating generated A2A message and handoff contracts, disabled/not-dispatched seed packets, check report, compact invalid fixtures, proof-review package, and read-only UI A2A contracts snapshot only. `R17-021` creates a bounded A2A dispatcher foundation only, consuming committed R17-020 seed A2A packets, validating deterministic route candidates, writing not-executed dispatch logs/check artifacts, compact invalid fixtures, proof-review package, and read-only UI dispatcher snapshot only. `R17-022` creates a bounded stop, retry, pause, block, and re-entry controls foundation only, creating deterministic control/re-entry packet candidates, check report, compact invalid fixtures, proof-review package, and read-only UI controls snapshot only. `R17-023` creates a repo-backed exercised Cycle 1 definition package only, with deterministic packet-only PM/Architect definition packets, scoped memory/artifact refs, A2A packet candidates, dispatch/control refs, board event evidence, a read-only UI snapshot, proof-review package, and ready-for-dev packet only. `R17-024` creates a repo-backed Cycle 2 Developer/Codex execution package only, capturing a Developer/Codex request/result packet, dev diff/status summary, packet-only A2A/dispatch/control/invocation/tool-call refs, deterministic board event evidence, a read-only UI snapshot, proof-review package, and card movement to Ready for QA as deterministic repo-backed board evidence only. `R17-025` creates a compact-safe local execution harness foundation only, with a contract, resumable work-order model, prompt packet examples, resume-state/check artifacts, compact invalid fixtures, read-only UI snapshot, and proof-review package after repeated compaction failures proved a smaller work-order harness was needed before further cycle execution. `R17-026` creates a compact-safe harness pilot only, splitting the future Cycle 3 QA/fix-loop into small work orders and prompt packets under `state/runtime/r17_compact_safe_harness_pilot_cycle_3_prompt_packets/` without executing the full QA/fix-loop. `R17-027` creates an automated recovery-loop foundation only, with failure-event modelling, WIP classification, continuation packets, a new-context resume packet, retry/escalation policy, prompt packets under `state/runtime/r17_automated_recovery_loop_prompt_packets/`, read-only UI snapshot, tooling, tests, fixtures, and proof-review package. Repeated Codex compact failures remain unresolved, live automation is still not implemented, automatic new-thread creation remains future work, and `R17-028` creates the final reporting, KPI movement, evidence index, final-head support, and R18 planning package as a closeout candidate requiring operator decision. R17 aims to build the agentic operating surface, A2A runtime, Kanban release cycle, Dev/Codex adapter, QA/Test Agent adapter, Evidence Auditor API adapter, and four A2A cycles, but those runtime/product capabilities are not claimed as implemented by R17.
@@ -77,6 +81,122 @@ Earlier closed milestone:
 `R7 Fault-Managed Continuity and Rollback Drill` remains honestly closed under `governance/R7_FAULT_MANAGED_CONTINUITY_AND_ROLLBACK_DRILL.md`, the committed proof-review basis under `state/proof_reviews/r7_fault_managed_continuity_and_rollback_drill/`, and decision authority `D-0050`.
 
 ## Tasks
+
+## R18 Task Record
+
+### `R18-001` Open R18 in repo truth and install transition authority
+- Status: done
+- Purpose: Install the R17 closeout and R18 opening authority only.
+
+### `R18-002` Define agent card schema and validator
+- Status: planned
+- Purpose: Define validated runtime-grade agent cards.
+
+### `R18-003` Define skill contract schema and validator
+- Status: planned
+- Purpose: Define explicit skill contracts and validation.
+
+### `R18-004` Define A2A handoff packet schema and validator
+- Status: planned
+- Purpose: Define explicit validated A2A handoff packets.
+
+### `R18-005` Define explicit role-to-skill permission matrix
+- Status: planned
+- Purpose: Bind roles to allowed skills, forbidden skills, and approval gates.
+
+### `R18-006` Build Orchestrator chat/control intake contract
+- Status: planned
+- Purpose: Define operator chat/control intake and refusal rules.
+
+### `R18-007` Build local runner/CLI shell foundation
+- Status: planned
+- Purpose: Create the local CLI shell for bounded work orders.
+
+### `R18-008` Implement work-order execution state machine foundation
+- Status: planned
+- Purpose: Define resumable work-order states and transitions.
+
+### `R18-009` Implement runner state store and resumable execution log
+- Status: planned
+- Purpose: Persist runner state and continuation evidence.
+
+### `R18-010` Implement compact failure detector
+- Status: planned
+- Purpose: Detect compact, stream, validation, and status-gate failures.
+
+### `R18-011` Implement WIP classifier
+- Status: planned
+- Purpose: Classify safe, unsafe, unexpected, and operator-decision WIP.
+
+### `R18-012` Implement remote branch verifier
+- Status: planned
+- Purpose: Verify branch/head/tree before continuation and release actions.
+
+### `R18-013` Implement continuation packet generator
+- Status: planned
+- Purpose: Generate continuation packets from runner state.
+
+### `R18-014` Implement new-context/new-thread prompt generator
+- Status: planned
+- Purpose: Generate compact exact-ref prompts without previous-thread dependency.
+
+### `R18-015` Implement retry and escalation policy
+- Status: planned
+- Purpose: Enforce retry limits and escalation stop behavior.
+
+### `R18-016` Implement operator approval gate model
+- Status: planned
+- Purpose: Preserve operator decisions for risky actions only.
+
+### `R18-017` Implement stage/commit/push gate
+- Status: planned
+- Purpose: Gate release actions on validation, evidence, status, and approvals.
+
+### `R18-018` Implement status-doc gate automation wrapper
+- Status: planned
+- Purpose: Keep R18 status docs synchronized and fail closed on overclaims.
+
+### `R18-019` Implement evidence package automation wrapper
+- Status: planned
+- Purpose: Generate proof packages from machine-readable runtime evidence.
+
+### `R18-020` Implement board/card runtime event model
+- Status: planned
+- Purpose: Define append-only board/card runtime events.
+
+### `R18-021` Implement agent invocation and tool-call evidence model
+- Status: planned
+- Purpose: Record invocation and tool-call evidence without fake live claims.
+
+### `R18-022` Implement safety, secrets, budget, and token controls
+- Status: planned
+- Purpose: Create controls required before any API-backed automation.
+
+### `R18-023` Implement optional API adapter stub only after controls
+- Status: planned
+- Purpose: Add only a disabled/dry-run adapter stub after controls exist.
+
+### `R18-024` Exercise compact-failure recovery drill with local runner
+- Status: planned
+- Purpose: Drill compact-failure recovery through the local runner.
+
+### `R18-025` Retry Cycle 3 QA/fix-loop using compact-safe harness
+- Status: planned
+- Purpose: Retry the QA/fix-loop with compact-safe execution evidence.
+
+### `R18-026` Retry Cycle 4 audit/closeout using compact-safe harness
+- Status: planned
+- Purpose: Retry the audit/closeout loop with harness evidence.
+
+### `R18-027` Measure operator burden reduction
+- Status: planned
+- Purpose: Measure reduction in repetitive manual GPT-to-Codex prompt relay.
+
+### `R18-028` Produce R18 final proof package and acceptance recommendation
+- Status: planned
+- Purpose: Package R18 evidence and recommend acceptance or repair.
+
+## Closed R17 Task Record
 
 ### `R17-001` Install R16 external audit/R17 planning report and revised R17 release plan
 - Status: done

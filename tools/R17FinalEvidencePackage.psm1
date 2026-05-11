@@ -235,11 +235,27 @@ function Get-R17FinalEvidencePackageAllowedPaths {
         "README.md",
         "execution/KANBAN.md",
         "governance/ACTIVE_STATE.md",
+        "governance/DOCUMENT_AUTHORITY_INDEX.md",
         "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+        "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
         "governance/DECISION_LOG.md",
+        "governance/reports/AIOffice_V2_R17_External_Audit_and_R18_Planning_Report_v1.md",
+        "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+        "contracts/governance/r17_operator_closeout_decision.contract.json",
+        "contracts/governance/r18_opening_authority.contract.json",
+        "state/governance/r18_opening_authority.json",
+        "state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json",
+        "state/planning/r18_automated_recovery_runtime_and_api_orchestration/r18_001_opening_authority_manifest.md",
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision/evidence_index.json",
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision/proof_review.md",
+        "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision/validation_manifest.md",
         "tools/StatusDocGate.psm1",
         "tools/validate_status_doc_gate.ps1",
-        "tests/test_status_doc_gate.ps1"
+        "tools/validate_r17_operator_closeout_decision.ps1",
+        "tools/validate_r18_opening_authority.ps1",
+        "tests/test_status_doc_gate.ps1",
+        "tests/test_r17_operator_closeout_decision.ps1",
+        "tests/test_r18_opening_authority.ps1"
     )
 }
 

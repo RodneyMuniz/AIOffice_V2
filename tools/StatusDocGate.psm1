@@ -3625,4 +3625,133 @@ function Test-StatusDocGate {
     }
 }
 
+function Get-R18TaskStatusMap {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Text,
+        [string]$Context = "R18 task status"
+    )
+
+    $matches = [regex]::Matches($Text, '(?ms)^###\s+`(R18-\d{3})`.*?^\-\s+Status:\s+(done|planned)\s*$')
+    if ($matches.Count -eq 0) {
+        throw "$Context does not define any R18 task status headings."
+    }
+
+    $statusMap = @{}
+    foreach ($match in $matches) {
+        $statusMap[$match.Groups[1].Value] = $match.Groups[2].Value
+    }
+
+    return $statusMap
+}
+
+function Assert-R18StatusDocCondition {
+    param([bool]$Condition, [Parameter(Mandatory = $true)][string]$Message)
+    if (-not $Condition) {
+        throw $Message
+    }
+}
+
+function Test-StatusDocGate {
+    [CmdletBinding()]
+    param(
+        [string]$RepositoryRoot = (Get-ModuleRepositoryRootPath)
+    )
+
+    $resolvedRepositoryRoot = Resolve-ExistingPath -PathValue $RepositoryRoot -Label "Repository root"
+    $paths = [ordered]@{
+        Readme = Resolve-ExistingPath -PathValue "README.md" -Label "README" -AnchorPath $resolvedRepositoryRoot
+        ActiveState = Resolve-ExistingPath -PathValue "governance\ACTIVE_STATE.md" -Label "Active state" -AnchorPath $resolvedRepositoryRoot
+        Kanban = Resolve-ExistingPath -PathValue "execution\KANBAN.md" -Label "Kanban" -AnchorPath $resolvedRepositoryRoot
+        DecisionLog = Resolve-ExistingPath -PathValue "governance\DECISION_LOG.md" -Label "Decision log" -AnchorPath $resolvedRepositoryRoot
+        R17Authority = Resolve-ExistingPath -PathValue "governance\R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md" -Label "R17 authority" -AnchorPath $resolvedRepositoryRoot
+        R18Authority = Resolve-ExistingPath -PathValue "governance\R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md" -Label "R18 authority" -AnchorPath $resolvedRepositoryRoot
+        R17Decision = Resolve-ExistingPath -PathValue "state\operator_decisions\r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle\r17_operator_closeout_decision.json" -Label "R17 closeout decision" -AnchorPath $resolvedRepositoryRoot
+        R18State = Resolve-ExistingPath -PathValue "state\governance\r18_opening_authority.json" -Label "R18 opening authority" -AnchorPath $resolvedRepositoryRoot
+    }
+
+    $texts = [ordered]@{}
+    foreach ($entry in $paths.GetEnumerator()) {
+        if ($entry.Key -in @("R17Decision", "R18State")) {
+            continue
+        }
+        $texts[$entry.Key] = Get-Content -LiteralPath $entry.Value -Raw
+    }
+
+    $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
+    $decision = Get-Content -LiteralPath $paths.R17Decision -Raw | ConvertFrom-Json
+    $r18State = Get-Content -LiteralPath $paths.R18State -Raw | ConvertFrom-Json
+
+    Assert-R18StatusDocCondition -Condition ($decision.operator_approval_recorded -eq $true -and $decision.r17_closed -eq $true) -Message "R17 closeout requires operator approval."
+    Assert-R18StatusDocCondition -Condition ($r18State.r18_status -eq "active_through_r18_001_only") -Message "R18 must be active through R18-001 only."
+    Assert-R18StatusDocCondition -Condition ($r18State.active_task -eq "R18-001") -Message "R18 active task must be R18-001."
+
+    foreach ($required in @(
+            "R17 accepted and closed with caveats through R17-028 only",
+            "R17 accepted only as a bounded foundation/pivot milestone",
+            "R17 did not deliver live product runtime",
+            "R17 did not deliver four exercised A2A cycles",
+            "R17 did not deliver live A2A runtime",
+            "R17 did not deliver live automated recovery",
+            "R17 did not solve Codex compaction or reliability",
+            "R17 did not prove no-manual-prompt-transfer success",
+            "R18 active through R18-001 only",
+            "R18-002 through R18-028 planned only",
+            "R18 runtime implementation is not yet delivered",
+            "No API invocation is claimed",
+            "Main is not merged"
+        )) {
+        Assert-R18StatusDocCondition -Condition ($combinedText -like "*$required*") -Message "Status docs missing required transition wording: $required"
+    }
+
+    $kanbanStatuses = Get-R18TaskStatusMap -Text $texts.Kanban -Context "KANBAN"
+    $authorityStatuses = Get-R18TaskStatusMap -Text $texts.R18Authority -Context "R18 authority"
+    foreach ($taskNumber in 1..28) {
+        $taskId = "R18-{0}" -f $taskNumber.ToString("000")
+        Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
+        Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
+        Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
+        if ($taskId -eq "R18-001") {
+            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "R18-001 must be done."
+        }
+        else {
+            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "planned") -Message "$taskId must be planned only."
+        }
+    }
+
+    Assert-R18StatusDocCondition -Condition ($combinedText -notmatch '(?i)\bR18-(0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,120}\b(done|complete|completed|implemented|executed|active|planned)\b') -Message "R18 task beyond R18-028 is claimed."
+
+    foreach ($forbidden in @(
+            "R18 runtime implementation is delivered",
+            "R18 API invocation completed",
+            "R18 live recovery runtime delivered",
+            "R18 live A2A runtime delivered",
+            "R18 solved Codex compaction",
+            "R18 solved Codex reliability",
+            "R18 proved no-manual-prompt-transfer success",
+            "R17 delivered live product runtime",
+            "R17 delivered four exercised A2A cycles",
+            "main merge completed"
+        )) {
+        Assert-R18StatusDocCondition -Condition ($combinedText -notlike "*$forbidden*") -Message "Forbidden status-doc claim found: $forbidden"
+    }
+
+    return [pscustomobject]@{
+        ActiveMilestone = "R18 Automated Recovery Runtime and API Orchestration"
+        MostRecentlyClosedMilestone = "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle"
+        DoneThrough = 9
+        PlannedStart = $null
+        PlannedThrough = $null
+        R17DoneThrough = 28
+        R17PlannedStart = $null
+        R17PlannedThrough = $null
+        R17Closed = $true
+        R17Opened = $false
+        R18Opened = $true
+        R18DoneThrough = 1
+        R18PlannedStart = 2
+        R18PlannedThrough = 28
+    }
+}
+
 Export-ModuleMember -Function Test-StatusDocGate
