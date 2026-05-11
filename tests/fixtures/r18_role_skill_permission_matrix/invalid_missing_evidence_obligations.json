@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_evidence_obligations",
+    "target":  "permission:Developer/Codex:generate_bounded_artifacts",
+    "set_values":  {
+
+                   },
+    "remove_paths":  [
+                         "evidence_obligations"
+                     ],
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027evidence_obligations\u0027"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

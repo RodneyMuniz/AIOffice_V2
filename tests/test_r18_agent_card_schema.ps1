@@ -127,14 +127,16 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-004 only",
-            "R18-005 through R18-028 planned only",
+            "R18 active through R18-005 only",
+            "R18-006 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
             "Skill contracts are not live skill execution",
             "R18-004 created A2A handoff packet schema and seed handoff packets only",
             "A2A handoff packets are not live A2A runtime",
+            "R18-005 created role-to-skill permission matrix only",
+            "Permission matrix is not runtime enforcement",
             "No A2A messages were sent",
             "No live agents were invoked",
             "No live skills were executed",
@@ -158,14 +160,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 4) {
+        if ($taskNumber -le 5) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-004."
+                throw "$taskId must be done after R18-005."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-003."
+                throw "$taskId must remain planned only after R18-005."
             }
         }
     }
@@ -238,7 +240,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Assert-R18StatusAfterR18003
-    Write-Output "PASS valid: R18 status is active through R18-004 only and R18-005 onward planned only."
+    Write-Output "PASS valid: R18 status is active through R18-005 only and R18-006 onward planned only."
     $validPassed += 1
 }
 catch {

@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_skill_execution_claim",
+    "target":  "permission:Developer/Codex:generate_bounded_artifacts",
+    "set_values":  {
+                       "runtime_flags.live_skill_execution_performed":  true
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "claims live skill execution"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

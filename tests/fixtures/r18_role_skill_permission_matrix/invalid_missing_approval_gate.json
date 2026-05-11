@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_approval_gate",
+    "target":  "permission:Release Manager:stage_commit_push_gate",
+    "set_values":  {
+
+                   },
+    "remove_paths":  [
+                         "approval_gate_ref"
+                     ],
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027approval_gate_ref\u0027"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

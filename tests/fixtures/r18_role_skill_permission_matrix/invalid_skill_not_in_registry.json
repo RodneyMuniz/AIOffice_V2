@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_skill_not_in_registry",
+    "target":  "permission:Orchestrator:inspect_repo_refs",
+    "set_values":  {
+                       "skill_id":  "unknown_skill"
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "unknown skill"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

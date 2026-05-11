@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_permission",
+    "target":  "matrix",
+    "set_values":  {
+                       "permission_policy.unbounded_permission_allowed":  true
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "unbounded permission"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

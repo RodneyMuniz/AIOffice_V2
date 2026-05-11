@@ -3695,14 +3695,16 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-004 only",
-            "R18-005 through R18-028 planned only",
+            "R18 active through R18-005 only",
+            "R18-006 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Skill contracts are not live skill execution",
             "R18-004 created A2A handoff packet schema and seed handoff packets only",
             "A2A handoff packets are not live A2A runtime",
+            "R18-005 created role-to-skill permission matrix only",
+            "Permission matrix is not runtime enforcement",
             "No A2A messages were sent",
             "No live agents were invoked",
             "No live skills were executed",
@@ -3725,7 +3727,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 4) {
+        if ($taskNumber -le 5) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3767,8 +3769,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 4
-        R18PlannedStart = 5
+        R18DoneThrough = 5
+        R18PlannedStart = 6
         R18PlannedThrough = 28
     }
 }

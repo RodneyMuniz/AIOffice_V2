@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_missing_decision_authority",
+    "target":  "permission:Developer/Codex:generate_bounded_artifacts",
+    "set_values":  {
+
+                   },
+    "remove_paths":  [
+                         "decision_authority"
+                     ],
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027decision_authority\u0027"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_wildcard_role",
+    "target":  "permission:Orchestrator:inspect_repo_refs",
+    "set_values":  {
+                       "role":  "*"
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "wildcard role"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

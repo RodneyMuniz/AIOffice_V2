@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_api_skill_enabled",
+    "target":  "permission:Developer/Codex:generate_bounded_artifacts",
+    "set_values":  {
+                       "api_policy.api_enabled":  true
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "enables API invocation"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

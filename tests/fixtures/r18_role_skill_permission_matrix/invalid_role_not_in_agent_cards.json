@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_role_not_in_agent_cards",
+    "target":  "permission:Orchestrator:inspect_repo_refs",
+    "set_values":  {
+                       "role":  "Unknown Role"
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "unknown role"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

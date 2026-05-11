@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "target":  "permission:Developer/Codex:generate_bounded_artifacts",
+    "set_values":  {
+                       "runtime_flags.a2a_message_sent":  true
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "claims A2A message sent"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

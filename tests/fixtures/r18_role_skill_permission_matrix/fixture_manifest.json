@@ -1,0 +1,197 @@
+﻿{
+    "artifact_type":  "r18_role_skill_permission_matrix_fixture_manifest",
+    "contract_version":  "v1",
+    "source_task":  "R18-005",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "fixture_status":  "invalid_mutation_specs_only_not_runtime",
+    "fixture_count":  23,
+    "fixtures":  [
+                     {
+                         "file":  "invalid_missing_role.json",
+                         "fixture_id":  "invalid_missing_role",
+                         "expected_failure_fragments":  [
+                                                            "missing required role"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_role_not_in_agent_cards.json",
+                         "fixture_id":  "invalid_role_not_in_agent_cards",
+                         "expected_failure_fragments":  [
+                                                            "unknown role"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_skill.json",
+                         "fixture_id":  "invalid_missing_skill",
+                         "expected_failure_fragments":  [
+                                                            "missing required skill"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_skill_not_in_registry.json",
+                         "fixture_id":  "invalid_skill_not_in_registry",
+                         "expected_failure_fragments":  [
+                                                            "unknown skill"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_wildcard_role.json",
+                         "fixture_id":  "invalid_wildcard_role",
+                         "expected_failure_fragments":  [
+                                                            "wildcard role"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_wildcard_skill.json",
+                         "fixture_id":  "invalid_wildcard_skill",
+                         "expected_failure_fragments":  [
+                                                            "wildcard skill"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_unbounded_permission.json",
+                         "fixture_id":  "invalid_unbounded_permission",
+                         "expected_failure_fragments":  [
+                                                            "unbounded permission"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_decision_authority.json",
+                         "fixture_id":  "invalid_missing_decision_authority",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027decision_authority\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_approval_gate.json",
+                         "fixture_id":  "invalid_missing_approval_gate",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027approval_gate_ref\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_evidence_obligations.json",
+                         "fixture_id":  "invalid_missing_evidence_obligations",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027evidence_obligations\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_failure_behavior.json",
+                         "fixture_id":  "invalid_missing_failure_behavior",
+                         "expected_failure_fragments":  [
+                                                            "missing required field \u0027failure_behavior\u0027"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_orchestrator_implementation_skill.json",
+                         "fixture_id":  "invalid_orchestrator_implementation_skill",
+                         "expected_failure_fragments":  [
+                                                            "Orchestrator is allowed to implement artifacts"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_project_manager_implementation_skill.json",
+                         "fixture_id":  "invalid_project_manager_implementation_skill",
+                         "expected_failure_fragments":  [
+                                                            "Project Manager is allowed to implement artifacts"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_evidence_auditor_implementation_skill.json",
+                         "fixture_id":  "invalid_evidence_auditor_implementation_skill",
+                         "expected_failure_fragments":  [
+                                                            "Evidence Auditor is allowed to generate implementation artifacts"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_developer_codex_operator_approval_decision.json",
+                         "fixture_id":  "invalid_developer_codex_operator_approval_decision",
+                         "expected_failure_fragments":  [
+                                                            "Developer/Codex is allowed to request operator approval"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_qa_test_self_approve_fix.json",
+                         "fixture_id":  "invalid_qa_test_self_approve_fix",
+                         "expected_failure_fragments":  [
+                                                            "QA/Test is allowed to self-approve fixes"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_release_manager_main_merge_without_approval.json",
+                         "fixture_id":  "invalid_release_manager_main_merge_without_approval",
+                         "expected_failure_fragments":  [
+                                                            "Release Manager is allowed to claim main merge"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_api_skill_enabled.json",
+                         "fixture_id":  "invalid_api_skill_enabled",
+                         "expected_failure_fragments":  [
+                                                            "enables API invocation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_permission_enforcement_claim.json",
+                         "fixture_id":  "invalid_live_permission_enforcement_claim",
+                         "expected_failure_fragments":  [
+                                                            "claims permission runtime enforcement"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_agent_invocation_claim.json",
+                         "fixture_id":  "invalid_live_agent_invocation_claim",
+                         "expected_failure_fragments":  [
+                                                            "claims live agent invocation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_skill_execution_claim.json",
+                         "fixture_id":  "invalid_skill_execution_claim",
+                         "expected_failure_fragments":  [
+                                                            "claims live skill execution"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_a2a_message_sent_claim.json",
+                         "fixture_id":  "invalid_a2a_message_sent_claim",
+                         "expected_failure_fragments":  [
+                                                            "claims A2A message sent"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_r18_006_completion_claim.json",
+                         "fixture_id":  "invalid_r18_006_completion_claim",
+                         "expected_failure_fragments":  [
+                                                            "claims R18-006 or later completion"
+                                                        ]
+                     }
+                 ],
+    "non_claims":  [
+                       "R18-005 created role-to-skill permission matrix only.",
+                       "Permission matrix is a governance/control artifact only; it is not runtime enforcement.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are not live agents.",
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are not live skill execution.",
+                       "R18-004 created A2A handoff packet schema and seed handoff packets only.",
+                       "A2A handoff packets are not live A2A runtime.",
+                       "No A2A messages were sent.",
+                       "No live agents were invoked.",
+                       "No live skills were executed.",
+                       "No A2A runtime was implemented.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-006 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ]
+}

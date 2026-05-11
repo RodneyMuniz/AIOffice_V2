@@ -1,0 +1,16 @@
+﻿{
+    "fixture_id":  "invalid_missing_skill",
+    "target":  "matrix",
+    "set_values":  {
+                       "skills":  [
+
+                                  ]
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "missing required skill"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

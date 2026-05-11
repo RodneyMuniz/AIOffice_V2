@@ -1,0 +1,15 @@
+﻿{
+    "fixture_id":  "invalid_qa_test_self_approve_fix",
+    "target":  "permission:QA/Test:generate_bounded_artifacts",
+    "set_values":  {
+                       "decision_authority":  "role_can_execute_contract_only",
+                       "permission_status":  "allowed"
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "QA/Test is allowed to self-approve fixes"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

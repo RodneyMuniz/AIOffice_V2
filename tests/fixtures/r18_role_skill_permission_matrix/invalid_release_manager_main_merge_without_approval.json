@@ -1,0 +1,16 @@
+﻿{
+    "fixture_id":  "invalid_release_manager_main_merge_without_approval",
+    "target":  "permission:Release Manager:stage_commit_push_gate",
+    "set_values":  {
+                       "approval_gate_ref":  "not_required_contract_only",
+                       "permission_status":  "allowed",
+                       "decision_authority":  "role_can_execute_contract_only"
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "Release Manager is allowed to claim main merge"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

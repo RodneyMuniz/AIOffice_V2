@@ -60,11 +60,11 @@ function Invoke-ExpectedRefusal {
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.ActiveMilestone -ne "R18 Automated Recovery Runtime and API Orchestration" -or -not $liveValidation.R18Opened -or $liveValidation.R18DoneThrough -ne 4 -or $liveValidation.R18PlannedStart -ne 5 -or $liveValidation.R18PlannedThrough -ne 28 -or -not $liveValidation.R17Closed -or $liveValidation.R17DoneThrough -ne 28) {
-        $failures += "FAIL valid: live status-doc gate did not report R17 closed and R18 active through R18-004 only."
+    if ($liveValidation.ActiveMilestone -ne "R18 Automated Recovery Runtime and API Orchestration" -or -not $liveValidation.R18Opened -or $liveValidation.R18DoneThrough -ne 5 -or $liveValidation.R18PlannedStart -ne 6 -or $liveValidation.R18PlannedThrough -ne 28 -or -not $liveValidation.R17Closed -or $liveValidation.R17DoneThrough -ne 28) {
+        $failures += "FAIL valid: live status-doc gate did not report R17 closed and R18 active through R18-005 only."
     }
     else {
-        Write-Output "PASS valid: live status-doc gate reports R17 closed with caveats and R18 active through R18-004 only."
+        Write-Output "PASS valid: live status-doc gate reports R17 closed with caveats and R18 active through R18-005 only."
         $validPassed += 1
     }
 }
@@ -72,11 +72,11 @@ catch {
     $failures += "FAIL valid live status-doc gate: $($_.Exception.Message)"
 }
 
-Invoke-ExpectedRefusal -Label "r18-005-done-in-kanban" -Expected "does not match KANBAN" -Mutation {
+Invoke-ExpectedRefusal -Label "r18-006-done-in-kanban" -Expected "does not match KANBAN" -Mutation {
     param($root)
     $path = Join-Path $root "execution/KANBAN.md"
     $text = Get-Content -LiteralPath $path -Raw
-    $text = [regex]::Replace($text, '(### `R18-005`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
+    $text = [regex]::Replace($text, '(### `R18-006`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
     Set-Content -LiteralPath $path -Value $text -Encoding UTF8
 }
 

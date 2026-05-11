@@ -1,0 +1,14 @@
+﻿{
+    "fixture_id":  "invalid_live_permission_enforcement_claim",
+    "target":  "matrix",
+    "set_values":  {
+                       "runtime_flags.permission_runtime_enforced":  true
+                   },
+    "remove_paths":  [
+
+                     ],
+    "expected_failure_fragments":  [
+                                       "claims permission runtime enforcement"
+                                   ],
+    "fixture_status":  "invalid_mutation_spec_only_not_runtime"
+}

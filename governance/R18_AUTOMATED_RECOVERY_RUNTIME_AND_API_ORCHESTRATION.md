@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-004` A2A handoff packet schema foundation only.
+**Status after this pass:** Active through `R18-005` role-to-skill permission matrix foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-004` are done. `R18-005` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-005` are done. `R18-006` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,13 +15,15 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-005 through R18-028 are planned only.
+- R18-006 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
 - Skill contracts are not live skill execution.
 - R18-004 created A2A handoff packet schema and seed handoff packets only.
 - A2A handoff packets are not live A2A runtime.
+- R18-005 created role-to-skill permission matrix only.
+- Permission matrix is not runtime enforcement.
 - No A2A messages were sent.
 - No live agents were invoked.
 - No live skills were executed.
@@ -88,16 +90,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/a2a/r18_a2a_handoff_packet.contract.json`, `state/a2a/r18_handoff_packets/`, `state/a2a/r18_handoff_registry.json`, `state/a2a/r18_a2a_handoff_check_report.json`, `state/ui/r18_operator_surface/r18_a2a_handoff_snapshot.json`, `tools/R18A2AHandoffPacketSchema.psm1`, `tools/new_r18_a2a_handoff_packet_schema.ps1`, `tools/validate_r18_a2a_handoff_packet_schema.ps1`, `tests/test_r18_a2a_handoff_packet_schema.ps1`, `tests/fixtures/r18_a2a_handoff_packet_schema/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/`.
 
 ### `R18-005` Define explicit role-to-skill permission matrix
-- Status: planned
-- Purpose: Bind each role to allowed and forbidden skills with approval requirements.
+- Status: done
+- Purpose: Bind each role to allowed and forbidden skills with approval requirements, evidence obligations, runtime false flags, and fail-closed constraints.
 - Inputs: Agent cards, skill registry, role authority model.
-- Outputs: Permission matrix contract, matrix artifact, validator, tests.
-- Acceptance criteria: No role has wildcard authority; risky skills require operator approval; forbidden role/skill pairings fail closed.
-- Validation expectation: Planned validator rejects unbounded permissions, missing approval gates, and role escalation.
-- Non-claims: Permission matrix is not runtime enforcement until consumed by the runner.
+- Outputs: Permission matrix contract, matrix artifact, check report, operator-surface snapshot state artifact, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: No role has wildcard authority; no role has all-skills authority; risky skills require operator approval; forbidden role/skill pairings fail closed; runtime false flags remain false.
+- Validation expectation: `tools/validate_r18_role_skill_permission_matrix.ps1` and `tests/test_r18_role_skill_permission_matrix.ps1` reject missing roles, roles not mapped to R18-002 agent cards, missing skills, skills not mapped to the R18-003 registry, wildcard or all-skills permissions, unbounded permissions, missing approval gates, missing evidence obligations, missing failure behavior, unsafe role escalation, API enablement, historical R13/R14/R15/R16 evidence edits, operator-local backup paths, broad repo writes, live runtime/API/A2A/agent/skill claims, R18-006+ completion claims, and status surfaces that advance R18 beyond R18-005.
+- Non-claims: Permission matrix is a governance/control artifact only and is not runtime enforcement. No A2A messages were sent, no live agents were invoked, no live skills were executed, no A2A runtime was implemented, no local runner runtime or recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, main is not merged, and no solved Codex compaction/reliability or no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-002, R18-003.
 - Failure/retry behavior: Unsafe matrix blocks all runtime work orders depending on it.
-- Expected evidence refs: `contracts/skills/r18_role_skill_permission_matrix.contract.json`, matrix JSON, fixtures.
+- Expected evidence refs: `contracts/skills/r18_role_skill_permission_matrix.contract.json`, `state/skills/r18_role_skill_permission_matrix.json`, `state/skills/r18_role_skill_permission_matrix_check_report.json`, `state/ui/r18_operator_surface/r18_role_skill_permission_matrix_snapshot.json`, `tools/R18RoleSkillPermissionMatrix.psm1`, `tools/new_r18_role_skill_permission_matrix.ps1`, `tools/validate_r18_role_skill_permission_matrix.ps1`, `tests/test_r18_role_skill_permission_matrix.ps1`, `tests/fixtures/r18_role_skill_permission_matrix/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix/`.
 
 ### `R18-006` Build Orchestrator chat/control intake contract
 - Status: planned
