@@ -1962,3 +1962,14 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: No skills were implemented, no A2A runtime was implemented, no recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, and main is not merged.
 - Consequence: This decision does not claim live agent runtime, live A2A runtime, live recovery runtime, OpenAI API invocation, Codex API invocation, autonomous Codex invocation, automatic new-thread creation, product runtime, main merge, R18-003 completion, solved Codex compaction, solved Codex reliability, or no-manual-prompt-transfer success.
 - Consequence: This decision is backed by `contracts/agents/r18_agent_card.contract.json`, `state/agents/r18_agent_cards/`, `state/agents/r18_agent_card_check_report.json`, `state/ui/r18_operator_surface/r18_agent_card_snapshot.json`, `tools/R18AgentCardSchema.psm1`, `tools/validate_r18_agent_card_schema.ps1`, `tests/test_r18_agent_card_schema.ps1`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/`.
+
+## D-0188 R18-003 Skill Contract Schema Foundation
+- Date: 2026-05-11
+- Status: accepted
+- Decision: R18-003 creates the skill contract schema, fourteen seed skill contracts, skill registry, validator, focused tests, fixtures, check report, operator-surface snapshot state artifact, and proof-review package only.
+- Consequence: R18 active through R18-003 only. R18-004 through R18-028 planned only.
+- Consequence: R18-002 created agent card schema and seed cards only; agent cards are not live agents.
+- Consequence: R18-003 created skill contract schema and seed skill contracts only; skill contracts are not live skill execution.
+- Consequence: No A2A handoff schema was implemented, no A2A runtime was implemented, no local runner runtime was implemented, no recovery runtime was implemented, no API invocation occurred, no automatic new-thread creation occurred, no product runtime is claimed, and main is not merged.
+- Consequence: This decision does not claim live skill execution, live agent runtime, live A2A runtime, live recovery runtime, OpenAI API invocation, Codex API invocation, autonomous Codex invocation, automatic new-thread creation, product runtime, main merge, R18-004 or later completion, solved Codex compaction, solved Codex reliability, or no-manual-prompt-transfer success.
+- Consequence: This decision is backed by `contracts/skills/r18_skill_contract.contract.json`, `state/skills/r18_skill_contracts/`, `state/skills/r18_skill_registry.json`, `state/skills/r18_skill_contract_check_report.json`, `state/ui/r18_operator_surface/r18_skill_contract_snapshot.json`, `tools/R18SkillContractSchema.psm1`, `tools/validate_r18_skill_contract_schema.ps1`, `tests/test_r18_skill_contract_schema.ps1`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/`.

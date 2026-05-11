@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-002` agent card schema foundation only.
+**Status after this pass:** Active through `R18-003` skill contract schema foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` and `R18-002` are done. `R18-003` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-003` are done. `R18-004` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,10 +15,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-003 through R18-028 are planned only.
+- R18-004 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
-- No skills were implemented.
+- R18-003 created skill contract schema and seed skill contracts only.
+- Skill contracts are not live skill execution.
+- No A2A handoff schema was implemented.
+- No local runner runtime was implemented.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
 - No live A2A runtime is claimed.
@@ -57,16 +60,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/agents/r18_agent_card.contract.json`, generated cards, check report, fixtures.
 
 ### `R18-003` Define skill contract schema and validator
-- Status: planned
-- Purpose: Make skills explicit callable or modelled units with input/output, evidence, safety, and failure contracts.
+- Status: done
+- Purpose: Make skills explicit governed contract units with input/output, evidence, safety, and failure contracts.
 - Inputs: R18 agent cards, R17 tool adapter contracts, R17 recovery-loop foundation.
-- Outputs: Skill contract schema, seed skill registry, validator, tests, fixtures.
-- Acceptance criteria: Each skill declares allowed roles, path policy, command policy, secrets/cost/token policy, retry policy, evidence refs, failure packet schema, and validators.
-- Validation expectation: Planned validator rejects broad paths, missing evidence obligations, missing safety controls, or API-enabled skills without controls.
-- Non-claims: Skill contracts are not executed skills.
+- Outputs: Skill contract schema, fourteen seed skill contracts, skill registry, validator, focused tests, fixtures, check report, operator-surface snapshot state artifact, and proof-review package.
+- Acceptance criteria: Each skill declares allowed roles, forbidden roles, required inputs/outputs, evidence obligations, failure packet schema, path policy, command policy, API policy, secrets/cost/token/timeout policy, retry policy, approval requirements, evidence refs, authority refs, runtime false flags, non-claims, and rejected claims.
+- Validation expectation: `tools/validate_r18_skill_contract_schema.ps1` and `tests/test_r18_skill_contract_schema.ps1` reject missing seed skills, missing required fields, wildcard or invalid roles, broad paths, operator-local backup paths, historical R13/R14/R15/R16 evidence edits, missing evidence obligations, missing failure packets, missing command/API/secrets/token/timeout/retry policies, unbounded retries, live skill/agent/A2A/recovery/runtime claims, API enablement, automatic new-thread creation, product runtime, R18-004+ completion claims, and status surfaces that advance R18 beyond R18-003.
+- Non-claims: Skill contracts are not live skill execution. No A2A handoff schema, A2A runtime, local runner runtime, recovery runtime, API invocation, automatic new-thread creation, product runtime, main merge, solved Codex compaction/reliability, or no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-002.
 - Failure/retry behavior: Unsafe skill contracts fail closed and require repair before use.
-- Expected evidence refs: `contracts/skills/r18_skill_contract.contract.json`, `state/skills/r18_skill_registry.json`, fixtures.
+- Expected evidence refs: `contracts/skills/r18_skill_contract.contract.json`, `state/skills/r18_skill_contracts/`, `state/skills/r18_skill_registry.json`, `state/skills/r18_skill_contract_check_report.json`, `state/ui/r18_operator_surface/r18_skill_contract_snapshot.json`, `tools/R18SkillContractSchema.psm1`, `tools/new_r18_skill_contract_schema.ps1`, `tools/validate_r18_skill_contract_schema.ps1`, `tests/test_r18_skill_contract_schema.ps1`, `tests/fixtures/r18_skill_contract_schema/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/`.
 
 ### `R18-004` Define A2A handoff packet schema and validator
 - Status: planned

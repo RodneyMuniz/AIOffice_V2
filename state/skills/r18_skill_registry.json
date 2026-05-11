@@ -1,0 +1,293 @@
+﻿{
+    "artifact_type":  "r18_skill_registry",
+    "contract_version":  "v1",
+    "registry_id":  "aioffice-r18-003-skill-registry-v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "active_through_task":  "R18-003",
+    "skill_status":  "contract_only_not_executed",
+    "skill_count":  14,
+    "skills":  [
+                   {
+                       "skill_id":  "inspect_repo_refs",
+                       "skill_name":  "Inspect Repo Refs",
+                       "skill_category":  "repository_inspection",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "Project Manager",
+                                             "Solution Architect",
+                                             "Developer/Codex",
+                                             "QA/Test",
+                                             "Evidence Auditor",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/inspect_repo_refs.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "define_work_order",
+                       "skill_name":  "Define Work Order",
+                       "skill_category":  "planning",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "Project Manager",
+                                             "Solution Architect"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/define_work_order.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "define_schema",
+                       "skill_name":  "Define Schema",
+                       "skill_category":  "schema_definition",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Solution Architect",
+                                             "Developer/Codex"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/define_schema.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "generate_bounded_artifacts",
+                       "skill_name":  "Generate Bounded Artifacts",
+                       "skill_category":  "artifact_generation",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Developer/Codex"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/generate_bounded_artifacts.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "run_validator",
+                       "skill_name":  "Run Validator",
+                       "skill_category":  "validation",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Developer/Codex",
+                                             "QA/Test",
+                                             "Evidence Auditor",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/run_validator.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "classify_failure",
+                       "skill_name":  "Classify Failure",
+                       "skill_category":  "failure_classification",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "QA/Test",
+                                             "Evidence Auditor"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/classify_failure.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "classify_wip",
+                       "skill_name":  "Classify Wip",
+                       "skill_category":  "wip_classification",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "Developer/Codex",
+                                             "QA/Test",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/classify_wip.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "verify_remote_branch",
+                       "skill_name":  "Verify Remote Branch",
+                       "skill_category":  "remote_verification",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "Release Manager",
+                                             "Evidence Auditor"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/verify_remote_branch.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "generate_continuation_packet",
+                       "skill_name":  "Generate Continuation Packet",
+                       "skill_category":  "continuation",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/generate_continuation_packet.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "generate_new_context_prompt",
+                       "skill_name":  "Generate New Context Prompt",
+                       "skill_category":  "new_context_prompting",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/generate_new_context_prompt.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "update_status_docs",
+                       "skill_name":  "Update Status Docs",
+                       "skill_category":  "status_governance",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Project Manager",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/update_status_docs.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "generate_evidence_package",
+                       "skill_name":  "Generate Evidence Package",
+                       "skill_category":  "evidence_packaging",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Evidence Auditor",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/generate_evidence_package.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "stage_commit_push_gate",
+                       "skill_name":  "Stage Commit Push Gate",
+                       "skill_category":  "release_gate",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/stage_commit_push_gate.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   },
+                   {
+                       "skill_id":  "request_operator_approval",
+                       "skill_name":  "Request Operator Approval",
+                       "skill_category":  "operator_approval",
+                       "skill_status":  "contract_only_not_executed",
+                       "allowed_roles":  [
+                                             "Orchestrator",
+                                             "Project Manager",
+                                             "Evidence Auditor",
+                                             "Release Manager"
+                                         ],
+                       "contract_ref":  "state/skills/r18_skill_contracts/request_operator_approval.skill.json",
+                       "api_enabled":  false,
+                       "live_skill_execution_performed":  false
+                   }
+               ],
+    "runtime_flags":  {
+                          "live_skill_execution_performed":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_004_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "positive_claims":  [
+                            "r18_skill_contract_schema_created",
+                            "r18_seed_skill_contracts_created",
+                            "r18_skill_registry_created",
+                            "r18_skill_contract_validator_created",
+                            "r18_skill_contract_fixtures_created",
+                            "r18_skill_contract_proof_review_created"
+                        ],
+    "non_claims":  [
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are governance/runtime contracts only; they are not live skill execution.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are governance/runtime contracts only; they are not live agents.",
+                       "No A2A handoff schema was implemented.",
+                       "No A2A runtime was implemented.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-004 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "live_skill_execution",
+                            "live_agent_runtime",
+                            "live_a2a_runtime",
+                            "live_recovery_runtime",
+                            "local_runner_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_004_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write"
+                        ],
+    "evidence_refs":  [
+                          "contracts/skills/r18_skill_contract.contract.json",
+                          "state/skills/r18_skill_contracts/",
+                          "state/skills/r18_skill_registry.json",
+                          "state/skills/r18_skill_contract_check_report.json",
+                          "state/ui/r18_operator_surface/r18_skill_contract_snapshot.json",
+                          "tools/R18SkillContractSchema.psm1",
+                          "tools/new_r18_skill_contract_schema.ps1",
+                          "tools/validate_r18_skill_contract_schema.ps1",
+                          "tests/test_r18_skill_contract_schema.ps1",
+                          "tests/fixtures/r18_skill_contract_schema/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/"
+                      ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/tools/r17_tool_adapter.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_compact_safe_harness_pilot.contract.json"
+                       ]
+}

@@ -115,7 +115,7 @@ function Get-R18TaskStatusMap {
     return $map
 }
 
-function Assert-R18StatusAfterR18002 {
+function Assert-R18StatusAfterR18003 {
     $authority = Get-Content -LiteralPath (Join-Path $repoRoot "governance\R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md") -Raw
     $kanban = Get-Content -LiteralPath (Join-Path $repoRoot "execution\KANBAN.md") -Raw
     $statusText = [string]::Join([Environment]::NewLine, @(
@@ -127,12 +127,15 @@ function Assert-R18StatusAfterR18002 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-002 only",
-            "R18-003 through R18-028 planned only",
+            "R18 active through R18-003 only",
+            "R18-004 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
+            "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
-            "No skills were implemented",
+            "Skill contracts are not live skill execution",
+            "No A2A handoff schema was implemented",
             "No A2A runtime was implemented",
+            "No local runner runtime was implemented",
             "No recovery runtime was implemented",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
@@ -151,14 +154,14 @@ function Assert-R18StatusAfterR18002 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 2) {
+        if ($taskNumber -le 3) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-002."
+                throw "$taskId must be done after R18-003."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-002."
+                throw "$taskId must remain planned only after R18-003."
             }
         }
     }
@@ -230,8 +233,8 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 }
 
 try {
-    Assert-R18StatusAfterR18002
-    Write-Output "PASS valid: R18 status is active through R18-002 only and R18-003 onward planned only."
+    Assert-R18StatusAfterR18003
+    Write-Output "PASS valid: R18 status is active through R18-003 only and R18-004 onward planned only."
     $validPassed += 1
 }
 catch {

@@ -1,0 +1,185 @@
+﻿{
+    "artifact_type":  "r18_skill_contract_check_report",
+    "contract_version":  "v1",
+    "report_id":  "aioffice-r18-003-skill-contract-check-report-v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "543eb243429c5d9eb004d166283e2c0869f06980",
+    "generated_from_tree":  "c2b1d2a479d0d1e9b9f4a1332e800c014b7203fb",
+    "generated_state_artifact_only":  true,
+    "required_skill_count":  14,
+    "generated_skill_count":  14,
+    "skill_ids":  [
+                      "inspect_repo_refs",
+                      "define_work_order",
+                      "define_schema",
+                      "generate_bounded_artifacts",
+                      "run_validator",
+                      "classify_failure",
+                      "classify_wip",
+                      "verify_remote_branch",
+                      "generate_continuation_packet",
+                      "generate_new_context_prompt",
+                      "update_status_docs",
+                      "generate_evidence_package",
+                      "stage_commit_push_gate",
+                      "request_operator_approval"
+                  ],
+    "checks":  {
+                   "required_seed_skills_present":  {
+                                                        "status":  "passed"
+                                                    },
+                   "required_fields_present":  {
+                                                   "status":  "passed"
+                                               },
+                   "allowed_roles_map_to_agent_cards":  {
+                                                            "status":  "passed"
+                                                        },
+                   "wildcard_roles_rejected":  {
+                                                   "status":  "passed",
+                                                   "wildcard_roles_allowed":  false
+                                               },
+                   "role_boundaries_preserved":  {
+                                                     "status":  "passed"
+                                                 },
+                   "required_inputs_outputs_present":  {
+                                                           "status":  "passed"
+                                                       },
+                   "evidence_obligations_present":  {
+                                                        "status":  "passed"
+                                                    },
+                   "failure_packet_schema_present":  {
+                                                         "status":  "passed"
+                                                     },
+                   "path_policy_present":  {
+                                               "status":  "passed"
+                                           },
+                   "broad_repo_writes_rejected":  {
+                                                      "status":  "passed",
+                                                      "broad_repo_writes_allowed":  false
+                                                  },
+                   "operator_local_backup_paths_rejected":  {
+                                                                "status":  "passed",
+                                                                "operator_local_backup_paths_allowed":  false
+                                                            },
+                   "historical_evidence_edits_rejected":  {
+                                                              "status":  "passed",
+                                                              "historical_r13_r16_evidence_edits_allowed":  false
+                                                          },
+                   "command_policy_present":  {
+                                                  "status":  "passed",
+                                                  "shell_execution_claimed":  false,
+                                                  "live_execution_claimed":  false
+                                              },
+                   "api_policy_disabled":  {
+                                               "status":  "passed",
+                                               "api_enabled":  false
+                                           },
+                   "secrets_token_timeout_policies_present":  {
+                                                                  "status":  "passed"
+                                                              },
+                   "retry_policy_bounded":  {
+                                                "status":  "passed",
+                                                "unbounded_retry_allowed":  false
+                                            },
+                   "runtime_flags_false":  {
+                                               "status":  "passed"
+                                           },
+                   "r18_004_or_later_completion_rejected":  {
+                                                                "status":  "passed",
+                                                                "r18_004_completed":  false
+                                                            }
+               },
+    "aggregate_verdict":  "generated_r18_skill_contract_schema_foundation_only",
+    "runtime_flags":  {
+                          "live_skill_execution_performed":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_004_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "positive_claims":  [
+                            "r18_skill_contract_schema_created",
+                            "r18_seed_skill_contracts_created",
+                            "r18_skill_registry_created",
+                            "r18_skill_contract_validator_created",
+                            "r18_skill_contract_fixtures_created",
+                            "r18_skill_contract_proof_review_created"
+                        ],
+    "non_claims":  [
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are governance/runtime contracts only; they are not live skill execution.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are governance/runtime contracts only; they are not live agents.",
+                       "No A2A handoff schema was implemented.",
+                       "No A2A runtime was implemented.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-004 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "live_skill_execution",
+                            "live_agent_runtime",
+                            "live_a2a_runtime",
+                            "live_recovery_runtime",
+                            "local_runner_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_004_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write"
+                        ],
+    "evidence_refs":  [
+                          "contracts/skills/r18_skill_contract.contract.json",
+                          "state/skills/r18_skill_contracts/",
+                          "state/skills/r18_skill_registry.json",
+                          "state/skills/r18_skill_contract_check_report.json",
+                          "state/ui/r18_operator_surface/r18_skill_contract_snapshot.json",
+                          "tools/R18SkillContractSchema.psm1",
+                          "tools/new_r18_skill_contract_schema.ps1",
+                          "tools/validate_r18_skill_contract_schema.ps1",
+                          "tests/test_r18_skill_contract_schema.ps1",
+                          "tests/fixtures/r18_skill_contract_schema/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/"
+                      ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/tools/r17_tool_adapter.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_compact_safe_harness_pilot.contract.json"
+                       ]
+}

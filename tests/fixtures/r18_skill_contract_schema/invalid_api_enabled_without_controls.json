@@ -1,0 +1,14 @@
+﻿{
+    "artifact_type":  "r18_skill_contract_schema_invalid_fixture",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "target":  "skill:run_validator",
+    "expected_failure_fragments":  [
+                                       "enables API use"
+                                   ],
+    "set_values":  {
+                       "api_policy.api_enabled":  true,
+                       "api_policy.api_controls_required_before_enablement":  false
+                   }
+}

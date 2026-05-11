@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_skill_contract_schema_invalid_fixture",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "target":  "skill:classify_failure",
+    "expected_failure_fragments":  [
+                                       "unbounded retries"
+                                   ],
+    "set_values":  {
+                       "retry_policy.unbounded_retry_allowed":  true
+                   }
+}

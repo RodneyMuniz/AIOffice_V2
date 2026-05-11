@@ -3695,12 +3695,15 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-002 only",
-            "R18-003 through R18-028 planned only",
+            "R18 active through R18-003 only",
+            "R18-004 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
-            "No skills were implemented",
+            "R18-003 created skill contract schema and seed skill contracts only",
+            "Skill contracts are not live skill execution",
+            "No A2A handoff schema was implemented",
             "No A2A runtime was implemented",
+            "No local runner runtime was implemented",
             "No recovery runtime was implemented",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
@@ -3718,7 +3721,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 2) {
+        if ($taskNumber -le 3) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3733,8 +3736,10 @@ function Test-StatusDocGate {
             "R18 API invocation completed",
             "R18 live recovery runtime delivered",
             "R18 live A2A runtime delivered",
-            "R18 skills implemented",
+            "R18 live skill execution implemented",
             "R18 A2A runtime implemented",
+            "R18 A2A handoff schema implemented",
+            "R18 local runner runtime implemented",
             "R18 recovery runtime implemented",
             "R18 solved Codex compaction",
             "R18 solved Codex reliability",
@@ -3758,8 +3763,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 2
-        R18PlannedStart = 3
+        R18DoneThrough = 3
+        R18PlannedStart = 4
         R18PlannedThrough = 28
     }
 }

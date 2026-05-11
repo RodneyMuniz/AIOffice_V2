@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_skill_contract_schema_invalid_fixture",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "target":  "skill:generate_new_context_prompt",
+    "expected_failure_fragments":  [
+                                       "token_budget_policy"
+                                   ],
+    "remove_paths":  [
+                         "token_budget_policy"
+                     ]
+}

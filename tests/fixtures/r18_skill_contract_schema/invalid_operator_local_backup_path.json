@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_skill_contract_schema_invalid_fixture",
+    "contract_version":  "v1",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "source_task":  "R18-003",
+    "target":  "skill:generate_bounded_artifacts",
+    "expected_failure_fragments":  [
+                                       "operator-local backup"
+                                   ],
+    "set_values":  {
+                       "allowed_paths":  [
+                                             ".local_backups/"
+                                         ]
+                   }
+}

@@ -6,7 +6,7 @@ This board tracks the current reset milestone structure only.
 `R18 Automated Recovery Runtime and API Orchestration`
 
 Current posture:
-R17 accepted and closed with caveats through R17-028 only. R17 accepted only as a bounded foundation/pivot milestone. R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success. R18 active through R18-002 only. R18-003 through R18-028 planned only. R18-002 created agent card schema and seed cards only. Agent cards are not live agents. R18 runtime implementation is not yet delivered. No skills were implemented. No A2A runtime was implemented. No recovery runtime was implemented. No API invocation occurred. No automatic new-thread creation occurred. No product runtime is claimed. Main is not merged.
+R17 accepted and closed with caveats through R17-028 only. R17 accepted only as a bounded foundation/pivot milestone. R17 did not deliver live product runtime, did not deliver four exercised A2A cycles, did not deliver live A2A runtime, did not deliver live automated recovery, did not solve Codex compaction or reliability, and did not prove no-manual-prompt-transfer success. R18 active through R18-003 only. R18-004 through R18-028 planned only. R18-002 created agent card schema and seed cards only. Agent cards are not live agents. R18-003 created skill contract schema and seed skill contracts only. Skill contracts are not live skill execution. R18 runtime implementation is not yet delivered. No A2A handoff schema was implemented. No A2A runtime was implemented. No local runner runtime was implemented. No recovery runtime was implemented. No API invocation occurred. No automatic new-thread creation occurred. No product runtime is claimed. Main is not merged.
 
 R17 did not deliver live product runtime. R17 did not deliver four exercised A2A cycles. R17 did not deliver live A2A runtime. R17 did not deliver live automated recovery. R17 did not solve Codex compaction or reliability. R17 did not prove no-manual-prompt-transfer success.
 
@@ -93,8 +93,8 @@ Earlier closed milestone:
 - Purpose: Define validated governance/runtime contract agent cards as seed artifacts only, not live agents.
 
 ### `R18-003` Define skill contract schema and validator
-- Status: planned
-- Purpose: Define explicit skill contracts and validation.
+- Status: done
+- Purpose: Define explicit skill contracts and validation as schema/seed governance artifacts only, not live skill execution.
 
 ### `R18-004` Define A2A handoff packet schema and validator
 - Status: planned

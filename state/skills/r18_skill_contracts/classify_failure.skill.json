@@ -1,0 +1,259 @@
+﻿{
+    "artifact_type":  "r18_skill_contract",
+    "contract_version":  "v1",
+    "skill_id":  "classify_failure",
+    "skill_name":  "Classify Failure",
+    "source_task":  "R18-003",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "543eb243429c5d9eb004d166283e2c0869f06980",
+    "generated_from_tree":  "c2b1d2a479d0d1e9b9f4a1332e800c014b7203fb",
+    "generated_state_artifact_only":  true,
+    "skill_category":  "failure_classification",
+    "skill_status":  "contract_only_not_executed",
+    "description":  "Classify failure events into machine-readable failure packets.",
+    "allowed_roles":  [
+                          "Orchestrator",
+                          "QA/Test",
+                          "Evidence Auditor"
+                      ],
+    "forbidden_roles":  [
+                            "Project Manager",
+                            "Solution Architect",
+                            "Developer/Codex",
+                            "Release Manager"
+                        ],
+    "role_policy":  {
+                        "allowed_roles_must_exist_in_r18_agent_cards":  true,
+                        "wildcard_roles_allowed":  false,
+                        "grants_all_seed_roles":  false,
+                        "all_roles_validated_from_agent_cards":  true,
+                        "all_role_grant_boundary":  "not_all_roles",
+                        "evidence_auditor_implementation_artifact_authority":  false,
+                        "developer_codex_operator_approval_decision_authority":  false,
+                        "qa_self_approval_allowed":  false
+                    },
+    "required_inputs":  [
+                            "failure_event_source",
+                            "command_result_ref",
+                            "runtime_state_ref"
+                        ],
+    "required_outputs":  [
+                             "failure_packet",
+                             "failure_type",
+                             "operator_decision_requirement"
+                         ],
+    "evidence_obligations":  [
+                                 "cite exact authority refs before action",
+                                 "record input refs and output refs",
+                                 "record validator command and result refs before claiming validation",
+                                 "record failure packet refs on failure",
+                                 "preserve runtime false flags and non-claims"
+                             ],
+    "failure_packet_schema":  {
+                                  "failure_packet_required":  true,
+                                  "required_fields":  [
+                                                          "failure_packet_id",
+                                                          "skill_id",
+                                                          "source_task",
+                                                          "failure_type",
+                                                          "failure_summary",
+                                                          "input_refs",
+                                                          "command_refs",
+                                                          "retry_count",
+                                                          "max_retry_count",
+                                                          "operator_decision_required",
+                                                          "evidence_refs",
+                                                          "runtime_flags",
+                                                          "non_claims"
+                                                      ],
+                                  "unknown_failure_requires_operator_decision":  true,
+                                  "missing_failure_packet_blocks_continuation":  true
+                              },
+    "path_policy":  {
+                        "allowed_paths_required":  true,
+                        "forbidden_paths_required":  true,
+                        "allowed_paths_must_be_exact_or_task_scoped":  true,
+                        "broad_repo_writes_allowed":  false,
+                        "operator_local_backup_paths_allowed":  false,
+                        "historical_r13_r16_evidence_edits_allowed":  false
+                    },
+    "command_policy":  {
+                           "commands_allowed":  false,
+                           "allowed_command_patterns":  [
+                                                            "none"
+                                                        ],
+                           "forbidden_command_patterns":  [
+                                                              "git add",
+                                                              "git commit",
+                                                              "git push",
+                                                              "git reset",
+                                                              "git checkout --",
+                                                              "Remove-Item",
+                                                              "Move-Item",
+                                                              "Set-Content",
+                                                              "Invoke-RestMethod",
+                                                              "Invoke-WebRequest",
+                                                              "openai",
+                                                              "codex"
+                                                          ],
+                           "shell_execution_claimed":  false,
+                           "live_execution_claimed":  false,
+                           "mutation_commands_allowed":  false
+                       },
+    "api_policy":  {
+                       "api_enabled":  false,
+                       "openai_api_invocation_allowed":  false,
+                       "codex_api_invocation_allowed":  false,
+                       "autonomous_codex_invocation_allowed":  false,
+                       "automatic_new_thread_creation_allowed":  false,
+                       "api_controls_required_before_enablement":  true
+                   },
+    "secrets_policy":  {
+                           "secrets_required":  false,
+                           "secrets_must_not_be_committed":  true,
+                           "secret_redaction_required_before_any_future_api_use":  true
+                       },
+    "token_budget_policy":  {
+                                "token_budget_required_before_api_use":  true,
+                                "cost_budget_required_before_api_use":  true,
+                                "max_token_budget_for_r18_003":  0,
+                                "budget_enforced_before_future_api_enablement":  true
+                            },
+    "timeout_policy":  {
+                           "timeout_required_before_api_use":  true,
+                           "max_seconds_for_r18_003_execution":  0,
+                           "timeout_enforced_before_future_api_enablement":  true
+                       },
+    "retry_policy":  {
+                         "max_retry_count":  1,
+                         "retry_limit_enforced":  true,
+                         "unbounded_retry_allowed":  false,
+                         "retry_exhaustion_requires_operator_decision":  true
+                     },
+    "approval_requirements":  {
+                                  "operator_approval_required_for":  [
+                                                                         "api_enablement",
+                                                                         "autonomous_codex_invocation",
+                                                                         "automatic_new_thread_creation",
+                                                                         "unsafe_wip_abandonment",
+                                                                         "main_merge",
+                                                                         "milestone_closeout"
+                                                                     ],
+                                  "operator_approval_packet_required_before_risky_action":  true,
+                                  "developer_codex_may_request_operator_approval_as_decision_authority":  false,
+                                  "qa_self_approval_allowed":  false,
+                                  "audit_self_approval_allowed":  false,
+                                  "missing_approval_blocks_risky_action":  true,
+                                  "decision_authority_claimed_by_skill":  false
+                              },
+    "allowed_paths":  [
+                          "contracts/skills/r18_skill_contract.contract.json",
+                          "state/skills/r18_skill_contracts/",
+                          "state/skills/r18_skill_registry.json",
+                          "state/skills/r18_skill_contract_check_report.json",
+                          "state/ui/r18_operator_surface/r18_skill_contract_snapshot.json",
+                          "tools/R18SkillContractSchema.psm1",
+                          "tools/new_r18_skill_contract_schema.ps1",
+                          "tools/validate_r18_skill_contract_schema.ps1",
+                          "tests/test_r18_skill_contract_schema.ps1",
+                          "tests/fixtures/r18_skill_contract_schema/"
+                      ],
+    "forbidden_paths":  [
+                            ".local_backups/",
+                            "operator-local backup paths",
+                            "state/proof_reviews/r13_*",
+                            "state/proof_reviews/r14_*",
+                            "state/proof_reviews/r15_*",
+                            "state/proof_reviews/r16_*",
+                            "state/external_runs/",
+                            "main branch",
+                            "repository root broad write",
+                            "unbounded wildcard write paths"
+                        ],
+    "runtime_flags":  {
+                          "live_skill_execution_performed":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_004_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "positive_claims":  [
+                            "r18_seed_skill_contracts_created"
+                        ],
+    "non_claims":  [
+                       "R18-003 created skill contract schema and seed skill contracts only.",
+                       "Skill contracts are governance/runtime contracts only; they are not live skill execution.",
+                       "R18-002 created agent card schema and seed cards only.",
+                       "Agent cards are governance/runtime contracts only; they are not live agents.",
+                       "No A2A handoff schema was implemented.",
+                       "No A2A runtime was implemented.",
+                       "No local runner runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No OpenAI API invocation occurred.",
+                       "No Codex API invocation occurred.",
+                       "No autonomous Codex invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "R18-004 through R18-028 remain planned only.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "live_skill_execution",
+                            "live_agent_runtime",
+                            "live_a2a_runtime",
+                            "live_recovery_runtime",
+                            "local_runner_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_004_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write"
+                        ],
+    "evidence_refs":  [
+                          "contracts/skills/r18_skill_contract.contract.json",
+                          "state/skills/r18_skill_contracts/",
+                          "state/skills/r18_skill_registry.json",
+                          "state/skills/r18_skill_contract_check_report.json",
+                          "state/ui/r18_operator_surface/r18_skill_contract_snapshot.json",
+                          "tools/R18SkillContractSchema.psm1",
+                          "tools/new_r18_skill_contract_schema.ps1",
+                          "tools/validate_r18_skill_contract_schema.ps1",
+                          "tests/test_r18_skill_contract_schema.ps1",
+                          "tests/fixtures/r18_skill_contract_schema/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/"
+                      ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "state/agents/r18_agent_card_check_report.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/tools/r17_tool_adapter.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_compact_safe_harness_pilot.contract.json"
+                       ]
+}

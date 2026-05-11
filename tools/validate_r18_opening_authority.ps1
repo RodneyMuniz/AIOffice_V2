@@ -88,8 +88,8 @@ foreach ($entry in $falseChecks.GetEnumerator()) {
 
 $authority = Get-Content -LiteralPath $authorityPath -Raw
 Assert-Condition -Condition ($authority -like "*R18 is active only after R17 operator closeout approval*") -Message "R18 authority must state dependency on R17 operator closeout approval."
-Assert-Condition -Condition ($authority -like "*Active through*R18-002*agent card schema foundation only*") -Message "R18 authority must state active through R18-002 only."
-Assert-Condition -Condition ($authority -like "*R18-003*R18-028*planned only*") -Message "R18 authority must state R18-003 through R18-028 planned only."
+Assert-Condition -Condition ($authority -like "*Active through*R18-003*skill contract schema foundation only*") -Message "R18 authority must state active through R18-003 only."
+Assert-Condition -Condition ($authority -like "*R18-004*R18-028*planned only*") -Message "R18 authority must state R18-004 through R18-028 planned only."
 Assert-Condition -Condition ($authority -like "*API-backed Codex/OpenAI invocation is optional and must not be implemented before secrets, budget, timeout, retry, approval, and stop controls exist*") -Message "R18 authority must preserve API control boundary."
 Assert-Condition -Condition ($authority -like "*small resumable work orders, not giant Codex prompts*") -Message "R18 authority must require small resumable work orders."
 Assert-Condition -Condition ($authority -like "*fail-closed behavior*") -Message "R18 authority must preserve fail-closed behavior."
@@ -99,7 +99,7 @@ Assert-Condition -Condition ($matches.Count -eq 28) -Message "R18 authority must
 foreach ($match in $matches) {
     $taskId = $match.Groups[1].Value
     $status = $match.Groups[2].Value
-    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002") {
+    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002" -or $taskId -eq "R18-003") {
         Assert-Condition -Condition ($status -eq "done") -Message "$taskId must be done."
     }
     else {
@@ -115,12 +115,15 @@ $statusText = [string]::Join([Environment]::NewLine, @(
         (Get-Content -LiteralPath (Resolve-RepoPath "governance/DECISION_LOG.md") -Raw)
     ))
 foreach ($required in @(
-        "R18 active through R18-002 only",
-        "R18-003 through R18-028 planned only",
+        "R18 active through R18-003 only",
+        "R18-004 through R18-028 planned only",
         "R18-002 created agent card schema and seed cards only",
         "Agent cards are not live agents",
-        "No skills were implemented",
+        "R18-003 created skill contract schema and seed skill contracts only",
+        "Skill contracts are not live skill execution",
+        "No A2A handoff schema was implemented",
         "No A2A runtime was implemented",
+        "No local runner runtime was implemented",
         "No recovery runtime was implemented",
         "No API invocation occurred",
         "No automatic new-thread creation occurred",
@@ -151,4 +154,4 @@ foreach ($path in $changedPaths) {
 }
 
 Write-Output "R18 opening authority validation passed."
-Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-002 only with R18-003 through R18-028 planned only."
+Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-003 only with R18-004 through R18-028 planned only."
