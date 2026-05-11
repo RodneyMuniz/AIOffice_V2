@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_codex_api_invoked.json",
+    "mutation":  "set_codex_api_true",
+    "expected_failure_fragments":  [
+                                       "Codex API"
+                                   ]
+}

@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_r18_opened.json",
+    "mutation":  "set_r18_opened_true",
+    "expected_failure_fragments":  [
+                                       "R18 opened"
+                                   ]
+}

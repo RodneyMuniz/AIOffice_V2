@@ -1,0 +1,125 @@
+﻿{
+    "artifact_type":  "r17_final_evidence_package_fixture_manifest",
+    "source_task":  "R17-028",
+    "fixtures":  [
+                     {
+                         "file":  "invalid_r17_closed_without_operator_approval.json",
+                         "mutation":  "set_r17_closed_true",
+                         "expected_failure_fragments":  [
+                                                            "R17 closed without operator approval"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_r18_opened.json",
+                         "mutation":  "set_r18_opened_true",
+                         "expected_failure_fragments":  [
+                                                            "R18 opened"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_main_merge_claimed.json",
+                         "mutation":  "set_main_merge_true",
+                         "expected_failure_fragments":  [
+                                                            "main merge"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_external_audit_acceptance_claimed.json",
+                         "mutation":  "set_external_audit_acceptance_true",
+                         "expected_failure_fragments":  [
+                                                            "external audit acceptance"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_four_cycles_claimed.json",
+                         "mutation":  "set_four_cycles_true",
+                         "expected_failure_fragments":  [
+                                                            "four exercised A2A cycles"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_a2a_runtime_claimed.json",
+                         "mutation":  "set_live_a2a_true",
+                         "expected_failure_fragments":  [
+                                                            "live A2A runtime"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_live_recovery_runtime_claimed.json",
+                         "mutation":  "set_live_recovery_true",
+                         "expected_failure_fragments":  [
+                                                            "live recovery-loop runtime"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_automatic_new_thread_creation_claimed.json",
+                         "mutation":  "set_automatic_new_thread_true",
+                         "expected_failure_fragments":  [
+                                                            "automatic new-thread creation"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_openai_api_invoked.json",
+                         "mutation":  "set_openai_api_true",
+                         "expected_failure_fragments":  [
+                                                            "OpenAI API"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_codex_api_invoked.json",
+                         "mutation":  "set_codex_api_true",
+                         "expected_failure_fragments":  [
+                                                            "Codex API"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_solved_compaction_claimed.json",
+                         "mutation":  "set_solved_compaction_true",
+                         "expected_failure_fragments":  [
+                                                            "solved compaction"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_solved_reliability_claimed.json",
+                         "mutation":  "set_solved_reliability_true",
+                         "expected_failure_fragments":  [
+                                                            "solved reliability"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_no_manual_prompt_transfer_success.json",
+                         "mutation":  "set_no_manual_prompt_transfer_true",
+                         "expected_failure_fragments":  [
+                                                            "no-manual-prompt-transfer"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_product_runtime_claimed.json",
+                         "mutation":  "set_product_runtime_true",
+                         "expected_failure_fragments":  [
+                                                            "product runtime"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_local_backups_reference.json",
+                         "mutation":  "append_local_backups_ref",
+                         "expected_failure_fragments":  [
+                                                            "operator local backup"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_broad_repo_scan_output.json",
+                         "mutation":  "set_broad_repo_scan_output_true",
+                         "expected_failure_fragments":  [
+                                                            "broad repo scan output"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_oversized_generated_artifacts.json",
+                         "mutation":  "set_oversized_generated_artifacts_true",
+                         "expected_failure_fragments":  [
+                                                            "oversized generated artifacts"
+                                                        ]
+                     }
+                 ]
+}

@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_live_recovery_runtime_claimed.json",
+    "mutation":  "set_live_recovery_true",
+    "expected_failure_fragments":  [
+                                       "live recovery-loop runtime"
+                                   ]
+}

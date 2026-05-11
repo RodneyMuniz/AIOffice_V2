@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_live_a2a_runtime_claimed.json",
+    "mutation":  "set_live_a2a_true",
+    "expected_failure_fragments":  [
+                                       "live A2A runtime"
+                                   ]
+}

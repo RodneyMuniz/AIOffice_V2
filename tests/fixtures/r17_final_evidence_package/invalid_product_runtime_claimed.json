@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_product_runtime_claimed.json",
+    "mutation":  "set_product_runtime_true",
+    "expected_failure_fragments":  [
+                                       "product runtime"
+                                   ]
+}

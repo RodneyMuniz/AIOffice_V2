@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_solved_reliability_claimed.json",
+    "mutation":  "set_solved_reliability_true",
+    "expected_failure_fragments":  [
+                                       "solved reliability"
+                                   ]
+}

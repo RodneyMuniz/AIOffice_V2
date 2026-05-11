@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_external_audit_acceptance_claimed.json",
+    "mutation":  "set_external_audit_acceptance_true",
+    "expected_failure_fragments":  [
+                                       "external audit acceptance"
+                                   ]
+}

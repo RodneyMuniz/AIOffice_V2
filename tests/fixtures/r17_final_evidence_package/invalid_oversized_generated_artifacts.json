@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_oversized_generated_artifacts.json",
+    "mutation":  "set_oversized_generated_artifacts_true",
+    "expected_failure_fragments":  [
+                                       "oversized generated artifacts"
+                                   ]
+}

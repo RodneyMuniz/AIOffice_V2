@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_local_backups_reference.json",
+    "mutation":  "append_local_backups_ref",
+    "expected_failure_fragments":  [
+                                       "operator local backup"
+                                   ]
+}

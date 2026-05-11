@@ -1,0 +1,229 @@
+﻿{
+    "artifact_type":  "r17_final_kpi_movement_scorecard",
+    "contract_version":  "v1",
+    "scorecard_id":  "aioffice-r17-028-final-kpi-movement-scorecard-v1",
+    "source_milestone":  "R17 Agentic Operating Surface, A2A Runtime, and Kanban Release Cycle",
+    "source_task":  "R17-028",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "generated_from_head":  "f7321a114f9946dd1d35e0aadbc78ae53892a908",
+    "generated_from_tree":  "65ad8fe9a79e848850a24b7796da124a54523fbe",
+    "source_kpi_model_ref":  "state/governance/r17_kpi_baseline_target_scorecard.json",
+    "scorecard_mode":  "final_movement_candidate_not_closeout_approval",
+    "active_through_task":  "R17-028",
+    "r17_closed":  false,
+    "operator_decision_required":  true,
+    "weighted_actual_score":  66.92,
+    "target_weighted_score":  78.8,
+    "score_rows":  [
+                       {
+                           "segment_category":  "Product Experience \u0026 Double-Diamond Workflow",
+                           "r16_baseline_score":  35,
+                           "r17_target_score":  70,
+                           "r17_achieved_score":  40,
+                           "score_movement":  5,
+                           "evidence_refs":  [
+                                                 "scripts/operator_wall/r17_kanban_mvp/",
+                                                 "state/ui/r17_kanban_mvp/r17_*_snapshot.json"
+                                             ],
+                           "justification":  "Read-only/static surfaces and packet evidence improved inspectability, but no product runtime exists.",
+                           "weight":  12
+                       },
+                       {
+                           "segment_category":  "Board \u0026 Work Orchestration",
+                           "r16_baseline_score":  60,
+                           "r17_target_score":  80,
+                           "r17_achieved_score":  68,
+                           "score_movement":  8,
+                           "evidence_refs":  [
+                                                 "contracts/board/",
+                                                 "state/board/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/",
+                                                 "state/cycles/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_023_cycle_1_definition/",
+                                                 "state/cycles/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_024_cycle_2_dev_execution/"
+                                             ],
+                           "justification":  "Repo-backed board/card/event packets and two packet-only cycle packages improved orchestration evidence, but no live board mutation or runtime loop exists.",
+                           "weight":  12
+                       },
+                       {
+                           "segment_category":  "Agent Workforce \u0026 RACI",
+                           "r16_baseline_score":  70,
+                           "r17_target_score":  85,
+                           "r17_achieved_score":  74,
+                           "score_movement":  4,
+                           "evidence_refs":  [
+                                                 "state/agents/r17_agent_registry.json",
+                                                 "state/agents/r17_agent_identities/",
+                                                 "state/runtime/r17_agent_invocation_log.jsonl"
+                                             ],
+                           "justification":  "Identity, role, memory, and invocation-log foundations improved separation of duties; no live agents were invoked.",
+                           "weight":  14
+                       },
+                       {
+                           "segment_category":  "Knowledge, Memory \u0026 Context Compression",
+                           "r16_baseline_score":  70,
+                           "r17_target_score":  80,
+                           "r17_achieved_score":  72,
+                           "score_movement":  2,
+                           "evidence_refs":  [
+                                                 "state/context/r17_memory_artifact_loader_report.json",
+                                                 "state/agents/r17_agent_memory_packets/",
+                                                 "state/runtime/r17_compact_safe_execution_harness_prompt_packets/",
+                                                 "state/runtime/r17_automated_recovery_loop_prompt_packets/"
+                                             ],
+                           "justification":  "Exact-ref loading and compact prompt packets improved context discipline; Codex compaction remains unsolved.",
+                           "weight":  12
+                       },
+                       {
+                           "segment_category":  "Execution Harness \u0026 QA",
+                           "r16_baseline_score":  65,
+                           "r17_target_score":  80,
+                           "r17_achieved_score":  70,
+                           "score_movement":  5,
+                           "evidence_refs":  [
+                                                 "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                                                 "contracts/runtime/r17_compact_safe_harness_pilot.contract.json",
+                                                 "contracts/tools/r17_qa_test_agent_adapter.contract.json"
+                                             ],
+                           "justification":  "Harness and QA adapter foundations improved future execution control; no live QA runtime or Cycle 3 QA/fix-loop execution was delivered.",
+                           "weight":  14
+                       },
+                       {
+                           "segment_category":  "Governance, Evidence \u0026 Audit",
+                           "r16_baseline_score":  70,
+                           "r17_target_score":  85,
+                           "r17_achieved_score":  80,
+                           "score_movement":  10,
+                           "evidence_refs":  [
+                                                 "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/",
+                                                 "tools/validate_status_doc_gate.ps1",
+                                                 "state/governance/r17_final_kpi_movement_scorecard.json"
+                                             ],
+                           "justification":  "Task-level proof packages, non-claim gates, and this final package materially improved auditability.",
+                           "weight":  8
+                       },
+                       {
+                           "segment_category":  "Architecture \u0026 Integrations",
+                           "r16_baseline_score":  40,
+                           "r17_target_score":  70,
+                           "r17_achieved_score":  55,
+                           "score_movement":  15,
+                           "evidence_refs":  [
+                                                 "contracts/tools/r17_tool_adapter.contract.json",
+                                                 "contracts/a2a/r17_a2a_message.contract.json",
+                                                 "contracts/a2a/r17_a2a_dispatcher.contract.json"
+                                             ],
+                           "justification":  "Adapter, A2A, dispatcher, and tool-ledger contracts improved architecture; no live integration runtime or API invocation exists.",
+                           "weight":  8
+                       },
+                       {
+                           "segment_category":  "Release \u0026 Environment Strategy",
+                           "r16_baseline_score":  70,
+                           "r17_target_score":  80,
+                           "r17_achieved_score":  72,
+                           "score_movement":  2,
+                           "evidence_refs":  [
+                                                 "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                                                 "state/final_head_support/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_head_support_packet.json"
+                                             ],
+                           "justification":  "Branch/status/final-head support evidence improved release posture modestly; no main merge or closure occurred.",
+                           "weight":  6
+                       },
+                       {
+                           "segment_category":  "Security, Safety \u0026 Cost Controls",
+                           "r16_baseline_score":  60,
+                           "r17_target_score":  80,
+                           "r17_achieved_score":  70,
+                           "score_movement":  10,
+                           "evidence_refs":  [
+                                                 "contracts/runtime/r17_stop_retry_reentry_controls.contract.json",
+                                                 "contracts/runtime/r17_automated_recovery_loop.contract.json",
+                                                 "state/runtime/r17_automated_recovery_loop_*"
+                                             ],
+                           "justification":  "Stop/retry/re-entry and recovery-loop models improved safety/cost control foundations; live automated recovery remains absent.",
+                           "weight":  8
+                       },
+                       {
+                           "segment_category":  "Continuous Improvement \u0026 Auto-Research",
+                           "r16_baseline_score":  60,
+                           "r17_target_score":  75,
+                           "r17_achieved_score":  74,
+                           "score_movement":  14,
+                           "evidence_refs":  [
+                                                 "state/runtime/r17_compact_safe_execution_harness_*",
+                                                 "state/runtime/r17_compact_safe_harness_pilot_cycle_3_*",
+                                                 "state/runtime/r17_automated_recovery_loop_*"
+                                             ],
+                           "justification":  "The compact-failure finding forced a concrete pivot into smaller work orders and recovery foundations; improvement is process learning, not automation success.",
+                           "weight":  6
+                       }
+                   ],
+    "runtime_flags":  {
+                          "r17_closed":  false,
+                          "r18_opened":  false,
+                          "main_merge_claimed":  false,
+                          "external_audit_acceptance_claimed":  false,
+                          "four_exercised_a2a_cycles_claimed":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_recovery_loop_runtime_implemented":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "live_execution_harness_runtime_implemented":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "adapter_runtime_invoked":  false,
+                          "actual_tool_call_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "operator_approval_recorded":  false
+                      },
+    "positive_claims":  {
+                            "r17_final_evidence_package_created":  true,
+                            "kpi_movement_package_created":  true,
+                            "r18_planning_brief_created":  true,
+                            "compact_failure_finding_preserved":  true,
+                            "operator_decision_package_created":  true
+                        },
+    "non_claims":  [
+                       "no live recovery-loop runtime",
+                       "no automatic new-thread creation",
+                       "no OpenAI API invocation",
+                       "no Codex API invocation",
+                       "no autonomous Codex invocation",
+                       "no live execution harness runtime",
+                       "no live agent runtime",
+                       "no live A2A runtime",
+                       "no adapter runtime",
+                       "no actual tool call",
+                       "no product runtime",
+                       "no main merge",
+                       "no external audit acceptance",
+                       "no R17 closeout without operator approval",
+                       "no no-manual-prompt-transfer success claim",
+                       "no solved Codex compaction claim",
+                       "no solved Codex reliability claim"
+                   ],
+    "caveats":  [
+                    "Product/runtime-related scores remain capped because no live product runtime, live A2A runtime, live agents, adapter runtime, or live automated recovery runtime exists.",
+                    "Recovery/harness scores move only for committed foundations and prompt/work-order models.",
+                    "Score movement is not closeout approval and does not open R18."
+                ],
+    "evidence_refs":  [
+                          "governance/R17_AGENTIC_OPERATING_SURFACE_A2A_RUNTIME_KANBAN_RELEASE_CYCLE.md",
+                          "governance/reports/AIOffice_V2_R17_Final_Report_and_R18_Planning_Report_v1.md",
+                          "governance/plans/AIOffice_V2_R18_Automated_Recovery_Runtime_and_API_Orchestration_Plan_v1.md",
+                          "state/governance/r17_final_kpi_movement_scorecard.json",
+                          "contracts/governance/r17_final_kpi_movement_scorecard.contract.json",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_evidence_package/evidence_index.json",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_evidence_package/proof_review.md",
+                          "state/proof_reviews/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_evidence_package/validation_manifest.md",
+                          "state/final_head_support/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_028_final_head_support_packet.json",
+                          "tools/R17FinalEvidencePackage.psm1",
+                          "tools/new_r17_final_evidence_package.ps1",
+                          "tools/validate_r17_final_evidence_package.ps1",
+                          "tests/test_r17_final_evidence_package.ps1",
+                          "tests/fixtures/r17_final_evidence_package/fixture_manifest.json"
+                      ]
+}

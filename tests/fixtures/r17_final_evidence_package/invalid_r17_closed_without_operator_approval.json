@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_r17_closed_without_operator_approval.json",
+    "mutation":  "set_r17_closed_true",
+    "expected_failure_fragments":  [
+                                       "R17 closed without operator approval"
+                                   ]
+}

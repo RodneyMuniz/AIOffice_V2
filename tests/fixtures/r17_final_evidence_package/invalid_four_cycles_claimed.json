@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_four_cycles_claimed.json",
+    "mutation":  "set_four_cycles_true",
+    "expected_failure_fragments":  [
+                                       "four exercised A2A cycles"
+                                   ]
+}

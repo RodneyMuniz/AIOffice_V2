@@ -1,0 +1,7 @@
+﻿{
+    "file":  "invalid_openai_api_invoked.json",
+    "mutation":  "set_openai_api_true",
+    "expected_failure_fragments":  [
+                                       "OpenAI API"
+                                   ]
+}
