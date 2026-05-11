@@ -1,10 +1,10 @@
-# R18 Automated Recovery Runtime and API Orchestration
+﻿# R18 Automated Recovery Runtime and API Orchestration
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-010` compact failure detector foundation only.
+**Status after this pass:** Active through `R18-011` WIP classifier foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-010` are done. `R18-011` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-011` are done. `R18-012` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-011 through R18-028 are planned only.
+- R18-012 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -39,7 +39,12 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - R18-010 created compact failure detector foundation only.
 - Failure detection is deterministic over seed signal artifacts only.
 - Failure events are not recovery completion.
-- WIP classifier is not implemented.
+- R18-011 created WIP classifier foundation only.
+- WIP classification is deterministic over seed git inventory artifacts only.
+- No WIP cleanup was performed.
+- No WIP abandonment was performed.
+- No files were restored or deleted.
+- No staging, commit, or push was performed by the classifier.
 - Remote branch verifier runtime is not implemented.
 - Continuation packet generator is not implemented.
 - New-context prompt generator is not implemented.
@@ -188,16 +193,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_failure_event.contract.json`, `contracts/runtime/r18_compact_failure_detector.contract.json`, `state/runtime/r18_compact_failure_detector_profile.json`, `state/runtime/r18_compact_failure_signal_samples/`, `state/runtime/r18_detected_failure_events/`, `state/runtime/r18_compact_failure_detector_results.json`, `state/runtime/r18_compact_failure_detector_check_report.json`, `state/ui/r18_operator_surface/r18_compact_failure_detector_snapshot.json`, `tools/R18CompactFailureDetector.psm1`, `tools/new_r18_compact_failure_detector.ps1`, `tools/validate_r18_compact_failure_detector.ps1`, `tests/test_r18_compact_failure_detector.ps1`, `tests/fixtures/r18_compact_failure_detector/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector/`.
 
 ### `R18-011` Implement WIP classifier
-- Status: planned
-- Purpose: Preserve and classify local WIP before continuation, cleanup, stage, commit, or push.
-- Inputs: Git status, git diff summaries, allowed/forbidden paths, work-order scope.
-- Outputs: WIP classification packet, preservation recommendation, validator.
-- Acceptance criteria: Classifier distinguishes no WIP, scoped tracked WIP, unexpected tracked WIP, unsafe historical diff, untracked notes, generated churn, and operator-decision WIP.
-- Validation expectation: Planned validator rejects unclassified tracked WIP and historical evidence edits.
-- Non-claims: Classification does not make WIP safe to commit.
+- Status: done
+- Purpose: Create a deterministic WIP classifier foundation over committed seed git inventory samples before any future continuation, cleanup, stage, commit, or push gate work.
+- Inputs: Seed git inventory samples, git status summaries, git diff summaries, staged/tracked/untracked path lists, allowed/forbidden paths, runner state refs, and failure event refs.
+- Outputs: WIP classifier contract, profile, eight seed inventory samples, eight deterministic classification packets, results/check/snapshot artifacts, validator, tests, fixtures, and proof-review package.
+- Acceptance criteria: Classifier distinguishes safe/no-WIP, scoped tracked WIP, unexpected tracked WIP, unsafe historical evidence edits, operator-local backup paths, untracked local notes, generated artifact churn, staged files, and WIP requiring operator decision without performing cleanup or recovery actions.
+- Validation expectation: `tools/validate_r18_wip_classifier.ps1` and `tests/test_r18_wip_classifier.ps1` reject missing fields, unknown classifications/actions, unsafe historical evidence edits, operator-local backup paths, unexpected tracked WIP marked safe, staged files marked safe, generated churn without threshold policy, missing runner/failure/evidence/authority refs, runtime/API/recovery/remote/continuation/new-context/work-order/board/A2A/agent/skill/stage-commit-push claims, and status surfaces that advance R18 beyond R18-011.
+- Non-claims: WIP classification is deterministic seed-inventory evidence only. It is not live git scanning, WIP cleanup, WIP abandonment, file restore/delete, staging, commit, push, remote branch verification, continuation packet generation, new-context prompt generation, recovery runtime/action, work-order execution, board/card runtime mutation, live agent/skill/A2A runtime, API invocation, automatic new-thread creation, product runtime, main merge, solved Codex compaction/reliability, or no-manual-prompt-transfer success.
 - Dependencies: R18-010.
 - Failure/retry behavior: Unsafe WIP blocks continuation and requests operator decision.
-- Expected evidence refs: `state/runtime/r18_wip_classification.json`, fixtures, check report.
+- Expected evidence refs: `contracts/runtime/r18_wip_classifier.contract.json`, `state/runtime/r18_wip_classifier_profile.json`, `state/runtime/r18_wip_inventory_samples/`, `state/runtime/r18_wip_classification_packets/`, `state/runtime/r18_wip_classifier_results.json`, `state/runtime/r18_wip_classifier_check_report.json`, `state/ui/r18_operator_surface/r18_wip_classifier_snapshot.json`, `tools/R18WipClassifier.psm1`, `tools/new_r18_wip_classifier.ps1`, `tools/validate_r18_wip_classifier.ps1`, `tests/test_r18_wip_classifier.ps1`, `tests/fixtures/r18_wip_classifier/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier/`.
 
 ### `R18-012` Implement remote branch verifier
 - Status: planned

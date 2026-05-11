@@ -1305,8 +1305,8 @@ function Test-R18HandoffStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-010 only",
-            "R18-011 through R18-028 planned only",
+            "R18 active through R18-011 only",
+            "R18-012 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1327,7 +1327,12 @@ function Test-R18HandoffStatusTruth {
             "R18-010 created compact failure detector foundation only",
             "Failure detection is deterministic over seed signal artifacts only",
             "Failure events are not recovery completion",
-            "WIP classifier is not implemented",
+            "R18-011 created WIP classifier foundation only",
+            "WIP classification is deterministic over seed git inventory artifacts only",
+            "No WIP cleanup was performed",
+            "No WIP abandonment was performed",
+            "No files were restored or deleted",
+            "No staging, commit, or push was performed by the classifier",
             "Remote branch verifier runtime is not implemented",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",            "No board/card runtime mutation occurred",
@@ -1343,7 +1348,7 @@ function Test-R18HandoffStatusTruth {
             "Main is not merged"
         )) {
         if ($combinedText -notlike "*$required*") {
-            throw "Status docs missing R18-004 truth: $required"
+            throw "Status docs missing R18-011 truth: $required"
         }
     }
 
@@ -1354,20 +1359,20 @@ function Test-R18HandoffStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 10) {
+        if ($taskNumber -le 11) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-010."
+                throw "$taskId must be done after R18-011."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-010."
+                throw "$taskId must remain planned only after R18-011."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[1-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-010."
+    if ($combinedText -match 'R18 active through R18-(01[2-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-011."
     }
 }
 
