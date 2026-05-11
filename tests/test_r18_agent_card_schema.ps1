@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-007 only",
-            "R18-008 through R18-028 planned only",
+            "R18 active through R18-008 only",
+            "R18-009 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -140,6 +140,10 @@ function Assert-R18StatusAfterR18003 {
             "R18-006 created Orchestrator chat/control intake contract and seed intake packets only",
             "Intake packets are not a live chat UI",
             "Intake packets are not Orchestrator runtime",
+            "R18-008 created work-order execution state machine foundation only",
+            "Work-order state machine is not runtime execution",
+            "Runner state store is not implemented",
+            "Resumable execution log is not implemented",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
             "No live agents were invoked",
@@ -164,14 +168,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 7) {
+        if ($taskNumber -le 8) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-006."
+                throw "$taskId must be done after R18-008."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-006."
+                throw "$taskId must remain planned only after R18-008."
             }
         }
     }
@@ -244,7 +248,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Assert-R18StatusAfterR18003
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-007 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-008 boundary."
     $validPassed += 1
 }
 catch {

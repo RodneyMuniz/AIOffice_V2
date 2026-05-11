@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_runner_state_store_claim",
+    "source_task":  "R18-008",
+    "target":  "transition:ready_for_handoff_to_blocked_pending_future_execution_runtime",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027runner_state_store_implemented\u0027 must be false"
+                                   ],
+    "set_values":  {
+                       "runtime_flags.runner_state_store_implemented":  true
+                   }
+}

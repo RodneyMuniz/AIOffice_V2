@@ -1,0 +1,13 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_unbounded_retry",
+    "source_task":  "R18-008",
+    "target":  "transition:created_to_intake_validated",
+    "expected_failure_fragments":  [
+                                       "unbounded retry"
+                                   ],
+    "set_values":  {
+                       "retry_check.unbounded_retry_allowed":  true
+                   }
+}

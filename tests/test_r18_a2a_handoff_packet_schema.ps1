@@ -268,7 +268,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Test-R18HandoffStatusTruth -RepositoryRoot $repoRoot
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-007 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-008 boundary."
     $validPassed += 1
 }
 catch {

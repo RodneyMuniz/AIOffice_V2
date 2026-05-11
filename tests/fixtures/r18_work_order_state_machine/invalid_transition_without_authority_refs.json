@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_transition_without_authority_refs",
+    "source_task":  "R18-008",
+    "target":  "transition:created_to_intake_validated",
+    "expected_failure_fragments":  [
+                                       "authority refs"
+                                   ],
+    "set_values":  {
+                       "authority_check.authority_refs":  [
+
+                                                          ]
+                   }
+}

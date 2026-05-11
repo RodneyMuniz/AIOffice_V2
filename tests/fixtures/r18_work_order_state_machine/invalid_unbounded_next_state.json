@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_unbounded_next_state",
+    "source_task":  "R18-008",
+    "target":  "transition:created_to_intake_validated",
+    "expected_failure_fragments":  [
+                                       "unbounded next"
+                                   ],
+    "set_values":  {
+                       "next_allowed_actions":  [
+                                                    "*"
+                                                ]
+                   }
+}

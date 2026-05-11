@@ -1,0 +1,406 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine",
+    "contract_version":  "v1",
+    "state_machine_id":  "aioffice-r18-008-work-order-state-machine-v1",
+    "source_task":  "R18-008",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "active_through_task":  "R18-008",
+    "state_machine_status":  "foundation_only_not_runtime_executed",
+    "states":  [
+                   {
+                       "state_id":  "created",
+                       "semantics":  "work order packet exists as a seed/foundation artifact only.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "intake_validated",
+                       "semantics":  "referenced intake packet has been shape-validated.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "work_order_defined",
+                       "semantics":  "scope, acceptance criteria, allowed paths, forbidden paths, and expected evidence are defined.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "waiting_for_handoff_validation",
+                       "semantics":  "role-to-role handoff evidence is required before future action.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "ready_for_handoff",
+                       "semantics":  "handoff shape is valid and future target role can inspect it.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "blocked_pending_future_execution_runtime",
+                       "semantics":  "execution is blocked because R18-009+ runtime/state store is not implemented.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "validation_failed",
+                       "semantics":  "state/transition validation failed.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "blocked_pending_operator_decision",
+                       "semantics":  "operator decision is required.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "abandoned",
+                       "semantics":  "work order is abandoned by explicit future operator decision only.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  true,
+                       "foundation_terminal_only":  false
+                   },
+                   {
+                       "state_id":  "completed_foundation_only",
+                       "semantics":  "foundation package completed, not work-order runtime completion.",
+                       "state_is_runtime_execution":  false,
+                       "terminal_for_future_runtime":  false,
+                       "foundation_terminal_only":  true
+                   }
+               ],
+    "transitions":  [
+                        {
+                            "transition_id":  "created_to_intake_validated",
+                            "transition_name":  "Created To Intake Validated",
+                            "from_states":  [
+                                                "created"
+                                            ],
+                            "to_state":  "intake_validated",
+                            "blocked":  false,
+                            "requirements":  {
+                                                 "permission_matrix_ref_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "evidence_obligations_required":  true,
+                                                 "retry_bounded":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "validation_expectations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "intake_validated_to_work_order_defined",
+                            "transition_name":  "Intake Validated To Work Order Defined",
+                            "from_states":  [
+                                                "intake_validated"
+                                            ],
+                            "to_state":  "work_order_defined",
+                            "blocked":  false,
+                            "requirements":  {
+                                                 "permission_matrix_ref_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "evidence_obligations_required":  true,
+                                                 "retry_bounded":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "validation_expectations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "work_order_defined_to_waiting_for_handoff_validation",
+                            "transition_name":  "Work Order Defined To Waiting For Handoff Validation",
+                            "from_states":  [
+                                                "work_order_defined"
+                                            ],
+                            "to_state":  "waiting_for_handoff_validation",
+                            "blocked":  false,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "handoff_refs_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "waiting_for_handoff_validation_to_ready_for_handoff",
+                            "transition_name":  "Waiting For Handoff Validation To Ready For Handoff",
+                            "from_states":  [
+                                                "waiting_for_handoff_validation"
+                                            ],
+                            "to_state":  "ready_for_handoff",
+                            "blocked":  false,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "handoff_refs_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "ready_for_handoff_to_blocked_pending_future_execution_runtime",
+                            "transition_name":  "Ready For Handoff To Blocked Pending Future Execution Runtime",
+                            "from_states":  [
+                                                "ready_for_handoff"
+                                            ],
+                            "to_state":  "blocked_pending_future_execution_runtime",
+                            "blocked":  true,
+                            "block_reason":  "R18-009 runner state store and resumable execution log are not implemented; work-order execution remains fail-closed.",
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "handoff_refs_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "execution_block_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "any_state_to_validation_failed",
+                            "transition_name":  "Any State To Validation Failed",
+                            "from_states":  [
+                                                "any_required_state"
+                                            ],
+                            "to_state":  "validation_failed",
+                            "blocked":  true,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "validation_failure_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "any_state_to_blocked_pending_operator_decision",
+                            "transition_name":  "Any State To Blocked Pending Operator Decision",
+                            "from_states":  [
+                                                "any_required_state"
+                                            ],
+                            "to_state":  "blocked_pending_operator_decision",
+                            "blocked":  true,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "operator_decision_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "blocked_pending_operator_decision_to_abandoned",
+                            "transition_name":  "Blocked Pending Operator Decision To Abandoned",
+                            "from_states":  [
+                                                "blocked_pending_operator_decision"
+                                            ],
+                            "to_state":  "abandoned",
+                            "blocked":  true,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "explicit_future_operator_decision_required":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        },
+                        {
+                            "transition_id":  "foundation_package_to_completed_foundation_only",
+                            "transition_name":  "Foundation Package To Completed Foundation Only",
+                            "from_states":  [
+                                                "created",
+                                                "intake_validated",
+                                                "work_order_defined",
+                                                "waiting_for_handoff_validation",
+                                                "ready_for_handoff",
+                                                "blocked_pending_future_execution_runtime"
+                                            ],
+                            "to_state":  "completed_foundation_only",
+                            "blocked":  false,
+                            "requirements":  {
+                                                 "retry_bounded":  true,
+                                                 "permission_matrix_ref_required":  true,
+                                                 "validation_expectations_required":  true,
+                                                 "transition_evaluation_only":  true,
+                                                 "closes_r18_008_foundation_only":  true,
+                                                 "work_order_execution_allowed":  false,
+                                                 "authority_refs_required":  true,
+                                                 "future_work_order_execution_completion_allowed":  false,
+                                                 "intake_packet_ref_required":  true,
+                                                 "evidence_obligations_required":  true
+                                             }
+                        }
+                    ],
+    "state_policy":  {
+                         "exact_required_states_only":  true,
+                         "unknown_states_allowed":  false,
+                         "unbounded_next_states_allowed":  false,
+                         "fail_closed_on_invalid_state":  true
+                     },
+    "transition_policy":  {
+                              "exact_required_transition_ids_only":  true,
+                              "unknown_transitions_allowed":  false,
+                              "transition_evaluation_only":  true,
+                              "fail_closed_on_invalid_transition":  true,
+                              "execution_block_transition_required":  true
+                          },
+    "runtime_flags":  {
+                          "work_order_execution_performed":  false,
+                          "work_order_state_machine_runtime_executed":  false,
+                          "runner_state_store_implemented":  false,
+                          "resumable_execution_log_implemented":  false,
+                          "local_runner_runtime_executed":  false,
+                          "live_chat_ui_implemented":  false,
+                          "orchestrator_runtime_implemented":  false,
+                          "board_runtime_mutation_performed":  false,
+                          "live_agent_runtime_invoked":  false,
+                          "live_skill_execution_performed":  false,
+                          "a2a_message_sent":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_recovery_runtime_implemented":  false,
+                          "openai_api_invoked":  false,
+                          "codex_api_invoked":  false,
+                          "autonomous_codex_invocation_performed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "stage_commit_push_performed":  false,
+                          "product_runtime_executed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "r18_009_completed":  false,
+                          "main_merge_claimed":  false
+                      },
+    "positive_claims":  [
+                            "r18_work_order_state_machine_created",
+                            "r18_work_order_transition_catalog_created"
+                        ],
+    "non_claims":  [
+                       "R17 remains closed with caveats through R17-028 only.",
+                       "R18 is active through R18-008 only.",
+                       "R18-009 through R18-028 remain planned only.",
+                       "R18-008 created work-order execution state machine foundation only.",
+                       "Work-order state machine is not runtime execution.",
+                       "Runner state store is not implemented.",
+                       "Resumable execution log is not implemented.",
+                       "No work orders were executed.",
+                       "No board/card runtime mutation occurred.",
+                       "No A2A messages were sent.",
+                       "No live agents were invoked.",
+                       "No live skills were executed.",
+                       "No A2A runtime was implemented.",
+                       "No recovery runtime was implemented.",
+                       "No API invocation occurred.",
+                       "No automatic new-thread creation occurred.",
+                       "No stage/commit/push was performed by the runner or state machine.",
+                       "No product runtime is claimed.",
+                       "No no-manual-prompt-transfer success is claimed.",
+                       "Codex compaction is not solved.",
+                       "Codex reliability is not solved.",
+                       "Main is not merged."
+                   ],
+    "rejected_claims":  [
+                            "work_order_execution",
+                            "runner_state_store_implementation",
+                            "resumable_execution_log_implementation",
+                            "live_runner_runtime",
+                            "live_chat_ui",
+                            "orchestrator_runtime",
+                            "board_runtime_mutation",
+                            "live_agent_runtime",
+                            "live_skill_execution",
+                            "a2a_message_sent",
+                            "live_a2a_runtime",
+                            "live_recovery_runtime",
+                            "openai_api_invocation",
+                            "codex_api_invocation",
+                            "autonomous_codex_invocation",
+                            "automatic_new_thread_creation",
+                            "stage_commit_push",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "r18_009_or_later_completion",
+                            "main_merge",
+                            "historical_evidence_edit",
+                            "operator_local_backup_path_use",
+                            "broad_repo_write",
+                            "unknown_state",
+                            "unknown_transition",
+                            "unbounded_next_state",
+                            "unbounded_retry"
+                        ],
+    "evidence_refs":  [
+                          "contracts/runtime/r18_work_order_state_machine.contract.json",
+                          "state/runtime/r18_work_order_state_machine.json",
+                          "state/runtime/r18_work_order_transition_catalog.json",
+                          "state/runtime/r18_work_order_seed_packets/",
+                          "state/runtime/r18_work_order_transition_evaluations/",
+                          "state/runtime/r18_work_order_state_machine_check_report.json",
+                          "state/ui/r18_operator_surface/r18_work_order_state_machine_snapshot.json",
+                          "tools/R18WorkOrderStateMachine.psm1",
+                          "tools/new_r18_work_order_state_machine.ps1",
+                          "tools/validate_r18_work_order_state_machine.ps1",
+                          "tests/test_r18_work_order_state_machine.ps1",
+                          "tests/fixtures/r18_work_order_state_machine/",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/"
+                      ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/agents/r18_agent_card.contract.json",
+                           "state/agents/r18_agent_cards/",
+                           "contracts/skills/r18_skill_contract.contract.json",
+                           "state/skills/r18_skill_registry.json",
+                           "contracts/a2a/r18_a2a_handoff_packet.contract.json",
+                           "state/a2a/r18_handoff_registry.json",
+                           "contracts/skills/r18_role_skill_permission_matrix.contract.json",
+                           "state/skills/r18_role_skill_permission_matrix.json",
+                           "contracts/intake/r18_orchestrator_control_intake.contract.json",
+                           "state/intake/r18_orchestrator_control_intake_packets/",
+                           "state/intake/r18_orchestrator_control_intake_registry.json",
+                           "contracts/runtime/r18_local_runner_cli.contract.json",
+                           "state/runtime/r18_local_runner_cli_profile.json",
+                           "state/runtime/r18_local_runner_cli_command_catalog.json",
+                           "governance/plans/AIOffice_V2_Revised_R17_Plan.md",
+                           "contracts/runtime/r17_compact_safe_execution_harness.contract.json",
+                           "contracts/runtime/r17_automated_recovery_loop.contract.json"
+                       ]
+}

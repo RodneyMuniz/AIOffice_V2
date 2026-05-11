@@ -1,0 +1,15 @@
+﻿{
+    "artifact_type":  "r18_work_order_state_machine_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_transition_without_handoff_ref",
+    "source_task":  "R18-008",
+    "target":  "transition:ready_for_handoff_to_blocked_pending_future_execution_runtime",
+    "expected_failure_fragments":  [
+                                       "handoff refs"
+                                   ],
+    "set_values":  {
+                       "handoff_check.handoff_packet_refs":  [
+
+                                                             ]
+                   }
+}

@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-007` local runner/CLI shell foundation only.
+**Status after this pass:** Active through `R18-008` work-order execution state machine foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-007` are done. `R18-008` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-008` are done. `R18-009` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-008 through R18-028 are planned only.
+- R18-009 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -30,7 +30,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - R18-007 created local runner/CLI shell foundation only.
 - CLI shell is dry-run only.
 - CLI shell is not full work-order execution runtime.
-- Work-order execution state machine is not implemented.
+- R18-008 created work-order execution state machine foundation only.
+- Work-order state machine is not runtime execution.
+- Runner state store is not implemented.
+- Resumable execution log is not implemented.
 - No work orders were executed.
 - No board/card runtime mutation occurred.
 - No A2A messages were sent.
@@ -44,7 +47,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No Codex API invocation is claimed.
 - No autonomous Codex invocation is claimed.
 - No automatic new-thread creation is claimed.
-- No stage/commit/push was performed by the runner.
+- No stage/commit/push was performed by the runner or state machine.
 - No main merge is claimed.
 - No solved Codex compaction or reliability is claimed.
 - No no-manual-prompt-transfer success is claimed yet.
@@ -136,16 +139,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_local_runner_cli.contract.json`, `state/runtime/r18_local_runner_cli_profile.json`, `state/runtime/r18_local_runner_cli_command_catalog.json`, `state/runtime/r18_local_runner_cli_dry_run_inputs/`, `state/runtime/r18_local_runner_cli_dry_run_results/`, `state/runtime/r18_local_runner_cli_check_report.json`, `state/ui/r18_operator_surface/r18_local_runner_cli_snapshot.json`, `tools/R18LocalRunnerCli.psm1`, `tools/invoke_r18_local_runner_cli.ps1`, `tools/new_r18_local_runner_cli.ps1`, `tools/validate_r18_local_runner_cli.ps1`, `tests/test_r18_local_runner_cli.ps1`, `tests/fixtures/r18_local_runner_cli/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell/`.
 
 ### `R18-008` Implement work-order execution state machine foundation
-- Status: planned
-- Purpose: Define runner states and transitions for small resumable work orders.
-- Inputs: Runner shell, work-order model, approval gates, failure model.
-- Outputs: State machine contract, transition validator, seed state artifacts.
-- Acceptance criteria: States cover created, ready, running, validation, failed, blocked, awaiting approval, completed, abandoned, and escalated.
-- Validation expectation: Planned tests reject invalid transitions, missing evidence refs, and retry limit bypass.
-- Non-claims: State machine foundation is not live work execution.
+- Status: done
+- Purpose: Define the governed work-order execution state machine that future runner/runtime work will consume.
+- Inputs: R18 authority, R18-006 intake packets, R18-004 handoff registry, R18-005 role-skill permission matrix, R18-007 dry-run CLI shell boundary, R17 compact-safe harness and recovery-loop contracts.
+- Outputs: State machine contract, state machine artifact, transition catalog, four seed work-order packets, four transition-evaluation artifacts, check report, operator-surface snapshot, fail-closed validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Required states and transition IDs are declared exactly; transition evaluations include authority, intake, handoff, permission, validation, evidence, retry, path, and execution-block checks; `ready_for_handoff_to_blocked_pending_future_execution_runtime` blocks work-order execution until R18-009 or later; runtime false flags remain false; R18-009 onward remains planned only.
+- Validation expectation: `tools/validate_r18_work_order_state_machine.ps1` and `tests/test_r18_work_order_state_machine.ps1` reject missing artifacts, unknown states/transitions, missing authority/intake/handoff/permission refs, missing validation or evidence obligations, unbounded next states, unbounded retry, forbidden paths, work-order execution claims, runner state store claims, resumable execution log claims, live runtime/API/A2A/agent/skill/recovery/product claims, R18-009+ completion claims, and status surfaces beyond R18-008.
+- Non-claims: State machine foundation is not live work execution, not runner state store, not resumable execution log, not full work-order execution runtime, not local runner runtime execution, not board/card runtime mutation, not A2A runtime or message dispatch, not live agent or skill execution, not recovery runtime, not API invocation, not automatic new-thread creation, not stage/commit/push by the runner or state machine, not product runtime, not main merge, not solved Codex compaction/reliability, and not no-manual-prompt-transfer success.
 - Dependencies: R18-007.
-- Failure/retry behavior: Invalid transition writes a failure packet and stops.
-- Expected evidence refs: `contracts/runtime/r18_work_order_state_machine.contract.json`, transition fixtures.
+- Failure/retry behavior: Invalid transition validation fails closed, blocks execution, and routes to validation failure or future operator decision; retry remains bounded and non-runtime.
+- Expected evidence refs: `contracts/runtime/r18_work_order_state_machine.contract.json`, `state/runtime/r18_work_order_state_machine.json`, `state/runtime/r18_work_order_transition_catalog.json`, `state/runtime/r18_work_order_seed_packets/`, `state/runtime/r18_work_order_transition_evaluations/`, `state/runtime/r18_work_order_state_machine_check_report.json`, `state/ui/r18_operator_surface/r18_work_order_state_machine_snapshot.json`, `tools/R18WorkOrderStateMachine.psm1`, `tools/new_r18_work_order_state_machine.ps1`, `tools/validate_r18_work_order_state_machine.ps1`, `tests/test_r18_work_order_state_machine.ps1`, `tests/fixtures/r18_work_order_state_machine/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/`.
 
 ### `R18-009` Implement runner state store and resumable execution log
 - Status: planned
