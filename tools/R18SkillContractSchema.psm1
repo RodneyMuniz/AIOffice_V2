@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SkillContractGeneratedFromHead = "543eb243429c5d9eb004d166283e2c0869f06980"
@@ -1415,8 +1415,8 @@ function Test-R18SkillContractStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-011 only",
-            "R18-012 through R18-028 planned only",
+            "R18 active through R18-012 only",
+            "R18-013 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -1443,7 +1443,7 @@ function Test-R18SkillContractStatusTruth {
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Remote branch verifier runtime is not implemented",
+            "R18-012 created remote branch verifier foundation only",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",            "No board/card runtime mutation occurred",
             "No A2A messages were sent",
@@ -1469,20 +1469,20 @@ function Test-R18SkillContractStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 11) {
+        if ($taskNumber -le 12) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-011."
+                throw "$taskId must be done after R18-012."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-011."
+                throw "$taskId must remain planned only after R18-012."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[2-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-011."
+    if ($combinedText -match 'R18 active through R18-(01[3-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-012."
     }
 }
 

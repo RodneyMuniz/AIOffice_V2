@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-011` WIP classifier foundation only.
+**Status after this pass:** Active through `R18-012` remote branch verifier foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-011` are done. `R18-012` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-012` are done. `R18-013` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-012 through R18-028 are planned only.
+- R18-013 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -41,11 +41,15 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Failure events are not recovery completion.
 - R18-011 created WIP classifier foundation only.
 - WIP classification is deterministic over seed git inventory artifacts only.
+- R18-012 created remote branch verifier foundation only.
+- Remote branch verifier foundation is bounded branch/head/tree/remote-head verification evidence only.
+- Current branch identity was verified only by bounded git identity checks.
+- No branch mutation was performed.
+- No pull, rebase, reset, merge, checkout, switch, clean, restore, staging, commit, or push was performed by the verifier.
 - No WIP cleanup was performed.
 - No WIP abandonment was performed.
 - No files were restored or deleted.
 - No staging, commit, or push was performed by the classifier.
-- Remote branch verifier runtime is not implemented.
 - Continuation packet generator is not implemented.
 - New-context prompt generator is not implemented.
 - No work orders were executed.
@@ -205,13 +209,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_wip_classifier.contract.json`, `state/runtime/r18_wip_classifier_profile.json`, `state/runtime/r18_wip_inventory_samples/`, `state/runtime/r18_wip_classification_packets/`, `state/runtime/r18_wip_classifier_results.json`, `state/runtime/r18_wip_classifier_check_report.json`, `state/ui/r18_operator_surface/r18_wip_classifier_snapshot.json`, `tools/R18WipClassifier.psm1`, `tools/new_r18_wip_classifier.ps1`, `tools/validate_r18_wip_classifier.ps1`, `tests/test_r18_wip_classifier.ps1`, `tests/fixtures/r18_wip_classifier/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier/`.
 
 ### `R18-012` Implement remote branch verifier
-- Status: planned
-- Purpose: Verify local and remote branch identity before continuation and release actions.
-- Inputs: Branch name, expected local head/tree, expected remote head, work-order state.
-- Outputs: Remote verification packet, validator, tests.
-- Acceptance criteria: Verifier fails on missing remote, moved remote head, divergence, stale expected head/tree, or wrong branch.
-- Validation expectation: Planned validator rejects branch movement without operator decision.
-- Non-claims: Verification is not push, merge, or final-head support.
+- Status: done
+- Purpose: Create a machine-checkable remote branch verifier foundation that validates local branch identity, local head/tree, expected remote head, remote branch identity, divergence classification, and safe/unsafe continuation decisions.
+- Inputs: Branch name, expected local head/tree, expected remote head, bounded current branch/head/tree/remote-head observation, runner state ref, failure event ref, and WIP classifier result ref.
+- Outputs: Remote branch verifier contract, profile, six deterministic seed samples, six deterministic verification packets, one bounded current-branch verification packet, results/check/snapshot artifacts, validator, invocation wrapper, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Verifier classifies remote-in-sync, remote-ahead, local-ahead, diverged, wrong-branch, and missing-remote-ref states; only remote-in-sync is branch-identity safe, local-ahead remains review-required in R18-012, and all unsafe states require operator decision without branch mutation.
+- Validation expectation: `tools/validate_r18_remote_branch_verifier.ps1` and `tests/test_r18_remote_branch_verifier.ps1` reject missing fields, unknown statuses/actions, remote-ahead/local-ahead/diverged/wrong-branch/missing-remote marked safe, missing evidence/authority refs, forbidden runtime/API/recovery/continuation/new-context/WIP cleanup/branch mutation/pull/rebase/reset/merge/checkout/switch/clean/restore/stage/commit/push claims, and status surfaces that advance R18 beyond R18-012.
+- Non-claims: Remote branch verifier foundation is bounded branch/head/tree/remote-head verification evidence only. It is not recovery, not continuation packet generation, not new-context prompt generation, not push, not merge, not rebase, not pull, not reset, not checkout/switch, not clean/restore, not staging, not commit, not release gate completion, not work-order execution, not board/card runtime mutation, not A2A runtime/message dispatch, not live agent/skill execution, not API invocation, not automatic new-thread creation, not product runtime, not main merge, and not solved Codex compaction/reliability or no-manual-prompt-transfer success.
 - Dependencies: R18-011.
 - Failure/retry behavior: Remote movement blocks continuation and escalates.
 - Expected evidence refs: `state/runtime/r18_remote_branch_verification.json`, fixtures.

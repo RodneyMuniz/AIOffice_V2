@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-008"
@@ -1567,8 +1567,8 @@ function Test-R18WorkOrderStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-011 only",
-            "R18-012 through R18-028 planned only",
+            "R18 active through R18-012 only",
+            "R18-013 through R18-028 planned only",
             "R18-007 created local runner/CLI shell foundation only",
             "CLI shell is dry-run only",
             "CLI shell is not full work-order execution runtime",
@@ -1587,7 +1587,7 @@ function Test-R18WorkOrderStatusTruth {
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Remote branch verifier runtime is not implemented",
+            "R18-012 created remote branch verifier foundation only",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",
             "No work orders were executed",
@@ -1615,23 +1615,23 @@ function Test-R18WorkOrderStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 11) {
+        if ($taskNumber -le 12) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-011."
+                throw "$taskId must be done after R18-012."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-011."
+                throw "$taskId must remain planned only after R18-012."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[2-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-011."
+    if ($combinedText -match 'R18 active through R18-(01[3-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-012."
     }
-    if ($combinedText -match '(?i)R18-01[2-9].{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-012 or later completion."
+    if ($combinedText -match '(?i)R18-01[3-9].{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-013 or later completion."
     }
 }
 

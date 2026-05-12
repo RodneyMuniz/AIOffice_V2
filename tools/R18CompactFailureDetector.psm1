@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-010"
@@ -1401,8 +1401,8 @@ function Test-R18CompactFailureDetectorStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-011 only",
-            "R18-012 through R18-028 planned only",
+            "R18 active through R18-012 only",
+            "R18-013 through R18-028 planned only",
             "R18-010 created compact failure detector foundation only",
             "Failure detection is deterministic over seed signal artifacts only",
             "Failure events are not recovery completion",
@@ -1412,7 +1412,7 @@ function Test-R18CompactFailureDetectorStatusTruth {
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Remote branch verifier runtime is not implemented",
+            "R18-012 created remote branch verifier foundation only",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",
             "No recovery action was performed",
@@ -1440,16 +1440,16 @@ function Test-R18CompactFailureDetectorStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18CompactCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 11) {
-            Assert-R18CompactCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-011."
+        if ($taskNumber -le 12) {
+            Assert-R18CompactCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-012."
         }
         else {
-            Assert-R18CompactCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-011."
+            Assert-R18CompactCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-012."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[2-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-011."
+    if ($combinedText -match 'R18 active through R18-(01[3-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-012."
     }
 }
 

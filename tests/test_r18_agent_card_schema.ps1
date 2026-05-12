@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18AgentCardSchema.psm1"
@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-011 only",
-            "R18-012 through R18-028 planned only",
+            "R18 active through R18-012 only",
+            "R18-013 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -155,7 +155,7 @@ function Assert-R18StatusAfterR18003 {
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Remote branch verifier runtime is not implemented",
+            "R18-012 created remote branch verifier foundation only",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",
             "No board/card runtime mutation occurred",
@@ -182,14 +182,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 11) {
+        if ($taskNumber -le 12) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-011."
+                throw "$taskId must be done after R18-012."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-011."
+                throw "$taskId must remain planned only after R18-012."
             }
         }
     }

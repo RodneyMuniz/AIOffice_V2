@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-011 only",
-            "R18-012 through R18-028 planned only",
+            "R18 active through R18-012 only",
+            "R18-013 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3722,11 +3722,15 @@ function Test-StatusDocGate {
             "Failure events are not recovery completion",
             "R18-011 created WIP classifier foundation only",
             "WIP classification is deterministic over seed git inventory artifacts only",
+            "R18-012 created remote branch verifier foundation only",
+            "Remote branch verifier foundation is bounded branch/head/tree/remote-head verification evidence only",
+            "Current branch identity was verified only by bounded git identity checks",
+            "No branch mutation was performed",
+            "No pull, rebase, reset, merge, checkout, switch, clean, restore, staging, commit, or push was performed by the verifier",
             "No WIP cleanup was performed",
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Remote branch verifier runtime is not implemented",
             "Continuation packet generator is not implemented",
             "New-context prompt generator is not implemented",
             "No work orders were executed",
@@ -3758,7 +3762,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 11) {
+        if ($taskNumber -le 12) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3800,8 +3804,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 11
-        R18PlannedStart = 12
+        R18DoneThrough = 12
+        R18PlannedStart = 13
         R18PlannedThrough = 28
     }
 }
