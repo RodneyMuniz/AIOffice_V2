@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-017` stage/commit/push gate foundation only.
+**Status after this pass:** Active through `R18-018` status-doc gate automation wrapper foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-017` are done. `R18-018` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-018` are done. `R18-019` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-018 through R18-028 remain planned only.
+- R18-019 through R18-028 remain planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -66,6 +66,15 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Escalation runtime was not implemented.
 - Operator approval runtime is not implemented.
 - R18-017 created stage/commit/push gate foundation only. Stage/commit/push gate artifacts are deterministic policy artifacts only. Gate runtime was not implemented. The gate did not stage, commit, or push. Normal Codex worker commit/push of this R18-017 task is not the gate executing.
+- R18-018 created status-doc gate automation wrapper foundation only.
+- Status-doc gate wrapper artifacts are deterministic policy artifacts only.
+- Wrapper runtime was not implemented.
+- Live status-doc gate runtime was not executed.
+- Release gate was not executed.
+- No stage/commit/push was performed by the wrapper.
+- CI replay was not performed.
+- GitHub Actions workflow was not created or run.
+- External audit acceptance was not claimed.
 - R18-016 created operator approval gate model foundation only.
 - Approval request and decision/refusal packets were generated as deterministic governance artifacts only.
 - Operator approval runtime was not implemented.
@@ -307,16 +316,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_stage_commit_push_gate.contract.json`, `contracts/runtime/r18_stage_commit_push_gate_assessment.contract.json`, `state/runtime/r18_stage_commit_push_gate_profile.json`, `state/runtime/r18_stage_commit_push_gate_inputs/`, `state/runtime/r18_stage_commit_push_gate_assessments/`, `state/runtime/r18_stage_commit_push_gate_results.json`, `state/runtime/r18_stage_commit_push_gate_check_report.json`, `state/ui/r18_operator_surface/r18_stage_commit_push_gate_snapshot.json`, `tools/R18StageCommitPushGate.psm1`, `tools/new_r18_stage_commit_push_gate.ps1`, `tools/validate_r18_stage_commit_push_gate.ps1`, `tests/test_r18_stage_commit_push_gate.ps1`, `tests/fixtures/r18_stage_commit_push_gate/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate/`.
 
 ### `R18-018` Implement status-doc gate automation wrapper
-- Status: planned
-- Purpose: Keep README, ACTIVE_STATE, KANBAN, authority docs, decision log, and non-claims synchronized.
-- Inputs: Current milestone status, task completions, runtime flags, hard non-claims.
-- Outputs: R18 status-doc gate wrapper, validator/test updates, repair guidance.
-- Acceptance criteria: Gate rejects R18 overclaims, R17 closure without approval, R18 closeout without proof, API invocation without controls, and main merge claims.
-- Validation expectation: `tools/validate_status_doc_gate.ps1` and `tests/test_status_doc_gate.ps1` remain passing.
-- Non-claims: Status docs are not runtime proof.
+- Status: done
+- Purpose: Create a deterministic status-doc gate automation wrapper foundation that consolidates status surface refs, expected boundary checks, non-claim checks, validation refs, evidence refs, authority refs, and policy-only assessments before any future release action is allowed.
+- Inputs: Current milestone status, required status surfaces, expected R18/R17/main boundary, runtime false flags, hard non-claims, validation refs, evidence refs, and authority refs.
+- Outputs: Status-doc gate wrapper contract, assessment contract, wrapper profile, five input packets, five assessment packets, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Current status surfaces pass policy-only after revalidation; missing status surfaces, boundary drift, runtime overclaims, and R18-019 premature claims block; all runtime false flags remain false; no live runtime, release gate execution, stage/commit/push, CI replay, GitHub Actions workflow, main merge, milestone closeout, external audit acceptance, recovery action, API invocation, automatic new-thread creation, work-order execution, board runtime mutation, A2A message, live agent, live skill, product runtime, no-manual-prompt-transfer success, solved compaction, or solved reliability claim is accepted.
+- Validation expectation: `tools/validate_r18_status_doc_gate_wrapper.ps1`, `tests/test_r18_status_doc_gate_wrapper.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-018 only.
+- Non-claims: R18-018 created status-doc gate automation wrapper foundation only. Status-doc gate wrapper artifacts are deterministic policy artifacts only. Wrapper runtime was not implemented. Live status-doc gate runtime was not executed. Release gate was not executed. No stage/commit/push was performed by the wrapper. CI replay was not performed. GitHub Actions workflow was not created or run. Main was not merged. Milestone closeout was not claimed. External audit acceptance was not claimed. Recovery action was not performed. Codex/OpenAI API invocation did not occur. Automatic new-thread creation was not performed. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No product runtime is claimed. No no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-001, R18-017.
-- Failure/retry behavior: Status mismatch blocks commit/push and creates repair work.
-- Expected evidence refs: status gate module, test output, validation manifest.
+- Failure/retry behavior: Status mismatch creates deterministic blocked assessment artifacts only; the wrapper does not repair surfaces, execute recovery, infer approval, create threads, execute work orders, invoke APIs, run release automation, or perform stage/commit/push.
+- Expected evidence refs: `contracts/governance/r18_status_doc_gate_wrapper.contract.json`, `contracts/governance/r18_status_doc_gate_assessment.contract.json`, `state/governance/r18_status_doc_gate_wrapper_profile.json`, `state/governance/r18_status_doc_gate_inputs/`, `state/governance/r18_status_doc_gate_assessments/`, `state/governance/r18_status_doc_gate_wrapper_results.json`, `state/governance/r18_status_doc_gate_wrapper_check_report.json`, `state/ui/r18_operator_surface/r18_status_doc_gate_wrapper_snapshot.json`, `tools/R18StatusDocGateWrapper.psm1`, `tools/new_r18_status_doc_gate_wrapper.ps1`, `tools/validate_r18_status_doc_gate_wrapper.ps1`, `tests/test_r18_status_doc_gate_wrapper.ps1`, `tests/fixtures/r18_status_doc_gate_wrapper/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper/`.
 
 ### `R18-019` Implement evidence package automation wrapper
 - Status: planned

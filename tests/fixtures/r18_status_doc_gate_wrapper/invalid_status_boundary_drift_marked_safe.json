@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_status_doc_gate_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-018",
+    "target":  "assessment:status_boundary_drift",
+    "operation":  "set",
+    "path":  "safe_for_future_release_gate",
+    "expected_failure_fragments":  [
+                                       "status_boundary_drift must not be safe"
+                                   ],
+    "value":  true
+}

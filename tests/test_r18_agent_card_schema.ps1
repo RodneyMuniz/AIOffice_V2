@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-017 only",
-            "R18-018 through R18-028 planned only",
+            "R18 active through R18-018 only",
+            "R18-019 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -194,14 +194,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 17) {
+        if ($taskNumber -le 18) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-017."
+                throw "$taskId must be done after R18-018."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-017."
+                throw "$taskId must remain planned only after R18-018."
             }
         }
     }
@@ -274,7 +274,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Assert-R18StatusAfterR18003
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-013 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-018 boundary."
     $validPassed += 1
 }
 catch {

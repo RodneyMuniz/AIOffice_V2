@@ -1294,8 +1294,8 @@ function Test-R18StageCommitPushStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-017 only",
-            "R18-018 through R18-028 planned only",
+            "R18 active through R18-018 only",
+            "R18-019 through R18-028 planned only",
             "R18-017 created stage/commit/push gate foundation only",
             "Stage/commit/push gate artifacts are deterministic policy artifacts only",
             "Gate runtime was not implemented",
@@ -1326,19 +1326,19 @@ function Test-R18StageCommitPushStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18StageCommitPushCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 17) {
-            Assert-R18StageCommitPushCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-017."
+        if ($taskNumber -le 18) {
+            Assert-R18StageCommitPushCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-018."
         }
         else {
-            Assert-R18StageCommitPushCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-017."
+            Assert-R18StageCommitPushCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-018."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[8-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-017."
+    if ($combinedText -match 'R18 active through R18-(019|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-018."
     }
-    if ($combinedText -match '(?i)R18-(01[8-9]|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-018 or later completion."
+    if ($combinedText -match '(?i)R18-(019|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-019 or later completion."
     }
 }
 

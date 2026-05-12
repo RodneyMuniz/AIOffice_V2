@@ -1,0 +1,11 @@
+{
+    "artifact_type":  "r18_status_doc_gate_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-018",
+    "target":  "input:current_status_surfaces",
+    "operation":  "remove",
+    "path":  "validation_refs",
+    "expected_failure_fragments":  [
+                                       "validation_refs is missing"
+                                   ]
+}

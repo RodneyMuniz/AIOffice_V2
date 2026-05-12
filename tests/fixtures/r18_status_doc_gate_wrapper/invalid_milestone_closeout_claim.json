@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_status_doc_gate_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-018",
+    "target":  "report",
+    "operation":  "set",
+    "path":  "runtime_flags.milestone_closeout_claimed",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027milestone_closeout_claimed\u0027 must be false"
+                                   ],
+    "value":  true
+}

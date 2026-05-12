@@ -121,8 +121,8 @@ foreach ($assertion in @(
         @{ label = "status boundary drift blocks stage commit push"; script = { $assessment = @((Get-ValidSet).Assessments | Where-Object { $_.gate_scenario -eq "blocked_by_status_boundary_drift" })[0]; if ([bool]$assessment.safe_to_stage -or [bool]$assessment.safe_to_commit -or [bool]$assessment.safe_to_push -or $assessment.action_recommendation -ne "stop_and_fix_status_boundary") { throw "Status boundary drift did not block all actions." } } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no actual stage commit push is performed by the gate"; script = { $set = Get-ValidSet; foreach ($flags in @($set.GateContract.runtime_flags, $set.Results.runtime_flags, $set.Report.runtime_flags, $set.Snapshot.runtime_flags)) { if ([bool]$flags.stage_performed_by_gate -or [bool]$flags.commit_performed_by_gate -or [bool]$flags.push_performed_by_gate -or [bool]$flags.stage_performed -or [bool]$flags.commit_performed -or [bool]$flags.push_performed) { throw "Stage/commit/push was claimed." } } } },
-        @{ label = "R18 is active through R18-017 only after status updates"; script = { Test-R18StageCommitPushStatusTruth -RepositoryRoot $repoRoot } },
-        @{ label = "R18-018 onward remain planned only"; script = { Test-R18StageCommitPushStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 is active through R18-018 only after status updates"; script = { Test-R18StageCommitPushStatusTruth -RepositoryRoot $repoRoot } },
+        @{ label = "R18-019 onward remain planned only"; script = { Test-R18StageCommitPushStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script
