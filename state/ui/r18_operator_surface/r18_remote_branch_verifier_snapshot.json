@@ -5,7 +5,7 @@
     "source_task":  "R18-012",
     "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
     "r18_status":  "active_through_r18_012_only",
-    "planned_only_boundary":  "R18-013 through R18-028 remain planned only",
+    "planned_only_boundary":  "R18-014 through R18-028 remain planned only",
     "repository":  "RodneyMuniz/AIOffice_V2",
     "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
     "current_verification_ref":  "state/runtime/r18_remote_branch_current_verification.json",

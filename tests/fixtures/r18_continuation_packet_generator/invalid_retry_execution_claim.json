@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_retry_execution_claim",
+    "target":  "packet:continue_after_validation_failure",
+    "operation":  "set",
+    "path":  "runtime_flags.retry_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "retry_execution_performed"
+                                   ]
+}

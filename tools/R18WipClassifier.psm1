@@ -1480,8 +1480,8 @@ function Test-R18WipClassifierStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-012 only",
-            "R18-013 through R18-028 planned only",
+            "R18 active through R18-013 only",
+            "R18-014 through R18-028 planned only",
             "R18-010 created compact failure detector foundation only",
             "Failure detection is deterministic over seed signal artifacts only",
             "Failure events are not recovery completion",
@@ -1492,8 +1492,12 @@ function Test-R18WipClassifierStatusTruth {
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
             "R18-012 created remote branch verifier foundation only",
-            "Continuation packet generator is not implemented",
+            "R18-013 created continuation packet generator foundation only",
+            "Continuation packets were generated as deterministic packet artifacts only",
+            "Continuation packets were not executed",
+            "Continuation packets are not new-context prompts",
             "New-context prompt generator is not implemented",
+            "Automatic new-thread creation is not implemented",
             "No recovery action was performed",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
@@ -1517,19 +1521,19 @@ function Test-R18WipClassifierStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18WipCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 12) {
-            Assert-R18WipCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-012."
+        if ($taskNumber -le 13) {
+            Assert-R18WipCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-013."
         }
         else {
-            Assert-R18WipCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-012."
+            Assert-R18WipCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-013."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[3-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-012."
+    if ($combinedText -match 'R18 active through R18-(01[4-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-013."
     }
-    if ($combinedText -match '(?i)R18-01[3-9].{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-013 or later completion."
+    if ($combinedText -match '(?i)R18-01[4-9].{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-014 or later completion."
     }
 }
 

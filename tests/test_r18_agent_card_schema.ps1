@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-012 only",
-            "R18-013 through R18-028 planned only",
+            "R18 active through R18-013 only",
+            "R18-014 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -156,8 +156,12 @@ function Assert-R18StatusAfterR18003 {
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
             "R18-012 created remote branch verifier foundation only",
-            "Continuation packet generator is not implemented",
+            "R18-013 created continuation packet generator foundation only",
+            "Continuation packets were generated as deterministic packet artifacts only",
+            "Continuation packets were not executed",
+            "Continuation packets are not new-context prompts",
             "New-context prompt generator is not implemented",
+            "Automatic new-thread creation is not implemented",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
             "No live agents were invoked",
@@ -182,14 +186,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 12) {
+        if ($taskNumber -le 13) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-012."
+                throw "$taskId must be done after R18-013."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-012."
+                throw "$taskId must remain planned only after R18-013."
             }
         }
     }
@@ -262,7 +266,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Assert-R18StatusAfterR18003
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-011 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-013 boundary."
     $validPassed += 1
 }
 catch {

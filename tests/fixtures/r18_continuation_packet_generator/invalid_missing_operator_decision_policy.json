@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_operator_decision_policy",
+    "target":  "packet:operator_decision_required_for_wip",
+    "operation":  "remove",
+    "path":  "operator_decision_policy",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "operator_decision_policy"
+                                   ]
+}

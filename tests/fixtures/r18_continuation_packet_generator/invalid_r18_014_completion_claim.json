@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_r18_014_completion_claim",
+    "target":  "packet:block_until_future_runtime",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_014_completed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "r18_014_completed"
+                                   ]
+}

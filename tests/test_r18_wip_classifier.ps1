@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18WipClassifier.psm1"
@@ -226,7 +226,7 @@ foreach ($assertion in @(
         @{ label = "generated artifact churn requires review"; script = { if ((Get-ClassificationByInventoryType -Set (Get-ValidSet) -InventoryType "generated_artifact_churn").action_recommendation -ne "review_generated_artifact_churn") { throw "Generated artifact churn did not require review." } } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no remote/continuation/new-context/recovery/cleanup/stage/commit/push claims exist"; script = { Assert-NoFutureRuntimeClaims -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-011 only"; script = { Test-R18WipClassifierStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status is active through R18-013 only"; script = { Test-R18WipClassifierStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

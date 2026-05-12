@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18RemoteBranchVerifier.psm1"
@@ -241,7 +241,7 @@ foreach ($assertion in @(
         @{ label = "current verification matches expected branch/head/tree/remote when in sync"; script = { Assert-CurrentVerificationInSyncWhenAligned -Set (Get-ValidSet) } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no continuation/new-context/recovery/WIP cleanup/branch mutation/pull-rebase-reset-merge/stage-commit-push claims exist"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-012 only"; script = { Test-R18RemoteBranchVerifierStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status is active through R18-013 only"; script = { Test-R18RemoteBranchVerifierStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

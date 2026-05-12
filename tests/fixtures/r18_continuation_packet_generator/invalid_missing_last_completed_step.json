@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_last_completed_step",
+    "target":  "packet:continue_after_stream_disconnect",
+    "operation":  "remove",
+    "path":  "last_completed_step",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "last_completed_step"
+                                   ]
+}

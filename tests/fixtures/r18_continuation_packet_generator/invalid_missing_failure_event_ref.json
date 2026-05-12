@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_failure_event_ref",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "failure_event_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "failure_event_ref"
+                                   ]
+}

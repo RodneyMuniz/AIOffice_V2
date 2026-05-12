@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18CompactFailureDetector.psm1"
@@ -209,7 +209,7 @@ foreach ($assertion in @(
         @{ label = "compact/backend/compaction signals classify correctly"; script = { Assert-ClassificationSemantics -Set (Get-ValidSet) } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no recovery/WIP/remote/continuation/new-context/runtime/API claims exist"; script = { Assert-NoFutureRuntimeClaims -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-011 only"; script = { Test-R18CompactFailureDetectorStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status is active through R18-013 only"; script = { Test-R18CompactFailureDetectorStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

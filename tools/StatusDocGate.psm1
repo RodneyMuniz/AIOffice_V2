@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-012 only",
-            "R18-013 through R18-028 planned only",
+            "R18 active through R18-013 only",
+            "R18-014 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3731,8 +3731,12 @@ function Test-StatusDocGate {
             "No WIP abandonment was performed",
             "No files were restored or deleted",
             "No staging, commit, or push was performed by the classifier",
-            "Continuation packet generator is not implemented",
+            "R18-013 created continuation packet generator foundation only",
+            "Continuation packets were generated as deterministic packet artifacts only",
+            "Continuation packets were not executed",
+            "Continuation packets are not new-context prompts",
             "New-context prompt generator is not implemented",
+            "Automatic new-thread creation is not implemented",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
@@ -3743,10 +3747,13 @@ function Test-StatusDocGate {
             "No local runner runtime was executed",
             "No recovery runtime was implemented",
             "No recovery action was performed",
+            "No retry execution was performed",
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
             "No stage/commit/push was performed by the runner or state store",
             "No stage/commit/push was performed by the detector",
+            "No staging, commit, or push was performed by the generator",
+            "No pull, rebase, reset, merge, checkout, switch, clean, or restore was performed",
             "No product runtime is claimed",
             "Codex compaction is detected as a failure type, not solved",
             "R18 runtime implementation is not yet delivered",
@@ -3762,7 +3769,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 12) {
+        if ($taskNumber -le 13) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3804,8 +3811,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 12
-        R18PlannedStart = 13
+        R18DoneThrough = 13
+        R18PlannedStart = 14
         R18PlannedThrough = 28
     }
 }

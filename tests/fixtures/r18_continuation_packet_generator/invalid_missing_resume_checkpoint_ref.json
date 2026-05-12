@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_resume_checkpoint_ref",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "resume_checkpoint_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "resume_checkpoint_ref"
+                                   ]
+}

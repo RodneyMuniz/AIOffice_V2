@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-012"
@@ -6,8 +6,8 @@ $script:R18SourceMilestone = "R18 Automated Recovery Runtime and API Orchestrati
 $script:R18Repository = "RodneyMuniz/AIOffice_V2"
 $script:R18Branch = "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle"
 $script:R18RemoteRef = "origin/release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle"
-$script:R18ExpectedCurrentHead = "ca4a78506ef67959863dfe7e515335c2ed350685"
-$script:R18ExpectedCurrentTree = "e771d8351b9bbac003ac239fca497ff51d0ffa0b"
+$script:R18ExpectedCurrentHead = "2d1b37d42d625269e8c727343bf22ce8357f6c9d"
+$script:R18ExpectedCurrentTree = "8d721f5552565a52cb410200ab5191db8a81bb5a"
 $script:R18VerifierVerdict = "generated_r18_012_remote_branch_verifier_foundation_only"
 
 $script:R18RuntimeFlagFields = @(
@@ -615,8 +615,8 @@ function New-R18RemoteBranchVerifierContract {
         }
         authority_policy = [ordered]@{
             required_authority_refs = Get-R18RemoteAuthorityRefs
-            r18_active_boundary = "R18 active through R18-012 only"
-            planned_boundary = "R18-013 through R18-028 planned only"
+            r18_active_boundary = "R18 active through R18-013 only"
+            planned_boundary = "R18-014 through R18-028 planned only"
         }
         continuation_boundary_policy = [ordered]@{
             continuation_packet_generation_allowed = $false
@@ -954,7 +954,7 @@ function New-R18RemoteBranchVerifierCheckReport {
         source_task = $script:R18SourceTask
         source_milestone = $script:R18SourceMilestone
         aggregate_verdict = $script:R18VerifierVerdict
-        status_boundary = "R18 active through R18-012 only; R18-013 through R18-028 planned only."
+        status_boundary = "R18 active through R18-013 only; R18-014 through R18-028 planned only."
         checked_sample_count = @($Samples).Count
         checked_verification_packet_count = @($Verifications).Count
         current_verification_status = $CurrentVerification.verification_status
@@ -963,7 +963,7 @@ function New-R18RemoteBranchVerifierCheckReport {
             [ordered]@{ check_id = "required_artifacts"; status = "passed"; boundary = "contract/profile/samples/packets/current/results/report/snapshot present" },
             [ordered]@{ check_id = "classification_rules"; status = "passed"; boundary = "all six verification rule classes validated" },
             [ordered]@{ check_id = "runtime_false_flags"; status = "passed"; boundary = "all required runtime flags remain false" },
-            [ordered]@{ check_id = "status_boundary"; status = "passed"; boundary = "R18 active through R18-012 only; R18-013 through R18-028 planned only" }
+            [ordered]@{ check_id = "status_boundary"; status = "passed"; boundary = "R18 active through R18-013 only; R18-014 through R18-028 planned only" }
         )
         positive_claims = @(
             "r18_remote_branch_verifier_contract_created",
@@ -997,7 +997,7 @@ function New-R18RemoteBranchVerifierSnapshot {
         source_task = $script:R18SourceTask
         source_milestone = $script:R18SourceMilestone
         r18_status = "active_through_r18_012_only"
-        planned_only_boundary = "R18-013 through R18-028 remain planned only"
+        planned_only_boundary = "R18-014 through R18-028 remain planned only"
         repository = $script:R18Repository
         branch = $script:R18Branch
         current_verification_ref = "state/runtime/r18_remote_branch_current_verification.json"
@@ -1128,7 +1128,7 @@ function New-R18RemoteProofReviewText {
         "",
         "The current verification is bounded to branch/head/tree/remote-head identity checks. It is not recovery, not continuation packet generation, not new-context prompt generation, not release gating, not branch mutation, and not push/merge/rebase/reset/pull/checkout/switch/clean/restore/stage/commit.",
         "",
-        "R18 remains active through R18-012 only. R18-013 through R18-028 remain planned only.",
+        "R18 remains active through R18-013 only. R18-014 through R18-028 remain planned only.",
         "",
         "Non-claims preserved: no recovery action, no WIP cleanup or abandonment, no work-order execution, no board/card runtime mutation, no A2A messages, no live agent or skill execution, no API invocation, no automatic new-thread creation, no product runtime, no solved Codex compaction/reliability claim, no no-manual-prompt-transfer success claim, and no main merge."
     ) -join [Environment]::NewLine
@@ -1138,7 +1138,7 @@ function New-R18RemoteValidationManifestText {
     return @(
         "# R18-012 Validation Manifest",
         "",
-        "Expected status truth after this package: R18 active through R18-012 only; R18-013 through R18-028 planned only.",
+        "Expected status truth after this package: R18 active through R18-013 only; R18-014 through R18-028 planned only.",
         "",
         "Required validation commands:",
         "- powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r18_remote_branch_verifier.ps1",
@@ -1627,14 +1627,18 @@ function Test-R18RemoteBranchVerifierStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-012 only",
-            "R18-013 through R18-028 planned only",
+            "R18 active through R18-013 only",
+            "R18-014 through R18-028 planned only",
             "R18-012 created remote branch verifier foundation only",
             "Current branch identity was verified only by bounded git identity checks",
             "No branch mutation was performed",
             "No pull, rebase, reset, merge, checkout, switch, clean, restore, staging, commit, or push was performed by the verifier",
-            "Continuation packet generator is not implemented",
+            "R18-013 created continuation packet generator foundation only",
+            "Continuation packets were generated as deterministic packet artifacts only",
+            "Continuation packets were not executed",
+            "Continuation packets are not new-context prompts",
             "New-context prompt generator is not implemented",
+            "Automatic new-thread creation is not implemented",
             "No recovery action was performed",
             "No WIP cleanup was performed",
             "No WIP abandonment was performed",
@@ -1660,19 +1664,19 @@ function Test-R18RemoteBranchVerifierStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18RemoteCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 12) {
-            Assert-R18RemoteCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-012."
+        if ($taskNumber -le 13) {
+            Assert-R18RemoteCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-013."
         }
         else {
-            Assert-R18RemoteCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-012."
+            Assert-R18RemoteCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-013."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[3-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-012."
+    if ($combinedText -match 'R18 active through R18-(01[4-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-013."
     }
-    if ($combinedText -match '(?i)R18-01[3-9].{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-013 or later completion."
+    if ($combinedText -match '(?i)R18-01[4-9].{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-014 or later completion."
     }
 }
 

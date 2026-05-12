@@ -148,7 +148,7 @@
                                },
     "remote_identity_policy":  {
                                    "expected_remote_ref":  "origin/release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
-                                   "expected_remote_head":  "ca4a78506ef67959863dfe7e515335c2ed350685",
+                                   "expected_remote_head":  "2d1b37d42d625269e8c727343bf22ce8357f6c9d",
                                    "remote_head_source":  "git fetch origin release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle then git rev-parse origin/release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
                                    "missing_remote_status":  "missing_remote_ref_blocked",
                                    "remote_branch_mutation_allowed":  false
@@ -227,8 +227,8 @@
                                                              "contracts/runtime/r17_automated_recovery_loop.contract.json",
                                                              "governance/plans/AIOffice_V2_Revised_R17_Plan.md"
                                                          ],
-                             "r18_active_boundary":  "R18 active through R18-012 only",
-                             "planned_boundary":  "R18-013 through R18-028 planned only"
+                             "r18_active_boundary":  "R18 active through R18-013 only",
+                             "planned_boundary":  "R18-014 through R18-028 planned only"
                          },
     "continuation_boundary_policy":  {
                                          "continuation_packet_generation_allowed":  false,

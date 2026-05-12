@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18RoleSkillPermissionMatrix.psm1"
@@ -219,7 +219,7 @@ foreach ($assertion in @(
         @{ label = "approval gates are present for risky actions"; script = { Assert-ApprovalGates -Set (Get-ValidSet) } },
         @{ label = "runtime false flags remain false"; script = { Assert-RuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "API flags remain disabled"; script = { Assert-ApiFlagsDisabled -Set (Get-ValidSet) } },
-        @{ label = "R18 status accepts the current active-through R18-011 boundary"; script = { Test-R18MatrixStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status accepts the current active-through R18-013 boundary"; script = { Test-R18MatrixStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

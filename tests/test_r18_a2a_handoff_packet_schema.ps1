@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18A2AHandoffPacketSchema.psm1"
@@ -268,7 +268,7 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
 
 try {
     Test-R18HandoffStatusTruth -RepositoryRoot $repoRoot
-    Write-Output "PASS valid: R18 status accepts the current active-through R18-011 boundary."
+    Write-Output "PASS valid: R18 status accepts the current active-through R18-013 boundary."
     $validPassed += 1
 }
 catch {

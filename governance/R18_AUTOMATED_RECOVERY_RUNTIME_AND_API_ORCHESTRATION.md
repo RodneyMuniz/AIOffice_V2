@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-012` remote branch verifier foundation only.
+**Status after this pass:** Active through `R18-013` continuation packet generator foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-012` are done. `R18-013` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-013` are done. `R18-014` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-013 through R18-028 are planned only.
+- R18-014 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -44,14 +44,20 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - R18-012 created remote branch verifier foundation only.
 - Remote branch verifier foundation is bounded branch/head/tree/remote-head verification evidence only.
 - Current branch identity was verified only by bounded git identity checks.
+- R18-013 created continuation packet generator foundation only.
+- Continuation packets were generated as deterministic packet artifacts only.
+- Continuation packets were not executed.
+- Continuation packets are not new-context prompts.
 - No branch mutation was performed.
 - No pull, rebase, reset, merge, checkout, switch, clean, restore, staging, commit, or push was performed by the verifier.
+- No pull, rebase, reset, merge, checkout, switch, clean, or restore was performed.
 - No WIP cleanup was performed.
 - No WIP abandonment was performed.
 - No files were restored or deleted.
 - No staging, commit, or push was performed by the classifier.
-- Continuation packet generator is not implemented.
+- No staging, commit, or push was performed by the generator.
 - New-context prompt generator is not implemented.
+- Automatic new-thread creation is not implemented.
 - No work orders were executed.
 - No board/card runtime mutation occurred.
 - No A2A messages were sent.
@@ -60,6 +66,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No local runner runtime was executed.
 - No live A2A runtime was implemented.
 - No recovery action was performed.
+- No retry execution was performed.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
 - No live A2A runtime is claimed.
@@ -221,16 +228,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `state/runtime/r18_remote_branch_verification.json`, fixtures.
 
 ### `R18-013` Implement continuation packet generator
-- Status: planned
-- Purpose: Generate continuation packets from runner state, failure events, WIP classification, and remote verification.
-- Inputs: Failure event, WIP classification, remote verification, runner state, evidence log.
-- Outputs: Continuation packet contract, generator, packets, tests.
-- Acceptance criteria: Packet includes failure type, baseline head/tree, last completed step, next safe step, retry count, validation commands, evidence refs, approval state, and stop conditions.
-- Validation expectation: Planned validator rejects packets missing failure/WIP/remote evidence.
-- Non-claims: Continuation packet is not live recovery until consumed in a drill.
+- Status: done
+- Purpose: Create deterministic continuation packet contracts, input sets, and seed continuation packets from runner state, failure events, WIP classification, remote verification, and resume checkpoint refs.
+- Inputs: R18-009 runner state and checkpoint, R18-010 failure events, R18-011 WIP classifications, R18-012 remote verification packets, validation command refs, evidence refs, and authority refs.
+- Outputs: Continuation packet contract, generator contract, generator profile, six input sets, six continuation packets, results, check report, operator-surface snapshot, generator/validator tooling, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Each packet includes exact runner/failure/WIP/remote/checkpoint refs, current work order, current state, last completed step, next safe step, next safe step type, bounded retry count, stop conditions, escalation conditions, operator-decision policy, validation commands, allowed/forbidden paths, evidence refs, authority refs, runtime false flags, rejected claims, and non-claims.
+- Validation expectation: `tools/validate_r18_continuation_packet_generator.ps1` and `tests/test_r18_continuation_packet_generator.ps1` reject missing refs, unknown continuation types, unbounded retries, missing stop conditions, missing operator-decision policy, missing validation commands, missing evidence/authority refs, unsafe WIP/remote decision packets without operator decision, execution claims, new-context prompt generation claims, automatic new-thread creation claims, recovery/retry/work-order execution claims, WIP cleanup/abandonment claims, branch mutation/pull/rebase/reset/merge/checkout/switch/clean/restore/stage/commit/push claims, board/A2A/agent/skill/API/product runtime claims, solved compaction/reliability claims, no-manual-prompt-transfer success claims, and R18-014 or later completion claims.
+- Non-claims: Continuation packets are deterministic packet artifacts only. Continuation packets were not executed. New-context prompt generation, automatic new-thread creation, retry/escalation policy, operator approval gates, stage/commit/push gates, recovery runtime, work-order execution, live agents, live skills, A2A messages, board/card runtime mutation, API invocation, product runtime, and main merge are not implemented or claimed by R18-013.
 - Dependencies: R18-010, R18-011, R18-012.
-- Failure/retry behavior: Missing prerequisites block packet generation.
-- Expected evidence refs: `state/runtime/r18_continuation_packets/`, check report, fixtures.
+- Failure/retry behavior: Missing prerequisites, unsafe WIP, unsafe remote verification, unknown continuation type, or unbounded retry policy fails closed; R18-013 performs no retry execution.
+- Expected evidence refs: `contracts/runtime/r18_continuation_packet.contract.json`, `contracts/runtime/r18_continuation_packet_generator.contract.json`, `state/runtime/r18_continuation_packet_generator_profile.json`, `state/runtime/r18_continuation_input_sets/`, `state/runtime/r18_continuation_packets/`, `state/runtime/r18_continuation_packet_generator_results.json`, `state/runtime/r18_continuation_packet_generator_check_report.json`, `state/ui/r18_operator_surface/r18_continuation_packet_snapshot.json`, `tools/R18ContinuationPacketGenerator.psm1`, `tools/new_r18_continuation_packet_generator.ps1`, `tools/validate_r18_continuation_packet_generator.ps1`, `tests/test_r18_continuation_packet_generator.ps1`, `tests/fixtures/r18_continuation_packet_generator/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator/`.
 
 ### `R18-014` Implement new-context/new-thread prompt generator
 - Status: planned

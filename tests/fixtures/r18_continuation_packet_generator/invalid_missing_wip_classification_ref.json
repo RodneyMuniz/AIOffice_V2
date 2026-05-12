@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_wip_classification_ref",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "wip_classification_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "wip_classification_ref"
+                                   ]
+}

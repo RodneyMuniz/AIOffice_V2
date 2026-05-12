@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_board_runtime_mutation_claim",
+    "target":  "packet:continue_after_validation_failure",
+    "operation":  "set",
+    "path":  "runtime_flags.board_runtime_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "board_runtime_mutation_performed"
+                                   ]
+}

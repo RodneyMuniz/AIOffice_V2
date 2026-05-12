@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_work_order_execution_claim",
+    "target":  "packet:continue_after_stream_disconnect",
+    "operation":  "set",
+    "path":  "runtime_flags.work_order_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "work_order_execution_performed"
+                                   ]
+}

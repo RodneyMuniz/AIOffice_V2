@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_remote_verification_ref",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "remote_verification_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "remote_verification_ref"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_retry",
+    "target":  "packet:continue_after_validation_failure",
+    "operation":  "set",
+    "path":  "max_retry_count",
+    "value":  0,
+    "expected_failure_fragments":  [
+                                       "unbounded"
+                                   ]
+}

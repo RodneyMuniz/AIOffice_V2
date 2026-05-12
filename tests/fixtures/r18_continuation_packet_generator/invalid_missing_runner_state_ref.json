@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_runner_state_ref",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "runner_state_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "runner_state_ref"
+                                   ]
+}

@@ -5,7 +5,7 @@
     "source_task":  "R18-012",
     "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
     "aggregate_verdict":  "generated_r18_012_remote_branch_verifier_foundation_only",
-    "status_boundary":  "R18 active through R18-012 only; R18-013 through R18-028 planned only.",
+    "status_boundary":  "R18 active through R18-013 only; R18-014 through R18-028 planned only.",
     "checked_sample_count":  6,
     "checked_verification_packet_count":  6,
     "current_verification_status":  "remote_in_sync_safe",
@@ -29,7 +29,7 @@
                    {
                        "check_id":  "status_boundary",
                        "status":  "passed",
-                       "boundary":  "R18 active through R18-012 only; R18-013 through R18-028 planned only"
+                       "boundary":  "R18 active through R18-013 only; R18-014 through R18-028 planned only"
                    }
                ],
     "positive_claims":  [

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_continuation_packet_id",
+    "target":  "packet:continue_after_compact_failure",
+    "operation":  "remove",
+    "path":  "continuation_packet_id",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "continuation_packet_id"
+                                   ]
+}

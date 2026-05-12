@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18RunnerStateStore.psm1"
@@ -239,7 +239,7 @@ foreach ($assertion in @(
         @{ label = "execution log JSONL has allowed event types only"; script = { Assert-ExecutionLogSemantics -Set (Get-ValidSet) } },
         @{ label = "no compact/WIP/remote/continuation/new-context/runtime/API claims exist"; script = { Assert-NoFutureRuntimeClaims -Set (Get-ValidSet) } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-011 only"; script = { Assert-R18StatusBoundary } }
+        @{ label = "R18 status is active through R18-013 only"; script = { Assert-R18StatusBoundary } }
     )) {
     try {
         & $assertion.script

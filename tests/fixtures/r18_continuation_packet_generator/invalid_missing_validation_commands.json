@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_validation_commands",
+    "target":  "packet:continue_after_validation_failure",
+    "operation":  "remove",
+    "path":  "validation_commands",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "validation_commands"
+                                   ]
+}

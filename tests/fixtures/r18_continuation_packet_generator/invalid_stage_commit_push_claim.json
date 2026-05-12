@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_stage_commit_push_claim",
+    "target":  "packet:operator_decision_required_for_remote_branch",
+    "operation":  "set",
+    "path":  "runtime_flags.push_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "push_performed"
+                                   ]
+}

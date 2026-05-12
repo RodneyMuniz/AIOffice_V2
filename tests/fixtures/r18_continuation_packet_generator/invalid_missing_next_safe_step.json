@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_next_safe_step",
+    "target":  "packet:continue_after_stream_disconnect",
+    "operation":  "remove",
+    "path":  "next_safe_step",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "next_safe_step"
+                                   ]
+}

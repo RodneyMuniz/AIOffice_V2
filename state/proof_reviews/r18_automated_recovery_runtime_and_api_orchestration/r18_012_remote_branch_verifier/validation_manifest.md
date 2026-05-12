@@ -1,6 +1,6 @@
 ﻿# R18-012 Validation Manifest
 
-Expected status truth after this package: R18 active through R18-012 only; R18-013 through R18-028 planned only.
+Expected status truth after this package: R18 active through R18-013 only; R18-014 through R18-028 planned only.
 
 Required validation commands:
 - powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r18_remote_branch_verifier.ps1
