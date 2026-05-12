@@ -2,8 +2,6 @@
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18RemoteBranchVerifier.psm1"
-$generator = Join-Path $repoRoot "tools\new_r18_remote_branch_verifier.ps1"
-$invoker = Join-Path $repoRoot "tools\invoke_r18_remote_branch_verifier.ps1"
 $validator = Join-Path $repoRoot "tools\validate_r18_remote_branch_verifier.ps1"
 Import-Module $modulePath -Force
 
@@ -11,6 +9,7 @@ $paths = Get-R18RemoteBranchVerifierPaths -RepositoryRoot $repoRoot
 $failures = @()
 $validPassed = 0
 $invalidRejected = 0
+$initialTracked = (& git -C $repoRoot diff --name-only) -join "`n"
 $initialStaged = (& git -C $repoRoot diff --cached --name-only) -join "`n"
 
 function Read-TestJson {
@@ -207,22 +206,6 @@ function Assert-CurrentVerificationInSyncWhenAligned {
 }
 
 try {
-    Invoke-RequiredCommand -Label "R18-012 generator" -ScriptPath $generator | Out-Null
-    $validPassed += 1
-}
-catch {
-    $failures += "FAIL generator: $($_.Exception.Message)"
-}
-
-try {
-    Invoke-RequiredCommand -Label "R18-012 current verifier invocation" -ScriptPath $invoker | Out-Null
-    $validPassed += 1
-}
-catch {
-    $failures += "FAIL invoker: $($_.Exception.Message)"
-}
-
-try {
     Invoke-RequiredCommand -Label "R18-012 validator" -ScriptPath $validator | Out-Null
     $validPassed += 1
 }
@@ -241,7 +224,7 @@ foreach ($assertion in @(
         @{ label = "current verification matches expected branch/head/tree/remote when in sync"; script = { Assert-CurrentVerificationInSyncWhenAligned -Set (Get-ValidSet) } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no continuation/new-context/recovery/WIP cleanup/branch mutation/pull-rebase-reset-merge/stage-commit-push claims exist"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 status is active through R18-013 only"; script = { Test-R18RemoteBranchVerifierStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 status is active through R18-014 only"; script = { Test-R18RemoteBranchVerifierStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script
@@ -281,6 +264,11 @@ foreach ($fixtureFile in $invalidFixtureFiles) {
             $invalidRejected += 1
         }
     }
+}
+
+$finalTracked = (& git -C $repoRoot diff --name-only) -join "`n"
+if ($initialTracked -ne $finalTracked) {
+    $failures += "FAIL safety: R18-012 tests changed the tracked worktree diff."
 }
 
 $finalStaged = (& git -C $repoRoot diff --cached --name-only) -join "`n"
