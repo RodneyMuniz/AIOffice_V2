@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_last_completed_step",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027last_completed_step\u0027"
+                                   ],
+    "path":  "last_completed_step"
+}

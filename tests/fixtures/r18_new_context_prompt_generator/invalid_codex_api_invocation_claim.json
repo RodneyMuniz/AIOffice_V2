@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_codex_api_invocation_claim",
+    "target":  "manifest",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "codex_api_invoked"
+                                   ],
+    "path":  "runtime_flags.codex_api_invoked",
+    "value":  true
+}

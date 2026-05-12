@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_openai_api_invocation_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "openai_api_invoked"
+                                   ],
+    "path":  "runtime_flags.openai_api_invoked",
+    "value":  true
+}

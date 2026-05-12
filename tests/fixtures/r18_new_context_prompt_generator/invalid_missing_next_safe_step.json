@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_next_safe_step",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027next_safe_step\u0027"
+                                   ],
+    "path":  "next_safe_step"
+}

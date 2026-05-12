@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_prompt_scope",
+    "target":  "prompt:continue_after_compact_failure",
+    "operation":  "append_text",
+    "expected_failure_fragments":  [
+                                       "whole milestone"
+                                   ],
+    "value":  "Complete R18 from this prompt."
+}

@@ -100,11 +100,11 @@ Invoke-ExpectedRefusal -Label "api-claim" -Expected "API invocation" -Mutation {
     $json | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $path -Encoding UTF8
 }
 
-Invoke-ExpectedRefusal -Label "authority-r18-014-done" -Expected "R18-014 must be planned only" -Mutation {
+Invoke-ExpectedRefusal -Label "authority-r18-015-done" -Expected "R18-015 must be planned only" -Mutation {
     param($root)
     $path = Join-Path $root "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md"
     $text = Get-Content -LiteralPath $path -Raw
-    $text = [regex]::Replace($text, '(### `R18-014`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
+    $text = [regex]::Replace($text, '(### `R18-015`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
     Set-Content -LiteralPath $path -Value $text -Encoding UTF8
 }
 

@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18ContinuationPacketGenerator.psm1"
@@ -194,8 +194,8 @@ foreach ($assertion in @(
         @{ label = "block_until_future_runtime does not claim execution"; script = { if ([bool](Get-PacketByType -Set (Get-ValidSet) -ContinuationType "block_until_future_runtime").runtime_flags.continuation_packet_executed) { throw "future runtime packet claims execution." } } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no new-context prompt, automatic new-thread, recovery action, retry execution, WIP cleanup, branch mutation, work-order execution, API invocation, or product runtime claim exists"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-013 only after status updates"; script = { Test-R18ContinuationPacketGeneratorStatusTruth -RepositoryRoot $repoRoot } },
-        @{ label = "R18-014 onward remain planned only"; script = { Test-R18ContinuationPacketGeneratorStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 is active through R18-014 only after status updates"; script = { Test-R18ContinuationPacketGeneratorStatusTruth -RepositoryRoot $repoRoot } },
+        @{ label = "R18-015 onward remain planned only"; script = { Test-R18ContinuationPacketGeneratorStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

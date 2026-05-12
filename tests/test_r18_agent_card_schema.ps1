@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-013 only",
-            "R18-014 through R18-028 planned only",
+            "R18 active through R18-014 only",
+            "R18-015 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -160,7 +160,13 @@ function Assert-R18StatusAfterR18003 {
             "Continuation packets were generated as deterministic packet artifacts only",
             "Continuation packets were not executed",
             "Continuation packets are not new-context prompts",
-            "New-context prompt generator is not implemented",
+            "R18-014 created new-context prompt generator foundation only",
+            "New-context prompt packets were generated as deterministic text artifacts only",
+            "Prompt packets were not executed",
+            "Automatic new-thread creation was not performed",
+            "Codex thread creation was not performed",
+            "Codex API invocation did not occur",
+            "OpenAI API invocation did not occur",
             "Automatic new-thread creation is not implemented",
             "No board/card runtime mutation occurred",
             "No A2A messages were sent",
@@ -172,6 +178,8 @@ function Assert-R18StatusAfterR18003 {
             "No API invocation occurred",
             "No automatic new-thread creation occurred",
             "No product runtime is claimed",
+            "No no-manual-prompt-transfer success is claimed",
+            "Codex reliability is not solved",
             "Main is not merged"
         )) {
         if ($statusText -notlike "*$required*") {
@@ -186,14 +194,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 13) {
+        if ($taskNumber -le 14) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-013."
+                throw "$taskId must be done after R18-014."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-013."
+                throw "$taskId must remain planned only after R18-014."
             }
         }
     }

@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_branch_head_tree",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027expected_head\u0027"
+                                   ],
+    "path":  "expected_head"
+}

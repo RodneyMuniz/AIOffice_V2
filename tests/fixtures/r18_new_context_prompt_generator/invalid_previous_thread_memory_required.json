@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_previous_thread_memory_required",
+    "target":  "manifest",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "previous_thread_memory_required must be false"
+                                   ],
+    "path":  "previous_thread_memory_required",
+    "value":  true
+}

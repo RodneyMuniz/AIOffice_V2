@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_prompt_execution_claim",
+    "target":  "manifest",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "prompt_packet_executed"
+                                   ],
+    "path":  "runtime_flags.prompt_packet_executed",
+    "value":  true
+}

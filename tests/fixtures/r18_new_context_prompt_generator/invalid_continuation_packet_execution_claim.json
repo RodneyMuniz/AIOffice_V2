@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_continuation_packet_execution_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "continuation_packet_executed"
+                                   ],
+    "path":  "runtime_flags.continuation_packet_executed",
+    "value":  true
+}

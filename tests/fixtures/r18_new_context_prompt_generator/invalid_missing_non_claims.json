@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_non_claims",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027non_claims\u0027"
+                                   ],
+    "path":  "non_claims"
+}

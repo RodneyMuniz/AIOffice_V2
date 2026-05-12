@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-013"
@@ -1120,12 +1120,12 @@ function Test-R18ContinuationPacketGeneratorStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-013 only",
-            "R18-014 through R18-028 planned only",
+            "R18 active through R18-014 only",
+            "R18-015 through R18-028 planned only",
             "R18-013 created continuation packet generator foundation only",
             "Continuation packets were generated as deterministic packet artifacts only",
             "Continuation packets were not executed",
-            "New-context prompt generator is not implemented",
+            "R18-014 created new-context prompt generator foundation only",
             "Automatic new-thread creation is not implemented",
             "No recovery action was performed",
             "No retry execution was performed",
@@ -1156,19 +1156,19 @@ function Test-R18ContinuationPacketGeneratorStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18ContinuationCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 13) {
-            Assert-R18ContinuationCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-013."
+        if ($taskNumber -le 14) {
+            Assert-R18ContinuationCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-014."
         }
         else {
-            Assert-R18ContinuationCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-013."
+            Assert-R18ContinuationCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-014."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[4-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-013."
+    if ($combinedText -match 'R18 active through R18-(01[5-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-014."
     }
-    if ($combinedText -match '(?i)R18-01[4-9].{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-014 or later completion."
+    if ($combinedText -match '(?i)R18-01[5-9].{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-015 or later completion."
     }
 }
 

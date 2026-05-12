@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_work_order_execution_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "work_order_execution_performed"
+                                   ],
+    "path":  "runtime_flags.work_order_execution_performed",
+    "value":  true
+}

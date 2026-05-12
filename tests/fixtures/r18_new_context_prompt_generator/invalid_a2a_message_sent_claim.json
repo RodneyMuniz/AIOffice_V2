@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ],
+    "path":  "runtime_flags.a2a_message_sent",
+    "value":  true
+}

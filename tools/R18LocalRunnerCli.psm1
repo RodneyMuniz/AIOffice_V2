@@ -1368,8 +1368,8 @@ function Test-R18CliStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-013 only",
-            "R18-014 through R18-028 planned only",
+            "R18 active through R18-014 only",
+            "R18-015 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1404,7 +1404,7 @@ function Test-R18CliStatusTruth {
             "Continuation packets were generated as deterministic packet artifacts only",
             "Continuation packets were not executed",
             "Continuation packets are not new-context prompts",
-            "New-context prompt generator is not implemented",
+            "R18-014 created new-context prompt generator foundation only",
             "Automatic new-thread creation is not implemented",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
@@ -1431,20 +1431,20 @@ function Test-R18CliStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 13) {
+        if ($taskNumber -le 14) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-013."
+                throw "$taskId must be done after R18-014."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-013."
+                throw "$taskId must remain planned only after R18-014."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[4-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-013."
+    if ($combinedText -match 'R18 active through R18-(01[5-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-014."
     }
 }
 

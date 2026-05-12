@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_forbidden_paths",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027forbidden_paths\u0027"
+                                   ],
+    "path":  "forbidden_paths"
+}

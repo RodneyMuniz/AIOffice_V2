@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_board_runtime_mutation_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "board_runtime_mutation_performed"
+                                   ],
+    "path":  "runtime_flags.board_runtime_mutation_performed",
+    "value":  true
+}

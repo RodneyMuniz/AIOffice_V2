@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_prompt_packet_id",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027prompt_packet_id\u0027"
+                                   ],
+    "path":  "prompt_packet_id"
+}

@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_validation_commands",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027validation_commands\u0027"
+                                   ],
+    "path":  "validation_commands"
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_recovery_action_claim",
+    "target":  "report",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "recovery_action_performed"
+                                   ],
+    "path":  "runtime_flags.recovery_action_performed",
+    "value":  true
+}

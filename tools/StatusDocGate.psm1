@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 
@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-013 only",
-            "R18-014 through R18-028 planned only",
+            "R18 active through R18-014 only",
+            "R18-015 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3735,7 +3735,13 @@ function Test-StatusDocGate {
             "Continuation packets were generated as deterministic packet artifacts only",
             "Continuation packets were not executed",
             "Continuation packets are not new-context prompts",
-            "New-context prompt generator is not implemented",
+            "R18-014 created new-context prompt generator foundation only",
+            "New-context prompt packets were generated as deterministic text artifacts only",
+            "Prompt packets were not executed",
+            "Automatic new-thread creation was not performed",
+            "Codex thread creation was not performed",
+            "Codex API invocation did not occur",
+            "OpenAI API invocation did not occur",
             "Automatic new-thread creation is not implemented",
             "No work orders were executed",
             "No board/card runtime mutation occurred",
@@ -3755,7 +3761,9 @@ function Test-StatusDocGate {
             "No staging, commit, or push was performed by the generator",
             "No pull, rebase, reset, merge, checkout, switch, clean, or restore was performed",
             "No product runtime is claimed",
+            "No no-manual-prompt-transfer success is claimed",
             "Codex compaction is detected as a failure type, not solved",
+            "Codex reliability is not solved",
             "R18 runtime implementation is not yet delivered",
             "Main is not merged"
         )) {
@@ -3769,7 +3777,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 13) {
+        if ($taskNumber -le 14) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3811,8 +3819,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 13
-        R18PlannedStart = 14
+        R18DoneThrough = 14
+        R18PlannedStart = 15
         R18PlannedThrough = 28
     }
 }

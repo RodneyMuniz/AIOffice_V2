@@ -1,0 +1,153 @@
+﻿Mission
+You are Codex acting in a future new context for RodneyMuniz/AIOffice_V2.
+Use this R18-014 prompt packet as a deterministic, exact-ref, copy/paste-ready handoff only.
+Rely only on this prompt and the referenced repository artifacts. Previous thread memory required: false.
+Prompt packet execution by R18-014: false. Automatic Codex thread creation: false. API invocation: false.
+
+Repository and branch
+Repository: RodneyMuniz/AIOffice_V2
+Branch: release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle
+
+Accepted refs
+Expected HEAD: 9e3e16e5ca87908c9e45edb100b229333c6d77fc
+Expected tree: 827a402b4cea45f2f699e115604e71cc4cf7812f
+Expected remote head: 9e3e16e5ca87908c9e45edb100b229333c6d77fc
+Prompt input ref: state/runtime/r18_new_context_prompt_inputs/operator_decision_required_for_remote_branch.prompt_input.json
+Prompt packet id: r18_014_prompt_packet_operator_decision_required_for_remote_branch
+Continuation packet ref: state/runtime/r18_continuation_packets/operator_decision_required_for_remote_branch.continuation.json
+Runner state ref: state/runtime/r18_runner_state.json
+Failure event ref: state/runtime/r18_detected_failure_events/context_compaction_required.failure.json
+WIP classification ref: state/runtime/r18_wip_classification_packets/no_wip.classification.json
+Remote verification ref: state/runtime/r18_remote_branch_verification_packets/remote_ahead.verification.json
+Resume checkpoint ref: state/runtime/r18_runner_resume_checkpoint.json
+
+Current boundary
+R17 remains closed with caveats through R17-028 only.
+R18 is active through R18-014 only.
+R18-015 through R18-028 remain planned only.
+Stay scoped to prompt type 'operator_decision_required_for_remote_branch' and the referenced continuation packet. Do not broaden scope to milestone completion.
+
+Last completed step
+R18-009 runner state store and resumable execution log foundation validated
+
+Next safe step
+Route to operator decision for remote branch movement; do not pull, rebase, reset, merge, checkout, switch, clean, restore, stage, commit, or push.
+
+Allowed paths
+- contracts/runtime/r18_new_context_prompt_packet.contract.json
+- contracts/runtime/r18_new_context_prompt_generator.contract.json
+- state/runtime/r18_new_context_prompt_generator_profile.json
+- state/runtime/r18_new_context_prompt_inputs/
+- state/runtime/r18_new_context_prompt_packets/
+- state/runtime/r18_new_context_prompt_packet_manifest.json
+- state/runtime/r18_new_context_prompt_generator_results.json
+- state/runtime/r18_new_context_prompt_generator_check_report.json
+- state/ui/r18_operator_surface/r18_new_context_prompt_snapshot.json
+- tools/R18NewContextPromptGenerator.psm1
+- tools/new_r18_new_context_prompt_generator.ps1
+- tools/validate_r18_new_context_prompt_generator.ps1
+- tests/test_r18_new_context_prompt_generator.ps1
+- tests/fixtures/r18_new_context_prompt_generator/
+- state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/
+- governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md
+- execution/KANBAN.md
+- governance/ACTIVE_STATE.md
+- governance/DOCUMENT_AUTHORITY_INDEX.md
+- governance/DECISION_LOG.md
+- README.md
+- tools/StatusDocGate.psm1
+- tools/validate_status_doc_gate.ps1
+- tests/test_status_doc_gate.ps1
+
+Forbidden paths
+- .local_backups/
+- operator-local backup paths
+- governance/reports/AIOffice_V2_Revised_R17_Plan.md
+- state/proof_reviews/r13_
+- state/proof_reviews/r14_
+- state/proof_reviews/r15_
+- state/proof_reviews/r16_
+- state/runtime/recovery_runtime/
+- state/runtime/r18_retry_state.json
+- contracts/governance/r18_operator_approval_gate.contract.json
+- main branch
+- unbounded repository write paths
+
+Validation commands
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\new_r18_new_context_prompt_generator.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_new_context_prompt_generator.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_new_context_prompt_generator.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_continuation_packet_generator.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_continuation_packet_generator.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_remote_branch_verifier.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_remote_branch_verifier.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_wip_classifier.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_wip_classifier.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_compact_failure_detector.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_compact_failure_detector.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_runner_state_store.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_runner_state_store.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_work_order_state_machine.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_work_order_state_machine.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_local_runner_cli.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_local_runner_cli.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_orchestrator_control_intake.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_orchestrator_control_intake.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_role_skill_permission_matrix.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_role_skill_permission_matrix.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_a2a_handoff_packet_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_a2a_handoff_packet_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_skill_contract_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_skill_contract_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_agent_card_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_agent_card_schema.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_r18_opening_authority.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_r18_opening_authority.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\validate_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\test_status_doc_gate.ps1
+- git diff --check
+
+Stop conditions
+- accepted repository, branch, head, tree, or remote head ref is missing or different
+- referenced continuation packet, runner state, failure event, WIP classification, remote verification, or checkpoint ref is missing
+- previous thread memory is requested as required context
+- scope expands beyond the referenced continuation packet and next safe step
+- automatic new-thread creation, Codex API invocation, OpenAI API invocation, or autonomous Codex invocation is requested
+- prompt execution, continuation packet execution, recovery action, retry execution, work-order execution, WIP cleanup, branch mutation, board mutation, A2A message sending, live agent invocation, or live skill execution is requested
+- staging, commit, push, pull, rebase, reset, merge, checkout, switch, clean, or restore is requested through this prompt packet
+- R18-015 or later completion, solved Codex compaction, solved Codex reliability, no-manual-prompt-transfer success, product runtime, or main merge is claimed
+
+Explicit non-claims
+- R17 remains closed with caveats through R17-028 only.
+- R18 is active through R18-014 only.
+- R18-015 through R18-028 remain planned only.
+- R18-014 created new-context prompt generator foundation only.
+- New-context prompt packets were generated as deterministic text artifacts only.
+- Prompt packets were not executed.
+- Automatic new-thread creation was not performed.
+- Codex thread creation was not performed.
+- Codex API invocation did not occur.
+- OpenAI API invocation did not occur.
+- Continuation packets were not executed.
+- No recovery action was performed.
+- No retry execution was performed.
+- No WIP cleanup or abandonment was performed.
+- No branch mutation was performed.
+- No pull, rebase, reset, merge, checkout, switch, clean, or restore was performed.
+- No staging, commit, or push was performed by the generator.
+- No work orders were executed.
+- No board/card runtime mutation occurred.
+- No A2A messages were sent.
+- No live agents were invoked.
+- No live skills were executed.
+- No A2A runtime was implemented.
+- No recovery runtime was implemented.
+- No product runtime is claimed.
+- No no-manual-prompt-transfer success is claimed.
+- Codex compaction is not solved.
+- Codex reliability is not solved.
+- Main is not merged.
+
+Required final response
+Report the accepted refs, the bounded next safe step outcome, validation pass/fail results, files touched, and preserved non-claims.
+If any accepted ref, required artifact, allowed path, forbidden path, status boundary, or runtime false flag is unsafe, stop and report the blocker only.

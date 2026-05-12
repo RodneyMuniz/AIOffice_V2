@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_r18_015_completion_claim",
+    "target":  "snapshot",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "r18_015_completed"
+                                   ],
+    "path":  "runtime_flags.r18_015_completed",
+    "value":  true
+}

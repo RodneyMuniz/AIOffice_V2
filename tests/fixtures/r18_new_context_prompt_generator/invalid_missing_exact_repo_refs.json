@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_missing_exact_repo_refs",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "repository exact ref"
+                                   ],
+    "path":  "repository",
+    "value":  "Wrong/Repo"
+}

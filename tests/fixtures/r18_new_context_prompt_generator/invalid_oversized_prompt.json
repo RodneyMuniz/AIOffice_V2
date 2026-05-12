@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_oversized_prompt",
+    "target":  "prompt:continue_after_compact_failure",
+    "operation":  "inflate_prompt",
+    "expected_failure_fragments":  [
+                                       "exceeds max line count"
+                                   ],
+    "line_count":  200
+}

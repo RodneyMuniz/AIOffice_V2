@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_allowed_paths",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "prompt input missing \u0027allowed_paths\u0027"
+                                   ],
+    "path":  "allowed_paths"
+}

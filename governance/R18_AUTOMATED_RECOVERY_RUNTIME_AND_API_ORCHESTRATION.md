@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-013` continuation packet generator foundation only.
+**Status after this pass:** Active through `R18-014` new-context prompt generator foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-013` are done. `R18-014` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-014` are done. `R18-015` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-014 through R18-028 are planned only.
+- R18-015 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -56,7 +56,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No files were restored or deleted.
 - No staging, commit, or push was performed by the classifier.
 - No staging, commit, or push was performed by the generator.
-- New-context prompt generator is not implemented.
+- R18-014 created new-context prompt generator foundation only.
+- New-context prompt packets were generated as deterministic text artifacts only.
+- Prompt packets were not executed.
+- Automatic new-thread creation was not performed.
+- Codex thread creation was not performed.
+- Codex API invocation did not occur.
+- OpenAI API invocation did not occur.
 - Automatic new-thread creation is not implemented.
 - No work orders were executed.
 - No board/card runtime mutation occurred.
@@ -240,16 +246,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_continuation_packet.contract.json`, `contracts/runtime/r18_continuation_packet_generator.contract.json`, `state/runtime/r18_continuation_packet_generator_profile.json`, `state/runtime/r18_continuation_input_sets/`, `state/runtime/r18_continuation_packets/`, `state/runtime/r18_continuation_packet_generator_results.json`, `state/runtime/r18_continuation_packet_generator_check_report.json`, `state/ui/r18_operator_surface/r18_continuation_packet_snapshot.json`, `tools/R18ContinuationPacketGenerator.psm1`, `tools/new_r18_continuation_packet_generator.ps1`, `tools/validate_r18_continuation_packet_generator.ps1`, `tests/test_r18_continuation_packet_generator.ps1`, `tests/fixtures/r18_continuation_packet_generator/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator/`.
 
 ### `R18-014` Implement new-context/new-thread prompt generator
-- Status: planned
+- Status: done
 - Purpose: Generate concise exact-ref continuation prompts without previous-thread memory dependency.
 - Inputs: Continuation packet, authority refs, current work order, evidence refs, retry policy.
-- Outputs: New-context packet contract, prompt packet files, validator, tests.
-- Acceptance criteria: Prompt includes accepted refs, last completed step, next safe step, allowed paths, forbidden paths, validators, non-claims, and stop conditions.
-- Validation expectation: Planned validator rejects giant prompts, missing refs, and prior-thread dependency.
-- Non-claims: Prompt generation is not automatic Codex thread creation.
+- Outputs: New-context prompt packet contract, generator contract, generator profile, six prompt input artifacts, six bounded prompt text packets, manifest, results, check report, operator-surface snapshot, generator/validator tooling, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Prompt packets are compact-safe, exact-ref, copy/paste-ready, context-independent, bounded by configured size limits, and scoped to the referenced continuation packet and next safe step.
+- Validation expectation: `tools/validate_r18_new_context_prompt_generator.ps1` and `tests/test_r18_new_context_prompt_generator.ps1` reject missing prompt ids, missing continuation refs, missing repository/branch/head/tree/remote-head refs, missing last completed step, missing next safe step, missing allowed/forbidden paths, missing validation commands, missing stop conditions, missing non-claims, previous-thread memory dependency, oversized prompts, whole-milestone scope, broad repo scans, unbounded write paths, automatic new-thread creation claims, Codex/OpenAI API invocation claims, prompt execution claims, continuation packet execution claims, recovery/retry/work-order execution claims, WIP cleanup/abandonment claims, branch mutation/pull/rebase/reset/merge/checkout/switch/clean/restore/stage/commit/push claims, skill/A2A/board/product runtime claims, no-manual-prompt-transfer success claims, solved compaction/reliability claims, and R18-015 or later completion claims.
+- Non-claims: New-context prompt packets are deterministic text artifacts only. Prompt packets were not executed. Automatic new-thread creation, Codex thread creation, Codex API invocation, OpenAI API invocation, continuation packet execution, retry/escalation policy, operator approval gates, stage/commit/push gates, recovery runtime, work-order execution, live agents, live skills, A2A messages, board/card runtime mutation, product runtime, no-manual-prompt-transfer success, solved compaction/reliability, and main merge are not implemented or claimed by R18-014.
 - Dependencies: R18-013.
-- Failure/retry behavior: Oversized or incomplete prompt fails closed and escalates.
-- Expected evidence refs: `state/runtime/r18_new_context_packets/`, prompt files, fixtures.
+- Failure/retry behavior: Oversized, incomplete, previous-thread-dependent, unbounded, or forbidden-claim prompt packets fail closed; R18-014 performs no retry execution.
+- Expected evidence refs: `contracts/runtime/r18_new_context_prompt_packet.contract.json`, `contracts/runtime/r18_new_context_prompt_generator.contract.json`, `state/runtime/r18_new_context_prompt_generator_profile.json`, `state/runtime/r18_new_context_prompt_inputs/`, `state/runtime/r18_new_context_prompt_packets/`, `state/runtime/r18_new_context_prompt_packet_manifest.json`, `state/runtime/r18_new_context_prompt_generator_results.json`, `state/runtime/r18_new_context_prompt_generator_check_report.json`, `state/ui/r18_operator_surface/r18_new_context_prompt_snapshot.json`, `tools/R18NewContextPromptGenerator.psm1`, `tools/new_r18_new_context_prompt_generator.ps1`, `tools/validate_r18_new_context_prompt_generator.ps1`, `tests/test_r18_new_context_prompt_generator.ps1`, `tests/fixtures/r18_new_context_prompt_generator/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/`.
 
 ### `R18-015` Implement retry and escalation policy
 - Status: planned

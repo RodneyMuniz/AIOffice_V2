@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_stage_commit_push_claim",
+    "target":  "report",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "commit_performed"
+                                   ],
+    "path":  "runtime_flags.commit_performed",
+    "value":  true
+}

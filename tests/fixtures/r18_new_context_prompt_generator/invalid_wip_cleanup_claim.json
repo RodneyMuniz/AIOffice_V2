@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_wip_cleanup_claim",
+    "target":  "input:continue_after_compact_failure",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "wip_cleanup_performed"
+                                   ],
+    "path":  "runtime_flags.wip_cleanup_performed",
+    "value":  true
+}

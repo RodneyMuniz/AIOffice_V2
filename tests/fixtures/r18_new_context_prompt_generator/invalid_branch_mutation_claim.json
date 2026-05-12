@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_branch_mutation_claim",
+    "target":  "report",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "branch_mutation_performed"
+                                   ],
+    "path":  "runtime_flags.branch_mutation_performed",
+    "value":  true
+}

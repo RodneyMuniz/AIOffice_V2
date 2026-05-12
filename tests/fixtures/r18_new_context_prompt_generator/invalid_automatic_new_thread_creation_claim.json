@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_automatic_new_thread_creation_claim",
+    "target":  "report",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "automatic_new_thread_creation_performed"
+                                   ],
+    "path":  "runtime_flags.automatic_new_thread_creation_performed",
+    "value":  true
+}
