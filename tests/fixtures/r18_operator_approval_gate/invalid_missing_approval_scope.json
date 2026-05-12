@@ -1,0 +1,11 @@
+{
+    "fixture_id":  "invalid_missing_approval_scope",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "request:stage_commit_push_gate",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "approval_scope"
+                                   ],
+    "path":  "approval_scope"
+}

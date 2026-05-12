@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_stage_commit_push_gate_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "gate_contract",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "stage_commit_push_gate_implemented"
+                                   ],
+    "path":  "runtime_flags.stage_commit_push_gate_implemented",
+    "value":  true
+}

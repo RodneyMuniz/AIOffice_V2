@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $module = Import-Module (Join-Path $repoRoot "tools\StatusDocGate.psm1") -Force -PassThru
@@ -60,11 +60,11 @@ function Invoke-ExpectedRefusal {
 
 try {
     $liveValidation = & $testStatusDocGate -RepositoryRoot $repoRoot
-    if ($liveValidation.ActiveMilestone -ne "R18 Automated Recovery Runtime and API Orchestration" -or -not $liveValidation.R18Opened -or $liveValidation.R18DoneThrough -ne 15 -or $liveValidation.R18PlannedStart -ne 16 -or $liveValidation.R18PlannedThrough -ne 28 -or -not $liveValidation.R17Closed -or $liveValidation.R17DoneThrough -ne 28) {
-        $failures += "FAIL valid: live status-doc gate did not report R17 closed and R18 active through R18-015 only."
+    if ($liveValidation.ActiveMilestone -ne "R18 Automated Recovery Runtime and API Orchestration" -or -not $liveValidation.R18Opened -or $liveValidation.R18DoneThrough -ne 16 -or $liveValidation.R18PlannedStart -ne 17 -or $liveValidation.R18PlannedThrough -ne 28 -or -not $liveValidation.R17Closed -or $liveValidation.R17DoneThrough -ne 28) {
+        $failures += "FAIL valid: live status-doc gate did not report R17 closed and R18 active through R18-016 only."
     }
     else {
-        Write-Output "PASS valid: live status-doc gate reports R17 closed with caveats and R18 active through R18-015 only."
+        Write-Output "PASS valid: live status-doc gate reports R17 closed with caveats and R18 active through R18-016 only."
         $validPassed += 1
     }
 }
@@ -72,11 +72,11 @@ catch {
     $failures += "FAIL valid live status-doc gate: $($_.Exception.Message)"
 }
 
-Invoke-ExpectedRefusal -Label "r18-016-done-in-kanban" -Expected "does not match KANBAN" -Mutation {
+Invoke-ExpectedRefusal -Label "r18-017-done-in-kanban" -Expected "does not match KANBAN" -Mutation {
     param($root)
     $path = Join-Path $root "execution/KANBAN.md"
     $text = Get-Content -LiteralPath $path -Raw
-    $text = [regex]::Replace($text, '(### `R18-016`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
+    $text = [regex]::Replace($text, '(### `R18-017`[\s\S]*?\r?\n- Status: )planned', '${1}done', 1)
     Set-Content -LiteralPath $path -Value $text -Encoding UTF8
 }
 

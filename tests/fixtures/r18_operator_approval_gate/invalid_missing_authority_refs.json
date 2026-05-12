@@ -1,0 +1,11 @@
+{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "decision:stage_commit_push_gate",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ],
+    "path":  "authority_refs"
+}

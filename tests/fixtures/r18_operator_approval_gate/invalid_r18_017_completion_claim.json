@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_r18_017_completion_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "snapshot",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "r18_017_completed"
+                                   ],
+    "path":  "runtime_flags.r18_017_completed",
+    "value":  true
+}

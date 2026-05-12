@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_operator_approval_runtime_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "gate_contract",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "operator_approval_runtime_implemented"
+                                   ],
+    "path":  "runtime_flags.operator_approval_runtime_implemented",
+    "value":  true
+}

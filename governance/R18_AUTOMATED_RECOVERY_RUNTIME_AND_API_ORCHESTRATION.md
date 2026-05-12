@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-015` retry and escalation policy foundation only.
+**Status after this pass:** Active through `R18-016` operator approval gate model foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-015` are done. `R18-016` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-016` are done. `R18-017` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-016 through R18-028 are planned only.
+- R18-017 through R18-028 remain planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -66,6 +66,11 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Escalation runtime was not implemented.
 - Operator approval runtime is not implemented.
 - Stage/commit/push gate is not implemented.
+- R18-016 created operator approval gate model foundation only.
+- Approval request and decision/refusal packets were generated as deterministic governance artifacts only.
+- Operator approval runtime was not implemented.
+- No approval was inferred from narration.
+- No risky action was approved by seed packets.
 - Automatic new-thread creation was not performed.
 - Codex thread creation was not performed.
 - Codex API invocation did not occur.
@@ -79,6 +84,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - No local runner runtime was executed.
 - No live A2A runtime was implemented.
 - No recovery action was performed.
+- Recovery action was not performed.
 - No retry execution was performed.
 - No product runtime is claimed.
 - No live recovery runtime is claimed.
@@ -277,16 +283,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_retry_escalation_policy.contract.json`, `contracts/runtime/r18_retry_escalation_decision.contract.json`, `state/runtime/r18_retry_escalation_policy_profile.json`, `state/runtime/r18_retry_escalation_scenarios/`, `state/runtime/r18_retry_escalation_decisions/`, `state/runtime/r18_retry_escalation_policy_results.json`, `state/runtime/r18_retry_escalation_policy_check_report.json`, `state/ui/r18_operator_surface/r18_retry_escalation_policy_snapshot.json`, `tools/R18RetryEscalationPolicy.psm1`, `tools/new_r18_retry_escalation_policy.ps1`, `tools/validate_r18_retry_escalation_policy.ps1`, `tests/test_r18_retry_escalation_policy.ps1`, `tests/fixtures/r18_retry_escalation_policy/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy/`.
 
 ### `R18-016` Implement operator approval gate model
-- Status: planned
-- Purpose: Keep routine recovery automated while preserving explicit approval for risky decisions.
-- Inputs: Retry/escalation policy, runner state, role-skill matrix, status gates.
-- Outputs: Approval gate contract, approval/denial packet shapes, validator.
-- Acceptance criteria: Approval is required for WIP abandonment, API enablement, risky stage/commit/push, closeout, main merge, external audit claim, and remote conflict handling.
-- Validation expectation: Planned validator rejects actions requiring approval when no approval packet exists.
-- Non-claims: Approval gate does not automate operator decisions.
+- Status: done
+- Purpose: Create deterministic operator approval gate contracts, scoped request packets, refusal decision packets, an approval scope matrix, and validation artifacts only.
+- Inputs: R18 authority, opening authority, retry/escalation policy and decisions, continuation packets, prompt packet manifest, remote branch verification, WIP classification packets, runner state, and revised R17 planning authority.
+- Outputs: Approval gate contract, operator decision packet contract, approval gate profile, approval scope matrix, six request packets, six refusal/block decision packets, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Approval is explicit, finite-scope, evidence-backed, authority-backed, expirable, revocable/refusable, and impossible to infer from narration. All seed decision packets refuse or block stage/commit/push, recovery execution, API enablement, WIP abandonment, remote branch conflict resolution, and milestone closeout.
+- Validation expectation: `tools/validate_r18_operator_approval_gate.ps1` and `tests/test_r18_operator_approval_gate.ps1` reject missing request/decision fields, unknown scopes/statuses, inferred approval, approval without explicit decision packet, approval without finite scope, approval without expiry or revocation policy, missing evidence or authority refs, risky seed approvals, runtime/API/recovery/stage-commit-push/work-order/board/A2A/agent/skill/product claims, no-manual-prompt-transfer success claims, solved compaction/reliability claims, and R18-017 or later completion claims.
+- Non-claims: Operator approval gate artifacts are deterministic governance artifacts only. Operator approval runtime was not implemented. No approval was executed or inferred from narration. No seed packet approves stage/commit/push, recovery execution, API enablement, WIP abandonment, remote branch conflict resolution, or milestone closeout. Stage/commit/push gate, retry execution, recovery action, continuation execution, prompt execution, API invocation, work-order execution, board/card runtime mutation, A2A messages, live agents, live skills, product runtime, no-manual-prompt-transfer success, solved compaction/reliability, main merge, and R18-017 or later completion are not claimed.
 - Dependencies: R18-015.
-- Failure/retry behavior: Missing approval blocks the action and records pending decision.
-- Expected evidence refs: `contracts/governance/r18_operator_approval_gate.contract.json`, approval fixtures.
+- Failure/retry behavior: Missing, inferred, unscoped, expired, revoked, evidence-missing, or authority-missing approval fails closed and remains a policy artifact for future runtime work.
+- Expected evidence refs: `contracts/governance/r18_operator_approval_gate.contract.json`, `contracts/governance/r18_operator_decision_packet.contract.json`, `state/governance/r18_operator_approval_gate_profile.json`, `state/governance/r18_operator_approval_scope_matrix.json`, `state/governance/r18_operator_approval_requests/`, `state/governance/r18_operator_approval_decisions/`, `state/governance/r18_operator_approval_gate_results.json`, `state/governance/r18_operator_approval_gate_check_report.json`, `state/ui/r18_operator_surface/r18_operator_approval_gate_snapshot.json`, `tools/R18OperatorApprovalGate.psm1`, `tools/new_r18_operator_approval_gate.ps1`, `tools/validate_r18_operator_approval_gate.ps1`, `tests/test_r18_operator_approval_gate.ps1`, `tests/fixtures/r18_operator_approval_gate/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate/`.
 
 ### `R18-017` Implement stage/commit/push gate
 - Status: planned

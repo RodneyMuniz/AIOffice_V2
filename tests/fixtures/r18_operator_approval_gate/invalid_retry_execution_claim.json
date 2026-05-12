@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_retry_execution_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "decision:stage_commit_push_gate",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "retry_execution_performed"
+                                   ],
+    "path":  "runtime_flags.retry_execution_performed",
+    "value":  true
+}

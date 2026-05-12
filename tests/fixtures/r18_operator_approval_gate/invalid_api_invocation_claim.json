@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_api_invocation_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "decision:api_enablement",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "codex_api_invoked"
+                                   ],
+    "path":  "runtime_flags.codex_api_invoked",
+    "value":  true
+}

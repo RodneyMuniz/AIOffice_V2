@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_recovery_action_claim",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "decision:recovery_execution",
+    "operation":  "set",
+    "expected_failure_fragments":  [
+                                       "recovery_action_performed"
+                                   ],
+    "path":  "runtime_flags.recovery_action_performed",
+    "value":  true
+}

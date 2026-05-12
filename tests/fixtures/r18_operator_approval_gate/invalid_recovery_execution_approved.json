@@ -1,0 +1,32 @@
+{
+    "fixture_id":  "invalid_recovery_execution_approved",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "decision:recovery_execution",
+    "operation":  "set_many",
+    "expected_failure_fragments":  [
+                                       "must not approve"
+                                   ],
+    "mutations":  [
+                      {
+                          "operation":  "set",
+                          "path":  "approved",
+                          "value":  true
+                      },
+                      {
+                          "operation":  "set",
+                          "path":  "explicit_operator_decision_recorded",
+                          "value":  true
+                      },
+                      {
+                          "operation":  "set",
+                          "path":  "refused",
+                          "value":  false
+                      },
+                      {
+                          "operation":  "set",
+                          "path":  "blocked",
+                          "value":  false
+                      }
+                  ]
+}

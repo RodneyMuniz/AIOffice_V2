@@ -120,7 +120,7 @@ foreach ($assertion in @(
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no forbidden runtime or success claims exist"; script = { Invoke-SetValidation -Set (Get-ValidSet) | Out-Null; Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "R18 is active through R18-015 only after status updates"; script = { Test-R18RetryEscalationPolicyStatusTruth -RepositoryRoot $repoRoot } },
-        @{ label = "R18-016 onward remain planned only"; script = { Test-R18RetryEscalationPolicyStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18-017 onward remain planned only"; script = { Test-R18RetryEscalationPolicyStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

@@ -1,0 +1,11 @@
+{
+    "fixture_id":  "invalid_missing_operator_identity_policy",
+    "artifact_type":  "r18_operator_approval_gate_invalid_fixture",
+    "source_task":  "R18-016",
+    "target":  "request:stage_commit_push_gate",
+    "operation":  "remove",
+    "expected_failure_fragments":  [
+                                       "operator_identity_policy"
+                                   ],
+    "path":  "operator_identity_policy"
+}
