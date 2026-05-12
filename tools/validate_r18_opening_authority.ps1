@@ -88,8 +88,8 @@ foreach ($entry in $falseChecks.GetEnumerator()) {
 
 $authority = Get-Content -LiteralPath $authorityPath -Raw
 Assert-Condition -Condition ($authority -like "*R18 is active only after R17 operator closeout approval*") -Message "R18 authority must state dependency on R17 operator closeout approval."
-Assert-Condition -Condition ($authority -like "*Active through*R18-014*new-context prompt generator foundation only*") -Message "R18 authority must state active through R18-014 only."
-Assert-Condition -Condition ($authority -like "*R18-015*R18-028*planned only*") -Message "R18 authority must state R18-015 through R18-028 planned only."
+Assert-Condition -Condition ($authority -like "*Active through*R18-015*retry and escalation policy foundation only*") -Message "R18 authority must state active through R18-015 only."
+Assert-Condition -Condition ($authority -like "*R18-016*R18-028*planned only*") -Message "R18 authority must state R18-016 through R18-028 planned only."
 Assert-Condition -Condition ($authority -like "*API-backed Codex/OpenAI invocation is optional and must not be implemented before secrets, budget, timeout, retry, approval, and stop controls exist*") -Message "R18 authority must preserve API control boundary."
 Assert-Condition -Condition ($authority -like "*small resumable work orders, not giant Codex prompts*") -Message "R18 authority must require small resumable work orders."
 Assert-Condition -Condition ($authority -like "*fail-closed behavior*") -Message "R18 authority must preserve fail-closed behavior."
@@ -99,7 +99,7 @@ Assert-Condition -Condition ($matches.Count -eq 28) -Message "R18 authority must
 foreach ($match in $matches) {
     $taskId = $match.Groups[1].Value
     $status = $match.Groups[2].Value
-    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002" -or $taskId -eq "R18-003" -or $taskId -eq "R18-004" -or $taskId -eq "R18-005" -or $taskId -eq "R18-006" -or $taskId -eq "R18-007" -or $taskId -eq "R18-008" -or $taskId -eq "R18-009" -or $taskId -eq "R18-010" -or $taskId -eq "R18-011" -or $taskId -eq "R18-012" -or $taskId -eq "R18-013" -or $taskId -eq "R18-014") {
+    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002" -or $taskId -eq "R18-003" -or $taskId -eq "R18-004" -or $taskId -eq "R18-005" -or $taskId -eq "R18-006" -or $taskId -eq "R18-007" -or $taskId -eq "R18-008" -or $taskId -eq "R18-009" -or $taskId -eq "R18-010" -or $taskId -eq "R18-011" -or $taskId -eq "R18-012" -or $taskId -eq "R18-013" -or $taskId -eq "R18-014" -or $taskId -eq "R18-015") {
         Assert-Condition -Condition ($status -eq "done") -Message "$taskId must be done."
     }
     else {
@@ -115,8 +115,8 @@ $statusText = [string]::Join([Environment]::NewLine, @(
         (Get-Content -LiteralPath (Resolve-RepoPath "governance/DECISION_LOG.md") -Raw)
     ))
 foreach ($required in @(
-        "R18 active through R18-014 only",
-        "R18-015 through R18-028 planned only",
+        "R18 active through R18-015 only",
+        "R18-016 through R18-028 planned only",
         "R18-002 created agent card schema and seed cards only",
         "Agent cards are not live agents",
         "R18-003 created skill contract schema and seed skill contracts only",
@@ -155,9 +155,16 @@ foreach ($required in @(
             "Continuation packets were generated as deterministic packet artifacts only",
             "Continuation packets were not executed",
             "Continuation packets are not new-context prompts",
-        "R18-014 created new-context prompt generator foundation only",
+            "R18-014 created new-context prompt generator foundation only",
             "New-context prompt packets were generated as deterministic text artifacts only",
             "Prompt packets were not executed",
+            "R18-015 created retry and escalation policy foundation only",
+            "Retry/escalation decisions were generated as deterministic policy artifacts only",
+            "Retry execution was not performed",
+            "Retry runtime was not implemented",
+            "Escalation runtime was not implemented",
+            "Operator approval runtime is not implemented",
+            "Stage/commit/push gate is not implemented",
             "Automatic new-thread creation was not performed",
             "Codex thread creation was not performed",
             "Codex API invocation did not occur",
@@ -210,4 +217,4 @@ foreach ($path in $changedPaths) {
 }
 
 Write-Output "R18 opening authority validation passed."
-Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-014 only with R18-015 through R18-028 planned only."
+Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-015 only with R18-016 through R18-028 planned only."

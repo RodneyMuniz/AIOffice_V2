@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_allowed_after_compact_failure",
+    "operation":  "set",
+    "path":  "runtime_flags.a2a_message_sent",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "a2a_message_sent"
+                                   ]
+}

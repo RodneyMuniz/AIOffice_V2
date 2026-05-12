@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_missing_wip_classification_ref",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "scenario:retry_allowed_after_compact_failure",
+    "operation":  "remove",
+    "path":  "wip_classification_ref",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "wip_classification_ref"
+                                   ]
+}

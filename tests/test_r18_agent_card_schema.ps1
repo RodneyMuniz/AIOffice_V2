@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $modulePath = Join-Path $repoRoot "tools\R18AgentCardSchema.psm1"
@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-014 only",
-            "R18-015 through R18-028 planned only",
+            "R18 active through R18-015 only",
+            "R18-016 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -194,14 +194,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 14) {
+        if ($taskNumber -le 15) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-014."
+                throw "$taskId must be done after R18-015."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-014."
+                throw "$taskId must remain planned only after R18-015."
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿Set-StrictMode -Version Latest
+Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18HandoffGeneratedFromHead = "0e891bf3566d0a744d9fe0bfa33aa36584d484e1"
@@ -1305,8 +1305,8 @@ function Test-R18HandoffStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-014 only",
-            "R18-015 through R18-028 planned only",
+            "R18 active through R18-015 only",
+            "R18-016 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1363,20 +1363,20 @@ function Test-R18HandoffStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 14) {
+        if ($taskNumber -le 15) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-014."
+                throw "$taskId must be done after R18-015."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-014."
+                throw "$taskId must remain planned only after R18-015."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[5-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-014."
+    if ($combinedText -match 'R18 active through R18-(01[6-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-015."
     }
 }
 

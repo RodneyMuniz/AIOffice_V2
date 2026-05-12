@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_missing_authority_refs",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_allowed_after_compact_failure",
+    "operation":  "remove",
+    "path":  "authority_refs",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "authority_refs"
+                                   ]
+}

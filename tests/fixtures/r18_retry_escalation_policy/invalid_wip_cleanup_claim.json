@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_wip_cleanup_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_blocked_by_unsafe_wip",
+    "operation":  "set",
+    "path":  "runtime_flags.wip_cleanup_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "wip_cleanup_performed"
+                                   ]
+}

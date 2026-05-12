@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_missing_operator_decision_policy",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "policy_contract",
+    "operation":  "remove",
+    "path":  "operator_decision_policy",
+    "value":  null,
+    "expected_failure_fragments":  [
+                                       "operator_decision_policy"
+                                   ]
+}

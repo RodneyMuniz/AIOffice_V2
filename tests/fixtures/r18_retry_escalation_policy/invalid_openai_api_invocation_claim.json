@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_openai_api_invocation_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_allowed_after_compact_failure",
+    "operation":  "set",
+    "path":  "runtime_flags.openai_api_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "openai_api_invoked"
+                                   ]
+}

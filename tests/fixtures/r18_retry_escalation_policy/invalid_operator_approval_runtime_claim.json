@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_operator_approval_runtime_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "policy_contract",
+    "operation":  "set",
+    "path":  "runtime_flags.operator_approval_runtime_implemented",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "operator_approval_runtime_implemented"
+                                   ]
+}

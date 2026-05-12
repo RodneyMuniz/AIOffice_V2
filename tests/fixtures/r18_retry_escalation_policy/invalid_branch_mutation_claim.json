@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_branch_mutation_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_blocked_by_remote_branch",
+    "operation":  "set",
+    "path":  "runtime_flags.branch_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "branch_mutation_performed"
+                                   ]
+}

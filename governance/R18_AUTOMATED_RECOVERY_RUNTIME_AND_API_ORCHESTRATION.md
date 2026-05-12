@@ -1,10 +1,10 @@
-﻿# R18 Automated Recovery Runtime and API Orchestration
+# R18 Automated Recovery Runtime and API Orchestration
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-014` new-context prompt generator foundation only.
+**Status after this pass:** Active through `R18-015` retry and escalation policy foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-014` are done. `R18-015` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-015` are done. `R18-016` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-015 through R18-028 are planned only.
+- R18-016 through R18-028 are planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -59,6 +59,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - R18-014 created new-context prompt generator foundation only.
 - New-context prompt packets were generated as deterministic text artifacts only.
 - Prompt packets were not executed.
+- R18-015 created retry and escalation policy foundation only.
+- Retry/escalation decisions were generated as deterministic policy artifacts only.
+- Retry execution was not performed.
+- Retry runtime was not implemented.
+- Escalation runtime was not implemented.
+- Operator approval runtime is not implemented.
+- Stage/commit/push gate is not implemented.
 - Automatic new-thread creation was not performed.
 - Codex thread creation was not performed.
 - Codex API invocation did not occur.
@@ -258,16 +265,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_new_context_prompt_packet.contract.json`, `contracts/runtime/r18_new_context_prompt_generator.contract.json`, `state/runtime/r18_new_context_prompt_generator_profile.json`, `state/runtime/r18_new_context_prompt_inputs/`, `state/runtime/r18_new_context_prompt_packets/`, `state/runtime/r18_new_context_prompt_packet_manifest.json`, `state/runtime/r18_new_context_prompt_generator_results.json`, `state/runtime/r18_new_context_prompt_generator_check_report.json`, `state/ui/r18_operator_surface/r18_new_context_prompt_snapshot.json`, `tools/R18NewContextPromptGenerator.psm1`, `tools/new_r18_new_context_prompt_generator.ps1`, `tools/validate_r18_new_context_prompt_generator.ps1`, `tests/test_r18_new_context_prompt_generator.ps1`, `tests/fixtures/r18_new_context_prompt_generator/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/`.
 
 ### `R18-015` Implement retry and escalation policy
-- Status: planned
-- Purpose: Enforce retry limits, escalation conditions, and stop behavior in runner state.
-- Inputs: Failure events, continuation packets, runner state, operator approval policy.
-- Outputs: Retry policy contract, retry state, escalation packets, validator.
-- Acceptance criteria: Retry limit persists; escalation triggers on retry exhaustion, unsafe WIP, remote movement, failed gates, API/token budget failure, and operator abort.
-- Validation expectation: Planned validator rejects unbounded retry loops.
-- Non-claims: Retry policy does not solve Codex reliability.
+- Status: done
+- Purpose: Create deterministic retry/escalation policy contracts, seed scenarios, decision packets, escalation/block recommendations, validator, fixtures, status snapshot, and proof-review artifacts for future runtime work.
+- Inputs: R18-009 runner state/checkpoint, R18-010 failure events, R18-011 WIP classifications, R18-012 remote branch verification packets, R18-013 continuation packets, R18-014 prompt packets, authority refs, evidence refs, and bounded retry policy.
+- Outputs: Retry/escalation policy contract, decision contract, policy profile, six seed scenarios, six decision packets, results, check report, operator-surface snapshot, validator, focused tests, fixtures, and proof-review package.
+- Acceptance criteria: Retry is policy-allowed only when retry count is bounded and below max, WIP is safe, remote branch state is safe, continuation packet exists, prompt packet exists, and no unsafe stop condition exists. Unsafe WIP and unsafe remote branch state block retry and require operator decision. Retry exhaustion blocks retry and escalates. Operator-decision and future-runtime cases route to R18-016 or later without inferring approval or claiming execution.
+- Validation expectation: `tools/validate_r18_retry_escalation_policy.ps1` and `tests/test_r18_retry_escalation_policy.ps1` reject missing refs, missing retry counts, unbounded retries, retry allowed with unsafe WIP, retry allowed with unsafe remote branch state, retry allowed after retry limit reached, missing operator decision policy, missing stop/escalation/evidence/authority refs, retry/recovery/operator-approval/stage-commit-push/continuation/prompt/API/work-order/WIP/branch/A2A/agent/skill/board/product runtime claims, no-manual-prompt-transfer success claims, solved compaction/reliability claims, and R18-016 or later completion claims.
+- Non-claims: Retry/escalation decisions are deterministic policy artifacts only. Retry execution was not performed. Retry runtime, escalation runtime, operator approval runtime, stage/commit/push gates, recovery runtime, work-order execution, board/card runtime mutation, A2A messages, live agents, live skills, product runtime, no-manual-prompt-transfer success, solved compaction/reliability, and main merge are not implemented or claimed by R18-015.
 - Dependencies: R18-013, R18-014.
-- Failure/retry behavior: Retry exhaustion creates an operator decision packet and stops.
-- Expected evidence refs: `state/runtime/r18_retry_state.json`, escalation packets, fixtures.
+- Failure/retry behavior: Retry exhaustion creates a deterministic policy decision packet and stops; unsafe WIP or unsafe remote branch state routes to future operator decision without cleanup or branch action.
+- Expected evidence refs: `contracts/runtime/r18_retry_escalation_policy.contract.json`, `contracts/runtime/r18_retry_escalation_decision.contract.json`, `state/runtime/r18_retry_escalation_policy_profile.json`, `state/runtime/r18_retry_escalation_scenarios/`, `state/runtime/r18_retry_escalation_decisions/`, `state/runtime/r18_retry_escalation_policy_results.json`, `state/runtime/r18_retry_escalation_policy_check_report.json`, `state/ui/r18_operator_surface/r18_retry_escalation_policy_snapshot.json`, `tools/R18RetryEscalationPolicy.psm1`, `tools/new_r18_retry_escalation_policy.ps1`, `tools/validate_r18_retry_escalation_policy.ps1`, `tests/test_r18_retry_escalation_policy.ps1`, `tests/fixtures/r18_retry_escalation_policy/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy/`.
 
 ### `R18-016` Implement operator approval gate model
 - Status: planned

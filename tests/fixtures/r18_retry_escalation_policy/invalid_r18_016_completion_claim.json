@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_r18_016_completion_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "snapshot",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_016_completed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "r18_016_completed"
+                                   ]
+}

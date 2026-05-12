@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_board_runtime_mutation_claim",
+    "artifact_type":  "r18_retry_escalation_policy_invalid_fixture",
+    "source_task":  "R18-015",
+    "target":  "decision:retry_allowed_after_compact_failure",
+    "operation":  "set",
+    "path":  "runtime_flags.board_runtime_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "board_runtime_mutation_performed"
+                                   ]
+}
