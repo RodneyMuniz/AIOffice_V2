@@ -1139,14 +1139,17 @@ function Test-R18OperatorApprovalStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-016 only",
-            "R18-017 through R18-028 planned only",
+            "R18 active through R18-017 only",
+            "R18-018 through R18-028 planned only",
             "R18-016 created operator approval gate model foundation only",
             "Approval request and decision/refusal packets were generated as deterministic governance artifacts only",
             "Operator approval runtime was not implemented",
             "No approval was inferred from narration",
             "No risky action was approved by seed packets",
-            "Stage/commit/push gate is not implemented",
+            "R18-017 created stage/commit/push gate foundation only",
+            "Stage/commit/push gate artifacts are deterministic policy artifacts only",
+            "Gate runtime was not implemented",
+            "The gate did not stage, commit, or push",
             "Retry execution was not performed",
             "Recovery action was not performed",
             "Continuation packets were not executed",
@@ -1171,19 +1174,19 @@ function Test-R18OperatorApprovalStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18OperatorApprovalCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 16) {
-            Assert-R18OperatorApprovalCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-016."
+        if ($taskNumber -le 17) {
+            Assert-R18OperatorApprovalCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-017."
         }
         else {
-            Assert-R18OperatorApprovalCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-016."
+            Assert-R18OperatorApprovalCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-017."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[7-9]|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-016."
+    if ($combinedText -match 'R18 active through R18-(01[8-9]|02[0-8])') {
+        throw "Status surface claims R18 beyond R18-017."
     }
-    if ($combinedText -match '(?i)R18-(01[7-9]|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-017 or later completion."
+    if ($combinedText -match '(?i)R18-(01[8-9]|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-018 or later completion."
     }
 }
 

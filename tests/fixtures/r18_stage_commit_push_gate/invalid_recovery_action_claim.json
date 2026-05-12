@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_recovery_action_claim",
+    "source_task":  "R18-017",
+    "target":  "assessment:blocked_by_unsafe_wip",
+    "operation":  "set",
+    "path":  "runtime_flags.recovery_action_performed",
+    "expected_failure_fragments":  [
+                                       "recovery_action_performed"
+                                   ],
+    "value":  true
+}

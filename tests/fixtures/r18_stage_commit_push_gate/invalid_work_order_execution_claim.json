@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_work_order_execution_claim",
+    "source_task":  "R18-017",
+    "target":  "results",
+    "operation":  "set",
+    "path":  "runtime_flags.work_order_execution_performed",
+    "expected_failure_fragments":  [
+                                       "work_order_execution_performed"
+                                   ],
+    "value":  true
+}

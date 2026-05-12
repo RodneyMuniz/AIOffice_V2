@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_r18_018_completion_claim",
+    "source_task":  "R18-017",
+    "target":  "snapshot",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_018_completed",
+    "expected_failure_fragments":  [
+                                       "r18_018_completed"
+                                   ],
+    "value":  true
+}

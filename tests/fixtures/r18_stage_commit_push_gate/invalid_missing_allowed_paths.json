@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_allowed_paths",
+    "source_task":  "R18-017",
+    "target":  "input:safe_release_candidate",
+    "operation":  "remove",
+    "path":  "allowed_paths",
+    "expected_failure_fragments":  [
+                                       "allowed_paths"
+                                   ]
+}

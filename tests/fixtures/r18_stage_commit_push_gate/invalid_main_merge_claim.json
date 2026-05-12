@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_main_merge_claim",
+    "source_task":  "R18-017",
+    "target":  "results",
+    "operation":  "set",
+    "path":  "runtime_flags.main_merge_claimed",
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed"
+                                   ],
+    "value":  true
+}

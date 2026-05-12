@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-016` operator approval gate model foundation only.
+**Status after this pass:** Active through `R18-017` stage/commit/push gate foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-016` are done. `R18-017` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-017` are done. `R18-018` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-017 through R18-028 remain planned only.
+- R18-018 through R18-028 remain planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -65,7 +65,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Retry runtime was not implemented.
 - Escalation runtime was not implemented.
 - Operator approval runtime is not implemented.
-- Stage/commit/push gate is not implemented.
+- R18-017 created stage/commit/push gate foundation only. Stage/commit/push gate artifacts are deterministic policy artifacts only. Gate runtime was not implemented. The gate did not stage, commit, or push. Normal Codex worker commit/push of this R18-017 task is not the gate executing.
 - R18-016 created operator approval gate model foundation only.
 - Approval request and decision/refusal packets were generated as deterministic governance artifacts only.
 - Operator approval runtime was not implemented.
@@ -295,16 +295,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/governance/r18_operator_approval_gate.contract.json`, `contracts/governance/r18_operator_decision_packet.contract.json`, `state/governance/r18_operator_approval_gate_profile.json`, `state/governance/r18_operator_approval_scope_matrix.json`, `state/governance/r18_operator_approval_requests/`, `state/governance/r18_operator_approval_decisions/`, `state/governance/r18_operator_approval_gate_results.json`, `state/governance/r18_operator_approval_gate_check_report.json`, `state/ui/r18_operator_surface/r18_operator_approval_gate_snapshot.json`, `tools/R18OperatorApprovalGate.psm1`, `tools/new_r18_operator_approval_gate.ps1`, `tools/validate_r18_operator_approval_gate.ps1`, `tests/test_r18_operator_approval_gate.ps1`, `tests/fixtures/r18_operator_approval_gate/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate/`.
 
 ### `R18-017` Implement stage/commit/push gate
-- Status: planned
-- Purpose: Prevent unsafe commits and pushes until validation, evidence, status, remote, and approval gates pass.
-- Inputs: WIP classification, remote verification, validators, status-doc gate, evidence package gate, approval state.
-- Outputs: Gate contract, command wrapper, gate report, tests.
-- Acceptance criteria: Gate requires passing validators, `git diff --check`, allowed-path check, overclaim check, status-doc gate, evidence package gate, and required approval.
-- Validation expectation: Planned validator blocks push on any failed prerequisite.
-- Non-claims: Gate definition is not a push and does not merge main.
+- Status: done
+- Purpose: Create deterministic stage/commit/push gate contracts, gate input packets, assessment packets, refusal cases, validation artifacts, and proof-review evidence only.
+- Inputs: WIP classification refs, remote verification refs, validation refs, status-doc gate refs, operator approval scope refs, retry/escalation policy refs, continuation/prompt packet refs, and R18 authority.
+- Outputs: Stage/commit/push gate contract, assessment contract, gate profile, six gate inputs, six assessments, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Gate assessment requires explicit stage_commit_push_gate operator approval scope, safe WIP classification, safe remote branch verification, passing validation evidence, truthful R18 status boundary, allowed path scope, forbidden path refusal, evidence refs, authority refs, and runtime false flags before any future policy-only allow recommendation.
+- Validation expectation: `tools/validate_r18_stage_commit_push_gate.ps1` and `tests/test_r18_stage_commit_push_gate.ps1` reject missing artifacts, missing fields, unknown scenarios/statuses/actions, safe release candidates without all prerequisite checks, blocked scenarios marked safe, stage/commit/push performed claims, live gate runtime claims, main merge or milestone closeout claims, operator approval runtime claims, recovery/retry/continuation/prompt/API/work-order/WIP/branch/A2A/agent/skill/board/product runtime claims, no-manual-prompt-transfer success claims, solved compaction/reliability claims, and R18-018 or later completion claims.
+- Non-claims: R18-017 created stage/commit/push gate foundation only. Stage/commit/push gate artifacts are deterministic policy artifacts only. Gate runtime was not implemented. The gate did not stage, commit, or push. Normal Codex worker commit/push of this R18-017 task is not the gate executing. Main was not merged. Milestone closeout was not claimed. Operator approval runtime was not implemented. Recovery action was not performed. Retry execution was not performed. Continuation packets were not executed. Prompt packets were not executed. Codex/OpenAI API invocation did not occur. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No product runtime is claimed. No no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-012, R18-016.
-- Failure/retry behavior: Failed gate creates a failure event and returns to recovery or operator decision.
-- Expected evidence refs: gate report, command logs, approval packet.
+- Failure/retry behavior: Failed gate creates deterministic assessment/refusal artifacts only; it does not execute recovery, retries, fixes, branch mutation, WIP cleanup, approval, staging, committing, or pushing.
+- Expected evidence refs: `contracts/runtime/r18_stage_commit_push_gate.contract.json`, `contracts/runtime/r18_stage_commit_push_gate_assessment.contract.json`, `state/runtime/r18_stage_commit_push_gate_profile.json`, `state/runtime/r18_stage_commit_push_gate_inputs/`, `state/runtime/r18_stage_commit_push_gate_assessments/`, `state/runtime/r18_stage_commit_push_gate_results.json`, `state/runtime/r18_stage_commit_push_gate_check_report.json`, `state/ui/r18_operator_surface/r18_stage_commit_push_gate_snapshot.json`, `tools/R18StageCommitPushGate.psm1`, `tools/new_r18_stage_commit_push_gate.ps1`, `tools/validate_r18_stage_commit_push_gate.ps1`, `tests/test_r18_stage_commit_push_gate.ps1`, `tests/fixtures/r18_stage_commit_push_gate/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate/`.
 
 ### `R18-018` Implement status-doc gate automation wrapper
 - Status: planned

@@ -1,4 +1,4 @@
-﻿Set-StrictMode -Version Latest
+Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-008"
@@ -1567,8 +1567,8 @@ function Test-R18WorkOrderStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-016 only",
-            "R18-017 through R18-028 planned only",
+            "R18 active through R18-017 only",
+            "R18-018 through R18-028 planned only",
             "R18-007 created local runner/CLI shell foundation only",
             "CLI shell is dry-run only",
             "CLI shell is not full work-order execution runtime",
@@ -1619,23 +1619,23 @@ function Test-R18WorkOrderStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 16) {
+        if ($taskNumber -le 17) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-016."
+                throw "$taskId must be done after R18-017."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-016."
+                throw "$taskId must remain planned only after R18-017."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[7-9]|02[0-8])') {
+    if ($combinedText -match 'R18 active through R18-(01[8-9]|02[0-8])') {
         throw "Status surface claims R18 beyond R18-015."
     }
-    if ($combinedText -match '(?i)R18-(01[7-9]|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-017 or later completion."
+    if ($combinedText -match '(?i)R18-(01[8-9]|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-018 or later completion."
     }
 }
 

@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_stage_commit_push_gate_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_safe_when_status_boundary_drift",
+    "source_task":  "R18-017",
+    "target":  "input:safe_release_candidate",
+    "operation":  "set",
+    "path":  "status_boundary_safe",
+    "expected_failure_fragments":  [
+                                       "status boundary"
+                                   ],
+    "value":  false
+}

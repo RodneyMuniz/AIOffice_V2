@@ -1,4 +1,4 @@
-﻿Set-StrictMode -Version Latest
+Set-StrictMode -Version Latest
 
 $script:RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $script:R18SourceTask = "R18-005"
@@ -1343,8 +1343,8 @@ function Test-R18MatrixStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-016 only",
-            "R18-017 through R18-028 planned only",
+            "R18 active through R18-017 only",
+            "R18-018 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1401,19 +1401,19 @@ function Test-R18MatrixStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 16) {
+        if ($taskNumber -le 17) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-016."
+                throw "$taskId must be done after R18-017."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-016."
+                throw "$taskId must remain planned only after R18-017."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(01[7-9]|02[0-8])') {
+    if ($combinedText -match 'R18 active through R18-(01[8-9]|02[0-8])') {
         throw "Status surface claims R18 beyond R18-015."
     }
 }
