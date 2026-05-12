@@ -9,19 +9,19 @@
     "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
     "expected_boundary":  {
                               "r17_status":  "R17 closed with caveats through R17-028 only",
-                              "r18_status":  "R18 active through R18-018 only",
-                              "r18_active_through":  "R18-018",
-                              "planned_from":  "R18-019",
+                              "r18_status":  "R18 active through R18-019 only",
+                              "r18_active_through":  "R18-019",
+                              "planned_from":  "R18-020",
                               "planned_through":  "R18-028",
                               "main_merged":  false,
-                              "summary":  "R18 active through R18-018 only; R18-019 through R18-028 planned only; R17 closed with caveats through R17-028 only; Main not merged"
+                              "summary":  "R18 active through R18-019 only; R18-020 through R18-028 planned only; R17 closed with caveats through R17-028 only; Main not merged"
                           },
     "allowed_gate_scenarios":  [
                                    "current_status_surfaces",
                                    "missing_active_state",
                                    "status_boundary_drift",
                                    "overclaim_runtime",
-                                   "r18_019_premature_claim"
+                                   "r18_020_premature_claim"
                                ],
     "required_status_surfaces":  [
                                      "README.md",
@@ -138,12 +138,12 @@
                           "no_manual_prompt_transfer_success_claimed":  false,
                           "solved_codex_compaction_claimed":  false,
                           "solved_codex_reliability_claimed":  false,
-                          "r18_019_completed":  false
+                          "r18_020_completed":  false
                       },
     "non_claims":  [
                        "R17 remains closed with caveats through R17-028 only.",
-                       "R18 is active through R18-018 only.",
-                       "R18-019 through R18-028 remain planned only.",
+                       "R18 is active through R18-019 only.",
+                       "R18-020 through R18-028 remain planned only.",
                        "R18-018 created status-doc gate automation wrapper foundation only.",
                        "Status-doc gate wrapper artifacts are deterministic policy artifacts only.",
                        "Wrapper runtime was not implemented.",
@@ -179,7 +179,7 @@
                        "No no-manual-prompt-transfer success is claimed.",
                        "Codex compaction is not solved.",
                        "Codex reliability is not solved.",
-                       "R18-019 is not complete."
+                       "R18-020 is not complete."
                    ],
     "rejected_claims":  [
                             "live_status_doc_gate_runtime",
@@ -220,7 +220,7 @@
                             "no_manual_prompt_transfer_success",
                             "solved_codex_compaction",
                             "solved_codex_reliability",
-                            "r18_019_or_later_completion",
+                            "r18_020_or_later_completion",
                             "missing_status_surface_marked_safe",
                             "status_boundary_drift_marked_safe",
                             "runtime_overclaim_marked_safe",

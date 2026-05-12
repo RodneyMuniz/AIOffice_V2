@@ -5,7 +5,7 @@ $script:R18StatusDocWrapperSourceMilestone = "R18 Automated Recovery Runtime and
 $script:R18StatusDocWrapperRepository = "RodneyMuniz/AIOffice_V2"
 $script:R18StatusDocWrapperBranch = "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle"
 $script:R18StatusDocWrapperVerdict = "generated_r18_018_status_doc_gate_wrapper_foundation_only"
-$script:R18StatusDocWrapperBoundary = "R18 active through R18-018 only; R18-019 through R18-028 planned only; R17 closed with caveats through R17-028 only; Main not merged"
+$script:R18StatusDocWrapperBoundary = "R18 active through R18-019 only; R18-020 through R18-028 planned only; R17 closed with caveats through R17-028 only; Main not merged"
 
 $script:R18StatusDocWrapperRuntimeFlagFields = @(
     "status_doc_gate_wrapper_runtime_implemented",
@@ -46,7 +46,7 @@ $script:R18StatusDocWrapperRuntimeFlagFields = @(
     "no_manual_prompt_transfer_success_claimed",
     "solved_codex_compaction_claimed",
     "solved_codex_reliability_claimed",
-    "r18_019_completed"
+    "r18_020_completed"
 )
 
 $script:R18StatusDocWrapperInputFields = @(
@@ -108,7 +108,7 @@ $script:R18StatusDocWrapperScenarios = @(
     "missing_active_state",
     "status_boundary_drift",
     "overclaim_runtime",
-    "r18_019_premature_claim"
+    "r18_020_premature_claim"
 )
 
 $script:R18StatusDocWrapperStatuses = @(
@@ -281,7 +281,7 @@ function Get-R18StatusDocGateWrapperRejectedClaims {
         "no_manual_prompt_transfer_success",
         "solved_codex_compaction",
         "solved_codex_reliability",
-        "r18_019_or_later_completion",
+        "r18_020_or_later_completion",
         "missing_status_surface_marked_safe",
         "status_boundary_drift_marked_safe",
         "runtime_overclaim_marked_safe",
@@ -292,8 +292,8 @@ function Get-R18StatusDocGateWrapperRejectedClaims {
 function Get-R18StatusDocGateWrapperNonClaims {
     return @(
         "R17 remains closed with caveats through R17-028 only.",
-        "R18 is active through R18-018 only.",
-        "R18-019 through R18-028 remain planned only.",
+        "R18 is active through R18-019 only.",
+        "R18-020 through R18-028 remain planned only.",
         "R18-018 created status-doc gate automation wrapper foundation only.",
         "Status-doc gate wrapper artifacts are deterministic policy artifacts only.",
         "Wrapper runtime was not implemented.",
@@ -329,7 +329,7 @@ function Get-R18StatusDocGateWrapperNonClaims {
         "No no-manual-prompt-transfer success is claimed.",
         "Codex compaction is not solved.",
         "Codex reliability is not solved.",
-        "R18-019 is not complete."
+        "R18-020 is not complete."
     )
 }
 
@@ -427,9 +427,9 @@ function Get-R18StatusDocGateWrapperValidationRefs {
 function New-R18StatusDocGateWrapperExpectedBoundary {
     return [ordered]@{
         r17_status = "R17 closed with caveats through R17-028 only"
-        r18_status = "R18 active through R18-018 only"
-        r18_active_through = "R18-018"
-        planned_from = "R18-019"
+        r18_status = "R18 active through R18-019 only"
+        r18_active_through = "R18-019"
+        planned_from = "R18-020"
         planned_through = "R18-028"
         main_merged = $false
         summary = $script:R18StatusDocWrapperBoundary
@@ -479,7 +479,7 @@ function Get-R18StatusDocGateWrapperRule {
                 runtime_overclaim_detected = $false
                 future_task_claim_detected = $false
                 safe_for_future_release_gate = $false
-                next_safe_step = "Repair status surfaces so they agree that R18 is active through R18-018 only and R18-019 through R18-028 remain planned only."
+                next_safe_step = "Repair status surfaces so they agree that R18 is active through R18-019 only and R18-020 through R18-028 remain planned only."
                 blocked_reasons = @("status_boundary_drift_detected")
             }
         }
@@ -496,7 +496,7 @@ function Get-R18StatusDocGateWrapperRule {
                 blocked_reasons = @("runtime_overclaim_detected")
             }
         }
-        "r18_019_premature_claim" {
+        "r18_020_premature_claim" {
             return [pscustomobject]@{
                 gate_status = "status_gate_blocked_premature_future_claim"
                 action_recommendation = "stop_and_remove_future_task_claim"
@@ -505,8 +505,8 @@ function Get-R18StatusDocGateWrapperRule {
                 runtime_overclaim_detected = $false
                 future_task_claim_detected = $true
                 safe_for_future_release_gate = $false
-                next_safe_step = "Remove any R18-019 or later completion claim; R18-019 through R18-028 remain planned only."
-                blocked_reasons = @("r18_019_or_later_completion_claim_detected")
+                next_safe_step = "Remove any R18-020 or later completion claim; R18-020 through R18-028 remain planned only."
+                blocked_reasons = @("r18_020_or_later_completion_claim_detected")
             }
         }
         default {
@@ -543,7 +543,7 @@ function New-R18StatusDocGateWrapperContract {
             expected_boundary = New-R18StatusDocGateWrapperExpectedBoundary
             current_status_surfaces_must_match_expected = $true
             status_boundary_drift_blocks_gate = $true
-            r18_019_or_later_completion_claims_fail_closed = $true
+            r18_020_or_later_completion_claims_fail_closed = $true
         }
         non_claim_policy = [ordered]@{
             non_claim_checks_required = $true
@@ -607,7 +607,7 @@ function New-R18StatusDocGateAssessmentContract {
             missing_active_state = "block_missing_surface"
             status_boundary_drift = "block_boundary_drift"
             overclaim_runtime = "block_runtime_overclaim"
-            r18_019_premature_claim = "block_premature_future_claim"
+            r18_020_premature_claim = "block_premature_future_claim"
             blocked_scenarios_are_not_safe_for_future_release_gate = $true
         }
         non_claims = Get-R18StatusDocGateWrapperNonClaims
@@ -661,12 +661,12 @@ function New-R18StatusDocGateWrapperInput {
         $claim_signals += "status_doc_gate_wrapper_runtime_implemented_claim_seen"
         $claim_signals += "release_gate_execution_claim_seen"
     }
-    elseif ($Scenario -eq "r18_019_premature_claim") {
+    elseif ($Scenario -eq "r18_020_premature_claim") {
         $actualBoundary.r18_status = "R18 active through R18-019"
         $actualBoundary.r18_active_through = "R18-019"
         $actualBoundary.planned_from = "R18-020"
         $actualBoundary.summary = "R18 active through R18-019; R18-020 through R18-028 planned only; R17 closed with caveats through R17-028 only; Main not merged"
-        $claim_signals += "r18_019_completed_claim_seen"
+        $claim_signals += "r18_020_completed_claim_seen"
     }
 
     return [ordered]@{
@@ -681,8 +681,8 @@ function New-R18StatusDocGateWrapperInput {
         status_surface_refs = $statusSurfaces
         expected_boundary = New-R18StatusDocGateWrapperExpectedBoundary
         actual_boundary = $actualBoundary
-        r18_active_through = "R18-018"
-        planned_from = "R18-019"
+        r18_active_through = "R18-019"
+        planned_from = "R18-020"
         planned_through = "R18-028"
         non_claim_checks = Get-R18StatusDocGateWrapperNonClaimChecks
         validation_refs = Get-R18StatusDocGateWrapperValidationRefs
@@ -809,15 +809,15 @@ function New-R18StatusDocGateWrapperSnapshot {
         source_task = $script:R18StatusDocWrapperSourceTask
         source_milestone = $script:R18StatusDocWrapperSourceMilestone
         snapshot_status = "read_only_operator_surface_snapshot_only_not_live_runtime"
-        r18_status = "active_through_r18_018_only"
-        planned_from = "R18-019"
+        r18_status = "active_through_r18_019_only"
+        planned_from = "R18-020"
         planned_through = "R18-028"
         gate_summary = [ordered]@{
             current_status_surfaces = "status_gate_passed_policy_only"
             missing_active_state = "status_gate_blocked_missing_surface"
             status_boundary_drift = "status_gate_blocked_boundary_drift"
             overclaim_runtime = "status_gate_blocked_runtime_overclaim"
-            r18_019_premature_claim = "status_gate_blocked_premature_future_claim"
+            r18_020_premature_claim = "status_gate_blocked_premature_future_claim"
         }
         runtime_flags = New-R18StatusDocGateWrapperRuntimeFlags
         non_claims = Get-R18StatusDocGateWrapperNonClaims
@@ -868,7 +868,7 @@ function New-R18StatusDocGateWrapperFixtures {
         (New-R18StatusDocGateWrapperFixture -File "invalid_missing_authority_refs.json" -Target "input:current_status_surfaces" -Operation "remove" -Path "authority_refs" -ExpectedFailureFragments @("authority_refs is missing")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_status_boundary_drift_marked_safe.json" -Target "assessment:status_boundary_drift" -Operation "set" -Path "safe_for_future_release_gate" -Value $true -ExpectedFailureFragments @("status_boundary_drift must not be safe")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_runtime_overclaim_marked_safe.json" -Target "assessment:overclaim_runtime" -Operation "set" -Path "safe_for_future_release_gate" -Value $true -ExpectedFailureFragments @("overclaim_runtime must not be safe")),
-        (New-R18StatusDocGateWrapperFixture -File "invalid_r18_019_claim_marked_safe.json" -Target "assessment:r18_019_premature_claim" -Operation "set" -Path "safe_for_future_release_gate" -Value $true -ExpectedFailureFragments @("r18_019_premature_claim must not be safe")),
+        (New-R18StatusDocGateWrapperFixture -File "invalid_r18_020_claim_marked_safe.json" -Target "assessment:r18_020_premature_claim" -Operation "set" -Path "safe_for_future_release_gate" -Value $true -ExpectedFailureFragments @("r18_020_premature_claim must not be safe")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_wrapper_executes_release_gate_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.release_gate_executed" -Value $true -ExpectedFailureFragments @("runtime flag 'release_gate_executed' must be false")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_stage_commit_push_performed_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.stage_performed_by_gate" -Value $true -ExpectedFailureFragments @("runtime flag 'stage_performed_by_gate' must be false")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_ci_replay_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.ci_replay_performed" -Value $true -ExpectedFailureFragments @("runtime flag 'ci_replay_performed' must be false")),
@@ -881,7 +881,7 @@ function New-R18StatusDocGateWrapperFixtures {
         (New-R18StatusDocGateWrapperFixture -File "invalid_work_order_execution_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.work_order_execution_performed" -Value $true -ExpectedFailureFragments @("runtime flag 'work_order_execution_performed' must be false")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_a2a_message_sent_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.a2a_message_sent" -Value $true -ExpectedFailureFragments @("runtime flag 'a2a_message_sent' must be false")),
         (New-R18StatusDocGateWrapperFixture -File "invalid_board_runtime_mutation_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.board_runtime_mutation_performed" -Value $true -ExpectedFailureFragments @("runtime flag 'board_runtime_mutation_performed' must be false")),
-        (New-R18StatusDocGateWrapperFixture -File "invalid_r18_019_completion_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.r18_019_completed" -Value $true -ExpectedFailureFragments @("runtime flag 'r18_019_completed' must be false"))
+        (New-R18StatusDocGateWrapperFixture -File "invalid_r18_020_completion_claim.json" -Target "report" -Operation "set" -Path "runtime_flags.r18_020_completed" -Value $true -ExpectedFailureFragments @("runtime flag 'r18_020_completed' must be false"))
     )
 
     return $fixtures
@@ -909,17 +909,17 @@ function New-R18StatusDocGateWrapperProofArtifacts {
         "",
         "The wrapper package consolidates current status-surface refs, expected milestone boundary, non-claim checks, validation refs, evidence refs, authority refs, five scenario inputs, and five deterministic assessments.",
         "",
-        "Current status truth after this task: R18 is active through R18-018 only, R18-019 through R18-028 remain planned only, R17 remains closed with caveats through R17-028 only, and main is not merged.",
+        "Current status truth after this task: R18 is active through R18-019 only, R18-020 through R18-028 remain planned only, R17 remains closed with caveats through R17-028 only, and main is not merged.",
         "",
         "Non-claims preserved: no live wrapper runtime, no live status-doc gate runtime, no release gate execution, no stage/commit/push by the wrapper, no CI replay, no GitHub Actions workflow creation or run claim, no main merge, no milestone closeout, no external audit acceptance, no recovery action, no Codex/OpenAI API invocation, no automatic new-thread creation, no work-order execution, no board/card runtime mutation, no A2A messages, no live agents, no live skills, no product runtime, no no-manual-prompt-transfer success, and no solved Codex compaction or reliability.",
         "",
-        "The current_status_surfaces scenario is policy-only passable. The missing_active_state, status_boundary_drift, overclaim_runtime, and r18_019_premature_claim scenarios are deterministic blocked assessments."
+        "The current_status_surfaces scenario is policy-only passable. The missing_active_state, status_boundary_drift, overclaim_runtime, and r18_020_premature_claim scenarios are deterministic blocked assessments."
     )
 
     $validationManifest = @(
         "# R18-018 Validation Manifest",
         "",
-        "Expected status truth: R18 active through R18-018 only; R18-019 through R18-028 planned only.",
+        "Expected status truth: R18 active through R18-019 only; R18-020 through R18-028 planned only.",
         "",
         "Required validation commands:",
         "- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\new_r18_status_doc_gate_wrapper.ps1",
@@ -1113,8 +1113,8 @@ function Assert-R18StatusDocGateInput {
     Assert-R18StatusDocGateWrapperCondition -Condition (@($GateInput.status_surface_refs).Count -gt 0) -Message "status_surface_refs is missing."
     Assert-R18StatusDocGateWrapperCondition -Condition ($GateInput.PSObject.Properties.Name -contains "expected_boundary") -Message "expected_boundary is missing."
     Assert-R18StatusDocGateWrapperCondition -Condition ($GateInput.PSObject.Properties.Name -contains "actual_boundary") -Message "actual_boundary is missing."
-    Assert-R18StatusDocGateWrapperCondition -Condition ([string]$GateInput.r18_active_through -eq "R18-018") -Message "R18 active through is beyond R18-018."
-    Assert-R18StatusDocGateWrapperCondition -Condition ([string]$GateInput.planned_from -eq "R18-019" -and [string]$GateInput.planned_through -eq "R18-028") -Message "R18-019 through R18-028 must remain planned only."
+    Assert-R18StatusDocGateWrapperCondition -Condition ([string]$GateInput.r18_active_through -eq "R18-019") -Message "R18 active through is beyond R18-019."
+    Assert-R18StatusDocGateWrapperCondition -Condition ([string]$GateInput.planned_from -eq "R18-020" -and [string]$GateInput.planned_through -eq "R18-028") -Message "R18-020 through R18-028 must remain planned only."
     Assert-R18StatusDocGateWrapperCondition -Condition (@($GateInput.non_claim_checks).Count -gt 0) -Message "non_claim_checks is missing."
     Assert-R18StatusDocGateWrapperCondition -Condition (@($GateInput.validation_refs).Count -gt 0) -Message "validation_refs is missing."
     Assert-R18StatusDocGateWrapperCondition -Condition (@($GateInput.evidence_refs).Count -gt 0) -Message "evidence_refs is missing."
@@ -1148,8 +1148,8 @@ function Assert-R18StatusDocGateInput {
         "overclaim_runtime" {
             Assert-R18StatusDocGateWrapperCondition -Condition ($signals -contains "status_doc_gate_wrapper_runtime_implemented_claim_seen") -Message "overclaim_runtime must include a runtime overclaim signal."
         }
-        "r18_019_premature_claim" {
-            Assert-R18StatusDocGateWrapperCondition -Condition ($signals -contains "r18_019_completed_claim_seen") -Message "r18_019_premature_claim must include an R18-019 claim signal."
+        "r18_020_premature_claim" {
+            Assert-R18StatusDocGateWrapperCondition -Condition ($signals -contains "r18_020_completed_claim_seen") -Message "r18_020_premature_claim must include an R18-020 claim signal."
         }
     }
 }
@@ -1227,10 +1227,12 @@ function Test-R18StatusDocGateWrapperStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-018 only",
-            "R18-019 through R18-028 planned only",
+            "R18 active through R18-019 only",
+            "R18-020 through R18-028 planned only",
             "R18-018 created status-doc gate automation wrapper foundation only",
             "Status-doc gate wrapper artifacts are deterministic policy artifacts only",
+            "R18-019 created evidence package automation wrapper foundation only",
+            "Evidence package wrapper artifacts are deterministic policy/manifest artifacts only",
             "Wrapper runtime was not implemented",
             "Live status-doc gate runtime was not executed",
             "Release gate was not executed",
@@ -1260,19 +1262,19 @@ function Test-R18StatusDocGateWrapperStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18StatusDocGateWrapperCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 18) {
-            Assert-R18StatusDocGateWrapperCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-018."
+        if ($taskNumber -le 19) {
+            Assert-R18StatusDocGateWrapperCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-019."
         }
         else {
-            Assert-R18StatusDocGateWrapperCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-018."
+            Assert-R18StatusDocGateWrapperCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-019."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(019|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-018."
+    if ($combinedText -match 'R18 active through R18-02[0-8]') {
+        throw "Status surface claims R18 beyond R18-019."
     }
-    if ($combinedText -match '(?i)R18-(019|02[0-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-019 or later completion."
+    if ($combinedText -match '(?i)R18-02[0-8].{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-020 or later completion."
     }
 }
 
@@ -1343,7 +1345,7 @@ function Test-R18StatusDocGateWrapperSet {
     }
     Assert-R18StatusDocGateWrapperCondition -Condition ($Report.artifact_type -eq "r18_status_doc_gate_wrapper_check_report") -Message "Check report artifact_type is invalid."
     Assert-R18StatusDocGateWrapperCondition -Condition ($Report.aggregate_verdict -eq $script:R18StatusDocWrapperVerdict) -Message "Check report aggregate verdict is invalid."
-    Assert-R18StatusDocGateWrapperCondition -Condition ($Snapshot.r18_status -eq "active_through_r18_018_only") -Message "Snapshot must record active_through_r18_018_only."
+    Assert-R18StatusDocGateWrapperCondition -Condition ($Snapshot.r18_status -eq "active_through_r18_019_only") -Message "Snapshot must record active_through_r18_019_only."
 
     Test-R18StatusDocGateWrapperStatusTruth -RepositoryRoot $RepositoryRoot
 

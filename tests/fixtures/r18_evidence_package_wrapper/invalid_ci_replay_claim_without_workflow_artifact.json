@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_evidence_package_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-019",
+    "target":  "manifest",
+    "operation":  "set",
+    "path":  "ci_replay_status",
+    "expected_failure_fragments":  [
+                                       "CI replay is claimed without a real workflow run artifact"
+                                   ],
+    "value":  "claimed_performed"
+}

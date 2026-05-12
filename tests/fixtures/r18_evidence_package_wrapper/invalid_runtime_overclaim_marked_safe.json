@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_evidence_package_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-019",
+    "target":  "assessment:runtime_overclaim",
+    "operation":  "set",
+    "path":  "safe_for_future_audit",
+    "expected_failure_fragments":  [
+                                       "runtime_overclaim must not be marked safe"
+                                   ],
+    "value":  true
+}

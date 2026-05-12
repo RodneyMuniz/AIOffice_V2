@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_evidence_package_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-019",
+    "target":  "results",
+    "operation":  "set",
+    "path":  "runtime_flags.milestone_closeout_claimed",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027milestone_closeout_claimed\u0027 must remain false"
+                                   ],
+    "value":  true
+}

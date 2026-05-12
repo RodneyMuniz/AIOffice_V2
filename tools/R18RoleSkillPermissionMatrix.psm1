@@ -1343,8 +1343,8 @@ function Test-R18MatrixStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-018 only",
-            "R18-019 through R18-028 planned only",
+            "R18 active through R18-019 only",
+            "R18-020 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1401,20 +1401,20 @@ function Test-R18MatrixStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 18) {
+        if ($taskNumber -le 19) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-018."
+                throw "$taskId must be done after R18-019."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-018."
+                throw "$taskId must remain planned only after R18-019."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(019|02[0-8])') {
-        throw "Status surface claims R18 beyond R18-018."
+    if ($combinedText -match 'R18 active through R18-(02[0-8])') {
+        throw "Status surface claims R18 beyond R18-019."
     }
 }
 

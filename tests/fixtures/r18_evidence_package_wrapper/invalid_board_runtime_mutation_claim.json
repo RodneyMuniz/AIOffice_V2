@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_evidence_package_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-019",
+    "target":  "snapshot",
+    "operation":  "set",
+    "path":  "runtime_flags.board_runtime_mutation_performed",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027board_runtime_mutation_performed\u0027 must remain false"
+                                   ],
+    "value":  true
+}

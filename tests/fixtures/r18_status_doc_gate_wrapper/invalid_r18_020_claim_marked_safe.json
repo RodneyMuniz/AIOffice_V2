@@ -2,11 +2,11 @@
     "artifact_type":  "r18_status_doc_gate_wrapper_invalid_fixture",
     "contract_version":  "v1",
     "source_task":  "R18-018",
-    "target":  "assessment:r18_019_premature_claim",
+    "target":  "assessment:r18_020_premature_claim",
     "operation":  "set",
     "path":  "safe_for_future_release_gate",
     "expected_failure_fragments":  [
-                                       "r18_019_premature_claim must not be safe"
+                                       "r18_020_premature_claim must not be safe"
                                    ],
     "value":  true
 }

@@ -37,7 +37,7 @@
     "validation_passed":  true,
     "status_boundary_ref":  "tools/validate_status_doc_gate.ps1",
     "status_boundary_expected":  "R18 active through R18-017 only; R18-018 through R18-028 planned only",
-    "status_boundary_actual":  "R18 active through R18-018 only; R18-019 through R18-028 planned only",
+    "status_boundary_actual":  "R18 active through R18-019 only; R18-020 through R18-028 planned only",
     "status_boundary_safe":  false,
     "allowed_paths":  [
                           "contracts/runtime/r18_stage_commit_push_gate.contract.json",

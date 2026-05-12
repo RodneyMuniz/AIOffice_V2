@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-018` status-doc gate automation wrapper foundation only.
+**Status after this pass:** Active through `R18-019` evidence package automation wrapper foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-018` are done. `R18-019` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-019` are done. `R18-020` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-019 through R18-028 remain planned only.
+- R18-020 through R18-028 remain planned only.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -75,6 +75,12 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - CI replay was not performed.
 - GitHub Actions workflow was not created or run.
 - External audit acceptance was not claimed.
+- R18-019 created evidence package automation wrapper foundation only.
+- Evidence package wrapper artifacts are deterministic policy/manifest artifacts only.
+- Live evidence package runtime was not executed.
+- Audit acceptance was not claimed.
+- Main was not merged.
+- CI replay remains absent; evidence relies on committed artifacts plus Codex-reported local validations.
 - R18-016 created operator approval gate model foundation only.
 - Approval request and decision/refusal packets were generated as deterministic governance artifacts only.
 - Operator approval runtime was not implemented.
@@ -320,24 +326,24 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Purpose: Create a deterministic status-doc gate automation wrapper foundation that consolidates status surface refs, expected boundary checks, non-claim checks, validation refs, evidence refs, authority refs, and policy-only assessments before any future release action is allowed.
 - Inputs: Current milestone status, required status surfaces, expected R18/R17/main boundary, runtime false flags, hard non-claims, validation refs, evidence refs, and authority refs.
 - Outputs: Status-doc gate wrapper contract, assessment contract, wrapper profile, five input packets, five assessment packets, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
-- Acceptance criteria: Current status surfaces pass policy-only after revalidation; missing status surfaces, boundary drift, runtime overclaims, and R18-019 premature claims block; all runtime false flags remain false; no live runtime, release gate execution, stage/commit/push, CI replay, GitHub Actions workflow, main merge, milestone closeout, external audit acceptance, recovery action, API invocation, automatic new-thread creation, work-order execution, board runtime mutation, A2A message, live agent, live skill, product runtime, no-manual-prompt-transfer success, solved compaction, or solved reliability claim is accepted.
-- Validation expectation: `tools/validate_r18_status_doc_gate_wrapper.ps1`, `tests/test_r18_status_doc_gate_wrapper.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-018 only.
+- Acceptance criteria: Current status surfaces pass policy-only after revalidation; missing status surfaces, boundary drift, runtime overclaims, and R18-020 premature claims block; all runtime false flags remain false; no live runtime, release gate execution, stage/commit/push, CI replay, GitHub Actions workflow, main merge, milestone closeout, external audit acceptance, recovery action, API invocation, automatic new-thread creation, work-order execution, board runtime mutation, A2A message, live agent, live skill, product runtime, no-manual-prompt-transfer success, solved compaction, or solved reliability claim is accepted.
+- Validation expectation: `tools/validate_r18_status_doc_gate_wrapper.ps1`, `tests/test_r18_status_doc_gate_wrapper.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-019 only.
 - Non-claims: R18-018 created status-doc gate automation wrapper foundation only. Status-doc gate wrapper artifacts are deterministic policy artifacts only. Wrapper runtime was not implemented. Live status-doc gate runtime was not executed. Release gate was not executed. No stage/commit/push was performed by the wrapper. CI replay was not performed. GitHub Actions workflow was not created or run. Main was not merged. Milestone closeout was not claimed. External audit acceptance was not claimed. Recovery action was not performed. Codex/OpenAI API invocation did not occur. Automatic new-thread creation was not performed. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No product runtime is claimed. No no-manual-prompt-transfer success is claimed.
 - Dependencies: R18-001, R18-017.
 - Failure/retry behavior: Status mismatch creates deterministic blocked assessment artifacts only; the wrapper does not repair surfaces, execute recovery, infer approval, create threads, execute work orders, invoke APIs, run release automation, or perform stage/commit/push.
 - Expected evidence refs: `contracts/governance/r18_status_doc_gate_wrapper.contract.json`, `contracts/governance/r18_status_doc_gate_assessment.contract.json`, `state/governance/r18_status_doc_gate_wrapper_profile.json`, `state/governance/r18_status_doc_gate_inputs/`, `state/governance/r18_status_doc_gate_assessments/`, `state/governance/r18_status_doc_gate_wrapper_results.json`, `state/governance/r18_status_doc_gate_wrapper_check_report.json`, `state/ui/r18_operator_surface/r18_status_doc_gate_wrapper_snapshot.json`, `tools/R18StatusDocGateWrapper.psm1`, `tools/new_r18_status_doc_gate_wrapper.ps1`, `tools/validate_r18_status_doc_gate_wrapper.ps1`, `tests/test_r18_status_doc_gate_wrapper.ps1`, `tests/fixtures/r18_status_doc_gate_wrapper/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper/`.
 
 ### `R18-019` Implement evidence package automation wrapper
-- Status: planned
-- Purpose: Generate evidence packages from machine-readable runtime evidence instead of prose alone.
-- Inputs: Evidence ledger, board events, work-order records, failure packets, continuation packets, validator outputs.
-- Outputs: Evidence package generator, evidence index, proof review, validation manifest, final-head support candidate.
-- Acceptance criteria: Package includes runtime flags, rejected claims, evidence refs, validation commands, and residual risks.
-- Validation expectation: Planned validator rejects report-only proof and missing evidence refs.
-- Non-claims: Evidence package is not external audit acceptance.
+- Status: done
+- Purpose: Create deterministic evidence package wrapper contracts, package input packets, manifest, assessments, validation-command inventory, non-claim checks, CI-gap disclosure, validator, fixtures, read-only snapshot, and proof-review evidence only.
+- Inputs: R18 authority refs, R17 closeout decision refs, R18-001 through R18-019 evidence refs, proof-review refs, validation manifest refs, status-surface refs, validator/test refs, and CI-gap disclosure.
+- Outputs: Evidence package wrapper contract, manifest contract, wrapper profile, six input packets, current manifest, six assessment packets, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Package covers R18-001 through R18-019 plus required package groupings; completed entries have proof-review, validation-manifest, validator, and test refs; missing proof review, validation manifest, status surface, runtime overclaim, or undisclosed CI gap fails closed.
+- Validation expectation: `tools/validate_r18_evidence_package_wrapper.ps1`, `tests/test_r18_evidence_package_wrapper.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-019 only.
+- Non-claims: Evidence package wrapper artifacts are deterministic policy/manifest artifacts only. Wrapper runtime was not implemented. Live evidence package runtime was not executed. Audit acceptance was not claimed. External audit acceptance was not claimed. Milestone closeout was not claimed. Main was not merged. CI replay was not performed. GitHub Actions workflow was not created or run. Release gate was not executed. No stage/commit/push was performed by the wrapper. Recovery action was not performed. Codex/OpenAI API invocation did not occur. Automatic new-thread creation was not performed. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live agents were invoked. No live skills were executed. No product runtime is claimed. No no-manual-prompt-transfer success is claimed. Codex compaction and reliability remain unresolved operational issues.
 - Dependencies: R18-018.
 - Failure/retry behavior: Missing evidence blocks package acceptance.
-- Expected evidence refs: `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/`, package fixtures.
+- Expected evidence refs: `contracts/governance/r18_evidence_package_wrapper.contract.json`, `contracts/governance/r18_evidence_package_manifest.contract.json`, `state/governance/r18_evidence_package_wrapper_profile.json`, `state/governance/r18_evidence_package_inputs/`, `state/governance/r18_evidence_package_manifests/current_r18_evidence_package.manifest.json`, `state/governance/r18_evidence_package_assessments/`, `state/governance/r18_evidence_package_wrapper_results.json`, `state/governance/r18_evidence_package_wrapper_check_report.json`, `state/ui/r18_operator_surface/r18_evidence_package_wrapper_snapshot.json`, `tools/R18EvidencePackageWrapper.psm1`, `tools/new_r18_evidence_package_wrapper.ps1`, `tools/validate_r18_evidence_package_wrapper.ps1`, `tests/test_r18_evidence_package_wrapper.ps1`, `tests/fixtures/r18_evidence_package_wrapper/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper/`.
 
 ### `R18-020` Implement board/card runtime event model
 - Status: planned

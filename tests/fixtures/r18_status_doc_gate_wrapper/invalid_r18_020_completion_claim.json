@@ -4,9 +4,9 @@
     "source_task":  "R18-018",
     "target":  "report",
     "operation":  "set",
-    "path":  "runtime_flags.r18_019_completed",
+    "path":  "runtime_flags.r18_020_completed",
     "expected_failure_fragments":  [
-                                       "runtime flag \u0027r18_019_completed\u0027 must be false"
+                                       "runtime flag \u0027r18_020_completed\u0027 must be false"
                                    ],
     "value":  true
 }

@@ -127,8 +127,8 @@ function Assert-R18StatusAfterR18003 {
         ))
 
     foreach ($required in @(
-            "R18 active through R18-018 only",
-            "R18-019 through R18-028 planned only",
+            "R18 active through R18-019 only",
+            "R18-020 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "R18-003 created skill contract schema and seed skill contracts only",
             "Agent cards are not live agents",
@@ -194,14 +194,14 @@ function Assert-R18StatusAfterR18003 {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 18) {
+        if ($taskNumber -le 19) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-018."
+                throw "$taskId must be done after R18-019."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-018."
+                throw "$taskId must remain planned only after R18-019."
             }
         }
     }

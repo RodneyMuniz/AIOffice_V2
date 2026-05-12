@@ -3695,8 +3695,8 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-018 only",
-            "R18-019 through R18-028 planned only",
+            "R18 active through R18-019 only",
+            "R18-020 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3758,6 +3758,11 @@ function Test-StatusDocGate {
             "CI replay was not performed",
             "GitHub Actions workflow was not created or run",
             "External audit acceptance was not claimed",
+            "R18-019 created evidence package automation wrapper foundation only",
+            "Evidence package wrapper artifacts are deterministic policy/manifest artifacts only",
+            "Live evidence package runtime was not executed",
+            "Audit acceptance was not claimed",
+            "CI replay remains absent; evidence relies on committed artifacts plus Codex-reported local validations",
             "R18-016 created operator approval gate model foundation only",
             "Approval request and decision/refusal packets were generated as deterministic governance artifacts only",
             "Operator approval runtime was not implemented",
@@ -3802,7 +3807,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 18) {
+        if ($taskNumber -le 19) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3844,8 +3849,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 18
-        R18PlannedStart = 19
+        R18DoneThrough = 19
+        R18PlannedStart = 20
         R18PlannedThrough = 28
     }
 }

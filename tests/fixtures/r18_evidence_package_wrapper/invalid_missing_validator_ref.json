@@ -1,0 +1,11 @@
+{
+    "artifact_type":  "r18_evidence_package_wrapper_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-019",
+    "target":  "manifest_task:R18-019",
+    "operation":  "remove",
+    "path":  "validator_refs",
+    "expected_failure_fragments":  [
+                                       "validator_refs is missing"
+                                   ]
+}
