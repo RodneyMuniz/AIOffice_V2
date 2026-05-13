@@ -1,0 +1,34 @@
+[
+  {
+    "id": "orchestrator",
+    "display_name": "Orchestrator",
+    "role": "Coordinates cards, work orders, approvals, and handoffs.",
+    "status": "seeded",
+    "approval_scope": "may request approval, may not self-approve",
+    "api_invocation_enabled": false
+  },
+  {
+    "id": "developer_codex",
+    "display_name": "Developer Codex",
+    "role": "Implements approved local code changes.",
+    "status": "seeded",
+    "approval_scope": "may implement approved work orders only",
+    "api_invocation_enabled": false
+  },
+  {
+    "id": "qa_test",
+    "display_name": "QA Test",
+    "role": "Runs local validation and records defects.",
+    "status": "seeded",
+    "approval_scope": "may verify, may not approve production release",
+    "api_invocation_enabled": false
+  },
+  {
+    "id": "evidence_auditor",
+    "display_name": "Evidence Auditor",
+    "role": "Reviews evidence entries and non-claims.",
+    "status": "seeded",
+    "approval_scope": "may audit evidence, may not close milestone alone",
+    "api_invocation_enabled": false
+  }
+]

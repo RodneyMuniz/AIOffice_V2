@@ -1,0 +1,17 @@
+# R19 Product Reset UI/API Agent Orchestration
+
+R19 is a product reset. R18 remains product-value-light foundation work and is not treated as a successful product/runtime milestone.
+
+R19 success requires a runnable UI/API demo. R19 cannot close on reports, schemas, packets, static snapshots, or proof packages alone.
+
+R19 focuses on an operator UI, backend API, API-mediated work orders, approvals, handoffs, events, and evidence.
+
+Hard non-claims carried forward:
+- no external audit acceptance;
+- no main merge;
+- no full product runtime claim;
+- no solved Codex compaction;
+- no solved reliability;
+- no no-manual-transfer success unless measured;
+- no live OpenAI/Codex API invocation unless actual evidence exists;
+- no autonomous operation without approval gates.

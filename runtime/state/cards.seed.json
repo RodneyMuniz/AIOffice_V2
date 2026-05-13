@@ -1,0 +1,16 @@
+[
+  {
+    "id": "R19-CARD-001",
+    "title": "Open R19 UI/API product reset slice",
+    "summary": "Create the first runnable local operator console connected to a backend orchestrator API.",
+    "status": "in_progress",
+    "owner_agent_id": "orchestrator",
+    "priority": "high",
+    "acceptance_focus": [
+      "runnable FastAPI backend",
+      "React operator UI reads backend endpoints",
+      "seed state remains small and local"
+    ],
+    "created_at": "2026-05-13T00:00:00Z"
+  }
+]

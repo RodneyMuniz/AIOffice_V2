@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/evidence-entry.schema.json",
+  "title": "EvidenceEntry",
+  "type": "object",
+  "required": ["id", "title", "kind", "summary", "path", "related_card_id"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "kind": { "type": "string" },
+    "summary": { "type": "string" },
+    "path": { "type": "string" },
+    "related_card_id": { "type": "string" }
+  }
+}

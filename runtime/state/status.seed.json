@@ -1,0 +1,18 @@
+{
+  "product_name": "AIOffice",
+  "milestone": "R19 Product Reset UI/API Agent Orchestration Slice",
+  "repo": "RodneyMuniz/AIOffice_V2",
+  "branch": "release/r19-product-reset-ui-api-agent-orchestration-slice",
+  "posture": "product_reset_active",
+  "r18_posture": "failed_product_value_foundation_only",
+  "non_claims": [
+    "no external audit acceptance",
+    "no main merge",
+    "no full product runtime claim",
+    "no solved Codex compaction",
+    "no solved reliability",
+    "no no-manual-transfer success unless measured",
+    "no live OpenAI/Codex API invocation unless actual evidence exists",
+    "no autonomous operation without approval gates"
+  ]
+}

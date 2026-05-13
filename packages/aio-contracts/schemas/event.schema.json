@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/event.schema.json",
+  "title": "Event",
+  "type": "object",
+  "required": ["id", "timestamp", "type", "summary", "actor_agent_id"],
+  "properties": {
+    "id": { "type": "string" },
+    "timestamp": { "type": "string" },
+    "type": { "type": "string" },
+    "summary": { "type": "string" },
+    "actor_agent_id": { "type": "string" },
+    "related_card_id": { "type": "string" },
+    "related_work_order_id": { "type": "string" }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/work-order.schema.json",
+  "title": "WorkOrder",
+  "type": "object",
+  "required": [
+    "id",
+    "card_id",
+    "title",
+    "summary",
+    "status",
+    "requested_by_agent_id",
+    "assigned_agent_id",
+    "approval_required"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "status": { "type": "string" },
+    "requested_by_agent_id": { "type": "string" },
+    "assigned_agent_id": { "type": "string" },
+    "approval_required": { "type": "boolean" },
+    "handoff_target_agent_id": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "created_at": { "type": "string" }
+  }
+}

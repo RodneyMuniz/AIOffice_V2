@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/card.schema.json",
+  "title": "Card",
+  "type": "object",
+  "required": ["id", "title", "summary", "status", "owner_agent_id", "priority"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "status": { "type": "string" },
+    "owner_agent_id": { "type": "string" },
+    "priority": { "type": "string" },
+    "acceptance_focus": { "type": "array", "items": { "type": "string" } },
+    "created_at": { "type": "string" }
+  }
+}

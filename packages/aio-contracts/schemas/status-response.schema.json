@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/status-response.schema.json",
+  "title": "StatusResponse",
+  "type": "object",
+  "required": [
+    "product_name",
+    "milestone",
+    "repo",
+    "branch",
+    "posture",
+    "r18_posture",
+    "current_card_id",
+    "current_work_order_id",
+    "current_agent_id",
+    "pending_approvals_count",
+    "events_count",
+    "evidence_count",
+    "non_claims"
+  ],
+  "properties": {
+    "product_name": { "type": "string" },
+    "milestone": { "type": "string" },
+    "repo": { "type": "string" },
+    "branch": { "type": "string" },
+    "posture": { "type": "string" },
+    "r18_posture": { "type": "string" },
+    "current_card_id": { "type": ["string", "null"] },
+    "current_work_order_id": { "type": ["string", "null"] },
+    "current_agent_id": { "type": ["string", "null"] },
+    "pending_approvals_count": { "type": "integer", "minimum": 0 },
+    "events_count": { "type": "integer", "minimum": 0 },
+    "evidence_count": { "type": "integer", "minimum": 0 },
+    "non_claims": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "R19-EVIDENCE-001",
+    "title": "R19 reset authority doc",
+    "kind": "governance_boundary",
+    "summary": "Concise reset boundary document records that R19 must prove runnable UI/API behavior.",
+    "path": "governance/R19_PRODUCT_RESET_UI_API_AGENT_ORCHESTRATION.md",
+    "related_card_id": "R19-CARD-001"
+  },
+  {
+    "id": "R19-EVIDENCE-002",
+    "title": "Orchestrator API seed state",
+    "kind": "local_runtime_seed",
+    "summary": "Small JSON seed files back the first local API responses.",
+    "path": "runtime/state/",
+    "related_card_id": "R19-CARD-001"
+  },
+  {
+    "id": "R19-EVIDENCE-003",
+    "title": "UI/API connectivity slice",
+    "kind": "local_product_slice",
+    "summary": "The operator UI is expected to call backend read endpoints during local demo only.",
+    "path": "apps/operator-ui/",
+    "related_card_id": "R19-CARD-001"
+  }
+]

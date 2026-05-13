@@ -1,0 +1,27 @@
+[
+  {
+    "id": "R19-EVENT-001",
+    "timestamp": "2026-05-13T00:00:00Z",
+    "type": "milestone_boundary",
+    "summary": "R19 product reset boundary opened for a runnable UI/API slice.",
+    "actor_agent_id": "orchestrator",
+    "related_card_id": "R19-CARD-001"
+  },
+  {
+    "id": "R19-EVENT-002",
+    "timestamp": "2026-05-13T00:05:00Z",
+    "type": "work_order_created",
+    "summary": "Seed work order created for UI/API scaffolding with approval gate retained.",
+    "actor_agent_id": "orchestrator",
+    "related_card_id": "R19-CARD-001",
+    "related_work_order_id": "R19-WO-001"
+  },
+  {
+    "id": "R19-EVENT-003",
+    "timestamp": "2026-05-13T00:10:00Z",
+    "type": "seed_state_loaded",
+    "summary": "Small JSON seed state prepared for local API reads.",
+    "actor_agent_id": "developer_codex",
+    "related_card_id": "R19-CARD-001"
+  }
+]

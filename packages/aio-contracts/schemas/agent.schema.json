@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/agent.schema.json",
+  "title": "Agent",
+  "type": "object",
+  "required": ["id", "display_name", "role", "status", "approval_scope", "api_invocation_enabled"],
+  "properties": {
+    "id": { "type": "string" },
+    "display_name": { "type": "string" },
+    "role": { "type": "string" },
+    "status": { "type": "string" },
+    "approval_scope": { "type": "string" },
+    "api_invocation_enabled": { "type": "boolean" }
+  }
+}
