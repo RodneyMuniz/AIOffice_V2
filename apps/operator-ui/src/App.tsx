@@ -8,6 +8,7 @@ import {
   completeRepairRequest,
   createApproval,
   createCard,
+  createDeveloperResult,
   createQaResult,
   createRepairRequest,
   createWorkOrder,
@@ -19,12 +20,14 @@ import {
   updateCardStatus,
   updateWorkOrderStatus
 } from "./api";
-import { CARD_STATUSES, QA_RESULT_VALUES, WORK_ORDER_STATUSES } from "./types";
+import { CARD_STATUSES, DEVELOPER_RESULT_TYPES, QA_RESULT_VALUES, WORK_ORDER_STATUSES } from "./types";
 import type {
   Agent,
   Approval,
   Card,
   DashboardData,
+  DeveloperResult,
+  DeveloperResultType,
   EventEntry,
   EvidenceEntry,
   Handoff,
@@ -140,12 +143,15 @@ function Dashboard({
           onRefresh={onRefresh}
         />
         <WorkOrdersList
+          agents={data.agents}
           allowedStatuses={workOrderStatusOptions}
           currentWorkOrderId={data.status.current_work_order_id}
+          developerResults={data.developerResults}
           handoffs={data.handoffs}
           onRefresh={onRefresh}
           workOrders={data.workOrders}
         />
+        <DeveloperResultsPanel developerResults={data.developerResults} />
         <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
         <QaResultsPanel
           agents={data.agents}
@@ -227,6 +233,9 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="Workflow iterations" value={status.workflow_iterations_count} />
         <Metric label="Repair QA handoffs" value={status.repair_qa_handoffs_count} />
         <Metric label="Repair QA results" value={status.repair_qa_results_count} />
+        <Metric label="Developer results" value={status.developer_results_count} />
+        <Metric label="Submitted dev results" value={status.submitted_developer_results_count} />
+        <Metric label="WO with dev results" value={status.work_orders_with_developer_results_count} />
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -619,19 +628,32 @@ function CardsList({
 }
 
 function WorkOrdersList({
+  agents,
   allowedStatuses,
   currentWorkOrderId,
+  developerResults,
   handoffs,
   onRefresh,
   workOrders
 }: {
+  agents: Agent[];
   allowedStatuses: readonly string[];
   currentWorkOrderId: string | null;
+  developerResults: DeveloperResult[];
   handoffs: Handoff[];
   onRefresh: () => Promise<void>;
   workOrders: WorkOrder[];
 }) {
   const visibleWorkOrders = useMemo(() => [...workOrders].reverse(), [workOrders]);
+  const developerResultsByWorkOrderId = useMemo(() => {
+    const grouped = new Map<string, DeveloperResult[]>();
+    for (const result of developerResults) {
+      const results = grouped.get(result.work_order_id) ?? [];
+      results.push(result);
+      grouped.set(result.work_order_id, results);
+    }
+    return grouped;
+  }, [developerResults]);
   const [handoffWorkOrderId, setHandoffWorkOrderId] = useState<string | null>(null);
   const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
 
@@ -642,13 +664,17 @@ function WorkOrdersList({
         <span className="count-tag">{workOrders.length}</span>
       </div>
       <div className="record-list" data-testid="work-orders-list">
-        {visibleWorkOrders.map((workOrder) => (
-          <article
-            className={`record-row ${workOrder.id === currentWorkOrderId ? "active" : ""} ${
-              displayWorkOrderType(workOrder) === "repair" ? "repair-row" : ""
-            }`}
-            key={workOrder.id}
-          >
+        {visibleWorkOrders.map((workOrder) => {
+          const workOrderDeveloperResults = developerResultsByWorkOrderId.get(workOrder.id) ?? [];
+          const latestSubmittedDeveloperResult = latestDeveloperResult(workOrderDeveloperResults);
+
+          return (
+            <article
+              className={`record-row ${workOrder.id === currentWorkOrderId ? "active" : ""} ${
+                displayWorkOrderType(workOrder) === "repair" ? "repair-row" : ""
+              }`}
+              key={workOrder.id}
+            >
             <div className="record-title-line">
               <p className="eyebrow">{workOrder.id}</p>
               <span className={`state-tag ${workOrder.approval_required ? "warn" : ""}`}>{workOrder.status}</span>
@@ -666,6 +692,11 @@ function WorkOrdersList({
               <strong>{workOrder.iteration_number ?? (displayWorkOrderType(workOrder) === "repair" ? 2 : 1)}</strong>
               <span>QA handoffs</span>
               <strong>{handoffs.filter((handoff) => handoff.work_order_id === workOrder.id).length}</strong>
+              <span>Developer results</span>
+              <strong>
+                {workOrderDeveloperResults.length}
+                {latestSubmittedDeveloperResult ? `, latest ${latestSubmittedDeveloperResult.id}` : ""}
+              </strong>
               <span>Approval</span>
               <strong>{workOrder.approval_required ? "required" : "not required"}</strong>
               {workOrder.source_work_order_id && (
@@ -687,6 +718,7 @@ function WorkOrdersList({
                 </>
               )}
             </div>
+            <DeveloperResultForm agents={agents} onRefresh={onRefresh} workOrder={workOrder} />
             <HandoffToQaAction
               isWorking={handoffWorkOrderId === workOrder.id}
               onDone={(message) => setHandoffStatusById((current) => ({ ...current, [workOrder.id]: message }))}
@@ -705,9 +737,139 @@ function WorkOrdersList({
               testIdPrefix="work-order-status"
             />
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
+  );
+}
+
+function DeveloperResultForm({
+  agents,
+  onRefresh,
+  workOrder
+}: {
+  agents: Agent[];
+  onRefresh: () => Promise<void>;
+  workOrder: WorkOrder;
+}) {
+  const defaultResultType = displayWorkOrderType(workOrder) === "repair" ? "repair" : "implementation";
+  const defaultAgentId = agents.find((agent) => agent.id === "developer_codex")?.id ?? agents[0]?.id ?? "developer_codex";
+  const [resultType, setResultType] = useState<DeveloperResultType>(defaultResultType);
+  const [summary, setSummary] = useState("");
+  const [changedPaths, setChangedPaths] = useState("");
+  const [notes, setNotes] = useState("");
+  const [agentId, setAgentId] = useState(defaultAgentId);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    setResultType(defaultResultType);
+  }, [defaultResultType, workOrder.id]);
+
+  useEffect(() => {
+    if (!agentId || (agents.length && !agents.some((agent) => agent.id === agentId))) {
+      setAgentId(defaultAgentId);
+    }
+  }, [agentId, agents, defaultAgentId]);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsSubmitting(true);
+
+    try {
+      const developerResult = await createDeveloperResult(workOrder.id, {
+        result_type: resultType,
+        summary: summary.trim(),
+        changed_paths: parseChangedPaths(changedPaths),
+        notes: notes.trim(),
+        agent_id: agentId
+      });
+      await onRefresh();
+      setSummary("");
+      setChangedPaths("");
+      setNotes("");
+      setSuccess(`Recorded ${developerResult.id}`);
+    } catch (submitError: unknown) {
+      setError(errorMessage(submitError));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form className="developer-result-form" data-testid={`developer-result-form-${workOrder.id}`} onSubmit={handleSubmit}>
+      <div className="two-column-fields">
+        <label>
+          Result type
+          <select
+            data-testid={`developer-result-type-${workOrder.id}`}
+            onChange={(event) => setResultType(event.target.value as DeveloperResultType)}
+            value={resultType}
+          >
+            {DEVELOPER_RESULT_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Agent
+          <select
+            data-testid={`developer-result-agent-${workOrder.id}`}
+            onChange={(event) => setAgentId(event.target.value)}
+            value={agentId}
+          >
+            {agents.length === 0 && <option value="developer_codex">developer_codex</option>}
+            {agents.map((agent) => (
+              <option key={agent.id} value={agent.id}>
+                {agent.display_name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label>
+        Summary
+        <input
+          data-testid={`developer-result-summary-${workOrder.id}`}
+          onChange={(event) => setSummary(event.target.value)}
+          required
+          value={summary}
+        />
+      </label>
+      <label>
+        Changed paths
+        <textarea
+          data-testid={`developer-result-paths-${workOrder.id}`}
+          onChange={(event) => setChangedPaths(event.target.value)}
+          placeholder="apps/operator-ui/src/App.tsx"
+          rows={3}
+          value={changedPaths}
+        />
+      </label>
+      <label>
+        Notes
+        <textarea
+          data-testid={`developer-result-notes-${workOrder.id}`}
+          onChange={(event) => setNotes(event.target.value)}
+          rows={2}
+          value={notes}
+        />
+      </label>
+      <button
+        data-testid={`developer-result-submit-${workOrder.id}`}
+        disabled={isSubmitting || !summary.trim() || !agentId}
+        type="submit"
+      >
+        {isSubmitting ? "Recording..." : "Record Developer Result"}
+      </button>
+      <FormStatus error={error} success={success} />
+    </form>
   );
 }
 
@@ -755,6 +917,73 @@ function HandoffToQaAction({
       </button>
       <FormStatus error={error} success={statusMessage} />
     </div>
+  );
+}
+
+function DeveloperResultsPanel({ developerResults }: { developerResults: DeveloperResult[] }) {
+  const visibleDeveloperResults = useMemo(() => [...developerResults].reverse(), [developerResults]);
+
+  return (
+    <section className="panel developer-results-panel" data-testid="developer-results-panel">
+      <div className="panel-heading">
+        <h2>Developer Results</h2>
+        <span className="count-tag">{developerResults.length}</span>
+      </div>
+      <div className="record-list" data-testid="developer-results-list">
+        {visibleDeveloperResults.length === 0 && <p>No Developer/Codex results recorded yet.</p>}
+        {visibleDeveloperResults.map((developerResult) => (
+          <article className="record-row" data-testid={`developer-result-${developerResult.id}`} key={developerResult.id}>
+            <div className="record-title-line">
+              <p className="eyebrow">{developerResult.id}</p>
+              <span className={`state-tag ${developerResult.status === "superseded" ? "warn" : ""}`}>
+                {developerResult.status}
+              </span>
+            </div>
+            <div className="detail-grid handoff-detail-grid">
+              <span>Work order</span>
+              <strong>{developerResult.work_order_id}</strong>
+              <span>Card</span>
+              <strong>{developerResult.card_id}</strong>
+              <span>Agent</span>
+              <strong>{developerResult.agent_id}</strong>
+              <span>Type</span>
+              <strong>{developerResult.result_type}</strong>
+              <span>Created</span>
+              <strong>{developerResult.created_at}</strong>
+              <span>Updated</span>
+              <strong>{developerResult.updated_at}</strong>
+            </div>
+            <div className="summary-stack">
+              <div>
+                <p className="eyebrow">Summary</p>
+                <p>{developerResult.summary}</p>
+              </div>
+              <div>
+                <p className="eyebrow">Changed paths</p>
+                <div className="code-list">
+                  {developerResult.changed_paths.length === 0 && <code>none recorded</code>}
+                  {developerResult.changed_paths.map((changedPath) => (
+                    <code key={changedPath}>{changedPath}</code>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="eyebrow">Notes</p>
+                <p>{developerResult.notes || "No additional notes recorded."}</p>
+              </div>
+              <div>
+                <p className="eyebrow">Evidence refs</p>
+                <div className="code-list">
+                  {developerResult.evidence_refs.map((ref) => (
+                    <code key={ref}>{ref}</code>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -840,6 +1069,8 @@ function HandoffsPanel({
                 <strong>{handoff.handoff_purpose ?? "initial_qa"}</strong>
                 <span>Iteration</span>
                 <strong>{handoff.iteration_number ?? 1}</strong>
+                <span>Developer result</span>
+                <strong>{handoff.developer_result_id ?? "none"}</strong>
                 {handoff.repair_request_id && (
                   <>
                     <span>Repair request</span>
@@ -868,6 +1099,20 @@ function HandoffsPanel({
                   <p className="eyebrow">Validation summary</p>
                   <p>{handoff.validation_summary}</p>
                 </div>
+                {handoff.developer_result_id && (
+                  <div>
+                    <p className="eyebrow">Developer result summary</p>
+                    <p>{handoff.developer_result_summary || "No developer result summary recorded."}</p>
+                  </div>
+                )}
+                {!handoff.developer_result_id && (
+                  <p
+                    className="form-status warning developer-result-warning"
+                    data-testid={`handoff-developer-result-warning-${handoff.id}`}
+                  >
+                    No developer result captured before handoff
+                  </p>
+                )}
                 {handoff.decision_reason && (
                   <div>
                     <p className="eyebrow">Decision reason</p>
@@ -1430,6 +1675,25 @@ function repairRequestStatusClass(status: RepairRequest["status"]): string {
 
 function displayWorkOrderType(workOrder: WorkOrder): "original" | "repair" {
   return workOrder.work_order_type ?? (workOrder.repair_request_id || workOrder.source_work_order_id ? "repair" : "original");
+}
+
+function latestDeveloperResult(results: DeveloperResult[]): DeveloperResult | null {
+  const submittedResults = results.filter((result) => result.status === "submitted");
+  if (submittedResults.length === 0) {
+    return null;
+  }
+  return [...submittedResults].sort((left, right) => {
+    const leftTimestamp = left.updated_at || left.created_at || "";
+    const rightTimestamp = right.updated_at || right.created_at || "";
+    return rightTimestamp.localeCompare(leftTimestamp);
+  })[0];
+}
+
+function parseChangedPaths(value: string): string[] {
+  return value
+    .split(/[\n,]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 function StatusTransitionForm({

@@ -15,6 +15,7 @@
     "related_approval_id": { "type": "string" },
     "related_handoff_id": { "type": "string" },
     "related_repair_request_id": { "type": "string" },
+    "related_developer_result_id": { "type": "string" },
     "created_at": { "type": "string" }
   }
 }

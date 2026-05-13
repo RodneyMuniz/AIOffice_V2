@@ -14,6 +14,8 @@ R19 handoff flow now requires QA result capture to be recorded through UI/API be
 
 R19 repair-loop QA iterations remain operator-triggered UI/API flows until live-agent execution is explicitly implemented and evidenced.
 
+R19 Developer/Codex result capture remains operator/API-mediated until live Codex execution is explicitly implemented and evidenced.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

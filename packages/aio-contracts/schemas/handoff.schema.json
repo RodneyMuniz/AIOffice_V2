@@ -41,6 +41,8 @@
     "decision_reason": { "type": ["string", "null"] },
     "repair_request_id": { "type": "string" },
     "qa_result_id": { "type": "string" },
+    "developer_result_id": { "type": "string" },
+    "developer_result_summary": { "type": "string" },
     "iteration_number": { "type": "integer", "minimum": 1 },
     "handoff_purpose": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
@@ -63,6 +65,8 @@
       "updated_at": "2026-05-13T00:00:00Z",
       "decided_at": null,
       "decision_reason": null,
+      "developer_result_id": "R19-DEV-RESULT-001",
+      "developer_result_summary": "Operator recorded the implementation result before QA.",
       "iteration_number": 1,
       "handoff_purpose": "initial_qa",
       "evidence_refs": ["runtime/state/handoffs.json#R19-HANDOFF-001"]
@@ -86,6 +90,8 @@
       "decision_reason": null,
       "repair_request_id": "R19-REPAIR-001",
       "qa_result_id": "R19-QA-RESULT-001",
+      "developer_result_id": "R19-DEV-RESULT-002",
+      "developer_result_summary": "Operator recorded the repair result before repair QA.",
       "iteration_number": 2,
       "handoff_purpose": "repair_qa",
       "evidence_refs": ["runtime/state/handoffs.json#R19-HANDOFF-002"]

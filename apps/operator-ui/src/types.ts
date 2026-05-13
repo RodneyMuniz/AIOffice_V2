@@ -13,12 +13,16 @@ export const WORK_ORDER_STATUSES = [
 export const HANDOFF_STATUSES = ["proposed", "accepted", "rejected", "completed", "blocked"] as const;
 export const QA_RESULT_VALUES = ["passed", "failed", "blocked"] as const;
 export const REPAIR_REQUEST_STATUSES = ["proposed", "created", "in_progress", "completed", "cancelled"] as const;
+export const DEVELOPER_RESULT_TYPES = ["implementation", "repair", "documentation", "validation", "other"] as const;
+export const DEVELOPER_RESULT_STATUSES = ["draft", "submitted", "superseded"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
 export type HandoffStatus = (typeof HANDOFF_STATUSES)[number];
 export type QaResultValue = (typeof QA_RESULT_VALUES)[number];
 export type RepairRequestStatus = (typeof REPAIR_REQUEST_STATUSES)[number];
+export type DeveloperResultType = (typeof DEVELOPER_RESULT_TYPES)[number];
+export type DeveloperResultStatus = (typeof DEVELOPER_RESULT_STATUSES)[number];
 
 export type StatusResponse = {
   product_name: string;
@@ -45,6 +49,9 @@ export type StatusResponse = {
   workflow_iterations_count: number;
   repair_qa_handoffs_count: number;
   repair_qa_results_count: number;
+  developer_results_count: number;
+  submitted_developer_results_count: number;
+  work_orders_with_developer_results_count: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -79,6 +86,8 @@ export type WorkOrder = {
   source_work_order_id?: string;
   qa_result_id?: string;
   repair_request_id?: string;
+  developer_result_ids?: string[];
+  latest_developer_result_id?: string;
   iteration_number?: number;
   work_order_type?: "original" | "repair";
   created_at?: string;
@@ -119,6 +128,8 @@ export type Handoff = {
   decision_reason?: string | null;
   repair_request_id?: string;
   qa_result_id?: string;
+  developer_result_id?: string;
+  developer_result_summary?: string;
   iteration_number?: number;
   handoff_purpose?: "initial_qa" | "repair_qa";
   evidence_refs: string[];
@@ -137,6 +148,21 @@ export type QaResult = {
   repair_request_id?: string;
   source_qa_result_id?: string;
   iteration_number?: number;
+  created_at: string;
+  updated_at: string;
+  evidence_refs: string[];
+};
+
+export type DeveloperResult = {
+  id: string;
+  card_id: string;
+  work_order_id: string;
+  agent_id: string;
+  result_type: DeveloperResultType;
+  status: DeveloperResultStatus;
+  summary: string;
+  changed_paths: string[];
+  notes: string;
   created_at: string;
   updated_at: string;
   evidence_refs: string[];
@@ -196,6 +222,7 @@ export type EventEntry = {
   related_approval_id?: string;
   related_handoff_id?: string;
   related_repair_request_id?: string;
+  related_developer_result_id?: string;
 };
 
 export type EvidenceEntry = {
@@ -209,6 +236,7 @@ export type EvidenceEntry = {
   related_approval_id?: string;
   related_handoff_id?: string;
   related_repair_request_id?: string;
+  related_developer_result_id?: string;
   created_at?: string;
 };
 
@@ -221,6 +249,7 @@ export type DashboardData = {
   evidence: EvidenceEntry[];
   approvals: Approval[];
   handoffs: Handoff[];
+  developerResults: DeveloperResult[];
   qaResults: QaResult[];
   repairRequests: RepairRequest[];
   workflowIterations: WorkflowIteration[];
@@ -259,6 +288,14 @@ export type CreateQaResultRequest = {
   findings: string;
   recommended_next_action: string;
   qa_agent_id: string;
+};
+
+export type CreateDeveloperResultRequest = {
+  result_type: DeveloperResultType;
+  summary: string;
+  changed_paths: string[];
+  notes: string;
+  agent_id: string;
 };
 
 export type CreateRepairRequest = {

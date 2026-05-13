@@ -93,6 +93,7 @@
 .status-panel,
 .approvals-panel,
 .handoffs-panel,
+.developer-results-panel,
 .qa-results-panel,
 .repair-requests-panel,
 .workflow-iterations-panel {
@@ -355,6 +356,7 @@ button:disabled {
   margin: 0;
 }
 
+.developer-result-form,
 .qa-result-form,
 .repair-request-form {
   border-top: 1px solid #e2e6df;
@@ -364,6 +366,7 @@ button:disabled {
   padding-top: 12px;
 }
 
+.developer-result-form .form-status,
 .qa-result-form .form-status,
 .repair-request-form .form-status,
 .qa-result-recorded,
@@ -392,6 +395,12 @@ button:disabled {
   background: #edf7ef;
   border: 1px solid #bddfc5;
   color: #205631;
+}
+
+.form-status.warning {
+  background: #fff4dd;
+  border: 1px solid #e4c476;
+  color: #6e4b00;
 }
 
 .record-list,

@@ -75,6 +75,21 @@ def valid_qa_result_payload(result: str = "passed") -> dict:
     }
 
 
+def valid_developer_result_payload(
+    result_type: str = "implementation",
+    summary: str = "Developer result captured by regression harness.",
+    changed_paths: list[str] | None = None,
+    agent_id: str = "developer_codex",
+) -> dict:
+    return {
+        "result_type": result_type,
+        "summary": summary,
+        "changed_paths": changed_paths or ["apps/operator-ui/src/App.tsx"],
+        "notes": "Regression harness result notes.",
+        "agent_id": agent_id,
+    }
+
+
 def valid_repair_request_payload(label: str = "regression repair") -> dict:
     return {
         "summary": f"{label} summary",
@@ -132,6 +147,9 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["workflow_iterations_count"] == 1
     assert status["repair_qa_handoffs_count"] == 0
     assert status["repair_qa_results_count"] == 0
+    assert status["developer_results_count"] == 0
+    assert status["submitted_developer_results_count"] == 0
+    assert status["work_orders_with_developer_results_count"] == 0
 
     cards_response = client.get("/cards")
     assert cards_response.status_code == 200
@@ -152,6 +170,10 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     repair_requests_response = client.get("/repair-requests")
     assert repair_requests_response.status_code == 200
     assert repair_requests_response.json() == []
+
+    developer_results_response = client.get("/developer-results")
+    assert developer_results_response.status_code == 200
+    assert developer_results_response.json() == []
 
     workflow_iterations_response = client.get("/workflow-iterations")
     assert workflow_iterations_response.status_code == 200
@@ -257,6 +279,140 @@ def test_card_work_order_status_workflow_and_persistence(client: TestClient) -> 
     reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
     assert next(item for item in reloaded_store.cards if item["id"] == card["id"])["status"] == "planned"
     assert next(item for item in reloaded_store.work_orders if item["id"] == work_order["id"])["status"] == "running"
+
+
+def test_developer_result_validation_events_evidence_status_handoff_and_persistence(
+    client: TestClient,
+) -> None:
+    card, work_order = create_card_and_work_order(client, "developer result")
+
+    missing_work_order_response = client.post(
+        "/work-orders/missing/developer-result",
+        json=valid_developer_result_payload(),
+    )
+    assert missing_work_order_response.status_code == 404
+
+    unknown_agent_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(agent_id="missing_agent"),
+    )
+    assert unknown_agent_response.status_code == 400
+    assert "Invalid agent_id" in unknown_agent_response.json()["detail"]
+
+    invalid_type_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(result_type="not_real"),
+    )
+    assert invalid_type_response.status_code == 400
+    assert "Invalid developer result type" in invalid_type_response.json()["detail"]
+
+    invalid_paths_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json={**valid_developer_result_payload(), "changed_paths": "apps/operator-ui/src/App.tsx"},
+    )
+    assert invalid_paths_response.status_code == 400
+    assert "changed_paths must be a list of strings" in invalid_paths_response.json()["detail"]
+
+    result_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(
+            summary="Original implementation result captured before QA.",
+            changed_paths=["services/orchestrator-api/app/main.py"],
+        ),
+    )
+    assert result_response.status_code == 201
+    developer_result = result_response.json()
+    assert developer_result["card_id"] == card["id"]
+    assert developer_result["work_order_id"] == work_order["id"]
+    assert developer_result["agent_id"] == "developer_codex"
+    assert developer_result["result_type"] == "implementation"
+    assert developer_result["status"] == "submitted"
+    assert developer_result["changed_paths"] == ["services/orchestrator-api/app/main.py"]
+    assert developer_result["created_at"]
+    assert developer_result["updated_at"]
+    assert f"runtime/state/developer_results.json#{developer_result['id']}" in developer_result["evidence_refs"]
+
+    persisted_work_order = next(
+        item for item in client.get("/work-orders").json() if item["id"] == work_order["id"]
+    )
+    assert persisted_work_order["status"] == "ready"
+    assert persisted_work_order["latest_developer_result_id"] == developer_result["id"]
+    assert developer_result["id"] in persisted_work_order["developer_result_ids"]
+
+    duplicate_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(summary="Duplicate submitted result."),
+    )
+    assert duplicate_response.status_code == 400
+    assert "supersede" in duplicate_response.json()["detail"]
+
+    handoff_response = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa")
+    assert handoff_response.status_code == 201
+    handoff = handoff_response.json()
+    assert handoff["developer_result_id"] == developer_result["id"]
+    assert handoff["developer_result_summary"] == developer_result["summary"]
+    assert developer_result["summary"] in handoff["payload_summary"]
+    assert "Developer result" in handoff["validation_summary"]
+    assert f"runtime/state/developer_results.json#{developer_result['id']}" in handoff["evidence_refs"]
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert any(
+        event["type"] == "developer_result_recorded"
+        and event.get("related_developer_result_id") == developer_result["id"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "work_order_ready_from_developer_result"
+        and event.get("related_work_order_id") == work_order["id"]
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "developer_result"
+        and entry.get("related_developer_result_id") == developer_result["id"]
+        for entry in evidence
+    )
+
+    status = client.get("/status").json()
+    assert status["developer_results_count"] == 1
+    assert status["submitted_developer_results_count"] == 1
+    assert status["work_orders_with_developer_results_count"] == 1
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    persisted_result = next(
+        item for item in reloaded_store.developer_results if item["id"] == developer_result["id"]
+    )
+    assert persisted_result["summary"] == developer_result["summary"]
+    assert next(item for item in reloaded_store.handoffs if item["id"] == handoff["id"])[
+        "developer_result_id"
+    ] == developer_result["id"]
+
+    supersede_response = client.post(f"/developer-results/{developer_result['id']}/supersede")
+    assert supersede_response.status_code == 200
+    assert supersede_response.json()["status"] == "superseded"
+    assert client.post(f"/developer-results/{developer_result['id']}/supersede").status_code == 400
+    assert client.post("/developer-results/missing/supersede").status_code == 404
+
+    superseded_status = client.get("/status").json()
+    assert superseded_status["developer_results_count"] == 1
+    assert superseded_status["submitted_developer_results_count"] == 0
+    assert superseded_status["work_orders_with_developer_results_count"] == 0
+    assert any(
+        event["type"] == "developer_result_superseded"
+        and event.get("related_developer_result_id") == developer_result["id"]
+        for event in client.get("/events").json()
+    )
+
+    replacement_response = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(
+            result_type="documentation",
+            summary="Replacement developer result after supersede.",
+            changed_paths=["packages/aio-contracts/README.md"],
+        ),
+    )
+    assert replacement_response.status_code == 201
+    assert replacement_response.json()["result_type"] == "documentation"
 
 
 def test_approval_approve_and_reject_flow(client: TestClient) -> None:
@@ -413,6 +569,8 @@ def test_work_order_handoff_to_qa_accept_reject_and_error_paths(client: TestClie
     assert handoff["target_role"] == "QA/Test"
     assert handoff["status"] == "proposed"
     assert "no AI or autonomous agent was invoked" in handoff["validation_summary"]
+    assert "No developer result recorded before QA handoff." in handoff["validation_summary"]
+    assert "developer_result_id" not in handoff
 
     accept_response = client.post(
         f"/handoffs/{handoff['id']}/accept",
@@ -743,6 +901,19 @@ def test_repair_work_order_can_handoff_back_to_qa_and_record_iteration_result(
     repair_request = repair_request_response.json()
     repair_work_order_id = repair_request["repair_work_order_id"]
 
+    repair_developer_result_response = client.post(
+        f"/work-orders/{repair_work_order_id}/developer-result",
+        json=valid_developer_result_payload(
+            result_type="repair",
+            summary="Repair implementation result captured before QA.",
+            changed_paths=["services/orchestrator-api/app/main.py"],
+        ),
+    )
+    assert repair_developer_result_response.status_code == 201
+    repair_developer_result = repair_developer_result_response.json()
+    assert repair_developer_result["work_order_id"] == repair_work_order_id
+    assert repair_developer_result["result_type"] == "repair"
+
     repair_handoff_response = client.post(
         f"/repair-requests/{repair_request['id']}/handoff-to-qa"
     )
@@ -752,6 +923,8 @@ def test_repair_work_order_can_handoff_back_to_qa_and_record_iteration_result(
     assert repair_handoff["work_order_id"] == repair_work_order_id
     assert repair_handoff["repair_request_id"] == repair_request["id"]
     assert repair_handoff["qa_result_id"] == failed_qa_result["id"]
+    assert repair_handoff["developer_result_id"] == repair_developer_result["id"]
+    assert repair_handoff["developer_result_summary"] == repair_developer_result["summary"]
     assert repair_handoff["handoff_purpose"] == "repair_qa"
     assert repair_handoff["iteration_number"] == 2
 

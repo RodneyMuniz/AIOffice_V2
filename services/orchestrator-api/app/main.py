@@ -29,12 +29,15 @@ WORK_ORDER_STATUSES = (
 )
 WORK_ORDER_TYPES = ("original", "repair")
 HANDOFF_PURPOSES = ("initial_qa", "repair_qa")
+DEVELOPER_RESULT_TYPES = ("implementation", "repair", "documentation", "validation", "other")
+DEVELOPER_RESULT_STATUSES = ("draft", "submitted", "superseded")
 REPAIR_QA_HANDOFF_REPAIR_STATUSES = ("created", "in_progress", "completed")
 REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES = ("ready", "completed")
 ACTIVE_HANDOFF_STATUSES = ("proposed", "accepted")
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
+DeveloperResultStatus = Literal["draft", "submitted", "superseded"]
 RepairRequestStatus = Literal["proposed", "created", "in_progress", "completed", "cancelled"]
 
 HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
@@ -103,6 +106,8 @@ class HandoffCreate(BaseModel):
     validation_summary: str = ""
     repair_request_id: str | None = None
     qa_result_id: str | None = None
+    developer_result_id: str | None = None
+    developer_result_summary: str | None = None
     iteration_number: int | None = None
     handoff_purpose: str | None = None
     evidence_refs: list[str] = Field(default_factory=list)
@@ -136,6 +141,15 @@ class RepairRequestDecision(BaseModel):
     decided_by: str = "operator"
 
 
+class DeveloperResultCreate(BaseModel):
+    result_type: str = "implementation"
+    summary: str
+    changed_paths: Any = Field(default_factory=list)
+    notes: str = ""
+    agent_id: str = "developer_codex"
+    evidence_refs: list[str] = Field(default_factory=list)
+
+
 class StatusUpdateRequest(BaseModel):
     status: str
     reason: str = ""
@@ -157,6 +171,7 @@ class JsonStateStore:
         self.handoffs = self._load_collection("handoffs", [])
         self.qa_results = self._load_collection("qa_results", [])
         self.repair_requests = self._load_collection("repair_requests", [])
+        self.developer_results = self._load_collection("developer_results", [])
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
         if not path.exists():
@@ -214,6 +229,16 @@ class JsonStateStore:
             for qa_result in self.qa_results
             if qa_result.get("repair_request_id") or qa_result.get("source_qa_result_id")
         )
+        submitted_developer_results = [
+            result for result in self.developer_results if result.get("status") == "submitted"
+        ]
+        work_orders_with_developer_results_count = len(
+            {
+                result.get("work_order_id")
+                for result in submitted_developer_results
+                if result.get("work_order_id")
+            }
+        )
 
         return {
             **self.status_seed,
@@ -237,6 +262,9 @@ class JsonStateStore:
             "workflow_iterations_count": len(workflow_iterations),
             "repair_qa_handoffs_count": repair_qa_handoffs_count,
             "repair_qa_results_count": repair_qa_results_count,
+            "developer_results_count": len(self.developer_results),
+            "submitted_developer_results_count": len(submitted_developer_results),
+            "work_orders_with_developer_results_count": work_orders_with_developer_results_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -432,6 +460,145 @@ class JsonStateStore:
             self._save_collection("approvals", self.approvals)
         return work_order
 
+    def create_developer_result(
+        self, work_order_id: str, payload: DeveloperResultCreate
+    ) -> dict[str, Any]:
+        work_order = self._find_work_order(work_order_id)
+        if work_order is None:
+            raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
+
+        result_data = _model_to_dict(payload)
+        agent_id = str(result_data.get("agent_id") or "developer_codex").strip() or "developer_codex"
+        if self._find_agent(agent_id) is None:
+            raise HTTPException(status_code=400, detail=f"Invalid agent_id: {agent_id}.")
+
+        result_type = str(result_data.get("result_type") or "implementation").strip().lower()
+        _validate_status(result_type, DEVELOPER_RESULT_TYPES, "developer result type")
+        changed_paths = _normalize_string_list(result_data.get("changed_paths", []), "changed_paths")
+        summary = str(result_data.get("summary") or "").strip()
+        notes = str(result_data.get("notes") or "").strip()
+        if not summary:
+            raise HTTPException(status_code=400, detail="Developer result summary is required.")
+
+        existing_submitted_result = self._latest_submitted_developer_result_for_work_order(work_order_id)
+        if existing_submitted_result:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Submitted developer result {existing_submitted_result['id']} already exists "
+                    f"for work order {work_order_id}; supersede it before recording another."
+                ),
+            )
+
+        now = _utc_now()
+        result_id = self._next_id(self.developer_results, "R19-DEV-RESULT")
+        evidence_refs = [
+            *result_data.get("evidence_refs", []),
+            f"runtime/state/work_orders.json#{work_order_id}",
+            f"runtime/state/developer_results.json#{result_id}",
+        ]
+        developer_result = {
+            "id": result_id,
+            "card_id": work_order["card_id"],
+            "work_order_id": work_order_id,
+            "agent_id": agent_id,
+            "result_type": result_type,
+            "status": "submitted",
+            "summary": summary,
+            "changed_paths": changed_paths,
+            "notes": notes,
+            "created_at": now,
+            "updated_at": now,
+            "evidence_refs": evidence_refs,
+        }
+
+        self.developer_results.append(developer_result)
+        developer_result_ids = list(work_order.get("developer_result_ids", []))
+        developer_result_ids.append(result_id)
+        work_order["developer_result_ids"] = developer_result_ids
+        work_order["latest_developer_result_id"] = result_id
+        work_order["updated_at"] = now
+
+        self._append_event(
+            event_type="developer_result_recorded",
+            summary=(
+                f"Developer/Codex result {result_id} recorded for work order "
+                f"{work_order_id} as {result_type}."
+            ),
+            actor_agent_id=agent_id,
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=result_id,
+        )
+        self._append_evidence(
+            title=f"Developer result {result_id} recorded",
+            kind="developer_result",
+            summary=summary,
+            path=f"runtime/state/developer_results.json#{result_id}",
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=result_id,
+        )
+
+        if work_order.get("status") in {"draft", "running", "approved"}:
+            self._mark_work_order_ready_from_developer_result(work_order, developer_result)
+
+        self._save_collection("developer_results", self.developer_results)
+        self._save_collection("work_orders", self.work_orders)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return developer_result
+
+    def supersede_developer_result(self, developer_result_id: str) -> dict[str, Any]:
+        developer_result = self._find_developer_result(developer_result_id)
+        if developer_result is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown developer result id: {developer_result_id}",
+            )
+        if developer_result.get("status") == "superseded":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Developer result {developer_result_id} is already superseded.",
+            )
+
+        developer_result["status"] = "superseded"
+        developer_result["updated_at"] = _utc_now()
+        work_order_id = str(developer_result["work_order_id"])
+        work_order = self._find_work_order(work_order_id)
+        latest_submitted_result = self._latest_submitted_developer_result_for_work_order(work_order_id)
+        if work_order:
+            if latest_submitted_result:
+                work_order["latest_developer_result_id"] = latest_submitted_result["id"]
+            else:
+                work_order.pop("latest_developer_result_id", None)
+            work_order["updated_at"] = developer_result["updated_at"]
+
+        self._append_event(
+            event_type="developer_result_superseded",
+            summary=f"Developer/Codex result {developer_result_id} was superseded.",
+            actor_agent_id=developer_result.get("agent_id", "operator"),
+            related_card_id=developer_result["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=developer_result_id,
+        )
+        self._append_evidence(
+            title=f"Developer result {developer_result_id} superseded",
+            kind="developer_result",
+            summary=f"Developer/Codex result {developer_result_id} marked superseded.",
+            path=f"runtime/state/developer_results.json#{developer_result_id}",
+            related_card_id=developer_result["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=developer_result_id,
+        )
+
+        self._save_collection("developer_results", self.developer_results)
+        if work_order:
+            self._save_collection("work_orders", self.work_orders)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return developer_result
+
     def create_approval(self, payload: ApprovalCreate) -> dict[str, Any]:
         approval_data = _model_to_dict(payload)
         approval = self._create_approval_record(
@@ -514,6 +681,33 @@ class JsonStateStore:
             handoff_data.get("iteration_number"),
             self._infer_work_order_iteration(work_order),
         )
+        developer_result = None
+        developer_result_id = handoff_data.get("developer_result_id")
+        if developer_result_id:
+            developer_result = self._find_developer_result(str(developer_result_id))
+            if developer_result is None:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid developer_result_id: {developer_result_id}.",
+                )
+            if developer_result.get("work_order_id") != work_order_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"developer_result_id {developer_result_id} does not belong to "
+                        f"work_order_id {work_order_id}."
+                    ),
+                )
+            if developer_result.get("status") != "submitted":
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"Developer result {developer_result_id} is "
+                        f"{developer_result.get('status')}; QA handoffs require submitted results."
+                    ),
+                )
+        else:
+            developer_result = self._latest_submitted_developer_result_for_work_order(work_order_id)
 
         now = _utc_now()
         payload_summary = (
@@ -527,11 +721,33 @@ class JsonStateStore:
                 f"card {card_id} and work order {work_order_id}."
             )
         )
+        if developer_result:
+            developer_result_id = str(developer_result["id"])
+            developer_result_summary = (
+                str(handoff_data.get("developer_result_summary") or "").strip()
+                or str(developer_result.get("summary") or "").strip()
+            )
+            payload_summary = (
+                f"{payload_summary} Developer result {developer_result_id}: "
+                f"{developer_result_summary}"
+            )
+            validation_summary = (
+                f"{validation_summary} Developer result {developer_result_id} was attached "
+                "to this QA handoff."
+            )
+        else:
+            developer_result_id = None
+            developer_result_summary = None
+            validation_summary = (
+                f"{validation_summary} No developer result recorded before QA handoff."
+            )
         handoff_id = handoff_data.get("id") or self._next_id(self.handoffs, "R19-HANDOFF")
         evidence_refs = [
             *handoff_data.get("evidence_refs", []),
             f"runtime/state/handoffs.json#{handoff_id}",
         ]
+        if developer_result_id:
+            evidence_refs.append(f"runtime/state/developer_results.json#{developer_result_id}")
         handoff = {
             "id": handoff_id,
             "source_agent_id": source_agent_id,
@@ -553,6 +769,9 @@ class JsonStateStore:
             "iteration_number": iteration_number,
             "evidence_refs": evidence_refs,
         }
+        if developer_result_id:
+            handoff["developer_result_id"] = developer_result_id
+            handoff["developer_result_summary"] = developer_result_summary or ""
         if repair_request_id:
             handoff["repair_request_id"] = str(repair_request_id)
         if qa_result_id:
@@ -1375,6 +1594,39 @@ class JsonStateStore:
         self._save_collection("evidence", self.evidence)
         return repair_request
 
+    def _mark_work_order_ready_from_developer_result(
+        self,
+        work_order: dict[str, Any],
+        developer_result: dict[str, Any],
+    ) -> None:
+        previous_status = work_order.get("status")
+        work_order["status"] = "ready"
+        work_order["updated_at"] = developer_result["updated_at"]
+        work_order_id = work_order["id"]
+        result_id = developer_result["id"]
+        summary = (
+            f"Developer result {result_id} moved work order {work_order_id} "
+            f"from {previous_status} to ready."
+        )
+
+        self._append_event(
+            event_type="work_order_ready_from_developer_result",
+            summary=summary,
+            actor_agent_id=developer_result.get("agent_id", "developer_codex"),
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=result_id,
+        )
+        self._append_evidence(
+            title=f"Work order {work_order_id} ready from developer result",
+            kind="status_transition",
+            summary=summary,
+            path=f"runtime/state/work_orders.json#{work_order_id}",
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_developer_result_id=result_id,
+        )
+
     def _apply_work_order_status(
         self,
         work_order: dict[str, Any],
@@ -1489,6 +1741,7 @@ class JsonStateStore:
         related_approval_id: str | None = None,
         related_handoff_id: str | None = None,
         related_repair_request_id: str | None = None,
+        related_developer_result_id: str | None = None,
     ) -> None:
         event = {
             "id": self._next_id(self.events, "R19-EVENT"),
@@ -1501,6 +1754,7 @@ class JsonStateStore:
             "related_approval_id": related_approval_id,
             "related_handoff_id": related_handoff_id,
             "related_repair_request_id": related_repair_request_id,
+            "related_developer_result_id": related_developer_result_id,
         }
         self.events.append({key: value for key, value in event.items() if value is not None})
 
@@ -1515,6 +1769,7 @@ class JsonStateStore:
         related_approval_id: str | None = None,
         related_handoff_id: str | None = None,
         related_repair_request_id: str | None = None,
+        related_developer_result_id: str | None = None,
     ) -> None:
         evidence = {
             "id": self._next_id(self.evidence, "R19-EVIDENCE"),
@@ -1527,6 +1782,7 @@ class JsonStateStore:
             "related_approval_id": related_approval_id,
             "related_handoff_id": related_handoff_id,
             "related_repair_request_id": related_repair_request_id,
+            "related_developer_result_id": related_developer_result_id,
             "created_at": _utc_now(),
         }
         self.evidence.append({key: value for key, value in evidence.items() if value is not None})
@@ -1550,6 +1806,18 @@ class JsonStateStore:
                 handoff
                 for handoff in self.handoffs
                 if handoff.get("work_order_id") == work_order_id
+            ]
+        )
+
+    def _latest_submitted_developer_result_for_work_order(
+        self, work_order_id: str
+    ) -> dict[str, Any] | None:
+        return self._latest_record(
+            [
+                result
+                for result in self.developer_results
+                if result.get("work_order_id") == work_order_id
+                and result.get("status") == "submitted"
             ]
         )
 
@@ -1662,6 +1930,16 @@ class JsonStateStore:
     def _find_handoff(self, handoff_id: str) -> dict[str, Any] | None:
         return next((handoff for handoff in self.handoffs if handoff.get("id") == handoff_id), None)
 
+    def _find_developer_result(self, developer_result_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                result
+                for result in self.developer_results
+                if result.get("id") == developer_result_id
+            ),
+            None,
+        )
+
     def _find_qa_result(self, qa_result_id: str) -> dict[str, Any] | None:
         return next(
             (qa_result for qa_result in self.qa_results if qa_result.get("id") == qa_result_id),
@@ -1734,6 +2012,20 @@ def _validate_status(status: str, allowed_statuses: tuple[str, ...], record_kind
         )
 
 
+def _normalize_string_list(value: Any, field_name: str) -> list[str]:
+    if not isinstance(value, list):
+        raise HTTPException(status_code=400, detail=f"{field_name} must be a list of strings.")
+
+    normalized: list[str] = []
+    for item in value:
+        if not isinstance(item, str):
+            raise HTTPException(status_code=400, detail=f"{field_name} must be a list of strings.")
+        stripped_item = item.strip()
+        if stripped_item:
+            normalized.append(stripped_item)
+    return normalized
+
+
 def _coerce_iteration_number(value: Any, default: int) -> int:
     try:
         iteration_number = int(value)
@@ -1791,6 +2083,11 @@ def get_work_orders() -> list[dict[str, Any]]:
     return store.work_orders
 
 
+@app.get("/developer-results")
+def get_developer_results() -> list[dict[str, Any]]:
+    return store.developer_results
+
+
 @app.get("/workflow-iterations")
 def get_workflow_iterations() -> list[dict[str, Any]]:
     return store.workflow_iterations()
@@ -1799,6 +2096,18 @@ def get_workflow_iterations() -> list[dict[str, Any]]:
 @app.post("/work-orders", status_code=201)
 def post_work_orders(work_order: WorkOrderCreate) -> dict[str, Any]:
     return store.create_work_order(work_order)
+
+
+@app.post("/work-orders/{work_order_id}/developer-result", status_code=201)
+def post_work_order_developer_result(
+    work_order_id: str, developer_result: DeveloperResultCreate
+) -> dict[str, Any]:
+    return store.create_developer_result(work_order_id, developer_result)
+
+
+@app.post("/developer-results/{developer_result_id}/supersede")
+def post_developer_result_supersede(developer_result_id: str) -> dict[str, Any]:
+    return store.supersede_developer_result(developer_result_id)
 
 
 @app.patch("/work-orders/{work_order_id}/status")

@@ -4,10 +4,12 @@ import type {
   Card,
   CreateApprovalRequest,
   CreateCardRequest,
+  CreateDeveloperResultRequest,
   CreateQaResultRequest,
   CreateRepairRequest,
   CreateWorkOrderRequest,
   DashboardData,
+  DeveloperResult,
   EventEntry,
   EvidenceEntry,
   Handoff,
@@ -67,6 +69,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     evidence,
     approvals,
     handoffs,
+    developerResults,
     qaResults,
     repairRequests,
     workflowIterations
@@ -79,6 +82,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     requestJson<EvidenceEntry[]>("/evidence", { signal }),
     requestJson<Approval[]>("/approvals", { signal }),
     requestJson<Handoff[]>("/handoffs", { signal }),
+    requestJson<DeveloperResult[]>("/developer-results", { signal }),
     requestJson<QaResult[]>("/qa-results", { signal }),
     requestJson<RepairRequest[]>("/repair-requests", { signal }),
     requestJson<WorkflowIteration[]>("/workflow-iterations", { signal })
@@ -93,6 +97,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     evidence,
     approvals,
     handoffs,
+    developerResults,
     qaResults,
     repairRequests,
     workflowIterations
@@ -105,6 +110,14 @@ export function createCard(payload: CreateCardRequest): Promise<Card> {
 
 export function createWorkOrder(payload: CreateWorkOrderRequest): Promise<WorkOrder> {
   return requestJson<WorkOrder>("/work-orders", { method: "POST", body: payload });
+}
+
+export function createDeveloperResult(id: string, payload: CreateDeveloperResultRequest): Promise<DeveloperResult> {
+  return requestJson<DeveloperResult>(`/work-orders/${id}/developer-result`, { method: "POST", body: payload });
+}
+
+export function supersedeDeveloperResult(id: string): Promise<DeveloperResult> {
+  return requestJson<DeveloperResult>(`/developer-results/${id}/supersede`, { method: "POST" });
 }
 
 export function updateCardStatus(id: string, payload: UpdateStatusRequest): Promise<Card> {

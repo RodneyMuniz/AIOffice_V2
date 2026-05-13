@@ -91,20 +91,36 @@ try {
   const workOrderId = (await workOrderRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(workOrderId, "created work-order id should be visible");
 
+  const originalDeveloperSummary = "Browser smoke implementation result.";
+  await workOrderRow.locator(`[data-testid="developer-result-type-${workOrderId}"]`).selectOption("implementation");
+  await workOrderRow.locator(`[data-testid="developer-result-summary-${workOrderId}"]`).fill(originalDeveloperSummary);
+  await workOrderRow
+    .locator(`[data-testid="developer-result-paths-${workOrderId}"]`)
+    .fill("apps/operator-ui/src/App.tsx\nservices/orchestrator-api/app/main.py");
+  await workOrderRow.locator(`[data-testid="developer-result-notes-${workOrderId}"]`).fill("Browser smoke captured original implementation output.");
+  await workOrderRow.locator(`[data-testid="developer-result-submit-${workOrderId}"]`).click();
+  const originalDeveloperResultRow = page
+    .getByTestId("developer-results-list")
+    .locator("article")
+    .filter({ hasText: originalDeveloperSummary })
+    .first();
+  await originalDeveloperResultRow.waitFor();
+  const originalDeveloperResultId = (await originalDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
+  assert.ok(originalDeveloperResultId, "original developer result id should be visible");
+  await workOrderRow.getByText(`latest ${originalDeveloperResultId}`).waitFor();
+  await workOrderRow.locator(".state-tag", { hasText: "ready" }).waitFor();
+
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-select"]').selectOption("planned");
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-reason"]').fill("Browser smoke planned the card.");
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-submit"]').click();
   await cardRow.locator(".state-tag", { hasText: "planned" }).waitFor();
 
-  await workOrderRow.locator('[data-testid^="work-order-status-"][data-testid$="-select"]').selectOption("running");
-  await workOrderRow.locator('[data-testid^="work-order-status-"][data-testid$="-reason"]').fill("Browser smoke started the work order.");
-  await workOrderRow.locator('[data-testid^="work-order-status-"][data-testid$="-submit"]').click();
-  await workOrderRow.locator(".state-tag", { hasText: "running" }).waitFor();
-
   await workOrderRow.getByRole("button", { name: "Handoff to QA" }).click();
   const handoffRow = page.getByTestId("handoffs-panel").locator("article").filter({ hasText: workOrderId }).first();
   await handoffRow.waitFor();
   await handoffRow.locator(".state-tag", { hasText: "proposed" }).waitFor();
+  await handoffRow.locator("strong").filter({ hasText: originalDeveloperResultId }).first().waitFor();
+  await handoffRow.locator("p").filter({ hasText: originalDeveloperSummary }).first().waitFor();
 
   await handoffRow.locator('[data-testid^="handoff-reason-"]').fill("Browser smoke accepts the QA handoff.");
   await handoffRow.getByRole("button", { name: "Accept" }).click();
@@ -146,6 +162,24 @@ try {
   const repairWorkOrderId = (await repairWorkOrderRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(repairWorkOrderId, "repair work-order id should be visible");
 
+  const repairDeveloperSummary = "Browser smoke repair implementation result.";
+  await repairWorkOrderRow.locator(`[data-testid="developer-result-type-${repairWorkOrderId}"]`).selectOption("repair");
+  await repairWorkOrderRow.locator(`[data-testid="developer-result-summary-${repairWorkOrderId}"]`).fill(repairDeveloperSummary);
+  await repairWorkOrderRow
+    .locator(`[data-testid="developer-result-paths-${repairWorkOrderId}"]`)
+    .fill("apps/operator-ui/src/App.tsx\napps/operator-ui/scripts/smoke.mjs");
+  await repairWorkOrderRow.locator(`[data-testid="developer-result-notes-${repairWorkOrderId}"]`).fill("Browser smoke captured repair implementation output.");
+  await repairWorkOrderRow.locator(`[data-testid="developer-result-submit-${repairWorkOrderId}"]`).click();
+  const repairDeveloperResultRow = page
+    .getByTestId("developer-results-list")
+    .locator("article")
+    .filter({ hasText: repairDeveloperSummary })
+    .first();
+  await repairDeveloperResultRow.waitFor();
+  const repairDeveloperResultId = (await repairDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
+  assert.ok(repairDeveloperResultId, "repair developer result id should be visible");
+  await repairWorkOrderRow.getByText(`latest ${repairDeveloperResultId}`).waitFor();
+
   await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).click();
   const repairHandoffRow = page
     .getByTestId("handoffs-panel")
@@ -155,6 +189,8 @@ try {
     .first();
   await repairHandoffRow.waitFor();
   await repairHandoffRow.locator(".state-tag", { hasText: "proposed" }).waitFor();
+  await repairHandoffRow.locator("strong").filter({ hasText: repairDeveloperResultId }).first().waitFor();
+  await repairHandoffRow.locator("p").filter({ hasText: repairDeveloperSummary }).first().waitFor();
 
   await repairHandoffRow.locator('[data-testid^="handoff-reason-"]').fill("Browser smoke accepts the repair QA handoff.");
   await repairHandoffRow.getByRole("button", { name: "Accept" }).click();
@@ -186,7 +222,10 @@ try {
   await page.getByTestId("events-list").getByText("repair_handoff_created").waitFor();
   await page.getByTestId("events-list").getByText("repair_qa_result_recorded").waitFor();
   await page.getByTestId("events-list").getByText("repair_iteration_passed").waitFor();
+  await page.getByTestId("events-list").getByText("developer_result_recorded").first().waitFor();
+  await page.getByTestId("events-list").getByText("work_order_ready_from_developer_result").first().waitFor();
   await page.getByTestId("evidence-list").getByText("handoff_decision").first().waitFor();
+  await page.getByTestId("evidence-list").getByText("developer_result", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("qa_result", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("repair_request", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("repair_work_order", { exact: true }).waitFor();

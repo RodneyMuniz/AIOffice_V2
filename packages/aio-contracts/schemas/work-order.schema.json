@@ -40,6 +40,8 @@
     "source_work_order_id": { "type": "string" },
     "qa_result_id": { "type": "string" },
     "repair_request_id": { "type": "string" },
+    "developer_result_ids": { "type": "array", "items": { "type": "string" } },
+    "latest_developer_result_id": { "type": "string" },
     "iteration_number": { "type": "integer", "minimum": 1 },
     "work_order_type": { "type": "string", "enum": ["original", "repair"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } },

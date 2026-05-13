@@ -13,6 +13,8 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/work-order.schema.json`
 - `schemas/create-work-order-request.schema.json`
 - `schemas/update-work-order-status-request.schema.json`
+- `schemas/developer-result.schema.json`
+- `schemas/create-developer-result-request.schema.json`
 - `schemas/handoff.schema.json`
 - `schemas/create-handoff-request.schema.json`
 - `schemas/handoff-decision-request.schema.json`
@@ -40,7 +42,15 @@ Allowed QA result values are `passed`, `failed`, and `blocked`.
 
 Allowed repair request statuses are `proposed`, `created`, `in_progress`, `completed`, and `cancelled`.
 
+Allowed Developer/Codex result types are `implementation`, `repair`, `documentation`, `validation`, and `other`.
+
+Allowed Developer/Codex result statuses are `draft`, `submitted`, and `superseded`.
+
+The Developer/Codex result contracts describe operator/API-mediated result capture for a work order before QA handoff. They record summary, changed paths, notes, agent id, and evidence refs in `runtime/state/developer_results.json`. They do not claim autonomous Codex execution, autonomous coding, live OpenAI/Codex API invocation, or no-manual-transfer success.
+
 The handoff contracts describe an API-mediated dry-run role handoff. They do not claim autonomous A2A execution, background workers, OpenAI/Codex API invocation, or full product runtime.
+
+QA handoffs may include `developer_result_id` and `developer_result_summary` when a submitted Developer/Codex result exists for the work order. Handoffs are still allowed without a result in this slice and should carry a visible warning summary instead of enforcing a hard policy gate.
 
 The QA result contracts describe structured operator/API-mediated result capture after an accepted handoff. They do not claim autonomous QA execution, live agent testing, autonomous A2A, or no-manual-transfer success.
 

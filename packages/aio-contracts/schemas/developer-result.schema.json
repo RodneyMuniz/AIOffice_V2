@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/developer-result.schema.json",
+  "title": "DeveloperResult",
+  "type": "object",
+  "required": [
+    "id",
+    "card_id",
+    "work_order_id",
+    "agent_id",
+    "result_type",
+    "status",
+    "summary",
+    "changed_paths",
+    "notes",
+    "created_at",
+    "updated_at",
+    "evidence_refs"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "work_order_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "result_type": {
+      "type": "string",
+      "enum": ["implementation", "repair", "documentation", "validation", "other"]
+    },
+    "status": { "type": "string", "enum": ["draft", "submitted", "superseded"] },
+    "summary": { "type": "string" },
+    "changed_paths": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "id": "R19-DEV-RESULT-001",
+      "card_id": "R19-CARD-001",
+      "work_order_id": "R19-WO-001",
+      "agent_id": "developer_codex",
+      "result_type": "implementation",
+      "status": "submitted",
+      "summary": "Operator recorded the Developer/Codex implementation result before QA.",
+      "changed_paths": ["apps/operator-ui/src/App.tsx"],
+      "notes": "Manual/API-mediated result capture; no Codex API was invoked.",
+      "created_at": "2026-05-13T00:20:00Z",
+      "updated_at": "2026-05-13T00:20:00Z",
+      "evidence_refs": ["runtime/state/developer_results.json#R19-DEV-RESULT-001"]
+    }
+  ]
+}

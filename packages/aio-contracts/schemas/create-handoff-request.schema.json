@@ -27,6 +27,8 @@
     "validation_summary": { "type": "string" },
     "repair_request_id": { "type": "string" },
     "qa_result_id": { "type": "string" },
+    "developer_result_id": { "type": "string" },
+    "developer_result_summary": { "type": "string" },
     "iteration_number": { "type": "integer", "minimum": 1 },
     "handoff_purpose": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
