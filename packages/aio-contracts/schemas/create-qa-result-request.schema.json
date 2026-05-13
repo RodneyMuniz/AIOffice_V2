@@ -15,7 +15,10 @@
     "summary": { "type": "string", "minLength": 1 },
     "findings": { "type": "string" },
     "recommended_next_action": { "type": "string" },
-    "qa_agent_id": { "type": "string", "minLength": 1 }
+    "qa_agent_id": { "type": "string", "minLength": 1 },
+    "repair_request_id": { "type": "string" },
+    "source_qa_result_id": { "type": "string" },
+    "iteration_number": { "type": "integer", "minimum": 1 }
   },
   "examples": [
     {

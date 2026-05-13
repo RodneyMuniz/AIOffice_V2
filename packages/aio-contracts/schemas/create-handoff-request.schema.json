@@ -25,6 +25,10 @@
     "status": { "type": "string", "enum": ["proposed", "accepted", "rejected", "completed", "blocked"] },
     "payload_summary": { "type": "string" },
     "validation_summary": { "type": "string" },
+    "repair_request_id": { "type": "string" },
+    "qa_result_id": { "type": "string" },
+    "iteration_number": { "type": "integer", "minimum": 1 },
+    "handoff_purpose": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
   },
   "examples": [
@@ -37,7 +41,9 @@
       "work_order_id": "R19-WO-001",
       "title": "QA handoff for R19-WO-001",
       "summary": "Dry-run handoff for local QA validation.",
-      "status": "proposed"
+      "status": "proposed",
+      "handoff_purpose": "initial_qa",
+      "iteration_number": 1
     }
   ]
 }

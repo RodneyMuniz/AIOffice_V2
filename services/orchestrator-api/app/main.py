@@ -27,6 +27,11 @@ WORK_ORDER_STATUSES = (
     "blocked",
     "cancelled",
 )
+WORK_ORDER_TYPES = ("original", "repair")
+HANDOFF_PURPOSES = ("initial_qa", "repair_qa")
+REPAIR_QA_HANDOFF_REPAIR_STATUSES = ("created", "in_progress", "completed")
+REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES = ("ready", "completed")
+ACTIVE_HANDOFF_STATUSES = ("proposed", "accepted")
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
@@ -64,6 +69,8 @@ class WorkOrderCreate(BaseModel):
     source_work_order_id: str | None = None
     qa_result_id: str | None = None
     repair_request_id: str | None = None
+    iteration_number: int | None = None
+    work_order_type: str | None = None
     evidence_refs: list[str] = Field(default_factory=list)
 
 
@@ -94,6 +101,10 @@ class HandoffCreate(BaseModel):
     status: str = "proposed"
     payload_summary: str = ""
     validation_summary: str = ""
+    repair_request_id: str | None = None
+    qa_result_id: str | None = None
+    iteration_number: int | None = None
+    handoff_purpose: str | None = None
     evidence_refs: list[str] = Field(default_factory=list)
 
 
@@ -108,6 +119,9 @@ class QaResultCreate(BaseModel):
     findings: str = ""
     recommended_next_action: str = ""
     qa_agent_id: str = "qa_test"
+    repair_request_id: str | None = None
+    source_qa_result_id: str | None = None
+    iteration_number: int | None = None
 
 
 class RepairRequestCreate(BaseModel):
@@ -191,6 +205,15 @@ class JsonStateStore:
         completed_repair_requests_count = sum(
             1 for repair_request in self.repair_requests if repair_request.get("status") == "completed"
         )
+        workflow_iterations = self.workflow_iterations()
+        repair_qa_handoffs_count = sum(
+            1 for handoff in self.handoffs if handoff.get("handoff_purpose") == "repair_qa"
+        )
+        repair_qa_results_count = sum(
+            1
+            for qa_result in self.qa_results
+            if qa_result.get("repair_request_id") or qa_result.get("source_qa_result_id")
+        )
 
         return {
             **self.status_seed,
@@ -211,6 +234,9 @@ class JsonStateStore:
             "repair_requests_count": len(self.repair_requests),
             "open_repair_requests_count": open_repair_requests_count,
             "completed_repair_requests_count": completed_repair_requests_count,
+            "workflow_iterations_count": len(workflow_iterations),
+            "repair_qa_handoffs_count": repair_qa_handoffs_count,
+            "repair_qa_results_count": repair_qa_results_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -276,12 +302,32 @@ class JsonStateStore:
             "waiting_approval" if approval_required else "draft"
         )
         _validate_status(status, WORK_ORDER_STATUSES, "work-order")
+        work_order_type = (
+            str(
+                work_order_data.pop("work_order_type", None)
+                or (
+                    "repair"
+                    if work_order_data.get("repair_request_id")
+                    or work_order_data.get("source_work_order_id")
+                    else "original"
+                )
+            )
+            .strip()
+            .lower()
+        )
+        _validate_status(work_order_type, WORK_ORDER_TYPES, "work-order type")
+        iteration_number = _coerce_iteration_number(
+            work_order_data.pop("iteration_number", None),
+            2 if work_order_type == "repair" else 1,
+        )
         work_order = {
             **work_order_data,
             "id": work_order_data.get("id") or self._next_id(self.work_orders, "R19-WO"),
             "summary": summary,
             "status": status,
             "approval_required": bool(approval_required),
+            "work_order_type": work_order_type,
+            "iteration_number": iteration_number,
             "created_at": _utc_now(),
         }
 
@@ -436,6 +482,39 @@ class JsonStateStore:
                 detail=f"work_order_id {work_order_id} does not belong to card_id {card_id}.",
             )
 
+        repair_request_id = handoff_data.get("repair_request_id")
+        qa_result_id = handoff_data.get("qa_result_id")
+        handoff_purpose = (
+            str(
+                handoff_data.get("handoff_purpose")
+                or ("repair_qa" if repair_request_id else "initial_qa")
+            )
+            .strip()
+            .lower()
+        )
+        _validate_status(handoff_purpose, HANDOFF_PURPOSES, "handoff purpose")
+        if handoff_purpose == "repair_qa" and not repair_request_id:
+            raise HTTPException(
+                status_code=400,
+                detail="repair_qa handoffs require repair_request_id.",
+            )
+        if handoff_purpose == "repair_qa" and not qa_result_id:
+            raise HTTPException(
+                status_code=400,
+                detail="repair_qa handoffs require qa_result_id linkage.",
+            )
+        if repair_request_id and self._find_repair_request(str(repair_request_id)) is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid repair_request_id: {repair_request_id}.",
+            )
+        if qa_result_id and self._find_qa_result(str(qa_result_id)) is None:
+            raise HTTPException(status_code=400, detail=f"Invalid qa_result_id: {qa_result_id}.")
+        iteration_number = _coerce_iteration_number(
+            handoff_data.get("iteration_number"),
+            self._infer_work_order_iteration(work_order),
+        )
+
         now = _utc_now()
         payload_summary = (
             handoff_data.get("payload_summary")
@@ -470,27 +549,54 @@ class JsonStateStore:
             "updated_at": now,
             "decided_at": None,
             "decision_reason": None,
+            "handoff_purpose": handoff_purpose,
+            "iteration_number": iteration_number,
             "evidence_refs": evidence_refs,
         }
+        if repair_request_id:
+            handoff["repair_request_id"] = str(repair_request_id)
+        if qa_result_id:
+            handoff["qa_result_id"] = str(qa_result_id)
 
         self.handoffs.append(handoff)
+        is_repair_qa = handoff_purpose == "repair_qa"
         self._append_event(
-            event_type="handoff_created",
-            summary=f"Handoff {handoff_id} proposed from {source_agent_id} to {target_agent_id}.",
+            event_type="repair_handoff_created" if is_repair_qa else "handoff_created",
+            summary=(
+                f"Repair QA handoff {handoff_id} proposed for iteration {iteration_number}."
+                if is_repair_qa
+                else f"Handoff {handoff_id} proposed from {source_agent_id} to {target_agent_id}."
+            ),
             actor_agent_id=source_agent_id,
             related_card_id=card_id,
             related_work_order_id=work_order_id,
             related_handoff_id=handoff_id,
+            related_repair_request_id=str(repair_request_id) if repair_request_id else None,
         )
         self._append_evidence(
-            title=f"Handoff {handoff_id} created",
-            kind="handoff_record",
+            title=f"{'Repair QA handoff' if is_repair_qa else 'Handoff'} {handoff_id} created",
+            kind="repair_handoff" if is_repair_qa else "handoff_record",
             summary=validation_summary,
             path=f"runtime/state/handoffs.json#{handoff_id}",
             related_card_id=card_id,
             related_work_order_id=work_order_id,
             related_handoff_id=handoff_id,
+            related_repair_request_id=str(repair_request_id) if repair_request_id else None,
         )
+        if is_repair_qa:
+            self._append_evidence(
+                title=f"Workflow iteration {iteration_number} repair QA handoff",
+                kind="workflow_iteration",
+                summary=(
+                    f"Repair work order {work_order_id} entered QA iteration "
+                    f"{iteration_number} through handoff {handoff_id}."
+                ),
+                path=f"runtime/state/handoffs.json#{handoff_id}",
+                related_card_id=card_id,
+                related_work_order_id=work_order_id,
+                related_handoff_id=handoff_id,
+                related_repair_request_id=str(repair_request_id) if repair_request_id else None,
+            )
         self._save_collection("handoffs", self.handoffs)
         self._save_collection("events", self.events)
         self._save_collection("evidence", self.evidence)
@@ -500,6 +606,18 @@ class JsonStateStore:
         work_order = self._find_work_order(work_order_id)
         if work_order is None:
             raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
+
+        if self._infer_work_order_type(work_order) == "repair":
+            repair_request_id = work_order.get("repair_request_id")
+            if not repair_request_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"Repair work-order {work_order_id} cannot be handed to QA "
+                        "without repair_request_id linkage."
+                    ),
+                )
+            return self.handoff_repair_request_to_qa(str(repair_request_id))
 
         evidence_refs = list(work_order.get("evidence_refs", []))
         evidence_refs.append(f"runtime/state/work_orders.json#{work_order_id}")
@@ -514,6 +632,8 @@ class JsonStateStore:
                 title=f"QA handoff for {work_order_id}",
                 summary=f"Developer/Codex requests QA/Test validation for '{work_order['title']}'.",
                 status="proposed",
+                handoff_purpose="initial_qa",
+                iteration_number=self._infer_work_order_iteration(work_order),
                 payload_summary=(
                     f"Work order '{work_order['title']}' is currently {work_order['status']} "
                     f"and assigned to {work_order.get('assigned_agent_id', 'unknown')}."
@@ -522,6 +642,127 @@ class JsonStateStore:
                     "API dry-run handoff only: source/target agents, card, and work-order linkage "
                     "were validated; no AI or autonomous agent was invoked."
                 ),
+                evidence_refs=evidence_refs,
+            )
+        )
+
+    def handoff_repair_request_to_qa(self, repair_request_id: str) -> dict[str, Any]:
+        repair_request = self._find_repair_request(repair_request_id)
+        if repair_request is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown repair request id: {repair_request_id}",
+            )
+
+        repair_status = repair_request.get("status")
+        if repair_status not in REPAIR_QA_HANDOFF_REPAIR_STATUSES:
+            allowed = ", ".join(REPAIR_QA_HANDOFF_REPAIR_STATUSES)
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair request {repair_request_id} is {repair_status}; "
+                    f"repair QA handoffs require status {allowed}."
+                ),
+            )
+
+        repair_work_order_id = repair_request.get("repair_work_order_id")
+        if not repair_work_order_id:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Repair request {repair_request_id} does not have repair_work_order_id.",
+            )
+
+        repair_work_order = self._find_work_order(str(repair_work_order_id))
+        if repair_work_order is None:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair request {repair_request_id} references missing repair work-order "
+                    f"{repair_work_order_id}."
+                ),
+            )
+        if repair_work_order.get("card_id") != repair_request.get("card_id"):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair work-order {repair_work_order_id} card_id does not match "
+                    f"repair request {repair_request_id}."
+                ),
+            )
+
+        repair_work_order_status = repair_work_order.get("status")
+        if repair_work_order_status not in REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES:
+            allowed = ", ".join(REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES)
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair work-order {repair_work_order_id} is {repair_work_order_status}; "
+                    f"repair QA handoffs require status {allowed}."
+                ),
+            )
+
+        source_qa_result_id = repair_request.get("qa_result_id")
+        if not source_qa_result_id or self._find_qa_result(str(source_qa_result_id)) is None:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair request {repair_request_id} must link to an existing failed or "
+                    "blocked QA result before it can be handed to QA."
+                ),
+            )
+
+        active_handoff = self._find_active_repair_qa_handoff(
+            repair_request_id,
+            str(repair_work_order_id),
+        )
+        if active_handoff:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair QA handoff {active_handoff['id']} already exists for "
+                    f"repair request {repair_request_id} with status {active_handoff['status']}."
+                ),
+            )
+
+        source_qa_result = self._find_qa_result(str(source_qa_result_id))
+        iteration_number = self._repair_qa_iteration_number(
+            repair_request,
+            repair_work_order,
+            source_qa_result,
+        )
+        evidence_refs = [
+            *repair_request.get("evidence_refs", []),
+            *repair_work_order.get("evidence_refs", []),
+            f"runtime/state/repair_requests.json#{repair_request_id}",
+            f"runtime/state/work_orders.json#{repair_work_order_id}",
+        ]
+        return self.create_handoff(
+            HandoffCreate(
+                source_agent_id="developer_codex",
+                target_agent_id="qa_test",
+                source_role="Developer/Codex",
+                target_role="QA/Test",
+                card_id=repair_work_order["card_id"],
+                work_order_id=str(repair_work_order_id),
+                title=f"Repair QA handoff for {repair_work_order_id}",
+                summary=(
+                    "Developer/Codex requests QA/Test validation for repair "
+                    f"iteration {iteration_number}."
+                ),
+                status="proposed",
+                payload_summary=(
+                    f"Repair work order '{repair_work_order['title']}' is currently "
+                    f"{repair_work_order_status} and linked to repair request {repair_request_id}."
+                ),
+                validation_summary=(
+                    f"Repair QA iteration {iteration_number}: repair request, source QA result, "
+                    "card, and repair work-order linkage were validated; no AI or autonomous "
+                    "agent was invoked."
+                ),
+                repair_request_id=repair_request_id,
+                qa_result_id=str(source_qa_result_id),
+                iteration_number=iteration_number,
+                handoff_purpose="repair_qa",
                 evidence_refs=evidence_refs,
             )
         )
@@ -562,12 +803,22 @@ class JsonStateStore:
         _validate_status(result, QA_RESULT_VALUES, "QA result")
 
         qa_agent_id = str(result_data.get("qa_agent_id") or "qa_test").strip() or "qa_test"
+        work_order = self._find_work_order(handoff["work_order_id"])
+        is_repair_qa = handoff.get("handoff_purpose") == "repair_qa"
+        repair_request_id = handoff.get("repair_request_id") if is_repair_qa else None
+        source_qa_result_id = handoff.get("qa_result_id") if is_repair_qa else None
+        iteration_number = _coerce_iteration_number(
+            result_data.get("iteration_number") or handoff.get("iteration_number"),
+            self._infer_work_order_iteration(work_order) if work_order else 1,
+        )
         now = _utc_now()
         qa_result_id = self._next_id(self.qa_results, "R19-QA-RESULT")
         evidence_refs = [
             f"runtime/state/handoffs.json#{handoff_id}",
             f"runtime/state/qa_results.json#{qa_result_id}",
         ]
+        if repair_request_id:
+            evidence_refs.append(f"runtime/state/repair_requests.json#{repair_request_id}")
         qa_result = {
             "id": qa_result_id,
             "handoff_id": handoff_id,
@@ -580,10 +831,15 @@ class JsonStateStore:
             "recommended_next_action": str(
                 result_data.get("recommended_next_action") or ""
             ).strip(),
+            "iteration_number": iteration_number,
             "created_at": now,
             "updated_at": now,
             "evidence_refs": evidence_refs,
         }
+        if repair_request_id:
+            qa_result["repair_request_id"] = repair_request_id
+        if source_qa_result_id:
+            qa_result["source_qa_result_id"] = source_qa_result_id
 
         self.qa_results.append(qa_result)
         self._append_event(
@@ -593,6 +849,7 @@ class JsonStateStore:
             related_card_id=handoff["card_id"],
             related_work_order_id=handoff["work_order_id"],
             related_handoff_id=handoff_id,
+            related_repair_request_id=repair_request_id,
         )
         self._append_evidence(
             title=f"QA result {qa_result_id} recorded",
@@ -602,9 +859,57 @@ class JsonStateStore:
             related_card_id=handoff["card_id"],
             related_work_order_id=handoff["work_order_id"],
             related_handoff_id=handoff_id,
+            related_repair_request_id=repair_request_id,
         )
+        if is_repair_qa:
+            self._append_event(
+                event_type="repair_qa_result_recorded",
+                summary=(
+                    f"Repair QA result {qa_result_id} recorded as {result} for "
+                    f"iteration {iteration_number}."
+                ),
+                actor_agent_id=qa_agent_id,
+                related_card_id=handoff["card_id"],
+                related_work_order_id=handoff["work_order_id"],
+                related_handoff_id=handoff_id,
+                related_repair_request_id=repair_request_id,
+            )
+            self._append_event(
+                event_type=f"repair_iteration_{result}",
+                summary=(
+                    f"Repair iteration {iteration_number} for work order "
+                    f"{handoff['work_order_id']} recorded {result}."
+                ),
+                actor_agent_id=qa_agent_id,
+                related_card_id=handoff["card_id"],
+                related_work_order_id=handoff["work_order_id"],
+                related_handoff_id=handoff_id,
+                related_repair_request_id=repair_request_id,
+            )
+            self._append_evidence(
+                title=f"Repair QA result {qa_result_id} recorded",
+                kind="repair_qa_result",
+                summary=qa_result["summary"] or f"Repair QA result recorded as {result}.",
+                path=f"runtime/state/qa_results.json#{qa_result_id}",
+                related_card_id=handoff["card_id"],
+                related_work_order_id=handoff["work_order_id"],
+                related_handoff_id=handoff_id,
+                related_repair_request_id=repair_request_id,
+            )
+            self._append_evidence(
+                title=f"Workflow iteration {iteration_number} repair QA result",
+                kind="workflow_iteration",
+                summary=(
+                    f"Repair iteration {iteration_number} recorded {result} "
+                    f"for repair work order {handoff['work_order_id']}."
+                ),
+                path=f"runtime/state/qa_results.json#{qa_result_id}",
+                related_card_id=handoff["card_id"],
+                related_work_order_id=handoff["work_order_id"],
+                related_handoff_id=handoff_id,
+                related_repair_request_id=repair_request_id,
+            )
 
-        work_order = self._find_work_order(handoff["work_order_id"])
         if work_order:
             target_status = "completed" if result == "passed" else "blocked"
             if work_order.get("status") != target_status:
@@ -675,6 +980,10 @@ class JsonStateStore:
         now = _utc_now()
         repair_request_id = self._next_id(self.repair_requests, "R19-REPAIR")
         repair_work_order_id = self._next_id(self.work_orders, "R19-WO")
+        repair_iteration_number = _coerce_iteration_number(
+            qa_result.get("iteration_number"),
+            self._infer_work_order_iteration(source_work_order),
+        ) + 1
         evidence_refs = [
             f"runtime/state/qa_results.json#{qa_result_id}",
             f"runtime/state/handoffs.json#{qa_result['handoff_id']}",
@@ -696,6 +1005,8 @@ class JsonStateStore:
             "source_work_order_id": source_work_order_id,
             "qa_result_id": qa_result_id,
             "repair_request_id": repair_request_id,
+            "iteration_number": repair_iteration_number,
+            "work_order_type": "repair",
             "evidence_refs": evidence_refs,
             "created_at": now,
             "updated_at": now,
@@ -780,6 +1091,77 @@ class JsonStateStore:
         self, repair_request_id: str, decision: RepairRequestDecision
     ) -> dict[str, Any]:
         return self._decide_repair_request(repair_request_id, "cancelled", decision)
+
+    def workflow_iterations(self) -> list[dict[str, Any]]:
+        qa_result_by_handoff_id = {
+            qa_result.get("handoff_id"): qa_result for qa_result in self.qa_results
+        }
+        qa_results_by_work_order_id: dict[str, list[dict[str, Any]]] = {}
+        for qa_result in self.qa_results:
+            qa_results_by_work_order_id.setdefault(str(qa_result.get("work_order_id")), []).append(qa_result)
+
+        items: list[dict[str, Any]] = []
+        for work_order in self.work_orders:
+            work_order_id = str(work_order.get("id"))
+            handoff = self._latest_handoff_for_work_order(work_order_id)
+            qa_result = qa_result_by_handoff_id.get(handoff.get("id")) if handoff else None
+            if qa_result is None:
+                qa_result = self._latest_record(qa_results_by_work_order_id.get(work_order_id, []))
+
+            work_order_type = self._infer_work_order_type(work_order)
+            iteration_number = self._infer_work_order_iteration(work_order)
+            repair_request_id = (
+                work_order.get("repair_request_id")
+                or (handoff or {}).get("repair_request_id")
+                or (qa_result or {}).get("repair_request_id")
+            )
+            source_qa_result_id = (
+                (qa_result or {}).get("source_qa_result_id")
+                or (handoff or {}).get("qa_result_id")
+                or work_order.get("qa_result_id")
+            )
+            latest_result = qa_result.get("result") if qa_result else None
+            handoff_status = handoff.get("status") if handoff else None
+            summary_parts = [f"work order {work_order.get('status', 'unknown')}"]
+            if handoff_status:
+                summary_parts.append(f"handoff {handoff_status}")
+            if latest_result:
+                summary_parts.append(f"QA {latest_result}")
+
+            updated_candidates = [
+                work_order.get("updated_at"),
+                work_order.get("created_at"),
+                (handoff or {}).get("updated_at"),
+                (handoff or {}).get("created_at"),
+                (qa_result or {}).get("updated_at"),
+                (qa_result or {}).get("created_at"),
+            ]
+            item = {
+                "card_id": work_order.get("card_id"),
+                "original_work_order_id": self._resolve_original_work_order_id(work_order),
+                "work_order_id": work_order_id,
+                "work_order_type": work_order_type,
+                "repair_request_id": repair_request_id,
+                "handoff_id": handoff.get("id") if handoff else None,
+                "qa_result_id": qa_result.get("id") if qa_result else None,
+                "source_qa_result_id": source_qa_result_id,
+                "iteration_number": iteration_number,
+                "status_summary": "; ".join(summary_parts),
+                "latest_result": latest_result,
+                "created_at": work_order.get("created_at"),
+                "updated_at": max([value for value in updated_candidates if value] or [""]),
+            }
+            items.append(item)
+
+        return sorted(
+            items,
+            key=lambda item: (
+                str(item.get("card_id") or ""),
+                str(item.get("original_work_order_id") or ""),
+                int(item.get("iteration_number") or 1),
+                str(item.get("created_at") or ""),
+            ),
+        )
 
     def _create_approval_record(
         self,
@@ -1054,6 +1436,7 @@ class JsonStateStore:
             related_card_id=work_order["card_id"],
             related_work_order_id=work_order_id,
             related_handoff_id=handoff_id,
+            related_repair_request_id=qa_result.get("repair_request_id"),
         )
         self._append_evidence(
             title=f"Work order {work_order_id} updated from QA",
@@ -1063,6 +1446,7 @@ class JsonStateStore:
             related_card_id=work_order["card_id"],
             related_work_order_id=work_order_id,
             related_handoff_id=handoff_id,
+            related_repair_request_id=qa_result.get("repair_request_id"),
         )
 
     def _resolve_related_card_id(
@@ -1146,6 +1530,119 @@ class JsonStateStore:
             "created_at": _utc_now(),
         }
         self.evidence.append({key: value for key, value in evidence.items() if value is not None})
+
+    def _latest_record(self, records: list[dict[str, Any]]) -> dict[str, Any] | None:
+        if not records:
+            return None
+        return max(
+            records,
+            key=lambda record: str(
+                record.get("updated_at")
+                or record.get("created_at")
+                or record.get("timestamp")
+                or ""
+            ),
+        )
+
+    def _latest_handoff_for_work_order(self, work_order_id: str) -> dict[str, Any] | None:
+        return self._latest_record(
+            [
+                handoff
+                for handoff in self.handoffs
+                if handoff.get("work_order_id") == work_order_id
+            ]
+        )
+
+    def _infer_work_order_type(self, work_order: dict[str, Any]) -> str:
+        work_order_type = str(work_order.get("work_order_type") or "").strip().lower()
+        if work_order_type in WORK_ORDER_TYPES:
+            return work_order_type
+        if (
+            work_order.get("repair_request_id")
+            or work_order.get("source_work_order_id")
+            or str(work_order.get("title") or "").startswith("Repair:")
+        ):
+            return "repair"
+        return "original"
+
+    def _infer_work_order_iteration(
+        self,
+        work_order: dict[str, Any] | None,
+        seen_work_order_ids: set[str] | None = None,
+    ) -> int:
+        if not work_order:
+            return 1
+
+        existing_iteration = work_order.get("iteration_number")
+        if existing_iteration is not None:
+            return _coerce_iteration_number(existing_iteration, 1)
+
+        if self._infer_work_order_type(work_order) == "original":
+            return 1
+
+        qa_result_id = work_order.get("qa_result_id")
+        source_qa_result = self._find_qa_result(str(qa_result_id)) if qa_result_id else None
+        if source_qa_result and source_qa_result.get("iteration_number") is not None:
+            return _coerce_iteration_number(source_qa_result.get("iteration_number"), 1) + 1
+
+        source_work_order_id = work_order.get("source_work_order_id")
+        if source_work_order_id:
+            seen = set(seen_work_order_ids or set())
+            if str(source_work_order_id) in seen:
+                return 2
+            seen.add(str(work_order.get("id") or ""))
+            source_work_order = self._find_work_order(str(source_work_order_id))
+            if source_work_order:
+                return self._infer_work_order_iteration(source_work_order, seen) + 1
+
+        return 2
+
+    def _resolve_original_work_order_id(self, work_order: dict[str, Any]) -> str:
+        current = work_order
+        seen: set[str] = set()
+        while current.get("source_work_order_id"):
+            current_id = str(current.get("id") or "")
+            if current_id in seen:
+                break
+            seen.add(current_id)
+            source_work_order = self._find_work_order(str(current["source_work_order_id"]))
+            if not source_work_order:
+                break
+            current = source_work_order
+        return str(current.get("id") or work_order.get("id"))
+
+    def _repair_qa_iteration_number(
+        self,
+        repair_request: dict[str, Any],
+        repair_work_order: dict[str, Any],
+        source_qa_result: dict[str, Any] | None,
+    ) -> int:
+        existing_iteration = repair_work_order.get("iteration_number")
+        if existing_iteration is not None:
+            return _coerce_iteration_number(existing_iteration, 2)
+        if source_qa_result and source_qa_result.get("iteration_number") is not None:
+            return _coerce_iteration_number(source_qa_result.get("iteration_number"), 1) + 1
+        source_work_order = self._find_work_order(str(repair_request.get("source_work_order_id") or ""))
+        if source_work_order:
+            return self._infer_work_order_iteration(source_work_order) + 1
+        return 2
+
+    def _find_active_repair_qa_handoff(
+        self,
+        repair_request_id: str,
+        repair_work_order_id: str,
+    ) -> dict[str, Any] | None:
+        return next(
+            (
+                handoff
+                for handoff in self.handoffs
+                if handoff.get("handoff_purpose") == "repair_qa"
+                and handoff.get("repair_request_id") == repair_request_id
+                and handoff.get("work_order_id") == repair_work_order_id
+                and handoff.get("status") in ACTIVE_HANDOFF_STATUSES
+            ),
+            None,
+        )
 
     def _find_agent(self, agent_id: str) -> dict[str, Any] | None:
         return next((agent for agent in self.agents if agent.get("id") == agent_id), None)
@@ -1237,6 +1734,14 @@ def _validate_status(status: str, allowed_statuses: tuple[str, ...], record_kind
         )
 
 
+def _coerce_iteration_number(value: Any, default: int) -> int:
+    try:
+        iteration_number = int(value)
+    except (TypeError, ValueError):
+        iteration_number = int(default)
+    return max(1, iteration_number)
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -1284,6 +1789,11 @@ def patch_card_status(card_id: str, status_update: StatusUpdateRequest) -> dict[
 @app.get("/work-orders")
 def get_work_orders() -> list[dict[str, Any]]:
     return store.work_orders
+
+
+@app.get("/workflow-iterations")
+def get_workflow_iterations() -> list[dict[str, Any]]:
+    return store.workflow_iterations()
 
 
 @app.post("/work-orders", status_code=201)
@@ -1394,3 +1904,8 @@ def post_repair_request_cancel(
     repair_request_id: str, decision: RepairRequestDecision | None = None
 ) -> dict[str, Any]:
     return store.cancel_repair_request(repair_request_id, decision or RepairRequestDecision())
+
+
+@app.post("/repair-requests/{repair_request_id}/handoff-to-qa", status_code=201)
+def post_repair_request_handoff_to_qa(repair_request_id: str) -> dict[str, Any]:
+    return store.handoff_repair_request_to_qa(repair_request_id)

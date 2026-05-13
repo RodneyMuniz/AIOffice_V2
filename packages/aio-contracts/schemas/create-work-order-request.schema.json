@@ -9,6 +9,12 @@
     "title": { "type": "string", "minLength": 1 },
     "description": { "type": "string" },
     "assigned_agent_id": { "type": "string" },
-    "request_requires_approval": { "type": "boolean" }
+    "request_requires_approval": { "type": "boolean" },
+    "source_work_order_id": { "type": "string" },
+    "qa_result_id": { "type": "string" },
+    "repair_request_id": { "type": "string" },
+    "iteration_number": { "type": "integer", "minimum": 1 },
+    "work_order_type": { "type": "string", "enum": ["original", "repair"] },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
   }
 }

@@ -42,6 +42,9 @@ export type StatusResponse = {
   repair_requests_count: number;
   open_repair_requests_count: number;
   completed_repair_requests_count: number;
+  workflow_iterations_count: number;
+  repair_qa_handoffs_count: number;
+  repair_qa_results_count: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -76,6 +79,8 @@ export type WorkOrder = {
   source_work_order_id?: string;
   qa_result_id?: string;
   repair_request_id?: string;
+  iteration_number?: number;
+  work_order_type?: "original" | "repair";
   created_at?: string;
   updated_at?: string;
 };
@@ -112,6 +117,10 @@ export type Handoff = {
   updated_at: string;
   decided_at?: string | null;
   decision_reason?: string | null;
+  repair_request_id?: string;
+  qa_result_id?: string;
+  iteration_number?: number;
+  handoff_purpose?: "initial_qa" | "repair_qa";
   evidence_refs: string[];
 };
 
@@ -125,6 +134,9 @@ export type QaResult = {
   summary: string;
   findings: string;
   recommended_next_action: string;
+  repair_request_id?: string;
+  source_qa_result_id?: string;
+  iteration_number?: number;
   created_at: string;
   updated_at: string;
   evidence_refs: string[];
@@ -146,6 +158,22 @@ export type RepairRequest = {
   updated_at: string;
   completed_at: string | null;
   evidence_refs: string[];
+};
+
+export type WorkflowIteration = {
+  card_id: string;
+  original_work_order_id: string;
+  work_order_id: string;
+  work_order_type: "original" | "repair";
+  repair_request_id?: string | null;
+  handoff_id?: string | null;
+  qa_result_id?: string | null;
+  source_qa_result_id?: string | null;
+  iteration_number: number;
+  status_summary: string;
+  latest_result?: QaResultValue | null;
+  created_at?: string | null;
+  updated_at?: string | null;
 };
 
 export type Agent = {
@@ -195,6 +223,7 @@ export type DashboardData = {
   handoffs: Handoff[];
   qaResults: QaResult[];
   repairRequests: RepairRequest[];
+  workflowIterations: WorkflowIteration[];
 };
 
 export type CreateCardRequest = {

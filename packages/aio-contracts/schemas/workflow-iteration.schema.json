@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/workflow-iteration.schema.json",
+  "title": "WorkflowIteration",
+  "type": "object",
+  "required": [
+    "card_id",
+    "original_work_order_id",
+    "work_order_id",
+    "work_order_type",
+    "repair_request_id",
+    "handoff_id",
+    "qa_result_id",
+    "iteration_number",
+    "status_summary",
+    "latest_result",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "card_id": { "type": ["string", "null"] },
+    "original_work_order_id": { "type": ["string", "null"] },
+    "work_order_id": { "type": "string" },
+    "work_order_type": { "type": "string", "enum": ["original", "repair"] },
+    "repair_request_id": { "type": ["string", "null"] },
+    "handoff_id": { "type": ["string", "null"] },
+    "qa_result_id": { "type": ["string", "null"] },
+    "source_qa_result_id": { "type": ["string", "null"] },
+    "iteration_number": { "type": "integer", "minimum": 1 },
+    "status_summary": { "type": "string" },
+    "latest_result": { "type": ["string", "null"], "enum": ["passed", "failed", "blocked", null] },
+    "created_at": { "type": ["string", "null"] },
+    "updated_at": { "type": ["string", "null"] }
+  },
+  "examples": [
+    {
+      "card_id": "R19-CARD-001",
+      "original_work_order_id": "R19-WO-001",
+      "work_order_id": "R19-WO-002",
+      "work_order_type": "repair",
+      "repair_request_id": "R19-REPAIR-001",
+      "handoff_id": "R19-HANDOFF-002",
+      "qa_result_id": "R19-QA-RESULT-002",
+      "source_qa_result_id": "R19-QA-RESULT-001",
+      "iteration_number": 2,
+      "status_summary": "work order completed; handoff accepted; QA passed",
+      "latest_result": "passed",
+      "created_at": "2026-05-13T00:12:00Z",
+      "updated_at": "2026-05-13T00:15:00Z"
+    }
+  ]
+}

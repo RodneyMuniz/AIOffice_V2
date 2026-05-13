@@ -27,6 +27,9 @@
     "summary": { "type": "string" },
     "findings": { "type": "string" },
     "recommended_next_action": { "type": "string" },
+    "repair_request_id": { "type": "string" },
+    "source_qa_result_id": { "type": "string" },
+    "iteration_number": { "type": "integer", "minimum": 1 },
     "created_at": { "type": "string" },
     "updated_at": { "type": "string" },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
@@ -42,11 +45,32 @@
       "summary": "Manual QA result passed for the accepted handoff.",
       "findings": "No blocking issues found in the operator/API smoke path.",
       "recommended_next_action": "Complete work order.",
+      "iteration_number": 1,
       "created_at": "2026-05-13T00:00:00Z",
       "updated_at": "2026-05-13T00:00:00Z",
       "evidence_refs": [
         "runtime/state/handoffs.json#R19-HANDOFF-001",
         "runtime/state/qa_results.json#R19-QA-RESULT-001"
+      ]
+    },
+    {
+      "id": "R19-QA-RESULT-002",
+      "handoff_id": "R19-HANDOFF-002",
+      "card_id": "R19-CARD-001",
+      "work_order_id": "R19-WO-002",
+      "qa_agent_id": "qa_test",
+      "result": "passed",
+      "summary": "Repair QA result passed for iteration 2.",
+      "findings": "The repair work order resolved the failed source QA result.",
+      "recommended_next_action": "Complete repair work order.",
+      "repair_request_id": "R19-REPAIR-001",
+      "source_qa_result_id": "R19-QA-RESULT-001",
+      "iteration_number": 2,
+      "created_at": "2026-05-13T00:15:00Z",
+      "updated_at": "2026-05-13T00:15:00Z",
+      "evidence_refs": [
+        "runtime/state/handoffs.json#R19-HANDOFF-002",
+        "runtime/state/qa_results.json#R19-QA-RESULT-002"
       ]
     }
   ]

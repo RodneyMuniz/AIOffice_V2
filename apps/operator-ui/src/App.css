@@ -94,7 +94,8 @@
 .approvals-panel,
 .handoffs-panel,
 .qa-results-panel,
-.repair-requests-panel {
+.repair-requests-panel,
+.workflow-iterations-panel {
   grid-column: 1 / -1;
 }
 
@@ -420,6 +421,11 @@ button:disabled {
 .record-row.pending {
   border-color: #e4c476;
   box-shadow: inset 4px 0 0 #c58b16;
+}
+
+.record-row.repair-row {
+  border-color: #a8c7ba;
+  box-shadow: inset 4px 0 0 #2f7a58;
 }
 
 .record-row .eyebrow {

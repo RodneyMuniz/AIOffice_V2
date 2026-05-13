@@ -129,6 +129,9 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["allowed_work_order_statuses"] == list(api_main.WORK_ORDER_STATUSES)
     assert status["handoffs_count"] == 0
     assert status["pending_handoffs_count"] == 0
+    assert status["workflow_iterations_count"] == 1
+    assert status["repair_qa_handoffs_count"] == 0
+    assert status["repair_qa_results_count"] == 0
 
     cards_response = client.get("/cards")
     assert cards_response.status_code == 200
@@ -149,6 +152,13 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     repair_requests_response = client.get("/repair-requests")
     assert repair_requests_response.status_code == 200
     assert repair_requests_response.json() == []
+
+    workflow_iterations_response = client.get("/workflow-iterations")
+    assert workflow_iterations_response.status_code == 200
+    workflow_iterations = workflow_iterations_response.json()
+    assert isinstance(workflow_iterations, list)
+    assert workflow_iterations[0]["work_order_id"] == "R19-WO-001"
+    assert workflow_iterations[0]["work_order_type"] == "original"
 
     assert status["qa_results_count"] == 0
     assert status["failed_qa_results_count"] == 0
@@ -673,6 +683,8 @@ def test_repair_request_creates_linked_repair_work_order_events_evidence_and_per
     assert repair_work_order["source_work_order_id"] == source_work_order["id"]
     assert repair_work_order["qa_result_id"] == qa_result["id"]
     assert repair_work_order["repair_request_id"] == repair_request["id"]
+    assert repair_work_order["work_order_type"] == "repair"
+    assert repair_work_order["iteration_number"] == 2
 
     status = client.get("/status").json()
     assert status["repair_requests_count"] == 1
@@ -713,6 +725,152 @@ def test_repair_request_creates_linked_repair_work_order_events_evidence_and_per
     )
     assert persisted_repair_request["repair_work_order_id"] == repair_request["repair_work_order_id"]
     assert persisted_repair_work_order["repair_request_id"] == repair_request["id"]
+
+
+def test_repair_work_order_can_handoff_back_to_qa_and_record_iteration_result(
+    client: TestClient,
+) -> None:
+    card, source_work_order, initial_handoff, failed_qa_result = create_accepted_qa_result(
+        client,
+        "repair QA iteration",
+        "failed",
+    )
+    repair_request_response = client.post(
+        f"/qa-results/{failed_qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair QA iteration"),
+    )
+    assert repair_request_response.status_code == 201
+    repair_request = repair_request_response.json()
+    repair_work_order_id = repair_request["repair_work_order_id"]
+
+    repair_handoff_response = client.post(
+        f"/repair-requests/{repair_request['id']}/handoff-to-qa"
+    )
+    assert repair_handoff_response.status_code == 201
+    repair_handoff = repair_handoff_response.json()
+    assert repair_handoff["status"] == "proposed"
+    assert repair_handoff["work_order_id"] == repair_work_order_id
+    assert repair_handoff["repair_request_id"] == repair_request["id"]
+    assert repair_handoff["qa_result_id"] == failed_qa_result["id"]
+    assert repair_handoff["handoff_purpose"] == "repair_qa"
+    assert repair_handoff["iteration_number"] == 2
+
+    duplicate_response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
+    assert duplicate_response.status_code == 400
+    assert "already exists" in duplicate_response.json()["detail"]
+
+    accepted_repair_handoff_response = client.post(
+        f"/handoffs/{repair_handoff['id']}/accept",
+        json={"decision_reason": "Accepted repair QA handoff.", "decided_by": "pytest"},
+    )
+    assert accepted_repair_handoff_response.status_code == 200
+    assert accepted_repair_handoff_response.json()["status"] == "accepted"
+
+    repair_qa_result_response = client.post(
+        f"/handoffs/{repair_handoff['id']}/qa-result",
+        json=valid_qa_result_payload("passed"),
+    )
+    assert repair_qa_result_response.status_code == 201
+    repair_qa_result = repair_qa_result_response.json()
+    assert repair_qa_result["result"] == "passed"
+    assert repair_qa_result["repair_request_id"] == repair_request["id"]
+    assert repair_qa_result["source_qa_result_id"] == failed_qa_result["id"]
+    assert repair_qa_result["iteration_number"] == 2
+
+    repair_work_order = next(
+        item for item in client.get("/work-orders").json() if item["id"] == repair_work_order_id
+    )
+    assert repair_work_order["status"] == "completed"
+
+    workflow_iterations = client.get("/workflow-iterations").json()
+    original_iteration = next(
+        item for item in workflow_iterations if item["work_order_id"] == source_work_order["id"]
+    )
+    repair_iteration = next(
+        item for item in workflow_iterations if item["work_order_id"] == repair_work_order_id
+    )
+    assert original_iteration["work_order_type"] == "original"
+    assert original_iteration["iteration_number"] == 1
+    assert original_iteration["qa_result_id"] == failed_qa_result["id"]
+    assert original_iteration["latest_result"] == "failed"
+    assert repair_iteration["work_order_type"] == "repair"
+    assert repair_iteration["original_work_order_id"] == source_work_order["id"]
+    assert repair_iteration["repair_request_id"] == repair_request["id"]
+    assert repair_iteration["handoff_id"] == repair_handoff["id"]
+    assert repair_iteration["qa_result_id"] == repair_qa_result["id"]
+    assert repair_iteration["source_qa_result_id"] == failed_qa_result["id"]
+    assert repair_iteration["iteration_number"] == 2
+    assert repair_iteration["latest_result"] == "passed"
+
+    status = client.get("/status").json()
+    assert status["workflow_iterations_count"] == len(workflow_iterations)
+    assert status["repair_qa_handoffs_count"] == 1
+    assert status["repair_qa_results_count"] == 1
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert any(
+        event["type"] == "repair_handoff_created"
+        and event["related_repair_request_id"] == repair_request["id"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "repair_qa_result_recorded"
+        and event["related_handoff_id"] == repair_handoff["id"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "repair_iteration_passed"
+        and event["related_work_order_id"] == repair_work_order_id
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "repair_handoff"
+        and entry["related_handoff_id"] == repair_handoff["id"]
+        for entry in evidence
+    )
+    assert any(
+        entry["kind"] == "repair_qa_result"
+        and entry["related_handoff_id"] == repair_handoff["id"]
+        for entry in evidence
+    )
+    assert any(
+        entry["kind"] == "workflow_iteration"
+        and entry["related_repair_request_id"] == repair_request["id"]
+        for entry in evidence
+    )
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    assert next(item for item in reloaded_store.handoffs if item["id"] == repair_handoff["id"])[
+        "handoff_purpose"
+    ] == "repair_qa"
+    assert next(item for item in reloaded_store.qa_results if item["id"] == repair_qa_result["id"])[
+        "repair_request_id"
+    ] == repair_request["id"]
+    assert next(item for item in reloaded_store.work_orders if item["id"] == repair_work_order_id)[
+        "status"
+    ] == "completed"
+    assert any(
+        item["work_order_id"] == repair_work_order_id and item["latest_result"] == "passed"
+        for item in reloaded_store.workflow_iterations()
+    )
+
+
+def test_repair_handoff_missing_and_invalid_repair_work_order_errors(client: TestClient) -> None:
+    missing_response = client.post("/repair-requests/missing/handoff-to-qa")
+    assert missing_response.status_code == 404
+    assert "Unknown repair request id" in missing_response.json()["detail"]
+
+    _, _, _, qa_result = create_accepted_qa_result(client, "invalid repair handoff", "blocked")
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("invalid repair handoff"),
+    ).json()
+    api_main.store.repair_requests[-1]["repair_work_order_id"] = "missing-work-order"
+
+    invalid_response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
+    assert invalid_response.status_code == 400
+    assert "missing repair work-order" in invalid_response.json()["detail"]
 
 
 @pytest.mark.parametrize(

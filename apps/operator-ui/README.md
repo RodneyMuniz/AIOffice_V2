@@ -46,7 +46,9 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Record a structured QA/Test result for accepted handoffs.
 - See recorded QA results in the QA Results panel.
 - For failed or blocked QA results, create a repair request that creates a linked Developer/Codex repair work order.
-- See repair requests in the Repair Requests panel and complete or cancel created/in-progress repair requests.
+- See repair requests in the Repair Requests panel, hand off linked repair work orders back to QA, and complete or cancel created/in-progress repair requests.
+- Accept repair QA handoffs from the Handoffs panel and record repair QA results with the existing QA result form.
+- See the original and repair loop in the Workflow Iterations panel.
 - Create a separate approval request.
 - Approve or reject pending approvals.
 - See cards, work orders, handoffs, approvals, events, and evidence refresh after each action.
@@ -75,10 +77,16 @@ Repair-loop actions use:
 
 - `GET /repair-requests`
 - `POST /qa-results/{id}/repair-request`
+- `POST /repair-requests/{id}/handoff-to-qa`
+- `GET /workflow-iterations`
 - `POST /repair-requests/{id}/complete`
 - `POST /repair-requests/{id}/cancel`
 
 The repair request form appears only for failed or blocked QA results that do not already have a repair request. Creating one refreshes status, work orders, repair requests, QA results, events, and evidence. Linked repair work orders start as `ready`, are assigned to `developer_codex` by default, and do not invoke autonomous repair.
+
+The Repair Requests panel shows any existing repair QA handoff id/status and exposes `Handoff Repair to QA` when a repair work order is linked. The backend rejects duplicate active repair QA handoffs for the same repair request/work order, and the UI displays that API error if it occurs. Accepted repair QA handoffs show the same QA result form used for initial QA. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked` and the existing repair request form can create the next manual repair request.
+
+The Workflow Iterations panel is read-only. It is loaded from `GET /workflow-iterations` and shows the compact chain from original work order to repair iterations, latest handoff, latest QA result, and latest result.
 
 ## Build and Smoke
 
@@ -94,7 +102,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, updates both statuses, triggers a QA handoff, accepts it, records a failed QA result, creates a repair request, verifies the linked repair work order, verifies repair events/evidence, completes the repair request, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, updates both statuses, triggers a QA handoff, accepts it, records a failed QA result, creates a repair request, verifies the linked repair work order, hands the repair work order back to QA from the Repair Requests panel, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies repair QA events/evidence, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -109,8 +117,12 @@ Manual browser smoke:
 9. For an accepted handoff, submit the QA result form.
 10. If the QA result is failed or blocked, create a repair request from the QA Results panel.
 11. Confirm the Repair Requests panel and linked repair work order appear.
-12. Confirm Events and Evidence refresh with repair entries.
-13. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+12. Click Handoff Repair to QA from the Repair Requests panel.
+13. Accept the repair QA handoff in the Handoffs panel.
+14. Record a repair QA result and confirm the repair work order status updates.
+15. Confirm the Workflow Iterations panel shows the original and repair iteration.
+16. Confirm Events and Evidence refresh with repair QA handoff/result entries.
+17. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -127,6 +139,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - Handoffs are API-mediated dry-run records, not autonomous A2A execution.
 - QA result capture is operator/API-mediated and does not execute live QA agents.
 - Repair request creation is operator/API-mediated and does not execute autonomous repair or live Developer/Codex agents.
-- Completing or cancelling a repair request does not automatically re-run QA or create another handoff.
+- Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
+- Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

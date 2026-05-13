@@ -21,6 +21,7 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/repair-request.schema.json`
 - `schemas/create-repair-request.schema.json`
 - `schemas/repair-request-decision.schema.json`
+- `schemas/workflow-iteration.schema.json`
 - `schemas/agent.schema.json`
 - `schemas/approval.schema.json`
 - `schemas/create-approval-request.schema.json`
@@ -44,3 +45,9 @@ The handoff contracts describe an API-mediated dry-run role handoff. They do not
 The QA result contracts describe structured operator/API-mediated result capture after an accepted handoff. They do not claim autonomous QA execution, live agent testing, autonomous A2A, or no-manual-transfer success.
 
 The repair request contracts describe an operator/API-mediated repair loop for failed or blocked QA results. Creating a repair request creates a linked Developer/Codex repair work order, but it does not claim autonomous repair, live agent execution, or automatic QA reruns.
+
+Repair QA handoff fields are optional additions to the handoff and QA result records. A repair QA handoff uses `handoff_purpose: repair_qa`, links `repair_request_id`, carries the failed or blocked source `qa_result_id`, and uses `iteration_number` to show that the repair work order is being sent back through QA. Initial QA handoffs use `handoff_purpose: initial_qa` and iteration `1`.
+
+The workflow iteration schema documents the read-only `GET /workflow-iterations` view derived from work orders, handoffs, QA results, and repair requests. It is not a persisted workflow engine. It is a compact chain view for the manual loop: original work order, failed or blocked QA result, repair work order, repair QA handoff, and repair QA result.
+
+This remains a UI/API-mediated loop. The contracts do not claim autonomous A2A execution, autonomous QA, autonomous repair, no-manual-transfer success, or live OpenAI/Codex API invocation.

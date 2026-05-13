@@ -11,6 +11,7 @@ import {
   createQaResult,
   createRepairRequest,
   createWorkOrder,
+  handoffRepairRequestToQa,
   handoffWorkOrderToQa,
   loadDashboard,
   rejectApproval,
@@ -32,7 +33,8 @@ import type {
   RepairRequest,
   StatusResponse,
   UpdateStatusRequest,
-  WorkOrder
+  WorkOrder,
+  WorkflowIteration
 } from "./types";
 import "./App.css";
 
@@ -151,7 +153,8 @@ function Dashboard({
           qaResults={data.qaResults}
           repairRequests={data.repairRequests}
         />
-        <RepairRequestsPanel onRefresh={onRefresh} repairRequests={data.repairRequests} />
+        <RepairRequestsPanel handoffs={data.handoffs} onRefresh={onRefresh} repairRequests={data.repairRequests} />
+        <WorkflowIterationsPanel workflowIterations={data.workflowIterations} />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
         <CreateApprovalForm cards={data.cards} onRefresh={onRefresh} workOrders={data.workOrders} />
@@ -221,6 +224,9 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="Repair requests" value={status.repair_requests_count} />
         <Metric label="Open repairs" value={status.open_repair_requests_count} />
         <Metric label="Completed repairs" value={status.completed_repair_requests_count} />
+        <Metric label="Workflow iterations" value={status.workflow_iterations_count} />
+        <Metric label="Repair QA handoffs" value={status.repair_qa_handoffs_count} />
+        <Metric label="Repair QA results" value={status.repair_qa_results_count} />
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -637,7 +643,12 @@ function WorkOrdersList({
       </div>
       <div className="record-list" data-testid="work-orders-list">
         {visibleWorkOrders.map((workOrder) => (
-          <article className={`record-row ${workOrder.id === currentWorkOrderId ? "active" : ""}`} key={workOrder.id}>
+          <article
+            className={`record-row ${workOrder.id === currentWorkOrderId ? "active" : ""} ${
+              displayWorkOrderType(workOrder) === "repair" ? "repair-row" : ""
+            }`}
+            key={workOrder.id}
+          >
             <div className="record-title-line">
               <p className="eyebrow">{workOrder.id}</p>
               <span className={`state-tag ${workOrder.approval_required ? "warn" : ""}`}>{workOrder.status}</span>
@@ -649,6 +660,10 @@ function WorkOrdersList({
               <strong>{workOrder.card_id}</strong>
               <span>Assigned</span>
               <strong>{workOrder.assigned_agent_id}</strong>
+              <span>Type</span>
+              <strong>{displayWorkOrderType(workOrder)}</strong>
+              <span>Iteration</span>
+              <strong>{workOrder.iteration_number ?? (displayWorkOrderType(workOrder) === "repair" ? 2 : 1)}</strong>
               <span>QA handoffs</span>
               <strong>{handoffs.filter((handoff) => handoff.work_order_id === workOrder.id).length}</strong>
               <span>Approval</span>
@@ -821,6 +836,22 @@ function HandoffsPanel({
                 <strong>{handoff.card_id}</strong>
                 <span>Work order</span>
                 <strong>{handoff.work_order_id}</strong>
+                <span>Purpose</span>
+                <strong>{handoff.handoff_purpose ?? "initial_qa"}</strong>
+                <span>Iteration</span>
+                <strong>{handoff.iteration_number ?? 1}</strong>
+                {handoff.repair_request_id && (
+                  <>
+                    <span>Repair request</span>
+                    <strong>{handoff.repair_request_id}</strong>
+                  </>
+                )}
+                {handoff.qa_result_id && (
+                  <>
+                    <span>Source QA result</span>
+                    <strong>{handoff.qa_result_id}</strong>
+                  </>
+                )}
                 <span>Created</span>
                 <strong>{handoff.created_at}</strong>
                 <span>Updated</span>
@@ -1030,6 +1061,20 @@ function QaResultsPanel({
                 <strong>{qaResult.work_order_id}</strong>
                 <span>QA agent</span>
                 <strong>{qaResult.qa_agent_id}</strong>
+                <span>Iteration</span>
+                <strong>{qaResult.iteration_number ?? 1}</strong>
+                {qaResult.repair_request_id && (
+                  <>
+                    <span>Repair request</span>
+                    <strong>{qaResult.repair_request_id}</strong>
+                  </>
+                )}
+                {qaResult.source_qa_result_id && (
+                  <>
+                    <span>Source QA result</span>
+                    <strong>{qaResult.source_qa_result_id}</strong>
+                  </>
+                )}
                 <span>Created</span>
                 <strong>{qaResult.created_at}</strong>
               </div>
@@ -1163,17 +1208,43 @@ function RepairRequestForm({
 }
 
 function RepairRequestsPanel({
+  handoffs,
   onRefresh,
   repairRequests
 }: {
+  handoffs: Handoff[];
   onRefresh: () => Promise<void>;
   repairRequests: RepairRequest[];
 }) {
   const visibleRepairRequests = useMemo(() => [...repairRequests].reverse(), [repairRequests]);
+  const repairQaHandoffByRepairRequestId = useMemo(() => {
+    const entries = handoffs
+      .filter((handoff) => handoff.handoff_purpose === "repair_qa" && handoff.repair_request_id)
+      .map((handoff) => [handoff.repair_request_id as string, handoff] as const);
+    return new Map(entries);
+  }, [handoffs]);
   const [reasonById, setReasonById] = useState<Record<string, string>>({});
   const [workingRepairRequestId, setWorkingRepairRequestId] = useState<string | null>(null);
+  const [handoffRepairRequestId, setHandoffRepairRequestId] = useState<string | null>(null);
+  const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  async function handoffRepairToQa(repairRequest: RepairRequest) {
+    setError(null);
+    setSuccess(null);
+    setHandoffRepairRequestId(repairRequest.id);
+
+    try {
+      const handoff = await handoffRepairRequestToQa(repairRequest.id);
+      await onRefresh();
+      setHandoffStatusById((current) => ({ ...current, [repairRequest.id]: `Created ${handoff.id}` }));
+    } catch (handoffError: unknown) {
+      setError(errorMessage(handoffError));
+    } finally {
+      setHandoffRepairRequestId(null);
+    }
+  }
 
   async function decideRepairRequest(repairRequest: RepairRequest, decision: "complete" | "cancel") {
     const nextStatus = decision === "complete" ? "completed" : "cancelled";
@@ -1208,6 +1279,9 @@ function RepairRequestsPanel({
         {visibleRepairRequests.length === 0 && <p>No repair requests created yet.</p>}
         {visibleRepairRequests.map((repairRequest) => {
           const canDecide = repairRequest.status === "created" || repairRequest.status === "in_progress";
+          const repairQaHandoff = repairQaHandoffByRepairRequestId.get(repairRequest.id);
+          const hasActiveRepairQaHandoff =
+            repairQaHandoff?.status === "proposed" || repairQaHandoff?.status === "accepted";
 
           return (
             <article className="record-row" data-testid={`repair-request-${repairRequest.id}`} key={repairRequest.id}>
@@ -1229,6 +1303,12 @@ function RepairRequestsPanel({
                 <strong>{repairRequest.source_work_order_id}</strong>
                 <span>Repair work order</span>
                 <strong>{repairRequest.repair_work_order_id}</strong>
+                <span>Repair QA handoff</span>
+                <strong>
+                  {repairQaHandoff
+                    ? `${repairQaHandoff.id} (${repairQaHandoff.status})`
+                    : "none"}
+                </strong>
                 <span>Assigned</span>
                 <strong>{repairRequest.assigned_agent_id}</strong>
                 <span>Requested by</span>
@@ -1254,6 +1334,27 @@ function RepairRequestsPanel({
                   </div>
                 </div>
               </div>
+              {repairRequest.repair_work_order_id && (
+                <div className="inline-action-block">
+                  <button
+                    data-testid={`handoff-repair-to-qa-${repairRequest.id}`}
+                    disabled={handoffRepairRequestId === repairRequest.id || hasActiveRepairQaHandoff}
+                    onClick={() => handoffRepairToQa(repairRequest)}
+                    type="button"
+                  >
+                    {handoffRepairRequestId === repairRequest.id ? "Handing off..." : "Handoff Repair to QA"}
+                  </button>
+                  <FormStatus
+                    error={null}
+                    success={
+                      handoffStatusById[repairRequest.id] ??
+                      (repairQaHandoff
+                        ? `Repair QA handoff ${repairQaHandoff.id} is ${repairQaHandoff.status}`
+                        : null)
+                    }
+                  />
+                </div>
+              )}
               {canDecide && (
                 <div className="decision-row">
                   <label>
@@ -1325,6 +1426,10 @@ function repairRequestStatusClass(status: RepairRequest["status"]): string {
     return "warn";
   }
   return "";
+}
+
+function displayWorkOrderType(workOrder: WorkOrder): "original" | "repair" {
+  return workOrder.work_order_type ?? (workOrder.repair_request_id || workOrder.source_work_order_id ? "repair" : "original");
 }
 
 function StatusTransitionForm({
@@ -1411,6 +1516,53 @@ function StatusTransitionForm({
       </button>
       <FormStatus error={error} success={success} />
     </form>
+  );
+}
+
+function WorkflowIterationsPanel({ workflowIterations }: { workflowIterations: WorkflowIteration[] }) {
+  const visibleWorkflowIterations = useMemo(() => [...workflowIterations].reverse(), [workflowIterations]);
+
+  return (
+    <section className="panel workflow-iterations-panel" data-testid="workflow-iterations-panel">
+      <div className="panel-heading">
+        <h2>Workflow Iterations</h2>
+        <span className="count-tag">{workflowIterations.length}</span>
+      </div>
+      <div className="record-list compact" data-testid="workflow-iterations-list">
+        {visibleWorkflowIterations.length === 0 && <p>No workflow iterations derived yet.</p>}
+        {visibleWorkflowIterations.map((iteration) => (
+          <article
+            className={`record-row ${iteration.work_order_type === "repair" ? "repair-row" : ""}`}
+            data-testid={`workflow-iteration-${iteration.work_order_id}`}
+            key={`${iteration.work_order_id}-${iteration.iteration_number}`}
+          >
+            <div className="record-title-line">
+              <p className="eyebrow">
+                Iteration {iteration.iteration_number} - {iteration.work_order_type}
+              </p>
+              <span className={`state-tag ${iteration.latest_result ? qaResultStatusClass(iteration.latest_result) : ""}`}>
+                {iteration.latest_result ?? "pending QA"}
+              </span>
+            </div>
+            <div className="detail-grid handoff-detail-grid">
+              <span>Original work order</span>
+              <strong>{iteration.original_work_order_id}</strong>
+              <span>Work order</span>
+              <strong>{iteration.work_order_id}</strong>
+              <span>Repair request</span>
+              <strong>{iteration.repair_request_id ?? "none"}</strong>
+              <span>Handoff</span>
+              <strong>{iteration.handoff_id ?? "none"}</strong>
+              <span>QA result</span>
+              <strong>{iteration.qa_result_id ?? "none"}</strong>
+              <span>Source QA result</span>
+              <strong>{iteration.source_qa_result_id ?? "none"}</strong>
+            </div>
+            <p>{iteration.status_summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 

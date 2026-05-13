@@ -17,7 +17,8 @@ import type {
   RepairRequestDecisionRequest,
   StatusResponse,
   UpdateStatusRequest,
-  WorkOrder
+  WorkOrder,
+  WorkflowIteration
 } from "./types";
 
 export const API_BASE_URL = (import.meta.env.VITE_AIO_API_BASE_URL ?? "http://localhost:8000").replace(/\/$/, "");
@@ -57,21 +58,45 @@ async function readApiError(path: string, response: Response): Promise<string> {
 }
 
 export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData> {
-  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults, repairRequests] =
-    await Promise.all([
-      requestJson<StatusResponse>("/status", { signal }),
-      requestJson<Card[]>("/cards", { signal }),
-      requestJson<WorkOrder[]>("/work-orders", { signal }),
-      requestJson<Agent[]>("/agents", { signal }),
-      requestJson<EventEntry[]>("/events", { signal }),
-      requestJson<EvidenceEntry[]>("/evidence", { signal }),
-      requestJson<Approval[]>("/approvals", { signal }),
-      requestJson<Handoff[]>("/handoffs", { signal }),
-      requestJson<QaResult[]>("/qa-results", { signal }),
-      requestJson<RepairRequest[]>("/repair-requests", { signal })
-    ]);
+  const [
+    status,
+    cards,
+    workOrders,
+    agents,
+    events,
+    evidence,
+    approvals,
+    handoffs,
+    qaResults,
+    repairRequests,
+    workflowIterations
+  ] = await Promise.all([
+    requestJson<StatusResponse>("/status", { signal }),
+    requestJson<Card[]>("/cards", { signal }),
+    requestJson<WorkOrder[]>("/work-orders", { signal }),
+    requestJson<Agent[]>("/agents", { signal }),
+    requestJson<EventEntry[]>("/events", { signal }),
+    requestJson<EvidenceEntry[]>("/evidence", { signal }),
+    requestJson<Approval[]>("/approvals", { signal }),
+    requestJson<Handoff[]>("/handoffs", { signal }),
+    requestJson<QaResult[]>("/qa-results", { signal }),
+    requestJson<RepairRequest[]>("/repair-requests", { signal }),
+    requestJson<WorkflowIteration[]>("/workflow-iterations", { signal })
+  ]);
 
-  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults, repairRequests };
+  return {
+    status,
+    cards,
+    workOrders,
+    agents,
+    events,
+    evidence,
+    approvals,
+    handoffs,
+    qaResults,
+    repairRequests,
+    workflowIterations
+  };
 }
 
 export function createCard(payload: CreateCardRequest): Promise<Card> {
@@ -110,6 +135,10 @@ export function rejectApproval(id: string, decisionReason: string): Promise<Appr
 
 export function handoffWorkOrderToQa(id: string): Promise<Handoff> {
   return requestJson<Handoff>(`/work-orders/${id}/handoff-to-qa`, { method: "POST" });
+}
+
+export function handoffRepairRequestToQa(id: string): Promise<Handoff> {
+  return requestJson<Handoff>(`/repair-requests/${id}/handoff-to-qa`, { method: "POST" });
 }
 
 export function acceptHandoff(id: string, decision: HandoffDecisionRequest): Promise<Handoff> {

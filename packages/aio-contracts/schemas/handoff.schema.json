@@ -39,6 +39,10 @@
     "updated_at": { "type": "string" },
     "decided_at": { "type": ["string", "null"] },
     "decision_reason": { "type": ["string", "null"] },
+    "repair_request_id": { "type": "string" },
+    "qa_result_id": { "type": "string" },
+    "iteration_number": { "type": "integer", "minimum": 1 },
+    "handoff_purpose": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
   },
   "examples": [
@@ -59,7 +63,32 @@
       "updated_at": "2026-05-13T00:00:00Z",
       "decided_at": null,
       "decision_reason": null,
+      "iteration_number": 1,
+      "handoff_purpose": "initial_qa",
       "evidence_refs": ["runtime/state/handoffs.json#R19-HANDOFF-001"]
+    },
+    {
+      "id": "R19-HANDOFF-002",
+      "source_agent_id": "developer_codex",
+      "target_agent_id": "qa_test",
+      "source_role": "Developer/Codex",
+      "target_role": "QA/Test",
+      "card_id": "R19-CARD-001",
+      "work_order_id": "R19-WO-002",
+      "title": "Repair QA handoff for R19-WO-002",
+      "summary": "Developer/Codex requests QA/Test validation for repair iteration 2.",
+      "status": "proposed",
+      "payload_summary": "Repair work order is ready for QA.",
+      "validation_summary": "Repair request, source QA result, card, and repair work-order linkage were validated.",
+      "created_at": "2026-05-13T00:10:00Z",
+      "updated_at": "2026-05-13T00:10:00Z",
+      "decided_at": null,
+      "decision_reason": null,
+      "repair_request_id": "R19-REPAIR-001",
+      "qa_result_id": "R19-QA-RESULT-001",
+      "iteration_number": 2,
+      "handoff_purpose": "repair_qa",
+      "evidence_refs": ["runtime/state/handoffs.json#R19-HANDOFF-002"]
     }
   ]
 }

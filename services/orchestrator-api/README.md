@@ -36,6 +36,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `POST /work-orders`
 - `PATCH /work-orders/{id}/status`
 - `POST /work-orders/{id}/handoff-to-qa`
+- `GET /workflow-iterations`
 - `GET /agents`
 - `GET /events`
 - `GET /evidence`
@@ -51,6 +52,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `POST /handoffs/{id}/qa-result`
 - `GET /repair-requests`
 - `POST /qa-results/{id}/repair-request`
+- `POST /repair-requests/{id}/handoff-to-qa`
 - `POST /repair-requests/{id}/complete`
 - `POST /repair-requests/{id}/cancel`
 
@@ -76,7 +78,7 @@ Allowed repair request statuses: `proposed`, `created`, `in_progress`, `complete
 
 Invalid status values return HTTP 400. Unknown card or work-order IDs return HTTP 404.
 
-`POST /handoffs` validates source and target agents, the card, the work order, and that the work order belongs to the card. `POST /work-orders/{id}/handoff-to-qa` is the first product-facing convenience flow: it creates a `developer_codex` to `qa_test` handoff with `source_role` `Developer/Codex` and `target_role` `QA/Test`. Accepting or rejecting a handoff records the operator decision but does not invoke AI, call Codex/OpenAI APIs, or run autonomous agents.
+`POST /handoffs` validates source and target agents, the card, the work order, and that the work order belongs to the card. `POST /work-orders/{id}/handoff-to-qa` is the first product-facing convenience flow: it creates a `developer_codex` to `qa_test` handoff with `source_role` `Developer/Codex` and `target_role` `QA/Test`. Original work-order handoffs use `handoff_purpose: initial_qa`. Repair work-order handoffs are detected from `work_order_type: repair` or `repair_request_id` and use the repair QA behavior. Accepting or rejecting a handoff records the operator decision but does not invoke AI, call Codex/OpenAI APIs, or run autonomous agents.
 
 `POST /handoffs/{id}/qa-result` records a structured QA/Test result only after a handoff is accepted. Missing handoff IDs return HTTP 404. Proposed, rejected, blocked, or completed handoffs return HTTP 400. Duplicate QA results for the same handoff return HTTP 400. Invalid QA result values return HTTP 400.
 
@@ -109,6 +111,12 @@ Repair request body:
 
 Completing or cancelling a repair request updates only the repair request state and records events/evidence. It does not automatically re-run QA or create a new handoff.
 
+`POST /repair-requests/{id}/handoff-to-qa` creates a proposed repair QA handoff for a linked repair work order. Missing repair requests return HTTP 404. The repair request must be `created`, `in_progress`, or `completed`; the linked repair work order must exist and be `ready` or `completed`. The handoff uses `handoff_purpose: repair_qa`, links `repair_request_id`, carries the failed or blocked source `qa_result_id`, and sets `iteration_number` to the repair iteration. Duplicate active repair QA handoffs for the same repair request/work order return HTTP 400 with the existing handoff id and status.
+
+Accepted repair QA handoffs use the same `POST /handoffs/{id}/qa-result` endpoint as initial QA handoffs. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked`. The source repair request is not automatically completed by the handoff flow. Failed or blocked repair QA results can be used by the operator to create another repair request through the existing repair request endpoint.
+
+`GET /workflow-iterations` returns a lightweight read-only view derived from work orders, handoffs, QA results, and repair requests. It is not persisted as a separate workflow model. Each item shows the original work order, current work order, work-order type, repair request, latest handoff, latest QA result, iteration number, and status summary.
+
 ## JSON Persistence
 
 The API loads persistent JSON files from `runtime/state/*.json` when present. If a persistent file is missing, it falls back to the matching seed file, for example `cards.seed.json`.
@@ -136,6 +144,8 @@ QA result capture persists to JSON and writes `qa_result_recorded` events plus `
 
 Repair request creation persists to JSON, creates a linked `ready` repair work order, and writes `repair_request_created`, `repair_work_order_created`, `repair_request`, and `repair_work_order` records. Completing or cancelling writes `repair_request_completed` or `repair_request_cancelled` plus `repair_request` evidence.
 
+Repair QA handoff creation persists to `handoffs.json` and writes `repair_handoff_created`, `repair_handoff`, and `workflow_iteration` records. Repair QA result capture persists to `qa_results.json` and writes `repair_qa_result_recorded`, `repair_iteration_passed`/`repair_iteration_failed`/`repair_iteration_blocked`, `repair_qa_result`, and `workflow_iteration` records.
+
 ## Test and Smoke Commands
 
 Backend regression harness:
@@ -144,7 +154,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, card/work-order/status updates, approvals, handoffs, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, card/work-order/status updates, approvals, handoffs, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, duplicate active repair handoff rejection, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -157,6 +167,7 @@ Live API smoke after starting the backend:
 
 ```bash
 curl http://127.0.0.1:8000/status
+curl http://127.0.0.1:8000/workflow-iterations
 curl http://127.0.0.1:8000/handoffs
 curl http://127.0.0.1:8000/qa-results
 curl http://127.0.0.1:8000/repair-requests
@@ -166,6 +177,9 @@ curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-001/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted for QA smoke.\",\"decided_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Content-Type: application/json" -d "{\"result\":\"failed\",\"summary\":\"QA failed.\",\"findings\":\"Repair needed.\",\"recommended_next_action\":\"Create repair work order.\",\"qa_agent_id\":\"qa_test\"}"
 curl -X POST http://127.0.0.1:8000/qa-results/R19-QA-RESULT-001/repair-request -H "Content-Type: application/json" -d "{\"summary\":\"Repair failed QA\",\"repair_instructions\":\"Fix the failed QA path.\",\"requested_by\":\"operator\",\"assigned_agent_id\":\"developer_codex\"}"
+curl -X POST http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/handoff-to-qa
+curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted repair QA smoke.\",\"decided_by\":\"operator\"}"
+curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/qa-result -H "Content-Type: application/json" -d "{\"result\":\"passed\",\"summary\":\"Repair QA passed.\",\"findings\":\"Repair verified.\",\"recommended_next_action\":\"Complete repair work order.\",\"qa_agent_id\":\"qa_test\"}"
 ```
 
 ## Reset Local Runtime State
@@ -186,7 +200,8 @@ The next API load will read the seed JSON files again.
 - Handoffs are API-mediated dry-run records and operator decisions only; they do not execute agent work.
 - QA results are operator/API-mediated records after accepted handoffs, not autonomous QA agent execution.
 - Repair requests and linked repair work orders are operator/API-mediated records, not autonomous repair execution.
-- Repair completion/cancellation does not re-run QA or create a new QA handoff.
+- Repair QA iteration handoffs and results are operator/API-mediated records, not autonomous QA reruns.
+- Duplicate active repair QA handoffs are rejected, but this is not a full workflow policy engine.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 
