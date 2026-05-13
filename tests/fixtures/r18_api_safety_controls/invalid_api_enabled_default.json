@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_api_safety_controls_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-022",
+    "target":  "disabled_profile",
+    "operation":  "set",
+    "path":  "api_enabled",
+    "expected_failure_fragments":  [
+                                       "API disabled profile must keep api_enabled false"
+                                   ],
+    "value":  true
+}

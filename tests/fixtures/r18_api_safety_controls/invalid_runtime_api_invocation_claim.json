@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_api_safety_controls_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-022",
+    "target":  "report",
+    "operation":  "set",
+    "path":  "runtime_flags.codex_api_invoked",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027codex_api_invoked\u0027 must remain false"
+                                   ],
+    "value":  true
+}

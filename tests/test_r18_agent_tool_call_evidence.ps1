@@ -89,8 +89,8 @@ foreach ($assertion in @(
         @{ label = "failed record stops dependent work"; script = { $record = @((Get-ValidSet).Records | Where-Object { $_.call_mode -eq "failed" })[0]; if (-not [bool]$record.evidence_policy.failure_recorded -or -not [bool]$record.evidence_policy.dependent_work_stopped) { throw "Failed record did not stop dependent work." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "input refs include agent cards, skill contracts, runner log, and tool adapter profiles"; script = { $profile = (Get-ValidSet).Profile; foreach ($field in @("agent_cards", "skill_contracts", "runner_log", "tool_adapter_profiles")) { if ([string]::IsNullOrWhiteSpace([string]$profile.input_refs.$field)) { throw "Missing input ref $field." } } } },
-        @{ label = "R18 is active through R18-021 only after status updates"; script = { Test-R18AgentToolCallEvidenceStatusTruth -RepositoryRoot $repoRoot } },
-        @{ label = "R18-022 onward remain planned only"; script = { Test-R18AgentToolCallEvidenceStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 is active through R18-022 only after status updates"; script = { Test-R18AgentToolCallEvidenceStatusTruth -RepositoryRoot $repoRoot } },
+        @{ label = "R18-023 onward remain planned only"; script = { Test-R18AgentToolCallEvidenceStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

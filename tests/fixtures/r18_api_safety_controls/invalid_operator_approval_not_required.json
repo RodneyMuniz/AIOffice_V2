@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_api_safety_controls_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-022",
+    "target":  "disabled_profile",
+    "operation":  "set",
+    "path":  "enablement_requirements.operator_approval_required",
+    "expected_failure_fragments":  [
+                                       "Operator approval is required before API enablement"
+                                   ],
+    "value":  false
+}

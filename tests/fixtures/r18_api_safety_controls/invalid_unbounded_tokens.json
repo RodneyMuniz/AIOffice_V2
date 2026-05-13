@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_api_safety_controls_invalid_fixture",
+    "contract_version":  "v1",
+    "source_task":  "R18-022",
+    "target":  "budget_token_policy",
+    "operation":  "set",
+    "path":  "token_budget.unbounded_tokens_allowed",
+    "expected_failure_fragments":  [
+                                       "Unbounded token budgets are not allowed"
+                                   ],
+    "value":  true
+}

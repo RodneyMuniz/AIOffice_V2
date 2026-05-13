@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-021` agent invocation and tool-call evidence model foundation only.
+**Status after this pass:** Active through `R18-022` safety, secrets, budget, and token controls foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-021` are done. `R18-022` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-022` are done. `R18-023` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-022 through R18-028 remain planned only.
+- R18-023 through R18-028 remain planned only.
+- R18-022 created safety, secrets, budget, and token controls foundation only.
+- Controls are not API invocation.
+- API-backed automation remains disabled by default.
 - R18-021 created agent invocation and tool-call evidence model foundation only.
 - Evidence model is not agent invocation by itself.
 - Agent/tool-call evidence ledger artifacts are deterministic evidence-shape artifacts only.
@@ -383,16 +386,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/tools/r18_agent_tool_call_evidence.contract.json`, `state/tools/r18_agent_tool_call_evidence_ledger_shape.json`, `state/tools/r18_agent_tool_call_evidence_profile.json`, `state/tools/r18_agent_tool_call_evidence_ledger.jsonl`, `state/tools/r18_agent_tool_call_evidence_results.json`, `state/tools/r18_agent_tool_call_evidence_check_report.json`, `state/ui/r18_operator_surface/r18_agent_tool_call_evidence_snapshot.json`, `tools/R18AgentToolCallEvidence.psm1`, `tools/new_r18_agent_tool_call_evidence.ps1`, `tools/validate_r18_agent_tool_call_evidence.ps1`, `tests/test_r18_agent_tool_call_evidence.ps1`, `tests/fixtures/r18_agent_tool_call_evidence/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model/`.
 
 ### `R18-022` Implement safety, secrets, budget, and token controls
-- Status: planned
+- Status: done
 - Purpose: Create controls required before any API-backed automation is enabled.
 - Inputs: Skill registry, approval gate, runner shell, operator policy.
-- Outputs: Secrets policy, budget/token policy, timeout policy, disabled API profile, validator/tests.
+- Outputs: API safety controls contract, secrets policy, budget/token policy, timeout policy, disabled API profile, deterministic results, check report, operator-surface snapshot, validator/tests, invalid fixtures, and proof-review package.
 - Acceptance criteria: API disabled by default; secrets never committed; per-request/per-task budgets and timeouts exist; logs redact secrets; operator approval required.
-- Validation expectation: Planned validator rejects unsafe secret, budget, token, timeout, or logging policies.
-- Non-claims: Controls are not API invocation.
+- Validation expectation: `tools/validate_r18_api_safety_controls.ps1` and `tests/test_r18_api_safety_controls.ps1` reject unsafe secret, budget, token, timeout, logging, operator-approval, API-enable, and runtime-claim policies while R18 remains active through R18-022 only.
+- Non-claims: Controls are deterministic policy/validation artifacts only. Controls are not API invocation. API-backed automation remains disabled by default. No Codex/OpenAI API invocation occurred. No live API adapter runtime was implemented or invoked. No live agents were invoked. No live skills were executed. No tool-call execution was performed. No live tool call was performed. No tool-call runtime was implemented. No ledger runtime was implemented. No adapter runtime was invoked. No work orders were executed. No board/card runtime mutation occurred. No A2A messages were sent. No live A2A runtime was implemented. Recovery action was not performed. Release gate was not executed. CI replay was not performed. GitHub Actions workflow was not created or run. Product runtime is not claimed. No no-manual-prompt-transfer success is claimed. Codex compaction and reliability remain unresolved operational issues.
 - Dependencies: R18-003, R18-016.
 - Failure/retry behavior: Missing controls block API adapter work.
-- Expected evidence refs: `contracts/security/r18_api_safety_controls.contract.json`, disabled profile, fixtures.
+- Expected evidence refs: `contracts/security/r18_api_safety_controls.contract.json`, `state/security/r18_api_disabled_profile.json`, `state/security/r18_api_secrets_policy.json`, `state/security/r18_api_budget_token_policy.json`, `state/security/r18_api_timeout_policy.json`, `state/security/r18_api_safety_controls_results.json`, `state/security/r18_api_safety_controls_check_report.json`, `state/ui/r18_operator_surface/r18_api_safety_controls_snapshot.json`, `tools/R18ApiSafetyControls.psm1`, `tools/new_r18_api_safety_controls.ps1`, `tools/validate_r18_api_safety_controls.ps1`, `tests/test_r18_api_safety_controls.ps1`, `tests/fixtures/r18_api_safety_controls/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls/`.
 
 ### `R18-023` Implement optional API adapter stub only after controls
 - Status: planned

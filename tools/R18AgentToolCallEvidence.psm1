@@ -1111,8 +1111,11 @@ function Test-R18AgentToolCallEvidenceStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-021 only",
-            "R18-022 through R18-028 planned only",
+            "R18 active through R18-022 only",
+            "R18-023 through R18-028 planned only",
+            "R18-022 created safety, secrets, budget, and token controls foundation only",
+            "Controls are not API invocation",
+            "API-backed automation remains disabled by default",
             "R18-021 created agent invocation and tool-call evidence model foundation only",
             "Evidence model is not agent invocation by itself",
             "No live agents were invoked",
@@ -1136,19 +1139,19 @@ function Test-R18AgentToolCallEvidenceStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18AgentToolCallEvidenceCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 21) {
-            Assert-R18AgentToolCallEvidenceCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-021."
+        if ($taskNumber -le 22) {
+            Assert-R18AgentToolCallEvidenceCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-022."
         }
         else {
-            Assert-R18AgentToolCallEvidenceCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-021."
+            Assert-R18AgentToolCallEvidenceCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-022."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(02[2-8])') {
-        throw "Status surface claims R18 beyond R18-021."
+    if ($combinedText -match 'R18 active through R18-(02[3-8])') {
+        throw "Status surface claims R18 beyond R18-022."
     }
-    if ($combinedText -match '(?i)R18-(02[2-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-022 or later completion."
+    if ($combinedText -match '(?i)R18-(02[3-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-023 or later completion."
     }
 }
 
