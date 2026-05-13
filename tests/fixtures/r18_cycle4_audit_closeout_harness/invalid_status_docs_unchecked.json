@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_status_docs_unchecked",
+    "target":  "release_gate_result",
+    "operation":  "set",
+    "path":  "status_docs_gate.passed",
+    "value":  false,
+    "expected_failure_fragments":  [
+                                       "status docs"
+                                   ]
+}

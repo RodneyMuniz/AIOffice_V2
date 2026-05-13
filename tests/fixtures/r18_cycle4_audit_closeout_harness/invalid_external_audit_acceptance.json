@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_external_audit_acceptance",
+    "target":  "audit_verdict",
+    "operation":  "set",
+    "path":  "external_audit_acceptance_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "external audit"
+                                   ]
+}

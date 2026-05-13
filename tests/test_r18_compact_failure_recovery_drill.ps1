@@ -99,8 +99,8 @@ foreach ($assertion in @(
         @{ label = "operator decision points recorded"; script = { $set = Get-ValidSet; if (@($set.DrillPacket.operator_decision_points).Count -lt 3) { throw "Missing operator decision points." } } },
         @{ label = "runner log has required events"; script = { $set = Get-ValidSet; $events = @($set.RunnerLogEntries | ForEach-Object { $_.event_type }); foreach ($event in @("preflight_verified", "runner_state_loaded", "failure_event_recorded", "wip_classification_linked", "remote_verification_linked", "continuation_packets_recorded", "operator_decision_points_recorded")) { if ($events -notcontains $event) { throw "Missing runner log event $event." } } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-025 only after status updates"; script = { Test-R18CompactFailureRecoveryDrillStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-026 onward remain planned only"; script = { Test-R18CompactFailureRecoveryDrillStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-026 only after status updates"; script = { Test-R18CompactFailureRecoveryDrillStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-027 onward remain planned only"; script = { Test-R18CompactFailureRecoveryDrillStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script

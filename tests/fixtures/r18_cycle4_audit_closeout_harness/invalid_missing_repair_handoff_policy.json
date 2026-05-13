@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_repair_handoff_policy",
+    "target":  "package",
+    "operation":  "remove",
+    "path":  "audit_failure_behavior",
+    "expected_failure_fragments":  [
+                                       "repair handoff"
+                                   ]
+}

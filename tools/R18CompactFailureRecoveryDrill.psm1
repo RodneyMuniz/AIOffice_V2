@@ -1019,8 +1019,15 @@ function Test-R18CompactFailureRecoveryDrillStatusTruth {
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-025 only",
-            "R18-026 through R18-028 planned only",
+            "R18 active through R18-026 only",
+            "R18-027 through R18-028 planned only",
+            "R18-026 completed deterministic compact-safe Cycle 4 audit/closeout harness evidence package only",
+            "R18-026 exercised audit/closeout flow under the harness without claiming external audit acceptance",
+            "R18-026 release gate result is a bounded non-runtime assessment artifact only",
+            "R18-026 closeout-candidate packet is not milestone closeout",
+            "No external audit acceptance is claimed",
+            "No main merge is claimed",
+            "No closeout without operator approval is claimed",
             "R18-025 completed compact-safe Cycle 3 QA/fix-loop harness evidence package only",
             "R18-025 evidence exceeds packet-only artifacts through deterministic harness work-order records",
             "R18-025 does not claim four cycles",
@@ -1055,23 +1062,23 @@ function Test-R18CompactFailureRecoveryDrillStatusTruth {
         $taskId = $match.Groups[1].Value
         $status = $match.Groups[2].Value
         $taskNumber = [int]$taskId.Substring(4)
-        if ($taskNumber -le 25) {
-            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "done") -Message "$taskId must be done after R18-025."
+        if ($taskNumber -le 26) {
+            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "done") -Message "$taskId must be done after R18-026."
         }
         else {
-            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "planned") -Message "$taskId must remain planned only after R18-025."
+            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "planned") -Message "$taskId must remain planned only after R18-026."
         }
     }
-    if ($combinedText -match 'R18 active through R18-(02[6-8])') {
-        throw "Status surface claims R18 beyond R18-025."
+    if ($combinedText -match 'R18 active through R18-(02[7-8])') {
+        throw "Status surface claims R18 beyond R18-026."
     }
-    if ($combinedText -match 'R18-02[6-8][^\.\r\n]{0,80}(done|complete|completed|implemented|executed)') {
-        throw "Status surface claims R18-026 or later completion."
+    if ($combinedText -match 'R18-02[7-8][^\.\r\n]{0,80}(done|complete|completed|implemented|executed)') {
+        throw "Status surface claims R18-027 or later completion."
     }
 
     return [pscustomobject]@{
-        R18DoneThrough = 25
-        R18PlannedStart = 26
+        R18DoneThrough = 26
+        R18PlannedStart = 27
         R18PlannedThrough = 28
     }
 }

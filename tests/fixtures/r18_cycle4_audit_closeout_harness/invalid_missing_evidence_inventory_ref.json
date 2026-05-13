@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_evidence_inventory_ref",
+    "target":  "package",
+    "operation":  "remove",
+    "path":  "machine_readable_evidence_review.evidence_inventory_ref",
+    "expected_failure_fragments":  [
+                                       "missing evidence"
+                                   ]
+}

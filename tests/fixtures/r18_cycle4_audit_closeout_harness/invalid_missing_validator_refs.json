@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_missing_validator_refs",
+    "target":  "release_gate_result",
+    "operation":  "set",
+    "path":  "validation_gate.validator_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "validator"
+                                   ]
+}

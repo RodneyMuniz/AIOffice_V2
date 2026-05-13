@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_release_gate_executed",
+    "target":  "release_gate_result",
+    "operation":  "set",
+    "path":  "release_gate_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "release gate execution"
+                                   ]
+}

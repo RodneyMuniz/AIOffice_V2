@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-025` compact-safe Cycle 3 QA/fix-loop harness evidence package only.
+**Status after this pass:** Active through `R18-026` compact-safe Cycle 4 audit/closeout harness evidence package only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-025` are done. `R18-026` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-026` are done. `R18-027` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-026 through R18-028 remain planned only.
+- R18-027 through R18-028 remain planned only.
+- R18-026 completed deterministic compact-safe Cycle 4 audit/closeout harness evidence package only.
+- R18-026 exercised audit/closeout flow under the harness without claiming external audit acceptance.
+- R18-026 evidence includes deterministic machine-readable evidence inventory, Evidence Auditor verdict packet, non-runtime release gate result, closeout-candidate packet, audit repair handoff policy packet, validator run log, board event records, operator-surface snapshot, validator, tests, fixtures, and proof-review package.
+- R18-026 release gate result is a bounded non-runtime assessment artifact only.
+- R18-026 closeout-candidate packet is not milestone closeout and remains blocked pending explicit operator approval.
+- R18-026 does not claim external audit acceptance, main merge, milestone closeout, release gate execution, CI replay, GitHub Actions workflow creation/run, product runtime, no-manual-prompt-transfer success, solved compaction, solved reliability, or closeout without operator approval.
 - R18-025 completed compact-safe Cycle 3 QA/fix-loop harness evidence package only.
 - R18-025 evidence exceeds packet-only artifacts through deterministic harness work-order records, Developer/QA handoff, validator run log, QA result packet, defect/repair evidence, recovery route packet, board event records, operator-surface snapshot, validator, tests, fixtures, and proof-review package.
 - R18-025 does not claim four cycles, solved compaction, solved reliability, live agent/skill/API/A2A/tool-call/product runtime, live Kanban UI, board/card runtime mutation, release gate execution, CI replay, GitHub Actions workflow creation/run, external audit acceptance, main merge, no-manual-prompt-transfer success, or recovery action.
@@ -445,7 +451,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: Cycle 3 execution package, QA packets, defect packets, board events.
 
 ### `R18-026` Retry Cycle 4 audit/closeout using compact-safe harness
-- Status: planned
+- Status: done
 - Purpose: Exercise audit/closeout flow under the harness without claiming external audit acceptance.
 - Inputs: Cycle 3 results, evidence package wrapper, Evidence Auditor model, release gate.
 - Outputs: Cycle 4 audit/closeout package, audit verdict packet, release gate result, closeout-candidate packet.

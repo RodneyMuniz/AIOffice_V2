@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_closeout_without_operator_approval",
+    "target":  "closeout_candidate",
+    "operation":  "set",
+    "path":  "closeout_approved",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "operator approval"
+                                   ]
+}

@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_live_auditor_agent",
+    "target":  "audit_verdict",
+    "operation":  "set",
+    "path":  "runtime_flags.live_evidence_auditor_agent_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}
