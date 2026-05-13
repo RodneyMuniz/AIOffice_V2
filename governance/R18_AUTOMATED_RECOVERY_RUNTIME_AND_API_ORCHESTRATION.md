@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-019` evidence package automation wrapper foundation only.
+**Status after this pass:** Active through `R18-020` board/card runtime event model foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-019` are done. `R18-020` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-020` are done. `R18-021` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-020 through R18-028 remain planned only.
+- R18-021 through R18-028 remain planned only.
+- R18-020 created board/card runtime event model foundation only.
+- Board/card event model artifacts are deterministic seed/policy artifacts only.
+- Live board/card runtime was not implemented.
+- Board/card runtime mutation was not performed.
+- Live Kanban UI was not implemented.
+- No R18 runtime tool-call execution was performed.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -346,16 +352,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/governance/r18_evidence_package_wrapper.contract.json`, `contracts/governance/r18_evidence_package_manifest.contract.json`, `state/governance/r18_evidence_package_wrapper_profile.json`, `state/governance/r18_evidence_package_inputs/`, `state/governance/r18_evidence_package_manifests/current_r18_evidence_package.manifest.json`, `state/governance/r18_evidence_package_assessments/`, `state/governance/r18_evidence_package_wrapper_results.json`, `state/governance/r18_evidence_package_wrapper_check_report.json`, `state/ui/r18_operator_surface/r18_evidence_package_wrapper_snapshot.json`, `tools/R18EvidencePackageWrapper.psm1`, `tools/new_r18_evidence_package_wrapper.ps1`, `tools/validate_r18_evidence_package_wrapper.ps1`, `tests/test_r18_evidence_package_wrapper.ps1`, `tests/fixtures/r18_evidence_package_wrapper/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper/`.
 
 ### `R18-020` Implement board/card runtime event model
-- Status: planned
-- Purpose: Define append-only board/card runtime events for work orders, failures, handoffs, approvals, and evidence.
-- Inputs: R17 board contracts, runner state, A2A handoffs, approval packets.
-- Outputs: Runtime board event contract, event log shape, validator, tests.
-- Acceptance criteria: Events are append-only, scoped to cards/work orders, evidence-backed, and reject historical rewrites.
-- Validation expectation: Planned validator rejects mutation of historical evidence and missing event evidence.
-- Non-claims: Event model is not a live UI or product runtime.
-- Dependencies: R18-004, R18-009, R18-016.
-- Failure/retry behavior: Invalid event blocks board state advancement.
-- Expected evidence refs: `contracts/board/r18_runtime_board_event.contract.json`, event fixtures.
+- Status: done
+- Purpose: Create deterministic board/card runtime event model foundation artifacts that define how future runtime work will represent board events, card lifecycle changes, state transitions, handoff links, validation results, evidence links, operator decisions, release-gate assessments, and blocked/failure states without implementing live board/card runtime.
+- Inputs: R17 board contracts, R18 runner state/store artifacts, R18 work-order seed packets, A2A handoff packets, operator approval model artifacts, release-gate wrapper artifacts, evidence package wrapper artifacts, and status authority refs.
+- Outputs: Board/card event contract, event model contract, model profile, three seed cards, nine seed events, JSONL event log sample, registry, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Required cards/events/log/registry/results/check-report artifacts exist; all event/card required fields are present; event types, actor roles, and card statuses are known; handoff/validation/evidence/operator/release/failure refs are evidence-backed; all runtime false flags remain false; R18-021 through R18-028 remain planned only.
+- Validation expectation: `tools/validate_r18_board_card_event_model.ps1`, `tests/test_r18_board_card_event_model.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-020 only.
+- Non-claims: Board/card event model artifacts are deterministic seed/policy artifacts only. Live board/card runtime was not implemented. Board/card runtime mutation was not performed. Live Kanban UI was not implemented. No work orders were executed. No A2A messages were sent. No live agents were invoked. No live skills were executed. No R18 runtime tool-call execution was performed. Codex/OpenAI API invocation did not occur. Recovery action was not performed. Release gate was not executed. CI replay was not performed. GitHub Actions workflow was not created or run. Product runtime is not claimed. No no-manual-prompt-transfer success is claimed. Codex compaction and reliability remain unresolved operational issues.
+- Dependencies: R18-004, R18-008, R18-010, R18-016, R18-017, R18-018, R18-019.
+- Failure/retry behavior: Invalid event model artifacts fail closed in validation only; the event model does not execute recovery, retries, approvals, work orders, A2A messages, release gates, stage/commit/push, tool calls, API calls, or live board mutation.
+- Expected evidence refs: `contracts/board/r18_board_card_event.contract.json`, `contracts/board/r18_board_card_event_model.contract.json`, `state/board/r18_board_card_event_model_profile.json`, `state/board/r18_board_card_seed_cards/`, `state/board/r18_board_card_seed_events/`, `state/board/r18_board_card_event_log.jsonl`, `state/board/r18_board_card_event_registry.json`, `state/board/r18_board_card_event_model_results.json`, `state/board/r18_board_card_event_model_check_report.json`, `state/ui/r18_operator_surface/r18_board_card_event_model_snapshot.json`, `tools/R18BoardCardEventModel.psm1`, `tools/new_r18_board_card_event_model.ps1`, `tools/validate_r18_board_card_event_model.ps1`, `tests/test_r18_board_card_event_model.ps1`, `tests/fixtures/r18_board_card_event_model/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model/`.
 
 ### `R18-021` Implement agent invocation and tool-call evidence model
 - Status: planned

@@ -3695,8 +3695,13 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-019 only",
-            "R18-020 through R18-028 planned only",
+            "R18 active through R18-020 only",
+            "R18-021 through R18-028 planned only",
+            "R18-020 created board/card runtime event model foundation only",
+            "Board/card event model artifacts are deterministic seed/policy artifacts only",
+            "Live board/card runtime was not implemented",
+            "Board/card runtime mutation was not performed",
+            "Live Kanban UI was not implemented",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -3807,7 +3812,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 19) {
+        if ($taskNumber -le 20) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3849,8 +3854,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 19
-        R18PlannedStart = 20
+        R18DoneThrough = 20
+        R18PlannedStart = 21
         R18PlannedThrough = 28
     }
 }

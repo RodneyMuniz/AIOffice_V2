@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_recovery_action_claim",
+    "source_task":  "R18-020",
+    "target":  "event:card_blocked",
+    "operation":  "set",
+    "path":  "runtime_flags.recovery_action_performed",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027recovery_action_performed\u0027 must be false"
+                                   ],
+    "value":  true
+}

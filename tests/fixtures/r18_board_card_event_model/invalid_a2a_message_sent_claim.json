@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_a2a_message_sent_claim",
+    "source_task":  "R18-020",
+    "target":  "event:handoff_linked",
+    "operation":  "set",
+    "path":  "runtime_flags.a2a_message_sent",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027a2a_message_sent\u0027 must be false"
+                                   ],
+    "value":  true
+}

@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_card_id",
+    "source_task":  "R18-020",
+    "target":  "event:card_created",
+    "operation":  "remove",
+    "path":  "card_id",
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027card_id\u0027"
+                                   ]
+}

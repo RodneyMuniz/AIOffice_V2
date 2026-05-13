@@ -1,0 +1,12 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_missing_previous_state",
+    "source_task":  "R18-020",
+    "target":  "event:card_status_transitioned",
+    "operation":  "remove",
+    "path":  "previous_state",
+    "expected_failure_fragments":  [
+                                       "missing required field \u0027previous_state\u0027"
+                                   ]
+}

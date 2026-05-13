@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_unknown_event_type",
+    "source_task":  "R18-020",
+    "target":  "event:card_created",
+    "operation":  "set",
+    "path":  "event_type",
+    "expected_failure_fragments":  [
+                                       "Unknown event type"
+                                   ],
+    "value":  "unknown_event_type"
+}

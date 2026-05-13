@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_board_card_event_model_invalid_fixture",
+    "contract_version":  "v1",
+    "fixture_id":  "invalid_stage_commit_push_claim",
+    "source_task":  "R18-020",
+    "target":  "event:release_gate_assessed",
+    "operation":  "set",
+    "path":  "runtime_flags.stage_performed_by_gate",
+    "expected_failure_fragments":  [
+                                       "runtime flag \u0027stage_performed_by_gate\u0027 must be false"
+                                   ],
+    "value":  true
+}
