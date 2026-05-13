@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_packet_only_completion",
+    "target":  "execution_package",
+    "operation":  "set",
+    "path":  "harness_evidence.packet_only_artifacts",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "packet-only"
+                                   ]
+}

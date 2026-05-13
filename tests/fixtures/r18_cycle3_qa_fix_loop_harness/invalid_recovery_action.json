@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_recovery_action",
+    "target":  "recovery_route_packet",
+    "operation":  "set",
+    "path":  "recovery_action_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "recovery action"
+                                   ]
+}

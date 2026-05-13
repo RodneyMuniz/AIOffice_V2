@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_board_mutation",
+    "target":  "results",
+    "operation":  "set",
+    "path":  "board_event_summary.board_runtime_mutation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "board runtime mutation"
+                                   ]
+}

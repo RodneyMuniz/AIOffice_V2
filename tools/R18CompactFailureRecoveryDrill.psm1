@@ -1019,8 +1019,11 @@ function Test-R18CompactFailureRecoveryDrillStatusTruth {
     $combinedText = [string]::Join([Environment]::NewLine, @($texts.Values))
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-024 only",
-            "R18-025 through R18-028 planned only",
+            "R18 active through R18-025 only",
+            "R18-026 through R18-028 planned only",
+            "R18-025 completed compact-safe Cycle 3 QA/fix-loop harness evidence package only",
+            "R18-025 evidence exceeds packet-only artifacts through deterministic harness work-order records",
+            "R18-025 does not claim four cycles",
             "R18-024 exercised compact-failure recovery drill foundation only",
             "R18-024 drill evidence is deterministic bounded local runner drill evidence only",
             "R18-024 drill does not solve compaction or prove full product runtime",
@@ -1052,23 +1055,23 @@ function Test-R18CompactFailureRecoveryDrillStatusTruth {
         $taskId = $match.Groups[1].Value
         $status = $match.Groups[2].Value
         $taskNumber = [int]$taskId.Substring(4)
-        if ($taskNumber -le 24) {
-            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "done") -Message "$taskId must be done after R18-024."
+        if ($taskNumber -le 25) {
+            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "done") -Message "$taskId must be done after R18-025."
         }
         else {
-            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "planned") -Message "$taskId must remain planned only after R18-024."
+            Assert-R18CompactFailureRecoveryDrillCondition -Condition ($status -eq "planned") -Message "$taskId must remain planned only after R18-025."
         }
     }
-    if ($combinedText -match 'R18 active through R18-(02[5-8])') {
-        throw "Status surface claims R18 beyond R18-024."
+    if ($combinedText -match 'R18 active through R18-(02[6-8])') {
+        throw "Status surface claims R18 beyond R18-025."
     }
-    if ($combinedText -match 'R18-02[5-8].{0,80}(done|complete|completed|implemented|executed)') {
-        throw "Status surface claims R18-025 or later completion."
+    if ($combinedText -match 'R18-02[6-8][^\.\r\n]{0,80}(done|complete|completed|implemented|executed)') {
+        throw "Status surface claims R18-026 or later completion."
     }
 
     return [pscustomobject]@{
-        R18DoneThrough = 24
-        R18PlannedStart = 25
+        R18DoneThrough = 25
+        R18PlannedStart = 26
         R18PlannedThrough = 28
     }
 }

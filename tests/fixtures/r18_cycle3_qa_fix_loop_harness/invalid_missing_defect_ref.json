@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_defect_ref",
+    "target":  "qa_result_packet",
+    "operation":  "remove",
+    "path":  "defect_packet_ref",
+    "expected_failure_fragments":  [
+                                       "defect"
+                                   ]
+}

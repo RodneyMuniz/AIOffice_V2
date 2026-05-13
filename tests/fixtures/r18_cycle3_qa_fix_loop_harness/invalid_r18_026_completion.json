@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_r18_026_completion",
+    "target":  "snapshot",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_026_completed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}

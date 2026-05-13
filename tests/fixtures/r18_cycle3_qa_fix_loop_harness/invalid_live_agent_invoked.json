@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_live_agent_invoked",
+    "target":  "qa_result_packet",
+    "operation":  "set",
+    "path":  "runtime_flags.live_agent_runtime_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}

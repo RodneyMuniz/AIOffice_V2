@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_validator_run_log",
+    "target":  "results",
+    "operation":  "remove",
+    "path":  "harness_runtime_evidence.validator_run_log_entry_count",
+    "expected_failure_fragments":  [
+                                       "validator run log"
+                                   ]
+}

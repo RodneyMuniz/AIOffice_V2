@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-024` compact-failure recovery drill foundation only.
+**Status after this pass:** Active through `R18-025` compact-safe Cycle 3 QA/fix-loop harness evidence package only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-024` are done. `R18-025` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-025` are done. `R18-026` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-025 through R18-028 remain planned only.
+- R18-026 through R18-028 remain planned only.
+- R18-025 completed compact-safe Cycle 3 QA/fix-loop harness evidence package only.
+- R18-025 evidence exceeds packet-only artifacts through deterministic harness work-order records, Developer/QA handoff, validator run log, QA result packet, defect/repair evidence, recovery route packet, board event records, operator-surface snapshot, validator, tests, fixtures, and proof-review package.
+- R18-025 does not claim four cycles, solved compaction, solved reliability, live agent/skill/API/A2A/tool-call/product runtime, live Kanban UI, board/card runtime mutation, release gate execution, CI replay, GitHub Actions workflow creation/run, external audit acceptance, main merge, no-manual-prompt-transfer success, or recovery action.
 - R18-024 exercised compact-failure recovery drill foundation only.
 - R18-024 drill evidence is deterministic bounded local runner drill evidence only.
 - R18-024 drill records last completed step, next safe step, retry count, evidence refs, runner log refs, continuation/new-context packet refs, and operator decision points.
@@ -430,7 +433,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/runtime/r18_compact_failure_recovery_drill.contract.json`, `state/runtime/r18_compact_failure_recovery_drill/`, `state/runtime/r18_compact_failure_recovery_drill/runner_log.jsonl`, `state/runtime/r18_compact_failure_recovery_drill/continuation_packet.json`, `state/runtime/r18_compact_failure_recovery_drill/new_context_packet.json`, `state/runtime/r18_compact_failure_recovery_drill/check_report.json`, `state/ui/r18_operator_surface/r18_compact_failure_recovery_drill_snapshot.json`, `tools/R18CompactFailureRecoveryDrill.psm1`, `tools/new_r18_compact_failure_recovery_drill.ps1`, `tools/validate_r18_compact_failure_recovery_drill.ps1`, `tests/test_r18_compact_failure_recovery_drill.ps1`, fixtures under `tests/fixtures/r18_compact_failure_recovery_drill/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill/`.
 
 ### `R18-025` Retry Cycle 3 QA/fix-loop using compact-safe harness
-- Status: planned
+- Status: done
 - Purpose: Retry the R17 Cycle 3 QA/fix-loop with the compact-safe runner harness.
 - Inputs: R17 Cycle 3 prompt/work-order plan, R18 runner, Developer/QA roles, recovery loop.
 - Outputs: Executed Cycle 3 work-order records, QA result packet, defect/repair evidence, recovery evidence if needed.

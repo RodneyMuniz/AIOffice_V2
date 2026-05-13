@@ -3695,8 +3695,11 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-024 only",
-            "R18-025 through R18-028 planned only",
+            "R18 active through R18-025 only",
+            "R18-026 through R18-028 planned only",
+            "R18-025 completed compact-safe Cycle 3 QA/fix-loop harness evidence package only",
+            "R18-025 evidence exceeds packet-only artifacts through deterministic harness work-order records",
+            "R18-025 does not claim four cycles",
             "R18-024 exercised compact-failure recovery drill foundation only",
             "R18-024 drill evidence is deterministic bounded local runner drill evidence only",
             "R18-024 drill records last completed step, next safe step, retry count, evidence refs, runner log refs, continuation/new-context packet refs, and operator decision points",
@@ -3825,7 +3828,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 24) {
+        if ($taskNumber -le 25) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3867,8 +3870,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 24
-        R18PlannedStart = 25
+        R18DoneThrough = 25
+        R18PlannedStart = 26
         R18PlannedThrough = 28
     }
 }

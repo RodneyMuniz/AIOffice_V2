@@ -90,8 +90,8 @@ foreach ($assertion in @(
         @{ label = "approval and budget gates block operation"; script = { $set = Get-ValidSet; if ([bool]$set.Profile.operator_enablement.approved -or [decimal]$set.Profile.budget_gate.max_usd_when_disabled -ne 0 -or -not [bool]$set.Profile.budget_gate.missing_budget_blocks_operation) { throw "Approval or budget gate is unsafe." } } },
         @{ label = "R18-022 control refs are present"; script = { $set = Get-ValidSet; if ($set.Profile.control_refs.disabled_api_profile_ref -ne "state/security/r18_api_disabled_profile.json" -or $set.Profile.control_refs.evidence_ledger_shape_ref -ne "state/tools/r18_agent_tool_call_evidence_ledger_shape.json") { throw "Control refs are missing." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-024 only after status updates"; script = { Test-R18OptionalApiAdapterStubStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-025 onward remain planned only"; script = { Test-R18OptionalApiAdapterStubStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-025 only after status updates"; script = { Test-R18OptionalApiAdapterStubStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-026 onward remain planned only"; script = { Test-R18OptionalApiAdapterStubStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script
