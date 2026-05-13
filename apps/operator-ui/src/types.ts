@@ -10,9 +10,11 @@ export const WORK_ORDER_STATUSES = [
   "blocked",
   "cancelled"
 ] as const;
+export const HANDOFF_STATUSES = ["proposed", "accepted", "rejected", "completed", "blocked"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
+export type HandoffStatus = (typeof HANDOFF_STATUSES)[number];
 
 export type StatusResponse = {
   product_name: string;
@@ -28,6 +30,8 @@ export type StatusResponse = {
   work_orders_count: number;
   approvals_count: number;
   pending_approvals_count: number;
+  handoffs_count: number;
+  pending_handoffs_count: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -77,6 +81,26 @@ export type Approval = {
   decision_reason?: string | null;
 };
 
+export type Handoff = {
+  id: string;
+  source_agent_id: string;
+  target_agent_id: string;
+  source_role: string;
+  target_role: string;
+  card_id: string;
+  work_order_id: string;
+  title: string;
+  summary: string;
+  status: HandoffStatus;
+  payload_summary: string;
+  validation_summary: string;
+  created_at: string;
+  updated_at: string;
+  decided_at?: string | null;
+  decision_reason?: string | null;
+  evidence_refs: string[];
+};
+
 export type Agent = {
   id: string;
   display_name: string;
@@ -95,6 +119,7 @@ export type EventEntry = {
   related_card_id?: string;
   related_work_order_id?: string;
   related_approval_id?: string;
+  related_handoff_id?: string;
 };
 
 export type EvidenceEntry = {
@@ -106,6 +131,7 @@ export type EvidenceEntry = {
   related_card_id: string;
   related_work_order_id?: string;
   related_approval_id?: string;
+  related_handoff_id?: string;
   created_at?: string;
 };
 
@@ -117,6 +143,7 @@ export type DashboardData = {
   events: EventEntry[];
   evidence: EvidenceEntry[];
   approvals: Approval[];
+  handoffs: Handoff[];
 };
 
 export type CreateCardRequest = {
@@ -139,6 +166,11 @@ export type CreateApprovalRequest = {
   description: string;
   related_card_id: string;
   related_work_order_id?: string | null;
+};
+
+export type HandoffDecisionRequest = {
+  decision_reason: string;
+  decided_by: string;
 };
 
 export type UpdateStatusRequest = {

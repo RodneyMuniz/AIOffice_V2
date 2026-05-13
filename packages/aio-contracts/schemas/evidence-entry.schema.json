@@ -13,6 +13,7 @@
     "related_card_id": { "type": "string" },
     "related_work_order_id": { "type": "string" },
     "related_approval_id": { "type": "string" },
+    "related_handoff_id": { "type": "string" },
     "created_at": { "type": "string" }
   }
 }

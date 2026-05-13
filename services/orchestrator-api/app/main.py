@@ -29,6 +29,9 @@ WORK_ORDER_STATUSES = (
 )
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
+HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
+
+HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
 
 
 class CardCreate(BaseModel):
@@ -71,6 +74,27 @@ class ApprovalDecision(BaseModel):
     decided_by: str = "operator"
 
 
+class HandoffCreate(BaseModel):
+    id: str | None = None
+    source_agent_id: str
+    target_agent_id: str
+    source_role: str
+    target_role: str
+    card_id: str
+    work_order_id: str
+    title: str
+    summary: str = ""
+    status: str = "proposed"
+    payload_summary: str = ""
+    validation_summary: str = ""
+    evidence_refs: list[str] = Field(default_factory=list)
+
+
+class HandoffDecisionRequest(BaseModel):
+    decision_reason: str = ""
+    decided_by: str = "operator"
+
+
 class StatusUpdateRequest(BaseModel):
     status: str
     reason: str = ""
@@ -89,6 +113,7 @@ class JsonStateStore:
         self.events = self._load_collection("events", [])
         self.evidence = self._load_collection("evidence", [])
         self.approvals = self._load_collection("approvals", [])
+        self.handoffs = self._load_collection("handoffs", [])
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
         if not path.exists():
@@ -120,6 +145,9 @@ class JsonStateStore:
         pending_approvals_count = sum(
             1 for approval in self.approvals if approval.get("status") == "pending"
         )
+        pending_handoffs_count = sum(
+            1 for handoff in self.handoffs if handoff.get("status") == "proposed"
+        )
 
         return {
             **self.status_seed,
@@ -132,6 +160,8 @@ class JsonStateStore:
             "work_orders_count": len(self.work_orders),
             "approvals_count": len(self.approvals),
             "pending_approvals_count": pending_approvals_count,
+            "handoffs_count": len(self.handoffs),
+            "pending_handoffs_count": pending_handoffs_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -329,6 +359,134 @@ class JsonStateStore:
     def reject_approval(self, approval_id: str, decision: ApprovalDecision) -> dict[str, Any]:
         return self._decide_approval(approval_id, "rejected", decision)
 
+    def create_handoff(self, payload: HandoffCreate) -> dict[str, Any]:
+        handoff_data = _model_to_dict(payload)
+        status = str(handoff_data.get("status") or "proposed").strip()
+        _validate_status(status, HANDOFF_STATUSES, "handoff")
+
+        source_agent_id = str(handoff_data["source_agent_id"]).strip()
+        target_agent_id = str(handoff_data["target_agent_id"]).strip()
+        card_id = str(handoff_data["card_id"]).strip()
+        work_order_id = str(handoff_data["work_order_id"]).strip()
+        source_agent = self._find_agent(source_agent_id)
+        target_agent = self._find_agent(target_agent_id)
+        card = self._find_card(card_id)
+        work_order = self._find_work_order(work_order_id)
+
+        if source_agent is None:
+            raise HTTPException(status_code=400, detail=f"Invalid source_agent_id: {source_agent_id}.")
+        if target_agent is None:
+            raise HTTPException(status_code=400, detail=f"Invalid target_agent_id: {target_agent_id}.")
+        if card is None:
+            raise HTTPException(status_code=400, detail=f"Invalid card_id: {card_id}.")
+        if work_order is None:
+            raise HTTPException(status_code=400, detail=f"Invalid work_order_id: {work_order_id}.")
+        if work_order.get("card_id") != card_id:
+            raise HTTPException(
+                status_code=400,
+                detail=f"work_order_id {work_order_id} does not belong to card_id {card_id}.",
+            )
+
+        now = _utc_now()
+        payload_summary = (
+            handoff_data.get("payload_summary")
+            or f"Work order {work_order_id}: {work_order['title']} is currently {work_order['status']}."
+        )
+        validation_summary = (
+            handoff_data.get("validation_summary")
+            or (
+                f"Validated {source_agent_id} -> {target_agent_id} handoff for "
+                f"card {card_id} and work order {work_order_id}."
+            )
+        )
+        handoff_id = handoff_data.get("id") or self._next_id(self.handoffs, "R19-HANDOFF")
+        evidence_refs = [
+            *handoff_data.get("evidence_refs", []),
+            f"runtime/state/handoffs.json#{handoff_id}",
+        ]
+        handoff = {
+            "id": handoff_id,
+            "source_agent_id": source_agent_id,
+            "target_agent_id": target_agent_id,
+            "source_role": handoff_data["source_role"],
+            "target_role": handoff_data["target_role"],
+            "card_id": card_id,
+            "work_order_id": work_order_id,
+            "title": handoff_data["title"],
+            "summary": handoff_data.get("summary", ""),
+            "status": status,
+            "payload_summary": payload_summary,
+            "validation_summary": validation_summary,
+            "created_at": now,
+            "updated_at": now,
+            "decided_at": None,
+            "decision_reason": None,
+            "evidence_refs": evidence_refs,
+        }
+
+        self.handoffs.append(handoff)
+        self._append_event(
+            event_type="handoff_created",
+            summary=f"Handoff {handoff_id} proposed from {source_agent_id} to {target_agent_id}.",
+            actor_agent_id=source_agent_id,
+            related_card_id=card_id,
+            related_work_order_id=work_order_id,
+            related_handoff_id=handoff_id,
+        )
+        self._append_evidence(
+            title=f"Handoff {handoff_id} created",
+            kind="handoff_record",
+            summary=validation_summary,
+            path=f"runtime/state/handoffs.json#{handoff_id}",
+            related_card_id=card_id,
+            related_work_order_id=work_order_id,
+            related_handoff_id=handoff_id,
+        )
+        self._save_collection("handoffs", self.handoffs)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return handoff
+
+    def handoff_work_order_to_qa(self, work_order_id: str) -> dict[str, Any]:
+        work_order = self._find_work_order(work_order_id)
+        if work_order is None:
+            raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
+
+        evidence_refs = list(work_order.get("evidence_refs", []))
+        evidence_refs.append(f"runtime/state/work_orders.json#{work_order_id}")
+        return self.create_handoff(
+            HandoffCreate(
+                source_agent_id="developer_codex",
+                target_agent_id="qa_test",
+                source_role="Developer/Codex",
+                target_role="QA/Test",
+                card_id=work_order["card_id"],
+                work_order_id=work_order_id,
+                title=f"QA handoff for {work_order_id}",
+                summary=f"Developer/Codex requests QA/Test validation for '{work_order['title']}'.",
+                status="proposed",
+                payload_summary=(
+                    f"Work order '{work_order['title']}' is currently {work_order['status']} "
+                    f"and assigned to {work_order.get('assigned_agent_id', 'unknown')}."
+                ),
+                validation_summary=(
+                    "API dry-run handoff only: source/target agents, card, and work-order linkage "
+                    "were validated; no AI or autonomous agent was invoked."
+                ),
+                evidence_refs=evidence_refs,
+            )
+        )
+
+    def accept_handoff(
+        self, handoff_id: str, decision: HandoffDecisionRequest
+    ) -> dict[str, Any]:
+        return self._decide_handoff(handoff_id, "accepted", decision)
+
+    def reject_handoff(
+        self, handoff_id: str, decision: HandoffDecisionRequest
+    ) -> dict[str, Any]:
+        return self._decide_handoff(handoff_id, "rejected", decision)
+
     def _create_approval_record(
         self,
         title: str,
@@ -428,6 +586,59 @@ class JsonStateStore:
         self._save_collection("evidence", self.evidence)
         return approval
 
+    def _decide_handoff(
+        self,
+        handoff_id: str,
+        status: HandoffStatus,
+        decision: HandoffDecisionRequest,
+    ) -> dict[str, Any]:
+        handoff = self._find_handoff(handoff_id)
+        if handoff is None:
+            raise HTTPException(status_code=404, detail=f"Unknown handoff id: {handoff_id}")
+        if handoff.get("status") != "proposed":
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Handoff {handoff_id} is already {handoff.get('status')}; "
+                    "only proposed handoffs can be accepted or rejected."
+                ),
+            )
+
+        decision_data = _model_to_dict(decision)
+        reason = (
+            str(decision_data.get("decision_reason") or "").strip()
+            or f"Operator {status} handoff {handoff_id}."
+        )
+        decided_by = str(decision_data.get("decided_by") or "operator").strip() or "operator"
+        now = _utc_now()
+        handoff["status"] = status
+        handoff["updated_at"] = now
+        handoff["decided_at"] = now
+        handoff["decision_reason"] = reason
+
+        self._append_event(
+            event_type=f"handoff_{status}",
+            summary=f"Handoff {handoff_id} {status}.",
+            actor_agent_id=decided_by,
+            related_card_id=handoff["card_id"],
+            related_work_order_id=handoff["work_order_id"],
+            related_handoff_id=handoff_id,
+        )
+        self._append_evidence(
+            title=f"Handoff {handoff_id} {status}",
+            kind="handoff_decision",
+            summary=reason,
+            path=f"runtime/state/handoffs.json#{handoff_id}",
+            related_card_id=handoff["card_id"],
+            related_work_order_id=handoff["work_order_id"],
+            related_handoff_id=handoff_id,
+        )
+
+        self._save_collection("handoffs", self.handoffs)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return handoff
+
     def _apply_work_order_status(
         self,
         work_order: dict[str, Any],
@@ -497,6 +708,7 @@ class JsonStateStore:
         related_card_id: str | None = None,
         related_work_order_id: str | None = None,
         related_approval_id: str | None = None,
+        related_handoff_id: str | None = None,
     ) -> None:
         event = {
             "id": self._next_id(self.events, "R19-EVENT"),
@@ -507,6 +719,7 @@ class JsonStateStore:
             "related_card_id": related_card_id,
             "related_work_order_id": related_work_order_id,
             "related_approval_id": related_approval_id,
+            "related_handoff_id": related_handoff_id,
         }
         self.events.append({key: value for key, value in event.items() if value is not None})
 
@@ -519,6 +732,7 @@ class JsonStateStore:
         related_card_id: str,
         related_work_order_id: str | None = None,
         related_approval_id: str | None = None,
+        related_handoff_id: str | None = None,
     ) -> None:
         evidence = {
             "id": self._next_id(self.evidence, "R19-EVIDENCE"),
@@ -529,9 +743,13 @@ class JsonStateStore:
             "related_card_id": related_card_id,
             "related_work_order_id": related_work_order_id,
             "related_approval_id": related_approval_id,
+            "related_handoff_id": related_handoff_id,
             "created_at": _utc_now(),
         }
         self.evidence.append({key: value for key, value in evidence.items() if value is not None})
+
+    def _find_agent(self, agent_id: str) -> dict[str, Any] | None:
+        return next((agent for agent in self.agents if agent.get("id") == agent_id), None)
 
     def _find_card(self, card_id: str) -> dict[str, Any] | None:
         return next((card for card in self.cards if card.get("id") == card_id), None)
@@ -544,6 +762,9 @@ class JsonStateStore:
 
     def _find_approval(self, approval_id: str) -> dict[str, Any] | None:
         return next((approval for approval in self.approvals if approval.get("id") == approval_id), None)
+
+    def _find_handoff(self, handoff_id: str) -> dict[str, Any] | None:
+        return next((handoff for handoff in self.handoffs if handoff.get("id") == handoff_id), None)
 
     def _find_pending_approval_for_work_order(self, work_order_id: str) -> dict[str, Any] | None:
         return next(
@@ -602,6 +823,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
     allow_credentials=False,
     allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
     allow_headers=["*"],
@@ -643,6 +865,11 @@ def patch_work_order_status(work_order_id: str, status_update: StatusUpdateReque
     return store.update_work_order_status(work_order_id, status_update)
 
 
+@app.post("/work-orders/{work_order_id}/handoff-to-qa", status_code=201)
+def post_work_order_handoff_to_qa(work_order_id: str) -> dict[str, Any]:
+    return store.handoff_work_order_to_qa(work_order_id)
+
+
 @app.get("/agents")
 def get_agents() -> list[dict[str, Any]]:
     return store.agents
@@ -663,6 +890,11 @@ def get_approvals() -> list[dict[str, Any]]:
     return store.approvals
 
 
+@app.get("/handoffs")
+def get_handoffs() -> list[dict[str, Any]]:
+    return store.handoffs
+
+
 @app.post("/approvals", status_code=201)
 def post_approvals(approval: ApprovalCreate) -> dict[str, Any]:
     return store.create_approval(approval)
@@ -676,3 +908,22 @@ def post_approval_approve(approval_id: str, decision: ApprovalDecision | None = 
 @app.post("/approvals/{approval_id}/reject")
 def post_approval_reject(approval_id: str, decision: ApprovalDecision | None = None) -> dict[str, Any]:
     return store.reject_approval(approval_id, decision or ApprovalDecision())
+
+
+@app.post("/handoffs", status_code=201)
+def post_handoffs(handoff: HandoffCreate) -> dict[str, Any]:
+    return store.create_handoff(handoff)
+
+
+@app.post("/handoffs/{handoff_id}/accept")
+def post_handoff_accept(
+    handoff_id: str, decision: HandoffDecisionRequest | None = None
+) -> dict[str, Any]:
+    return store.accept_handoff(handoff_id, decision or HandoffDecisionRequest())
+
+
+@app.post("/handoffs/{handoff_id}/reject")
+def post_handoff_reject(
+    handoff_id: str, decision: HandoffDecisionRequest | None = None
+) -> dict[str, Any]:
+    return store.reject_handoff(handoff_id, decision or HandoffDecisionRequest())

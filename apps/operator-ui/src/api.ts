@@ -8,6 +8,8 @@ import type {
   DashboardData,
   EventEntry,
   EvidenceEntry,
+  Handoff,
+  HandoffDecisionRequest,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -50,17 +52,18 @@ async function readApiError(path: string, response: Response): Promise<string> {
 }
 
 export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData> {
-  const [status, cards, workOrders, agents, events, evidence, approvals] = await Promise.all([
+  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs] = await Promise.all([
     requestJson<StatusResponse>("/status", { signal }),
     requestJson<Card[]>("/cards", { signal }),
     requestJson<WorkOrder[]>("/work-orders", { signal }),
     requestJson<Agent[]>("/agents", { signal }),
     requestJson<EventEntry[]>("/events", { signal }),
     requestJson<EvidenceEntry[]>("/evidence", { signal }),
-    requestJson<Approval[]>("/approvals", { signal })
+    requestJson<Approval[]>("/approvals", { signal }),
+    requestJson<Handoff[]>("/handoffs", { signal })
   ]);
 
-  return { status, cards, workOrders, agents, events, evidence, approvals };
+  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs };
 }
 
 export function createCard(payload: CreateCardRequest): Promise<Card> {
@@ -95,4 +98,16 @@ export function rejectApproval(id: string, decisionReason: string): Promise<Appr
     method: "POST",
     body: { decision_reason: decisionReason, decided_by: "operator" }
   });
+}
+
+export function handoffWorkOrderToQa(id: string): Promise<Handoff> {
+  return requestJson<Handoff>(`/work-orders/${id}/handoff-to-qa`, { method: "POST" });
+}
+
+export function acceptHandoff(id: string, decision: HandoffDecisionRequest): Promise<Handoff> {
+  return requestJson<Handoff>(`/handoffs/${id}/accept`, { method: "POST", body: decision });
+}
+
+export function rejectHandoff(id: string, decision: HandoffDecisionRequest): Promise<Handoff> {
+  return requestJson<Handoff>(`/handoffs/${id}/reject`, { method: "POST", body: decision });
 }

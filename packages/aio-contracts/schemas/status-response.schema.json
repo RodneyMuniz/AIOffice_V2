@@ -17,6 +17,8 @@
     "work_orders_count",
     "approvals_count",
     "pending_approvals_count",
+    "handoffs_count",
+    "pending_handoffs_count",
     "events_count",
     "evidence_count",
     "allowed_card_statuses",
@@ -37,6 +39,8 @@
     "work_orders_count": { "type": "integer", "minimum": 0 },
     "approvals_count": { "type": "integer", "minimum": 0 },
     "pending_approvals_count": { "type": "integer", "minimum": 0 },
+    "handoffs_count": { "type": "integer", "minimum": 0 },
+    "pending_handoffs_count": { "type": "integer", "minimum": 0 },
     "events_count": { "type": "integer", "minimum": 0 },
     "evidence_count": { "type": "integer", "minimum": 0 },
     "allowed_card_statuses": {

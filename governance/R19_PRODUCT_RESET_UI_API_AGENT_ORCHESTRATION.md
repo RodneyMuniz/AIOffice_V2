@@ -8,6 +8,8 @@ R19 focuses on an operator UI, backend API, API-mediated work orders, approvals,
 
 R19 product slices now require lightweight regression harness coverage before larger workflow expansion.
 
+R19 now requires handoff behavior to be proven through a UI/API flow, not static packets.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

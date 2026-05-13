@@ -2,12 +2,15 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import {
   API_BASE_URL,
+  acceptHandoff,
   approveApproval,
   createApproval,
   createCard,
   createWorkOrder,
+  handoffWorkOrderToQa,
   loadDashboard,
   rejectApproval,
+  rejectHandoff,
   updateCardStatus,
   updateWorkOrderStatus
 } from "./api";
@@ -19,6 +22,7 @@ import type {
   DashboardData,
   EventEntry,
   EvidenceEntry,
+  Handoff,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -129,9 +133,11 @@ function Dashboard({
         <WorkOrdersList
           allowedStatuses={workOrderStatusOptions}
           currentWorkOrderId={data.status.current_work_order_id}
+          handoffs={data.handoffs}
           onRefresh={onRefresh}
           workOrders={data.workOrders}
         />
+        <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
         <CreateApprovalForm cards={data.cards} onRefresh={onRefresh} workOrders={data.workOrders} />
@@ -163,7 +169,7 @@ function ConnectionError({ error }: { error: string }) {
 
 function StatusPanel({ status }: { status: StatusResponse }) {
   return (
-    <section className="panel status-panel">
+    <section className="panel status-panel" data-testid="status-panel">
       <div className="panel-heading">
         <h2>Status</h2>
         <span className="state-tag">{status.posture}</span>
@@ -193,6 +199,8 @@ function StatusPanel({ status }: { status: StatusResponse }) {
       <div className="metric-row">
         <Metric label="Cards" value={status.cards_count} />
         <Metric label="Work orders" value={status.work_orders_count} />
+        <Metric label="Handoffs" value={status.handoffs_count} />
+        <Metric label="Pending handoffs" value={status.pending_handoffs_count} />
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -587,15 +595,19 @@ function CardsList({
 function WorkOrdersList({
   allowedStatuses,
   currentWorkOrderId,
+  handoffs,
   onRefresh,
   workOrders
 }: {
   allowedStatuses: readonly string[];
   currentWorkOrderId: string | null;
+  handoffs: Handoff[];
   onRefresh: () => Promise<void>;
   workOrders: WorkOrder[];
 }) {
   const visibleWorkOrders = useMemo(() => [...workOrders].reverse(), [workOrders]);
+  const [handoffWorkOrderId, setHandoffWorkOrderId] = useState<string | null>(null);
+  const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
 
   return (
     <section className="panel">
@@ -617,9 +629,19 @@ function WorkOrdersList({
               <strong>{workOrder.card_id}</strong>
               <span>Assigned</span>
               <strong>{workOrder.assigned_agent_id}</strong>
+              <span>QA handoffs</span>
+              <strong>{handoffs.filter((handoff) => handoff.work_order_id === workOrder.id).length}</strong>
               <span>Approval</span>
               <strong>{workOrder.approval_required ? "required" : "not required"}</strong>
             </div>
+            <HandoffToQaAction
+              isWorking={handoffWorkOrderId === workOrder.id}
+              onDone={(message) => setHandoffStatusById((current) => ({ ...current, [workOrder.id]: message }))}
+              onRefresh={onRefresh}
+              onWorkingChange={(isWorking) => setHandoffWorkOrderId(isWorking ? workOrder.id : null)}
+              statusMessage={handoffStatusById[workOrder.id] ?? null}
+              workOrder={workOrder}
+            />
             <StatusTransitionForm
               allowedStatuses={allowedStatuses}
               currentStatus={workOrder.status}
@@ -634,6 +656,190 @@ function WorkOrdersList({
       </div>
     </section>
   );
+}
+
+function HandoffToQaAction({
+  isWorking,
+  onDone,
+  onRefresh,
+  onWorkingChange,
+  statusMessage,
+  workOrder
+}: {
+  isWorking: boolean;
+  onDone: (message: string) => void;
+  onRefresh: () => Promise<void>;
+  onWorkingChange: (isWorking: boolean) => void;
+  statusMessage: string | null;
+  workOrder: WorkOrder;
+}) {
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleHandoff() {
+    setError(null);
+    onWorkingChange(true);
+
+    try {
+      const handoff = await handoffWorkOrderToQa(workOrder.id);
+      await onRefresh();
+      onDone(`Created ${handoff.id}`);
+    } catch (handoffError: unknown) {
+      setError(errorMessage(handoffError));
+    } finally {
+      onWorkingChange(false);
+    }
+  }
+
+  return (
+    <div className="inline-action-block">
+      <button
+        data-testid={`handoff-to-qa-${workOrder.id}`}
+        disabled={isWorking}
+        onClick={handleHandoff}
+        type="button"
+      >
+        {isWorking ? "Handing off..." : "Handoff to QA"}
+      </button>
+      <FormStatus error={error} success={statusMessage} />
+    </div>
+  );
+}
+
+function HandoffsPanel({ handoffs, onRefresh }: { handoffs: Handoff[]; onRefresh: () => Promise<void> }) {
+  const visibleHandoffs = useMemo(() => [...handoffs].reverse(), [handoffs]);
+  const [reasonById, setReasonById] = useState<Record<string, string>>({});
+  const [workingHandoffId, setWorkingHandoffId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  async function decideHandoff(handoff: Handoff, decision: "accept" | "reject") {
+    const decidedStatus = decision === "accept" ? "accepted" : "rejected";
+    const reason = reasonById[handoff.id]?.trim() || `Operator ${decidedStatus} ${handoff.id}.`;
+    setError(null);
+    setSuccess(null);
+    setWorkingHandoffId(handoff.id);
+
+    try {
+      if (decision === "accept") {
+        await acceptHandoff(handoff.id, { decision_reason: reason, decided_by: "operator" });
+      } else {
+        await rejectHandoff(handoff.id, { decision_reason: reason, decided_by: "operator" });
+      }
+      await onRefresh();
+      setReasonById((current) => ({ ...current, [handoff.id]: "" }));
+      setSuccess(`${handoff.id} ${decidedStatus}`);
+    } catch (decisionError: unknown) {
+      setError(errorMessage(decisionError));
+    } finally {
+      setWorkingHandoffId(null);
+    }
+  }
+
+  return (
+    <section className="panel handoffs-panel" data-testid="handoffs-panel">
+      <div className="panel-heading">
+        <h2>Handoffs</h2>
+        <span className="count-tag">{handoffs.length}</span>
+      </div>
+      <div className="record-list">
+        {visibleHandoffs.length === 0 && <p>No handoffs yet.</p>}
+        {visibleHandoffs.map((handoff) => (
+          <article
+            className={`record-row ${handoff.status === "proposed" ? "pending" : ""}`}
+            data-testid={`handoff-${handoff.id}`}
+            key={handoff.id}
+          >
+            <div className="record-title-line">
+              <p className="eyebrow">{handoff.id}</p>
+              <span className={`state-tag ${handoffStatusClass(handoff.status)}`}>{handoff.status}</span>
+            </div>
+            <h3>{handoff.title}</h3>
+            {handoff.summary && <p>{handoff.summary}</p>}
+            <div className="detail-grid handoff-detail-grid">
+              <span>Source agent</span>
+              <strong>{handoff.source_agent_id}</strong>
+              <span>Target agent</span>
+              <strong>{handoff.target_agent_id}</strong>
+              <span>Source role</span>
+              <strong>{handoff.source_role}</strong>
+              <span>Target role</span>
+              <strong>{handoff.target_role}</strong>
+              <span>Card</span>
+              <strong>{handoff.card_id}</strong>
+              <span>Work order</span>
+              <strong>{handoff.work_order_id}</strong>
+              <span>Created</span>
+              <strong>{handoff.created_at}</strong>
+              <span>Updated</span>
+              <strong>{handoff.updated_at}</strong>
+              <span>Decided</span>
+              <strong>{handoff.decided_at ?? "pending"}</strong>
+            </div>
+            <div className="summary-stack">
+              <div>
+                <p className="eyebrow">Payload summary</p>
+                <p>{handoff.payload_summary}</p>
+              </div>
+              <div>
+                <p className="eyebrow">Validation summary</p>
+                <p>{handoff.validation_summary}</p>
+              </div>
+              {handoff.decision_reason && (
+                <div>
+                  <p className="eyebrow">Decision reason</p>
+                  <p>{handoff.decision_reason}</p>
+                </div>
+              )}
+            </div>
+            {handoff.status === "proposed" && (
+              <div className="decision-row">
+                <label>
+                  Decision reason
+                  <input
+                    data-testid={`handoff-reason-${handoff.id}`}
+                    onChange={(event) =>
+                      setReasonById((current) => ({ ...current, [handoff.id]: event.target.value }))
+                    }
+                    value={reasonById[handoff.id] ?? ""}
+                  />
+                </label>
+                <div className="button-row">
+                  <button
+                    data-testid={`accept-handoff-${handoff.id}`}
+                    disabled={workingHandoffId === handoff.id}
+                    onClick={() => decideHandoff(handoff, "accept")}
+                    type="button"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="secondary danger"
+                    data-testid={`reject-handoff-${handoff.id}`}
+                    disabled={workingHandoffId === handoff.id}
+                    onClick={() => decideHandoff(handoff, "reject")}
+                    type="button"
+                  >
+                    Reject
+                  </button>
+                </div>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+      <FormStatus error={error} success={success} />
+    </section>
+  );
+}
+
+function handoffStatusClass(status: Handoff["status"]): string {
+  if (status === "proposed") {
+    return "warn";
+  }
+  if (status === "rejected" || status === "blocked") {
+    return "danger";
+  }
+  return "";
 }
 
 function StatusTransitionForm({

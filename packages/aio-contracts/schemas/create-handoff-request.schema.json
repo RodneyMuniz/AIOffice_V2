@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-handoff-request.schema.json",
+  "title": "CreateHandoffRequest",
+  "type": "object",
+  "required": [
+    "source_agent_id",
+    "target_agent_id",
+    "source_role",
+    "target_role",
+    "card_id",
+    "work_order_id",
+    "title"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "source_agent_id": { "type": "string", "minLength": 1 },
+    "target_agent_id": { "type": "string", "minLength": 1 },
+    "source_role": { "type": "string", "minLength": 1 },
+    "target_role": { "type": "string", "minLength": 1 },
+    "card_id": { "type": "string", "minLength": 1 },
+    "work_order_id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string" },
+    "status": { "type": "string", "enum": ["proposed", "accepted", "rejected", "completed", "blocked"] },
+    "payload_summary": { "type": "string" },
+    "validation_summary": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "source_agent_id": "developer_codex",
+      "target_agent_id": "qa_test",
+      "source_role": "Developer/Codex",
+      "target_role": "QA/Test",
+      "card_id": "R19-CARD-001",
+      "work_order_id": "R19-WO-001",
+      "title": "QA handoff for R19-WO-001",
+      "summary": "Dry-run handoff for local QA validation.",
+      "status": "proposed"
+    }
+  ]
+}

@@ -41,9 +41,11 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Create a work order linked to an existing card.
 - Move a work order through `draft`, `ready`, `running`, `waiting_approval`, `approved`, `rejected`, `completed`, `blocked`, and `cancelled`.
 - Optionally request an approval gate while creating a work order.
+- Trigger a Developer/Codex to QA/Test handoff from a work order.
+- Accept or reject proposed handoffs from the Handoffs panel.
 - Create a separate approval request.
 - Approve or reject pending approvals.
-- See cards, work orders, approvals, events, and evidence refresh after each action.
+- See cards, work orders, handoffs, approvals, events, and evidence refresh after each action.
 
 Status updates use:
 
@@ -51,6 +53,15 @@ Status updates use:
 - `PATCH /work-orders/{id}/status`
 
 Each successful status update refreshes the status panel, cards, work orders, events, evidence, and approvals. Status changes appear in the Events timeline and Evidence panel.
+
+Handoff actions use:
+
+- `GET /handoffs`
+- `POST /work-orders/{id}/handoff-to-qa`
+- `POST /handoffs/{id}/accept`
+- `POST /handoffs/{id}/reject`
+
+Each successful handoff action refreshes status, work orders, handoffs, events, and evidence. Handoff statuses are `proposed`, `accepted`, `rejected`, `completed`, and `blocked`.
 
 ## Build and Smoke
 
@@ -60,6 +71,14 @@ Required frontend regression check:
 npm run build
 ```
 
+Committed browser smoke:
+
+```bash
+npm run smoke
+```
+
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, updates both statuses, triggers a QA handoff, accepts it, verifies event/evidence refresh, and checks for browser console errors.
+
 Manual browser smoke:
 
 1. Start `services/orchestrator-api`.
@@ -68,10 +87,12 @@ Manual browser smoke:
 4. Create a work order linked to that card.
 5. Use the card status dropdown and Update status button.
 6. Use the work-order status dropdown and Update status button.
-7. Confirm Events and Evidence refresh with status-change entries.
-8. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+7. Click Handoff to QA on the work order.
+8. Accept or reject the proposed handoff in the Handoffs panel.
+9. Confirm Events and Evidence refresh with status-change and handoff entries.
+10. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
-Stable `data-testid` attributes are present for create forms, lists, approvals, and per-record status controls so a later browser automation slice can build on the same workflow without changing UI semantics.
+Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
 ## Local State
 
@@ -83,5 +104,6 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - No long-lived client state management beyond API refreshes.
 - No background workers or autonomous agent execution.
 - No OpenAI or Codex API invocation is implemented.
+- Handoffs are API-mediated dry-run records, not autonomous A2A execution.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

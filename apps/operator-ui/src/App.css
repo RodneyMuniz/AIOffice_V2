@@ -91,7 +91,8 @@
 }
 
 .status-panel,
-.approvals-panel {
+.approvals-panel,
+.handoffs-panel {
   grid-column: 1 / -1;
 }
 
@@ -197,7 +198,7 @@
 .metric-row {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   margin: 18px 0;
 }
 
@@ -330,6 +331,22 @@ button:disabled {
   padding-top: 12px;
 }
 
+.inline-action-block {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.inline-action-block button {
+  justify-self: start;
+}
+
+.inline-action-block .form-status {
+  margin: 0;
+}
+
 .status-transition-form .form-status {
   grid-column: 1 / -1;
   margin: 0;
@@ -391,6 +408,30 @@ button:disabled {
   gap: 7px 12px;
   grid-template-columns: minmax(82px, auto) minmax(0, 1fr);
   margin-top: 12px;
+}
+
+.handoff-detail-grid {
+  grid-template-columns: minmax(110px, auto) minmax(0, 1fr);
+}
+
+.summary-stack,
+.decision-row {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.summary-stack {
+  background: #f7f8f5;
+  border: 1px solid #dfe5da;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.decision-row {
+  border-top: 1px solid #e2e6df;
+  grid-template-columns: minmax(220px, 1fr) minmax(220px, 0.7fr);
+  padding-top: 12px;
 }
 
 .detail-grid span {
@@ -475,6 +516,10 @@ code {
 
   .metric-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-row {
+    grid-template-columns: 1fr;
   }
 }
 

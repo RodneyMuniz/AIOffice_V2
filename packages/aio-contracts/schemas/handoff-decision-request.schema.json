@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/handoff-decision-request.schema.json",
+  "title": "HandoffDecisionRequest",
+  "type": "object",
+  "required": ["decision_reason", "decided_by"],
+  "properties": {
+    "decision_reason": { "type": "string" },
+    "decided_by": { "type": "string", "minLength": 1 }
+  },
+  "examples": [
+    {
+      "decision_reason": "QA accepts this dry-run handoff for local validation.",
+      "decided_by": "operator"
+    }
+  ]
+}
