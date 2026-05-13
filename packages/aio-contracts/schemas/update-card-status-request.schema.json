@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/update-card-status-request.schema.json",
+  "title": "UpdateCardStatusRequest",
+  "type": "object",
+  "required": ["status", "requested_by"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["intake", "planned", "in_progress", "blocked", "done", "archived"]
+    },
+    "reason": { "type": "string" },
+    "requested_by": { "type": "string", "minLength": 1 }
+  }
+}

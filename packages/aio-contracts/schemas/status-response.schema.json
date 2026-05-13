@@ -19,6 +19,8 @@
     "pending_approvals_count",
     "events_count",
     "evidence_count",
+    "allowed_card_statuses",
+    "allowed_work_order_statuses",
     "non_claims"
   ],
   "properties": {
@@ -37,6 +39,27 @@
     "pending_approvals_count": { "type": "integer", "minimum": 0 },
     "events_count": { "type": "integer", "minimum": 0 },
     "evidence_count": { "type": "integer", "minimum": 0 },
+    "allowed_card_statuses": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["intake", "planned", "in_progress", "blocked", "done", "archived"] }
+    },
+    "allowed_work_order_statuses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "ready",
+          "running",
+          "waiting_approval",
+          "approved",
+          "rejected",
+          "completed",
+          "blocked",
+          "cancelled"
+        ]
+      }
+    },
     "non_claims": { "type": "array", "items": { "type": "string" } }
   }
 }

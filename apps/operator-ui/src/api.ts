@@ -9,13 +9,14 @@ import type {
   EventEntry,
   EvidenceEntry,
   StatusResponse,
+  UpdateStatusRequest,
   WorkOrder
 } from "./types";
 
 export const API_BASE_URL = (import.meta.env.VITE_AIO_API_BASE_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
 type RequestOptions = {
-  method?: "GET" | "POST";
+  method?: "GET" | "POST" | "PATCH";
   body?: unknown;
   signal?: AbortSignal;
 };
@@ -68,6 +69,14 @@ export function createCard(payload: CreateCardRequest): Promise<Card> {
 
 export function createWorkOrder(payload: CreateWorkOrderRequest): Promise<WorkOrder> {
   return requestJson<WorkOrder>("/work-orders", { method: "POST", body: payload });
+}
+
+export function updateCardStatus(id: string, payload: UpdateStatusRequest): Promise<Card> {
+  return requestJson<Card>(`/cards/${id}/status`, { method: "PATCH", body: payload });
+}
+
+export function updateWorkOrderStatus(id: string, payload: UpdateStatusRequest): Promise<WorkOrder> {
+  return requestJson<WorkOrder>(`/work-orders/${id}/status`, { method: "PATCH", body: payload });
 }
 
 export function createApproval(payload: CreateApprovalRequest): Promise<Approval> {

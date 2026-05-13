@@ -321,6 +321,20 @@ button:disabled {
   width: auto;
 }
 
+.status-transition-form {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(140px, 0.7fr) minmax(160px, 1fr) auto;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.status-transition-form .form-status {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
 .form-status {
   border-radius: 6px;
   font-weight: 700;
@@ -472,7 +486,8 @@ code {
   .status-list,
   .metric-row,
   .two-column-fields,
-  .button-row {
+  .button-row,
+  .status-transition-form {
     grid-template-columns: 1fr;
   }
 

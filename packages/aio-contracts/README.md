@@ -9,8 +9,10 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/status-response.schema.json`
 - `schemas/card.schema.json`
 - `schemas/create-card-request.schema.json`
+- `schemas/update-card-status-request.schema.json`
 - `schemas/work-order.schema.json`
 - `schemas/create-work-order-request.schema.json`
+- `schemas/update-work-order-status-request.schema.json`
 - `schemas/agent.schema.json`
 - `schemas/approval.schema.json`
 - `schemas/create-approval-request.schema.json`
@@ -18,3 +20,7 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/evidence-entry.schema.json`
 
 The structures are intentionally JSON-first so they can map later to TypeScript types, Python models, and SQLite-backed state.
+
+Allowed card statuses are `intake`, `planned`, `in_progress`, `blocked`, `done`, and `archived`.
+
+Allowed work-order statuses are `draft`, `ready`, `running`, `waiting_approval`, `approved`, `rejected`, `completed`, `blocked`, and `cancelled`.

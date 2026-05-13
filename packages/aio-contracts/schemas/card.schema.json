@@ -8,7 +8,10 @@
     "id": { "type": "string" },
     "title": { "type": "string" },
     "summary": { "type": "string" },
-    "status": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["intake", "planned", "in_progress", "blocked", "done", "archived"]
+    },
     "owner_agent_id": { "type": "string" },
     "owner_role": { "type": "string" },
     "priority": { "type": "string" },

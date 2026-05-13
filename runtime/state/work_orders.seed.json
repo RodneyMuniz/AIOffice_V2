@@ -4,7 +4,7 @@
     "card_id": "R19-CARD-001",
     "title": "Scaffold UI/API connected product slice",
     "summary": "Build a minimal local frontend and backend proving UI-to-API connectivity for R19 only.",
-    "status": "awaiting_operator_approval",
+    "status": "waiting_approval",
     "requested_by_agent_id": "orchestrator",
     "assigned_agent_id": "developer_codex",
     "approval_required": true,

@@ -18,7 +18,20 @@
     "card_id": { "type": "string" },
     "title": { "type": "string" },
     "summary": { "type": "string" },
-    "status": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "running",
+        "waiting_approval",
+        "approved",
+        "rejected",
+        "completed",
+        "blocked",
+        "cancelled"
+      ]
+    },
     "requested_by_agent_id": { "type": "string" },
     "assigned_agent_id": { "type": "string" },
     "approval_required": { "type": "boolean" },

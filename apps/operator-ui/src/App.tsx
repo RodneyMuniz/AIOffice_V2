@@ -7,9 +7,22 @@ import {
   createCard,
   createWorkOrder,
   loadDashboard,
-  rejectApproval
+  rejectApproval,
+  updateCardStatus,
+  updateWorkOrderStatus
 } from "./api";
-import type { Agent, Approval, Card, DashboardData, EventEntry, EvidenceEntry, StatusResponse, WorkOrder } from "./types";
+import { CARD_STATUSES, WORK_ORDER_STATUSES } from "./types";
+import type {
+  Agent,
+  Approval,
+  Card,
+  DashboardData,
+  EventEntry,
+  EvidenceEntry,
+  StatusResponse,
+  UpdateStatusRequest,
+  WorkOrder
+} from "./types";
 import "./App.css";
 
 export default function App() {
@@ -89,6 +102,13 @@ function Dashboard({
   isRefreshing: boolean;
   onRefresh: () => Promise<void>;
 }) {
+  const cardStatusOptions = data.status.allowed_card_statuses.length
+    ? data.status.allowed_card_statuses
+    : [...CARD_STATUSES];
+  const workOrderStatusOptions = data.status.allowed_work_order_statuses.length
+    ? data.status.allowed_work_order_statuses
+    : [...WORK_ORDER_STATUSES];
+
   return (
     <>
       {(connectionError || isRefreshing) && (
@@ -100,8 +120,18 @@ function Dashboard({
         <StatusPanel status={data.status} />
         <CreateCardForm onRefresh={onRefresh} />
         <CreateWorkOrderForm agents={data.agents} cards={data.cards} onRefresh={onRefresh} />
-        <CardsList cards={data.cards} currentCardId={data.status.current_card_id} />
-        <WorkOrdersList currentWorkOrderId={data.status.current_work_order_id} workOrders={data.workOrders} />
+        <CardsList
+          allowedStatuses={cardStatusOptions}
+          cards={data.cards}
+          currentCardId={data.status.current_card_id}
+          onRefresh={onRefresh}
+        />
+        <WorkOrdersList
+          allowedStatuses={workOrderStatusOptions}
+          currentWorkOrderId={data.status.current_work_order_id}
+          onRefresh={onRefresh}
+          workOrders={data.workOrders}
+        />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
         <CreateApprovalForm cards={data.cards} onRefresh={onRefresh} workOrders={data.workOrders} />
@@ -504,7 +534,17 @@ function CreateApprovalForm({
   );
 }
 
-function CardsList({ cards, currentCardId }: { cards: Card[]; currentCardId: string | null }) {
+function CardsList({
+  allowedStatuses,
+  cards,
+  currentCardId,
+  onRefresh
+}: {
+  allowedStatuses: readonly string[];
+  cards: Card[];
+  currentCardId: string | null;
+  onRefresh: () => Promise<void>;
+}) {
   const visibleCards = useMemo(() => [...cards].reverse(), [cards]);
 
   return (
@@ -528,6 +568,15 @@ function CardsList({ cards, currentCardId }: { cards: Card[]; currentCardId: str
               <span>Priority</span>
               <strong>{card.priority}</strong>
             </div>
+            <StatusTransitionForm
+              allowedStatuses={allowedStatuses}
+              currentStatus={card.status}
+              label="Update status"
+              onRefresh={onRefresh}
+              onUpdate={updateCardStatus}
+              recordId={card.id}
+              testIdPrefix="card-status"
+            />
           </article>
         ))}
       </div>
@@ -536,10 +585,14 @@ function CardsList({ cards, currentCardId }: { cards: Card[]; currentCardId: str
 }
 
 function WorkOrdersList({
+  allowedStatuses,
   currentWorkOrderId,
+  onRefresh,
   workOrders
 }: {
+  allowedStatuses: readonly string[];
   currentWorkOrderId: string | null;
+  onRefresh: () => Promise<void>;
   workOrders: WorkOrder[];
 }) {
   const visibleWorkOrders = useMemo(() => [...workOrders].reverse(), [workOrders]);
@@ -567,10 +620,106 @@ function WorkOrdersList({
               <span>Approval</span>
               <strong>{workOrder.approval_required ? "required" : "not required"}</strong>
             </div>
+            <StatusTransitionForm
+              allowedStatuses={allowedStatuses}
+              currentStatus={workOrder.status}
+              label="Update status"
+              onRefresh={onRefresh}
+              onUpdate={updateWorkOrderStatus}
+              recordId={workOrder.id}
+              testIdPrefix="work-order-status"
+            />
           </article>
         ))}
       </div>
     </section>
+  );
+}
+
+function StatusTransitionForm({
+  allowedStatuses,
+  currentStatus,
+  label,
+  onRefresh,
+  onUpdate,
+  recordId,
+  testIdPrefix
+}: {
+  allowedStatuses: readonly string[];
+  currentStatus: string;
+  label: string;
+  onRefresh: () => Promise<void>;
+  onUpdate: (id: string, payload: UpdateStatusRequest) => Promise<unknown>;
+  recordId: string;
+  testIdPrefix: string;
+}) {
+  const [selectedStatus, setSelectedStatus] = useState(currentStatus);
+  const [reason, setReason] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSelectedStatus(currentStatus);
+  }, [currentStatus]);
+
+  const statusOptions = useMemo(() => {
+    const options = new Set([currentStatus, ...allowedStatuses].filter(Boolean));
+    return [...options];
+  }, [allowedStatuses, currentStatus]);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsSubmitting(true);
+
+    try {
+      await onUpdate(recordId, {
+        status: selectedStatus,
+        reason: reason.trim(),
+        requested_by: "operator"
+      });
+      await onRefresh();
+      setReason("");
+      setSuccess(`${recordId} moved to ${selectedStatus}`);
+    } catch (submitError: unknown) {
+      setError(errorMessage(submitError));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form className="status-transition-form" data-testid={`${testIdPrefix}-${recordId}-form`} onSubmit={handleSubmit}>
+      <label>
+        Status
+        <select
+          data-testid={`${testIdPrefix}-${recordId}-select`}
+          onChange={(event) => setSelectedStatus(event.target.value)}
+          value={selectedStatus}
+        >
+          {statusOptions.map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Reason
+        <input
+          data-testid={`${testIdPrefix}-${recordId}-reason`}
+          onChange={(event) => setReason(event.target.value)}
+          placeholder="Optional short reason"
+          value={reason}
+        />
+      </label>
+      <button data-testid={`${testIdPrefix}-${recordId}-submit`} disabled={isSubmitting || !selectedStatus} type="submit">
+        {isSubmitting ? "Updating..." : label}
+      </button>
+      <FormStatus error={error} success={success} />
+    </form>
   );
 }
 

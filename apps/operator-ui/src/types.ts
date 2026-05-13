@@ -1,3 +1,19 @@
+export const CARD_STATUSES = ["intake", "planned", "in_progress", "blocked", "done", "archived"] as const;
+export const WORK_ORDER_STATUSES = [
+  "draft",
+  "ready",
+  "running",
+  "waiting_approval",
+  "approved",
+  "rejected",
+  "completed",
+  "blocked",
+  "cancelled"
+] as const;
+
+export type CardStatus = (typeof CARD_STATUSES)[number];
+export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
+
 export type StatusResponse = {
   product_name: string;
   milestone: string;
@@ -14,6 +30,8 @@ export type StatusResponse = {
   pending_approvals_count: number;
   events_count: number;
   evidence_count: number;
+  allowed_card_statuses: CardStatus[];
+  allowed_work_order_statuses: WorkOrderStatus[];
   non_claims: string[];
 };
 
@@ -21,7 +39,7 @@ export type Card = {
   id: string;
   title: string;
   summary: string;
-  status: string;
+  status: CardStatus;
   owner_agent_id: string;
   owner_role?: string;
   priority: string;
@@ -34,7 +52,7 @@ export type WorkOrder = {
   card_id: string;
   title: string;
   summary: string;
-  status: string;
+  status: WorkOrderStatus;
   requested_by_agent_id: string;
   assigned_agent_id: string;
   approval_required: boolean;
@@ -121,4 +139,10 @@ export type CreateApprovalRequest = {
   description: string;
   related_card_id: string;
   related_work_order_id?: string | null;
+};
+
+export type UpdateStatusRequest = {
+  status: string;
+  reason?: string;
+  requested_by: string;
 };

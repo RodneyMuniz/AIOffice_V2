@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/update-work-order-status-request.schema.json",
+  "title": "UpdateWorkOrderStatusRequest",
+  "type": "object",
+  "required": ["status", "requested_by"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "running",
+        "waiting_approval",
+        "approved",
+        "rejected",
+        "completed",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    "reason": { "type": "string" },
+    "requested_by": { "type": "string", "minLength": 1 }
+  }
+}

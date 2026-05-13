@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
@@ -14,6 +15,19 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 STATE_DIR = REPO_ROOT / "runtime" / "state"
 APP_BRANCH = "release/r19-product-reset-ui-api-agent-orchestration-slice"
 
+CARD_STATUSES = ("intake", "planned", "in_progress", "blocked", "done", "archived")
+WORK_ORDER_STATUSES = (
+    "draft",
+    "ready",
+    "running",
+    "waiting_approval",
+    "approved",
+    "rejected",
+    "completed",
+    "blocked",
+    "cancelled",
+)
+
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 
 
@@ -22,7 +36,7 @@ class CardCreate(BaseModel):
     title: str
     description: str = ""
     summary: str | None = None
-    status: str = "new"
+    status: str = "intake"
     owner_role: str = "operator"
     owner_agent_id: str | None = None
     priority: str = "medium"
@@ -57,10 +71,18 @@ class ApprovalDecision(BaseModel):
     decided_by: str = "operator"
 
 
+class StatusUpdateRequest(BaseModel):
+    status: str
+    reason: str = ""
+    requested_by: str = "operator"
+
+
 class JsonStateStore:
-    def __init__(self) -> None:
-        STATE_DIR.mkdir(parents=True, exist_ok=True)
-        self.status_seed = self._load_json(STATE_DIR / "status.seed.json", {})
+    def __init__(self, state_dir: Path | None = None) -> None:
+        configured_state_dir = os.environ.get("AIO_STATE_DIR")
+        self.state_dir = state_dir or (Path(configured_state_dir) if configured_state_dir else STATE_DIR)
+        self.state_dir.mkdir(parents=True, exist_ok=True)
+        self.status_seed = self._load_json(self.state_dir / "status.seed.json", {})
         self.cards = self._load_collection("cards", [])
         self.work_orders = self._load_collection("work_orders", [])
         self.agents = self._load_collection("agents", [])
@@ -76,15 +98,15 @@ class JsonStateStore:
             return json.load(handle)
 
     def _load_collection(self, name: str, fallback: Any) -> Any:
-        persistent_path = STATE_DIR / f"{name}.json"
+        persistent_path = self.state_dir / f"{name}.json"
         if persistent_path.exists():
             return self._load_json(persistent_path, fallback)
 
-        seed_path = STATE_DIR / f"{name}.seed.json"
+        seed_path = self.state_dir / f"{name}.seed.json"
         return self._load_json(seed_path, fallback)
 
     def _save_collection(self, name: str, records: Any) -> None:
-        path = STATE_DIR / f"{name}.json"
+        path = self.state_dir / f"{name}.json"
         temporary_path = path.with_suffix(f"{path.suffix}.tmp")
         with temporary_path.open("w", encoding="utf-8", newline="\n") as handle:
             json.dump(records, handle, indent=2)
@@ -112,6 +134,8 @@ class JsonStateStore:
             "pending_approvals_count": pending_approvals_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
+            "allowed_card_statuses": list(CARD_STATUSES),
+            "allowed_work_order_statuses": list(WORK_ORDER_STATUSES),
         }
 
     def create_card(self, payload: CardCreate) -> dict[str, Any]:
@@ -119,6 +143,9 @@ class JsonStateStore:
         description = card_data.pop("description", "")
         summary = card_data.pop("summary", None) or description
         owner_agent_id = card_data.pop("owner_agent_id", None) or "orchestrator"
+        status = card_data.get("status") or "intake"
+        _validate_status(status, CARD_STATUSES, "card")
+        card_data["status"] = status
         card = {
             **card_data,
             "id": card_data.get("id") or self._next_id(self.cards, "R19-CARD"),
@@ -167,8 +194,9 @@ class JsonStateStore:
         )
         work_order_data.pop("request_requires_approval", None)
         status = work_order_data.pop("status", None) or (
-            "awaiting_operator_approval" if approval_required else "queued"
+            "waiting_approval" if approval_required else "draft"
         )
+        _validate_status(status, WORK_ORDER_STATUSES, "work-order")
         work_order = {
             **work_order_data,
             "id": work_order_data.get("id") or self._next_id(self.work_orders, "R19-WO"),
@@ -209,6 +237,73 @@ class JsonStateStore:
         self._save_collection("events", self.events)
         self._save_collection("evidence", self.evidence)
         if approval_required:
+            self._save_collection("approvals", self.approvals)
+        return work_order
+
+    def update_card_status(self, card_id: str, payload: StatusUpdateRequest) -> dict[str, Any]:
+        card = self._find_card(card_id)
+        if card is None:
+            raise HTTPException(status_code=404, detail=f"Unknown card id: {card_id}")
+
+        update_data = _model_to_dict(payload)
+        status = str(update_data.get("status", "")).strip()
+        _validate_status(status, CARD_STATUSES, "card")
+        previous_status = card.get("status")
+        requested_by = str(update_data.get("requested_by") or "operator").strip() or "operator"
+        reason = str(update_data.get("reason") or "").strip()
+
+        card["status"] = status
+        card["updated_at"] = _utc_now()
+        summary = f"Card {card_id} status changed from {previous_status} to {status}."
+        if reason:
+            summary = f"{summary} Reason: {reason}"
+
+        self._append_event(
+            event_type="card_status_changed",
+            summary=summary,
+            actor_agent_id=requested_by,
+            related_card_id=card_id,
+        )
+        self._append_evidence(
+            title=f"Card {card_id} status changed",
+            kind="status_transition",
+            summary=summary,
+            path=f"runtime/state/cards.json#{card_id}",
+            related_card_id=card_id,
+        )
+        self._save_collection("cards", self.cards)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return card
+
+    def update_work_order_status(
+        self, work_order_id: str, payload: StatusUpdateRequest
+    ) -> dict[str, Any]:
+        work_order = self._find_work_order(work_order_id)
+        if work_order is None:
+            raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
+
+        update_data = _model_to_dict(payload)
+        status = str(update_data.get("status", "")).strip()
+        _validate_status(status, WORK_ORDER_STATUSES, "work-order")
+        requested_by = str(update_data.get("requested_by") or "operator").strip() or "operator"
+        reason = str(update_data.get("reason") or "").strip()
+
+        self._apply_work_order_status(work_order, status, reason, requested_by)
+        if status == "waiting_approval" and not self._find_pending_approval_for_work_order(work_order_id):
+            self._create_approval_record(
+                title=f"Approve work order {work_order_id}",
+                description=f"Approval gate requested by status transition for work order '{work_order['title']}'.",
+                related_card_id=work_order["card_id"],
+                related_work_order_id=work_order_id,
+                requested_by=requested_by,
+                emit_action_records=True,
+            )
+
+        self._save_collection("work_orders", self.work_orders)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        if status == "waiting_approval":
             self._save_collection("approvals", self.approvals)
         return work_order
 
@@ -320,10 +415,49 @@ class JsonStateStore:
             related_approval_id=approval_id,
         )
 
+        work_order_id = approval.get("related_work_order_id")
+        if work_order_id:
+            work_order = self._find_work_order(work_order_id)
+            if work_order and work_order.get("status") == "waiting_approval":
+                self._apply_work_order_status(work_order, status, reason, decided_by)
+
         self._save_collection("approvals", self.approvals)
+        if work_order_id:
+            self._save_collection("work_orders", self.work_orders)
         self._save_collection("events", self.events)
         self._save_collection("evidence", self.evidence)
         return approval
+
+    def _apply_work_order_status(
+        self,
+        work_order: dict[str, Any],
+        status: str,
+        reason: str,
+        requested_by: str,
+    ) -> None:
+        previous_status = work_order.get("status")
+        work_order["status"] = status
+        work_order["updated_at"] = _utc_now()
+        work_order_id = work_order["id"]
+        summary = f"Work order {work_order_id} status changed from {previous_status} to {status}."
+        if reason:
+            summary = f"{summary} Reason: {reason}"
+
+        self._append_event(
+            event_type="work_order_status_changed",
+            summary=summary,
+            actor_agent_id=requested_by,
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+        )
+        self._append_evidence(
+            title=f"Work order {work_order_id} status changed",
+            kind="status_transition",
+            summary=summary,
+            path=f"runtime/state/work_orders.json#{work_order_id}",
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+        )
 
     def _resolve_related_card_id(
         self, related_card_id: str | None, related_work_order_id: str | None
@@ -411,6 +545,17 @@ class JsonStateStore:
     def _find_approval(self, approval_id: str) -> dict[str, Any] | None:
         return next((approval for approval in self.approvals if approval.get("id") == approval_id), None)
 
+    def _find_pending_approval_for_work_order(self, work_order_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                approval
+                for approval in self.approvals
+                if approval.get("related_work_order_id") == work_order_id
+                and approval.get("status") == "pending"
+            ),
+            None,
+        )
+
     def _next_id(self, records: list[dict[str, Any]], prefix: str) -> str:
         next_number = 1
         token = f"{prefix}-"
@@ -431,6 +576,15 @@ def _model_to_dict(model: BaseModel) -> dict[str, Any]:
     return model.dict(exclude_none=True)
 
 
+def _validate_status(status: str, allowed_statuses: tuple[str, ...], record_kind: str) -> None:
+    if status not in allowed_statuses:
+        allowed = ", ".join(allowed_statuses)
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid {record_kind} status: {status}. Allowed statuses: {allowed}.",
+        )
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -449,7 +603,7 @@ app.add_middleware(
         "http://127.0.0.1:5173",
     ],
     allow_credentials=False,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -469,6 +623,11 @@ def post_cards(card: CardCreate) -> dict[str, Any]:
     return store.create_card(card)
 
 
+@app.patch("/cards/{card_id}/status")
+def patch_card_status(card_id: str, status_update: StatusUpdateRequest) -> dict[str, Any]:
+    return store.update_card_status(card_id, status_update)
+
+
 @app.get("/work-orders")
 def get_work_orders() -> list[dict[str, Any]]:
     return store.work_orders
@@ -477,6 +636,11 @@ def get_work_orders() -> list[dict[str, Any]]:
 @app.post("/work-orders", status_code=201)
 def post_work_orders(work_order: WorkOrderCreate) -> dict[str, Any]:
     return store.create_work_order(work_order)
+
+
+@app.patch("/work-orders/{work_order_id}/status")
+def patch_work_order_status(work_order_id: str, status_update: StatusUpdateRequest) -> dict[str, Any]:
+    return store.update_work_order_status(work_order_id, status_update)
 
 
 @app.get("/agents")

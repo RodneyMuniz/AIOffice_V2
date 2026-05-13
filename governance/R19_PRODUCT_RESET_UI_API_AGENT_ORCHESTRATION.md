@@ -6,6 +6,8 @@ R19 success requires a runnable UI/API demo. R19 cannot close on reports, schema
 
 R19 focuses on an operator UI, backend API, API-mediated work orders, approvals, handoffs, events, and evidence.
 
+R19 product slices now require lightweight regression harness coverage before larger workflow expansion.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;
