@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-026` compact-safe Cycle 4 audit/closeout harness evidence package only.
+**Status after this pass:** Active through `R18-027` operator burden reduction metrics foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-026` are done. `R18-027` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-027` are done. `R18-028` remains planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,13 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-027 through R18-028 remain planned only.
+- R18-028 remains planned only.
+- R17 remains closed with caveats through R17-028 only.
+- R18-027 completed deterministic operator burden reduction metrics foundation only.
+- R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only.
+- R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records.
+- R18-027 marks no-manual-prompt-transfer success unproved and keeps the claim false because no committed baseline/current manual transfer count proves success.
+- R18-027 does not claim no-manual-prompt-transfer success, burden reduction success, recovery action, live runtime/API/tool/agent/A2A execution, release gate execution, CI replay, GitHub Actions workflow creation/run, product runtime, external audit acceptance, main merge, milestone closeout, solved compaction, or solved reliability.
 - R18-026 completed deterministic compact-safe Cycle 4 audit/closeout harness evidence package only.
 - R18-026 exercised audit/closeout flow under the harness without claiming external audit acceptance.
 - R18-026 evidence includes deterministic machine-readable evidence inventory, Evidence Auditor verdict packet, non-runtime release gate result, closeout-candidate packet, audit repair handoff policy packet, validator run log, board event records, operator-surface snapshot, validator, tests, fixtures, and proof-review package.
@@ -463,7 +469,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: Cycle 4 package, audit packets, release gate report.
 
 ### `R18-027` Measure operator burden reduction
-- Status: planned
+- Status: done
 - Purpose: Measure whether R18 reduced repetitive manual GPT-to-Codex copy/paste recovery work.
 - Inputs: Runner logs, failure drills, continuation events, operator approval records, manual intervention counts.
 - Outputs: Burden reduction report, metrics contract, validation packet.

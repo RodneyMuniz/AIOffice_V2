@@ -1,0 +1,9 @@
+{
+    "target":  "report",
+    "operation":  "set",
+    "path":  "runtime_flags.no_manual_prompt_transfer_success_claimed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}

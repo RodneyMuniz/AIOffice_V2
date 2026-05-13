@@ -3695,8 +3695,12 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-026 only",
-            "R18-027 through R18-028 planned only",
+            "R18 active through R18-027 only",
+            "R18-028 remains planned only",
+            "R18-027 completed deterministic operator burden reduction metrics foundation only",
+            "R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only",
+            "R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records",
+            "R18-027 marks no-manual-prompt-transfer success unproved and keeps the claim false",
             "R18-026 completed deterministic compact-safe Cycle 4 audit/closeout harness evidence package only",
             "R18-026 exercised audit/closeout flow under the harness without claiming external audit acceptance",
             "R18-026 release gate result is a bounded non-runtime assessment artifact only",
@@ -3835,7 +3839,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 26) {
+        if ($taskNumber -le 27) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3877,8 +3881,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 26
-        R18PlannedStart = 27
+        R18DoneThrough = 27
+        R18PlannedStart = 28
         R18PlannedThrough = 28
     }
 }

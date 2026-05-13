@@ -1,0 +1,19 @@
+# R18-027 Validation Manifest
+
+Expected status truth: R18 active through R18-027 only; R18-028 planned only.
+
+Required validation commands:
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\new_r18_operator_burden_reduction_metrics.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_operator_burden_reduction_metrics.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_operator_burden_reduction_metrics.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_opening_authority.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_opening_authority.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_evidence_package_wrapper.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_evidence_package_wrapper.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_cycle4_audit_closeout_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_cycle4_audit_closeout_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_cycle3_qa_fix_loop_harness.ps1
+- powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_cycle3_qa_fix_loop_harness.ps1
+- git diff --check

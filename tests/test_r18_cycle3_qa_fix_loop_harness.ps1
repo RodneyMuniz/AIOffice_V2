@@ -108,8 +108,8 @@ foreach ($assertion in @(
         @{ label = "board events are evidence-only"; script = { $set = Get-ValidSet; if (@($set.BoardEvents).Count -lt 5 -or [bool]$set.Results.board_event_summary.board_runtime_mutation_performed) { throw "Board event evidence missing or mutation claimed." } } },
         @{ label = "recovery route did not perform recovery action"; script = { $set = Get-ValidSet; if (-not [bool]$set.RecoveryRoutePacket.routed_through_recovery_policy -or [bool]$set.RecoveryRoutePacket.recovery_action_performed) { throw "Recovery route missing or recovery action claimed." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-026 only after status updates"; script = { Test-R18Cycle3QaFixLoopHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-027 onward remain planned only"; script = { Test-R18Cycle3QaFixLoopHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-027 only after status updates"; script = { Test-R18Cycle3QaFixLoopHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-028 remains planned only"; script = { Test-R18Cycle3QaFixLoopHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script

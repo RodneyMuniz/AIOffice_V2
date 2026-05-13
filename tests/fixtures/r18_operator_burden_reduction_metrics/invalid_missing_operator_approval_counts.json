@@ -1,0 +1,8 @@
+{
+    "target":  "approval_counts",
+    "operation":  "remove",
+    "path":  "operator_approval_decision_count",
+    "expected_failure_fragments":  [
+                                       "operator approval decision count"
+                                   ]
+}

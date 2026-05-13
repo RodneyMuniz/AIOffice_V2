@@ -1,0 +1,9 @@
+{
+    "target":  "report",
+    "operation":  "set",
+    "path":  "burden_reduction_assessment.burden_reduction_proven",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "baseline/current manual transfer counts"
+                                   ]
+}

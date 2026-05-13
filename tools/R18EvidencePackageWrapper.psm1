@@ -1501,8 +1501,12 @@ function Test-R18EvidencePackageWrapperStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-026 only",
-            "R18-027 through R18-028 planned only",
+            "R18 active through R18-027 only",
+            "R18-028 remains planned only",
+            "R18-027 completed deterministic operator burden reduction metrics foundation only",
+            "R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only",
+            "R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records",
+            "R18-027 marks no-manual-prompt-transfer success unproved and keeps the claim false",
             "R18-026 completed deterministic compact-safe Cycle 4 audit/closeout harness evidence package only",
             "R18-026 exercised audit/closeout flow under the harness without claiming external audit acceptance",
             "R18-026 release gate result is a bounded non-runtime assessment artifact only",
@@ -1557,24 +1561,24 @@ function Test-R18EvidencePackageWrapperStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18EvidencePackageCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 26) {
-            Assert-R18EvidencePackageCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-026."
+        if ($taskNumber -le 27) {
+            Assert-R18EvidencePackageCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-027."
         }
         else {
-            Assert-R18EvidencePackageCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-026."
+            Assert-R18EvidencePackageCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-027."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(02[7-8])') {
-        throw "Status surface claims R18 beyond R18-026."
+    if ($combinedText -match 'R18 active through R18-028') {
+        throw "Status surface claims R18 beyond R18-027."
     }
-    if ($combinedText -match '(?i)R18-02[7-8][^\.\r\n]{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-027 or later completion."
+    if ($combinedText -match '(?i)R18-028[^\.\r\n]{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-028 completion."
     }
 
     return [pscustomobject]@{
-        R18DoneThrough = 26
-        R18PlannedStart = 27
+        R18DoneThrough = 27
+        R18PlannedStart = 28
         R18PlannedThrough = 28
     }
 }

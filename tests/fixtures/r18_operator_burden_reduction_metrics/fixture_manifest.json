@@ -1,0 +1,13 @@
+{
+    "artifact_type":  "r18_operator_burden_reduction_metrics_fixture_manifest",
+    "source_task":  "R18-027",
+    "invalid_fixture_count":  6,
+    "invalid_fixture_files":  [
+                                  "invalid_anecdotal_success_without_counts.json",
+                                  "invalid_no_manual_success_claimed.json",
+                                  "invalid_missing_runner_log_summary_ref.json",
+                                  "invalid_missing_operator_approval_counts.json",
+                                  "invalid_recovery_action_claim.json",
+                                  "invalid_progress_claim_without_evidence_refs.json"
+                              ]
+}

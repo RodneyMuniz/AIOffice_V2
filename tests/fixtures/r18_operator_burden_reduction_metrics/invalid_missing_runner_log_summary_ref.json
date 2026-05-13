@@ -1,0 +1,8 @@
+{
+    "target":  "report",
+    "operation":  "remove",
+    "path":  "evidence_inputs.runner_log_summary_ref",
+    "expected_failure_fragments":  [
+                                       "runner log summary ref"
+                                   ]
+}

@@ -1,0 +1,9 @@
+{
+    "target":  "validation_packet",
+    "operation":  "set",
+    "path":  "runtime_flags.recovery_action_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}
