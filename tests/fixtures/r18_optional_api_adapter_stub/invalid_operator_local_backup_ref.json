@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_operator_local_backup_ref",
+    "target":  "evidence_index",
+    "operation":  "set",
+    "path":  "evidence_refs",
+    "value":  [
+                  ".local_backups/r18-023.json"
+              ],
+    "expected_failure_fragments":  [
+                                       "operator-local backup"
+                                   ]
+}

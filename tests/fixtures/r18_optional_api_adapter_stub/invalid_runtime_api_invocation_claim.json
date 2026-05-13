@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_runtime_api_invocation_claim",
+    "target":  "blocked_live_request",
+    "operation":  "set",
+    "path":  "runtime_flags.openai_api_invoked",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}

@@ -982,8 +982,12 @@ function Test-R18ApiSafetyControlsStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-022 only",
-            "R18-023 through R18-028 planned only",
+            "R18 active through R18-023 only",
+            "R18-024 through R18-028 planned only",
+            "R18-023 created optional API adapter stub foundation only",
+            "Optional API adapter stub artifacts are disabled/dry-run only",
+            "No API invocation is claimed by a stub",
+            "Missing approval or budget blocks adapter operation",
             "R18-022 created safety, secrets, budget, and token controls foundation only",
             "Controls are not API invocation",
             "API-backed automation remains disabled by default",
@@ -1008,24 +1012,24 @@ function Test-R18ApiSafetyControlsStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18ApiSafetyControlsCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 22) {
-            Assert-R18ApiSafetyControlsCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-022."
+        if ($taskNumber -le 23) {
+            Assert-R18ApiSafetyControlsCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-023."
         }
         else {
-            Assert-R18ApiSafetyControlsCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-022."
+            Assert-R18ApiSafetyControlsCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-023."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(02[3-8])') {
-        throw "Status surface claims R18 beyond R18-022."
+    if ($combinedText -match 'R18 active through R18-(02[4-8])') {
+        throw "Status surface claims R18 beyond R18-023."
     }
-    if ($combinedText -match '(?i)R18-(02[3-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-023 or later completion."
+    if ($combinedText -match '(?i)R18-(02[4-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-024 or later completion."
     }
 
     return [pscustomobject]@{
-        R18DoneThrough = 22
-        R18PlannedStart = 23
+        R18DoneThrough = 23
+        R18PlannedStart = 24
         R18PlannedThrough = 28
     }
 }

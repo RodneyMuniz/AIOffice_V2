@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_missing_dry_run_packet_fields",
+    "target":  "dry_run_evidence_packet_shape",
+    "operation":  "set",
+    "path":  "required_packet_fields",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "required_packet_fields"
+                                   ]
+}

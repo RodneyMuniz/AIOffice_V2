@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_blocked_request_outcome_allows_live",
+    "target":  "blocked_live_request",
+    "operation":  "set",
+    "path":  "request_outcome",
+    "value":  "live_api_invocation_allowed",
+    "expected_failure_fragments":  [
+                                       "blocked live"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_live_mode_enabled",
+    "target":  "profile",
+    "operation":  "set",
+    "path":  "adapter_stub.live_mode_enabled",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live mode"
+                                   ]
+}

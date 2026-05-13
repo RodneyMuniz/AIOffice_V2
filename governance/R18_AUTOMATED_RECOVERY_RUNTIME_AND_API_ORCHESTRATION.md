@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-022` safety, secrets, budget, and token controls foundation only.
+**Status after this pass:** Active through `R18-023` optional API adapter stub foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-022` are done. `R18-023` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-023` are done. `R18-024` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,11 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-023 through R18-028 remain planned only.
+- R18-024 through R18-028 remain planned only.
+- R18-023 created optional API adapter stub foundation only.
+- Optional API adapter stub artifacts are disabled/dry-run only.
+- No API invocation is claimed by a stub.
+- Missing approval or budget blocks adapter operation.
 - R18-022 created safety, secrets, budget, and token controls foundation only.
 - Controls are not API invocation.
 - API-backed automation remains disabled by default.
@@ -398,16 +402,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/security/r18_api_safety_controls.contract.json`, `state/security/r18_api_disabled_profile.json`, `state/security/r18_api_secrets_policy.json`, `state/security/r18_api_budget_token_policy.json`, `state/security/r18_api_timeout_policy.json`, `state/security/r18_api_safety_controls_results.json`, `state/security/r18_api_safety_controls_check_report.json`, `state/ui/r18_operator_surface/r18_api_safety_controls_snapshot.json`, `tools/R18ApiSafetyControls.psm1`, `tools/new_r18_api_safety_controls.ps1`, `tools/validate_r18_api_safety_controls.ps1`, `tests/test_r18_api_safety_controls.ps1`, `tests/fixtures/r18_api_safety_controls/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls/`.
 
 ### `R18-023` Implement optional API adapter stub only after controls
-- Status: planned
+- Status: done
 - Purpose: Add a disabled/dry-run API adapter stub only after safety controls exist.
 - Inputs: R18-022 controls, operator enablement model, skill registry, evidence ledger.
 - Outputs: Optional adapter stub, dry-run evidence packet shape, validator/tests.
 - Acceptance criteria: Stub defaults disabled; live mode impossible without explicit controls, approval, budgets, and evidence packet requirements.
 - Validation expectation: Planned validator rejects live API mode without controls and approval.
-- Non-claims: No API invocation is claimed by a stub.
+- Non-claims: No API invocation is claimed by a stub. No Codex/OpenAI API invocation occurred. No live API adapter runtime was implemented or invoked. No live agent invocation, live skill execution, tool-call execution, A2A message dispatch, work-order execution, board/card runtime mutation, recovery action, release gate execution, CI replay, GitHub Actions workflow creation/run, product runtime, no-manual-prompt-transfer success, solved compaction, or solved reliability is claimed.
 - Dependencies: R18-022.
 - Failure/retry behavior: Missing approval or budget blocks adapter operation.
-- Expected evidence refs: `contracts/tools/r18_optional_api_adapter_stub.contract.json`, dry-run fixtures.
+- Expected evidence refs: `contracts/tools/r18_optional_api_adapter_stub.contract.json`, `state/tools/r18_optional_api_adapter_stub_profile.json`, `state/tools/r18_optional_api_adapter_stub_dry_run_evidence_packet_shape.json`, `state/tools/r18_optional_api_adapter_stub_blocked_live_request.json`, `state/tools/r18_optional_api_adapter_stub_results.json`, `state/tools/r18_optional_api_adapter_stub_check_report.json`, `state/ui/r18_operator_surface/r18_optional_api_adapter_stub_snapshot.json`, `tools/R18OptionalApiAdapterStub.psm1`, `tools/new_r18_optional_api_adapter_stub.ps1`, `tools/validate_r18_optional_api_adapter_stub.ps1`, `tests/test_r18_optional_api_adapter_stub.ps1`, dry-run fixtures under `tests/fixtures/r18_optional_api_adapter_stub/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub/`.
 
 ### `R18-024` Exercise compact-failure recovery drill with local runner
 - Status: planned

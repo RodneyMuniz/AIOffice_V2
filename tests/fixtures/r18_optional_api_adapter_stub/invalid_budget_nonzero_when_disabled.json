@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_budget_nonzero_when_disabled",
+    "target":  "profile",
+    "operation":  "set",
+    "path":  "budget_gate.max_usd_when_disabled",
+    "value":  1,
+    "expected_failure_fragments":  [
+                                       "Disabled budget"
+                                   ]
+}

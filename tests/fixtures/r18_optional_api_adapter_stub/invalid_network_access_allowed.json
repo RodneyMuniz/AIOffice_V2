@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_network_access_allowed",
+    "target":  "profile",
+    "operation":  "set",
+    "path":  "adapter_stub.network_access_allowed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Network"
+                                   ]
+}

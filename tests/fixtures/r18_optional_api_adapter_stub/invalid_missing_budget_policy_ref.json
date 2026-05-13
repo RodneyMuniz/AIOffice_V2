@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_budget_policy_ref",
+    "target":  "profile",
+    "operation":  "remove",
+    "path":  "control_refs.budget_token_policy_ref",
+    "expected_failure_fragments":  [
+                                       "budget_token_policy_ref"
+                                   ]
+}

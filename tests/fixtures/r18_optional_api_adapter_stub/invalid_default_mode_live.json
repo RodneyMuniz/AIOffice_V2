@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_default_mode_live",
+    "target":  "profile",
+    "operation":  "set",
+    "path":  "adapter_stub.default_mode",
+    "value":  "live",
+    "expected_failure_fragments":  [
+                                       "default mode"
+                                   ]
+}

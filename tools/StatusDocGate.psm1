@@ -3695,8 +3695,12 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-022 only",
-            "R18-023 through R18-028 planned only",
+            "R18 active through R18-023 only",
+            "R18-024 through R18-028 planned only",
+            "R18-023 created optional API adapter stub foundation only",
+            "Optional API adapter stub artifacts are disabled/dry-run only",
+            "No API invocation is claimed by a stub",
+            "Missing approval or budget blocks adapter operation",
             "R18-022 created safety, secrets, budget, and token controls foundation only",
             "Controls are not API invocation",
             "API-backed automation remains disabled by default",
@@ -3817,7 +3821,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 22) {
+        if ($taskNumber -le 23) {
             Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
         }
         else {
@@ -3859,8 +3863,8 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 22
-        R18PlannedStart = 23
+        R18DoneThrough = 23
+        R18PlannedStart = 24
         R18PlannedThrough = 28
     }
 }
