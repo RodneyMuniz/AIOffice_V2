@@ -8,6 +8,9 @@ export type StatusResponse = {
   current_card_id: string | null;
   current_work_order_id: string | null;
   current_agent_id: string | null;
+  cards_count: number;
+  work_orders_count: number;
+  approvals_count: number;
   pending_approvals_count: number;
   events_count: number;
   evidence_count: number;
@@ -20,6 +23,7 @@ export type Card = {
   summary: string;
   status: string;
   owner_agent_id: string;
+  owner_role?: string;
   priority: string;
   acceptance_focus?: string[];
   created_at?: string;
@@ -34,9 +38,25 @@ export type WorkOrder = {
   requested_by_agent_id: string;
   assigned_agent_id: string;
   approval_required: boolean;
+  request_requires_approval?: boolean;
   handoff_target_agent_id?: string;
   evidence_refs?: string[];
   created_at?: string;
+};
+
+export type ApprovalStatus = "pending" | "approved" | "rejected";
+
+export type Approval = {
+  id: string;
+  title: string;
+  description: string;
+  related_card_id: string;
+  related_work_order_id?: string | null;
+  status: ApprovalStatus;
+  requested_by: string;
+  created_at: string;
+  decided_at?: string | null;
+  decision_reason?: string | null;
 };
 
 export type Agent = {
@@ -56,6 +76,7 @@ export type EventEntry = {
   actor_agent_id: string;
   related_card_id?: string;
   related_work_order_id?: string;
+  related_approval_id?: string;
 };
 
 export type EvidenceEntry = {
@@ -65,6 +86,9 @@ export type EvidenceEntry = {
   summary: string;
   path: string;
   related_card_id: string;
+  related_work_order_id?: string;
+  related_approval_id?: string;
+  created_at?: string;
 };
 
 export type DashboardData = {
@@ -74,4 +98,27 @@ export type DashboardData = {
   agents: Agent[];
   events: EventEntry[];
   evidence: EvidenceEntry[];
+  approvals: Approval[];
+};
+
+export type CreateCardRequest = {
+  title: string;
+  description: string;
+  priority: string;
+  owner_role: string;
+};
+
+export type CreateWorkOrderRequest = {
+  card_id: string;
+  title: string;
+  description: string;
+  assigned_agent_id: string;
+  request_requires_approval: boolean;
+};
+
+export type CreateApprovalRequest = {
+  title: string;
+  description: string;
+  related_card_id: string;
+  related_work_order_id?: string | null;
 };

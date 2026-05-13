@@ -11,6 +11,7 @@
     "summary": { "type": "string" },
     "actor_agent_id": { "type": "string" },
     "related_card_id": { "type": "string" },
-    "related_work_order_id": { "type": "string" }
+    "related_work_order_id": { "type": "string" },
+    "related_approval_id": { "type": "string" }
   }
 }

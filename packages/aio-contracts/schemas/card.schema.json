@@ -10,6 +10,7 @@
     "summary": { "type": "string" },
     "status": { "type": "string" },
     "owner_agent_id": { "type": "string" },
+    "owner_role": { "type": "string" },
     "priority": { "type": "string" },
     "acceptance_focus": { "type": "array", "items": { "type": "string" } },
     "created_at": { "type": "string" }

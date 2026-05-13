@@ -1,0 +1,14 @@
+[
+  {
+    "id": "R19-APPROVAL-001",
+    "title": "Approve seed work order R19-WO-001",
+    "description": "Seed approval gate for the initial R19 UI/API scaffolding work order.",
+    "related_card_id": "R19-CARD-001",
+    "related_work_order_id": "R19-WO-001",
+    "status": "pending",
+    "requested_by": "orchestrator",
+    "created_at": "2026-05-13T00:06:00Z",
+    "decided_at": null,
+    "decision_reason": null
+  }
+]

@@ -22,6 +22,7 @@
     "requested_by_agent_id": { "type": "string" },
     "assigned_agent_id": { "type": "string" },
     "approval_required": { "type": "boolean" },
+    "request_requires_approval": { "type": "boolean" },
     "handoff_target_agent_id": { "type": "string" },
     "evidence_refs": { "type": "array", "items": { "type": "string" } },
     "created_at": { "type": "string" }

@@ -8,8 +8,12 @@ These schemas document the first local API shapes only. They are not a large con
 
 - `schemas/status-response.schema.json`
 - `schemas/card.schema.json`
+- `schemas/create-card-request.schema.json`
 - `schemas/work-order.schema.json`
+- `schemas/create-work-order-request.schema.json`
 - `schemas/agent.schema.json`
+- `schemas/approval.schema.json`
+- `schemas/create-approval-request.schema.json`
 - `schemas/event.schema.json`
 - `schemas/evidence-entry.schema.json`
 

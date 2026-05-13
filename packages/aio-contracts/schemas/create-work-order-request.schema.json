@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-work-order-request.schema.json",
+  "title": "CreateWorkOrderRequest",
+  "type": "object",
+  "required": ["card_id", "title", "description", "assigned_agent_id", "request_requires_approval"],
+  "properties": {
+    "card_id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "assigned_agent_id": { "type": "string" },
+    "request_requires_approval": { "type": "boolean" }
+  }
+}

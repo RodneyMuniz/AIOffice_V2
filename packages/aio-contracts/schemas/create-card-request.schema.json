@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-card-request.schema.json",
+  "title": "CreateCardRequest",
+  "type": "object",
+  "required": ["title", "description", "priority", "owner_role"],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "priority": { "type": "string" },
+    "owner_role": { "type": "string" }
+  }
+}

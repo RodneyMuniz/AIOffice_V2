@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/approval.schema.json",
+  "title": "Approval",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "related_card_id",
+    "status",
+    "requested_by",
+    "created_at",
+    "decided_at",
+    "decision_reason"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "related_card_id": { "type": "string" },
+    "related_work_order_id": { "type": ["string", "null"] },
+    "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+    "requested_by": { "type": "string" },
+    "created_at": { "type": "string" },
+    "decided_at": { "type": ["string", "null"] },
+    "decision_reason": { "type": ["string", "null"] }
+  }
+}
