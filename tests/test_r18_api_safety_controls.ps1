@@ -93,8 +93,8 @@ foreach ($assertion in @(
         @{ label = "timeouts exist and are bounded"; script = { $set = Get-ValidSet; if (-not [bool]$set.TimeoutPolicy.timeout_policy.per_request_timeout_limit_defined -or -not [bool]$set.TimeoutPolicy.timeout_policy.per_task_timeout_limit_defined -or [bool]$set.TimeoutPolicy.timeout_policy.unbounded_timeout_allowed) { throw "Timeout policy is unsafe." } } },
         @{ label = "operator approval required"; script = { $set = Get-ValidSet; if (-not [bool]$set.DisabledProfile.enablement_requirements.operator_approval_required -or [bool]$set.DisabledProfile.enablement_requirements.seed_decision_approved) { throw "Operator approval boundary is unsafe." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-023 only after status updates"; script = { Test-R18ApiSafetyControlsStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-024 onward remain planned only"; script = { Test-R18ApiSafetyControlsStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-024 only after status updates"; script = { Test-R18ApiSafetyControlsStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-025 onward remain planned only"; script = { Test-R18ApiSafetyControlsStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script

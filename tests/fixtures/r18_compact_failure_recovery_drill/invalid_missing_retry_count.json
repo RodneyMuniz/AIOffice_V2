@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_retry_count",
+    "target":  "drill_packet",
+    "operation":  "remove",
+    "path":  "retry_count",
+    "expected_failure_fragments":  [
+                                       "retry_count"
+                                   ]
+}

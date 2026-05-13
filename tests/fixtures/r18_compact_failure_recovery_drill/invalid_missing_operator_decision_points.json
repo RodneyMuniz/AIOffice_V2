@@ -1,0 +1,12 @@
+﻿{
+    "fixture_id":  "invalid_missing_operator_decision_points",
+    "target":  "drill_packet",
+    "operation":  "set",
+    "path":  "operator_decision_points",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "operator decision"
+                                   ]
+}

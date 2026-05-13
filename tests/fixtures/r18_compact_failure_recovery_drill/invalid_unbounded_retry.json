@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_unbounded_retry",
+    "target":  "drill_packet",
+    "operation":  "set",
+    "path":  "max_retry_count",
+    "value":  999,
+    "expected_failure_fragments":  [
+                                       "retry"
+                                   ]
+}

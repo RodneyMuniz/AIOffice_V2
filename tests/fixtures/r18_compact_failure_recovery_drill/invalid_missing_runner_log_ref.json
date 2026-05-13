@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_runner_log_ref",
+    "target":  "drill_packet",
+    "operation":  "remove",
+    "path":  "runner_evidence.runner_log_ref",
+    "expected_failure_fragments":  [
+                                       "runner log"
+                                   ]
+}

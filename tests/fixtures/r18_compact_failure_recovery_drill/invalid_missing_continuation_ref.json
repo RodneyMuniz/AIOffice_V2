@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_continuation_ref",
+    "target":  "continuation_packet",
+    "operation":  "remove",
+    "path":  "source_continuation_packet_ref",
+    "expected_failure_fragments":  [
+                                       "source_continuation_packet_ref"
+                                   ]
+}

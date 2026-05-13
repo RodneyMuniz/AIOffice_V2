@@ -1,0 +1,9 @@
+﻿{
+    "fixture_id":  "invalid_missing_last_completed_step",
+    "target":  "drill_packet",
+    "operation":  "remove",
+    "path":  "last_completed_step",
+    "expected_failure_fragments":  [
+                                       "last_completed_step"
+                                   ]
+}

@@ -1,0 +1,10 @@
+﻿{
+    "fixture_id":  "invalid_product_runtime_claim",
+    "target":  "check_report",
+    "operation":  "set",
+    "path":  "runtime_flags.product_runtime_executed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime flag"
+                                   ]
+}

@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-023` optional API adapter stub foundation only.
+**Status after this pass:** Active through `R18-024` compact-failure recovery drill foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-023` are done. `R18-024` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-024` are done. `R18-025` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,7 +15,11 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-024 through R18-028 remain planned only.
+- R18-025 through R18-028 remain planned only.
+- R18-024 exercised compact-failure recovery drill foundation only.
+- R18-024 drill evidence is deterministic bounded local runner drill evidence only.
+- R18-024 drill records last completed step, next safe step, retry count, evidence refs, runner log refs, continuation/new-context packet refs, and operator decision points.
+- R18-024 drill does not solve compaction or prove full product runtime.
 - R18-023 created optional API adapter stub foundation only.
 - Optional API adapter stub artifacts are disabled/dry-run only.
 - No API invocation is claimed by a stub.
@@ -414,16 +418,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/tools/r18_optional_api_adapter_stub.contract.json`, `state/tools/r18_optional_api_adapter_stub_profile.json`, `state/tools/r18_optional_api_adapter_stub_dry_run_evidence_packet_shape.json`, `state/tools/r18_optional_api_adapter_stub_blocked_live_request.json`, `state/tools/r18_optional_api_adapter_stub_results.json`, `state/tools/r18_optional_api_adapter_stub_check_report.json`, `state/ui/r18_operator_surface/r18_optional_api_adapter_stub_snapshot.json`, `tools/R18OptionalApiAdapterStub.psm1`, `tools/new_r18_optional_api_adapter_stub.ps1`, `tools/validate_r18_optional_api_adapter_stub.ps1`, `tests/test_r18_optional_api_adapter_stub.ps1`, dry-run fixtures under `tests/fixtures/r18_optional_api_adapter_stub/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub/`.
 
 ### `R18-024` Exercise compact-failure recovery drill with local runner
-- Status: planned
+- Status: done
 - Purpose: Prove the runner can handle a compact/stream failure drill through state preservation and continuation.
 - Inputs: Runner state store, failure detector, WIP classifier, remote verifier, continuation generator, retry policy.
 - Outputs: Drill packet, failure event, WIP classification, remote verification, continuation/new-context packets, evidence.
 - Acceptance criteria: Drill records last completed step, next safe step, retry count, evidence refs, and operator decision points without claiming solved compaction.
-- Validation expectation: Planned drill validator rejects packet-only recovery without runner evidence.
-- Non-claims: Drill does not solve compaction or prove full product runtime.
+- Validation expectation: `tools/validate_r18_compact_failure_recovery_drill.ps1` and `tests/test_r18_compact_failure_recovery_drill.ps1` reject packet-only recovery without runner evidence.
+- Non-claims: Drill does not solve compaction or prove full product runtime. No Codex/OpenAI API invocation, live API adapter invocation, live agent invocation, live skill execution, tool-call execution, A2A message dispatch, work-order execution, board/card runtime mutation, live Kanban UI, recovery action, release gate execution, CI replay, GitHub Actions workflow creation/run, product runtime, no-manual-prompt-transfer success, solved compaction, or solved reliability is claimed.
 - Dependencies: R18-010 through R18-016.
 - Failure/retry behavior: Failed drill escalates with exact failure evidence and no runtime success claim.
-- Expected evidence refs: compact-failure drill package, runner log, continuation packets.
+- Expected evidence refs: `contracts/runtime/r18_compact_failure_recovery_drill.contract.json`, `state/runtime/r18_compact_failure_recovery_drill/`, `state/runtime/r18_compact_failure_recovery_drill/runner_log.jsonl`, `state/runtime/r18_compact_failure_recovery_drill/continuation_packet.json`, `state/runtime/r18_compact_failure_recovery_drill/new_context_packet.json`, `state/runtime/r18_compact_failure_recovery_drill/check_report.json`, `state/ui/r18_operator_surface/r18_compact_failure_recovery_drill_snapshot.json`, `tools/R18CompactFailureRecoveryDrill.psm1`, `tools/new_r18_compact_failure_recovery_drill.ps1`, `tools/validate_r18_compact_failure_recovery_drill.ps1`, `tests/test_r18_compact_failure_recovery_drill.ps1`, fixtures under `tests/fixtures/r18_compact_failure_recovery_drill/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill/`.
 
 ### `R18-025` Retry Cycle 3 QA/fix-loop using compact-safe harness
 - Status: planned
