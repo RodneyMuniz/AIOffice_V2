@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-020` board/card runtime event model foundation only.
+**Status after this pass:** Active through `R18-021` agent invocation and tool-call evidence model foundation only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-020` are done. `R18-021` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-021` are done. `R18-022` through `R18-028` are planned only. R18 runtime implementation is not yet delivered.
 
 ## Mission
 
@@ -15,13 +15,20 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-021 through R18-028 remain planned only.
+- R18-022 through R18-028 remain planned only.
+- R18-021 created agent invocation and tool-call evidence model foundation only.
+- Evidence model is not agent invocation by itself.
+- Agent/tool-call evidence ledger artifacts are deterministic evidence-shape artifacts only.
 - R18-020 created board/card runtime event model foundation only.
 - Board/card event model artifacts are deterministic seed/policy artifacts only.
 - Live board/card runtime was not implemented.
 - Board/card runtime mutation was not performed.
 - Live Kanban UI was not implemented.
 - No R18 runtime tool-call execution was performed.
+- No live tool call was performed.
+- No tool-call runtime was implemented.
+- No ledger runtime was implemented.
+- No adapter runtime was invoked.
 - R18-002 created agent card schema and seed cards only.
 - Agent cards are not live agents.
 - R18-003 created skill contract schema and seed skill contracts only.
@@ -364,16 +371,16 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: `contracts/board/r18_board_card_event.contract.json`, `contracts/board/r18_board_card_event_model.contract.json`, `state/board/r18_board_card_event_model_profile.json`, `state/board/r18_board_card_seed_cards/`, `state/board/r18_board_card_seed_events/`, `state/board/r18_board_card_event_log.jsonl`, `state/board/r18_board_card_event_registry.json`, `state/board/r18_board_card_event_model_results.json`, `state/board/r18_board_card_event_model_check_report.json`, `state/ui/r18_operator_surface/r18_board_card_event_model_snapshot.json`, `tools/R18BoardCardEventModel.psm1`, `tools/new_r18_board_card_event_model.ps1`, `tools/validate_r18_board_card_event_model.ps1`, `tests/test_r18_board_card_event_model.ps1`, `tests/fixtures/r18_board_card_event_model/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model/`.
 
 ### `R18-021` Implement agent invocation and tool-call evidence model
-- Status: planned
+- Status: done
 - Purpose: Record agent invocation attempts, tool-call attempts, results, failures, and non-claims.
 - Inputs: Agent cards, skill contracts, runner log, tool adapter profiles.
-- Outputs: Invocation/tool-call evidence contract, ledger shape, validator, tests.
-- Acceptance criteria: Ledger distinguishes planned, dry-run, failed, and live-approved calls; live calls require evidence and controls.
-- Validation expectation: Planned validator rejects fake live tool calls and missing evidence refs.
-- Non-claims: Evidence model is not agent invocation by itself.
+- Outputs: Invocation/tool-call evidence contract, ledger shape, deterministic seed ledger, profile, results, check report, operator-surface snapshot, validator, focused tests, invalid fixtures, and proof-review package.
+- Acceptance criteria: Ledger distinguishes planned, dry-run, failed, and live-approved call modes; seed records cover planned, dry-run, and failed/blocked evidence records only; live calls require evidence and controls; all runtime false flags remain false; R18-022 through R18-028 remain planned only.
+- Validation expectation: `tools/validate_r18_agent_tool_call_evidence.ps1`, `tests/test_r18_agent_tool_call_evidence.ps1`, `tools/validate_status_doc_gate.ps1`, and `tests/test_status_doc_gate.ps1` pass while R18 remains active through R18-021 only.
+- Non-claims: Evidence model is not agent invocation by itself. Agent/tool-call evidence ledger artifacts are deterministic evidence-shape artifacts only. No live agents were invoked. No live skills were executed. No tool-call execution was performed. No live tool call was performed. No tool-call runtime was implemented. No ledger runtime was implemented. No adapter runtime was invoked. Codex/OpenAI API invocation did not occur. Recovery action was not performed. Release gate was not executed. CI replay was not performed. GitHub Actions workflow was not created or run. Product runtime is not claimed. No no-manual-prompt-transfer success is claimed. Codex compaction and reliability remain unresolved operational issues.
 - Dependencies: R18-002, R18-003, R18-009.
 - Failure/retry behavior: Missing evidence records a failed/blocked invocation and stops dependent work.
-- Expected evidence refs: `contracts/tools/r18_agent_tool_call_evidence.contract.json`, ledger fixtures.
+- Expected evidence refs: `contracts/tools/r18_agent_tool_call_evidence.contract.json`, `state/tools/r18_agent_tool_call_evidence_ledger_shape.json`, `state/tools/r18_agent_tool_call_evidence_profile.json`, `state/tools/r18_agent_tool_call_evidence_ledger.jsonl`, `state/tools/r18_agent_tool_call_evidence_results.json`, `state/tools/r18_agent_tool_call_evidence_check_report.json`, `state/ui/r18_operator_surface/r18_agent_tool_call_evidence_snapshot.json`, `tools/R18AgentToolCallEvidence.psm1`, `tools/new_r18_agent_tool_call_evidence.ps1`, `tools/validate_r18_agent_tool_call_evidence.ps1`, `tests/test_r18_agent_tool_call_evidence.ps1`, `tests/fixtures/r18_agent_tool_call_evidence/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model/`.
 
 ### `R18-022` Implement safety, secrets, budget, and token controls
 - Status: planned

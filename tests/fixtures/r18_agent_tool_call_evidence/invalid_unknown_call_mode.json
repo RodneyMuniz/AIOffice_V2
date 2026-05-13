@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_unknown_call_mode",
+    "target":  "record:r18_021_planned_agent_invocation_attempt",
+    "operation":  "set",
+    "path":  "call_mode",
+    "value":  "runtime",
+    "expected_failure_fragments":  [
+                                       "unknown call_mode"
+                                   ]
+}

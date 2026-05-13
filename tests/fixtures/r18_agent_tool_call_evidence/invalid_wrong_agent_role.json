@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_wrong_agent_role",
+    "target":  "record:r18_021_planned_agent_invocation_attempt",
+    "operation":  "set",
+    "path":  "agent_role",
+    "value":  "Release Manager",
+    "expected_failure_fragments":  [
+                                       "agent role"
+                                   ]
+}

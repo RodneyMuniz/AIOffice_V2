@@ -1281,8 +1281,8 @@ function Test-R18RetryEscalationPolicyStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-020 only",
-            "R18-021 through R18-028 planned only",
+            "R18 active through R18-021 only",
+            "R18-022 through R18-028 planned only",
             "R18-015 created retry and escalation policy foundation only",
             "Retry/escalation decisions were generated as deterministic policy artifacts only",
             "Retry execution was not performed",
@@ -1313,19 +1313,19 @@ function Test-R18RetryEscalationPolicyStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18RetryEscalationCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 20) {
-            Assert-R18RetryEscalationCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-020."
+        if ($taskNumber -le 21) {
+            Assert-R18RetryEscalationCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-021."
         }
         else {
-            Assert-R18RetryEscalationCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-020."
+            Assert-R18RetryEscalationCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-021."
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(02[1-8])') {
-        throw "Status surface claims R18 beyond R18-020."
+    if ($combinedText -match 'R18 active through R18-(02[2-8])') {
+        throw "Status surface claims R18 beyond R18-021."
     }
-    if ($combinedText -match '(?i)R18-(02[1-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-021 or later completion."
+    if ($combinedText -match '(?i)R18-(02[2-8]).{0,120}(done|complete|completed|implemented|executed|active)') {
+        throw "Status surface claims R18-022 or later completion."
     }
 }
 

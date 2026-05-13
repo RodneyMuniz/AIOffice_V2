@@ -1,0 +1,12 @@
+{
+    "fixture_id":  "invalid_missing_evidence_refs",
+    "target":  "record:r18_021_planned_agent_invocation_attempt",
+    "operation":  "set",
+    "path":  "evidence_refs",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "evidence_refs"
+                                   ]
+}

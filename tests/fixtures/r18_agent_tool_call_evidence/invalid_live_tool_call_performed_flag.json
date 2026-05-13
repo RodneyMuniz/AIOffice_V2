@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_live_tool_call_performed_flag",
+    "target":  "record:r18_021_dry_run_tool_call_attempt",
+    "operation":  "set",
+    "path":  "live_call_guard.live_call_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "live_call_performed"
+                                   ]
+}

@@ -1305,8 +1305,8 @@ function Test-R18HandoffStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-020 only",
-            "R18-021 through R18-028 planned only",
+            "R18 active through R18-021 only",
+            "R18-022 through R18-028 planned only",
             "R18-002 created agent card schema and seed cards only",
             "Agent cards are not live agents",
             "R18-003 created skill contract schema and seed skill contracts only",
@@ -1363,20 +1363,20 @@ function Test-R18HandoffStatusTruth {
         if ($authorityStatuses[$taskId] -ne $kanbanStatuses[$taskId]) {
             throw "R18 authority and KANBAN disagree for $taskId."
         }
-        if ($taskNumber -le 20) {
+        if ($taskNumber -le 21) {
             if ($authorityStatuses[$taskId] -ne "done") {
-                throw "$taskId must be done after R18-020."
+                throw "$taskId must be done after R18-021."
             }
         }
         else {
             if ($authorityStatuses[$taskId] -ne "planned") {
-                throw "$taskId must remain planned only after R18-020."
+                throw "$taskId must remain planned only after R18-021."
             }
         }
     }
 
-    if ($combinedText -match 'R18 active through R18-(02[1-8])') {
-        throw "Status surface claims R18 beyond R18-020."
+    if ($combinedText -match 'R18 active through R18-(02[2-8])') {
+        throw "Status surface claims R18 beyond R18-021."
     }
 }
 

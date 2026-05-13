@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_agent_card_ref",
+    "target":  "record:r18_021_planned_agent_invocation_attempt",
+    "operation":  "remove",
+    "path":  "agent_card_ref",
+    "expected_failure_fragments":  [
+                                       "agent_card_ref"
+                                   ]
+}

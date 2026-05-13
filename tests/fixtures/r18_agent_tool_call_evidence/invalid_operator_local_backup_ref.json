@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_operator_local_backup_ref",
+    "target":  "record:r18_021_dry_run_tool_call_attempt",
+    "operation":  "set",
+    "path":  "result_ref",
+    "value":  ".local_backups/r18/result.json",
+    "expected_failure_fragments":  [
+                                       ".local_backups"
+                                   ]
+}

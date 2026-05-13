@@ -120,8 +120,8 @@ foreach ($assertion in @(
         @{ label = "r18_020_premature_claim blocks"; script = { $assessment = @((Get-ValidSet).Assessments | Where-Object { $_.gate_scenario -eq "r18_020_premature_claim" })[0]; if ($assessment.gate_status -ne "status_gate_blocked_premature_future_claim" -or [bool]$assessment.safe_for_future_release_gate -or -not [bool]$assessment.future_task_claim_detected) { throw "r18_020_premature_claim did not block." } } },
         @{ label = "all runtime false flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
         @{ label = "no forbidden execution or overclaim exists"; script = { $flags = (Get-ValidSet).Report.runtime_flags; foreach ($flagName in @("release_gate_executed", "stage_performed_by_gate", "commit_performed_by_gate", "push_performed_by_gate", "ci_replay_performed", "github_actions_workflow_created", "github_actions_workflow_run_claimed", "main_merge_claimed", "milestone_closeout_claimed", "external_audit_acceptance_claimed", "recovery_action_performed", "codex_api_invoked", "openai_api_invoked", "automatic_new_thread_creation_performed", "work_order_execution_performed", "a2a_message_sent", "board_runtime_mutation_performed", "product_runtime_executed", "no_manual_prompt_transfer_success_claimed", "solved_codex_compaction_claimed", "solved_codex_reliability_claimed")) { if ([bool]$flags.$flagName) { throw "Forbidden claim '$flagName' was set." } } } },
-        @{ label = "R18 is active through R18-020 only after status updates"; script = { Test-R18StatusDocGateWrapperStatusTruth -RepositoryRoot $repoRoot } },
-        @{ label = "R18-021 onward remain planned only"; script = { Test-R18StatusDocGateWrapperStatusTruth -RepositoryRoot $repoRoot } }
+        @{ label = "R18 is active through R18-021 only after status updates"; script = { Test-R18StatusDocGateWrapperStatusTruth -RepositoryRoot $repoRoot } },
+        @{ label = "R18-022 onward remain planned only"; script = { Test-R18StatusDocGateWrapperStatusTruth -RepositoryRoot $repoRoot } }
     )) {
     try {
         & $assertion.script

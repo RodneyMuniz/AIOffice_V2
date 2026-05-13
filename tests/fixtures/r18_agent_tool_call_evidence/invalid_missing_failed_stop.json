@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_missing_failed_stop",
+    "target":  "record:r18_021_failed_blocked_missing_live_controls",
+    "operation":  "set",
+    "path":  "evidence_policy.dependent_work_stopped",
+    "value":  false,
+    "expected_failure_fragments":  [
+                                       "dependent work"
+                                   ]
+}

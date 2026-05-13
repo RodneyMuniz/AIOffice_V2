@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_r18_022_completion_claim",
+    "target":  "report",
+    "operation":  "set",
+    "path":  "runtime_flags.r18_022_completed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime flag"
+                                   ]
+}

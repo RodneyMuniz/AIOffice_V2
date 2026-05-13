@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_fake_live_tool_call_runtime_flag",
+    "target":  "record:r18_021_dry_run_tool_call_attempt",
+    "operation":  "set",
+    "path":  "runtime_flags.tool_call_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime flag"
+                                   ]
+}

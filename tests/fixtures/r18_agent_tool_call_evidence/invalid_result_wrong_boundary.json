@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_result_wrong_boundary",
+    "target":  "results",
+    "operation":  "set",
+    "path":  "status_boundary.r18_status",
+    "value":  "active_through_r18_022_only",
+    "expected_failure_fragments":  [
+                                       "status boundary"
+                                   ]
+}

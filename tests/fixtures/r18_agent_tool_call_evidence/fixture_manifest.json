@@ -1,0 +1,31 @@
+{
+    "artifact_type":  "r18_agent_tool_call_evidence_fixture_manifest",
+    "contract_version":  "v1",
+    "source_task":  "R18-021",
+    "invalid_fixture_count":  15,
+    "valid_fixture_refs":  [
+                               "tests/fixtures/r18_agent_tool_call_evidence/valid_contract.json",
+                               "tests/fixtures/r18_agent_tool_call_evidence/valid_ledger_shape.json",
+                               "tests/fixtures/r18_agent_tool_call_evidence/valid_ledger_records.jsonl",
+                               "tests/fixtures/r18_agent_tool_call_evidence/valid_check_report.json",
+                               "tests/fixtures/r18_agent_tool_call_evidence/valid_snapshot.json"
+                           ],
+    "invalid_fixture_ids":  [
+                                "invalid_missing_evidence_refs",
+                                "invalid_fake_live_tool_call_runtime_flag",
+                                "invalid_live_tool_call_performed_flag",
+                                "invalid_live_approved_missing_controls",
+                                "invalid_unknown_call_mode",
+                                "invalid_missing_agent_card_ref",
+                                "invalid_wrong_agent_role",
+                                "invalid_skill_not_allowed_for_role",
+                                "invalid_missing_runner_log_ref",
+                                "invalid_operator_local_backup_ref",
+                                "invalid_api_invocation_claim",
+                                "invalid_work_order_execution_claim",
+                                "invalid_missing_failed_stop",
+                                "invalid_r18_022_completion_claim",
+                                "invalid_result_wrong_boundary"
+                            ],
+    "fixture_policy":  "compact mutation fixtures only; no full source or broad repo scan payloads"
+}

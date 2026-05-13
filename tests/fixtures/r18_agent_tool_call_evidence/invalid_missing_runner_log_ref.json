@@ -1,0 +1,9 @@
+{
+    "fixture_id":  "invalid_missing_runner_log_ref",
+    "target":  "record:r18_021_dry_run_tool_call_attempt",
+    "operation":  "remove",
+    "path":  "runner_log_ref",
+    "expected_failure_fragments":  [
+                                       "runner_log_ref"
+                                   ]
+}

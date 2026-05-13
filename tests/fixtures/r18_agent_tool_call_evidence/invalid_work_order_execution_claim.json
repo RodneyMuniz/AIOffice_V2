@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_work_order_execution_claim",
+    "target":  "record:r18_021_failed_blocked_missing_live_controls",
+    "operation":  "set",
+    "path":  "runtime_flags.work_order_execution_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime flag"
+                                   ]
+}

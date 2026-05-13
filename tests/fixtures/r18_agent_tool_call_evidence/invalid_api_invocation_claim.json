@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_api_invocation_claim",
+    "target":  "record:r18_021_dry_run_tool_call_attempt",
+    "operation":  "set",
+    "path":  "runtime_flags.api_invocation_performed",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "runtime flag"
+                                   ]
+}

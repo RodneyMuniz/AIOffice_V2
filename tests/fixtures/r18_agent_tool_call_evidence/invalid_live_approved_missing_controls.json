@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_live_approved_missing_controls",
+    "target":  "record:r18_021_failed_blocked_missing_live_controls",
+    "operation":  "set",
+    "path":  "call_mode",
+    "value":  "live_approved",
+    "expected_failure_fragments":  [
+                                       "live-approved call requires"
+                                   ]
+}

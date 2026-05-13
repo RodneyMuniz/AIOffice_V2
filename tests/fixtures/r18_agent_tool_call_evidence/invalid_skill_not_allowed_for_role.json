@@ -1,0 +1,10 @@
+{
+    "fixture_id":  "invalid_skill_not_allowed_for_role",
+    "target":  "record:r18_021_planned_agent_invocation_attempt",
+    "operation":  "set",
+    "path":  "skill_contract_ref",
+    "value":  "state/skills/r18_skill_contracts/stage_commit_push_gate.skill.json",
+    "expected_failure_fragments":  [
+                                       "skill_id does not match"
+                                   ]
+}
