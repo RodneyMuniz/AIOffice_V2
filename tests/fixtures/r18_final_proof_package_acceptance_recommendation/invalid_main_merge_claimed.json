@@ -1,0 +1,9 @@
+{
+    "target":  "results",
+    "path":  "runtime_flags.main_merge_claimed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "main_merge_claimed"
+                                   ]
+}

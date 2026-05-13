@@ -1,0 +1,9 @@
+{
+    "target":  "final_head",
+    "path":  "self_referential_final_head_claimed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "self-referential"
+                                   ]
+}

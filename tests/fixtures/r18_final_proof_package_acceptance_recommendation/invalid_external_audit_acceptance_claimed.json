@@ -1,0 +1,9 @@
+{
+    "target":  "results",
+    "path":  "runtime_flags.external_audit_acceptance_claimed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "external_audit_acceptance_claimed"
+                                   ]
+}

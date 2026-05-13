@@ -88,8 +88,8 @@ foreach ($entry in $falseChecks.GetEnumerator()) {
 
 $authority = Get-Content -LiteralPath $authorityPath -Raw
 Assert-Condition -Condition ($authority -like "*R18 is active only after R17 operator closeout approval*") -Message "R18 authority must state dependency on R17 operator closeout approval."
-Assert-Condition -Condition ($authority -like "*Active through*R18-027*operator burden reduction metrics foundation only*") -Message "R18 authority must state active through R18-027 only."
-Assert-Condition -Condition ($authority -like "*R18-028*remains planned only*") -Message "R18 authority must state R18-028 remains planned only."
+Assert-Condition -Condition ($authority -like "*Active through*R18-028*final proof package and acceptance recommendation candidate only*") -Message "R18 authority must state active through R18-028 only."
+Assert-Condition -Condition ($authority -like "*R18 closeout remains blocked pending explicit committed operator approval*") -Message "R18 authority must keep closeout blocked pending operator approval."
 Assert-Condition -Condition ($authority -like "*API-backed Codex/OpenAI invocation is optional and must not be implemented before secrets, budget, timeout, retry, approval, and stop controls exist*") -Message "R18 authority must preserve API control boundary."
 Assert-Condition -Condition ($authority -like "*small resumable work orders, not giant Codex prompts*") -Message "R18 authority must require small resumable work orders."
 Assert-Condition -Condition ($authority -like "*fail-closed behavior*") -Message "R18 authority must preserve fail-closed behavior."
@@ -99,7 +99,7 @@ Assert-Condition -Condition ($matches.Count -eq 28) -Message "R18 authority must
 foreach ($match in $matches) {
     $taskId = $match.Groups[1].Value
     $status = $match.Groups[2].Value
-    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002" -or $taskId -eq "R18-003" -or $taskId -eq "R18-004" -or $taskId -eq "R18-005" -or $taskId -eq "R18-006" -or $taskId -eq "R18-007" -or $taskId -eq "R18-008" -or $taskId -eq "R18-009" -or $taskId -eq "R18-010" -or $taskId -eq "R18-011" -or $taskId -eq "R18-012" -or $taskId -eq "R18-013" -or $taskId -eq "R18-014" -or $taskId -eq "R18-015" -or $taskId -eq "R18-016" -or $taskId -eq "R18-017" -or $taskId -eq "R18-018" -or $taskId -eq "R18-019" -or $taskId -eq "R18-020" -or $taskId -eq "R18-021" -or $taskId -eq "R18-022" -or $taskId -eq "R18-023" -or $taskId -eq "R18-024" -or $taskId -eq "R18-025" -or $taskId -eq "R18-026" -or $taskId -eq "R18-027") {
+    if ($taskId -eq "R18-001" -or $taskId -eq "R18-002" -or $taskId -eq "R18-003" -or $taskId -eq "R18-004" -or $taskId -eq "R18-005" -or $taskId -eq "R18-006" -or $taskId -eq "R18-007" -or $taskId -eq "R18-008" -or $taskId -eq "R18-009" -or $taskId -eq "R18-010" -or $taskId -eq "R18-011" -or $taskId -eq "R18-012" -or $taskId -eq "R18-013" -or $taskId -eq "R18-014" -or $taskId -eq "R18-015" -or $taskId -eq "R18-016" -or $taskId -eq "R18-017" -or $taskId -eq "R18-018" -or $taskId -eq "R18-019" -or $taskId -eq "R18-020" -or $taskId -eq "R18-021" -or $taskId -eq "R18-022" -or $taskId -eq "R18-023" -or $taskId -eq "R18-024" -or $taskId -eq "R18-025" -or $taskId -eq "R18-026" -or $taskId -eq "R18-027" -or $taskId -eq "R18-028") {
         Assert-Condition -Condition ($status -eq "done") -Message "$taskId must be done."
     }
     else {
@@ -115,8 +115,11 @@ $statusText = [string]::Join([Environment]::NewLine, @(
         (Get-Content -LiteralPath (Resolve-RepoPath "governance/DECISION_LOG.md") -Raw)
     ))
 foreach ($required in @(
-        "R18 active through R18-027 only",
-        "R18-028 remains planned only",
+        "R18 active through R18-028 only",
+        "R18-028 produced the R18 final proof package and acceptance recommendation candidate only",
+        "R18-028 is not operator approval",
+        "R18-028 is not milestone closeout",
+        "No R19 is opened",
         "R18-027 completed deterministic operator burden reduction metrics foundation only",
         "R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only",
         "R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records",
@@ -253,4 +256,4 @@ foreach ($path in $changedPaths) {
 }
 
 Write-Output "R18 opening authority validation passed."
-Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-027 only with R18-028 planned only."
+Write-Output "R18 opening authority state remains active through R18-001 only; current status is active through R18-028 only with closeout blocked pending explicit operator approval."

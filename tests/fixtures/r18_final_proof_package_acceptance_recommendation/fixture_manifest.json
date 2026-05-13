@@ -1,0 +1,132 @@
+{
+    "artifact_type":  "r18_final_proof_package_acceptance_recommendation_fixture_manifest",
+    "source_task":  "R18-028",
+    "fixtures":  [
+                     {
+                         "file":  "invalid_operator_approval_claimed.json",
+                         "target":  "recommendation",
+                         "path":  "operator_approval_granted",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "operator approval"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_milestone_closeout_claimed.json",
+                         "target":  "final_report",
+                         "path":  "closeout_assessment.milestone_closeout_claimed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "Milestone closeout"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_external_audit_acceptance_claimed.json",
+                         "target":  "results",
+                         "path":  "runtime_flags.external_audit_acceptance_claimed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "external_audit_acceptance_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_main_merge_claimed.json",
+                         "target":  "results",
+                         "path":  "runtime_flags.main_merge_claimed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "main_merge_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_ci_replay_claimed.json",
+                         "target":  "final_report",
+                         "path":  "runtime_flags.ci_replay_performed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "ci_replay_performed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_no_manual_prompt_transfer_success.json",
+                         "target":  "final_report",
+                         "path":  "runtime_flags.no_manual_prompt_transfer_success_claimed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "no_manual_prompt_transfer_success_claimed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_runtime_claim_without_evidence.json",
+                         "target":  "final_report",
+                         "path":  "runtime_claim_assessment.runtime_claims_made",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "Runtime claims"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_unresolved_gaps.json",
+                         "target":  "final_report",
+                         "path":  "unresolved_gap_summary",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "unresolved gaps"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_missing_task_entries.json",
+                         "target":  "evidence_index",
+                         "path":  "task_entries",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "28 R18 task entries"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_r19_opened.json",
+                         "target":  "repair_plan",
+                         "path":  "successor_milestone_opened",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "successor milestone"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_release_gate_executed.json",
+                         "target":  "check_report",
+                         "path":  "runtime_flags.release_gate_executed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "release_gate_executed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_recovery_action_claimed.json",
+                         "target":  "final_report",
+                         "path":  "runtime_flags.recovery_action_performed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "recovery_action_performed"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_local_backup_ref.json",
+                         "target":  "evidence_index",
+                         "path":  "indexed_evidence_refs",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "operator-local backup"
+                                                        ]
+                     },
+                     {
+                         "file":  "invalid_final_head_self_reference.json",
+                         "target":  "final_head",
+                         "path":  "self_referential_final_head_claimed",
+                         "operation":  "set",
+                         "expected_failure_fragments":  [
+                                                            "self-referential"
+                                                        ]
+                     }
+                 ]
+}

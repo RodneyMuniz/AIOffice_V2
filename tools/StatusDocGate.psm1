@@ -3695,8 +3695,14 @@ function Test-StatusDocGate {
             "R17 did not deliver live automated recovery",
             "R17 did not solve Codex compaction or reliability",
             "R17 did not prove no-manual-prompt-transfer success",
-            "R18 active through R18-027 only",
-            "R18-028 remains planned only",
+            "R18 active through R18-028 only",
+            "R18-028 produced the R18 final proof package and acceptance recommendation candidate only",
+            "R18-028 indexed R18-001 through R18-028 evidence refs",
+            "R18-028 is not operator approval",
+            "R18-028 is not milestone closeout",
+            "R18-028 is not external audit acceptance",
+            "R18-028 is not main merge",
+            "No R19 is opened",
             "R18-027 completed deterministic operator burden reduction metrics foundation only",
             "R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only",
             "R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records",
@@ -3839,12 +3845,7 @@ function Test-StatusDocGate {
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses.ContainsKey($taskId)) -Message "KANBAN missing $taskId."
         Assert-R18StatusDocCondition -Condition ($authorityStatuses.ContainsKey($taskId)) -Message "R18 authority missing $taskId."
         Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq $authorityStatuses[$taskId]) -Message "R18 authority does not match KANBAN for $taskId."
-        if ($taskNumber -le 27) {
-            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
-        }
-        else {
-            Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "planned") -Message "$taskId must be planned only."
-        }
+        Assert-R18StatusDocCondition -Condition ($kanbanStatuses[$taskId] -eq "done") -Message "$taskId must be done."
     }
 
     Assert-R18StatusDocCondition -Condition ($combinedText -notmatch '(?i)\bR18-(0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,120}\b(done|complete|completed|implemented|executed|active|planned)\b') -Message "R18 task beyond R18-028 is claimed."
@@ -3881,9 +3882,9 @@ function Test-StatusDocGate {
         R17Closed = $true
         R17Opened = $false
         R18Opened = $true
-        R18DoneThrough = 27
-        R18PlannedStart = 28
-        R18PlannedThrough = 28
+        R18DoneThrough = 28
+        R18PlannedStart = $null
+        R18PlannedThrough = $null
     }
 }
 

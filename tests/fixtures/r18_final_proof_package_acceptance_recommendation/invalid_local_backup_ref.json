@@ -1,0 +1,11 @@
+{
+    "target":  "evidence_index",
+    "path":  "indexed_evidence_refs",
+    "operation":  "set",
+    "value":  [
+                  ".local_backups/r18-final.json"
+              ],
+    "expected_failure_fragments":  [
+                                       "operator-local backup"
+                                   ]
+}

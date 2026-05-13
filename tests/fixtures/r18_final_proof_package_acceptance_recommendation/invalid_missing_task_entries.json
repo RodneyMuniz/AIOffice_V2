@@ -1,0 +1,11 @@
+{
+    "target":  "evidence_index",
+    "path":  "task_entries",
+    "operation":  "set",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "28 R18 task entries"
+                                   ]
+}

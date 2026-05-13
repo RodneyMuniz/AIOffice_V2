@@ -74,8 +74,8 @@ foreach ($assertion in @(
         @{ label = "manual transfer success remains unproved and false"; script = { $set = Get-ValidSet; if ([bool]$set.Report.burden_reduction_assessment.no_manual_prompt_transfer_success_claimed -or [bool]$set.Report.burden_reduction_assessment.burden_reduction_proven) { throw "No-manual success or burden reduction was overclaimed." } } },
         @{ label = "insufficient evidence fail-closed behavior is recorded"; script = { $set = Get-ValidSet; if (-not [bool]$set.ValidationPacket.failure_retry_behavior.insufficient_evidence_marks_unproved -or -not [bool]$set.Report.failure_retry_behavior.no_manual_prompt_transfer_success_kept_false) { throw "Fail-closed burden behavior missing." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-027 only after status updates"; script = { Test-R18OperatorBurdenReductionMetricsStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-028 remains planned only"; script = { Test-R18OperatorBurdenReductionMetricsStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-028 only after status updates"; script = { Test-R18OperatorBurdenReductionMetricsStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-028 final package boundary is preserved"; script = { Test-R18OperatorBurdenReductionMetricsStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script

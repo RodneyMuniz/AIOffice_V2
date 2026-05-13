@@ -2,9 +2,9 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-027` operator burden reduction metrics foundation only.
+**Status after this pass:** Active through `R18-028` final proof package and acceptance recommendation candidate only.
 **Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-027` are done. `R18-028` remains planned only. R18 runtime implementation is not yet delivered.
+**Current scope:** `R18-001` through `R18-028` are done. R18 runtime implementation is not yet delivered. R18 closeout remains blocked pending explicit committed operator approval.
 
 ## Mission
 
@@ -15,7 +15,10 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 ## Current Non-Claims
 
 - R18 runtime implementation is not yet delivered.
-- R18-028 remains planned only.
+- R18-028 produced the R18 final proof package and acceptance recommendation candidate only.
+- R18-028 indexed R18-001 through R18-028 evidence refs and produced a final report, KPI movement scorecard, evidence index, proof review, validation manifest, final-head support packet, operator decision recommendation packet, repair plan, results, check report, operator-surface snapshot, validator, tests, fixtures, and proof-review package.
+- R18-028 is not operator approval, milestone closeout, external audit acceptance, main merge, product runtime, no-manual-prompt-transfer success, CI replay, GitHub Actions workflow creation/run, solved compaction, or solved reliability.
+- R18 remains active through R18-028 only. No R19 is opened.
 - R17 remains closed with caveats through R17-028 only.
 - R18-027 completed deterministic operator burden reduction metrics foundation only.
 - R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only.
@@ -481,7 +484,7 @@ API-backed Codex/OpenAI invocation is optional and must not be implemented befor
 - Expected evidence refs: metrics report, runner log summary, approval/intervention counts.
 
 ### `R18-028` Produce R18 final proof package and acceptance recommendation
-- Status: planned
+- Status: done
 - Purpose: Package R18 evidence and produce an acceptance recommendation for operator decision.
 - Inputs: R18 evidence ledger, recovery drills, Cycle 3/4 packages, validators, status gates, burden metrics.
 - Outputs: R18 final report, KPI movement scorecard, evidence index, proof review, validation manifest, final-head support packet, decision recommendation.

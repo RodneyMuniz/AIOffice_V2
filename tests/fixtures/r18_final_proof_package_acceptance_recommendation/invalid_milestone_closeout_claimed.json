@@ -1,0 +1,9 @@
+{
+    "target":  "final_report",
+    "path":  "closeout_assessment.milestone_closeout_claimed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Milestone closeout"
+                                   ]
+}

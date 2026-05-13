@@ -1,0 +1,9 @@
+{
+    "target":  "final_report",
+    "path":  "runtime_flags.ci_replay_performed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "ci_replay_performed"
+                                   ]
+}

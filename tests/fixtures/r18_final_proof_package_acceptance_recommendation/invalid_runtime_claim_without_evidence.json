@@ -1,0 +1,9 @@
+{
+    "target":  "final_report",
+    "path":  "runtime_claim_assessment.runtime_claims_made",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "Runtime claims"
+                                   ]
+}

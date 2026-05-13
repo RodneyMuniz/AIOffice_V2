@@ -1,0 +1,9 @@
+{
+    "target":  "repair_plan",
+    "path":  "successor_milestone_opened",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "successor milestone"
+                                   ]
+}

@@ -1,0 +1,9 @@
+{
+    "target":  "recommendation",
+    "path":  "operator_approval_granted",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "operator approval"
+                                   ]
+}

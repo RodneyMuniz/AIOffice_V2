@@ -105,8 +105,8 @@ foreach ($assertion in @(
         @{ label = "external audit acceptance and main merge remain false"; script = { $set = Get-ValidSet; if ([bool]$set.AuditVerdict.external_audit_acceptance_claimed -or [bool]$set.CloseoutCandidate.main_merge_claimed) { throw "External audit acceptance or main merge was claimed." } } },
         @{ label = "audit failure route prepares repair handoff only"; script = { $set = Get-ValidSet; if (-not [bool]$set.AuditRepairHandoff.audit_failure_creates_repair_handoff -or [bool]$set.AuditRepairHandoff.handoff_dispatched -or [bool]$set.AuditRepairHandoff.a2a_message_sent) { throw "Repair handoff behavior is unsafe." } } },
         @{ label = "all runtime flags remain false"; script = { Assert-AllRuntimeFalseFlags -Set (Get-ValidSet) } },
-        @{ label = "R18 is active through R18-027 only after status updates"; script = { Test-R18Cycle4AuditCloseoutHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
-        @{ label = "R18-028 remains planned only"; script = { Test-R18Cycle4AuditCloseoutHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
+        @{ label = "R18 is active through R18-028 only after status updates"; script = { Test-R18Cycle4AuditCloseoutHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } },
+        @{ label = "R18-028 final package boundary is preserved"; script = { Test-R18Cycle4AuditCloseoutHarnessStatusTruth -RepositoryRoot $repoRoot | Out-Null } }
     )) {
     try {
         & $assertion.script

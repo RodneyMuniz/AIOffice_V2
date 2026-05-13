@@ -1,0 +1,9 @@
+{
+    "target":  "final_report",
+    "path":  "runtime_flags.recovery_action_performed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "recovery_action_performed"
+                                   ]
+}

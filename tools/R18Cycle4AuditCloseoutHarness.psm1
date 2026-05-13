@@ -1060,8 +1060,11 @@ function Test-R18Cycle4AuditCloseoutHarnessStatusTruth {
 
     foreach ($required in @(
             "R17 accepted and closed with caveats through R17-028 only",
-            "R18 active through R18-027 only",
-            "R18-028 remains planned only",
+            "R18 active through R18-028 only",
+            "R18-028 produced the R18 final proof package and acceptance recommendation candidate only",
+            "R18-028 is not operator approval",
+            "R18-028 is not milestone closeout",
+            "No R19 is opened",
             "R18-027 completed deterministic operator burden reduction metrics foundation only",
             "R18-027 measured committed runner logs, failure drills, continuation events, operator approval records, and manual intervention counts only",
             "R18-027 metrics distinguish deterministic recovery/harness evidence from operator approval and refusal records",
@@ -1098,23 +1101,15 @@ function Test-R18Cycle4AuditCloseoutHarnessStatusTruth {
     foreach ($taskNumber in 1..28) {
         $taskId = "R18-{0}" -f $taskNumber.ToString("000")
         Assert-R18Cycle4AuditCloseoutHarnessCondition -Condition ($authorityStatuses[$taskId] -eq $kanbanStatuses[$taskId]) -Message "R18 authority and KANBAN disagree for $taskId."
-        if ($taskNumber -le 27) {
-            Assert-R18Cycle4AuditCloseoutHarnessCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-027."
-        }
-        else {
-            Assert-R18Cycle4AuditCloseoutHarnessCondition -Condition ($authorityStatuses[$taskId] -eq "planned") -Message "$taskId must remain planned only after R18-027."
-        }
+        Assert-R18Cycle4AuditCloseoutHarnessCondition -Condition ($authorityStatuses[$taskId] -eq "done") -Message "$taskId must be done after R18-028."
     }
-    if ($combinedText -match 'R18 active through R18-028') {
-        throw "Status surface claims R18 beyond R18-027."
-    }
-    if ($combinedText -match '(?i)R18-028[^\.\r\n]{0,120}(done|complete|completed|implemented|executed|active)') {
-        throw "Status surface claims R18-028 completion."
+    if ($combinedText -match '(?i)\bR18-(0(?:2[9]|[3-9][0-9])|[1-9][0-9]{2,})\b.{0,120}\b(done|complete|completed|implemented|executed|active|planned)\b') {
+        throw "Status surface claims R18 successor task."
     }
     return [pscustomobject]@{
-        R18DoneThrough = 27
-        R18PlannedStart = 28
-        R18PlannedThrough = 28
+        R18DoneThrough = 28
+        R18PlannedStart = $null
+        R18PlannedThrough = $null
     }
 }
 

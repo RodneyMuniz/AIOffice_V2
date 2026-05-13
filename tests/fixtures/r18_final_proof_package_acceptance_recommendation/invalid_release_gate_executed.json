@@ -1,0 +1,9 @@
+{
+    "target":  "check_report",
+    "path":  "runtime_flags.release_gate_executed",
+    "operation":  "set",
+    "value":  true,
+    "expected_failure_fragments":  [
+                                       "release_gate_executed"
+                                   ]
+}

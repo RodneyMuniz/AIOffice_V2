@@ -1,0 +1,601 @@
+{
+    "artifact_type":  "r18_final_evidence_index",
+    "contract_version":  "v1",
+    "source_task":  "R18-028",
+    "source_milestone":  "R18 Automated Recovery Runtime and API Orchestration",
+    "repository":  "RodneyMuniz/AIOffice_V2",
+    "branch":  "release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle",
+    "status_boundary":  {
+                            "r17_status":  "closed_with_caveats_through_r17_028_only",
+                            "r18_status":  "active_through_r18_028_only",
+                            "active_through":  "R18-028",
+                            "planned_from":  null,
+                            "planned_through":  null,
+                            "r19_status":  "not_opened",
+                            "main_merge_status":  "not_merged",
+                            "ci_replay_status":  "not_performed",
+                            "closeout_status":  "not_closed_operator_approval_required",
+                            "summary":  "R18 active through R18-028 only; no R19 opened; R17 closed with caveats through R17-028 only; Main not merged"
+                        },
+    "runtime_flags":  {
+                          "codex_api_invoked":  false,
+                          "openai_api_invoked":  false,
+                          "live_api_adapter_invoked":  false,
+                          "live_agent_invoked":  false,
+                          "live_skill_executed":  false,
+                          "tool_call_execution_performed":  false,
+                          "live_tool_call_performed":  false,
+                          "a2a_message_sent":  false,
+                          "live_a2a_runtime_implemented":  false,
+                          "live_runner_runtime_executed":  false,
+                          "work_order_executed_as_live_runtime":  false,
+                          "board_runtime_mutation_performed":  false,
+                          "live_kanban_ui_implemented":  false,
+                          "recovery_runtime_implemented":  false,
+                          "recovery_action_performed":  false,
+                          "retry_runtime_executed":  false,
+                          "continuation_packet_executed":  false,
+                          "new_context_prompt_executed":  false,
+                          "automatic_new_thread_creation_performed":  false,
+                          "codex_thread_created":  false,
+                          "release_gate_executed":  false,
+                          "stage_commit_push_gate_executed":  false,
+                          "stage_commit_push_performed":  false,
+                          "ci_replay_performed":  false,
+                          "github_actions_workflow_created":  false,
+                          "github_actions_workflow_run_claimed":  false,
+                          "product_runtime_executed":  false,
+                          "runtime_implementation_delivered":  false,
+                          "burden_reduction_success_claimed":  false,
+                          "no_manual_prompt_transfer_success_claimed":  false,
+                          "solved_codex_compaction_claimed":  false,
+                          "solved_codex_reliability_claimed":  false,
+                          "external_audit_acceptance_claimed":  false,
+                          "main_merge_claimed":  false,
+                          "milestone_closeout_claimed":  false,
+                          "operator_closeout_approval_granted":  false,
+                          "approval_inferred_from_narration":  false,
+                          "successor_milestone_opened":  false,
+                          "r19_opened":  false
+                      },
+    "positive_claims":  [
+                            "r18_028_final_proof_package_contract_created",
+                            "r18_final_report_created",
+                            "r18_kpi_movement_scorecard_created",
+                            "r18_evidence_index_created",
+                            "r18_proof_review_created",
+                            "r18_validation_manifest_created",
+                            "r18_final_head_support_packet_created",
+                            "r18_operator_decision_recommendation_packet_created",
+                            "r18_repair_plan_created",
+                            "r18_operator_surface_snapshot_created"
+                        ],
+    "non_claims":  [
+                       "R17 remains closed with caveats through R17-028 only.",
+                       "R18 is active through R18-028 only.",
+                       "R18-028 produced a final proof package and acceptance recommendation candidate only.",
+                       "R18-028 is not operator approval.",
+                       "R18-028 is not milestone closeout.",
+                       "R18-028 is not external audit acceptance.",
+                       "R18-028 is not main merge.",
+                       "No R19 or successor milestone is opened.",
+                       "No Codex/OpenAI API invocation occurred.",
+                       "No live API adapter invocation occurred.",
+                       "No live agent invocation occurred.",
+                       "No live skill execution occurred.",
+                       "No tool-call execution was performed.",
+                       "No A2A messages were sent.",
+                       "No live A2A runtime was implemented.",
+                       "No live runner runtime was executed.",
+                       "No board/card runtime mutation occurred.",
+                       "No live Kanban UI was implemented.",
+                       "No recovery action was performed.",
+                       "No recovery runtime was implemented.",
+                       "No release gate execution occurred.",
+                       "No stage/commit/push was performed by any R18 gate.",
+                       "CI replay was not performed.",
+                       "GitHub Actions workflow was not created or run.",
+                       "Product runtime is not claimed.",
+                       "No four-cycle product-runtime completion is claimed.",
+                       "No no-manual-prompt-transfer success is claimed because committed baseline/current manual transfer counts are absent.",
+                       "Burden reduction success is not claimed.",
+                       "External audit acceptance is not claimed.",
+                       "Main is not merged.",
+                       "Milestone closeout is not claimed.",
+                       "Explicit committed operator approval for R18 closeout is absent.",
+                       "Codex compaction and model-capacity interruption remain known operational issues, not solved.",
+                       "Codex reliability is not solved."
+                   ],
+    "rejected_claims":  [
+                            "operator_approval_inferred_from_narration",
+                            "milestone_closeout_without_committed_operator_approval",
+                            "external_audit_acceptance",
+                            "main_merge",
+                            "r19_opening",
+                            "successor_milestone_opening",
+                            "codex_api_invocation",
+                            "openai_api_invocation",
+                            "live_api_adapter_invocation",
+                            "live_agent_invocation",
+                            "live_skill_execution",
+                            "tool_call_execution",
+                            "a2a_message_sent",
+                            "board_card_runtime_mutation",
+                            "live_kanban_ui",
+                            "recovery_action",
+                            "release_gate_execution",
+                            "stage_commit_push_gate_execution",
+                            "ci_replay",
+                            "github_actions_workflow_created",
+                            "product_runtime",
+                            "no_manual_prompt_transfer_success_without_baseline_and_current_counts",
+                            "burden_reduction_success_without_metrics",
+                            "solved_codex_compaction",
+                            "solved_codex_reliability",
+                            "operator_local_backup_path",
+                            "historical_evidence_edit",
+                            "broad_repo_write"
+                        ],
+    "authority_refs":  [
+                           "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                           "governance/ACTIVE_STATE.md",
+                           "execution/KANBAN.md",
+                           "governance/DOCUMENT_AUTHORITY_INDEX.md",
+                           "governance/DECISION_LOG.md",
+                           "README.md",
+                           "state/governance/r18_opening_authority.json",
+                           "contracts/governance/r18_evidence_package_wrapper.contract.json",
+                           "state/governance/r18_evidence_package_manifests/current_r18_evidence_package.manifest.json",
+                           "state/runtime/r18_compact_failure_recovery_drill/results.json",
+                           "state/runtime/r18_cycle3_qa_fix_loop_harness/results.json",
+                           "state/runtime/r18_cycle4_audit_closeout_harness/results.json",
+                           "state/runtime/r18_cycle4_audit_closeout_harness/closeout_candidate_packet.json",
+                           "state/governance/r18_operator_burden_reduction_metrics/burden_reduction_report.json",
+                           "state/governance/r18_operator_burden_reduction_metrics/validation_packet.json"
+                       ],
+    "evidence_refs":  [
+                          "contracts/governance/r18_final_proof_package_acceptance_recommendation.contract.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/final_report.json",
+                          "governance/reports/AIOffice_V2_R18_Final_Proof_Package_and_Acceptance_Recommendation_v1.md",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/kpi_movement_scorecard.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/final_head_support_packet.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/operator_decision_recommendation_packet.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/repair_plan.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/results.json",
+                          "state/governance/r18_final_proof_package_acceptance_recommendation/check_report.json",
+                          "state/ui/r18_operator_surface/r18_final_proof_package_acceptance_recommendation_snapshot.json",
+                          "tools/R18FinalProofPackageAcceptanceRecommendation.psm1",
+                          "tools/new_r18_final_proof_package_acceptance_recommendation.ps1",
+                          "tools/validate_r18_final_proof_package_acceptance_recommendation.ps1",
+                          "tests/test_r18_final_proof_package_acceptance_recommendation.ps1",
+                          "tests/fixtures/r18_final_proof_package_acceptance_recommendation/fixture_manifest.json",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/evidence_index.json",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/proof_review.md",
+                          "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/validation_manifest.md"
+                      ],
+    "index_id":  "r18_028_final_evidence_index_v1",
+    "index_mode":  "task_level_final_package_candidate",
+    "task_entries":  [
+                         {
+                             "task_id":  "R18-001",
+                             "task_title":  "Open R18 in repo truth and install transition authority",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "governance/R18_AUTOMATED_RECOVERY_RUNTIME_AND_API_ORCHESTRATION.md",
+                                                   "contracts/governance/r18_opening_authority.contract.json",
+                                                   "state/governance/r18_opening_authority.json",
+                                                   "state/planning/r18_automated_recovery_runtime_and_api_orchestration/r18_001_opening_authority_manifest.md"
+                                               ],
+                             "proof_review_root":  "",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-002",
+                             "task_title":  "Define agent card schema and validator",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_002_agent_card_schema",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-003",
+                             "task_title":  "Define skill contract schema and validator",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_003_skill_contract_schema",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-004",
+                             "task_title":  "Define A2A handoff packet schema and validator",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_004_a2a_handoff_packet_schema",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-005",
+                             "task_title":  "Define explicit role-to-skill permission matrix",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_005_role_skill_permission_matrix",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-006",
+                             "task_title":  "Define Orchestrator chat/control intake contract",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_006_orchestrator_control_intake",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-007",
+                             "task_title":  "Implement local runner/CLI shell",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_007_local_runner_cli_shell",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-008",
+                             "task_title":  "Implement work-order execution state machine",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_008_work_order_state_machine",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-009",
+                             "task_title":  "Implement runner state store and resumable execution log",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_009_runner_state_store",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-010",
+                             "task_title":  "Implement compact failure detector",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_010_compact_failure_detector",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-011",
+                             "task_title":  "Implement WIP classifier",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_011_wip_classifier",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-012",
+                             "task_title":  "Implement remote branch verifier",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_012_remote_branch_verifier/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_012_remote_branch_verifier/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_012_remote_branch_verifier/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_012_remote_branch_verifier",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-013",
+                             "task_title":  "Implement continuation packet generator",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_013_continuation_packet_generator",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-014",
+                             "task_title":  "Implement new-context prompt generator",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_014_new_context_prompt_generator",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-015",
+                             "task_title":  "Implement retry and escalation policy",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_015_retry_escalation_policy",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-016",
+                             "task_title":  "Implement operator approval gate",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_016_operator_approval_gate",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-017",
+                             "task_title":  "Implement stage/commit/push gate",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_017_stage_commit_push_gate",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-018",
+                             "task_title":  "Implement status-doc gate automation wrapper",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_018_status_doc_gate_wrapper",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-019",
+                             "task_title":  "Implement evidence package automation wrapper",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_019_evidence_package_wrapper",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-020",
+                             "task_title":  "Implement board/card runtime event model",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_020_board_card_event_model",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-021",
+                             "task_title":  "Implement agent invocation and tool-call evidence model",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_021_agent_tool_call_evidence_model",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-022",
+                             "task_title":  "Implement safety, secrets, budget, and token controls",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_022_safety_secrets_budget_token_controls",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-023",
+                             "task_title":  "Implement optional API adapter stub only after controls",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_023_optional_api_adapter_stub",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-024",
+                             "task_title":  "Exercise compact-failure recovery drill with local runner",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_024_compact_failure_recovery_drill",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-025",
+                             "task_title":  "Retry Cycle 3 QA/fix-loop using compact-safe harness",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_025_cycle3_qa_fix_loop_harness/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_025_cycle3_qa_fix_loop_harness/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_025_cycle3_qa_fix_loop_harness/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_025_cycle3_qa_fix_loop_harness",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-026",
+                             "task_title":  "Retry Cycle 4 audit/closeout using compact-safe harness",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_026_cycle4_audit_closeout_harness/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_026_cycle4_audit_closeout_harness/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_026_cycle4_audit_closeout_harness/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_026_cycle4_audit_closeout_harness",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-027",
+                             "task_title":  "Measure operator burden reduction",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_027_measure_operator_burden_reduction/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_027_measure_operator_burden_reduction/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_027_measure_operator_burden_reduction/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_027_measure_operator_burden_reduction",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         },
+                         {
+                             "task_id":  "R18-028",
+                             "task_title":  "Produce R18 final proof package and acceptance recommendation",
+                             "task_status":  "done",
+                             "evidence_refs":  [
+                                                   "contracts/governance/r18_final_proof_package_acceptance_recommendation.contract.json",
+                                                   "state/governance/r18_final_proof_package_acceptance_recommendation/final_report.json",
+                                                   "state/governance/r18_final_proof_package_acceptance_recommendation/operator_decision_recommendation_packet.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/evidence_index.json",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/proof_review.md",
+                                                   "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/validation_manifest.md"
+                                               ],
+                             "proof_review_root":  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation",
+                             "proof_treatment":  "committed_artifact_and_local_validation_basis_only"
+                         }
+                     ],
+    "indexed_evidence_refs":  [
+                                  "contracts/governance/r18_final_proof_package_acceptance_recommendation.contract.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/final_report.json",
+                                  "governance/reports/AIOffice_V2_R18_Final_Proof_Package_and_Acceptance_Recommendation_v1.md",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/kpi_movement_scorecard.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/final_head_support_packet.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/operator_decision_recommendation_packet.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/repair_plan.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/results.json",
+                                  "state/governance/r18_final_proof_package_acceptance_recommendation/check_report.json",
+                                  "state/ui/r18_operator_surface/r18_final_proof_package_acceptance_recommendation_snapshot.json",
+                                  "tools/R18FinalProofPackageAcceptanceRecommendation.psm1",
+                                  "tools/new_r18_final_proof_package_acceptance_recommendation.ps1",
+                                  "tools/validate_r18_final_proof_package_acceptance_recommendation.ps1",
+                                  "tests/test_r18_final_proof_package_acceptance_recommendation.ps1",
+                                  "tests/fixtures/r18_final_proof_package_acceptance_recommendation/fixture_manifest.json",
+                                  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/evidence_index.json",
+                                  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/proof_review.md",
+                                  "state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/validation_manifest.md"
+                              ],
+    "input_evidence_refs":  [
+                                "state/governance/r18_evidence_package_manifests/current_r18_evidence_package.manifest.json",
+                                "state/runtime/r18_compact_failure_recovery_drill/results.json",
+                                "state/runtime/r18_cycle3_qa_fix_loop_harness/results.json",
+                                "state/runtime/r18_cycle4_audit_closeout_harness/results.json",
+                                "state/governance/r18_operator_burden_reduction_metrics/burden_reduction_report.json"
+                            ],
+    "validation_commands":  [
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\new_r18_final_proof_package_acceptance_recommendation.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_final_proof_package_acceptance_recommendation.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_final_proof_package_acceptance_recommendation.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_status_doc_gate.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_status_doc_gate.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_opening_authority.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_opening_authority.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_evidence_package_wrapper.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_evidence_package_wrapper.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_operator_burden_reduction_metrics.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_operator_burden_reduction_metrics.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tools\\validate_r18_cycle4_audit_closeout_harness.ps1",
+                                "powershell -NoProfile -ExecutionPolicy Bypass -File tests\\test_r18_cycle4_audit_closeout_harness.ps1",
+                                "git diff --check"
+                            ],
+    "unresolved_gaps":  [
+                            {
+                                "gap_id":  "no_live_runtime",
+                                "status":  "unresolved",
+                                "evidence_basis":  "R18 artifacts are deterministic foundations and harness packages only",
+                                "required_for_closeout":  true
+                            },
+                            {
+                                "gap_id":  "no_recovery_action",
+                                "status":  "unresolved",
+                                "evidence_basis":  "No recovery action or retry runtime execution is claimed",
+                                "required_for_closeout":  true
+                            },
+                            {
+                                "gap_id":  "no_ci_replay",
+                                "status":  "unresolved",
+                                "evidence_basis":  "CI replay was not performed and no GitHub Actions workflow was created or run for R18",
+                                "required_for_closeout":  true
+                            },
+                            {
+                                "gap_id":  "no_manual_prompt_transfer_success_unproved",
+                                "status":  "unresolved",
+                                "evidence_basis":  "R18-027 lacks committed baseline/current manual transfer counts",
+                                "required_for_closeout":  true
+                            },
+                            {
+                                "gap_id":  "operator_closeout_approval_absent",
+                                "status":  "unresolved",
+                                "evidence_basis":  "No explicit committed R18 operator closeout approval exists",
+                                "required_for_closeout":  true
+                            },
+                            {
+                                "gap_id":  "codex_compaction_and_model_capacity_unresolved",
+                                "status":  "unresolved",
+                                "evidence_basis":  "Failures remain known operational issues, not solved runtime capabilities",
+                                "required_for_closeout":  true
+                            }
+                        ]
+}

@@ -1,0 +1,11 @@
+{
+    "target":  "final_report",
+    "path":  "unresolved_gap_summary",
+    "operation":  "set",
+    "value":  [
+
+              ],
+    "expected_failure_fragments":  [
+                                       "unresolved gaps"
+                                   ]
+}
