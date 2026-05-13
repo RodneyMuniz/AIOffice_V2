@@ -6,6 +6,7 @@ import {
   approveApproval,
   createApproval,
   createCard,
+  createQaResult,
   createWorkOrder,
   handoffWorkOrderToQa,
   loadDashboard,
@@ -14,7 +15,7 @@ import {
   updateCardStatus,
   updateWorkOrderStatus
 } from "./api";
-import { CARD_STATUSES, WORK_ORDER_STATUSES } from "./types";
+import { CARD_STATUSES, QA_RESULT_VALUES, WORK_ORDER_STATUSES } from "./types";
 import type {
   Agent,
   Approval,
@@ -23,6 +24,8 @@ import type {
   EventEntry,
   EvidenceEntry,
   Handoff,
+  QaResult,
+  QaResultValue,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -137,7 +140,8 @@ function Dashboard({
           onRefresh={onRefresh}
           workOrders={data.workOrders}
         />
-        <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} />
+        <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
+        <QaResultsPanel qaResults={data.qaResults} />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
         <CreateApprovalForm cards={data.cards} onRefresh={onRefresh} workOrders={data.workOrders} />
@@ -201,6 +205,9 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="Work orders" value={status.work_orders_count} />
         <Metric label="Handoffs" value={status.handoffs_count} />
         <Metric label="Pending handoffs" value={status.pending_handoffs_count} />
+        <Metric label="QA results" value={status.qa_results_count} />
+        <Metric label="Failed QA" value={status.failed_qa_results_count} />
+        <Metric label="Blocked QA" value={status.blocked_qa_results_count} />
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -705,8 +712,20 @@ function HandoffToQaAction({
   );
 }
 
-function HandoffsPanel({ handoffs, onRefresh }: { handoffs: Handoff[]; onRefresh: () => Promise<void> }) {
+function HandoffsPanel({
+  handoffs,
+  onRefresh,
+  qaResults
+}: {
+  handoffs: Handoff[];
+  onRefresh: () => Promise<void>;
+  qaResults: QaResult[];
+}) {
   const visibleHandoffs = useMemo(() => [...handoffs].reverse(), [handoffs]);
+  const qaResultByHandoffId = useMemo(
+    () => new Map(qaResults.map((qaResult) => [qaResult.handoff_id, qaResult])),
+    [qaResults]
+  );
   const [reasonById, setReasonById] = useState<Record<string, string>>({});
   const [workingHandoffId, setWorkingHandoffId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -743,91 +762,245 @@ function HandoffsPanel({ handoffs, onRefresh }: { handoffs: Handoff[]; onRefresh
       </div>
       <div className="record-list">
         {visibleHandoffs.length === 0 && <p>No handoffs yet.</p>}
-        {visibleHandoffs.map((handoff) => (
-          <article
-            className={`record-row ${handoff.status === "proposed" ? "pending" : ""}`}
-            data-testid={`handoff-${handoff.id}`}
-            key={handoff.id}
+        {visibleHandoffs.map((handoff) => {
+          const qaResult = qaResultByHandoffId.get(handoff.id);
+
+          return (
+            <article
+              className={`record-row ${handoff.status === "proposed" ? "pending" : ""}`}
+              data-testid={`handoff-${handoff.id}`}
+              key={handoff.id}
+            >
+              <div className="record-title-line">
+                <p className="eyebrow">{handoff.id}</p>
+                <span className={`state-tag ${handoffStatusClass(handoff.status)}`}>{handoff.status}</span>
+              </div>
+              <h3>{handoff.title}</h3>
+              {handoff.summary && <p>{handoff.summary}</p>}
+              <div className="detail-grid handoff-detail-grid">
+                <span>Source agent</span>
+                <strong>{handoff.source_agent_id}</strong>
+                <span>Target agent</span>
+                <strong>{handoff.target_agent_id}</strong>
+                <span>Source role</span>
+                <strong>{handoff.source_role}</strong>
+                <span>Target role</span>
+                <strong>{handoff.target_role}</strong>
+                <span>Card</span>
+                <strong>{handoff.card_id}</strong>
+                <span>Work order</span>
+                <strong>{handoff.work_order_id}</strong>
+                <span>Created</span>
+                <strong>{handoff.created_at}</strong>
+                <span>Updated</span>
+                <strong>{handoff.updated_at}</strong>
+                <span>Decided</span>
+                <strong>{handoff.decided_at ?? "pending"}</strong>
+              </div>
+              <div className="summary-stack">
+                <div>
+                  <p className="eyebrow">Payload summary</p>
+                  <p>{handoff.payload_summary}</p>
+                </div>
+                <div>
+                  <p className="eyebrow">Validation summary</p>
+                  <p>{handoff.validation_summary}</p>
+                </div>
+                {handoff.decision_reason && (
+                  <div>
+                    <p className="eyebrow">Decision reason</p>
+                    <p>{handoff.decision_reason}</p>
+                  </div>
+                )}
+              </div>
+              {handoff.status === "proposed" && (
+                <div className="decision-row">
+                  <label>
+                    Decision reason
+                    <input
+                      data-testid={`handoff-reason-${handoff.id}`}
+                      onChange={(event) =>
+                        setReasonById((current) => ({ ...current, [handoff.id]: event.target.value }))
+                      }
+                      value={reasonById[handoff.id] ?? ""}
+                    />
+                  </label>
+                  <div className="button-row">
+                    <button
+                      data-testid={`accept-handoff-${handoff.id}`}
+                      disabled={workingHandoffId === handoff.id}
+                      onClick={() => decideHandoff(handoff, "accept")}
+                      type="button"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="secondary danger"
+                      data-testid={`reject-handoff-${handoff.id}`}
+                      disabled={workingHandoffId === handoff.id}
+                      onClick={() => decideHandoff(handoff, "reject")}
+                      type="button"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              )}
+              {handoff.status === "accepted" && (
+                qaResult ? (
+                  <p
+                    className="form-status success qa-result-recorded"
+                    data-testid={`qa-result-recorded-${handoff.id}`}
+                  >
+                    QA result recorded: {qaResult.result}
+                  </p>
+                ) : (
+                  <QaResultForm handoff={handoff} onRefresh={onRefresh} />
+                )
+              )}
+            </article>
+          );
+        })}
+      </div>
+      <FormStatus error={error} success={success} />
+    </section>
+  );
+}
+
+function QaResultForm({ handoff, onRefresh }: { handoff: Handoff; onRefresh: () => Promise<void> }) {
+  const [result, setResult] = useState<QaResultValue>("passed");
+  const [summary, setSummary] = useState("");
+  const [findings, setFindings] = useState("");
+  const [recommendedNextAction, setRecommendedNextAction] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsSubmitting(true);
+
+    try {
+      const qaResult = await createQaResult(handoff.id, {
+        result,
+        summary: summary.trim(),
+        findings: findings.trim(),
+        recommended_next_action: recommendedNextAction.trim(),
+        qa_agent_id: handoff.target_agent_id || "qa_test"
+      });
+      await onRefresh();
+      setSummary("");
+      setFindings("");
+      setRecommendedNextAction("");
+      setSuccess(`Recorded ${qaResult.id}`);
+    } catch (submitError: unknown) {
+      setError(errorMessage(submitError));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form className="qa-result-form" data-testid={`qa-result-form-${handoff.id}`} onSubmit={handleSubmit}>
+      <div className="two-column-fields">
+        <label>
+          Result
+          <select
+            data-testid={`qa-result-select-${handoff.id}`}
+            onChange={(event) => setResult(event.target.value as QaResultValue)}
+            value={result}
           >
+            {QA_RESULT_VALUES.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Recommended next action
+          <input
+            data-testid={`qa-result-next-action-${handoff.id}`}
+            onChange={(event) => setRecommendedNextAction(event.target.value)}
+            placeholder="Complete work order / repair / block"
+            value={recommendedNextAction}
+          />
+        </label>
+      </div>
+      <label>
+        Summary
+        <input
+          data-testid={`qa-result-summary-${handoff.id}`}
+          onChange={(event) => setSummary(event.target.value)}
+          required
+          value={summary}
+        />
+      </label>
+      <label>
+        Findings
+        <textarea
+          data-testid={`qa-result-findings-${handoff.id}`}
+          onChange={(event) => setFindings(event.target.value)}
+          rows={3}
+          value={findings}
+        />
+      </label>
+      <button data-testid={`qa-result-submit-${handoff.id}`} disabled={isSubmitting || !summary.trim()} type="submit">
+        {isSubmitting ? "Recording..." : "Record QA Result"}
+      </button>
+      <FormStatus error={error} success={success} />
+    </form>
+  );
+}
+
+function QaResultsPanel({ qaResults }: { qaResults: QaResult[] }) {
+  const visibleQaResults = useMemo(() => [...qaResults].reverse(), [qaResults]);
+
+  return (
+    <section className="panel qa-results-panel" data-testid="qa-results-panel">
+      <div className="panel-heading">
+        <h2>QA Results</h2>
+        <span className="count-tag">{qaResults.length}</span>
+      </div>
+      <div className="record-list" data-testid="qa-results-list">
+        {visibleQaResults.length === 0 && <p>No QA results recorded yet.</p>}
+        {visibleQaResults.map((qaResult) => (
+          <article className="record-row" data-testid={`qa-result-${qaResult.id}`} key={qaResult.id}>
             <div className="record-title-line">
-              <p className="eyebrow">{handoff.id}</p>
-              <span className={`state-tag ${handoffStatusClass(handoff.status)}`}>{handoff.status}</span>
+              <p className="eyebrow">{qaResult.id}</p>
+              <span className={`state-tag ${qaResultStatusClass(qaResult.result)}`}>{qaResult.result}</span>
             </div>
-            <h3>{handoff.title}</h3>
-            {handoff.summary && <p>{handoff.summary}</p>}
-            <div className="detail-grid handoff-detail-grid">
-              <span>Source agent</span>
-              <strong>{handoff.source_agent_id}</strong>
-              <span>Target agent</span>
-              <strong>{handoff.target_agent_id}</strong>
-              <span>Source role</span>
-              <strong>{handoff.source_role}</strong>
-              <span>Target role</span>
-              <strong>{handoff.target_role}</strong>
+            <div className="detail-grid">
+              <span>Handoff</span>
+              <strong>{qaResult.handoff_id}</strong>
               <span>Card</span>
-              <strong>{handoff.card_id}</strong>
+              <strong>{qaResult.card_id}</strong>
               <span>Work order</span>
-              <strong>{handoff.work_order_id}</strong>
+              <strong>{qaResult.work_order_id}</strong>
+              <span>QA agent</span>
+              <strong>{qaResult.qa_agent_id}</strong>
               <span>Created</span>
-              <strong>{handoff.created_at}</strong>
-              <span>Updated</span>
-              <strong>{handoff.updated_at}</strong>
-              <span>Decided</span>
-              <strong>{handoff.decided_at ?? "pending"}</strong>
+              <strong>{qaResult.created_at}</strong>
             </div>
             <div className="summary-stack">
               <div>
-                <p className="eyebrow">Payload summary</p>
-                <p>{handoff.payload_summary}</p>
+                <p className="eyebrow">Summary</p>
+                <p>{qaResult.summary}</p>
               </div>
               <div>
-                <p className="eyebrow">Validation summary</p>
-                <p>{handoff.validation_summary}</p>
+                <p className="eyebrow">Findings</p>
+                <p>{qaResult.findings || "No detailed findings recorded."}</p>
               </div>
-              {handoff.decision_reason && (
-                <div>
-                  <p className="eyebrow">Decision reason</p>
-                  <p>{handoff.decision_reason}</p>
-                </div>
-              )}
+              <div>
+                <p className="eyebrow">Recommended next action</p>
+                <p>{qaResult.recommended_next_action || "No recommendation recorded."}</p>
+              </div>
             </div>
-            {handoff.status === "proposed" && (
-              <div className="decision-row">
-                <label>
-                  Decision reason
-                  <input
-                    data-testid={`handoff-reason-${handoff.id}`}
-                    onChange={(event) =>
-                      setReasonById((current) => ({ ...current, [handoff.id]: event.target.value }))
-                    }
-                    value={reasonById[handoff.id] ?? ""}
-                  />
-                </label>
-                <div className="button-row">
-                  <button
-                    data-testid={`accept-handoff-${handoff.id}`}
-                    disabled={workingHandoffId === handoff.id}
-                    onClick={() => decideHandoff(handoff, "accept")}
-                    type="button"
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="secondary danger"
-                    data-testid={`reject-handoff-${handoff.id}`}
-                    disabled={workingHandoffId === handoff.id}
-                    onClick={() => decideHandoff(handoff, "reject")}
-                    type="button"
-                  >
-                    Reject
-                  </button>
-                </div>
-              </div>
-            )}
           </article>
         ))}
       </div>
-      <FormStatus error={error} success={success} />
     </section>
   );
 }
@@ -838,6 +1011,16 @@ function handoffStatusClass(status: Handoff["status"]): string {
   }
   if (status === "rejected" || status === "blocked") {
     return "danger";
+  }
+  return "";
+}
+
+function qaResultStatusClass(result: QaResult["result"]): string {
+  if (result === "failed") {
+    return "danger";
+  }
+  if (result === "blocked") {
+    return "warn";
   }
   return "";
 }

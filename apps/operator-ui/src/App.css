@@ -92,7 +92,8 @@
 
 .status-panel,
 .approvals-panel,
-.handoffs-panel {
+.handoffs-panel,
+.qa-results-panel {
   grid-column: 1 / -1;
 }
 
@@ -198,7 +199,7 @@
 .metric-row {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   margin: 18px 0;
 }
 
@@ -350,6 +351,23 @@ button:disabled {
 .status-transition-form .form-status {
   grid-column: 1 / -1;
   margin: 0;
+}
+
+.qa-result-form {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.qa-result-form .form-status,
+.qa-result-recorded {
+  margin: 0;
+}
+
+.qa-result-recorded {
+  margin-top: 14px;
 }
 
 .form-status {

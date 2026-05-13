@@ -47,6 +47,8 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `POST /handoffs`
 - `POST /handoffs/{id}/accept`
 - `POST /handoffs/{id}/reject`
+- `GET /qa-results`
+- `POST /handoffs/{id}/qa-result`
 
 Status update request body:
 
@@ -64,9 +66,27 @@ Allowed work-order statuses: `draft`, `ready`, `running`, `waiting_approval`, `a
 
 Allowed handoff statuses: `proposed`, `accepted`, `rejected`, `completed`, `blocked`.
 
+Allowed QA result values: `passed`, `failed`, `blocked`.
+
 Invalid status values return HTTP 400. Unknown card or work-order IDs return HTTP 404.
 
 `POST /handoffs` validates source and target agents, the card, the work order, and that the work order belongs to the card. `POST /work-orders/{id}/handoff-to-qa` is the first product-facing convenience flow: it creates a `developer_codex` to `qa_test` handoff with `source_role` `Developer/Codex` and `target_role` `QA/Test`. Accepting or rejecting a handoff records the operator decision but does not invoke AI, call Codex/OpenAI APIs, or run autonomous agents.
+
+`POST /handoffs/{id}/qa-result` records a structured QA/Test result only after a handoff is accepted. Missing handoff IDs return HTTP 404. Proposed, rejected, blocked, or completed handoffs return HTTP 400. Duplicate QA results for the same handoff return HTTP 400. Invalid QA result values return HTTP 400.
+
+QA result request body:
+
+```json
+{
+  "result": "passed",
+  "summary": "QA result summary",
+  "findings": "Detailed findings",
+  "recommended_next_action": "Complete work order / repair / block",
+  "qa_agent_id": "qa_test"
+}
+```
+
+QA result status mapping is intentionally small: `passed` can move the linked work order to `completed`; `failed` and `blocked` can move it to `blocked`. This is a local operator/API state transition, not live QA agent execution.
 
 ## JSON Persistence
 
@@ -82,12 +102,15 @@ Mutating endpoints write back to:
 - `runtime/state/evidence.json`
 - `runtime/state/approvals.json`
 - `runtime/state/handoffs.json`
+- `runtime/state/qa_results.json`
 
 Creating cards and work orders writes event and evidence entries. Work orders must link to an existing `card_id`; invalid card IDs return HTTP 400 with a clear message. Work orders can request an approval gate with `request_requires_approval: true`.
 
 Card and work-order status changes persist to JSON and write `status_transition` evidence plus `*_status_changed` events. Moving a work order to `waiting_approval` creates a pending approval when one is not already pending for that work order. Approving or rejecting a linked pending approval can move a work order from `waiting_approval` to `approved` or `rejected`.
 
 Handoff create/accept/reject actions persist to JSON and write `handoff_*` events plus `handoff_record` or `handoff_decision` evidence.
+
+QA result capture persists to JSON and writes `qa_result_recorded` events plus `qa_result` evidence. When the simple status mapping applies, the API also writes `work_order_completed_from_qa` or `work_order_blocked_from_qa` events.
 
 ## Test and Smoke Commands
 
@@ -96,6 +119,8 @@ Backend regression harness:
 ```bash
 python -m pytest services/orchestrator-api/tests
 ```
+
+The pytest harness covers seed reads, card/work-order/status updates, approvals, handoffs, QA result creation/error paths, event/evidence writes, JSON persistence, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -109,10 +134,12 @@ Live API smoke after starting the backend:
 ```bash
 curl http://127.0.0.1:8000/status
 curl http://127.0.0.1:8000/handoffs
+curl http://127.0.0.1:8000/qa-results
 curl -X POST http://127.0.0.1:8000/cards -H "Content-Type: application/json" -d "{\"title\":\"Smoke card\",\"description\":\"Smoke\",\"priority\":\"medium\",\"owner_role\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/cards/R19-CARD-002/status -H "Content-Type: application/json" -d "{\"status\":\"planned\",\"requested_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-001/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted for QA smoke.\",\"decided_by\":\"operator\"}"
+curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Content-Type: application/json" -d "{\"result\":\"passed\",\"summary\":\"QA passed.\",\"findings\":\"No blocking issues.\",\"recommended_next_action\":\"Complete work order.\",\"qa_agent_id\":\"qa_test\"}"
 ```
 
 ## Reset Local Runtime State
@@ -120,7 +147,7 @@ curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/accept -H "Content-T
 Delete the generated persistent files and restart the API:
 
 ```powershell
-Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json -ErrorAction SilentlyContinue
+Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\qa_results.json -ErrorAction SilentlyContinue
 ```
 
 The next API load will read the seed JSON files again.
@@ -131,6 +158,7 @@ The next API load will read the seed JSON files again.
 - No authentication, routing, SQLite, background workers, or autonomous agents are implemented.
 - Approval gates are minimal operator state, not a full policy engine.
 - Handoffs are API-mediated dry-run records and operator decisions only; they do not execute agent work.
+- QA results are operator/API-mediated records after accepted handoffs, not autonomous QA agent execution.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 

@@ -10,6 +10,8 @@ R19 product slices now require lightweight regression harness coverage before la
 
 R19 now requires handoff behavior to be proven through a UI/API flow, not static packets.
 
+R19 handoff flow now requires QA result capture to be recorded through UI/API before any future live-agent claims.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

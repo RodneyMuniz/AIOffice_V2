@@ -110,8 +110,25 @@ try {
   await handoffRow.getByRole("button", { name: "Accept" }).click();
   await handoffRow.locator(".state-tag", { hasText: "accepted" }).waitFor();
 
+  await handoffRow.locator('[data-testid^="qa-result-form-"]').waitFor();
+  await handoffRow.locator('[data-testid^="qa-result-select-"]').selectOption("passed");
+  await handoffRow.locator('[data-testid^="qa-result-summary-"]').fill("Browser smoke QA passed.");
+  await handoffRow.locator('[data-testid^="qa-result-findings-"]').fill("No blocking issues found in the smoke path.");
+  await handoffRow
+    .locator('[data-testid^="qa-result-next-action-"]')
+    .fill("Complete work order after QA pass.");
+  await handoffRow.getByRole("button", { name: "Record QA Result" }).click();
+  await handoffRow.getByText("QA result recorded: passed").waitFor();
+
+  await page.getByTestId("qa-results-list").getByText("Browser smoke QA passed.").waitFor();
+  await page.getByTestId("qa-results-list").getByText("passed").first().waitFor();
+  await workOrderRow.locator(".state-tag", { hasText: "completed" }).waitFor();
+
   await page.getByTestId("events-list").getByText("handoff_accepted").waitFor();
+  await page.getByTestId("events-list").getByText("qa_result_recorded").waitFor();
+  await page.getByTestId("events-list").getByText("work_order_completed_from_qa").waitFor();
   await page.getByTestId("evidence-list").getByText("handoff_decision").waitFor();
+  await page.getByTestId("evidence-list").getByText("qa_result", { exact: true }).waitFor();
   await page.getByTestId("events-list").getByText("card_status_changed").waitFor();
   await page.getByTestId("evidence-list").getByText("status_transition").first().waitFor();
 

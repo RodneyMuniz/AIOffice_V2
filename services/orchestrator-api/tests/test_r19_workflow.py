@@ -15,6 +15,66 @@ if str(SERVICE_ROOT) not in sys.path:
 from app import main as api_main  # noqa: E402
 
 
+def create_card_and_work_order(client: TestClient, label: str) -> tuple[dict, dict]:
+    card = client.post(
+        "/cards",
+        json={"title": f"{label} card", "description": f"Card for {label}."},
+    ).json()
+    work_order = client.post(
+        "/work-orders",
+        json={
+            "card_id": card["id"],
+            "title": f"{label} work order",
+            "description": f"Work order for {label}.",
+            "request_requires_approval": False,
+        },
+    ).json()
+    return card, work_order
+
+
+def create_handoff(
+    client: TestClient, card: dict, work_order: dict, status: str = "proposed"
+) -> dict:
+    if status in {"proposed", "accepted", "rejected"}:
+        handoff = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa").json()
+        if status == "accepted":
+            return client.post(
+                f"/handoffs/{handoff['id']}/accept",
+                json={"decision_reason": "Accepted by regression harness.", "decided_by": "pytest"},
+            ).json()
+        if status == "rejected":
+            return client.post(
+                f"/handoffs/{handoff['id']}/reject",
+                json={"decision_reason": "Rejected by regression harness.", "decided_by": "pytest"},
+            ).json()
+        return handoff
+
+    return client.post(
+        "/handoffs",
+        json={
+            "source_agent_id": "developer_codex",
+            "target_agent_id": "qa_test",
+            "source_role": "Developer/Codex",
+            "target_role": "QA/Test",
+            "card_id": card["id"],
+            "work_order_id": work_order["id"],
+            "title": f"{status.title()} QA handoff",
+            "summary": f"Regression harness handoff in {status}.",
+            "status": status,
+        },
+    ).json()
+
+
+def valid_qa_result_payload(result: str = "passed") -> dict:
+    return {
+        "result": result,
+        "summary": f"QA result recorded as {result}.",
+        "findings": "Regression harness captured structured findings.",
+        "recommended_next_action": "Complete work order / repair / block.",
+        "qa_agent_id": "qa_test",
+    }
+
+
 @pytest.fixture()
 def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
     state_dir = tmp_path / "state"
@@ -49,6 +109,14 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     handoffs_response = client.get("/handoffs")
     assert handoffs_response.status_code == 200
     assert handoffs_response.json() == []
+
+    qa_results_response = client.get("/qa-results")
+    assert qa_results_response.status_code == 200
+    assert qa_results_response.json() == []
+
+    assert status["qa_results_count"] == 0
+    assert status["failed_qa_results_count"] == 0
+    assert status["blocked_qa_results_count"] == 0
 
 
 def test_card_work_order_status_workflow_and_persistence(client: TestClient) -> None:
@@ -335,3 +403,166 @@ def test_work_order_handoff_to_qa_accept_reject_and_error_paths(client: TestClie
     assert any(event["type"] == "handoff_rejected" for event in events)
     assert any(entry["kind"] == "handoff_decision" and "accepted" in entry["title"] for entry in evidence)
     assert any(entry["kind"] == "handoff_decision" and "rejected" in entry["title"] for entry in evidence)
+
+
+def test_qa_result_error_paths_require_existing_accepted_handoff(client: TestClient) -> None:
+    missing_response = client.post("/handoffs/missing/qa-result", json=valid_qa_result_payload())
+    assert missing_response.status_code == 404
+    assert "Unknown handoff id" in missing_response.json()["detail"]
+
+    card, work_order = create_card_and_work_order(client, "proposed QA result")
+    proposed_handoff = create_handoff(client, card, work_order)
+    proposed_response = client.post(
+        f"/handoffs/{proposed_handoff['id']}/qa-result",
+        json=valid_qa_result_payload(),
+    )
+    assert proposed_response.status_code == 400
+    assert "accepted handoffs" in proposed_response.json()["detail"]
+
+    rejected_handoff = create_handoff(client, card, work_order, status="rejected")
+    rejected_response = client.post(
+        f"/handoffs/{rejected_handoff['id']}/qa-result",
+        json=valid_qa_result_payload(),
+    )
+    assert rejected_response.status_code == 400
+    assert "accepted handoffs" in rejected_response.json()["detail"]
+
+    blocked_handoff = create_handoff(client, card, work_order, status="blocked")
+    blocked_response = client.post(
+        f"/handoffs/{blocked_handoff['id']}/qa-result",
+        json=valid_qa_result_payload(),
+    )
+    assert blocked_response.status_code == 400
+    assert "accepted handoffs" in blocked_response.json()["detail"]
+
+    accepted_handoff = create_handoff(client, card, work_order, status="accepted")
+    invalid_response = client.post(
+        f"/handoffs/{accepted_handoff['id']}/qa-result",
+        json=valid_qa_result_payload("not_real"),
+    )
+    assert invalid_response.status_code == 400
+    assert "Invalid QA result status" in invalid_response.json()["detail"]
+
+
+def test_qa_result_records_events_evidence_status_and_persistence(client: TestClient) -> None:
+    card, work_order = create_card_and_work_order(client, "accepted QA result")
+    client.patch(
+        f"/work-orders/{work_order['id']}/status",
+        json={
+            "status": "running",
+            "reason": "Ready for QA result capture.",
+            "requested_by": "pytest",
+        },
+    )
+    handoff = create_handoff(client, card, work_order, status="accepted")
+
+    qa_result_response = client.post(
+        f"/handoffs/{handoff['id']}/qa-result",
+        json=valid_qa_result_payload("passed"),
+    )
+    assert qa_result_response.status_code == 201
+    qa_result = qa_result_response.json()
+    assert qa_result["handoff_id"] == handoff["id"]
+    assert qa_result["card_id"] == card["id"]
+    assert qa_result["work_order_id"] == work_order["id"]
+    assert qa_result["qa_agent_id"] == "qa_test"
+    assert qa_result["result"] == "passed"
+    assert qa_result["created_at"]
+    assert qa_result["updated_at"]
+    assert f"runtime/state/qa_results.json#{qa_result['id']}" in qa_result["evidence_refs"]
+
+    duplicate_response = client.post(
+        f"/handoffs/{handoff['id']}/qa-result",
+        json=valid_qa_result_payload("passed"),
+    )
+    assert duplicate_response.status_code == 400
+    assert "already exists" in duplicate_response.json()["detail"]
+
+    qa_results = client.get("/qa-results").json()
+    assert any(item["id"] == qa_result["id"] for item in qa_results)
+
+    persisted_work_order = next(
+        item for item in client.get("/work-orders").json() if item["id"] == work_order["id"]
+    )
+    assert persisted_work_order["status"] == "completed"
+
+    status = client.get("/status").json()
+    assert status["qa_results_count"] == 1
+    assert status["failed_qa_results_count"] == 0
+    assert status["blocked_qa_results_count"] == 0
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert any(
+        event["type"] == "qa_result_recorded"
+        and event["related_handoff_id"] == handoff["id"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "work_order_completed_from_qa"
+        and event["related_work_order_id"] == work_order["id"]
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "qa_result"
+        and entry["related_handoff_id"] == handoff["id"]
+        for entry in evidence
+    )
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    persisted_qa_result = next(item for item in reloaded_store.qa_results if item["id"] == qa_result["id"])
+    assert persisted_qa_result["result"] == "passed"
+    assert next(item for item in reloaded_store.work_orders if item["id"] == work_order["id"])["status"] == "completed"
+
+
+@pytest.mark.parametrize(
+    ("result", "expected_status", "expected_event_type"),
+    [
+        ("failed", "blocked", "work_order_blocked_from_qa"),
+        ("blocked", "blocked", "work_order_blocked_from_qa"),
+    ],
+)
+def test_qa_result_failed_and_blocked_map_work_order_safely(
+    client: TestClient,
+    result: str,
+    expected_status: str,
+    expected_event_type: str,
+) -> None:
+    card, work_order = create_card_and_work_order(client, f"{result} QA result")
+    client.patch(
+        f"/work-orders/{work_order['id']}/status",
+        json={
+            "status": "running",
+            "reason": "Ready for QA result mapping.",
+            "requested_by": "pytest",
+        },
+    )
+    handoff = create_handoff(client, card, work_order, status="accepted")
+
+    response = client.post(
+        f"/handoffs/{handoff['id']}/qa-result",
+        json=valid_qa_result_payload(result),
+    )
+    assert response.status_code == 201
+    assert response.json()["result"] == result
+
+    persisted_work_order = next(
+        item for item in client.get("/work-orders").json() if item["id"] == work_order["id"]
+    )
+    assert persisted_work_order["status"] == expected_status
+
+    status = client.get("/status").json()
+    assert status["qa_results_count"] == 1
+    if result == "failed":
+        assert status["failed_qa_results_count"] == 1
+        assert status["blocked_qa_results_count"] == 0
+    else:
+        assert status["failed_qa_results_count"] == 0
+        assert status["blocked_qa_results_count"] == 1
+
+    events = client.get("/events").json()
+    assert any(
+        event["type"] == expected_event_type
+        and event["related_work_order_id"] == work_order["id"]
+        for event in events
+    )

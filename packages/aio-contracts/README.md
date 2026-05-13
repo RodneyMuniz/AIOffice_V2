@@ -16,6 +16,8 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/handoff.schema.json`
 - `schemas/create-handoff-request.schema.json`
 - `schemas/handoff-decision-request.schema.json`
+- `schemas/qa-result.schema.json`
+- `schemas/create-qa-result-request.schema.json`
 - `schemas/agent.schema.json`
 - `schemas/approval.schema.json`
 - `schemas/create-approval-request.schema.json`
@@ -30,4 +32,8 @@ Allowed work-order statuses are `draft`, `ready`, `running`, `waiting_approval`,
 
 Allowed handoff statuses are `proposed`, `accepted`, `rejected`, `completed`, and `blocked`.
 
+Allowed QA result values are `passed`, `failed`, and `blocked`.
+
 The handoff contracts describe an API-mediated dry-run role handoff. They do not claim autonomous A2A execution, background workers, OpenAI/Codex API invocation, or full product runtime.
+
+The QA result contracts describe structured operator/API-mediated result capture after an accepted handoff. They do not claim autonomous QA execution, live agent testing, autonomous A2A, or no-manual-transfer success.

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/qa-result.schema.json",
+  "title": "QaResult",
+  "type": "object",
+  "required": [
+    "id",
+    "handoff_id",
+    "card_id",
+    "work_order_id",
+    "qa_agent_id",
+    "result",
+    "summary",
+    "findings",
+    "recommended_next_action",
+    "created_at",
+    "updated_at",
+    "evidence_refs"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "handoff_id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "work_order_id": { "type": "string" },
+    "qa_agent_id": { "type": "string" },
+    "result": { "type": "string", "enum": ["passed", "failed", "blocked"] },
+    "summary": { "type": "string" },
+    "findings": { "type": "string" },
+    "recommended_next_action": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "id": "R19-QA-RESULT-001",
+      "handoff_id": "R19-HANDOFF-001",
+      "card_id": "R19-CARD-001",
+      "work_order_id": "R19-WO-001",
+      "qa_agent_id": "qa_test",
+      "result": "passed",
+      "summary": "Manual QA result passed for the accepted handoff.",
+      "findings": "No blocking issues found in the operator/API smoke path.",
+      "recommended_next_action": "Complete work order.",
+      "created_at": "2026-05-13T00:00:00Z",
+      "updated_at": "2026-05-13T00:00:00Z",
+      "evidence_refs": [
+        "runtime/state/handoffs.json#R19-HANDOFF-001",
+        "runtime/state/qa_results.json#R19-QA-RESULT-001"
+      ]
+    }
+  ]
+}

@@ -4,12 +4,14 @@ import type {
   Card,
   CreateApprovalRequest,
   CreateCardRequest,
+  CreateQaResultRequest,
   CreateWorkOrderRequest,
   DashboardData,
   EventEntry,
   EvidenceEntry,
   Handoff,
   HandoffDecisionRequest,
+  QaResult,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -52,7 +54,7 @@ async function readApiError(path: string, response: Response): Promise<string> {
 }
 
 export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData> {
-  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs] = await Promise.all([
+  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults] = await Promise.all([
     requestJson<StatusResponse>("/status", { signal }),
     requestJson<Card[]>("/cards", { signal }),
     requestJson<WorkOrder[]>("/work-orders", { signal }),
@@ -60,10 +62,11 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     requestJson<EventEntry[]>("/events", { signal }),
     requestJson<EvidenceEntry[]>("/evidence", { signal }),
     requestJson<Approval[]>("/approvals", { signal }),
-    requestJson<Handoff[]>("/handoffs", { signal })
+    requestJson<Handoff[]>("/handoffs", { signal }),
+    requestJson<QaResult[]>("/qa-results", { signal })
   ]);
 
-  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs };
+  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults };
 }
 
 export function createCard(payload: CreateCardRequest): Promise<Card> {
@@ -110,4 +113,8 @@ export function acceptHandoff(id: string, decision: HandoffDecisionRequest): Pro
 
 export function rejectHandoff(id: string, decision: HandoffDecisionRequest): Promise<Handoff> {
   return requestJson<Handoff>(`/handoffs/${id}/reject`, { method: "POST", body: decision });
+}
+
+export function createQaResult(id: string, payload: CreateQaResultRequest): Promise<QaResult> {
+  return requestJson<QaResult>(`/handoffs/${id}/qa-result`, { method: "POST", body: payload });
 }

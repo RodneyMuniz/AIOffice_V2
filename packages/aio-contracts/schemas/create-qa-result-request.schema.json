@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-qa-result-request.schema.json",
+  "title": "CreateQaResultRequest",
+  "type": "object",
+  "required": [
+    "result",
+    "summary",
+    "findings",
+    "recommended_next_action",
+    "qa_agent_id"
+  ],
+  "properties": {
+    "result": { "type": "string", "enum": ["passed", "failed", "blocked"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "findings": { "type": "string" },
+    "recommended_next_action": { "type": "string" },
+    "qa_agent_id": { "type": "string", "minLength": 1 }
+  },
+  "examples": [
+    {
+      "result": "passed",
+      "summary": "QA result summary",
+      "findings": "Detailed findings",
+      "recommended_next_action": "Complete work order / repair / block",
+      "qa_agent_id": "qa_test"
+    }
+  ]
+}

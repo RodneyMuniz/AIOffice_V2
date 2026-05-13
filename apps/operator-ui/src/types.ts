@@ -11,10 +11,12 @@ export const WORK_ORDER_STATUSES = [
   "cancelled"
 ] as const;
 export const HANDOFF_STATUSES = ["proposed", "accepted", "rejected", "completed", "blocked"] as const;
+export const QA_RESULT_VALUES = ["passed", "failed", "blocked"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
 export type HandoffStatus = (typeof HANDOFF_STATUSES)[number];
+export type QaResultValue = (typeof QA_RESULT_VALUES)[number];
 
 export type StatusResponse = {
   product_name: string;
@@ -32,6 +34,9 @@ export type StatusResponse = {
   pending_approvals_count: number;
   handoffs_count: number;
   pending_handoffs_count: number;
+  qa_results_count: number;
+  failed_qa_results_count: number;
+  blocked_qa_results_count: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -101,6 +106,21 @@ export type Handoff = {
   evidence_refs: string[];
 };
 
+export type QaResult = {
+  id: string;
+  handoff_id: string;
+  card_id: string;
+  work_order_id: string;
+  qa_agent_id: string;
+  result: QaResultValue;
+  summary: string;
+  findings: string;
+  recommended_next_action: string;
+  created_at: string;
+  updated_at: string;
+  evidence_refs: string[];
+};
+
 export type Agent = {
   id: string;
   display_name: string;
@@ -144,6 +164,7 @@ export type DashboardData = {
   evidence: EvidenceEntry[];
   approvals: Approval[];
   handoffs: Handoff[];
+  qaResults: QaResult[];
 };
 
 export type CreateCardRequest = {
@@ -171,6 +192,14 @@ export type CreateApprovalRequest = {
 export type HandoffDecisionRequest = {
   decision_reason: string;
   decided_by: string;
+};
+
+export type CreateQaResultRequest = {
+  result: QaResultValue;
+  summary: string;
+  findings: string;
+  recommended_next_action: string;
+  qa_agent_id: string;
 };
 
 export type UpdateStatusRequest = {

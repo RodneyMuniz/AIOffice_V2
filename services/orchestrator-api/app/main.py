@@ -32,6 +32,7 @@ ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
 
 HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
+QA_RESULT_VALUES = ("passed", "failed", "blocked")
 
 
 class CardCreate(BaseModel):
@@ -95,6 +96,14 @@ class HandoffDecisionRequest(BaseModel):
     decided_by: str = "operator"
 
 
+class QaResultCreate(BaseModel):
+    result: str
+    summary: str
+    findings: str = ""
+    recommended_next_action: str = ""
+    qa_agent_id: str = "qa_test"
+
+
 class StatusUpdateRequest(BaseModel):
     status: str
     reason: str = ""
@@ -114,6 +123,7 @@ class JsonStateStore:
         self.evidence = self._load_collection("evidence", [])
         self.approvals = self._load_collection("approvals", [])
         self.handoffs = self._load_collection("handoffs", [])
+        self.qa_results = self._load_collection("qa_results", [])
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
         if not path.exists():
@@ -148,6 +158,12 @@ class JsonStateStore:
         pending_handoffs_count = sum(
             1 for handoff in self.handoffs if handoff.get("status") == "proposed"
         )
+        failed_qa_results_count = sum(
+            1 for qa_result in self.qa_results if qa_result.get("result") == "failed"
+        )
+        blocked_qa_results_count = sum(
+            1 for qa_result in self.qa_results if qa_result.get("result") == "blocked"
+        )
 
         return {
             **self.status_seed,
@@ -162,6 +178,9 @@ class JsonStateStore:
             "pending_approvals_count": pending_approvals_count,
             "handoffs_count": len(self.handoffs),
             "pending_handoffs_count": pending_handoffs_count,
+            "qa_results_count": len(self.qa_results),
+            "failed_qa_results_count": failed_qa_results_count,
+            "blocked_qa_results_count": blocked_qa_results_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -487,6 +506,91 @@ class JsonStateStore:
     ) -> dict[str, Any]:
         return self._decide_handoff(handoff_id, "rejected", decision)
 
+    def create_qa_result(self, handoff_id: str, payload: QaResultCreate) -> dict[str, Any]:
+        handoff = self._find_handoff(handoff_id)
+        if handoff is None:
+            raise HTTPException(status_code=404, detail=f"Unknown handoff id: {handoff_id}")
+
+        handoff_status = handoff.get("status")
+        if handoff_status != "accepted":
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Handoff {handoff_id} is {handoff_status}; "
+                    "QA results can only be recorded for accepted handoffs."
+                ),
+            )
+
+        if self._find_qa_result_for_handoff(handoff_id):
+            raise HTTPException(
+                status_code=400,
+                detail=f"QA result already exists for handoff {handoff_id}.",
+            )
+
+        result_data = _model_to_dict(payload)
+        result = str(result_data.get("result") or "").strip()
+        _validate_status(result, QA_RESULT_VALUES, "QA result")
+
+        qa_agent_id = str(result_data.get("qa_agent_id") or "qa_test").strip() or "qa_test"
+        now = _utc_now()
+        qa_result_id = self._next_id(self.qa_results, "R19-QA-RESULT")
+        evidence_refs = [
+            f"runtime/state/handoffs.json#{handoff_id}",
+            f"runtime/state/qa_results.json#{qa_result_id}",
+        ]
+        qa_result = {
+            "id": qa_result_id,
+            "handoff_id": handoff_id,
+            "card_id": handoff["card_id"],
+            "work_order_id": handoff["work_order_id"],
+            "qa_agent_id": qa_agent_id,
+            "result": result,
+            "summary": str(result_data.get("summary") or "").strip(),
+            "findings": str(result_data.get("findings") or "").strip(),
+            "recommended_next_action": str(
+                result_data.get("recommended_next_action") or ""
+            ).strip(),
+            "created_at": now,
+            "updated_at": now,
+            "evidence_refs": evidence_refs,
+        }
+
+        self.qa_results.append(qa_result)
+        self._append_event(
+            event_type="qa_result_recorded",
+            summary=f"QA result {qa_result_id} recorded as {result} for handoff {handoff_id}.",
+            actor_agent_id=qa_agent_id,
+            related_card_id=handoff["card_id"],
+            related_work_order_id=handoff["work_order_id"],
+            related_handoff_id=handoff_id,
+        )
+        self._append_evidence(
+            title=f"QA result {qa_result_id} recorded",
+            kind="qa_result",
+            summary=qa_result["summary"] or f"QA result recorded as {result}.",
+            path=f"runtime/state/qa_results.json#{qa_result_id}",
+            related_card_id=handoff["card_id"],
+            related_work_order_id=handoff["work_order_id"],
+            related_handoff_id=handoff_id,
+        )
+
+        work_order = self._find_work_order(handoff["work_order_id"])
+        if work_order:
+            target_status = "completed" if result == "passed" else "blocked"
+            if work_order.get("status") != target_status:
+                self._apply_work_order_status_from_qa(
+                    work_order=work_order,
+                    target_status=target_status,
+                    qa_result=qa_result,
+                    requested_by=qa_agent_id,
+                )
+            self._save_collection("work_orders", self.work_orders)
+
+        self._save_collection("qa_results", self.qa_results)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return qa_result
+
     def _create_approval_record(
         self,
         title: str,
@@ -670,6 +774,47 @@ class JsonStateStore:
             related_work_order_id=work_order_id,
         )
 
+    def _apply_work_order_status_from_qa(
+        self,
+        work_order: dict[str, Any],
+        target_status: str,
+        qa_result: dict[str, Any],
+        requested_by: str,
+    ) -> None:
+        previous_status = work_order.get("status")
+        work_order["status"] = target_status
+        work_order["updated_at"] = _utc_now()
+        work_order_id = work_order["id"]
+        handoff_id = qa_result["handoff_id"]
+        result = qa_result["result"]
+        summary = (
+            f"QA result {qa_result['id']} ({result}) moved work order {work_order_id} "
+            f"from {previous_status} to {target_status}."
+        )
+        event_type = (
+            "work_order_completed_from_qa"
+            if target_status == "completed"
+            else "work_order_blocked_from_qa"
+        )
+
+        self._append_event(
+            event_type=event_type,
+            summary=summary,
+            actor_agent_id=requested_by,
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_handoff_id=handoff_id,
+        )
+        self._append_evidence(
+            title=f"Work order {work_order_id} updated from QA",
+            kind="status_transition",
+            summary=summary,
+            path=f"runtime/state/work_orders.json#{work_order_id}",
+            related_card_id=work_order["card_id"],
+            related_work_order_id=work_order_id,
+            related_handoff_id=handoff_id,
+        )
+
     def _resolve_related_card_id(
         self, related_card_id: str | None, related_work_order_id: str | None
     ) -> str:
@@ -765,6 +910,12 @@ class JsonStateStore:
 
     def _find_handoff(self, handoff_id: str) -> dict[str, Any] | None:
         return next((handoff for handoff in self.handoffs if handoff.get("id") == handoff_id), None)
+
+    def _find_qa_result_for_handoff(self, handoff_id: str) -> dict[str, Any] | None:
+        return next(
+            (qa_result for qa_result in self.qa_results if qa_result.get("handoff_id") == handoff_id),
+            None,
+        )
 
     def _find_pending_approval_for_work_order(self, work_order_id: str) -> dict[str, Any] | None:
         return next(
@@ -895,6 +1046,11 @@ def get_handoffs() -> list[dict[str, Any]]:
     return store.handoffs
 
 
+@app.get("/qa-results")
+def get_qa_results() -> list[dict[str, Any]]:
+    return store.qa_results
+
+
 @app.post("/approvals", status_code=201)
 def post_approvals(approval: ApprovalCreate) -> dict[str, Any]:
     return store.create_approval(approval)
@@ -927,3 +1083,8 @@ def post_handoff_reject(
     handoff_id: str, decision: HandoffDecisionRequest | None = None
 ) -> dict[str, Any]:
     return store.reject_handoff(handoff_id, decision or HandoffDecisionRequest())
+
+
+@app.post("/handoffs/{handoff_id}/qa-result", status_code=201)
+def post_handoff_qa_result(handoff_id: str, qa_result: QaResultCreate) -> dict[str, Any]:
+    return store.create_qa_result(handoff_id, qa_result)
