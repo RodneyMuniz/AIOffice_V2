@@ -12,11 +12,13 @@ export const WORK_ORDER_STATUSES = [
 ] as const;
 export const HANDOFF_STATUSES = ["proposed", "accepted", "rejected", "completed", "blocked"] as const;
 export const QA_RESULT_VALUES = ["passed", "failed", "blocked"] as const;
+export const REPAIR_REQUEST_STATUSES = ["proposed", "created", "in_progress", "completed", "cancelled"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
 export type HandoffStatus = (typeof HANDOFF_STATUSES)[number];
 export type QaResultValue = (typeof QA_RESULT_VALUES)[number];
+export type RepairRequestStatus = (typeof REPAIR_REQUEST_STATUSES)[number];
 
 export type StatusResponse = {
   product_name: string;
@@ -37,6 +39,9 @@ export type StatusResponse = {
   qa_results_count: number;
   failed_qa_results_count: number;
   blocked_qa_results_count: number;
+  repair_requests_count: number;
+  open_repair_requests_count: number;
+  completed_repair_requests_count: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -68,7 +73,11 @@ export type WorkOrder = {
   request_requires_approval?: boolean;
   handoff_target_agent_id?: string;
   evidence_refs?: string[];
+  source_work_order_id?: string;
+  qa_result_id?: string;
+  repair_request_id?: string;
   created_at?: string;
+  updated_at?: string;
 };
 
 export type ApprovalStatus = "pending" | "approved" | "rejected";
@@ -121,6 +130,24 @@ export type QaResult = {
   evidence_refs: string[];
 };
 
+export type RepairRequest = {
+  id: string;
+  qa_result_id: string;
+  handoff_id: string;
+  card_id: string;
+  source_work_order_id: string;
+  repair_work_order_id: string;
+  requested_by: string;
+  assigned_agent_id: string;
+  status: RepairRequestStatus;
+  summary: string;
+  repair_instructions: string;
+  created_at: string;
+  updated_at: string;
+  completed_at: string | null;
+  evidence_refs: string[];
+};
+
 export type Agent = {
   id: string;
   display_name: string;
@@ -140,6 +167,7 @@ export type EventEntry = {
   related_work_order_id?: string;
   related_approval_id?: string;
   related_handoff_id?: string;
+  related_repair_request_id?: string;
 };
 
 export type EvidenceEntry = {
@@ -152,6 +180,7 @@ export type EvidenceEntry = {
   related_work_order_id?: string;
   related_approval_id?: string;
   related_handoff_id?: string;
+  related_repair_request_id?: string;
   created_at?: string;
 };
 
@@ -165,6 +194,7 @@ export type DashboardData = {
   approvals: Approval[];
   handoffs: Handoff[];
   qaResults: QaResult[];
+  repairRequests: RepairRequest[];
 };
 
 export type CreateCardRequest = {
@@ -200,6 +230,18 @@ export type CreateQaResultRequest = {
   findings: string;
   recommended_next_action: string;
   qa_agent_id: string;
+};
+
+export type CreateRepairRequest = {
+  summary: string;
+  repair_instructions: string;
+  requested_by: string;
+  assigned_agent_id: string;
+};
+
+export type RepairRequestDecisionRequest = {
+  decision_reason: string;
+  decided_by: string;
 };
 
 export type UpdateStatusRequest = {

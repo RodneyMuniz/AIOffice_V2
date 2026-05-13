@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/repair-request-decision.schema.json",
+  "title": "RepairRequestDecision",
+  "type": "object",
+  "required": ["decision_reason", "decided_by"],
+  "properties": {
+    "decision_reason": { "type": "string" },
+    "decided_by": { "type": "string", "minLength": 1 }
+  },
+  "examples": [
+    {
+      "decision_reason": "Operator confirmed the repair request is complete.",
+      "decided_by": "operator"
+    }
+  ]
+}

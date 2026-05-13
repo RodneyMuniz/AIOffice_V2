@@ -13,6 +13,7 @@
     "no solved reliability",
     "no no-manual-transfer success unless measured",
     "no live OpenAI/Codex API invocation unless actual evidence exists",
+    "no autonomous repair execution",
     "no autonomous operation without approval gates"
   ]
 }

@@ -75,6 +75,38 @@ def valid_qa_result_payload(result: str = "passed") -> dict:
     }
 
 
+def valid_repair_request_payload(label: str = "regression repair") -> dict:
+    return {
+        "summary": f"{label} summary",
+        "repair_instructions": f"Repair instructions for {label}.",
+        "requested_by": "operator",
+        "assigned_agent_id": "developer_codex",
+    }
+
+
+def create_accepted_qa_result(
+    client: TestClient,
+    label: str,
+    result: str,
+) -> tuple[dict, dict, dict, dict]:
+    card, work_order = create_card_and_work_order(client, label)
+    client.patch(
+        f"/work-orders/{work_order['id']}/status",
+        json={
+            "status": "running",
+            "reason": "Ready for QA repair-loop coverage.",
+            "requested_by": "pytest",
+        },
+    )
+    handoff = create_handoff(client, card, work_order, status="accepted")
+    qa_result_response = client.post(
+        f"/handoffs/{handoff['id']}/qa-result",
+        json=valid_qa_result_payload(result),
+    )
+    assert qa_result_response.status_code == 201
+    return card, work_order, handoff, qa_result_response.json()
+
+
 @pytest.fixture()
 def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
     state_dir = tmp_path / "state"
@@ -114,9 +146,16 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert qa_results_response.status_code == 200
     assert qa_results_response.json() == []
 
+    repair_requests_response = client.get("/repair-requests")
+    assert repair_requests_response.status_code == 200
+    assert repair_requests_response.json() == []
+
     assert status["qa_results_count"] == 0
     assert status["failed_qa_results_count"] == 0
     assert status["blocked_qa_results_count"] == 0
+    assert status["repair_requests_count"] == 0
+    assert status["open_repair_requests_count"] == 0
+    assert status["completed_repair_requests_count"] == 0
 
 
 def test_card_work_order_status_workflow_and_persistence(client: TestClient) -> None:
@@ -566,3 +605,181 @@ def test_qa_result_failed_and_blocked_map_work_order_safely(
         and event["related_work_order_id"] == work_order["id"]
         for event in events
     )
+
+
+def test_repair_request_missing_and_passed_qa_result_error_paths(client: TestClient) -> None:
+    missing_response = client.post(
+        "/qa-results/missing/repair-request",
+        json=valid_repair_request_payload("missing QA result"),
+    )
+    assert missing_response.status_code == 404
+    assert "Unknown QA result id" in missing_response.json()["detail"]
+
+    _, _, _, passed_qa_result = create_accepted_qa_result(client, "passed repair guard", "passed")
+    passed_response = client.post(
+        f"/qa-results/{passed_qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("passed QA result"),
+    )
+    assert passed_response.status_code == 400
+    assert "failed or blocked" in passed_response.json()["detail"]
+
+
+@pytest.mark.parametrize("result", ["failed", "blocked"])
+def test_repair_request_creates_linked_repair_work_order_events_evidence_and_persists(
+    client: TestClient,
+    result: str,
+) -> None:
+    card, source_work_order, handoff, qa_result = create_accepted_qa_result(
+        client,
+        f"{result} repair loop",
+        result,
+    )
+
+    response = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload(f"{result} repair loop"),
+    )
+    assert response.status_code == 201
+    repair_request = response.json()
+    assert repair_request["qa_result_id"] == qa_result["id"]
+    assert repair_request["handoff_id"] == handoff["id"]
+    assert repair_request["card_id"] == card["id"]
+    assert repair_request["source_work_order_id"] == source_work_order["id"]
+    assert repair_request["repair_work_order_id"]
+    assert repair_request["assigned_agent_id"] == "developer_codex"
+    assert repair_request["status"] == "created"
+    assert repair_request["completed_at"] is None
+    assert f"runtime/state/repair_requests.json#{repair_request['id']}" in repair_request["evidence_refs"]
+    assert f"runtime/state/work_orders.json#{repair_request['repair_work_order_id']}" in repair_request["evidence_refs"]
+
+    duplicate_response = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload(f"{result} duplicate repair loop"),
+    )
+    assert duplicate_response.status_code == 400
+    assert "already exists" in duplicate_response.json()["detail"]
+
+    repair_work_order = next(
+        item
+        for item in client.get("/work-orders").json()
+        if item["id"] == repair_request["repair_work_order_id"]
+    )
+    assert repair_work_order["card_id"] == card["id"]
+    assert repair_work_order["title"] == f"Repair: {source_work_order['title']}"
+    assert repair_work_order["summary"] == f"Repair instructions for {result} repair loop."
+    assert repair_work_order["status"] == "ready"
+    assert repair_work_order["assigned_agent_id"] == "developer_codex"
+    assert repair_work_order["approval_required"] is False
+    assert repair_work_order["source_work_order_id"] == source_work_order["id"]
+    assert repair_work_order["qa_result_id"] == qa_result["id"]
+    assert repair_work_order["repair_request_id"] == repair_request["id"]
+
+    status = client.get("/status").json()
+    assert status["repair_requests_count"] == 1
+    assert status["open_repair_requests_count"] == 1
+    assert status["completed_repair_requests_count"] == 0
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert any(
+        event["type"] == "repair_request_created"
+        and event["related_repair_request_id"] == repair_request["id"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "repair_work_order_created"
+        and event["related_work_order_id"] == repair_request["repair_work_order_id"]
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "repair_request"
+        and entry["related_repair_request_id"] == repair_request["id"]
+        for entry in evidence
+    )
+    assert any(
+        entry["kind"] == "repair_work_order"
+        and entry["related_work_order_id"] == repair_request["repair_work_order_id"]
+        for entry in evidence
+    )
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    persisted_repair_request = next(
+        item for item in reloaded_store.repair_requests if item["id"] == repair_request["id"]
+    )
+    persisted_repair_work_order = next(
+        item
+        for item in reloaded_store.work_orders
+        if item["id"] == repair_request["repair_work_order_id"]
+    )
+    assert persisted_repair_request["repair_work_order_id"] == repair_request["repair_work_order_id"]
+    assert persisted_repair_work_order["repair_request_id"] == repair_request["id"]
+
+
+@pytest.mark.parametrize(
+    ("endpoint", "expected_status", "expected_event_type"),
+    [
+        ("complete", "completed", "repair_request_completed"),
+        ("cancel", "cancelled", "repair_request_cancelled"),
+    ],
+)
+def test_repair_request_complete_and_cancel_update_status_events_and_evidence(
+    client: TestClient,
+    endpoint: str,
+    expected_status: str,
+    expected_event_type: str,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(client, f"{endpoint} repair request", "failed")
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload(f"{endpoint} repair request"),
+    ).json()
+
+    response = client.post(
+        f"/repair-requests/{repair_request['id']}/{endpoint}",
+        json={"decision_reason": f"Operator chose to {endpoint}.", "decided_by": "pytest"},
+    )
+    assert response.status_code == 200
+    decided_repair_request = response.json()
+    assert decided_repair_request["status"] == expected_status
+    assert decided_repair_request["updated_at"]
+    if expected_status == "completed":
+        assert decided_repair_request["completed_at"]
+    else:
+        assert decided_repair_request["completed_at"] is None
+
+    status = client.get("/status").json()
+    assert status["repair_requests_count"] == 1
+    assert status["open_repair_requests_count"] == 0
+    assert status["completed_repair_requests_count"] == (1 if expected_status == "completed" else 0)
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert any(
+        event["type"] == expected_event_type
+        and event["related_repair_request_id"] == repair_request["id"]
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "repair_request"
+        and entry["related_repair_request_id"] == repair_request["id"]
+        and f"Operator chose to {endpoint}." in entry["summary"]
+        for entry in evidence
+    )
+
+    duplicate_response = client.post(
+        f"/repair-requests/{repair_request['id']}/{endpoint}",
+        json={"decision_reason": "Duplicate terminal decision.", "decided_by": "pytest"},
+    )
+    assert duplicate_response.status_code == 400
+    assert "already" in duplicate_response.json()["detail"]
+
+
+def test_unknown_repair_request_complete_cancel_return_404(client: TestClient) -> None:
+    assert client.post(
+        "/repair-requests/missing/complete",
+        json={"decision_reason": "Missing repair request."},
+    ).status_code == 404
+    assert client.post(
+        "/repair-requests/missing/cancel",
+        json={"decision_reason": "Missing repair request."},
+    ).status_code == 404

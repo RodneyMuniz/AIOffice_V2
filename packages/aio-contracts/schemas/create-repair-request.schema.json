@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-repair-request.schema.json",
+  "title": "CreateRepairRequest",
+  "type": "object",
+  "required": ["summary", "repair_instructions", "requested_by", "assigned_agent_id"],
+  "properties": {
+    "summary": { "type": "string", "minLength": 1 },
+    "repair_instructions": { "type": "string", "minLength": 1 },
+    "requested_by": { "type": "string", "minLength": 1 },
+    "assigned_agent_id": { "type": "string", "minLength": 1 }
+  },
+  "examples": [
+    {
+      "summary": "Repair failed QA result",
+      "repair_instructions": "Address the failed QA findings and leave evidence on the linked work order.",
+      "requested_by": "operator",
+      "assigned_agent_id": "developer_codex"
+    }
+  ]
+}

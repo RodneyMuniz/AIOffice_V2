@@ -49,6 +49,10 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `POST /handoffs/{id}/reject`
 - `GET /qa-results`
 - `POST /handoffs/{id}/qa-result`
+- `GET /repair-requests`
+- `POST /qa-results/{id}/repair-request`
+- `POST /repair-requests/{id}/complete`
+- `POST /repair-requests/{id}/cancel`
 
 Status update request body:
 
@@ -67,6 +71,8 @@ Allowed work-order statuses: `draft`, `ready`, `running`, `waiting_approval`, `a
 Allowed handoff statuses: `proposed`, `accepted`, `rejected`, `completed`, `blocked`.
 
 Allowed QA result values: `passed`, `failed`, `blocked`.
+
+Allowed repair request statuses: `proposed`, `created`, `in_progress`, `completed`, `cancelled`.
 
 Invalid status values return HTTP 400. Unknown card or work-order IDs return HTTP 404.
 
@@ -88,6 +94,21 @@ QA result request body:
 
 QA result status mapping is intentionally small: `passed` can move the linked work order to `completed`; `failed` and `blocked` can move it to `blocked`. This is a local operator/API state transition, not live QA agent execution.
 
+`POST /qa-results/{id}/repair-request` creates a repair request only for failed or blocked QA results. Missing QA results return HTTP 404, passed QA results return HTTP 400, and duplicate repair requests for the same QA result return HTTP 400. The endpoint also creates a linked repair work order assigned to `developer_codex` by default. The repair work order is created with status `ready`, because it is ready for a manual Developer/Codex implementation pass and does not require another approval gate in this narrow slice.
+
+Repair request body:
+
+```json
+{
+  "summary": "Repair summary",
+  "repair_instructions": "What Developer/Codex should repair",
+  "requested_by": "operator",
+  "assigned_agent_id": "developer_codex"
+}
+```
+
+Completing or cancelling a repair request updates only the repair request state and records events/evidence. It does not automatically re-run QA or create a new handoff.
+
 ## JSON Persistence
 
 The API loads persistent JSON files from `runtime/state/*.json` when present. If a persistent file is missing, it falls back to the matching seed file, for example `cards.seed.json`.
@@ -103,6 +124,7 @@ Mutating endpoints write back to:
 - `runtime/state/approvals.json`
 - `runtime/state/handoffs.json`
 - `runtime/state/qa_results.json`
+- `runtime/state/repair_requests.json`
 
 Creating cards and work orders writes event and evidence entries. Work orders must link to an existing `card_id`; invalid card IDs return HTTP 400 with a clear message. Work orders can request an approval gate with `request_requires_approval: true`.
 
@@ -112,6 +134,8 @@ Handoff create/accept/reject actions persist to JSON and write `handoff_*` event
 
 QA result capture persists to JSON and writes `qa_result_recorded` events plus `qa_result` evidence. When the simple status mapping applies, the API also writes `work_order_completed_from_qa` or `work_order_blocked_from_qa` events.
 
+Repair request creation persists to JSON, creates a linked `ready` repair work order, and writes `repair_request_created`, `repair_work_order_created`, `repair_request`, and `repair_work_order` records. Completing or cancelling writes `repair_request_completed` or `repair_request_cancelled` plus `repair_request` evidence.
+
 ## Test and Smoke Commands
 
 Backend regression harness:
@@ -120,7 +144,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, card/work-order/status updates, approvals, handoffs, QA result creation/error paths, event/evidence writes, JSON persistence, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, card/work-order/status updates, approvals, handoffs, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -135,11 +159,13 @@ Live API smoke after starting the backend:
 curl http://127.0.0.1:8000/status
 curl http://127.0.0.1:8000/handoffs
 curl http://127.0.0.1:8000/qa-results
+curl http://127.0.0.1:8000/repair-requests
 curl -X POST http://127.0.0.1:8000/cards -H "Content-Type: application/json" -d "{\"title\":\"Smoke card\",\"description\":\"Smoke\",\"priority\":\"medium\",\"owner_role\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/cards/R19-CARD-002/status -H "Content-Type: application/json" -d "{\"status\":\"planned\",\"requested_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-001/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted for QA smoke.\",\"decided_by\":\"operator\"}"
-curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Content-Type: application/json" -d "{\"result\":\"passed\",\"summary\":\"QA passed.\",\"findings\":\"No blocking issues.\",\"recommended_next_action\":\"Complete work order.\",\"qa_agent_id\":\"qa_test\"}"
+curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Content-Type: application/json" -d "{\"result\":\"failed\",\"summary\":\"QA failed.\",\"findings\":\"Repair needed.\",\"recommended_next_action\":\"Create repair work order.\",\"qa_agent_id\":\"qa_test\"}"
+curl -X POST http://127.0.0.1:8000/qa-results/R19-QA-RESULT-001/repair-request -H "Content-Type: application/json" -d "{\"summary\":\"Repair failed QA\",\"repair_instructions\":\"Fix the failed QA path.\",\"requested_by\":\"operator\",\"assigned_agent_id\":\"developer_codex\"}"
 ```
 
 ## Reset Local Runtime State
@@ -147,7 +173,7 @@ curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Conten
 Delete the generated persistent files and restart the API:
 
 ```powershell
-Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\qa_results.json -ErrorAction SilentlyContinue
+Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\qa_results.json,runtime\state\repair_requests.json -ErrorAction SilentlyContinue
 ```
 
 The next API load will read the seed JSON files again.
@@ -159,6 +185,8 @@ The next API load will read the seed JSON files again.
 - Approval gates are minimal operator state, not a full policy engine.
 - Handoffs are API-mediated dry-run records and operator decisions only; they do not execute agent work.
 - QA results are operator/API-mediated records after accepted handoffs, not autonomous QA agent execution.
+- Repair requests and linked repair work orders are operator/API-mediated records, not autonomous repair execution.
+- Repair completion/cancellation does not re-run QA or create a new QA handoff.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 

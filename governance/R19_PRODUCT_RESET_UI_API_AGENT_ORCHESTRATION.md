@@ -12,6 +12,8 @@ R19 now requires handoff behavior to be proven through a UI/API flow, not static
 
 R19 handoff flow now requires QA result capture to be recorded through UI/API before any future live-agent claims.
 
+R19 repair loops must remain UI/API-mediated until live-agent execution is explicitly implemented and evidenced.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

@@ -4,9 +4,12 @@ import {
   API_BASE_URL,
   acceptHandoff,
   approveApproval,
+  cancelRepairRequest,
+  completeRepairRequest,
   createApproval,
   createCard,
   createQaResult,
+  createRepairRequest,
   createWorkOrder,
   handoffWorkOrderToQa,
   loadDashboard,
@@ -26,6 +29,7 @@ import type {
   Handoff,
   QaResult,
   QaResultValue,
+  RepairRequest,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -141,7 +145,13 @@ function Dashboard({
           workOrders={data.workOrders}
         />
         <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
-        <QaResultsPanel qaResults={data.qaResults} />
+        <QaResultsPanel
+          agents={data.agents}
+          onRefresh={onRefresh}
+          qaResults={data.qaResults}
+          repairRequests={data.repairRequests}
+        />
+        <RepairRequestsPanel onRefresh={onRefresh} repairRequests={data.repairRequests} />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
         <CreateApprovalForm cards={data.cards} onRefresh={onRefresh} workOrders={data.workOrders} />
@@ -208,6 +218,9 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="QA results" value={status.qa_results_count} />
         <Metric label="Failed QA" value={status.failed_qa_results_count} />
         <Metric label="Blocked QA" value={status.blocked_qa_results_count} />
+        <Metric label="Repair requests" value={status.repair_requests_count} />
+        <Metric label="Open repairs" value={status.open_repair_requests_count} />
+        <Metric label="Completed repairs" value={status.completed_repair_requests_count} />
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -640,6 +653,24 @@ function WorkOrdersList({
               <strong>{handoffs.filter((handoff) => handoff.work_order_id === workOrder.id).length}</strong>
               <span>Approval</span>
               <strong>{workOrder.approval_required ? "required" : "not required"}</strong>
+              {workOrder.source_work_order_id && (
+                <>
+                  <span>Source work order</span>
+                  <strong>{workOrder.source_work_order_id}</strong>
+                </>
+              )}
+              {workOrder.qa_result_id && (
+                <>
+                  <span>QA result</span>
+                  <strong>{workOrder.qa_result_id}</strong>
+                </>
+              )}
+              {workOrder.repair_request_id && (
+                <>
+                  <span>Repair request</span>
+                  <strong>{workOrder.repair_request_id}</strong>
+                </>
+              )}
             </div>
             <HandoffToQaAction
               isWorking={handoffWorkOrderId === workOrder.id}
@@ -955,8 +986,22 @@ function QaResultForm({ handoff, onRefresh }: { handoff: Handoff; onRefresh: () 
   );
 }
 
-function QaResultsPanel({ qaResults }: { qaResults: QaResult[] }) {
+function QaResultsPanel({
+  agents,
+  onRefresh,
+  qaResults,
+  repairRequests
+}: {
+  agents: Agent[];
+  onRefresh: () => Promise<void>;
+  qaResults: QaResult[];
+  repairRequests: RepairRequest[];
+}) {
   const visibleQaResults = useMemo(() => [...qaResults].reverse(), [qaResults]);
+  const repairRequestByQaResultId = useMemo(
+    () => new Map(repairRequests.map((repairRequest) => [repairRequest.qa_result_id, repairRequest])),
+    [repairRequests]
+  );
 
   return (
     <section className="panel qa-results-panel" data-testid="qa-results-panel">
@@ -966,41 +1011,288 @@ function QaResultsPanel({ qaResults }: { qaResults: QaResult[] }) {
       </div>
       <div className="record-list" data-testid="qa-results-list">
         {visibleQaResults.length === 0 && <p>No QA results recorded yet.</p>}
-        {visibleQaResults.map((qaResult) => (
-          <article className="record-row" data-testid={`qa-result-${qaResult.id}`} key={qaResult.id}>
-            <div className="record-title-line">
-              <p className="eyebrow">{qaResult.id}</p>
-              <span className={`state-tag ${qaResultStatusClass(qaResult.result)}`}>{qaResult.result}</span>
-            </div>
-            <div className="detail-grid">
-              <span>Handoff</span>
-              <strong>{qaResult.handoff_id}</strong>
-              <span>Card</span>
-              <strong>{qaResult.card_id}</strong>
-              <span>Work order</span>
-              <strong>{qaResult.work_order_id}</strong>
-              <span>QA agent</span>
-              <strong>{qaResult.qa_agent_id}</strong>
-              <span>Created</span>
-              <strong>{qaResult.created_at}</strong>
-            </div>
-            <div className="summary-stack">
-              <div>
-                <p className="eyebrow">Summary</p>
-                <p>{qaResult.summary}</p>
+        {visibleQaResults.map((qaResult) => {
+          const repairRequest = repairRequestByQaResultId.get(qaResult.id);
+          const canCreateRepairRequest = qaResult.result !== "passed" && !repairRequest;
+
+          return (
+            <article className="record-row" data-testid={`qa-result-${qaResult.id}`} key={qaResult.id}>
+              <div className="record-title-line">
+                <p className="eyebrow">{qaResult.id}</p>
+                <span className={`state-tag ${qaResultStatusClass(qaResult.result)}`}>{qaResult.result}</span>
               </div>
-              <div>
-                <p className="eyebrow">Findings</p>
-                <p>{qaResult.findings || "No detailed findings recorded."}</p>
+              <div className="detail-grid">
+                <span>Handoff</span>
+                <strong>{qaResult.handoff_id}</strong>
+                <span>Card</span>
+                <strong>{qaResult.card_id}</strong>
+                <span>Work order</span>
+                <strong>{qaResult.work_order_id}</strong>
+                <span>QA agent</span>
+                <strong>{qaResult.qa_agent_id}</strong>
+                <span>Created</span>
+                <strong>{qaResult.created_at}</strong>
               </div>
-              <div>
-                <p className="eyebrow">Recommended next action</p>
-                <p>{qaResult.recommended_next_action || "No recommendation recorded."}</p>
+              <div className="summary-stack">
+                <div>
+                  <p className="eyebrow">Summary</p>
+                  <p>{qaResult.summary}</p>
+                </div>
+                <div>
+                  <p className="eyebrow">Findings</p>
+                  <p>{qaResult.findings || "No detailed findings recorded."}</p>
+                </div>
+                <div>
+                  <p className="eyebrow">Recommended next action</p>
+                  <p>{qaResult.recommended_next_action || "No recommendation recorded."}</p>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+              {canCreateRepairRequest && (
+                <RepairRequestForm agents={agents} onRefresh={onRefresh} qaResult={qaResult} />
+              )}
+              {repairRequest && (
+                <p
+                  className="form-status success repair-created"
+                  data-testid={`repair-created-${qaResult.id}`}
+                >
+                  Repair request created: {repairRequest.id} to {repairRequest.repair_work_order_id}
+                </p>
+              )}
+            </article>
+          );
+        })}
       </div>
+    </section>
+  );
+}
+
+function RepairRequestForm({
+  agents,
+  onRefresh,
+  qaResult
+}: {
+  agents: Agent[];
+  onRefresh: () => Promise<void>;
+  qaResult: QaResult;
+}) {
+  const [summary, setSummary] = useState("");
+  const [repairInstructions, setRepairInstructions] = useState("");
+  const [assignedAgentId, setAssignedAgentId] = useState(
+    agents.find((agent) => agent.id === "developer_codex")?.id ?? agents[0]?.id ?? "developer_codex"
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!assignedAgentId || (agents.length && !agents.some((agent) => agent.id === assignedAgentId))) {
+      setAssignedAgentId(agents.find((agent) => agent.id === "developer_codex")?.id ?? agents[0]?.id ?? "developer_codex");
+    }
+  }, [agents, assignedAgentId]);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsSubmitting(true);
+
+    try {
+      const repairRequest = await createRepairRequest(qaResult.id, {
+        summary: summary.trim(),
+        repair_instructions: repairInstructions.trim(),
+        requested_by: "operator",
+        assigned_agent_id: assignedAgentId
+      });
+      await onRefresh();
+      setSummary("");
+      setRepairInstructions("");
+      setSuccess(`Created ${repairRequest.repair_work_order_id}`);
+    } catch (submitError: unknown) {
+      setError(errorMessage(submitError));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <form className="repair-request-form" data-testid={`repair-request-form-${qaResult.id}`} onSubmit={handleSubmit}>
+      <label>
+        Summary
+        <input
+          data-testid={`repair-summary-${qaResult.id}`}
+          onChange={(event) => setSummary(event.target.value)}
+          required
+          value={summary}
+        />
+      </label>
+      <label>
+        Repair instructions
+        <textarea
+          data-testid={`repair-instructions-${qaResult.id}`}
+          onChange={(event) => setRepairInstructions(event.target.value)}
+          required
+          rows={3}
+          value={repairInstructions}
+        />
+      </label>
+      <label>
+        Assigned agent
+        <select
+          data-testid={`repair-agent-${qaResult.id}`}
+          onChange={(event) => setAssignedAgentId(event.target.value)}
+          value={assignedAgentId}
+        >
+          {agents.length === 0 && <option value="developer_codex">developer_codex</option>}
+          {agents.map((agent) => (
+            <option key={agent.id} value={agent.id}>
+              {agent.display_name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <button
+        data-testid={`repair-submit-${qaResult.id}`}
+        disabled={isSubmitting || !summary.trim() || !repairInstructions.trim() || !assignedAgentId}
+        type="submit"
+      >
+        {isSubmitting ? "Creating..." : "Create Repair Work Order"}
+      </button>
+      <FormStatus error={error} success={success} />
+    </form>
+  );
+}
+
+function RepairRequestsPanel({
+  onRefresh,
+  repairRequests
+}: {
+  onRefresh: () => Promise<void>;
+  repairRequests: RepairRequest[];
+}) {
+  const visibleRepairRequests = useMemo(() => [...repairRequests].reverse(), [repairRequests]);
+  const [reasonById, setReasonById] = useState<Record<string, string>>({});
+  const [workingRepairRequestId, setWorkingRepairRequestId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  async function decideRepairRequest(repairRequest: RepairRequest, decision: "complete" | "cancel") {
+    const nextStatus = decision === "complete" ? "completed" : "cancelled";
+    const reason = reasonById[repairRequest.id]?.trim() || `Operator marked ${repairRequest.id} ${nextStatus}.`;
+    setError(null);
+    setSuccess(null);
+    setWorkingRepairRequestId(repairRequest.id);
+
+    try {
+      if (decision === "complete") {
+        await completeRepairRequest(repairRequest.id, { decision_reason: reason, decided_by: "operator" });
+      } else {
+        await cancelRepairRequest(repairRequest.id, { decision_reason: reason, decided_by: "operator" });
+      }
+      await onRefresh();
+      setReasonById((current) => ({ ...current, [repairRequest.id]: "" }));
+      setSuccess(`${repairRequest.id} ${nextStatus}`);
+    } catch (decisionError: unknown) {
+      setError(errorMessage(decisionError));
+    } finally {
+      setWorkingRepairRequestId(null);
+    }
+  }
+
+  return (
+    <section className="panel repair-requests-panel" data-testid="repair-requests-panel">
+      <div className="panel-heading">
+        <h2>Repair Requests</h2>
+        <span className="count-tag">{repairRequests.length}</span>
+      </div>
+      <div className="record-list" data-testid="repair-requests-list">
+        {visibleRepairRequests.length === 0 && <p>No repair requests created yet.</p>}
+        {visibleRepairRequests.map((repairRequest) => {
+          const canDecide = repairRequest.status === "created" || repairRequest.status === "in_progress";
+
+          return (
+            <article className="record-row" data-testid={`repair-request-${repairRequest.id}`} key={repairRequest.id}>
+              <div className="record-title-line">
+                <p className="eyebrow">{repairRequest.id}</p>
+                <span className={`state-tag ${repairRequestStatusClass(repairRequest.status)}`}>
+                  {repairRequest.status}
+                </span>
+              </div>
+              <h3>{repairRequest.summary}</h3>
+              <div className="detail-grid handoff-detail-grid">
+                <span>QA result</span>
+                <strong>{repairRequest.qa_result_id}</strong>
+                <span>Handoff</span>
+                <strong>{repairRequest.handoff_id}</strong>
+                <span>Card</span>
+                <strong>{repairRequest.card_id}</strong>
+                <span>Source work order</span>
+                <strong>{repairRequest.source_work_order_id}</strong>
+                <span>Repair work order</span>
+                <strong>{repairRequest.repair_work_order_id}</strong>
+                <span>Assigned</span>
+                <strong>{repairRequest.assigned_agent_id}</strong>
+                <span>Requested by</span>
+                <strong>{repairRequest.requested_by}</strong>
+                <span>Created</span>
+                <strong>{repairRequest.created_at}</strong>
+                <span>Updated</span>
+                <strong>{repairRequest.updated_at}</strong>
+                <span>Completed</span>
+                <strong>{repairRequest.completed_at ?? "pending"}</strong>
+              </div>
+              <div className="summary-stack">
+                <div>
+                  <p className="eyebrow">Repair instructions</p>
+                  <p>{repairRequest.repair_instructions}</p>
+                </div>
+                <div>
+                  <p className="eyebrow">Evidence refs</p>
+                  <div className="code-list">
+                    {repairRequest.evidence_refs.map((ref) => (
+                      <code key={ref}>{ref}</code>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {canDecide && (
+                <div className="decision-row">
+                  <label>
+                    Decision reason
+                    <input
+                      data-testid={`repair-reason-${repairRequest.id}`}
+                      onChange={(event) =>
+                        setReasonById((current) => ({ ...current, [repairRequest.id]: event.target.value }))
+                      }
+                      placeholder="Optional short reason"
+                      value={reasonById[repairRequest.id] ?? ""}
+                    />
+                  </label>
+                  <div className="button-row">
+                    <button
+                      data-testid={`complete-repair-${repairRequest.id}`}
+                      disabled={workingRepairRequestId === repairRequest.id}
+                      onClick={() => decideRepairRequest(repairRequest, "complete")}
+                      type="button"
+                    >
+                      Complete
+                    </button>
+                    <button
+                      className="secondary danger"
+                      data-testid={`cancel-repair-${repairRequest.id}`}
+                      disabled={workingRepairRequestId === repairRequest.id}
+                      onClick={() => decideRepairRequest(repairRequest, "cancel")}
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+      <FormStatus error={error} success={success} />
     </section>
   );
 }
@@ -1020,6 +1312,16 @@ function qaResultStatusClass(result: QaResult["result"]): string {
     return "danger";
   }
   if (result === "blocked") {
+    return "warn";
+  }
+  return "";
+}
+
+function repairRequestStatusClass(status: RepairRequest["status"]): string {
+  if (status === "cancelled") {
+    return "danger";
+  }
+  if (status === "proposed" || status === "created" || status === "in_progress") {
     return "warn";
   }
   return "";

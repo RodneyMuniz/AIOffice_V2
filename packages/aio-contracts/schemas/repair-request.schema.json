@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/repair-request.schema.json",
+  "title": "RepairRequest",
+  "type": "object",
+  "required": [
+    "id",
+    "qa_result_id",
+    "handoff_id",
+    "card_id",
+    "source_work_order_id",
+    "repair_work_order_id",
+    "requested_by",
+    "assigned_agent_id",
+    "status",
+    "summary",
+    "repair_instructions",
+    "created_at",
+    "updated_at",
+    "completed_at",
+    "evidence_refs"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "qa_result_id": { "type": "string" },
+    "handoff_id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "source_work_order_id": { "type": "string" },
+    "repair_work_order_id": { "type": "string" },
+    "requested_by": { "type": "string" },
+    "assigned_agent_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "created", "in_progress", "completed", "cancelled"]
+    },
+    "summary": { "type": "string" },
+    "repair_instructions": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "completed_at": { "type": ["string", "null"] },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "id": "R19-REPAIR-001",
+      "qa_result_id": "R19-QA-RESULT-001",
+      "handoff_id": "R19-HANDOFF-001",
+      "card_id": "R19-CARD-001",
+      "source_work_order_id": "R19-WO-001",
+      "repair_work_order_id": "R19-WO-002",
+      "requested_by": "operator",
+      "assigned_agent_id": "developer_codex",
+      "status": "created",
+      "summary": "Repair failed QA smoke path",
+      "repair_instructions": "Fix the issue captured by QA/Test before another QA handoff.",
+      "created_at": "2026-05-13T00:00:00Z",
+      "updated_at": "2026-05-13T00:00:00Z",
+      "completed_at": null,
+      "evidence_refs": [
+        "runtime/state/qa_results.json#R19-QA-RESULT-001",
+        "runtime/state/repair_requests.json#R19-REPAIR-001",
+        "runtime/state/work_orders.json#R19-WO-002"
+      ]
+    }
+  ]
+}

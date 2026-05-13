@@ -5,6 +5,7 @@ import type {
   CreateApprovalRequest,
   CreateCardRequest,
   CreateQaResultRequest,
+  CreateRepairRequest,
   CreateWorkOrderRequest,
   DashboardData,
   EventEntry,
@@ -12,6 +13,8 @@ import type {
   Handoff,
   HandoffDecisionRequest,
   QaResult,
+  RepairRequest,
+  RepairRequestDecisionRequest,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder
@@ -54,19 +57,21 @@ async function readApiError(path: string, response: Response): Promise<string> {
 }
 
 export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData> {
-  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults] = await Promise.all([
-    requestJson<StatusResponse>("/status", { signal }),
-    requestJson<Card[]>("/cards", { signal }),
-    requestJson<WorkOrder[]>("/work-orders", { signal }),
-    requestJson<Agent[]>("/agents", { signal }),
-    requestJson<EventEntry[]>("/events", { signal }),
-    requestJson<EvidenceEntry[]>("/evidence", { signal }),
-    requestJson<Approval[]>("/approvals", { signal }),
-    requestJson<Handoff[]>("/handoffs", { signal }),
-    requestJson<QaResult[]>("/qa-results", { signal })
-  ]);
+  const [status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults, repairRequests] =
+    await Promise.all([
+      requestJson<StatusResponse>("/status", { signal }),
+      requestJson<Card[]>("/cards", { signal }),
+      requestJson<WorkOrder[]>("/work-orders", { signal }),
+      requestJson<Agent[]>("/agents", { signal }),
+      requestJson<EventEntry[]>("/events", { signal }),
+      requestJson<EvidenceEntry[]>("/evidence", { signal }),
+      requestJson<Approval[]>("/approvals", { signal }),
+      requestJson<Handoff[]>("/handoffs", { signal }),
+      requestJson<QaResult[]>("/qa-results", { signal }),
+      requestJson<RepairRequest[]>("/repair-requests", { signal })
+    ]);
 
-  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults };
+  return { status, cards, workOrders, agents, events, evidence, approvals, handoffs, qaResults, repairRequests };
 }
 
 export function createCard(payload: CreateCardRequest): Promise<Card> {
@@ -117,4 +122,19 @@ export function rejectHandoff(id: string, decision: HandoffDecisionRequest): Pro
 
 export function createQaResult(id: string, payload: CreateQaResultRequest): Promise<QaResult> {
   return requestJson<QaResult>(`/handoffs/${id}/qa-result`, { method: "POST", body: payload });
+}
+
+export function createRepairRequest(id: string, payload: CreateRepairRequest): Promise<RepairRequest> {
+  return requestJson<RepairRequest>(`/qa-results/${id}/repair-request`, { method: "POST", body: payload });
+}
+
+export function completeRepairRequest(
+  id: string,
+  decision: RepairRequestDecisionRequest
+): Promise<RepairRequest> {
+  return requestJson<RepairRequest>(`/repair-requests/${id}/complete`, { method: "POST", body: decision });
+}
+
+export function cancelRepairRequest(id: string, decision: RepairRequestDecisionRequest): Promise<RepairRequest> {
+  return requestJson<RepairRequest>(`/repair-requests/${id}/cancel`, { method: "POST", body: decision });
 }

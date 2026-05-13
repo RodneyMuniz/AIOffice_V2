@@ -18,6 +18,9 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/handoff-decision-request.schema.json`
 - `schemas/qa-result.schema.json`
 - `schemas/create-qa-result-request.schema.json`
+- `schemas/repair-request.schema.json`
+- `schemas/create-repair-request.schema.json`
+- `schemas/repair-request-decision.schema.json`
 - `schemas/agent.schema.json`
 - `schemas/approval.schema.json`
 - `schemas/create-approval-request.schema.json`
@@ -34,6 +37,10 @@ Allowed handoff statuses are `proposed`, `accepted`, `rejected`, `completed`, an
 
 Allowed QA result values are `passed`, `failed`, and `blocked`.
 
+Allowed repair request statuses are `proposed`, `created`, `in_progress`, `completed`, and `cancelled`.
+
 The handoff contracts describe an API-mediated dry-run role handoff. They do not claim autonomous A2A execution, background workers, OpenAI/Codex API invocation, or full product runtime.
 
 The QA result contracts describe structured operator/API-mediated result capture after an accepted handoff. They do not claim autonomous QA execution, live agent testing, autonomous A2A, or no-manual-transfer success.
+
+The repair request contracts describe an operator/API-mediated repair loop for failed or blocked QA results. Creating a repair request creates a linked Developer/Codex repair work order, but it does not claim autonomous repair, live agent execution, or automatic QA reruns.

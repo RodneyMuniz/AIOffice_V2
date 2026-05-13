@@ -45,6 +45,8 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Accept or reject proposed handoffs from the Handoffs panel.
 - Record a structured QA/Test result for accepted handoffs.
 - See recorded QA results in the QA Results panel.
+- For failed or blocked QA results, create a repair request that creates a linked Developer/Codex repair work order.
+- See repair requests in the Repair Requests panel and complete or cancel created/in-progress repair requests.
 - Create a separate approval request.
 - Approve or reject pending approvals.
 - See cards, work orders, handoffs, approvals, events, and evidence refresh after each action.
@@ -69,6 +71,15 @@ Each successful handoff action refreshes status, work orders, handoffs, events, 
 
 QA result capture is available only for accepted handoffs that do not already have a QA result. Allowed QA result values are `passed`, `failed`, and `blocked`. A passed result can move the linked work order to `completed`; failed and blocked results can move it to `blocked`. Each successful QA result refreshes status, work orders, handoffs, QA results, events, and evidence.
 
+Repair-loop actions use:
+
+- `GET /repair-requests`
+- `POST /qa-results/{id}/repair-request`
+- `POST /repair-requests/{id}/complete`
+- `POST /repair-requests/{id}/cancel`
+
+The repair request form appears only for failed or blocked QA results that do not already have a repair request. Creating one refreshes status, work orders, repair requests, QA results, events, and evidence. Linked repair work orders start as `ready`, are assigned to `developer_codex` by default, and do not invoke autonomous repair.
+
 ## Build and Smoke
 
 Required frontend regression check:
@@ -83,7 +94,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, updates both statuses, triggers a QA handoff, accepts it, records a passed QA result, verifies the QA Results panel and event/evidence refresh, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, updates both statuses, triggers a QA handoff, accepts it, records a failed QA result, creates a repair request, verifies the linked repair work order, verifies repair events/evidence, completes the repair request, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -96,8 +107,10 @@ Manual browser smoke:
 7. Click Handoff to QA on the work order.
 8. Accept or reject the proposed handoff in the Handoffs panel.
 9. For an accepted handoff, submit the QA result form.
-10. Confirm the QA Results panel, Events, and Evidence refresh with QA result entries.
-11. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+10. If the QA result is failed or blocked, create a repair request from the QA Results panel.
+11. Confirm the Repair Requests panel and linked repair work order appear.
+12. Confirm Events and Evidence refresh with repair entries.
+13. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -113,5 +126,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - No OpenAI or Codex API invocation is implemented.
 - Handoffs are API-mediated dry-run records, not autonomous A2A execution.
 - QA result capture is operator/API-mediated and does not execute live QA agents.
+- Repair request creation is operator/API-mediated and does not execute autonomous repair or live Developer/Codex agents.
+- Completing or cancelling a repair request does not automatically re-run QA or create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

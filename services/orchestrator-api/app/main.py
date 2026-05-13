@@ -30,9 +30,12 @@ WORK_ORDER_STATUSES = (
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
+RepairRequestStatus = Literal["proposed", "created", "in_progress", "completed", "cancelled"]
 
 HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
 QA_RESULT_VALUES = ("passed", "failed", "blocked")
+REPAIR_REQUEST_STATUSES = ("proposed", "created", "in_progress", "completed", "cancelled")
+OPEN_REPAIR_REQUEST_STATUSES = ("proposed", "created", "in_progress")
 
 
 class CardCreate(BaseModel):
@@ -58,6 +61,9 @@ class WorkOrderCreate(BaseModel):
     request_requires_approval: bool = False
     approval_required: bool | None = None
     handoff_target_agent_id: str | None = None
+    source_work_order_id: str | None = None
+    qa_result_id: str | None = None
+    repair_request_id: str | None = None
     evidence_refs: list[str] = Field(default_factory=list)
 
 
@@ -104,6 +110,18 @@ class QaResultCreate(BaseModel):
     qa_agent_id: str = "qa_test"
 
 
+class RepairRequestCreate(BaseModel):
+    summary: str
+    repair_instructions: str
+    requested_by: str = "operator"
+    assigned_agent_id: str = "developer_codex"
+
+
+class RepairRequestDecision(BaseModel):
+    decision_reason: str = ""
+    decided_by: str = "operator"
+
+
 class StatusUpdateRequest(BaseModel):
     status: str
     reason: str = ""
@@ -124,6 +142,7 @@ class JsonStateStore:
         self.approvals = self._load_collection("approvals", [])
         self.handoffs = self._load_collection("handoffs", [])
         self.qa_results = self._load_collection("qa_results", [])
+        self.repair_requests = self._load_collection("repair_requests", [])
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
         if not path.exists():
@@ -164,6 +183,14 @@ class JsonStateStore:
         blocked_qa_results_count = sum(
             1 for qa_result in self.qa_results if qa_result.get("result") == "blocked"
         )
+        open_repair_requests_count = sum(
+            1
+            for repair_request in self.repair_requests
+            if repair_request.get("status") in OPEN_REPAIR_REQUEST_STATUSES
+        )
+        completed_repair_requests_count = sum(
+            1 for repair_request in self.repair_requests if repair_request.get("status") == "completed"
+        )
 
         return {
             **self.status_seed,
@@ -181,6 +208,9 @@ class JsonStateStore:
             "qa_results_count": len(self.qa_results),
             "failed_qa_results_count": failed_qa_results_count,
             "blocked_qa_results_count": blocked_qa_results_count,
+            "repair_requests_count": len(self.repair_requests),
+            "open_repair_requests_count": open_repair_requests_count,
+            "completed_repair_requests_count": completed_repair_requests_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -591,6 +621,166 @@ class JsonStateStore:
         self._save_collection("evidence", self.evidence)
         return qa_result
 
+    def create_repair_request(
+        self, qa_result_id: str, payload: RepairRequestCreate
+    ) -> dict[str, Any]:
+        qa_result = self._find_qa_result(qa_result_id)
+        if qa_result is None:
+            raise HTTPException(status_code=404, detail=f"Unknown QA result id: {qa_result_id}")
+
+        result = qa_result.get("result")
+        if result not in {"failed", "blocked"}:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"QA result {qa_result_id} is {result}; repair requests can only "
+                    "be created for failed or blocked QA results."
+                ),
+            )
+
+        existing_repair_request = self._find_repair_request_for_qa_result(qa_result_id)
+        if existing_repair_request:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair request {existing_repair_request['id']} already exists for "
+                    f"QA result {qa_result_id}."
+                ),
+            )
+
+        source_work_order_id = qa_result["work_order_id"]
+        source_work_order = self._find_work_order(source_work_order_id)
+        if source_work_order is None:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"QA result {qa_result_id} references missing source work-order "
+                    f"{source_work_order_id}."
+                ),
+            )
+
+        request_data = _model_to_dict(payload)
+        requested_by = str(request_data.get("requested_by") or "operator").strip() or "operator"
+        assigned_agent_id = (
+            str(request_data.get("assigned_agent_id") or "developer_codex").strip()
+            or "developer_codex"
+        )
+        summary = str(request_data.get("summary") or "").strip()
+        repair_instructions = str(request_data.get("repair_instructions") or "").strip()
+        if not summary:
+            raise HTTPException(status_code=400, detail="Repair request summary is required.")
+        if not repair_instructions:
+            raise HTTPException(status_code=400, detail="Repair instructions are required.")
+
+        now = _utc_now()
+        repair_request_id = self._next_id(self.repair_requests, "R19-REPAIR")
+        repair_work_order_id = self._next_id(self.work_orders, "R19-WO")
+        evidence_refs = [
+            f"runtime/state/qa_results.json#{qa_result_id}",
+            f"runtime/state/handoffs.json#{qa_result['handoff_id']}",
+            f"runtime/state/work_orders.json#{source_work_order_id}",
+            f"runtime/state/repair_requests.json#{repair_request_id}",
+            f"runtime/state/work_orders.json#{repair_work_order_id}",
+        ]
+
+        repair_work_order = {
+            "id": repair_work_order_id,
+            "card_id": qa_result["card_id"],
+            "title": f"Repair: {source_work_order['title']}",
+            "summary": repair_instructions,
+            "status": "ready",
+            "requested_by_agent_id": requested_by,
+            "assigned_agent_id": assigned_agent_id,
+            "approval_required": False,
+            "handoff_target_agent_id": "qa_test",
+            "source_work_order_id": source_work_order_id,
+            "qa_result_id": qa_result_id,
+            "repair_request_id": repair_request_id,
+            "evidence_refs": evidence_refs,
+            "created_at": now,
+            "updated_at": now,
+        }
+        repair_request = {
+            "id": repair_request_id,
+            "qa_result_id": qa_result_id,
+            "handoff_id": qa_result["handoff_id"],
+            "card_id": qa_result["card_id"],
+            "source_work_order_id": source_work_order_id,
+            "repair_work_order_id": repair_work_order_id,
+            "requested_by": requested_by,
+            "assigned_agent_id": assigned_agent_id,
+            "status": "created",
+            "summary": summary,
+            "repair_instructions": repair_instructions,
+            "created_at": now,
+            "updated_at": now,
+            "completed_at": None,
+            "evidence_refs": evidence_refs,
+        }
+
+        self.work_orders.append(repair_work_order)
+        self.repair_requests.append(repair_request)
+        self._append_event(
+            event_type="repair_request_created",
+            summary=f"Repair request {repair_request_id} created for QA result {qa_result_id}.",
+            actor_agent_id=requested_by,
+            related_card_id=qa_result["card_id"],
+            related_work_order_id=source_work_order_id,
+            related_handoff_id=qa_result["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+        self._append_event(
+            event_type="repair_work_order_created",
+            summary=(
+                f"Repair work order {repair_work_order_id} created for repair request "
+                f"{repair_request_id} and assigned to {assigned_agent_id}."
+            ),
+            actor_agent_id=requested_by,
+            related_card_id=qa_result["card_id"],
+            related_work_order_id=repair_work_order_id,
+            related_handoff_id=qa_result["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+        self._append_evidence(
+            title=f"Repair request {repair_request_id} created",
+            kind="repair_request",
+            summary=summary,
+            path=f"runtime/state/repair_requests.json#{repair_request_id}",
+            related_card_id=qa_result["card_id"],
+            related_work_order_id=source_work_order_id,
+            related_handoff_id=qa_result["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+        self._append_evidence(
+            title=f"Repair work order {repair_work_order_id} created",
+            kind="repair_work_order",
+            summary=(
+                f"Ready repair work order linked to source work order {source_work_order_id} "
+                f"and QA result {qa_result_id}."
+            ),
+            path=f"runtime/state/work_orders.json#{repair_work_order_id}",
+            related_card_id=qa_result["card_id"],
+            related_work_order_id=repair_work_order_id,
+            related_handoff_id=qa_result["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+
+        self._save_collection("work_orders", self.work_orders)
+        self._save_collection("repair_requests", self.repair_requests)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return repair_request
+
+    def complete_repair_request(
+        self, repair_request_id: str, decision: RepairRequestDecision
+    ) -> dict[str, Any]:
+        return self._decide_repair_request(repair_request_id, "completed", decision)
+
+    def cancel_repair_request(
+        self, repair_request_id: str, decision: RepairRequestDecision
+    ) -> dict[str, Any]:
+        return self._decide_repair_request(repair_request_id, "cancelled", decision)
+
     def _create_approval_record(
         self,
         title: str,
@@ -743,6 +933,66 @@ class JsonStateStore:
         self._save_collection("evidence", self.evidence)
         return handoff
 
+    def _decide_repair_request(
+        self,
+        repair_request_id: str,
+        status: RepairRequestStatus,
+        decision: RepairRequestDecision,
+    ) -> dict[str, Any]:
+        repair_request = self._find_repair_request(repair_request_id)
+        if repair_request is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown repair request id: {repair_request_id}",
+            )
+        if repair_request.get("status") in {"completed", "cancelled"}:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"Repair request {repair_request_id} is already "
+                    f"{repair_request.get('status')}."
+                ),
+            )
+
+        decision_data = _model_to_dict(decision)
+        decided_by = str(decision_data.get("decided_by") or "operator").strip() or "operator"
+        reason = (
+            str(decision_data.get("decision_reason") or "").strip()
+            or f"Operator marked repair request {repair_request_id} {status}."
+        )
+        now = _utc_now()
+        repair_request["status"] = status
+        repair_request["updated_at"] = now
+        if status == "completed":
+            repair_request["completed_at"] = now
+
+        event_type = "repair_request_completed" if status == "completed" else "repair_request_cancelled"
+
+        self._append_event(
+            event_type=event_type,
+            summary=f"Repair request {repair_request_id} {status}. Reason: {reason}",
+            actor_agent_id=decided_by,
+            related_card_id=repair_request["card_id"],
+            related_work_order_id=repair_request["repair_work_order_id"],
+            related_handoff_id=repair_request["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+        self._append_evidence(
+            title=f"Repair request {repair_request_id} {status}",
+            kind="repair_request",
+            summary=reason,
+            path=f"runtime/state/repair_requests.json#{repair_request_id}",
+            related_card_id=repair_request["card_id"],
+            related_work_order_id=repair_request["repair_work_order_id"],
+            related_handoff_id=repair_request["handoff_id"],
+            related_repair_request_id=repair_request_id,
+        )
+
+        self._save_collection("repair_requests", self.repair_requests)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return repair_request
+
     def _apply_work_order_status(
         self,
         work_order: dict[str, Any],
@@ -854,6 +1104,7 @@ class JsonStateStore:
         related_work_order_id: str | None = None,
         related_approval_id: str | None = None,
         related_handoff_id: str | None = None,
+        related_repair_request_id: str | None = None,
     ) -> None:
         event = {
             "id": self._next_id(self.events, "R19-EVENT"),
@@ -865,6 +1116,7 @@ class JsonStateStore:
             "related_work_order_id": related_work_order_id,
             "related_approval_id": related_approval_id,
             "related_handoff_id": related_handoff_id,
+            "related_repair_request_id": related_repair_request_id,
         }
         self.events.append({key: value for key, value in event.items() if value is not None})
 
@@ -878,6 +1130,7 @@ class JsonStateStore:
         related_work_order_id: str | None = None,
         related_approval_id: str | None = None,
         related_handoff_id: str | None = None,
+        related_repair_request_id: str | None = None,
     ) -> None:
         evidence = {
             "id": self._next_id(self.evidence, "R19-EVIDENCE"),
@@ -889,6 +1142,7 @@ class JsonStateStore:
             "related_work_order_id": related_work_order_id,
             "related_approval_id": related_approval_id,
             "related_handoff_id": related_handoff_id,
+            "related_repair_request_id": related_repair_request_id,
             "created_at": _utc_now(),
         }
         self.evidence.append({key: value for key, value in evidence.items() if value is not None})
@@ -911,9 +1165,35 @@ class JsonStateStore:
     def _find_handoff(self, handoff_id: str) -> dict[str, Any] | None:
         return next((handoff for handoff in self.handoffs if handoff.get("id") == handoff_id), None)
 
+    def _find_qa_result(self, qa_result_id: str) -> dict[str, Any] | None:
+        return next(
+            (qa_result for qa_result in self.qa_results if qa_result.get("id") == qa_result_id),
+            None,
+        )
+
     def _find_qa_result_for_handoff(self, handoff_id: str) -> dict[str, Any] | None:
         return next(
             (qa_result for qa_result in self.qa_results if qa_result.get("handoff_id") == handoff_id),
+            None,
+        )
+
+    def _find_repair_request(self, repair_request_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                repair_request
+                for repair_request in self.repair_requests
+                if repair_request.get("id") == repair_request_id
+            ),
+            None,
+        )
+
+    def _find_repair_request_for_qa_result(self, qa_result_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                repair_request
+                for repair_request in self.repair_requests
+                if repair_request.get("qa_result_id") == qa_result_id
+            ),
             None,
         )
 
@@ -964,7 +1244,7 @@ def _utc_now() -> str:
 store = JsonStateStore()
 app = FastAPI(
     title="AIOffice Orchestrator API",
-    version="0.2.0",
+    version="0.3.0",
     description="R19 local product reset API slice. No OpenAI or Codex APIs are invoked.",
 )
 
@@ -1051,6 +1331,11 @@ def get_qa_results() -> list[dict[str, Any]]:
     return store.qa_results
 
 
+@app.get("/repair-requests")
+def get_repair_requests() -> list[dict[str, Any]]:
+    return store.repair_requests
+
+
 @app.post("/approvals", status_code=201)
 def post_approvals(approval: ApprovalCreate) -> dict[str, Any]:
     return store.create_approval(approval)
@@ -1088,3 +1373,24 @@ def post_handoff_reject(
 @app.post("/handoffs/{handoff_id}/qa-result", status_code=201)
 def post_handoff_qa_result(handoff_id: str, qa_result: QaResultCreate) -> dict[str, Any]:
     return store.create_qa_result(handoff_id, qa_result)
+
+
+@app.post("/qa-results/{qa_result_id}/repair-request", status_code=201)
+def post_qa_result_repair_request(
+    qa_result_id: str, repair_request: RepairRequestCreate
+) -> dict[str, Any]:
+    return store.create_repair_request(qa_result_id, repair_request)
+
+
+@app.post("/repair-requests/{repair_request_id}/complete")
+def post_repair_request_complete(
+    repair_request_id: str, decision: RepairRequestDecision | None = None
+) -> dict[str, Any]:
+    return store.complete_repair_request(repair_request_id, decision or RepairRequestDecision())
+
+
+@app.post("/repair-requests/{repair_request_id}/cancel")
+def post_repair_request_cancel(
+    repair_request_id: str, decision: RepairRequestDecision | None = None
+) -> dict[str, Any]:
+    return store.cancel_repair_request(repair_request_id, decision or RepairRequestDecision())

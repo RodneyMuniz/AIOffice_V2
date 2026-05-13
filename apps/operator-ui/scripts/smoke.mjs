@@ -111,24 +111,53 @@ try {
   await handoffRow.locator(".state-tag", { hasText: "accepted" }).waitFor();
 
   await handoffRow.locator('[data-testid^="qa-result-form-"]').waitFor();
-  await handoffRow.locator('[data-testid^="qa-result-select-"]').selectOption("passed");
-  await handoffRow.locator('[data-testid^="qa-result-summary-"]').fill("Browser smoke QA passed.");
-  await handoffRow.locator('[data-testid^="qa-result-findings-"]').fill("No blocking issues found in the smoke path.");
+  await handoffRow.locator('[data-testid^="qa-result-select-"]').selectOption("failed");
+  await handoffRow.locator('[data-testid^="qa-result-summary-"]').fill("Browser smoke QA failed.");
+  await handoffRow.locator('[data-testid^="qa-result-findings-"]').fill("A blocking issue needs a repair work order.");
   await handoffRow
     .locator('[data-testid^="qa-result-next-action-"]')
-    .fill("Complete work order after QA pass.");
+    .fill("Create a repair work order.");
   await handoffRow.getByRole("button", { name: "Record QA Result" }).click();
-  await handoffRow.getByText("QA result recorded: passed").waitFor();
+  await handoffRow.getByText("QA result recorded: failed").waitFor();
 
-  await page.getByTestId("qa-results-list").getByText("Browser smoke QA passed.").waitFor();
-  await page.getByTestId("qa-results-list").getByText("passed").first().waitFor();
-  await workOrderRow.locator(".state-tag", { hasText: "completed" }).waitFor();
+  const qaResultRow = page.getByTestId("qa-results-list").locator("article").filter({ hasText: "Browser smoke QA failed." }).first();
+  await qaResultRow.waitFor();
+  await qaResultRow.locator(".state-tag", { hasText: "failed" }).waitFor();
+  await workOrderRow.locator(".state-tag", { hasText: "blocked" }).waitFor();
+
+  await qaResultRow.locator('[data-testid^="repair-summary-"]').fill("Browser smoke repair request.");
+  await qaResultRow.locator('[data-testid^="repair-instructions-"]').fill("Repair the failed browser smoke condition.");
+  await qaResultRow.locator('[data-testid^="repair-agent-"]').selectOption("developer_codex");
+  await qaResultRow.getByRole("button", { name: "Create Repair Work Order" }).click();
+  await qaResultRow.getByText("Repair request created:").waitFor();
+
+  const repairRequestRow = page
+    .getByTestId("repair-requests-list")
+    .locator("article")
+    .filter({ hasText: "Browser smoke repair request." })
+    .first();
+  await repairRequestRow.waitFor();
+  await repairRequestRow.locator(".state-tag", { hasText: "created" }).waitFor();
+
+  const repairWorkOrderRow = page.getByTestId("work-orders-list").locator("article").filter({ hasText: `Repair: ${workOrderTitle}` }).first();
+  await repairWorkOrderRow.waitFor();
+  await repairWorkOrderRow.locator(".state-tag", { hasText: "ready" }).waitFor();
+  await repairWorkOrderRow.getByText("developer_codex").waitFor();
+
+  await repairRequestRow.locator('[data-testid^="repair-reason-"]').fill("Browser smoke closes the repair request.");
+  await repairRequestRow.getByRole("button", { name: "Complete" }).click();
+  await repairRequestRow.locator(".state-tag", { hasText: "completed" }).waitFor();
 
   await page.getByTestId("events-list").getByText("handoff_accepted").waitFor();
   await page.getByTestId("events-list").getByText("qa_result_recorded").waitFor();
-  await page.getByTestId("events-list").getByText("work_order_completed_from_qa").waitFor();
+  await page.getByTestId("events-list").getByText("work_order_blocked_from_qa").waitFor();
+  await page.getByTestId("events-list").getByText("repair_request_created").waitFor();
+  await page.getByTestId("events-list").getByText("repair_work_order_created").waitFor();
+  await page.getByTestId("events-list").getByText("repair_request_completed").waitFor();
   await page.getByTestId("evidence-list").getByText("handoff_decision").waitFor();
   await page.getByTestId("evidence-list").getByText("qa_result", { exact: true }).waitFor();
+  await page.getByTestId("evidence-list").getByText("repair_request", { exact: true }).first().waitFor();
+  await page.getByTestId("evidence-list").getByText("repair_work_order", { exact: true }).waitFor();
   await page.getByTestId("events-list").getByText("card_status_changed").waitFor();
   await page.getByTestId("evidence-list").getByText("status_transition").first().waitFor();
 

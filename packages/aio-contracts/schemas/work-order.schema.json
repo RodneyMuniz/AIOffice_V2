@@ -37,7 +37,11 @@
     "approval_required": { "type": "boolean" },
     "request_requires_approval": { "type": "boolean" },
     "handoff_target_agent_id": { "type": "string" },
+    "source_work_order_id": { "type": "string" },
+    "qa_result_id": { "type": "string" },
+    "repair_request_id": { "type": "string" },
     "evidence_refs": { "type": "array", "items": { "type": "string" } },
-    "created_at": { "type": "string" }
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
   }
 }
