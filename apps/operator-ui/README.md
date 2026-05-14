@@ -50,6 +50,9 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Trigger a QA handoff with an override reason only when readiness says the blocker is policy-overridable.
 - See the linked `developer_result_id` and result summary on QA handoffs when a submitted result exists.
 - See override id/reason metadata in the Handoffs and Policy Overrides panels.
+- Review policy overrides and workflow exceptions in the Audit Review panel.
+- Filter audit exceptions by type, severity, work order id, card id, and text search.
+- Export the current audit review as lightweight JSON or CSV text.
 - Accept or reject proposed handoffs from the Handoffs panel.
 - Record a structured QA/Test result for accepted handoffs.
 - See recorded QA results in the QA Results panel.
@@ -118,6 +121,14 @@ The Work Orders and Repair Requests panels show an override reason field and ove
 
 The Policy Overrides panel lists the logged override records with target type/id, work order id, repair request id when present, overridden blockers, non-overridable blockers, reason, requested by, and created timestamp.
 
+Audit review uses:
+
+- `GET /audit/summary`
+- `GET /audit/exceptions`
+- `GET /audit/export`
+
+The Audit Review panel loads on demand from the backend. It shows summary cards for policy overrides, QA failures, QA blocked results, repair requests, open repairs, and policy changes. Filters include exception type, severity, free-text search, work order id, and card id. Export buttons call the backend export endpoint and show JSON or CSV text in the panel. The API supports `format=json` and `format=csv`; invalid formats return HTTP 400. The panel is a lightweight operator review surface for exceptions, not full audit acceptance or an external audit package.
+
 QA result capture is available only for accepted handoffs that do not already have a QA result. Allowed QA result values are `passed`, `failed`, and `blocked`. A passed result can move the linked work order to `completed`; failed and blocked results can move it to `blocked`. Each successful QA result refreshes status, work orders, handoffs, QA results, events, and evidence.
 
 Repair-loop actions use:
@@ -149,7 +160,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, refreshes the Audit Review panel, verifies policy override/QA failed/repair request exceptions, applies exception-type and text filters, verifies JSON and CSV export text, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -179,7 +190,11 @@ Manual browser smoke:
 24. Record a repair QA result and confirm the repair work order status updates.
 25. Confirm the Workflow Iterations panel shows the original and repair iteration.
 26. Confirm Events and Evidence refresh with policy settings, policy override, and repair QA handoff/result entries.
-27. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+27. Refresh the Audit Review panel and confirm the summary shows at least one policy override.
+28. Confirm the Audit Review exception list includes `policy_override`, `qa_failed`, and `repair_request_created`.
+29. Filter Audit Review by `policy_override` and then search for the override reason.
+30. Use Export JSON and Export CSV and confirm the textarea contains the filtered review data.
+31. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -200,6 +215,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
 - QA readiness is advisory by default. Enforced mode is limited to operator-controlled Developer/Codex result requirements for QA handoff readiness and is not a full policy engine.
 - Operator override is a narrow logged exception path for policy-promoted missing Developer/Codex result blockers only; it is not auth, not reusable permission, and not a bypass for hard system blockers.
+- Audit Review is a derived exception review surface, not external audit acceptance, not a large reporting engine, and not a proof-package generator.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

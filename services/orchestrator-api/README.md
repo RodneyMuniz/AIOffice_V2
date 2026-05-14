@@ -32,6 +32,9 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `GET /policy-settings`
 - `GET /policy-overrides`
 - `PATCH /policy-settings`
+- `GET /audit/summary`
+- `GET /audit/exceptions`
+- `GET /audit/export`
 - `GET /cards`
 - `POST /cards`
 - `PATCH /cards/{id}/status`
@@ -111,6 +114,14 @@ Policy settings request body:
 In `advisory` mode, missing Developer/Codex result capture remains a warning and does not block original or repair QA handoff creation. In `enforced` mode, missing Developer/Codex result capture becomes a blocker for original QA when `require_developer_result_for_qa` is true, and for repair QA when `require_developer_result_for_repair_qa` is true. When `allow_operator_override` is true, the readiness response can expose an override option only for that policy-promoted missing-result blocker. The flag does not bypass duplicate active handoffs, missing records, broken repair linkage, invalid repair work orders, or any other hard blocker.
 
 `GET /policy-overrides` returns logged override records from `runtime/state/policy_overrides.json`, falling back to `runtime/state/policy_overrides.seed.json`.
+
+`GET /audit/summary` returns a derived read-only summary for operator exception review. Counts include policy overrides, override-backed handoffs, policy settings changes, failed and blocked QA results, repair requests, open and completed repairs, hard-blocker events when derivable from events, readiness blockers when derivable from current readiness, and `generated_at`.
+
+`GET /audit/exceptions` returns derived audit exception entries from existing JSON state. It does not persist an audit model and does not write events or evidence. Supported filters are `exception_type`, `severity`, `card_id`, `work_order_id`, `handoff_id`, and free-text `q`; `q` searches titles, summaries, related ids, source refs, and override reasons carried in summaries. `limit` defaults to `100`, `offset` defaults to `0`, `limit` must be between `1` and `500`, and `offset` must be `>= 0`; invalid pagination values return HTTP 400.
+
+Audit exception types currently include `policy_override`, `policy_settings_change`, `qa_failed`, `qa_blocked`, `repair_request_created`, `handoff_without_developer_result`, `duplicate_handoff_blocked`, and `readiness_blocker`. Severities are `info`, `warning`, `blocker`, and `override`.
+
+`GET /audit/export` supports the same filters plus `format=json` or `format=csv`. JSON returns `{ "summary": ..., "exceptions": [...] }`. CSV returns `text/csv` with core fields only: `id`, `exception_type`, `severity`, `title`, `card_id`, `work_order_id`, `handoff_id`, `qa_result_id`, `repair_request_id`, `policy_override_id`, `created_at`, and `summary`. Invalid export formats return HTTP 400. This is a lightweight operator review endpoint, not external audit acceptance or a reporting engine.
 
 `POST /work-orders/{id}/developer-result` records a submitted Developer/Codex result for a work order before QA handoff. Missing work orders return HTTP 404. Unknown `agent_id`, invalid `result_type`, and non-list `changed_paths` return HTTP 400. A submitted result writes `developer_result_recorded` event/evidence and can move a simple `draft`, `running`, or `approved` work order to `ready` with `work_order_ready_from_developer_result`. Duplicate submitted results for the same work order are rejected until the current result is superseded.
 
@@ -221,6 +232,8 @@ Repair QA handoff creation persists to `handoffs.json` and writes `repair_handof
 
 Policy settings updates persist to `policy_settings.json` and write `policy_settings_updated` plus `policy_settings` evidence. Policy overrides persist to `policy_overrides.json` and write `policy_override_recorded` plus `policy_override` evidence. This is a product policy setting and narrow logged exception path, not a governance document flow or full policy engine.
 
+Audit review endpoints are read-only. `GET /audit/summary`, `GET /audit/exceptions`, and `GET /audit/export` derive their payloads from the current JSON state and do not append events, write evidence, or persist audit records.
+
 ## Test and Smoke Commands
 
 Backend regression harness:
@@ -229,7 +242,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, audit summary shape/counts, filterable audit exceptions, audit JSON/CSV export, invalid audit export formats, audit pagination validation, audit endpoint read-only behavior, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -272,6 +285,14 @@ curl http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/qa-readiness
 curl -X POST http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted repair QA smoke.\",\"decided_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/qa-result -H "Content-Type: application/json" -d "{\"result\":\"passed\",\"summary\":\"Repair QA passed.\",\"findings\":\"Repair verified.\",\"recommended_next_action\":\"Complete repair work order.\",\"qa_agent_id\":\"qa_test\"}"
+curl http://127.0.0.1:8000/audit/summary
+curl http://127.0.0.1:8000/audit/exceptions
+curl "http://127.0.0.1:8000/audit/exceptions?exception_type=policy_override"
+curl "http://127.0.0.1:8000/audit/exceptions?severity=override"
+curl "http://127.0.0.1:8000/audit/exceptions?q=Smoke"
+curl "http://127.0.0.1:8000/audit/export?format=json"
+curl "http://127.0.0.1:8000/audit/export?format=csv"
+curl "http://127.0.0.1:8000/audit/export?format=xml"
 ```
 
 ## Reset Local Runtime State
@@ -279,7 +300,7 @@ curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/qa-result -H "Conten
 Delete the generated persistent files and restart the API:
 
 ```powershell
-Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json -ErrorAction SilentlyContinue
+Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json,runtime\state\policy_overrides.json -ErrorAction SilentlyContinue
 ```
 
 The next API load will read the seed JSON files again.
@@ -297,6 +318,7 @@ The next API load will read the seed JSON files again.
 - Repair requests and linked repair work orders are operator/API-mediated records, not autonomous repair execution.
 - Repair QA iteration handoffs and results are operator/API-mediated records, not autonomous QA reruns.
 - QA readiness is advisory by default; enforced mode promotes only configured missing Developer/Codex result warnings to blockers. Duplicate active handoffs and broken required linkage remain non-overridable blockers in all modes.
+- Audit review is a derived operator-facing exception review surface, not external audit acceptance, not a large reporting engine, and not a proof-package generator.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 

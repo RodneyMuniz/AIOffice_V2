@@ -20,6 +20,8 @@ R19 policy enforcement is limited to operator-controlled QA handoff readiness ga
 
 R19 operator overrides are limited to logged exceptions for policy-promoted readiness blockers and cannot bypass hard system blockers.
 
+R19 audit review is an operator-facing exception review surface, not external audit acceptance.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

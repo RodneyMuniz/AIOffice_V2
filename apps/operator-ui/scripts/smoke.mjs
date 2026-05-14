@@ -291,6 +291,51 @@ try {
   await page.getByTestId("events-list").getByText("card_status_changed").waitFor();
   await page.getByTestId("evidence-list").getByText("status_transition").first().waitFor();
 
+  const auditPanel = page.getByTestId("audit-review-panel");
+  await auditPanel.waitFor();
+  await auditPanel.getByTestId("audit-refresh").click();
+  await waitForLocatorText(
+    auditPanel.getByTestId("audit-summary-policy-overrides").locator("strong"),
+    (text) => Number(text) >= 1,
+    "audit policy override summary"
+  );
+  const auditExceptionsList = auditPanel.getByTestId("audit-exceptions-list");
+  await auditExceptionsList.getByText("policy_override").first().waitFor();
+  await auditExceptionsList.getByText("qa_failed").first().waitFor();
+  await auditExceptionsList.getByText("repair_request_created").first().waitFor();
+
+  await auditPanel.getByTestId("audit-filter-exception-type").selectOption("policy_override");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => text.includes("policy_override") && text.includes(originalOverrideId) && !text.includes("qa_failed"),
+    "policy override audit filter"
+  );
+
+  await auditPanel.getByTestId("audit-filter-q").fill(originalOverrideReason);
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => text.includes(originalOverrideId) && text.includes(originalOverrideReason),
+    "audit text search filter"
+  );
+
+  const auditExportOutput = auditPanel.getByTestId("audit-export-output");
+  await auditPanel.getByTestId("audit-export-json").click();
+  await waitForLocatorValue(
+    auditExportOutput,
+    (value) => value.includes('"policy_override"') && value.includes(originalOverrideId),
+    "audit JSON export"
+  );
+  await auditPanel.getByTestId("audit-export-csv").click();
+  await waitForLocatorValue(
+    auditExportOutput,
+    (value) =>
+      value.includes("id,exception_type,severity,title,card_id,work_order_id,handoff_id") &&
+      value.includes(originalOverrideId),
+    "audit CSV export"
+  );
+
   assert.deepEqual(consoleErrors, [], `Browser console errors were captured: ${consoleErrors.join("\n")}`);
   console.log(`Smoke passed against ${uiUrl} with temp state ${stateDir}`);
 } finally {
@@ -397,6 +442,32 @@ async function launchChromium() {
 
 async function assertVisible(locator, label) {
   assert.equal(await locator.isVisible(), true, `${label} should be visible`);
+}
+
+async function waitForLocatorText(locator, predicate, label, timeoutMs = 10000) {
+  const deadline = Date.now() + timeoutMs;
+  let lastText = "";
+  while (Date.now() < deadline) {
+    lastText = (await locator.textContent()) ?? "";
+    if (predicate(lastText)) {
+      return lastText;
+    }
+    await sleep(200);
+  }
+  throw new Error(`Timed out waiting for ${label}. Last text: ${lastText}`);
+}
+
+async function waitForLocatorValue(locator, predicate, label, timeoutMs = 10000) {
+  const deadline = Date.now() + timeoutMs;
+  let lastValue = "";
+  while (Date.now() < deadline) {
+    lastValue = await locator.inputValue();
+    if (predicate(lastValue)) {
+      return lastValue;
+    }
+    await sleep(200);
+  }
+  throw new Error(`Timed out waiting for ${label}. Last value: ${lastValue}`);
 }
 
 async function savePolicy(page, { mode, requireOriginal, requireRepair, allowOverride = false }) {

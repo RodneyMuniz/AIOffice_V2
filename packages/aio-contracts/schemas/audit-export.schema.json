@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/audit-export.schema.json",
+  "title": "AuditExport",
+  "type": "object",
+  "required": ["summary", "exceptions"],
+  "properties": {
+    "summary": { "$ref": "audit-summary.schema.json" },
+    "exceptions": {
+      "type": "array",
+      "items": { "$ref": "audit-exception.schema.json" }
+    }
+  },
+  "examples": [
+    {
+      "summary": {
+        "total_policy_overrides": 1,
+        "total_policy_override_handoffs": 1,
+        "total_policy_settings_changes": 2,
+        "total_qa_failures": 1,
+        "total_qa_blocked_results": 0,
+        "total_repair_requests": 1,
+        "open_repair_requests": 1,
+        "completed_repair_requests": 0,
+        "total_hard_blocker_events": 1,
+        "total_readiness_blockers": 1,
+        "generated_at": "2026-05-14T00:00:00Z"
+      },
+      "exceptions": [
+        {
+          "id": "audit-policy-override-R19-POLICY-OVERRIDE-001",
+          "exception_type": "policy_override",
+          "severity": "override",
+          "title": "Policy override R19-POLICY-OVERRIDE-001",
+          "summary": "Operator override for work_order_qa_handoff R19-WO-002: Operator accepts QA handoff without Developer/Codex result for this case.",
+          "card_id": "R19-CARD-002",
+          "work_order_id": "R19-WO-002",
+          "handoff_id": "R19-HANDOFF-001",
+          "qa_result_id": null,
+          "repair_request_id": null,
+          "policy_override_id": "R19-POLICY-OVERRIDE-001",
+          "event_id": "R19-EVENT-010",
+          "evidence_id": "R19-EVIDENCE-010",
+          "created_at": "2026-05-14T00:00:00Z",
+          "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001"
+        }
+      ]
+    }
+  ]
+}

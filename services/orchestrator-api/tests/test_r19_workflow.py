@@ -131,6 +131,25 @@ def create_accepted_qa_result(
     return card, work_order, handoff, qa_result_response.json()
 
 
+def create_override_handoff(
+    client: TestClient,
+    label: str,
+    override_reason: str,
+) -> tuple[dict, dict]:
+    _, work_order = create_card_and_work_order(client, label)
+    set_policy(client, mode="enforced", require_original=True, allow_override=True)
+    handoff_response = client.post(
+        f"/work-orders/{work_order['id']}/handoff-to-qa",
+        json={
+            "override_policy": True,
+            "override_reason": override_reason,
+            "requested_by": "pytest",
+        },
+    )
+    assert handoff_response.status_code == 201
+    return work_order, handoff_response.json()
+
+
 @pytest.fixture()
 def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
     state_dir = tmp_path / "state"
@@ -717,6 +736,193 @@ def test_duplicate_active_handoff_remains_non_overridable_with_operator_override
     assert "non-overridable" in response.json()["detail"]
     assert existing_handoff["id"] in response.json()["detail"]
     assert client.get("/policy-overrides").json() == []
+
+
+def test_audit_summary_seed_shape_and_read_only(client: TestClient) -> None:
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+
+    summary_response = client.get("/audit/summary")
+    assert summary_response.status_code == 200
+    summary = summary_response.json()
+    assert summary["total_policy_overrides"] == 0
+    assert summary["total_policy_override_handoffs"] == 0
+    assert summary["total_policy_settings_changes"] == 0
+    assert summary["total_qa_failures"] == 0
+    assert summary["total_qa_blocked_results"] == 0
+    assert summary["total_repair_requests"] == 0
+    assert summary["open_repair_requests"] == 0
+    assert summary["completed_repair_requests"] == 0
+    assert "total_hard_blocker_events" in summary
+    assert "total_readiness_blockers" in summary
+    assert summary["generated_at"]
+
+    exceptions_response = client.get("/audit/exceptions")
+    assert exceptions_response.status_code == 200
+    assert exceptions_response.json() == []
+    json_export_response = client.get("/audit/export?format=json")
+    assert json_export_response.status_code == 200
+    assert set(json_export_response.json()) == {"summary", "exceptions"}
+    csv_export_response = client.get("/audit/export?format=csv")
+    assert csv_export_response.status_code == 200
+    assert csv_export_response.headers["content-type"].startswith("text/csv")
+
+    assert len(client.get("/events").json()) == before_events_count
+    assert len(client.get("/evidence").json()) == before_evidence_count
+
+
+def test_audit_summary_counts_policy_override_and_policy_change(client: TestClient) -> None:
+    override_reason = "Audit summary override reason."
+    work_order, handoff = create_override_handoff(client, "audit summary override", override_reason)
+
+    summary_response = client.get("/audit/summary")
+    assert summary_response.status_code == 200
+    summary = summary_response.json()
+    assert summary["total_policy_overrides"] == 1
+    assert summary["total_policy_override_handoffs"] == 1
+    assert summary["total_policy_settings_changes"] == 1
+    assert summary["total_readiness_blockers"] >= 1
+
+    exceptions = client.get("/audit/exceptions").json()
+    assert any(
+        entry["exception_type"] == "policy_override"
+        and entry["policy_override_id"] == handoff["policy_override_id"]
+        and entry["work_order_id"] == work_order["id"]
+        for entry in exceptions
+    )
+
+
+def test_audit_exceptions_filters_exports_and_read_only(client: TestClient) -> None:
+    override_reason = "Audit exception search override reason."
+    work_order, handoff = create_override_handoff(client, "audit exceptions override", override_reason)
+
+    readiness_exceptions = client.get("/audit/exceptions").json()
+    assert any(entry["exception_type"] == "duplicate_handoff_blocked" for entry in readiness_exceptions)
+
+    accept_response = client.post(
+        f"/handoffs/{handoff['id']}/accept",
+        json={"decision_reason": "Accepted for audit exception coverage.", "decided_by": "pytest"},
+    )
+    assert accept_response.status_code == 200
+    failed_qa_response = client.post(
+        f"/handoffs/{handoff['id']}/qa-result",
+        json=valid_qa_result_payload("failed"),
+    )
+    assert failed_qa_response.status_code == 201
+    failed_qa_result = failed_qa_response.json()
+    repair_response = client.post(
+        f"/qa-results/{failed_qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("audit exception repair"),
+    )
+    assert repair_response.status_code == 201
+    repair_request = repair_response.json()
+
+    _, blocked_work_order, blocked_handoff, blocked_qa_result = create_accepted_qa_result(
+        client,
+        "audit blocked result",
+        "blocked",
+    )
+
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+
+    exceptions_response = client.get("/audit/exceptions")
+    assert exceptions_response.status_code == 200
+    exceptions = exceptions_response.json()
+    exception_types = {entry["exception_type"] for entry in exceptions}
+    assert "policy_override" in exception_types
+    assert "policy_settings_change" in exception_types
+    assert "qa_failed" in exception_types
+    assert "qa_blocked" in exception_types
+    assert "repair_request_created" in exception_types
+    assert "handoff_without_developer_result" in exception_types
+    assert any(
+        entry["exception_type"] == "qa_failed"
+        and entry["qa_result_id"] == failed_qa_result["id"]
+        for entry in exceptions
+    )
+    assert any(
+        entry["exception_type"] == "qa_blocked"
+        and entry["qa_result_id"] == blocked_qa_result["id"]
+        and entry["handoff_id"] == blocked_handoff["id"]
+        for entry in exceptions
+    )
+    assert any(
+        entry["exception_type"] == "repair_request_created"
+        and entry["repair_request_id"] == repair_request["id"]
+        for entry in exceptions
+    )
+    assert any(
+        entry["exception_type"] == "handoff_without_developer_result"
+        and entry["handoff_id"] == handoff["id"]
+        for entry in exceptions
+    )
+
+    policy_only_response = client.get(
+        "/audit/exceptions",
+        params={"exception_type": "policy_override"},
+    )
+    assert policy_only_response.status_code == 200
+    policy_only = policy_only_response.json()
+    assert policy_only
+    assert all(entry["exception_type"] == "policy_override" for entry in policy_only)
+
+    override_severity_response = client.get(
+        "/audit/exceptions",
+        params={"severity": "override"},
+    )
+    assert override_severity_response.status_code == 200
+    override_severity = override_severity_response.json()
+    assert override_severity
+    assert all(entry["severity"] == "override" for entry in override_severity)
+
+    work_order_response = client.get(
+        "/audit/exceptions",
+        params={"work_order_id": work_order["id"]},
+    )
+    assert work_order_response.status_code == 200
+    assert work_order_response.json()
+    assert all(entry["work_order_id"] == work_order["id"] for entry in work_order_response.json())
+
+    search_response = client.get("/audit/exceptions", params={"q": "search override reason"})
+    assert search_response.status_code == 200
+    search_results = search_response.json()
+    assert any(entry["policy_override_id"] == handoff["policy_override_id"] for entry in search_results)
+
+    limited_response = client.get("/audit/exceptions", params={"limit": "1"})
+    offset_response = client.get("/audit/exceptions", params={"limit": "1", "offset": "1"})
+    assert limited_response.status_code == 200
+    assert offset_response.status_code == 200
+    assert len(limited_response.json()) == 1
+    assert len(offset_response.json()) == 1
+    assert limited_response.json()[0]["id"] != offset_response.json()[0]["id"]
+    assert client.get("/audit/exceptions", params={"limit": "0"}).status_code == 400
+    assert client.get("/audit/exceptions", params={"offset": "-1"}).status_code == 400
+
+    json_export_response = client.get(
+        "/audit/export",
+        params={"format": "json", "exception_type": "policy_override"},
+    )
+    assert json_export_response.status_code == 200
+    json_export = json_export_response.json()
+    assert set(json_export) == {"summary", "exceptions"}
+    assert json_export["summary"]["total_policy_overrides"] >= 1
+    assert all(entry["exception_type"] == "policy_override" for entry in json_export["exceptions"])
+
+    csv_export_response = client.get(
+        "/audit/export",
+        params={"format": "csv", "exception_type": "policy_override"},
+    )
+    assert csv_export_response.status_code == 200
+    assert csv_export_response.headers["content-type"].startswith("text/csv")
+    csv_text = csv_export_response.text
+    assert "id,exception_type,severity,title,card_id,work_order_id,handoff_id" in csv_text
+    assert handoff["policy_override_id"] in csv_text
+    assert client.get("/audit/export?format=xml").status_code == 400
+
+    assert len(client.get("/events").json()) == before_events_count
+    assert len(client.get("/evidence").json()) == before_evidence_count
+    assert blocked_work_order["id"]
 
 
 def test_work_order_qa_readiness_is_ready_with_submitted_developer_result(

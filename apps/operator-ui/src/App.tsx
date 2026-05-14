@@ -12,10 +12,13 @@ import {
   createQaResult,
   createRepairRequest,
   createWorkOrder,
+  exportAudit,
   getRepairRequestQaReadiness,
   getWorkOrderQaReadiness,
   handoffRepairRequestToQa,
   handoffWorkOrderToQa,
+  loadAuditExceptions,
+  loadAuditSummary,
   loadDashboard,
   rejectApproval,
   rejectHandoff,
@@ -24,6 +27,8 @@ import {
   updateWorkOrderStatus
 } from "./api";
 import {
+  AUDIT_EXCEPTION_TYPES,
+  AUDIT_SEVERITIES,
   CARD_STATUSES,
   DEVELOPER_RESULT_TYPES,
   QA_HANDOFF_POLICY_MODES,
@@ -33,6 +38,9 @@ import {
 import type {
   Agent,
   Approval,
+  AuditException,
+  AuditExceptionFilters,
+  AuditSummary,
   Card,
   DashboardData,
   DeveloperResult,
@@ -172,6 +180,7 @@ function Dashboard({
         <DeveloperResultsPanel developerResults={data.developerResults} />
         <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
         <PolicyOverridesPanel policyOverrides={data.policyOverrides} />
+        <AuditReviewPanel />
         <QaResultsPanel
           agents={data.agents}
           onRefresh={onRefresh}
@@ -1737,6 +1746,260 @@ function PolicyOverridesPanel({ policyOverrides }: { policyOverrides: PolicyOver
   );
 }
 
+type AuditFilterDraft = {
+  exception_type: string;
+  severity: string;
+  q: string;
+  work_order_id: string;
+  card_id: string;
+};
+
+const DEFAULT_AUDIT_FILTERS: AuditFilterDraft = {
+  exception_type: "",
+  severity: "",
+  q: "",
+  work_order_id: "",
+  card_id: ""
+};
+
+function AuditReviewPanel() {
+  const [summary, setSummary] = useState<AuditSummary | null>(null);
+  const [exceptions, setExceptions] = useState<AuditException[]>([]);
+  const [draftFilters, setDraftFilters] = useState<AuditFilterDraft>(DEFAULT_AUDIT_FILTERS);
+  const [activeFilters, setActiveFilters] = useState<AuditFilterDraft>(DEFAULT_AUDIT_FILTERS);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [exportText, setExportText] = useState("");
+  const [exportStatus, setExportStatus] = useState<string | null>(null);
+
+  const activeAuditFilters = useMemo(() => toAuditFilters(activeFilters), [activeFilters]);
+
+  const refreshAudit = useCallback(
+    async (signal?: AbortSignal) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const [nextSummary, nextExceptions] = await Promise.all([
+          loadAuditSummary(signal),
+          loadAuditExceptions(activeAuditFilters, signal)
+        ]);
+        setSummary(nextSummary);
+        setExceptions(nextExceptions);
+      } catch (auditError: unknown) {
+        if (signal?.aborted) {
+          return;
+        }
+        setError(errorMessage(auditError));
+      } finally {
+        if (!signal?.aborted) {
+          setIsLoading(false);
+        }
+      }
+    },
+    [activeAuditFilters]
+  );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    refreshAudit(controller.signal).catch(() => undefined);
+    return () => controller.abort();
+  }, [refreshAudit]);
+
+  function updateDraftFilter(field: keyof AuditFilterDraft, value: string) {
+    setDraftFilters((current) => ({ ...current, [field]: value }));
+  }
+
+  function applyFilters(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setExportText("");
+    setExportStatus(null);
+    setActiveFilters({ ...draftFilters });
+  }
+
+  function clearFilters() {
+    setDraftFilters({ ...DEFAULT_AUDIT_FILTERS });
+    setActiveFilters({ ...DEFAULT_AUDIT_FILTERS });
+    setExportText("");
+    setExportStatus(null);
+  }
+
+  async function runExport(format: "json" | "csv") {
+    setError(null);
+    setExportStatus(null);
+    try {
+      const exported = await exportAudit(format, activeAuditFilters);
+      setExportText(exported);
+      setExportStatus(`Exported ${format.toUpperCase()} review data`);
+    } catch (exportError: unknown) {
+      setError(errorMessage(exportError));
+    }
+  }
+
+  return (
+    <section className="panel audit-review-panel" data-testid="audit-review-panel">
+      <div className="panel-heading">
+        <h2>Audit Review</h2>
+        <div className="button-row compact-actions">
+          <span className="count-tag">{exceptions.length}</span>
+          <button data-testid="audit-refresh" disabled={isLoading} onClick={() => refreshAudit()} type="button">
+            {isLoading ? "Refreshing..." : "Refresh Audit"}
+          </button>
+        </div>
+      </div>
+      <div className="metric-row audit-summary-grid">
+        <AuditMetric label="Policy overrides" testId="audit-summary-policy-overrides" value={summary?.total_policy_overrides ?? 0} />
+        <AuditMetric label="QA failures" testId="audit-summary-qa-failures" value={summary?.total_qa_failures ?? 0} />
+        <AuditMetric label="QA blocked" testId="audit-summary-qa-blocked" value={summary?.total_qa_blocked_results ?? 0} />
+        <AuditMetric label="Repair requests" testId="audit-summary-repair-requests" value={summary?.total_repair_requests ?? 0} />
+        <AuditMetric label="Open repairs" testId="audit-summary-open-repairs" value={summary?.open_repair_requests ?? 0} />
+        <AuditMetric label="Policy changes" testId="audit-summary-policy-changes" value={summary?.total_policy_settings_changes ?? 0} />
+      </div>
+
+      <form className="audit-filter-grid" onSubmit={applyFilters}>
+        <label>
+          Exception type
+          <select
+            data-testid="audit-filter-exception-type"
+            onChange={(event) => updateDraftFilter("exception_type", event.target.value)}
+            value={draftFilters.exception_type}
+          >
+            <option value="">All types</option>
+            {AUDIT_EXCEPTION_TYPES.map((exceptionType) => (
+              <option key={exceptionType} value={exceptionType}>
+                {exceptionType}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Severity
+          <select
+            data-testid="audit-filter-severity"
+            onChange={(event) => updateDraftFilter("severity", event.target.value)}
+            value={draftFilters.severity}
+          >
+            <option value="">All severities</option>
+            {AUDIT_SEVERITIES.map((severity) => (
+              <option key={severity} value={severity}>
+                {severity}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Search
+          <input
+            data-testid="audit-filter-q"
+            onChange={(event) => updateDraftFilter("q", event.target.value)}
+            value={draftFilters.q}
+          />
+        </label>
+        <label>
+          Work order id
+          <input
+            data-testid="audit-filter-work-order-id"
+            onChange={(event) => updateDraftFilter("work_order_id", event.target.value)}
+            value={draftFilters.work_order_id}
+          />
+        </label>
+        <label>
+          Card id
+          <input
+            data-testid="audit-filter-card-id"
+            onChange={(event) => updateDraftFilter("card_id", event.target.value)}
+            value={draftFilters.card_id}
+          />
+        </label>
+        <div className="button-row audit-filter-actions">
+          <button data-testid="audit-apply-filters" type="submit">
+            Apply Filters
+          </button>
+          <button className="secondary" data-testid="audit-clear-filters" onClick={clearFilters} type="button">
+            Clear Filters
+          </button>
+        </div>
+      </form>
+
+      <div className="audit-export-row">
+        <div className="button-row">
+          <button data-testid="audit-export-json" onClick={() => runExport("json")} type="button">
+            Export JSON
+          </button>
+          <button className="secondary" data-testid="audit-export-csv" onClick={() => runExport("csv")} type="button">
+            Export CSV
+          </button>
+        </div>
+        <textarea
+          aria-label="Audit export output"
+          data-testid="audit-export-output"
+          readOnly
+          rows={6}
+          value={exportText}
+        />
+      </div>
+      <FormStatus error={error} success={exportStatus} />
+
+      <div className="record-list audit-exceptions-list" data-testid="audit-exceptions-list">
+        {exceptions.length === 0 && <p>No audit exceptions match the current filters.</p>}
+        {exceptions.map((entry) => (
+          <article className="record-row" data-testid={`audit-exception-${entry.id}`} key={entry.id}>
+            <div className="record-title-line">
+              <p className="eyebrow">{entry.exception_type}</p>
+              <span className={`state-tag ${auditSeverityClass(entry.severity)}`}>{entry.severity}</span>
+            </div>
+            <h3>{entry.title}</h3>
+            <p>{entry.summary}</p>
+            <div className="detail-grid handoff-detail-grid">
+              <span>Card</span>
+              <strong>{entry.card_id ?? "none"}</strong>
+              <span>Work order</span>
+              <strong>{entry.work_order_id ?? "none"}</strong>
+              <span>Handoff</span>
+              <strong>{entry.handoff_id ?? "none"}</strong>
+              <span>QA result</span>
+              <strong>{entry.qa_result_id ?? "none"}</strong>
+              <span>Repair request</span>
+              <strong>{entry.repair_request_id ?? "none"}</strong>
+              <span>Policy override</span>
+              <strong>{entry.policy_override_id ?? "none"}</strong>
+              <span>Event</span>
+              <strong>{entry.event_id ?? "none"}</strong>
+              <span>Evidence</span>
+              <strong>{entry.evidence_id ?? "none"}</strong>
+              <span>Created</span>
+              <strong>{entry.created_at || "unknown"}</strong>
+            </div>
+            <div className="code-list">
+              <code>{entry.source_ref}</code>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AuditMetric({ label, testId, value }: { label: string; testId: string; value: number }) {
+  return (
+    <div className="metric" data-testid={testId}>
+      <strong>{value}</strong>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function toAuditFilters(filters: AuditFilterDraft): AuditExceptionFilters {
+  return {
+    exception_type: filters.exception_type.trim(),
+    severity: filters.severity.trim(),
+    q: filters.q.trim(),
+    work_order_id: filters.work_order_id.trim(),
+    card_id: filters.card_id.trim(),
+    limit: 100,
+    offset: 0
+  };
+}
+
 function QaResultsPanel({
   agents,
   onRefresh,
@@ -2315,6 +2578,16 @@ function readinessLevelClass(status: string): string {
   }
   if (status === "blocked") {
     return "danger";
+  }
+  return "";
+}
+
+function auditSeverityClass(severity: string): string {
+  if (severity === "blocker") {
+    return "danger";
+  }
+  if (severity === "warning" || severity === "override") {
+    return "warn";
   }
   return "";
 }

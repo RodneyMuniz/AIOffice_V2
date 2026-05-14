@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import csv
+import io
 import json
 import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -60,6 +62,33 @@ HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
 QA_RESULT_VALUES = ("passed", "failed", "blocked")
 REPAIR_REQUEST_STATUSES = ("proposed", "created", "in_progress", "completed", "cancelled")
 OPEN_REPAIR_REQUEST_STATUSES = ("proposed", "created", "in_progress")
+AUDIT_EXCEPTION_TYPES = (
+    "policy_override",
+    "policy_settings_change",
+    "qa_failed",
+    "qa_blocked",
+    "repair_request_created",
+    "handoff_without_developer_result",
+    "duplicate_handoff_blocked",
+    "readiness_blocker",
+)
+AUDIT_SEVERITIES = ("info", "warning", "blocker", "override")
+AUDIT_DEFAULT_LIMIT = 100
+AUDIT_MAX_LIMIT = 500
+AUDIT_CSV_FIELDS = (
+    "id",
+    "exception_type",
+    "severity",
+    "title",
+    "card_id",
+    "work_order_id",
+    "handoff_id",
+    "qa_result_id",
+    "repair_request_id",
+    "policy_override_id",
+    "created_at",
+    "summary",
+)
 
 
 class CardCreate(BaseModel):
@@ -353,6 +382,406 @@ class JsonStateStore:
 
     def get_policy_overrides(self) -> list[dict[str, Any]]:
         return self.policy_overrides
+
+    def audit_summary(self) -> dict[str, Any]:
+        readiness_entries = self._audit_readiness_exception_entries()
+        policy_settings_changes = [
+            event for event in self.events if event.get("type") == "policy_settings_updated"
+        ]
+        failed_qa_results = [
+            qa_result for qa_result in self.qa_results if qa_result.get("result") == "failed"
+        ]
+        blocked_qa_results = [
+            qa_result for qa_result in self.qa_results if qa_result.get("result") == "blocked"
+        ]
+        open_repair_requests = [
+            repair_request
+            for repair_request in self.repair_requests
+            if repair_request.get("status") in OPEN_REPAIR_REQUEST_STATUSES
+        ]
+        completed_repair_requests = [
+            repair_request
+            for repair_request in self.repair_requests
+            if repair_request.get("status") == "completed"
+        ]
+        return {
+            "total_policy_overrides": len(self.policy_overrides),
+            "total_policy_override_handoffs": sum(
+                1 for handoff in self.handoffs if handoff.get("policy_override_id")
+            ),
+            "total_policy_settings_changes": len(policy_settings_changes),
+            "total_qa_failures": len(failed_qa_results),
+            "total_qa_blocked_results": len(blocked_qa_results),
+            "total_repair_requests": len(self.repair_requests),
+            "open_repair_requests": len(open_repair_requests),
+            "completed_repair_requests": len(completed_repair_requests),
+            "total_hard_blocker_events": sum(
+                1 for event in self.events if self._is_hard_blocker_event(event)
+            ),
+            "total_readiness_blockers": len(readiness_entries),
+            "generated_at": _utc_now(),
+        }
+
+    def audit_exceptions(self, filters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        filters = filters or {}
+        entries = self._filter_audit_entries(self._audit_exception_entries(), filters)
+        offset = int(filters.get("offset", 0))
+        limit = int(filters.get("limit", AUDIT_DEFAULT_LIMIT))
+        return entries[offset : offset + limit]
+
+    def audit_export(self, filters: dict[str, Any] | None = None) -> dict[str, Any]:
+        return {
+            "summary": self.audit_summary(),
+            "exceptions": self.audit_exceptions(filters or {}),
+        }
+
+    def audit_export_csv(self, filters: dict[str, Any] | None = None) -> str:
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=list(AUDIT_CSV_FIELDS), lineterminator="\n")
+        writer.writeheader()
+        for entry in self.audit_exceptions(filters or {}):
+            writer.writerow({field: entry.get(field) or "" for field in AUDIT_CSV_FIELDS})
+        return output.getvalue()
+
+    def _audit_exception_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        entries.extend(self._audit_policy_override_entries())
+        entries.extend(self._audit_policy_settings_change_entries())
+        entries.extend(self._audit_qa_result_exception_entries())
+        entries.extend(self._audit_repair_request_entries())
+        entries.extend(self._audit_handoff_without_developer_result_entries())
+        entries.extend(self._audit_readiness_exception_entries())
+        return sorted(
+            entries,
+            key=lambda entry: (str(entry.get("created_at") or ""), str(entry.get("id") or "")),
+            reverse=True,
+        )
+
+    def _audit_entry(self, **values: Any) -> dict[str, Any]:
+        entry = {
+            "id": "",
+            "exception_type": "",
+            "severity": "info",
+            "title": "",
+            "summary": "",
+            "card_id": None,
+            "work_order_id": None,
+            "handoff_id": None,
+            "qa_result_id": None,
+            "repair_request_id": None,
+            "policy_override_id": None,
+            "event_id": None,
+            "evidence_id": None,
+            "created_at": "",
+            "source_ref": "",
+        }
+        entry.update(values)
+        return entry
+
+    def _audit_policy_override_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for policy_override in self.policy_overrides:
+            override_id = str(policy_override.get("id") or "")
+            handoff = next(
+                (
+                    item
+                    for item in self.handoffs
+                    if item.get("policy_override_id") == override_id
+                ),
+                None,
+            )
+            event = next(
+                (
+                    item
+                    for item in self.events
+                    if item.get("type") == "policy_override_recorded"
+                    and override_id in str(item.get("summary") or "")
+                ),
+                None,
+            )
+            source_ref = f"runtime/state/policy_overrides.json#{override_id}"
+            evidence = self._find_evidence_by_path(source_ref)
+            entries.append(
+                self._audit_entry(
+                    id=f"audit-policy-override-{override_id}",
+                    exception_type="policy_override",
+                    severity="override",
+                    title=f"Policy override {override_id}",
+                    summary=(
+                        f"Operator override for {policy_override.get('target_type')} "
+                        f"{policy_override.get('target_id')}: {policy_override.get('reason')}"
+                    ),
+                    card_id=policy_override.get("card_id"),
+                    work_order_id=policy_override.get("work_order_id"),
+                    handoff_id=(handoff or {}).get("id"),
+                    repair_request_id=policy_override.get("repair_request_id"),
+                    policy_override_id=override_id,
+                    event_id=(event or {}).get("id"),
+                    evidence_id=(evidence or {}).get("id"),
+                    created_at=policy_override.get("created_at") or "",
+                    source_ref=source_ref,
+                )
+            )
+        return entries
+
+    def _audit_policy_settings_change_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for event in self.events:
+            if event.get("type") != "policy_settings_updated":
+                continue
+            event_id = str(event.get("id") or "")
+            evidence = next(
+                (
+                    item
+                    for item in self.evidence
+                    if item.get("kind") == "policy_settings"
+                    and item.get("summary") == event.get("summary")
+                ),
+                None,
+            )
+            entries.append(
+                self._audit_entry(
+                    id=f"audit-policy-settings-{event_id}",
+                    exception_type="policy_settings_change",
+                    severity="info",
+                    title="Policy settings changed",
+                    summary=event.get("summary") or "",
+                    card_id=event.get("related_card_id"),
+                    event_id=event_id,
+                    evidence_id=(evidence or {}).get("id"),
+                    created_at=event.get("timestamp") or "",
+                    source_ref=f"runtime/state/events.json#{event_id}",
+                )
+            )
+        return entries
+
+    def _audit_qa_result_exception_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for qa_result in self.qa_results:
+            result = qa_result.get("result")
+            if result not in {"failed", "blocked"}:
+                continue
+            qa_result_id = str(qa_result.get("id") or "")
+            handoff_id = str(qa_result.get("handoff_id") or "")
+            event_type = "repair_qa_result_recorded" if qa_result.get("repair_request_id") else "qa_result_recorded"
+            event = next(
+                (
+                    item
+                    for item in self.events
+                    if item.get("type") == event_type
+                    and item.get("related_handoff_id") == handoff_id
+                ),
+                None,
+            )
+            source_ref = f"runtime/state/qa_results.json#{qa_result_id}"
+            evidence = self._find_evidence_by_path(source_ref)
+            entries.append(
+                self._audit_entry(
+                    id=f"audit-qa-{result}-{qa_result_id}",
+                    exception_type="qa_failed" if result == "failed" else "qa_blocked",
+                    severity="warning" if result == "failed" else "blocker",
+                    title=f"QA {result}: {qa_result_id}",
+                    summary=qa_result.get("summary") or qa_result.get("findings") or "",
+                    card_id=qa_result.get("card_id"),
+                    work_order_id=qa_result.get("work_order_id"),
+                    handoff_id=handoff_id or None,
+                    qa_result_id=qa_result_id,
+                    repair_request_id=qa_result.get("repair_request_id"),
+                    event_id=(event or {}).get("id"),
+                    evidence_id=(evidence or {}).get("id"),
+                    created_at=qa_result.get("created_at") or "",
+                    source_ref=source_ref,
+                )
+            )
+        return entries
+
+    def _audit_repair_request_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for repair_request in self.repair_requests:
+            repair_request_id = str(repair_request.get("id") or "")
+            event = next(
+                (
+                    item
+                    for item in self.events
+                    if item.get("type") == "repair_request_created"
+                    and item.get("related_repair_request_id") == repair_request_id
+                ),
+                None,
+            )
+            source_ref = f"runtime/state/repair_requests.json#{repair_request_id}"
+            evidence = self._find_evidence_by_path(source_ref)
+            entries.append(
+                self._audit_entry(
+                    id=f"audit-repair-request-{repair_request_id}",
+                    exception_type="repair_request_created",
+                    severity="warning",
+                    title=f"Repair request {repair_request_id}",
+                    summary=(
+                        f"{repair_request.get('summary') or ''} Repair work order "
+                        f"{repair_request.get('repair_work_order_id') or 'unknown'} was created "
+                        f"from source work order {repair_request.get('source_work_order_id') or 'unknown'}."
+                    ),
+                    card_id=repair_request.get("card_id"),
+                    work_order_id=repair_request.get("source_work_order_id"),
+                    handoff_id=repair_request.get("handoff_id"),
+                    qa_result_id=repair_request.get("qa_result_id"),
+                    repair_request_id=repair_request_id,
+                    event_id=(event or {}).get("id"),
+                    evidence_id=(evidence or {}).get("id"),
+                    created_at=repair_request.get("created_at") or "",
+                    source_ref=source_ref,
+                )
+            )
+        return entries
+
+    def _audit_handoff_without_developer_result_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for handoff in self.handoffs:
+            if handoff.get("developer_result_id"):
+                continue
+            handoff_id = str(handoff.get("id") or "")
+            event = next(
+                (
+                    item
+                    for item in self.events
+                    if item.get("related_handoff_id") == handoff_id
+                    and item.get("type") in {"handoff_created", "repair_handoff_created"}
+                ),
+                None,
+            )
+            source_ref = f"runtime/state/handoffs.json#{handoff_id}"
+            evidence = self._find_evidence_by_path(source_ref)
+            summary = "QA handoff was created without an attached Developer/Codex result."
+            if handoff.get("policy_override_id"):
+                summary = (
+                    f"{summary} Policy override {handoff.get('policy_override_id')} "
+                    "approved the missing-result blocker for this handoff."
+                )
+            entries.append(
+                self._audit_entry(
+                    id=f"audit-handoff-without-developer-result-{handoff_id}",
+                    exception_type="handoff_without_developer_result",
+                    severity="warning",
+                    title=f"Handoff without Developer/Codex result: {handoff_id}",
+                    summary=summary,
+                    card_id=handoff.get("card_id"),
+                    work_order_id=handoff.get("work_order_id"),
+                    handoff_id=handoff_id,
+                    repair_request_id=handoff.get("repair_request_id"),
+                    policy_override_id=handoff.get("policy_override_id"),
+                    event_id=(event or {}).get("id"),
+                    evidence_id=(evidence or {}).get("id"),
+                    created_at=handoff.get("created_at") or "",
+                    source_ref=source_ref,
+                )
+            )
+        return entries
+
+    def _audit_readiness_exception_entries(self) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for work_order in self.work_orders:
+            work_order_id = str(work_order.get("id") or "")
+            card_id = str(work_order.get("card_id") or "")
+            repair_request_id = work_order.get("repair_request_id")
+            repair_request = (
+                self._find_repair_request(str(repair_request_id)) if repair_request_id else None
+            )
+            handoff_context = (
+                "repair_qa"
+                if self._infer_work_order_type(work_order) == "repair"
+                else "initial_qa"
+            )
+            readiness = self._build_qa_readiness(
+                work_order_id=work_order_id,
+                work_order=work_order,
+                card_id=card_id,
+                handoff_context=handoff_context,
+                repair_request=repair_request,
+                repair_request_id=repair_request_id,
+            )
+            for index, check in enumerate(readiness.get("checks", []), start=1):
+                if check.get("status") != "blocked":
+                    continue
+                active_handoff = (
+                    self._find_active_qa_handoff_for_work_order(work_order_id, handoff_context)
+                    if check.get("id") == "no_active_qa_handoff"
+                    else None
+                )
+                exception_type = (
+                    "duplicate_handoff_blocked"
+                    if active_handoff
+                    else "readiness_blocker"
+                )
+                entries.append(
+                    self._audit_entry(
+                        id=f"audit-{exception_type}-{work_order_id}-{index}",
+                        exception_type=exception_type,
+                        severity="blocker",
+                        title=f"Readiness blocker for {work_order_id}",
+                        summary=f"{check.get('label')}: {check.get('detail')}",
+                        card_id=card_id,
+                        work_order_id=work_order_id,
+                        handoff_id=(active_handoff or {}).get("id"),
+                        repair_request_id=repair_request_id,
+                        created_at=work_order.get("updated_at") or work_order.get("created_at") or "",
+                        source_ref=f"runtime/state/work_orders.json#{work_order_id}",
+                    )
+                )
+        return entries
+
+    def _filter_audit_entries(
+        self, entries: list[dict[str, Any]], filters: dict[str, Any]
+    ) -> list[dict[str, Any]]:
+        exact_filter_fields = (
+            "exception_type",
+            "severity",
+            "card_id",
+            "work_order_id",
+            "handoff_id",
+        )
+        filtered = entries
+        for field_name in exact_filter_fields:
+            expected = str(filters.get(field_name) or "").strip()
+            if expected:
+                filtered = [
+                    entry for entry in filtered if str(entry.get(field_name) or "") == expected
+                ]
+
+        search_query = str(filters.get("q") or "").strip().lower()
+        if search_query:
+            filtered = [
+                entry
+                for entry in filtered
+                if search_query in self._audit_search_text(entry)
+            ]
+        return filtered
+
+    def _audit_search_text(self, entry: dict[str, Any]) -> str:
+        searchable_values = [
+            entry.get("id"),
+            entry.get("exception_type"),
+            entry.get("severity"),
+            entry.get("title"),
+            entry.get("summary"),
+            entry.get("card_id"),
+            entry.get("work_order_id"),
+            entry.get("handoff_id"),
+            entry.get("qa_result_id"),
+            entry.get("repair_request_id"),
+            entry.get("policy_override_id"),
+            entry.get("event_id"),
+            entry.get("evidence_id"),
+            entry.get("source_ref"),
+        ]
+        return " ".join(str(value).lower() for value in searchable_values if value)
+
+    def _find_evidence_by_path(self, path: str) -> dict[str, Any] | None:
+        return next((entry for entry in self.evidence if entry.get("path") == path), None)
+
+    def _is_hard_blocker_event(self, event: dict[str, Any]) -> bool:
+        event_type = str(event.get("type") or "").lower()
+        summary = str(event.get("summary") or "").lower()
+        return "blocked" in event_type or "hard blocker" in summary or "non-overridable" in summary
 
     def update_policy_settings(self, payload: PolicySettingsUpdate) -> dict[str, Any]:
         update_data = _model_to_dict(payload)
@@ -2894,6 +3323,62 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
+def _audit_filters_from_query(
+    exception_type: str | None = None,
+    severity: str | None = None,
+    card_id: str | None = None,
+    work_order_id: str | None = None,
+    handoff_id: str | None = None,
+    q: str | None = None,
+    limit: str | None = None,
+    offset: str | None = None,
+) -> dict[str, Any]:
+    parsed_limit = _parse_audit_integer(
+        value=limit,
+        field_name="limit",
+        default=AUDIT_DEFAULT_LIMIT,
+        minimum=1,
+        maximum=AUDIT_MAX_LIMIT,
+    )
+    parsed_offset = _parse_audit_integer(
+        value=offset,
+        field_name="offset",
+        default=0,
+        minimum=0,
+        maximum=None,
+    )
+    return {
+        "exception_type": str(exception_type or "").strip(),
+        "severity": str(severity or "").strip(),
+        "card_id": str(card_id or "").strip(),
+        "work_order_id": str(work_order_id or "").strip(),
+        "handoff_id": str(handoff_id or "").strip(),
+        "q": str(q or "").strip(),
+        "limit": parsed_limit,
+        "offset": parsed_offset,
+    }
+
+
+def _parse_audit_integer(
+    value: str | None,
+    field_name: str,
+    default: int,
+    minimum: int,
+    maximum: int | None,
+) -> int:
+    if value is None or str(value).strip() == "":
+        return default
+    try:
+        parsed = int(str(value).strip())
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be an integer.") from exc
+    if parsed < minimum:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be >= {minimum}.")
+    if maximum is not None and parsed > maximum:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be <= {maximum}.")
+    return parsed
+
+
 store = JsonStateStore()
 app = FastAPI(
     title="AIOffice Orchestrator API",
@@ -2927,6 +3412,71 @@ def get_policy_settings() -> dict[str, Any]:
 @app.get("/policy-overrides")
 def get_policy_overrides() -> list[dict[str, Any]]:
     return store.get_policy_overrides()
+
+
+@app.get("/audit/summary")
+def get_audit_summary() -> dict[str, Any]:
+    return store.audit_summary()
+
+
+@app.get("/audit/exceptions")
+def get_audit_exceptions(
+    exception_type: str | None = None,
+    severity: str | None = None,
+    card_id: str | None = None,
+    work_order_id: str | None = None,
+    handoff_id: str | None = None,
+    q: str | None = None,
+    limit: str | None = None,
+    offset: str | None = None,
+) -> list[dict[str, Any]]:
+    filters = _audit_filters_from_query(
+        exception_type=exception_type,
+        severity=severity,
+        card_id=card_id,
+        work_order_id=work_order_id,
+        handoff_id=handoff_id,
+        q=q,
+        limit=limit,
+        offset=offset,
+    )
+    return store.audit_exceptions(filters)
+
+
+@app.get("/audit/export")
+def get_audit_export(
+    format: str = "json",
+    exception_type: str | None = None,
+    severity: str | None = None,
+    card_id: str | None = None,
+    work_order_id: str | None = None,
+    handoff_id: str | None = None,
+    q: str | None = None,
+    limit: str | None = None,
+    offset: str | None = None,
+) -> Any:
+    export_format = str(format or "json").strip().lower()
+    if export_format not in {"json", "csv"}:
+        raise HTTPException(status_code=400, detail="format must be json or csv.")
+
+    filters = _audit_filters_from_query(
+        exception_type=exception_type,
+        severity=severity,
+        card_id=card_id,
+        work_order_id=work_order_id,
+        handoff_id=handoff_id,
+        q=q,
+        limit=limit,
+        offset=offset,
+    )
+    if export_format == "json":
+        return store.audit_export(filters)
+
+    return Response(
+        content=store.audit_export_csv(filters),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="aioffice-audit-review.csv"'},
+    )
 
 
 @app.patch("/policy-settings")

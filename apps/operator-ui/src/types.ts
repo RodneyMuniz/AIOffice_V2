@@ -18,6 +18,17 @@ export const DEVELOPER_RESULT_STATUSES = ["draft", "submitted", "superseded"] as
 export const QA_READINESS_LEVELS = ["ready", "warning", "blocked"] as const;
 export const QA_READINESS_CHECK_STATUSES = ["passed", "warning", "blocked"] as const;
 export const QA_HANDOFF_POLICY_MODES = ["advisory", "enforced"] as const;
+export const AUDIT_EXCEPTION_TYPES = [
+  "policy_override",
+  "policy_settings_change",
+  "qa_failed",
+  "qa_blocked",
+  "repair_request_created",
+  "handoff_without_developer_result",
+  "duplicate_handoff_blocked",
+  "readiness_blocker"
+] as const;
+export const AUDIT_SEVERITIES = ["info", "warning", "blocker", "override"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
@@ -29,6 +40,51 @@ export type DeveloperResultStatus = (typeof DEVELOPER_RESULT_STATUSES)[number];
 export type QaReadinessLevel = (typeof QA_READINESS_LEVELS)[number];
 export type QaReadinessCheckStatus = (typeof QA_READINESS_CHECK_STATUSES)[number];
 export type QaHandoffPolicyMode = (typeof QA_HANDOFF_POLICY_MODES)[number];
+export type AuditExceptionType = (typeof AUDIT_EXCEPTION_TYPES)[number];
+export type AuditSeverity = (typeof AUDIT_SEVERITIES)[number];
+
+export type AuditSummary = {
+  total_policy_overrides: number;
+  total_policy_override_handoffs: number;
+  total_policy_settings_changes: number;
+  total_qa_failures: number;
+  total_qa_blocked_results: number;
+  total_repair_requests: number;
+  open_repair_requests: number;
+  completed_repair_requests: number;
+  total_hard_blocker_events: number;
+  total_readiness_blockers: number;
+  generated_at: string;
+};
+
+export type AuditException = {
+  id: string;
+  exception_type: AuditExceptionType;
+  severity: AuditSeverity;
+  title: string;
+  summary: string;
+  card_id: string | null;
+  work_order_id: string | null;
+  handoff_id: string | null;
+  qa_result_id: string | null;
+  repair_request_id: string | null;
+  policy_override_id: string | null;
+  event_id: string | null;
+  evidence_id: string | null;
+  created_at: string;
+  source_ref: string;
+};
+
+export type AuditExceptionFilters = {
+  exception_type?: string;
+  severity?: string;
+  card_id?: string;
+  work_order_id?: string;
+  handoff_id?: string;
+  q?: string;
+  limit?: number;
+  offset?: number;
+};
 
 export type PolicySettings = {
   qa_handoff_policy_mode: QaHandoffPolicyMode;

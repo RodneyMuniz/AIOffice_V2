@@ -1,6 +1,9 @@
 import type {
   Agent,
   Approval,
+  AuditException,
+  AuditExceptionFilters,
+  AuditSummary,
   Card,
   CreateApprovalRequest,
   CreateCardRequest,
@@ -49,6 +52,21 @@ async function requestJson<T>(path: string, options: RequestOptions = {}): Promi
   }
 
   return response.json() as Promise<T>;
+}
+
+async function requestText(path: string, options: RequestOptions = {}): Promise<string> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: options.method ?? "GET",
+    headers: options.body ? { "Content-Type": "application/json" } : undefined,
+    body: options.body ? JSON.stringify(options.body) : undefined,
+    signal: options.signal
+  });
+
+  if (!response.ok) {
+    throw new Error(await readApiError(path, response));
+  }
+
+  return response.text();
 }
 
 async function readApiError(path: string, response: Response): Promise<string> {
@@ -117,6 +135,21 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
 
 export function getPolicySettings(): Promise<PolicySettings> {
   return requestJson<PolicySettings>("/policy-settings");
+}
+
+export function loadAuditSummary(signal?: AbortSignal): Promise<AuditSummary> {
+  return requestJson<AuditSummary>("/audit/summary", { signal });
+}
+
+export function loadAuditExceptions(
+  filters: AuditExceptionFilters = {},
+  signal?: AbortSignal
+): Promise<AuditException[]> {
+  return requestJson<AuditException[]>(`/audit/exceptions${auditQuery(filters)}`, { signal });
+}
+
+export function exportAudit(format: "json" | "csv", filters: AuditExceptionFilters = {}): Promise<string> {
+  return requestText(`/audit/export${auditQuery({ ...filters, format })}`);
 }
 
 export function updatePolicySettings(payload: UpdatePolicySettingsRequest): Promise<PolicySettings> {
@@ -206,4 +239,16 @@ export function completeRepairRequest(
 
 export function cancelRepairRequest(id: string, decision: RepairRequestDecisionRequest): Promise<RepairRequest> {
   return requestJson<RepairRequest>(`/repair-requests/${id}/cancel`, { method: "POST", body: decision });
+}
+
+function auditQuery(filters: AuditExceptionFilters & { format?: string }): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value === undefined || value === null || value === "") {
+      continue;
+    }
+    params.set(key, String(value));
+  }
+  const query = params.toString();
+  return query ? `?${query}` : "";
 }

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/audit-summary.schema.json",
+  "title": "AuditSummary",
+  "type": "object",
+  "required": [
+    "total_policy_overrides",
+    "total_policy_override_handoffs",
+    "total_policy_settings_changes",
+    "total_qa_failures",
+    "total_qa_blocked_results",
+    "total_repair_requests",
+    "open_repair_requests",
+    "completed_repair_requests",
+    "total_hard_blocker_events",
+    "total_readiness_blockers",
+    "generated_at"
+  ],
+  "properties": {
+    "total_policy_overrides": { "type": "integer", "minimum": 0 },
+    "total_policy_override_handoffs": { "type": "integer", "minimum": 0 },
+    "total_policy_settings_changes": { "type": "integer", "minimum": 0 },
+    "total_qa_failures": { "type": "integer", "minimum": 0 },
+    "total_qa_blocked_results": { "type": "integer", "minimum": 0 },
+    "total_repair_requests": { "type": "integer", "minimum": 0 },
+    "open_repair_requests": { "type": "integer", "minimum": 0 },
+    "completed_repair_requests": { "type": "integer", "minimum": 0 },
+    "total_hard_blocker_events": { "type": "integer", "minimum": 0 },
+    "total_readiness_blockers": { "type": "integer", "minimum": 0 },
+    "generated_at": { "type": "string" }
+  },
+  "examples": [
+    {
+      "total_policy_overrides": 1,
+      "total_policy_override_handoffs": 1,
+      "total_policy_settings_changes": 2,
+      "total_qa_failures": 1,
+      "total_qa_blocked_results": 0,
+      "total_repair_requests": 1,
+      "open_repair_requests": 1,
+      "completed_repair_requests": 0,
+      "total_hard_blocker_events": 1,
+      "total_readiness_blockers": 1,
+      "generated_at": "2026-05-14T00:00:00Z"
+    }
+  ]
+}

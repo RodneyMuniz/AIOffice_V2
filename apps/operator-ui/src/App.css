@@ -95,6 +95,7 @@
 .handoffs-panel,
 .developer-results-panel,
 .policy-overrides-panel,
+.audit-review-panel,
 .qa-results-panel,
 .repair-requests-panel,
 .workflow-iterations-panel {
@@ -318,6 +319,57 @@ button:disabled {
 
 .approval-stack {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.compact-actions {
+  align-items: center;
+  grid-template-columns: auto auto;
+}
+
+.audit-summary-grid {
+  margin-top: 0;
+}
+
+.audit-filter-grid {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.audit-filter-grid label {
+  color: #394740;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+}
+
+.audit-filter-actions {
+  align-self: end;
+}
+
+.audit-export-row {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.audit-export-row .button-row {
+  grid-template-columns: repeat(2, minmax(0, 180px));
+}
+
+.audit-export-row textarea {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  min-height: 132px;
+}
+
+.audit-exceptions-list {
+  margin-top: 16px;
 }
 
 .checkbox-field {
@@ -690,6 +742,7 @@ code {
   .metric-row,
   .two-column-fields,
   .button-row,
+  .audit-filter-grid,
   .status-transition-form {
     grid-template-columns: 1fr;
   }

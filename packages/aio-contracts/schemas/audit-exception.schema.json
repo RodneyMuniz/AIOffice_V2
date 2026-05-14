@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/audit-exception.schema.json",
+  "title": "AuditException",
+  "type": "object",
+  "required": [
+    "id",
+    "exception_type",
+    "severity",
+    "title",
+    "summary",
+    "card_id",
+    "work_order_id",
+    "handoff_id",
+    "qa_result_id",
+    "repair_request_id",
+    "policy_override_id",
+    "event_id",
+    "evidence_id",
+    "created_at",
+    "source_ref"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "exception_type": {
+      "type": "string",
+      "enum": [
+        "policy_override",
+        "policy_settings_change",
+        "qa_failed",
+        "qa_blocked",
+        "repair_request_created",
+        "handoff_without_developer_result",
+        "duplicate_handoff_blocked",
+        "readiness_blocker"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "warning", "blocker", "override"]
+    },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "card_id": { "type": ["string", "null"] },
+    "work_order_id": { "type": ["string", "null"] },
+    "handoff_id": { "type": ["string", "null"] },
+    "qa_result_id": { "type": ["string", "null"] },
+    "repair_request_id": { "type": ["string", "null"] },
+    "policy_override_id": { "type": ["string", "null"] },
+    "event_id": { "type": ["string", "null"] },
+    "evidence_id": { "type": ["string", "null"] },
+    "created_at": { "type": "string" },
+    "source_ref": { "type": "string" }
+  },
+  "examples": [
+    {
+      "id": "audit-policy-override-R19-POLICY-OVERRIDE-001",
+      "exception_type": "policy_override",
+      "severity": "override",
+      "title": "Policy override R19-POLICY-OVERRIDE-001",
+      "summary": "Operator override for work_order_qa_handoff R19-WO-002: Operator accepts QA handoff without Developer/Codex result for this case.",
+      "card_id": "R19-CARD-002",
+      "work_order_id": "R19-WO-002",
+      "handoff_id": "R19-HANDOFF-001",
+      "qa_result_id": null,
+      "repair_request_id": null,
+      "policy_override_id": "R19-POLICY-OVERRIDE-001",
+      "event_id": "R19-EVENT-010",
+      "evidence_id": "R19-EVIDENCE-010",
+      "created_at": "2026-05-14T00:00:00Z",
+      "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001"
+    }
+  ]
+}
