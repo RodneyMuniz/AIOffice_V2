@@ -30,6 +30,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 - `GET /status`
 - `GET /policy-settings`
+- `GET /policy-overrides`
 - `PATCH /policy-settings`
 - `GET /cards`
 - `POST /cards`
@@ -107,7 +108,9 @@ Policy settings request body:
 }
 ```
 
-In `advisory` mode, missing Developer/Codex result capture remains a warning and does not block original or repair QA handoff creation. In `enforced` mode, missing Developer/Codex result capture becomes a blocker for original QA when `require_developer_result_for_qa` is true, and for repair QA when `require_developer_result_for_repair_qa` is true. `allow_operator_override` is stored but reserved; override behavior is not implemented in this slice.
+In `advisory` mode, missing Developer/Codex result capture remains a warning and does not block original or repair QA handoff creation. In `enforced` mode, missing Developer/Codex result capture becomes a blocker for original QA when `require_developer_result_for_qa` is true, and for repair QA when `require_developer_result_for_repair_qa` is true. When `allow_operator_override` is true, the readiness response can expose an override option only for that policy-promoted missing-result blocker. The flag does not bypass duplicate active handoffs, missing records, broken repair linkage, invalid repair work orders, or any other hard blocker.
+
+`GET /policy-overrides` returns logged override records from `runtime/state/policy_overrides.json`, falling back to `runtime/state/policy_overrides.seed.json`.
 
 `POST /work-orders/{id}/developer-result` records a submitted Developer/Codex result for a work order before QA handoff. Missing work orders return HTTP 404. Unknown `agent_id`, invalid `result_type`, and non-list `changed_paths` return HTTP 400. A submitted result writes `developer_result_recorded` event/evidence and can move a simple `draft`, `running`, or `approved` work order to `ready` with `work_order_ready_from_developer_result`. Duplicate submitted results for the same work order are rejected until the current result is superseded.
 
@@ -127,11 +130,23 @@ Developer result request body:
 
 `POST /handoffs` validates source and target agents, the card, the work order, and that the work order belongs to the card. `POST /work-orders/{id}/handoff-to-qa` is the first product-facing convenience flow: it creates a `developer_codex` to `qa_test` handoff with `source_role` `Developer/Codex` and `target_role` `QA/Test`. Original work-order handoffs use `handoff_purpose: initial_qa`. Repair work-order handoffs are detected from `work_order_type: repair` or `repair_request_id` and use the repair QA behavior. Accepting or rejecting a handoff records the operator decision but does not invoke AI, call Codex/OpenAI APIs, or run autonomous agents.
 
-QA handoff creation attaches the latest submitted Developer/Codex result for the work order as `developer_result_id` and `developer_result_summary` when one exists. Handoffs are still allowed without a developer result in advisory mode, but `validation_summary` records `No developer result recorded before QA handoff.` as a visible soft warning. In enforced mode, configured missing-result blockers return HTTP 400 before the handoff record is created.
+QA handoff creation attaches the latest submitted Developer/Codex result for the work order as `developer_result_id` and `developer_result_summary` when one exists. Handoffs are still allowed without a developer result in advisory mode, but `validation_summary` records `No developer result recorded before QA handoff.` as a visible soft warning. In enforced mode, configured missing-result blockers return HTTP 400 before the handoff record is created unless the immediate handoff request includes a valid operator override and there are no non-overridable blockers.
 
-`GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness` return a derived, read-only readiness/preflight response. Unknown work orders or repair requests return HTTP 404. Readiness levels are `ready`, `warning`, and `blocked`; individual checks are `passed`, `warning`, or `blocked`. Responses include `policy_mode`, `policy_enforced`, and `advisory_warnings_promoted_to_blockers`. Missing Developer/Codex result capture is a warning in advisory mode. In enforced mode, the missing-result check becomes blocked only when the relevant policy requirement flag is true. Missing card/work-order/repair linkage, invalid repair work-order linkage, missing assigned agent, cancelled/rejected work-order state, or an active duplicate proposed/accepted QA handoff is a blocker in all modes. GET readiness calls do not create events or evidence.
+The convenience handoff endpoints accept an optional body:
 
-The convenience handoff endpoints reuse readiness before creating QA handoffs. Warning-level readiness remains advisory and does not block handoff creation. Blocker-level readiness returns HTTP 400. Policy-promoted blockers mention policy enforcement in the HTTP 400 detail. Active accepted/proposed handoffs are considered duplicate blockers only until a QA result exists for that handoff.
+```json
+{
+  "override_policy": true,
+  "override_reason": "Operator accepts QA handoff without Developer/Codex result for this case.",
+  "requested_by": "operator"
+}
+```
+
+`override_reason` is required and must be non-empty when `override_policy` is true. A valid override creates a `policy_override` record, writes `policy_override_recorded` event/evidence, proceeds with handoff creation, and sets `policy_override_id` plus `policy_override_reason` on the handoff. Overrides are immediate request exceptions only; they do not change policy settings and are not reusable permissions.
+
+`GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness` return a derived, read-only readiness/preflight response. Unknown work orders or repair requests return HTTP 404. Readiness levels are `ready`, `warning`, and `blocked`; individual checks are `passed`, `warning`, or `blocked`. Responses include `policy_mode`, `policy_enforced`, `advisory_warnings_promoted_to_blockers`, `overridable_blockers`, `non_overridable_blockers`, and `override_available`. Missing Developer/Codex result capture is a warning in advisory mode. In enforced mode, the missing-result check becomes blocked only when the relevant policy requirement flag is true. Missing card/work-order/repair linkage, invalid repair work-order linkage, missing assigned agent, cancelled/rejected work-order state, or an active duplicate proposed/accepted QA handoff is a blocker in all modes and is classified as non-overridable. GET readiness calls do not create events or evidence.
+
+The convenience handoff endpoints reuse readiness before creating QA handoffs. Warning-level readiness remains advisory and does not block handoff creation. Blocker-level readiness returns HTTP 400. Policy-promoted blockers mention policy enforcement in the HTTP 400 detail. Active accepted/proposed handoffs are considered duplicate blockers only until a QA result exists for that handoff. An override may bypass only the policy-promoted missing Developer/Codex result blocker when `override_available` is true.
 
 `POST /handoffs/{id}/qa-result` records a structured QA/Test result only after a handoff is accepted. Missing handoff IDs return HTTP 404. Proposed, rejected, blocked, or completed handoffs return HTTP 400. Duplicate QA results for the same handoff return HTTP 400. Invalid QA result values return HTTP 400.
 
@@ -188,6 +203,7 @@ Mutating endpoints write back to:
 - `runtime/state/qa_results.json`
 - `runtime/state/repair_requests.json`
 - `runtime/state/policy_settings.json`
+- `runtime/state/policy_overrides.json`
 
 Creating cards and work orders writes event and evidence entries. Work orders must link to an existing `card_id`; invalid card IDs return HTTP 400 with a clear message. Work orders can request an approval gate with `request_requires_approval: true`.
 
@@ -203,7 +219,7 @@ Repair request creation persists to JSON, creates a linked `ready` repair work o
 
 Repair QA handoff creation persists to `handoffs.json` and writes `repair_handoff_created`, `repair_handoff`, and `workflow_iteration` records. Repair QA result capture persists to `qa_results.json` and writes `repair_qa_result_recorded`, `repair_iteration_passed`/`repair_iteration_failed`/`repair_iteration_blocked`, `repair_qa_result`, and `workflow_iteration` records.
 
-Policy settings updates persist to `policy_settings.json` and write `policy_settings_updated` plus `policy_settings` evidence. This is a product policy setting, not a governance document flow.
+Policy settings updates persist to `policy_settings.json` and write `policy_settings_updated` plus `policy_settings` evidence. Policy overrides persist to `policy_overrides.json` and write `policy_override_recorded` plus `policy_override` evidence. This is a product policy setting and narrow logged exception path, not a governance document flow or full policy engine.
 
 ## Test and Smoke Commands
 
@@ -213,7 +229,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -274,13 +290,13 @@ The next API load will read the seed JSON files again.
 - No authentication, routing, SQLite, background workers, or autonomous agents are implemented.
 - Approval gates are minimal operator state, not a full policy engine.
 - Policy enforcement is limited to operator-controlled QA handoff readiness gates; it is not a general policy engine.
-- Operator override is stored as a reserved flag only and has no behavior yet.
+- Operator override is a narrow logged exception for policy-promoted missing Developer/Codex result blockers only; it is not authentication, reusable permission, or a hard-blocker bypass.
 - Handoffs are API-mediated dry-run records and operator decisions only; they do not execute agent work.
 - Developer/Codex result capture is operator/API-mediated metadata capture, not autonomous Codex execution or autonomous coding.
 - QA results are operator/API-mediated records after accepted handoffs, not autonomous QA agent execution.
 - Repair requests and linked repair work orders are operator/API-mediated records, not autonomous repair execution.
 - Repair QA iteration handoffs and results are operator/API-mediated records, not autonomous QA reruns.
-- QA readiness is advisory by default; enforced mode promotes only configured missing Developer/Codex result warnings to blockers. Duplicate active handoffs and broken required linkage remain blockers in all modes.
+- QA readiness is advisory by default; enforced mode promotes only configured missing Developer/Codex result warnings to blockers. Duplicate active handoffs and broken required linkage remain non-overridable blockers in all modes.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 

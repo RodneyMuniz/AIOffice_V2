@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/handoff-override-request.schema.json",
+  "title": "HandoffOverrideRequest",
+  "type": "object",
+  "properties": {
+    "override_policy": { "type": "boolean", "default": false },
+    "override_reason": { "type": "string", "minLength": 1 },
+    "requested_by": { "type": "string", "default": "operator" }
+  },
+  "if": {
+    "properties": { "override_policy": { "const": true } },
+    "required": ["override_policy"]
+  },
+  "then": {
+    "required": ["override_reason"]
+  },
+  "examples": [
+    {
+      "override_policy": true,
+      "override_reason": "Operator accepts QA handoff without Developer/Codex result for this case.",
+      "requested_by": "operator"
+    }
+  ]
+}

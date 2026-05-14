@@ -29,6 +29,7 @@ WORK_ORDER_STATUSES = (
 )
 WORK_ORDER_TYPES = ("original", "repair")
 HANDOFF_PURPOSES = ("initial_qa", "repair_qa")
+POLICY_OVERRIDE_TARGET_TYPES = ("work_order_qa_handoff", "repair_qa_handoff")
 DEVELOPER_RESULT_TYPES = ("implementation", "repair", "documentation", "validation", "other")
 DEVELOPER_RESULT_STATUSES = ("draft", "submitted", "superseded")
 REPAIR_QA_HANDOFF_REPAIR_STATUSES = ("created", "in_progress", "completed")
@@ -37,6 +38,9 @@ ACTIVE_HANDOFF_STATUSES = ("proposed", "accepted")
 READINESS_CHECK_STATUSES = ("passed", "warning", "blocked")
 READINESS_LEVELS = ("ready", "warning", "blocked")
 QA_HANDOFF_POLICY_MODES = ("advisory", "enforced")
+POLICY_MISSING_DEVELOPER_RESULT_BLOCKER = (
+    "Developer/Codex result is required by current QA handoff policy."
+)
 DEFAULT_POLICY_SETTINGS = {
     "qa_handoff_policy_mode": "advisory",
     "require_developer_result_for_qa": False,
@@ -50,6 +54,7 @@ ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
 DeveloperResultStatus = Literal["draft", "submitted", "superseded"]
 RepairRequestStatus = Literal["proposed", "created", "in_progress", "completed", "cancelled"]
+PolicyOverrideTargetType = Literal["work_order_qa_handoff", "repair_qa_handoff"]
 
 HANDOFF_STATUSES = ("proposed", "accepted", "rejected", "completed", "blocked")
 QA_RESULT_VALUES = ("passed", "failed", "blocked")
@@ -119,9 +124,17 @@ class HandoffCreate(BaseModel):
     qa_result_id: str | None = None
     developer_result_id: str | None = None
     developer_result_summary: str | None = None
+    policy_override_id: str | None = None
+    policy_override_reason: str | None = None
     iteration_number: int | None = None
     handoff_purpose: str | None = None
     evidence_refs: list[str] = Field(default_factory=list)
+
+
+class HandoffOverrideRequest(BaseModel):
+    override_policy: bool = False
+    override_reason: str | None = None
+    requested_by: str = "operator"
 
 
 class HandoffDecisionRequest(BaseModel):
@@ -191,6 +204,7 @@ class JsonStateStore:
         self.qa_results = self._load_collection("qa_results", [])
         self.repair_requests = self._load_collection("repair_requests", [])
         self.developer_results = self._load_collection("developer_results", [])
+        self.policy_overrides = self._load_collection("policy_overrides", [])
         self.policy_settings = self._load_policy_settings()
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
@@ -247,6 +261,9 @@ class JsonStateStore:
         workflow_iterations = self.workflow_iterations()
         repair_qa_handoffs_count = sum(
             1 for handoff in self.handoffs if handoff.get("handoff_purpose") == "repair_qa"
+        )
+        qa_handoffs_with_override_count = sum(
+            1 for handoff in self.handoffs if handoff.get("policy_override_id")
         )
         repair_qa_results_count = sum(
             1
@@ -323,6 +340,8 @@ class JsonStateStore:
             "work_orders_with_developer_results_count": work_orders_with_developer_results_count,
             "readiness_warnings_count": readiness_warnings_count,
             "readiness_blockers_count": readiness_blockers_count,
+            "policy_overrides_count": len(self.policy_overrides),
+            "qa_handoffs_with_override_count": qa_handoffs_with_override_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
@@ -331,6 +350,9 @@ class JsonStateStore:
 
     def get_policy_settings(self) -> dict[str, Any]:
         return dict(self.policy_settings)
+
+    def get_policy_overrides(self) -> list[dict[str, Any]]:
+        return self.policy_overrides
 
     def update_policy_settings(self, payload: PolicySettingsUpdate) -> dict[str, Any]:
         update_data = _model_to_dict(payload)
@@ -873,6 +895,37 @@ class JsonStateStore:
         else:
             developer_result = self._latest_submitted_developer_result_for_work_order(work_order_id)
 
+        policy_override = None
+        policy_override_id = handoff_data.get("policy_override_id")
+        policy_override_reason = str(handoff_data.get("policy_override_reason") or "").strip()
+        if policy_override_id:
+            policy_override_id = str(policy_override_id).strip()
+            policy_override = self._find_policy_override(policy_override_id)
+            if policy_override is None:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid policy_override_id: {policy_override_id}.",
+                )
+            if policy_override.get("work_order_id") != work_order_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"policy_override_id {policy_override_id} does not belong to "
+                        f"work_order_id {work_order_id}."
+                    ),
+                )
+            override_repair_request_id = policy_override.get("repair_request_id")
+            if override_repair_request_id and str(override_repair_request_id) != str(repair_request_id):
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"policy_override_id {policy_override_id} does not belong to "
+                        f"repair_request_id {repair_request_id}."
+                    ),
+                )
+            if not policy_override_reason:
+                policy_override_reason = str(policy_override.get("reason") or "").strip()
+
         now = _utc_now()
         payload_summary = (
             handoff_data.get("payload_summary")
@@ -905,6 +958,13 @@ class JsonStateStore:
             validation_summary = (
                 f"{validation_summary} No developer result recorded before QA handoff."
             )
+        if policy_override_id:
+            validation_summary = (
+                f"{validation_summary} Operator override {policy_override_id} was used "
+                "for this QA readiness policy blocker."
+            )
+            if policy_override_reason:
+                validation_summary = f"{validation_summary} Override reason: {policy_override_reason}"
         handoff_id = handoff_data.get("id") or self._next_id(self.handoffs, "R19-HANDOFF")
         evidence_refs = [
             *handoff_data.get("evidence_refs", []),
@@ -912,6 +972,8 @@ class JsonStateStore:
         ]
         if developer_result_id:
             evidence_refs.append(f"runtime/state/developer_results.json#{developer_result_id}")
+        if policy_override_id:
+            evidence_refs.append(f"runtime/state/policy_overrides.json#{policy_override_id}")
         handoff = {
             "id": handoff_id,
             "source_agent_id": source_agent_id,
@@ -936,6 +998,9 @@ class JsonStateStore:
         if developer_result_id:
             handoff["developer_result_id"] = developer_result_id
             handoff["developer_result_summary"] = developer_result_summary or ""
+        if policy_override_id:
+            handoff["policy_override_id"] = policy_override_id
+            handoff["policy_override_reason"] = policy_override_reason
         if repair_request_id:
             handoff["repair_request_id"] = str(repair_request_id)
         if qa_result_id:
@@ -943,13 +1008,16 @@ class JsonStateStore:
 
         self.handoffs.append(handoff)
         is_repair_qa = handoff_purpose == "repair_qa"
+        event_summary = (
+            f"Repair QA handoff {handoff_id} proposed for iteration {iteration_number}."
+            if is_repair_qa
+            else f"Handoff {handoff_id} proposed from {source_agent_id} to {target_agent_id}."
+        )
+        if policy_override_id:
+            event_summary = f"{event_summary} Operator override {policy_override_id} applied."
         self._append_event(
             event_type="repair_handoff_created" if is_repair_qa else "handoff_created",
-            summary=(
-                f"Repair QA handoff {handoff_id} proposed for iteration {iteration_number}."
-                if is_repair_qa
-                else f"Handoff {handoff_id} proposed from {source_agent_id} to {target_agent_id}."
-            ),
+            summary=event_summary,
             actor_agent_id=source_agent_id,
             related_card_id=card_id,
             related_work_order_id=work_order_id,
@@ -985,13 +1053,122 @@ class JsonStateStore:
         self._save_collection("evidence", self.evidence)
         return handoff
 
-    def handoff_work_order_to_qa(self, work_order_id: str) -> dict[str, Any]:
+    def _validate_policy_override_request(
+        self,
+        readiness: dict[str, Any],
+        override_request: HandoffOverrideRequest | None,
+    ) -> dict[str, str] | None:
+        if not override_request or not override_request.override_policy:
+            return None
+
+        reason = str(override_request.override_reason or "").strip()
+        if not reason:
+            raise HTTPException(
+                status_code=400,
+                detail="override_reason is required when override_policy is true.",
+            )
+
+        overridable_blockers = list(readiness.get("overridable_blockers") or [])
+        non_overridable_blockers = list(readiness.get("non_overridable_blockers") or [])
+        if non_overridable_blockers:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "Operator override cannot bypass non-overridable QA readiness blockers: "
+                    + " ".join(str(blocker) for blocker in non_overridable_blockers)
+                ),
+            )
+        if not overridable_blockers or not readiness.get("override_available"):
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    "No policy-overridable QA readiness blocker is available for this "
+                    "handoff request."
+                ),
+            )
+
+        requested_by = str(override_request.requested_by or "operator").strip() or "operator"
+        return {"reason": reason, "requested_by": requested_by}
+
+    def _record_policy_override(
+        self,
+        target_type: PolicyOverrideTargetType,
+        target_id: str,
+        readiness: dict[str, Any],
+        reason: str,
+        requested_by: str,
+    ) -> dict[str, Any]:
+        _validate_status(target_type, POLICY_OVERRIDE_TARGET_TYPES, "policy override target type")
+        override_id = self._next_id(self.policy_overrides, "R19-POLICY-OVERRIDE")
+        work_order_id = str(readiness.get("work_order_id") or "")
+        repair_request_id = readiness.get("repair_request_id")
+        card_id = str(readiness.get("card_id") or self._policy_related_card_id())
+        evidence_refs = [
+            f"runtime/state/policy_overrides.json#{override_id}",
+            f"runtime/state/work_orders.json#{work_order_id}",
+        ]
+        if repair_request_id:
+            evidence_refs.append(f"runtime/state/repair_requests.json#{repair_request_id}")
+
+        override = {
+            "id": override_id,
+            "target_type": target_type,
+            "target_id": target_id,
+            "work_order_id": work_order_id,
+            "card_id": card_id,
+            "policy_mode": str(readiness.get("policy_mode") or "enforced"),
+            "overridden_blockers": list(readiness.get("overridable_blockers") or []),
+            "non_overridable_blockers": list(readiness.get("non_overridable_blockers") or []),
+            "reason": reason,
+            "requested_by": requested_by,
+            "created_at": _utc_now(),
+            "evidence_refs": evidence_refs,
+        }
+        if repair_request_id:
+            override["repair_request_id"] = str(repair_request_id)
+
+        self.policy_overrides.append(override)
+        self._append_event(
+            event_type="policy_override_recorded",
+            summary=(
+                f"Policy override {override_id} recorded for {target_type} "
+                f"{target_id}. Reason: {reason}"
+            ),
+            actor_agent_id=requested_by,
+            related_card_id=card_id,
+            related_work_order_id=work_order_id,
+            related_repair_request_id=str(repair_request_id) if repair_request_id else None,
+        )
+        self._append_evidence(
+            title=f"Policy override {override_id} recorded",
+            kind="policy_override",
+            summary=(
+                f"Operator override for {target_type} {target_id}: "
+                + " ".join(str(item) for item in override["overridden_blockers"])
+            ),
+            path=f"runtime/state/policy_overrides.json#{override_id}",
+            related_card_id=card_id,
+            related_work_order_id=work_order_id,
+            related_repair_request_id=str(repair_request_id) if repair_request_id else None,
+        )
+        self._save_collection("policy_overrides", self.policy_overrides)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return override
+
+    def handoff_work_order_to_qa(
+        self,
+        work_order_id: str,
+        override_request: HandoffOverrideRequest | None = None,
+    ) -> dict[str, Any]:
         work_order = self._find_work_order(work_order_id)
         if work_order is None:
             raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
 
         readiness = self.work_order_qa_readiness(work_order_id)
-        self._raise_for_readiness_blockers(readiness)
+        override_context = self._validate_policy_override_request(readiness, override_request)
+        if not override_context:
+            self._raise_for_readiness_blockers(readiness)
 
         if self._infer_work_order_type(work_order) == "repair":
             repair_request_id = work_order.get("repair_request_id")
@@ -1003,10 +1180,20 @@ class JsonStateStore:
                         "without repair_request_id linkage."
                     ),
                 )
-            return self.handoff_repair_request_to_qa(str(repair_request_id))
+            return self.handoff_repair_request_to_qa(str(repair_request_id), override_request)
 
         evidence_refs = list(work_order.get("evidence_refs", []))
         evidence_refs.append(f"runtime/state/work_orders.json#{work_order_id}")
+        policy_override = None
+        if override_context:
+            policy_override = self._record_policy_override(
+                target_type="work_order_qa_handoff",
+                target_id=work_order_id,
+                readiness=readiness,
+                reason=override_context["reason"],
+                requested_by=override_context["requested_by"],
+            )
+            evidence_refs.extend(policy_override["evidence_refs"])
         return self.create_handoff(
             HandoffCreate(
                 source_agent_id="developer_codex",
@@ -1029,11 +1216,17 @@ class JsonStateStore:
                     "were validated; no AI or autonomous agent was invoked."
                     f"{self._readiness_validation_summary(readiness)}"
                 ),
+                policy_override_id=policy_override["id"] if policy_override else None,
+                policy_override_reason=policy_override["reason"] if policy_override else None,
                 evidence_refs=evidence_refs,
             )
         )
 
-    def handoff_repair_request_to_qa(self, repair_request_id: str) -> dict[str, Any]:
+    def handoff_repair_request_to_qa(
+        self,
+        repair_request_id: str,
+        override_request: HandoffOverrideRequest | None = None,
+    ) -> dict[str, Any]:
         repair_request = self._find_repair_request(repair_request_id)
         if repair_request is None:
             raise HTTPException(
@@ -1042,7 +1235,9 @@ class JsonStateStore:
             )
 
         readiness = self.repair_request_qa_readiness(repair_request_id)
-        self._raise_for_readiness_blockers(readiness)
+        override_context = self._validate_policy_override_request(readiness, override_request)
+        if not override_context:
+            self._raise_for_readiness_blockers(readiness)
 
         repair_status = repair_request.get("status")
         if repair_status not in REPAIR_QA_HANDOFF_REPAIR_STATUSES:
@@ -1126,6 +1321,16 @@ class JsonStateStore:
             f"runtime/state/repair_requests.json#{repair_request_id}",
             f"runtime/state/work_orders.json#{repair_work_order_id}",
         ]
+        policy_override = None
+        if override_context:
+            policy_override = self._record_policy_override(
+                target_type="repair_qa_handoff",
+                target_id=repair_request_id,
+                readiness=readiness,
+                reason=override_context["reason"],
+                requested_by=override_context["requested_by"],
+            )
+            evidence_refs.extend(policy_override["evidence_refs"])
         return self.create_handoff(
             HandoffCreate(
                 source_agent_id="developer_codex",
@@ -1154,6 +1359,8 @@ class JsonStateStore:
                 qa_result_id=str(source_qa_result_id),
                 iteration_number=iteration_number,
                 handoff_purpose="repair_qa",
+                policy_override_id=policy_override["id"] if policy_override else None,
+                policy_override_reason=policy_override["reason"] if policy_override else None,
                 evidence_refs=evidence_refs,
             )
         )
@@ -1572,6 +1779,7 @@ class JsonStateStore:
             if handoff_context == "repair_qa"
             else policy_settings["require_developer_result_for_qa"]
         )
+        allow_operator_override = policy_settings["allow_operator_override"]
         missing_developer_result_promoted = False
 
         def add_check(
@@ -1668,7 +1876,7 @@ class JsonStateStore:
                 "Latest Developer/Codex result submitted",
                 "blocked" if missing_developer_result_promoted else "warning",
                 (
-                    "Developer/Codex result is required by current QA handoff policy."
+                    POLICY_MISSING_DEVELOPER_RESULT_BLOCKER
                     if missing_developer_result_promoted
                     else "No submitted Developer/Codex result has been captured for this work order."
                 ),
@@ -1756,6 +1964,26 @@ class JsonStateStore:
                             f"{linked_work_order_id or 'none'}, not {work_order_id}."
                         ),
                     )
+
+                if repair_request.get("card_id") == work_order.get("card_id"):
+                    add_check(
+                        "repair_request_card_matches",
+                        "Repair request card matches repair work order",
+                        "passed",
+                        f"Repair request {repair_request['id']} and work order {work_order_id} share card {card_id}.",
+                    )
+                else:
+                    add_check(
+                        "repair_request_card_matches",
+                        "Repair request card matches repair work order",
+                        "blocked",
+                        (
+                            f"Repair request {repair_request['id']} card_id "
+                            f"{repair_request.get('card_id') or 'none'} does not match "
+                            f"repair work order {work_order_id} card_id "
+                            f"{work_order.get('card_id') or 'none'}."
+                        ),
+                    )
             elif repair_request:
                 add_check(
                     "repair_request_work_order_matches",
@@ -1808,6 +2036,25 @@ class JsonStateStore:
 
         warnings = [check["detail"] for check in checks if check["status"] == "warning"]
         blockers = [check["detail"] for check in checks if check["status"] == "blocked"]
+        overridable_blockers = [
+            blocker
+            for blocker in blockers
+            if (
+                blocker == POLICY_MISSING_DEVELOPER_RESULT_BLOCKER
+                and missing_developer_result_promoted
+                and policy_enforced
+                and allow_operator_override
+            )
+        ]
+        non_overridable_blockers = [
+            blocker for blocker in blockers if blocker not in overridable_blockers
+        ]
+        override_available = (
+            policy_enforced
+            and allow_operator_override
+            and bool(overridable_blockers)
+            and not non_overridable_blockers
+        )
         readiness_level = "blocked" if blockers else "warning" if warnings else "ready"
 
         readiness = {
@@ -1821,6 +2068,9 @@ class JsonStateStore:
             "checks": checks,
             "warnings": warnings,
             "blockers": blockers,
+            "overridable_blockers": overridable_blockers,
+            "non_overridable_blockers": non_overridable_blockers,
+            "override_available": override_available,
             "latest_developer_result_id": (
                 latest_developer_result.get("id") if latest_developer_result else None
             ),
@@ -2526,6 +2776,16 @@ class JsonStateStore:
     def _find_handoff(self, handoff_id: str) -> dict[str, Any] | None:
         return next((handoff for handoff in self.handoffs if handoff.get("id") == handoff_id), None)
 
+    def _find_policy_override(self, policy_override_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                policy_override
+                for policy_override in self.policy_overrides
+                if policy_override.get("id") == policy_override_id
+            ),
+            None,
+        )
+
     def _find_developer_result(self, developer_result_id: str) -> dict[str, Any] | None:
         return next(
             (
@@ -2664,6 +2924,11 @@ def get_policy_settings() -> dict[str, Any]:
     return store.get_policy_settings()
 
 
+@app.get("/policy-overrides")
+def get_policy_overrides() -> list[dict[str, Any]]:
+    return store.get_policy_overrides()
+
+
 @app.patch("/policy-settings")
 def patch_policy_settings(policy_settings: PolicySettingsUpdate) -> dict[str, Any]:
     return store.update_policy_settings(policy_settings)
@@ -2727,8 +2992,11 @@ def patch_work_order_status(work_order_id: str, status_update: StatusUpdateReque
 
 
 @app.post("/work-orders/{work_order_id}/handoff-to-qa", status_code=201)
-def post_work_order_handoff_to_qa(work_order_id: str) -> dict[str, Any]:
-    return store.handoff_work_order_to_qa(work_order_id)
+def post_work_order_handoff_to_qa(
+    work_order_id: str,
+    override_request: HandoffOverrideRequest | None = None,
+) -> dict[str, Any]:
+    return store.handoff_work_order_to_qa(work_order_id, override_request)
 
 
 @app.get("/agents")
@@ -2832,5 +3100,8 @@ def post_repair_request_cancel(
 
 
 @app.post("/repair-requests/{repair_request_id}/handoff-to-qa", status_code=201)
-def post_repair_request_handoff_to_qa(repair_request_id: str) -> dict[str, Any]:
-    return store.handoff_repair_request_to_qa(repair_request_id)
+def post_repair_request_handoff_to_qa(
+    repair_request_id: str,
+    override_request: HandoffOverrideRequest | None = None,
+) -> dict[str, Any]:
+    return store.handoff_repair_request_to_qa(repair_request_id, override_request)

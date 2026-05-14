@@ -40,7 +40,9 @@ import type {
   EventEntry,
   EvidenceEntry,
   Handoff,
+  HandoffOverrideRequest,
   PolicySettings,
+  PolicyOverride,
   QaHandoffPolicyMode,
   QaReadiness,
   QaReadinessLevel,
@@ -169,6 +171,7 @@ function Dashboard({
         />
         <DeveloperResultsPanel developerResults={data.developerResults} />
         <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
+        <PolicyOverridesPanel policyOverrides={data.policyOverrides} />
         <QaResultsPanel
           agents={data.agents}
           onRefresh={onRefresh}
@@ -271,7 +274,13 @@ function StatusPanel({ status }: { status: StatusResponse }) {
           <Metric label="Readiness warnings" value={status.readiness_warnings_count} />
         )}
         {typeof status.readiness_blockers_count === "number" && (
-          <Metric label="Readiness blockers" value={status.readiness_blockers_count} />
+        <Metric label="Readiness blockers" value={status.readiness_blockers_count} />
+        )}
+        {typeof status.policy_overrides_count === "number" && (
+          <Metric label="Policy overrides" value={status.policy_overrides_count} />
+        )}
+        {typeof status.qa_handoffs_with_override_count === "number" && (
+          <Metric label="Override handoffs" value={status.qa_handoffs_with_override_count} />
         )}
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
@@ -372,10 +381,18 @@ function PolicySettingsPanel({
           />
           Require Developer/Codex result for repair QA
         </label>
-        <label className="checkbox-field reserved-control">
-          <input checked={allowOperatorOverride} data-testid="policy-allow-override" disabled type="checkbox" />
-          Allow operator override (reserved)
+        <label className="checkbox-field">
+          <input
+            checked={allowOperatorOverride}
+            data-testid="policy-allow-override"
+            onChange={(event) => setAllowOperatorOverride(event.target.checked)}
+            type="checkbox"
+          />
+          Allow operator override for policy-promoted readiness blockers
         </label>
+        <p className="form-status warning policy-override-note">
+          Overrides are limited to missing Developer/Codex result blockers promoted by enforced policy. Hard system blockers stay blocked.
+        </p>
         <div className="policy-meta" data-testid="policy-settings-meta">
           <span>Updated</span>
           <strong>{policySettings.updated_at || "not recorded"}</strong>
@@ -938,6 +955,7 @@ function WorkOrdersList({
               onDone={(message) => setHandoffStatusById((current) => ({ ...current, [workOrder.id]: message }))}
               onRefresh={onRefresh}
               onWorkingChange={(isWorking) => setHandoffWorkOrderId(isWorking ? workOrder.id : null)}
+              readiness={loadedReadiness}
               readinessLevel={effectiveReadinessLevel}
               statusMessage={handoffStatusById[workOrder.id] ?? null}
               workOrder={workOrder}
@@ -1093,6 +1111,7 @@ function HandoffToQaAction({
   onDone,
   onRefresh,
   onWorkingChange,
+  readiness,
   readinessLevel,
   statusMessage,
   workOrder
@@ -1101,21 +1120,32 @@ function HandoffToQaAction({
   onDone: (message: string) => void;
   onRefresh: () => Promise<void>;
   onWorkingChange: (isWorking: boolean) => void;
+  readiness: QaReadiness | null;
   readinessLevel: QaReadinessLevel;
   statusMessage: string | null;
   workOrder: WorkOrder;
 }) {
+  const [overrideReason, setOverrideReason] = useState("");
   const [error, setError] = useState<string | null>(null);
   const isBlocked = readinessLevel === "blocked";
+  const overrideAvailable = isBlocked && Boolean(readiness?.override_available);
+  const overrideUnavailableReason = readiness
+    ? overrideUnavailableMessage(readiness)
+    : "Check readiness to see whether a policy override is available.";
 
-  async function handleHandoff() {
+  async function handleHandoff(override?: HandoffOverrideRequest) {
     setError(null);
     onWorkingChange(true);
 
     try {
-      const handoff = await handoffWorkOrderToQa(workOrder.id);
+      const handoff = await handoffWorkOrderToQa(workOrder.id, override);
       await onRefresh();
-      onDone(`Created ${handoff.id}`);
+      setOverrideReason("");
+      onDone(
+        handoff.policy_override_id
+          ? `Created ${handoff.id} with override ${handoff.policy_override_id}`
+          : `Created ${handoff.id}`
+      );
     } catch (handoffError: unknown) {
       setError(errorMessage(handoffError));
     } finally {
@@ -1123,17 +1153,57 @@ function HandoffToQaAction({
     }
   }
 
+  function handleOverrideHandoff() {
+    const reason = overrideReason.trim();
+    if (!reason) {
+      setError("Override reason is required.");
+      return;
+    }
+    void handleHandoff({
+      override_policy: true,
+      override_reason: reason,
+      requested_by: "operator"
+    });
+  }
+
   return (
     <div className="inline-action-block">
       <button
         data-testid={`handoff-to-qa-${workOrder.id}`}
         disabled={isWorking || isBlocked}
-        onClick={handleHandoff}
+        onClick={() => handleHandoff()}
         type="button"
         title={isBlocked ? "QA readiness is blocked for this work order." : undefined}
       >
         {isWorking ? "Handing off..." : "Handoff to QA"}
       </button>
+      {isBlocked && overrideAvailable && (
+        <div className="override-action-block" data-testid={`override-action-${workOrder.id}`}>
+          <label>
+            Override reason
+            <textarea
+              data-testid={`override-reason-${workOrder.id}`}
+              onChange={(event) => setOverrideReason(event.target.value)}
+              rows={3}
+              value={overrideReason}
+            />
+          </label>
+          <button
+            className="danger"
+            data-testid={`handoff-to-qa-override-${workOrder.id}`}
+            disabled={isWorking || !overrideReason.trim()}
+            onClick={handleOverrideHandoff}
+            type="button"
+          >
+            {isWorking ? "Handing off..." : "Handoff to QA with Override"}
+          </button>
+        </div>
+      )}
+      {isBlocked && !overrideAvailable && (
+        <p className="form-status warning" data-testid={`override-unavailable-${workOrder.id}`}>
+          Override unavailable: {overrideUnavailableReason}
+        </p>
+      )}
       <FormStatus error={error} success={statusMessage} />
     </div>
   );
@@ -1182,6 +1252,27 @@ function QaReadinessPanel({
         {warningsPromoted ? "; warning promoted to blocker" : ""}
       </small>
       {generatedAt && <small>Checked {generatedAt}</small>}
+      {readiness && readiness.overridable_blockers.length > 0 && (
+        <div className="readiness-classification" data-testid={`${testId}-overridable`}>
+          <p className="eyebrow">Policy-overridable blockers</p>
+          {readiness.overridable_blockers.map((blocker) => (
+            <p key={blocker}>{blocker}</p>
+          ))}
+        </div>
+      )}
+      {readiness && readiness.non_overridable_blockers.length > 0 && (
+        <div className="readiness-classification" data-testid={`${testId}-non-overridable`}>
+          <p className="eyebrow">Non-overridable blockers</p>
+          {readiness.non_overridable_blockers.map((blocker) => (
+            <p key={blocker}>{blocker}</p>
+          ))}
+        </div>
+      )}
+      {readiness && (
+        <p className={`form-status ${readiness.override_available ? "warning" : ""}`}>
+          Override {readiness.override_available ? "available for this handoff request" : "not available"}
+        </p>
+      )}
       {readiness && (
         <div className="readiness-checks">
           {readiness.checks.map((check) => (
@@ -1213,6 +1304,19 @@ function readinessHeadline(readiness: QaReadiness): string {
   return readiness.latest_developer_result_id
     ? `Ready: latest submitted Developer/Codex result ${readiness.latest_developer_result_id} exists.`
     : "Ready: advisory checks passed.";
+}
+
+function overrideUnavailableMessage(readiness: QaReadiness): string {
+  if (readiness.policy_mode !== "enforced") {
+    return "policy mode is advisory, so an override is not needed.";
+  }
+  if (readiness.non_overridable_blockers.length > 0) {
+    return readiness.non_overridable_blockers[0];
+  }
+  if (readiness.overridable_blockers.length === 0) {
+    return "no policy-promoted missing Developer/Codex result blocker is present.";
+  }
+  return "operator override is disabled in Policy Settings.";
 }
 
 function DeveloperResultsPanel({ developerResults }: { developerResults: DeveloperResult[] }) {
@@ -1366,6 +1470,8 @@ function HandoffsPanel({
                 <strong>{handoff.iteration_number ?? 1}</strong>
                 <span>Developer result</span>
                 <strong>{handoff.developer_result_id ?? "none"}</strong>
+                <span>Policy override</span>
+                <strong>{handoff.policy_override_id ?? "none"}</strong>
                 {handoff.repair_request_id && (
                   <>
                     <span>Repair request</span>
@@ -1400,12 +1506,23 @@ function HandoffsPanel({
                     <p>{handoff.developer_result_summary || "No developer result summary recorded."}</p>
                   </div>
                 )}
+                {handoff.policy_override_id && (
+                  <div className="override-summary" data-testid={`handoff-policy-override-${handoff.id}`}>
+                    <p className="eyebrow">Policy override reason</p>
+                    <p>
+                      <strong>{handoff.policy_override_id}</strong>:{" "}
+                      {handoff.policy_override_reason || "No override reason recorded."}
+                    </p>
+                  </div>
+                )}
                 {!handoff.developer_result_id && (
                   <p
                     className="form-status warning developer-result-warning"
                     data-testid={`handoff-developer-result-warning-${handoff.id}`}
                   >
-                    No developer result captured before handoff
+                    {handoff.policy_override_id
+                      ? "No developer result captured; handoff was operator override-approved"
+                      : "No developer result captured before handoff"}
                   </p>
                 )}
                 {handoff.decision_reason && (
@@ -1554,6 +1671,69 @@ function QaResultForm({ handoff, onRefresh }: { handoff: Handoff; onRefresh: () 
       </button>
       <FormStatus error={error} success={success} />
     </form>
+  );
+}
+
+function PolicyOverridesPanel({ policyOverrides }: { policyOverrides: PolicyOverride[] }) {
+  const visibleOverrides = useMemo(() => [...policyOverrides].reverse(), [policyOverrides]);
+
+  return (
+    <section className="panel policy-overrides-panel" data-testid="policy-overrides-panel">
+      <div className="panel-heading">
+        <h2>Policy Overrides</h2>
+        <span className="count-tag">{policyOverrides.length}</span>
+      </div>
+      <div className="record-list" data-testid="policy-overrides-list">
+        {visibleOverrides.length === 0 && <p>No policy overrides recorded yet.</p>}
+        {visibleOverrides.map((override) => (
+          <article className="record-row" data-testid={`policy-override-${override.id}`} key={override.id}>
+            <div className="record-title-line">
+              <p className="eyebrow">{override.id}</p>
+              <span className="state-tag warn">{override.policy_mode}</span>
+            </div>
+            <div className="detail-grid handoff-detail-grid">
+              <span>Target type</span>
+              <strong>{override.target_type}</strong>
+              <span>Target id</span>
+              <strong>{override.target_id}</strong>
+              <span>Work order</span>
+              <strong>{override.work_order_id}</strong>
+              <span>Repair request</span>
+              <strong>{override.repair_request_id ?? "none"}</strong>
+              <span>Card</span>
+              <strong>{override.card_id}</strong>
+              <span>Requested by</span>
+              <strong>{override.requested_by}</strong>
+              <span>Created</span>
+              <strong>{override.created_at}</strong>
+            </div>
+            <div className="summary-stack">
+              <div>
+                <p className="eyebrow">Reason</p>
+                <p>{override.reason}</p>
+              </div>
+              <div>
+                <p className="eyebrow">Overridden blockers</p>
+                <div className="code-list">
+                  {override.overridden_blockers.map((blocker) => (
+                    <code key={blocker}>{blocker}</code>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="eyebrow">Non-overridable blockers at request time</p>
+                <div className="code-list">
+                  {override.non_overridable_blockers.length === 0 && <code>none</code>}
+                  {override.non_overridable_blockers.map((blocker) => (
+                    <code key={blocker}>{blocker}</code>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -1792,6 +1972,7 @@ function RepairRequestsPanel({
   const [workingRepairRequestId, setWorkingRepairRequestId] = useState<string | null>(null);
   const [handoffRepairRequestId, setHandoffRepairRequestId] = useState<string | null>(null);
   const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
+  const [overrideReasonById, setOverrideReasonById] = useState<Record<string, string>>({});
   const [readinessByRepairRequestId, setReadinessByRepairRequestId] = useState<Record<string, QaReadiness>>({});
   const [readinessErrorById, setReadinessErrorById] = useState<Record<string, string>>({});
   const [checkingReadinessId, setCheckingReadinessId] = useState<string | null>(null);
@@ -1820,20 +2001,39 @@ function RepairRequestsPanel({
     }
   }
 
-  async function handoffRepairToQa(repairRequest: RepairRequest) {
+  async function handoffRepairToQa(repairRequest: RepairRequest, override?: HandoffOverrideRequest) {
     setError(null);
     setSuccess(null);
     setHandoffRepairRequestId(repairRequest.id);
 
     try {
-      const handoff = await handoffRepairRequestToQa(repairRequest.id);
+      const handoff = await handoffRepairRequestToQa(repairRequest.id, override);
       await onRefresh();
-      setHandoffStatusById((current) => ({ ...current, [repairRequest.id]: `Created ${handoff.id}` }));
+      setOverrideReasonById((current) => ({ ...current, [repairRequest.id]: "" }));
+      setHandoffStatusById((current) => ({
+        ...current,
+        [repairRequest.id]: handoff.policy_override_id
+          ? `Created ${handoff.id} with override ${handoff.policy_override_id}`
+          : `Created ${handoff.id}`
+      }));
     } catch (handoffError: unknown) {
       setError(errorMessage(handoffError));
     } finally {
       setHandoffRepairRequestId(null);
     }
+  }
+
+  function handoffRepairToQaWithOverride(repairRequest: RepairRequest) {
+    const reason = (overrideReasonById[repairRequest.id] ?? "").trim();
+    if (!reason) {
+      setError("Override reason is required.");
+      return;
+    }
+    void handoffRepairToQa(repairRequest, {
+      override_policy: true,
+      override_reason: reason,
+      requested_by: "operator"
+    });
   }
 
   async function decideRepairRequest(repairRequest: RepairRequest, decision: "complete" | "cancel") {
@@ -1893,6 +2093,13 @@ function RepairRequestsPanel({
           const effectiveReadinessLevel: QaReadinessLevel = activeRepairQaHandoff
             ? "blocked"
             : loadedReadiness?.readiness_level ?? derivedReadinessLevel;
+          const repairOverrideAvailable = effectiveReadinessLevel === "blocked" && Boolean(loadedReadiness?.override_available);
+          const repairOverrideUnavailableReason =
+            effectiveReadinessLevel === "blocked"
+              ? loadedReadiness
+                ? overrideUnavailableMessage(loadedReadiness)
+                : "Check readiness to see whether a policy override is available."
+              : "";
           const readinessSummary = activeRepairQaHandoff
             ? `Blocked: active repair QA handoff ${activeRepairQaHandoff.id} is ${activeRepairQaHandoff.status}.`
             : latestRepairDeveloperResult
@@ -1981,6 +2188,43 @@ function RepairRequestsPanel({
                   >
                     {handoffRepairRequestId === repairRequest.id ? "Handing off..." : "Handoff Repair to QA"}
                   </button>
+                  {effectiveReadinessLevel === "blocked" && repairOverrideAvailable && (
+                    <div className="override-action-block" data-testid={`repair-override-action-${repairRequest.id}`}>
+                      <label>
+                        Override reason
+                        <textarea
+                          data-testid={`repair-override-reason-${repairRequest.id}`}
+                          onChange={(event) =>
+                            setOverrideReasonById((current) => ({
+                              ...current,
+                              [repairRequest.id]: event.target.value
+                            }))
+                          }
+                          rows={3}
+                          value={overrideReasonById[repairRequest.id] ?? ""}
+                        />
+                      </label>
+                      <button
+                        className="danger"
+                        data-testid={`handoff-repair-to-qa-override-${repairRequest.id}`}
+                        disabled={
+                          handoffRepairRequestId === repairRequest.id ||
+                          !(overrideReasonById[repairRequest.id] ?? "").trim()
+                        }
+                        onClick={() => handoffRepairToQaWithOverride(repairRequest)}
+                        type="button"
+                      >
+                        {handoffRepairRequestId === repairRequest.id
+                          ? "Handing off..."
+                          : "Handoff Repair to QA with Override"}
+                      </button>
+                    </div>
+                  )}
+                  {effectiveReadinessLevel === "blocked" && !repairOverrideAvailable && (
+                    <p className="form-status warning" data-testid={`repair-override-unavailable-${repairRequest.id}`}>
+                      Override unavailable: {repairOverrideUnavailableReason}
+                    </p>
+                  )}
                   <FormStatus
                     error={null}
                     success={

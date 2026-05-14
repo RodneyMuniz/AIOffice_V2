@@ -81,6 +81,8 @@ export type StatusResponse = {
   work_orders_with_developer_results_count: number;
   readiness_warnings_count?: number;
   readiness_blockers_count?: number;
+  policy_overrides_count?: number;
+  qa_handoffs_with_override_count?: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
@@ -106,6 +108,9 @@ export type QaReadiness = {
   checks: QaReadinessCheck[];
   warnings: string[];
   blockers: string[];
+  overridable_blockers: string[];
+  non_overridable_blockers: string[];
+  override_available: boolean;
   latest_developer_result_id: string | null;
   latest_developer_result_summary: string | null;
   latest_developer_result_status: DeveloperResultStatus | null;
@@ -186,6 +191,8 @@ export type Handoff = {
   qa_result_id?: string;
   developer_result_id?: string;
   developer_result_summary?: string;
+  policy_override_id?: string;
+  policy_override_reason?: string;
   iteration_number?: number;
   handoff_purpose?: "initial_qa" | "repair_qa";
   evidence_refs: string[];
@@ -239,6 +246,22 @@ export type RepairRequest = {
   created_at: string;
   updated_at: string;
   completed_at: string | null;
+  evidence_refs: string[];
+};
+
+export type PolicyOverride = {
+  id: string;
+  target_type: "work_order_qa_handoff" | "repair_qa_handoff";
+  target_id: string;
+  work_order_id: string;
+  repair_request_id?: string;
+  card_id: string;
+  policy_mode: QaHandoffPolicyMode;
+  overridden_blockers: string[];
+  non_overridable_blockers: string[];
+  reason: string;
+  requested_by: string;
+  created_at: string;
   evidence_refs: string[];
 };
 
@@ -309,6 +332,7 @@ export type DashboardData = {
   developerResults: DeveloperResult[];
   qaResults: QaResult[];
   repairRequests: RepairRequest[];
+  policyOverrides: PolicyOverride[];
   workflowIterations: WorkflowIteration[];
 };
 
@@ -337,6 +361,12 @@ export type CreateApprovalRequest = {
 export type HandoffDecisionRequest = {
   decision_reason: string;
   decided_by: string;
+};
+
+export type HandoffOverrideRequest = {
+  override_policy: boolean;
+  override_reason: string;
+  requested_by: string;
 };
 
 export type CreateQaResultRequest = {

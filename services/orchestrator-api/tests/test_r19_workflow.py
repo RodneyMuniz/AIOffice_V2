@@ -92,6 +92,7 @@ def set_policy(
     mode: str = "enforced",
     require_original: bool = False,
     require_repair: bool = False,
+    allow_override: bool = False,
 ) -> dict:
     response = client.patch(
         "/policy-settings",
@@ -99,7 +100,7 @@ def set_policy(
             "qa_handoff_policy_mode": mode,
             "require_developer_result_for_qa": require_original,
             "require_developer_result_for_repair_qa": require_repair,
-            "allow_operator_override": False,
+            "allow_operator_override": allow_override,
             "updated_by": "pytest",
         },
     )
@@ -164,6 +165,8 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["work_orders_with_developer_results_count"] == 0
     assert status["readiness_warnings_count"] >= 1
     assert status["readiness_blockers_count"] == 0
+    assert status["policy_overrides_count"] == 0
+    assert status["qa_handoffs_with_override_count"] == 0
 
     cards_response = client.get("/cards")
     assert cards_response.status_code == 200
@@ -188,6 +191,10 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     developer_results_response = client.get("/developer-results")
     assert developer_results_response.status_code == 200
     assert developer_results_response.json() == []
+
+    policy_overrides_response = client.get("/policy-overrides")
+    assert policy_overrides_response.status_code == 200
+    assert policy_overrides_response.json() == []
 
     workflow_iterations_response = client.get("/workflow-iterations")
     assert workflow_iterations_response.status_code == 200
@@ -522,6 +529,9 @@ def test_work_order_qa_readiness_warns_when_developer_result_is_missing(
     assert readiness["latest_developer_result_status"] is None
     assert any("No submitted Developer/Codex result" in item for item in readiness["warnings"])
     assert readiness["blockers"] == []
+    assert readiness["overridable_blockers"] == []
+    assert readiness["non_overridable_blockers"] == []
+    assert readiness["override_available"] is False
     assert any(
         check["id"] == "latest_developer_result_submitted"
         and check["status"] == "warning"
@@ -547,6 +557,11 @@ def test_enforced_policy_blocks_original_qa_until_developer_result_exists(
     assert readiness["readiness_level"] == "blocked"
     assert readiness["ready_for_qa"] is False
     assert "Developer/Codex result is required by current QA handoff policy." in readiness["blockers"]
+    assert readiness["overridable_blockers"] == []
+    assert readiness["non_overridable_blockers"] == [
+        "Developer/Codex result is required by current QA handoff policy."
+    ]
+    assert readiness["override_available"] is False
     assert any(
         check["id"] == "latest_developer_result_submitted"
         and check["status"] == "blocked"
@@ -575,6 +590,133 @@ def test_enforced_policy_blocks_original_qa_until_developer_result_exists(
     handoff = handoff_response.json()
     assert handoff["developer_result_id"] == developer_result["id"]
     assert "Policy mode: enforced; warnings enforced: no." in handoff["validation_summary"]
+
+
+def test_operator_override_allows_original_policy_promoted_missing_developer_result(
+    client: TestClient,
+) -> None:
+    _, work_order = create_card_and_work_order(client, "original policy override")
+    set_policy(client, mode="enforced", require_original=True, allow_override=True)
+
+    readiness_response = client.get(f"/work-orders/{work_order['id']}/qa-readiness")
+    assert readiness_response.status_code == 200
+    readiness = readiness_response.json()
+    assert readiness["readiness_level"] == "blocked"
+    assert readiness["blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert readiness["overridable_blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert readiness["non_overridable_blockers"] == []
+    assert readiness["override_available"] is True
+
+    empty_reason_response = client.post(
+        f"/work-orders/{work_order['id']}/handoff-to-qa",
+        json={"override_policy": True, "override_reason": "   ", "requested_by": "operator"},
+    )
+    assert empty_reason_response.status_code == 400
+    assert "override_reason is required" in empty_reason_response.json()["detail"]
+
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+    override_reason = "Operator accepts QA handoff without Developer/Codex result for this case."
+    handoff_response = client.post(
+        f"/work-orders/{work_order['id']}/handoff-to-qa",
+        json={
+            "override_policy": True,
+            "override_reason": override_reason,
+            "requested_by": "pytest",
+        },
+    )
+
+    assert handoff_response.status_code == 201
+    handoff = handoff_response.json()
+    assert "developer_result_id" not in handoff
+    assert handoff["policy_override_id"].startswith("R19-POLICY-OVERRIDE-")
+    assert handoff["policy_override_reason"] == override_reason
+    assert "Operator override" in handoff["validation_summary"]
+    assert override_reason in handoff["validation_summary"]
+    assert f"runtime/state/policy_overrides.json#{handoff['policy_override_id']}" in handoff["evidence_refs"]
+
+    policy_overrides_response = client.get("/policy-overrides")
+    assert policy_overrides_response.status_code == 200
+    policy_overrides = policy_overrides_response.json()
+    assert len(policy_overrides) == 1
+    policy_override = policy_overrides[0]
+    assert policy_override["id"] == handoff["policy_override_id"]
+    assert policy_override["target_type"] == "work_order_qa_handoff"
+    assert policy_override["target_id"] == work_order["id"]
+    assert policy_override["work_order_id"] == work_order["id"]
+    assert "repair_request_id" not in policy_override
+    assert policy_override["card_id"] == work_order["card_id"]
+    assert policy_override["policy_mode"] == "enforced"
+    assert policy_override["overridden_blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert policy_override["non_overridable_blockers"] == []
+    assert policy_override["reason"] == override_reason
+    assert policy_override["requested_by"] == "pytest"
+    assert policy_override["created_at"]
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert len(events) == before_events_count + 2
+    assert len(evidence) == before_evidence_count + 2
+    assert any(
+        event["type"] == "policy_override_recorded"
+        and policy_override["id"] in event["summary"]
+        for event in events
+    )
+    assert any(
+        event["type"] == "handoff_created"
+        and event["related_handoff_id"] == handoff["id"]
+        and policy_override["id"] in event["summary"]
+        for event in events
+    )
+    assert any(
+        entry["kind"] == "policy_override"
+        and entry["path"] == f"runtime/state/policy_overrides.json#{policy_override['id']}"
+        for entry in evidence
+    )
+    assert any(
+        entry["kind"] == "handoff_record"
+        and entry["related_handoff_id"] == handoff["id"]
+        and policy_override["id"] in entry["summary"]
+        for entry in evidence
+    )
+
+    status = client.get("/status").json()
+    assert status["policy_overrides_count"] == 1
+    assert status["qa_handoffs_with_override_count"] == 1
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    assert reloaded_store.policy_overrides[0]["id"] == policy_override["id"]
+    assert next(item for item in reloaded_store.handoffs if item["id"] == handoff["id"])[
+        "policy_override_id"
+    ] == policy_override["id"]
+
+
+def test_duplicate_active_handoff_remains_non_overridable_with_operator_override(
+    client: TestClient,
+) -> None:
+    card, work_order = create_card_and_work_order(client, "duplicate override guard")
+    existing_handoff = create_handoff(client, card, work_order, status="proposed")
+    set_policy(client, mode="enforced", require_original=True, allow_override=True)
+
+    readiness = client.get(f"/work-orders/{work_order['id']}/qa-readiness").json()
+    assert readiness["readiness_level"] == "blocked"
+    assert api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER in readiness["overridable_blockers"]
+    assert any(existing_handoff["id"] in blocker for blocker in readiness["non_overridable_blockers"])
+    assert readiness["override_available"] is False
+
+    response = client.post(
+        f"/work-orders/{work_order['id']}/handoff-to-qa",
+        json={
+            "override_policy": True,
+            "override_reason": "Operator override should not bypass duplicate handoffs.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "non-overridable" in response.json()["detail"]
+    assert existing_handoff["id"] in response.json()["detail"]
+    assert client.get("/policy-overrides").json() == []
 
 
 def test_work_order_qa_readiness_is_ready_with_submitted_developer_result(
@@ -1204,6 +1346,11 @@ def test_enforced_policy_blocks_repair_qa_until_repair_developer_result_exists(
     assert readiness["advisory_warnings_promoted_to_blockers"] is True
     assert readiness["readiness_level"] == "blocked"
     assert "Developer/Codex result is required by current QA handoff policy." in readiness["blockers"]
+    assert readiness["overridable_blockers"] == []
+    assert readiness["non_overridable_blockers"] == [
+        "Developer/Codex result is required by current QA handoff policy."
+    ]
+    assert readiness["override_available"] is False
     assert any(
         check["id"] == "latest_developer_result_submitted"
         and check["status"] == "blocked"
@@ -1236,6 +1383,106 @@ def test_enforced_policy_blocks_repair_qa_until_repair_developer_result_exists(
     handoff = handoff_response.json()
     assert handoff["developer_result_id"] == developer_result["id"]
     assert "Policy mode: enforced; warnings enforced: no." in handoff["validation_summary"]
+
+
+def test_operator_override_allows_repair_policy_promoted_missing_developer_result(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair policy override",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair policy override"),
+    ).json()
+    set_policy(client, mode="enforced", require_repair=True, allow_override=True)
+
+    readiness = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness").json()
+    assert readiness["handoff_context"] == "repair_qa"
+    assert readiness["readiness_level"] == "blocked"
+    assert readiness["blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert readiness["overridable_blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert readiness["non_overridable_blockers"] == []
+    assert readiness["override_available"] is True
+
+    override_reason = "Operator accepts repair QA handoff without repair Developer/Codex result."
+    handoff_response = client.post(
+        f"/repair-requests/{repair_request['id']}/handoff-to-qa",
+        json={
+            "override_policy": True,
+            "override_reason": override_reason,
+            "requested_by": "pytest",
+        },
+    )
+
+    assert handoff_response.status_code == 201
+    handoff = handoff_response.json()
+    assert handoff["handoff_purpose"] == "repair_qa"
+    assert handoff["repair_request_id"] == repair_request["id"]
+    assert handoff["work_order_id"] == repair_request["repair_work_order_id"]
+    assert "developer_result_id" not in handoff
+    assert handoff["policy_override_id"].startswith("R19-POLICY-OVERRIDE-")
+    assert handoff["policy_override_reason"] == override_reason
+    assert "Operator override" in handoff["validation_summary"]
+
+    policy_override = client.get("/policy-overrides").json()[0]
+    assert policy_override["id"] == handoff["policy_override_id"]
+    assert policy_override["target_type"] == "repair_qa_handoff"
+    assert policy_override["target_id"] == repair_request["id"]
+    assert policy_override["work_order_id"] == repair_request["repair_work_order_id"]
+    assert policy_override["repair_request_id"] == repair_request["id"]
+    assert policy_override["overridden_blockers"] == [api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER]
+    assert policy_override["non_overridable_blockers"] == []
+
+    assert any(
+        event["type"] == "policy_override_recorded"
+        and event.get("related_repair_request_id") == repair_request["id"]
+        for event in client.get("/events").json()
+    )
+    assert any(
+        entry["kind"] == "policy_override"
+        and entry.get("related_repair_request_id") == repair_request["id"]
+        for entry in client.get("/evidence").json()
+    )
+
+
+def test_repair_policy_override_does_not_bypass_hard_linkage_blocker(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair hard blocker override guard",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair hard blocker override guard"),
+    ).json()
+    api_main.store.repair_requests[-1]["repair_work_order_id"] = "missing-work-order"
+    set_policy(client, mode="enforced", require_repair=True, allow_override=True)
+
+    readiness = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness").json()
+    assert readiness["readiness_level"] == "blocked"
+    assert api_main.POLICY_MISSING_DEVELOPER_RESULT_BLOCKER in readiness["overridable_blockers"]
+    assert readiness["non_overridable_blockers"]
+    assert any("missing repair work order" in blocker for blocker in readiness["non_overridable_blockers"])
+    assert readiness["override_available"] is False
+
+    response = client.post(
+        f"/repair-requests/{repair_request['id']}/handoff-to-qa",
+        json={
+            "override_policy": True,
+            "override_reason": "Operator override must not bypass broken repair linkage.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "non-overridable" in response.json()["detail"]
+    assert "missing repair work order" in response.json()["detail"]
+    assert client.get("/policy-overrides").json() == []
 
 
 def test_repair_request_qa_readiness_is_ready_when_repair_developer_result_exists(

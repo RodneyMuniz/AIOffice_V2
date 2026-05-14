@@ -43,10 +43,13 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Optionally request an approval gate while creating a work order.
 - Record a structured Developer/Codex result for an original or repair work order before QA handoff.
 - Use the Policy Settings panel to switch QA handoff readiness between advisory and enforced mode.
+- Enable the narrow operator override option for policy-promoted missing Developer/Codex result blockers.
 - See Developer/Codex results in the Developer Results panel.
 - Check QA readiness/preflight before original or repair QA handoff.
 - Trigger a Developer/Codex to QA/Test handoff from a work order.
+- Trigger a QA handoff with an override reason only when readiness says the blocker is policy-overridable.
 - See the linked `developer_result_id` and result summary on QA handoffs when a submitted result exists.
+- See override id/reason metadata in the Handoffs and Policy Overrides panels.
 - Accept or reject proposed handoffs from the Handoffs panel.
 - Record a structured QA/Test result for accepted handoffs.
 - See recorded QA results in the QA Results panel.
@@ -69,8 +72,9 @@ Policy settings use:
 
 - `GET /policy-settings`
 - `PATCH /policy-settings`
+- `GET /policy-overrides`
 
-The Policy Settings panel shows the current QA handoff policy mode, whether Developer/Codex results are required for original QA and repair QA, the reserved operator override flag, and the last updated timestamp/by fields. Saving policy settings refreshes status, policy settings, readiness fallback state, events, and evidence. `allow_operator_override` is shown as reserved and disabled because override behavior is not implemented in this slice.
+The Policy Settings panel shows the current QA handoff policy mode, whether Developer/Codex results are required for original QA and repair QA, the operator override flag, and the last updated timestamp/by fields. Saving policy settings refreshes status, policy settings, readiness fallback state, events, and evidence. `allow_operator_override` only enables overrides for policy-promoted missing Developer/Codex result blockers in enforced mode. It does not bypass duplicate active handoffs, missing records, broken repair linkage, invalid repair work orders, or other hard system blockers.
 
 Developer/Codex result capture uses:
 
@@ -87,7 +91,7 @@ QA readiness checks use:
 
 Each work-order row shows a compact QA readiness section and a `Check QA readiness` button. Each repair request with a linked repair work order shows repair QA readiness and a `Check Repair QA readiness` button. Readiness can be `ready`, `warning`, or `blocked`. Missing Developer/Codex result capture is a warning and does not disable handoff. Active duplicate QA handoffs and broken required linkage are blockers and disable only the related handoff button.
 
-In advisory policy mode, missing Developer/Codex result capture remains warning-level and the relevant handoff button stays enabled unless another hard blocker exists. In enforced mode, the UI shows missing Developer/Codex result capture as blocked when the matching original or repair requirement flag is enabled, and disables the related handoff button until the operator records the Developer/Codex result.
+In advisory policy mode, missing Developer/Codex result capture remains warning-level and the relevant handoff button stays enabled unless another hard blocker exists. In enforced mode, the UI shows missing Developer/Codex result capture as blocked when the matching original or repair requirement flag is enabled, and disables the normal related handoff button until the operator records the Developer/Codex result or uses an available override. Readiness shows `Policy-overridable blockers`, `Non-overridable blockers`, and whether an override is available.
 
 Handoff actions use:
 
@@ -100,7 +104,19 @@ Handoff actions use:
 
 Each successful handoff action refreshes status, work orders, handoffs, events, and evidence. Handoff statuses are `proposed`, `accepted`, `rejected`, `completed`, and `blocked`.
 
-When a submitted Developer/Codex result exists for the work order, the handoff panel shows its id and summary. If a handoff was created without a developer result, the panel displays `No developer result captured before handoff` as a warning-style note.
+When a submitted Developer/Codex result exists for the work order, the handoff panel shows its id and summary. If a handoff was created without a developer result, the panel displays a warning-style note. Override-approved handoffs show `policy_override_id` and `policy_override_reason`; if they have no developer result, the Handoffs panel explicitly warns that the handoff was operator override-approved.
+
+The Work Orders and Repair Requests panels show an override reason field and override handoff button only when backend readiness reports `override_available: true`. The override button is disabled until the reason is non-empty. The override request body sent to the backend is:
+
+```json
+{
+  "override_policy": true,
+  "override_reason": "Operator accepts QA handoff without Developer/Codex result for this case.",
+  "requested_by": "operator"
+}
+```
+
+The Policy Overrides panel lists the logged override records with target type/id, work order id, repair request id when present, overridden blockers, non-overridable blockers, reason, requested by, and created timestamp.
 
 QA result capture is available only for accepted handoffs that do not already have a QA result. Allowed QA result values are `passed`, `failed`, and `blocked`. A passed result can move the linked work order to `completed`; failed and blocked results can move it to `blocked`. Each successful QA result refreshes status, work orders, handoffs, QA results, events, and evidence.
 
@@ -115,7 +131,7 @@ Repair-loop actions use:
 
 The repair request form appears only for failed or blocked QA results that do not already have a repair request. Creating one refreshes status, work orders, repair requests, QA results, events, and evidence. Linked repair work orders start as `ready`, are assigned to `developer_codex` by default, and do not invoke autonomous repair.
 
-The Repair Requests panel shows any existing repair QA handoff id/status and exposes `Handoff Repair to QA` when a repair work order is linked. Repair QA readiness warns when the repair Developer/Codex result is missing and blocks duplicate active repair QA handoffs. The backend rejects duplicate active repair QA handoffs for the same repair request/work order, and the UI displays that API error if it occurs. Accepted repair QA handoffs show the same QA result form used for initial QA. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked` and the existing repair request form can create the next manual repair request.
+The Repair Requests panel shows any existing repair QA handoff id/status and exposes `Handoff Repair to QA` when a repair work order is linked. Repair QA readiness warns when the repair Developer/Codex result is missing, can expose `Handoff Repair to QA with Override` for the narrow policy-promoted missing-result case, and blocks duplicate active repair QA handoffs. The backend rejects duplicate active repair QA handoffs for the same repair request/work order, and the UI displays that API error if it occurs. Accepted repair QA handoffs show the same QA result form used for initial QA. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked` and the existing repair request form can create the next manual repair request.
 
 The Workflow Iterations panel is read-only. It is loaded from `GET /workflow-iterations` and shows the compact chain from original work order to repair iterations, latest handoff, latest QA result, and latest result.
 
@@ -133,7 +149,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, creates a card/work order, verifies QA readiness warning before Developer/Codex result capture, confirms advisory mode does not disable handoff for that warning, switches original QA policy to enforced, confirms the readiness blocker and disabled handoff, records an original Developer/Codex result, verifies readiness becomes ready and handoff is enabled, triggers a QA handoff that references the result, verifies duplicate active handoff readiness blocks another handoff, accepts it, records a failed QA result, creates a repair request, verifies repair QA readiness warning before repair Developer/Codex result capture, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, records a repair Developer/Codex result, verifies repair readiness becomes ready and handoff is enabled, hands the repair work order back to QA from the Repair Requests panel, verifies the repair QA handoff references the repair result, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies policy/developer/repair QA events/evidence, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -143,29 +159,27 @@ Manual browser smoke:
 4. Create a work order linked to that card.
 5. Use the card status dropdown and Update status button.
 6. Confirm advisory policy mode leaves missing Developer/Codex result as a readiness warning and does not disable Handoff to QA.
-7. Switch policy mode to enforced and require Developer/Codex result for original QA.
-8. Click Check QA readiness and confirm the missing-result warning is now blocked and Handoff to QA is disabled.
-9. Record a Developer/Codex result on the work order.
-10. Click Check QA readiness and confirm the blocker changes to ready.
-11. Confirm the Developer Results panel shows the result.
-12. Click Handoff to QA on the work order.
-13. Confirm the Handoffs panel references the developer result id or summary.
+7. Switch policy mode to enforced, require Developer/Codex result for original QA, and enable operator override.
+8. Click Check QA readiness and confirm the missing-result warning is now blocked, Handoff to QA is disabled, and Handoff to QA with Override appears.
+9. Confirm the override button is disabled until a reason is entered.
+10. Enter an override reason and click Handoff to QA with Override.
+11. Confirm the Handoffs panel shows the override id/reason and no developer result id.
+12. Confirm the Policy Overrides panel lists the override.
+13. Confirm duplicate active handoff remains blocked.
 14. Accept or reject the proposed handoff in the Handoffs panel.
 15. For an accepted handoff, submit the QA result form.
 16. If the QA result is failed or blocked, create a repair request from the QA Results panel.
 17. Confirm the Repair Requests panel and linked repair work order appear.
 18. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
-19. Enable the repair QA Developer/Codex result requirement in the Policy Settings panel.
-20. Confirm repair QA readiness becomes blocked and Handoff Repair to QA is disabled.
-21. Record a Developer/Codex repair result on the repair work order.
-22. Click Check Repair QA readiness and confirm the blocker changes to ready.
-23. Click Handoff Repair to QA from the Repair Requests panel.
-24. Confirm the repair QA handoff references the repair developer result.
-25. Accept the repair QA handoff in the Handoffs panel.
-26. Record a repair QA result and confirm the repair work order status updates.
-27. Confirm the Workflow Iterations panel shows the original and repair iteration.
-28. Confirm Events and Evidence refresh with policy settings, developer result, and repair QA handoff/result entries.
-29. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+19. Enable the repair QA Developer/Codex result requirement and keep operator override enabled in the Policy Settings panel.
+20. Confirm repair QA readiness becomes blocked, Handoff Repair to QA is disabled, and Handoff Repair to QA with Override appears.
+21. Enter an override reason and click Handoff Repair to QA with Override.
+22. Confirm the repair QA handoff shows the override id/reason and no developer result id.
+23. Accept the repair QA handoff in the Handoffs panel.
+24. Record a repair QA result and confirm the repair work order status updates.
+25. Confirm the Workflow Iterations panel shows the original and repair iteration.
+26. Confirm Events and Evidence refresh with policy settings, policy override, and repair QA handoff/result entries.
+27. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -185,7 +199,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - Repair request creation is operator/API-mediated and does not execute autonomous repair or live Developer/Codex agents.
 - Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
 - QA readiness is advisory by default. Enforced mode is limited to operator-controlled Developer/Codex result requirements for QA handoff readiness and is not a full policy engine.
-- Operator override is only a reserved disabled UI field and has no behavior yet.
+- Operator override is a narrow logged exception path for policy-promoted missing Developer/Codex result blockers only; it is not auth, not reusable permission, and not a bypass for hard system blockers.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

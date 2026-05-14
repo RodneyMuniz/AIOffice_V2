@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/policy-override.schema.json",
+  "title": "PolicyOverride",
+  "type": "object",
+  "required": [
+    "id",
+    "target_type",
+    "target_id",
+    "work_order_id",
+    "card_id",
+    "policy_mode",
+    "overridden_blockers",
+    "non_overridable_blockers",
+    "reason",
+    "requested_by",
+    "created_at",
+    "evidence_refs"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "target_type": {
+      "type": "string",
+      "enum": ["work_order_qa_handoff", "repair_qa_handoff"]
+    },
+    "target_id": { "type": "string" },
+    "work_order_id": { "type": "string" },
+    "repair_request_id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "policy_mode": { "type": "string", "enum": ["advisory", "enforced"] },
+    "overridden_blockers": { "type": "array", "items": { "type": "string" } },
+    "non_overridable_blockers": { "type": "array", "items": { "type": "string" } },
+    "reason": { "type": "string", "minLength": 1 },
+    "requested_by": { "type": "string" },
+    "created_at": { "type": "string" },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "id": "R19-POLICY-OVERRIDE-001",
+      "target_type": "work_order_qa_handoff",
+      "target_id": "R19-WO-002",
+      "work_order_id": "R19-WO-002",
+      "card_id": "R19-CARD-002",
+      "policy_mode": "enforced",
+      "overridden_blockers": [
+        "Developer/Codex result is required by current QA handoff policy."
+      ],
+      "non_overridable_blockers": [],
+      "reason": "Operator accepts QA handoff without Developer/Codex result for this case.",
+      "requested_by": "operator",
+      "created_at": "2026-05-14T00:00:00Z",
+      "evidence_refs": [
+        "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+        "runtime/state/work_orders.json#R19-WO-002"
+      ]
+    }
+  ]
+}

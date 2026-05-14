@@ -43,6 +43,8 @@
     "qa_result_id": { "type": "string" },
     "developer_result_id": { "type": "string" },
     "developer_result_summary": { "type": "string" },
+    "policy_override_id": { "type": "string" },
+    "policy_override_reason": { "type": "string" },
     "iteration_number": { "type": "integer", "minimum": 1 },
     "handoff_purpose": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
@@ -95,6 +97,32 @@
       "iteration_number": 2,
       "handoff_purpose": "repair_qa",
       "evidence_refs": ["runtime/state/handoffs.json#R19-HANDOFF-002"]
+    },
+    {
+      "id": "R19-HANDOFF-003",
+      "source_agent_id": "developer_codex",
+      "target_agent_id": "qa_test",
+      "source_role": "Developer/Codex",
+      "target_role": "QA/Test",
+      "card_id": "R19-CARD-002",
+      "work_order_id": "R19-WO-003",
+      "title": "QA handoff for R19-WO-003",
+      "summary": "Developer/Codex requests QA/Test validation.",
+      "status": "proposed",
+      "payload_summary": "Work order is ready for a local QA pass.",
+      "validation_summary": "References validated by the API; operator override R19-POLICY-OVERRIDE-001 was used.",
+      "created_at": "2026-05-14T00:00:00Z",
+      "updated_at": "2026-05-14T00:00:00Z",
+      "decided_at": null,
+      "decision_reason": null,
+      "policy_override_id": "R19-POLICY-OVERRIDE-001",
+      "policy_override_reason": "Operator accepts QA handoff without Developer/Codex result for this case.",
+      "iteration_number": 1,
+      "handoff_purpose": "initial_qa",
+      "evidence_refs": [
+        "runtime/state/handoffs.json#R19-HANDOFF-003",
+        "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001"
+      ]
     }
   ]
 }

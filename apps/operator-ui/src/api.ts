@@ -14,7 +14,9 @@ import type {
   EvidenceEntry,
   Handoff,
   HandoffDecisionRequest,
+  HandoffOverrideRequest,
   PolicySettings,
+  PolicyOverride,
   QaReadiness,
   QaResult,
   RepairRequest,
@@ -76,6 +78,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     developerResults,
     qaResults,
     repairRequests,
+    policyOverrides,
     workflowIterations
   ] = await Promise.all([
     requestJson<StatusResponse>("/status", { signal }),
@@ -90,6 +93,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     requestJson<DeveloperResult[]>("/developer-results", { signal }),
     requestJson<QaResult[]>("/qa-results", { signal }),
     requestJson<RepairRequest[]>("/repair-requests", { signal }),
+    requestJson<PolicyOverride[]>("/policy-overrides", { signal }),
     requestJson<WorkflowIteration[]>("/workflow-iterations", { signal })
   ]);
 
@@ -106,6 +110,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     developerResults,
     qaResults,
     repairRequests,
+    policyOverrides,
     workflowIterations
   };
 }
@@ -168,12 +173,12 @@ export function rejectApproval(id: string, decisionReason: string): Promise<Appr
   });
 }
 
-export function handoffWorkOrderToQa(id: string): Promise<Handoff> {
-  return requestJson<Handoff>(`/work-orders/${id}/handoff-to-qa`, { method: "POST" });
+export function handoffWorkOrderToQa(id: string, override?: HandoffOverrideRequest): Promise<Handoff> {
+  return requestJson<Handoff>(`/work-orders/${id}/handoff-to-qa`, { method: "POST", body: override });
 }
 
-export function handoffRepairRequestToQa(id: string): Promise<Handoff> {
-  return requestJson<Handoff>(`/repair-requests/${id}/handoff-to-qa`, { method: "POST" });
+export function handoffRepairRequestToQa(id: string, override?: HandoffOverrideRequest): Promise<Handoff> {
+  return requestJson<Handoff>(`/repair-requests/${id}/handoff-to-qa`, { method: "POST", body: override });
 }
 
 export function acceptHandoff(id: string, decision: HandoffDecisionRequest): Promise<Handoff> {

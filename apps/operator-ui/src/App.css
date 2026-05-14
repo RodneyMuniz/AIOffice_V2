@@ -94,6 +94,7 @@
 .approvals-panel,
 .handoffs-panel,
 .developer-results-panel,
+.policy-overrides-panel,
 .qa-results-panel,
 .repair-requests-panel,
 .workflow-iterations-panel {
@@ -387,12 +388,33 @@ button:disabled {
 
 .developer-result-form,
 .qa-result-form,
-.repair-request-form {
+.repair-request-form,
+.override-action-block {
   border-top: 1px solid #e2e6df;
   display: grid;
   gap: 12px;
   margin-top: 14px;
   padding-top: 12px;
+}
+
+.override-action-block {
+  background: #fffaf0;
+  border: 1px solid #e4c476;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.policy-override-note {
+  margin: 0;
+}
+
+.readiness-classification {
+  background: #ffffff;
+  border: 1px solid #e2e6df;
+  border-radius: 6px;
+  display: grid;
+  gap: 6px;
+  padding: 9px;
 }
 
 .qa-readiness-block {

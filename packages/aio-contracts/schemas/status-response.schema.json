@@ -35,6 +35,8 @@
     "developer_results_count",
     "submitted_developer_results_count",
     "work_orders_with_developer_results_count",
+    "policy_overrides_count",
+    "qa_handoffs_with_override_count",
     "events_count",
     "evidence_count",
     "allowed_card_statuses",
@@ -75,6 +77,8 @@
     "work_orders_with_developer_results_count": { "type": "integer", "minimum": 0 },
     "readiness_warnings_count": { "type": "integer", "minimum": 0 },
     "readiness_blockers_count": { "type": "integer", "minimum": 0 },
+    "policy_overrides_count": { "type": "integer", "minimum": 0 },
+    "qa_handoffs_with_override_count": { "type": "integer", "minimum": 0 },
     "events_count": { "type": "integer", "minimum": 0 },
     "evidence_count": { "type": "integer", "minimum": 0 },
     "allowed_card_statuses": {

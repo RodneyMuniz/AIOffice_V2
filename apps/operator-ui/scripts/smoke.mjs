@@ -67,6 +67,13 @@ try {
   await assertVisible(policyPanel, "policy settings panel");
   await policyPanel.locator(".state-tag", { hasText: "advisory" }).waitFor();
   await policyPanel.getByTestId("policy-mode-select").selectOption("advisory");
+  await savePolicy(page, {
+    mode: "enforced",
+    requireOriginal: true,
+    requireRepair: false,
+    allowOverride: true
+  });
+  assert.equal(await policyPanel.getByTestId("policy-allow-override").isChecked(), true, "operator override should be enabled");
 
   const stamp = Date.now();
   const cardTitle = `Smoke card ${stamp}`;
@@ -97,77 +104,58 @@ try {
   assert.ok(workOrderId, "created work-order id should be visible");
 
   const originalReadinessPanel = workOrderRow.locator(`[data-testid="qa-readiness-${workOrderId}"]`);
-  await originalReadinessPanel.getByText("Warning: no Developer/Codex result captured.").waitFor();
-  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
-  await originalReadinessPanel.locator(".state-tag", { hasText: "warning" }).first().waitFor();
-  await originalReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
-  await originalReadinessPanel.getByText("Policy advisory; enforcement off").waitFor();
-  assert.equal(
-    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
-    false,
-    "advisory policy should not disable original QA handoff for a missing developer result"
-  );
-
-  await savePolicy(page, { mode: "enforced", requireOriginal: true, requireRepair: false });
   await originalReadinessPanel.getByText("Blocked: Developer/Codex result is required by current QA handoff policy.").waitFor();
   await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
   await originalReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
   await originalReadinessPanel.getByText("Developer/Codex result is required by current QA handoff policy.").first().waitFor();
   await originalReadinessPanel.getByText("Policy enforced; enforcement on; warning promoted to blocker").waitFor();
+  await originalReadinessPanel.getByText("Override available for this handoff request").waitFor();
+  const originalOverrideAction = workOrderRow.getByTestId(`override-action-${workOrderId}`);
+  await originalOverrideAction.waitFor();
   assert.equal(
-    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    await workOrderRow.getByTestId(`handoff-to-qa-${workOrderId}`).isDisabled(),
     true,
-    "enforced original QA policy should disable handoff until a developer result exists"
+    "enforced original QA policy should keep the normal handoff disabled while blocked"
   );
-
-  const originalDeveloperSummary = "Browser smoke implementation result.";
-  await workOrderRow.locator(`[data-testid="developer-result-type-${workOrderId}"]`).selectOption("implementation");
-  await workOrderRow.locator(`[data-testid="developer-result-summary-${workOrderId}"]`).fill(originalDeveloperSummary);
-  await workOrderRow
-    .locator(`[data-testid="developer-result-paths-${workOrderId}"]`)
-    .fill("apps/operator-ui/src/App.tsx\nservices/orchestrator-api/app/main.py");
-  await workOrderRow.locator(`[data-testid="developer-result-notes-${workOrderId}"]`).fill("Browser smoke captured original implementation output.");
-  await workOrderRow.locator(`[data-testid="developer-result-submit-${workOrderId}"]`).click();
-  const originalDeveloperResultRow = page
-    .getByTestId("developer-results-list")
-    .locator("article")
-    .filter({ hasText: originalDeveloperSummary })
-    .first();
-  await originalDeveloperResultRow.waitFor();
-  const originalDeveloperResultId = (await originalDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
-  assert.ok(originalDeveloperResultId, "original developer result id should be visible");
-  await workOrderRow.getByText(`latest ${originalDeveloperResultId}`).waitFor();
-  await workOrderRow.locator(".record-title-line .state-tag", { hasText: "ready" }).waitFor();
-  await originalReadinessPanel.getByText(`Ready: latest submitted Developer/Codex result ${originalDeveloperResultId} exists.`).waitFor();
-  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
-  await originalReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
-  await originalReadinessPanel.getByText(`Submitted Developer/Codex result ${originalDeveloperResultId} is available.`).waitFor();
   assert.equal(
-    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
-    false,
-    "developer result should resolve enforced original QA handoff blocker"
+    await originalOverrideAction.getByRole("button", { name: "Handoff to QA with Override" }).isDisabled(),
+    true,
+    "override handoff button should require a non-empty reason"
   );
 
-  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-select"]').selectOption("planned");
-  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-reason"]').fill("Browser smoke planned the card.");
-  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-submit"]').click();
-  await cardRow.locator(".record-title-line .state-tag", { hasText: "planned" }).waitFor();
-
-  await workOrderRow.getByRole("button", { name: "Handoff to QA" }).click();
+  const originalOverrideReason = "Browser smoke operator override for original QA without Developer/Codex result.";
+  await originalOverrideAction.locator(`[data-testid="override-reason-${workOrderId}"]`).fill(originalOverrideReason);
+  await originalOverrideAction.getByRole("button", { name: "Handoff to QA with Override" }).click();
   const handoffRow = page.getByTestId("handoffs-panel").locator("article").filter({ hasText: workOrderId }).first();
   await handoffRow.waitFor();
   await handoffRow.locator(".state-tag", { hasText: "proposed" }).waitFor();
-  await handoffRow.locator("strong").filter({ hasText: originalDeveloperResultId }).first().waitFor();
-  await handoffRow.locator("p").filter({ hasText: originalDeveloperSummary }).first().waitFor();
+  await handoffRow.locator("strong").filter({ hasText: "none" }).first().waitFor();
+  await handoffRow.locator('[data-testid^="handoff-policy-override-"]').getByText(originalOverrideReason).waitFor();
+  await handoffRow.getByText("No developer result captured; handoff was operator override-approved").waitFor();
+  const originalOverrideMatch = /R19-POLICY-OVERRIDE-\d+/.exec(await handoffRow.textContent());
+  assert.ok(originalOverrideMatch, "original handoff should show policy override id");
+  const originalOverrideId = originalOverrideMatch[0];
+  const originalOverrideRow = page.getByTestId("policy-overrides-list").locator("article").filter({ hasText: originalOverrideId }).first();
+  await originalOverrideRow.waitFor();
+  await originalOverrideRow.getByText("work_order_qa_handoff").waitFor();
+  await originalOverrideRow.getByText(originalOverrideReason).waitFor();
+  await page.getByTestId("events-list").getByText("policy_override_recorded").waitFor();
+  await page.getByTestId("evidence-list").getByText("policy_override", { exact: true }).waitFor();
   await originalReadinessPanel.getByText("Blocked: active QA handoff").waitFor();
   assert.equal(
-    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    await workOrderRow.getByTestId(`handoff-to-qa-${workOrderId}`).isDisabled(),
     true,
     "active original QA handoff should disable duplicate handoff"
   );
   await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
   await originalReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
   await originalReadinessPanel.getByText("Active initial_qa handoff").first().waitFor();
+  await workOrderRow.getByTestId(`override-unavailable-${workOrderId}`).waitFor();
+
+  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-select"]').selectOption("planned");
+  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-reason"]').fill("Browser smoke planned the card.");
+  await cardRow.locator('[data-testid^="card-status-"][data-testid$="-submit"]').click();
+  await cardRow.locator(".record-title-line .state-tag", { hasText: "planned" }).waitFor();
 
   await handoffRow.locator('[data-testid^="handoff-reason-"]').fill("Browser smoke accepts the QA handoff.");
   await handoffRow.getByRole("button", { name: "Accept" }).click();
@@ -218,46 +206,29 @@ try {
   await repairReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
   await repairReadinessPanel.getByText("Policy enforced; enforcement on").waitFor();
 
-  await savePolicy(page, { mode: "enforced", requireOriginal: true, requireRepair: true });
+  await savePolicy(page, { mode: "enforced", requireOriginal: true, requireRepair: true, allowOverride: true });
   await repairReadinessPanel.getByText("Blocked: Developer/Codex result is required by current QA handoff policy.").waitFor();
   await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
   await repairReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
   await repairReadinessPanel.getByText("Developer/Codex result is required by current QA handoff policy.").first().waitFor();
   await repairReadinessPanel.getByText("Policy enforced; enforcement on; warning promoted to blocker").waitFor();
+  await repairReadinessPanel.getByText("Override available for this handoff request").waitFor();
+  const repairOverrideAction = repairRequestRow.getByTestId(`repair-override-action-${repairRequestId}`);
+  await repairOverrideAction.waitFor();
   assert.equal(
-    await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).isDisabled(),
+    await repairRequestRow.getByTestId(`handoff-repair-to-qa-${repairRequestId}`).isDisabled(),
     true,
-    "enforced repair QA policy should disable handoff until a repair developer result exists"
+    "enforced repair QA policy should keep the normal repair handoff disabled while blocked"
   );
-
-  const repairDeveloperSummary = "Browser smoke repair implementation result.";
-  await repairWorkOrderRow.locator(`[data-testid="developer-result-type-${repairWorkOrderId}"]`).selectOption("repair");
-  await repairWorkOrderRow.locator(`[data-testid="developer-result-summary-${repairWorkOrderId}"]`).fill(repairDeveloperSummary);
-  await repairWorkOrderRow
-    .locator(`[data-testid="developer-result-paths-${repairWorkOrderId}"]`)
-    .fill("apps/operator-ui/src/App.tsx\napps/operator-ui/scripts/smoke.mjs");
-  await repairWorkOrderRow.locator(`[data-testid="developer-result-notes-${repairWorkOrderId}"]`).fill("Browser smoke captured repair implementation output.");
-  await repairWorkOrderRow.locator(`[data-testid="developer-result-submit-${repairWorkOrderId}"]`).click();
-  const repairDeveloperResultRow = page
-    .getByTestId("developer-results-list")
-    .locator("article")
-    .filter({ hasText: repairDeveloperSummary })
-    .first();
-  await repairDeveloperResultRow.waitFor();
-  const repairDeveloperResultId = (await repairDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
-  assert.ok(repairDeveloperResultId, "repair developer result id should be visible");
-  await repairWorkOrderRow.getByText(`latest ${repairDeveloperResultId}`).waitFor();
-  await repairReadinessPanel.getByText(`Ready: latest submitted repair Developer/Codex result ${repairDeveloperResultId} exists.`).waitFor();
-  await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
-  await repairReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
-  await repairReadinessPanel.getByText(`Submitted Developer/Codex result ${repairDeveloperResultId} is available.`).waitFor();
   assert.equal(
-    await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).isDisabled(),
-    false,
-    "repair developer result should resolve enforced repair QA handoff blocker"
+    await repairOverrideAction.getByRole("button", { name: "Handoff Repair to QA with Override" }).isDisabled(),
+    true,
+    "repair override handoff button should require a non-empty reason"
   );
 
-  await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).click();
+  const repairOverrideReason = "Browser smoke operator override for repair QA without repair Developer/Codex result.";
+  await repairOverrideAction.locator(`[data-testid="repair-override-reason-${repairRequestId}"]`).fill(repairOverrideReason);
+  await repairOverrideAction.getByRole("button", { name: "Handoff Repair to QA with Override" }).click();
   const repairHandoffRow = page
     .getByTestId("handoffs-panel")
     .locator("article")
@@ -266,8 +237,15 @@ try {
     .first();
   await repairHandoffRow.waitFor();
   await repairHandoffRow.locator(".state-tag", { hasText: "proposed" }).waitFor();
-  await repairHandoffRow.locator("strong").filter({ hasText: repairDeveloperResultId }).first().waitFor();
-  await repairHandoffRow.locator("p").filter({ hasText: repairDeveloperSummary }).first().waitFor();
+  await repairHandoffRow.locator('[data-testid^="handoff-policy-override-"]').getByText(repairOverrideReason).waitFor();
+  await repairHandoffRow.getByText("No developer result captured; handoff was operator override-approved").waitFor();
+  const repairOverrideMatch = /R19-POLICY-OVERRIDE-\d+/.exec(await repairHandoffRow.textContent());
+  assert.ok(repairOverrideMatch, "repair handoff should show policy override id");
+  const repairOverrideId = repairOverrideMatch[0];
+  const repairOverrideRow = page.getByTestId("policy-overrides-list").locator("article").filter({ hasText: repairOverrideId }).first();
+  await repairOverrideRow.waitFor();
+  await repairOverrideRow.getByText("repair_qa_handoff").waitFor();
+  await repairOverrideRow.getByText(repairOverrideReason).waitFor();
 
   await repairHandoffRow.locator('[data-testid^="handoff-reason-"]').fill("Browser smoke accepts the repair QA handoff.");
   await repairHandoffRow.getByRole("button", { name: "Accept" }).click();
@@ -298,13 +276,12 @@ try {
   await page.getByTestId("events-list").getByText("repair_work_order_created").waitFor();
   await page.getByTestId("events-list").getByText("repair_handoff_created").waitFor();
   await page.getByTestId("events-list").getByText("policy_settings_updated").first().waitFor();
+  await page.getByTestId("events-list").getByText("policy_override_recorded").first().waitFor();
   await page.getByTestId("events-list").getByText("repair_qa_result_recorded").waitFor();
   await page.getByTestId("events-list").getByText("repair_iteration_passed").waitFor();
-  await page.getByTestId("events-list").getByText("developer_result_recorded").first().waitFor();
-  await page.getByTestId("events-list").getByText("work_order_ready_from_developer_result").first().waitFor();
   await page.getByTestId("evidence-list").getByText("handoff_decision").first().waitFor();
   await page.getByTestId("evidence-list").getByText("policy_settings", { exact: true }).first().waitFor();
-  await page.getByTestId("evidence-list").getByText("developer_result", { exact: true }).first().waitFor();
+  await page.getByTestId("evidence-list").getByText("policy_override", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("qa_result", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("repair_request", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("repair_work_order", { exact: true }).waitFor();
@@ -422,7 +399,7 @@ async function assertVisible(locator, label) {
   assert.equal(await locator.isVisible(), true, `${label} should be visible`);
 }
 
-async function savePolicy(page, { mode, requireOriginal, requireRepair }) {
+async function savePolicy(page, { mode, requireOriginal, requireRepair, allowOverride = false }) {
   const panel = page.getByTestId("policy-settings-panel");
   await panel.getByTestId("policy-mode-select").selectOption(mode);
 
@@ -441,6 +418,15 @@ async function savePolicy(page, { mode, requireOriginal, requireRepair }) {
       await repairCheckbox.check();
     } else {
       await repairCheckbox.uncheck();
+    }
+  }
+
+  const overrideCheckbox = panel.getByTestId("policy-allow-override");
+  if ((await overrideCheckbox.isChecked()) !== allowOverride) {
+    if (allowOverride) {
+      await overrideCheckbox.check();
+    } else {
+      await overrideCheckbox.uncheck();
     }
   }
 

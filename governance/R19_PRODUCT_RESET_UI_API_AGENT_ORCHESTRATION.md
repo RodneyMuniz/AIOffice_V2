@@ -18,6 +18,8 @@ R19 Developer/Codex result capture remains operator/API-mediated until live Code
 
 R19 policy enforcement is limited to operator-controlled QA handoff readiness gates and is not a general policy engine.
 
+R19 operator overrides are limited to logged exceptions for policy-promoted readiness blockers and cannot bypass hard system blockers.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;
