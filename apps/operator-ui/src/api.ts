@@ -14,11 +14,13 @@ import type {
   EvidenceEntry,
   Handoff,
   HandoffDecisionRequest,
+  PolicySettings,
   QaReadiness,
   QaResult,
   RepairRequest,
   RepairRequestDecisionRequest,
   StatusResponse,
+  UpdatePolicySettingsRequest,
   UpdateStatusRequest,
   WorkOrder,
   WorkflowIteration
@@ -63,6 +65,7 @@ async function readApiError(path: string, response: Response): Promise<string> {
 export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData> {
   const [
     status,
+    policySettings,
     cards,
     workOrders,
     agents,
@@ -76,6 +79,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     workflowIterations
   ] = await Promise.all([
     requestJson<StatusResponse>("/status", { signal }),
+    requestJson<PolicySettings>("/policy-settings", { signal }),
     requestJson<Card[]>("/cards", { signal }),
     requestJson<WorkOrder[]>("/work-orders", { signal }),
     requestJson<Agent[]>("/agents", { signal }),
@@ -91,6 +95,7 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
 
   return {
     status,
+    policySettings,
     cards,
     workOrders,
     agents,
@@ -103,6 +108,14 @@ export async function loadDashboard(signal?: AbortSignal): Promise<DashboardData
     repairRequests,
     workflowIterations
   };
+}
+
+export function getPolicySettings(): Promise<PolicySettings> {
+  return requestJson<PolicySettings>("/policy-settings");
+}
+
+export function updatePolicySettings(payload: UpdatePolicySettingsRequest): Promise<PolicySettings> {
+  return requestJson<PolicySettings>("/policy-settings", { method: "PATCH", body: payload });
 }
 
 export function createCard(payload: CreateCardRequest): Promise<Card> {

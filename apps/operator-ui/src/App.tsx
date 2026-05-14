@@ -20,9 +20,16 @@ import {
   rejectApproval,
   rejectHandoff,
   updateCardStatus,
+  updatePolicySettings,
   updateWorkOrderStatus
 } from "./api";
-import { CARD_STATUSES, DEVELOPER_RESULT_TYPES, QA_RESULT_VALUES, WORK_ORDER_STATUSES } from "./types";
+import {
+  CARD_STATUSES,
+  DEVELOPER_RESULT_TYPES,
+  QA_HANDOFF_POLICY_MODES,
+  QA_RESULT_VALUES,
+  WORK_ORDER_STATUSES
+} from "./types";
 import type {
   Agent,
   Approval,
@@ -33,6 +40,8 @@ import type {
   EventEntry,
   EvidenceEntry,
   Handoff,
+  PolicySettings,
+  QaHandoffPolicyMode,
   QaReadiness,
   QaReadinessLevel,
   QaResult,
@@ -138,6 +147,7 @@ function Dashboard({
       )}
       <div className="dashboard-grid">
         <StatusPanel status={data.status} />
+        <PolicySettingsPanel onRefresh={onRefresh} policySettings={data.policySettings} />
         <CreateCardForm onRefresh={onRefresh} />
         <CreateWorkOrderForm agents={data.agents} cards={data.cards} onRefresh={onRefresh} />
         <CardsList
@@ -153,6 +163,7 @@ function Dashboard({
           developerResults={data.developerResults}
           handoffs={data.handoffs}
           onRefresh={onRefresh}
+          policySettings={data.policySettings}
           qaResults={data.qaResults}
           workOrders={data.workOrders}
         />
@@ -168,6 +179,7 @@ function Dashboard({
           developerResults={data.developerResults}
           handoffs={data.handoffs}
           onRefresh={onRefresh}
+          policySettings={data.policySettings}
           qaResults={data.qaResults}
           repairRequests={data.repairRequests}
           workOrders={data.workOrders}
@@ -230,6 +242,10 @@ function StatusPanel({ status }: { status: StatusResponse }) {
           <dt>R18 posture</dt>
           <dd>{status.r18_posture}</dd>
         </div>
+        <div>
+          <dt>QA policy</dt>
+          <dd>{status.qa_handoff_policy_mode}</dd>
+        </div>
       </dl>
       <div className="metric-row">
         <Metric label="Cards" value={status.cards_count} />
@@ -248,6 +264,9 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="Developer results" value={status.developer_results_count} />
         <Metric label="Submitted dev results" value={status.submitted_developer_results_count} />
         <Metric label="WO with dev results" value={status.work_orders_with_developer_results_count} />
+        <Metric label="QA policy enforced" value={status.qa_policy_enforced ? 1 : 0} />
+        <Metric label="Original result required" value={status.require_developer_result_for_qa ? 1 : 0} />
+        <Metric label="Repair result required" value={status.require_developer_result_for_repair_qa ? 1 : 0} />
         {typeof status.readiness_warnings_count === "number" && (
           <Metric label="Readiness warnings" value={status.readiness_warnings_count} />
         )}
@@ -263,6 +282,111 @@ function StatusPanel({ status }: { status: StatusResponse }) {
           <li key={claim}>{claim}</li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+function PolicySettingsPanel({
+  onRefresh,
+  policySettings
+}: {
+  onRefresh: () => Promise<void>;
+  policySettings: PolicySettings;
+}) {
+  const [mode, setMode] = useState<QaHandoffPolicyMode>(policySettings.qa_handoff_policy_mode);
+  const [requireOriginalResult, setRequireOriginalResult] = useState(policySettings.require_developer_result_for_qa);
+  const [requireRepairResult, setRequireRepairResult] = useState(
+    policySettings.require_developer_result_for_repair_qa
+  );
+  const [allowOperatorOverride, setAllowOperatorOverride] = useState(policySettings.allow_operator_override);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    setMode(policySettings.qa_handoff_policy_mode);
+    setRequireOriginalResult(policySettings.require_developer_result_for_qa);
+    setRequireRepairResult(policySettings.require_developer_result_for_repair_qa);
+    setAllowOperatorOverride(policySettings.allow_operator_override);
+  }, [policySettings]);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsSaving(true);
+
+    try {
+      const savedSettings = await updatePolicySettings({
+        qa_handoff_policy_mode: mode,
+        require_developer_result_for_qa: requireOriginalResult,
+        require_developer_result_for_repair_qa: requireRepairResult,
+        allow_operator_override: allowOperatorOverride,
+        updated_by: "operator"
+      });
+      await onRefresh();
+      setSuccess(`Saved ${savedSettings.qa_handoff_policy_mode} QA handoff policy`);
+    } catch (saveError: unknown) {
+      setError(errorMessage(saveError));
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  return (
+    <section className="panel policy-settings-panel" data-testid="policy-settings-panel">
+      <div className="panel-heading">
+        <h2>Policy Settings</h2>
+        <span className={`state-tag ${mode === "enforced" ? "danger" : "warn"}`}>{mode}</span>
+      </div>
+      <form className="form-grid" onSubmit={handleSubmit}>
+        <label>
+          QA handoff policy mode
+          <select
+            data-testid="policy-mode-select"
+            onChange={(event) => setMode(event.target.value as QaHandoffPolicyMode)}
+            value={mode}
+          >
+            {QA_HANDOFF_POLICY_MODES.map((policyMode) => (
+              <option key={policyMode} value={policyMode}>
+                {policyMode}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="checkbox-field">
+          <input
+            checked={requireOriginalResult}
+            data-testid="policy-require-original-result"
+            onChange={(event) => setRequireOriginalResult(event.target.checked)}
+            type="checkbox"
+          />
+          Require Developer/Codex result for original QA
+        </label>
+        <label className="checkbox-field">
+          <input
+            checked={requireRepairResult}
+            data-testid="policy-require-repair-result"
+            onChange={(event) => setRequireRepairResult(event.target.checked)}
+            type="checkbox"
+          />
+          Require Developer/Codex result for repair QA
+        </label>
+        <label className="checkbox-field reserved-control">
+          <input checked={allowOperatorOverride} data-testid="policy-allow-override" disabled type="checkbox" />
+          Allow operator override (reserved)
+        </label>
+        <div className="policy-meta" data-testid="policy-settings-meta">
+          <span>Updated</span>
+          <strong>{policySettings.updated_at || "not recorded"}</strong>
+          <span>By</span>
+          <strong>{policySettings.updated_by || "unknown"}</strong>
+        </div>
+        <button data-testid="policy-save" disabled={isSaving} type="submit">
+          {isSaving ? "Saving..." : "Save Policy"}
+        </button>
+        <FormStatus error={error} success={success} />
+      </form>
     </section>
   );
 }
@@ -652,6 +776,7 @@ function WorkOrdersList({
   developerResults,
   handoffs,
   onRefresh,
+  policySettings,
   qaResults,
   workOrders
 }: {
@@ -661,6 +786,7 @@ function WorkOrdersList({
   developerResults: DeveloperResult[];
   handoffs: Handoff[];
   onRefresh: () => Promise<void>;
+  policySettings: PolicySettings;
   qaResults: QaResult[];
   workOrders: WorkOrder[];
 }) {
@@ -687,7 +813,7 @@ function WorkOrdersList({
   useEffect(() => {
     setReadinessByWorkOrderId({});
     setReadinessErrorById({});
-  }, [developerResults, handoffs, qaResults, workOrders]);
+  }, [developerResults, handoffs, policySettings, qaResults, workOrders]);
 
   async function checkWorkOrderReadiness(workOrderId: string) {
     setCheckingReadinessId(workOrderId);
@@ -721,11 +847,18 @@ function WorkOrdersList({
             qaResultByHandoffId
           );
           const loadedReadiness = readinessByWorkOrderId[workOrder.id] ?? null;
+          const requireDeveloperResultForContext =
+            policySettings.qa_handoff_policy_mode === "enforced" &&
+            (handoffContext === "repair_qa"
+              ? policySettings.require_developer_result_for_repair_qa
+              : policySettings.require_developer_result_for_qa);
           const derivedReadinessLevel: QaReadinessLevel = activeQaHandoff
             ? "blocked"
             : latestSubmittedDeveloperResult
               ? "ready"
-              : "warning";
+              : requireDeveloperResultForContext
+                ? "blocked"
+                : "warning";
           const effectiveReadinessLevel: QaReadinessLevel = activeQaHandoff
             ? "blocked"
             : loadedReadiness?.readiness_level ?? derivedReadinessLevel;
@@ -733,7 +866,9 @@ function WorkOrdersList({
             ? `Blocked: active QA handoff ${activeQaHandoff.id} is ${activeQaHandoff.status}.`
             : latestSubmittedDeveloperResult
               ? `Ready: latest submitted Developer/Codex result ${latestSubmittedDeveloperResult.id} exists.`
-              : "Warning: no Developer/Codex result captured.";
+              : requireDeveloperResultForContext
+                ? "Blocked: Developer/Codex result is required by current QA handoff policy."
+                : "Warning: no Developer/Codex result captured.";
 
           return (
             <article
@@ -794,6 +929,7 @@ function WorkOrdersList({
               isChecking={checkingReadinessId === workOrder.id}
               label="QA readiness"
               onCheck={() => checkWorkOrderReadiness(workOrder.id)}
+              policySettings={policySettings}
               readiness={loadedReadiness}
               testId={`qa-readiness-${workOrder.id}`}
             />
@@ -1011,6 +1147,7 @@ function QaReadinessPanel({
   isChecking,
   label,
   onCheck,
+  policySettings,
   readiness,
   testId
 }: {
@@ -1021,11 +1158,15 @@ function QaReadinessPanel({
   isChecking: boolean;
   label: string;
   onCheck: () => void;
+  policySettings: PolicySettings;
   readiness: QaReadiness | null;
   testId: string;
 }) {
   const level = readiness?.readiness_level ?? fallbackLevel;
   const generatedAt = readiness?.generated_at;
+  const policyMode = readiness?.policy_mode ?? policySettings.qa_handoff_policy_mode;
+  const policyEnforced = readiness?.policy_enforced ?? policyMode === "enforced";
+  const warningsPromoted = readiness?.advisory_warnings_promoted_to_blockers ?? false;
 
   return (
     <div className={`qa-readiness-block ${readinessLevelClass(level)}`} data-testid={testId}>
@@ -1036,6 +1177,10 @@ function QaReadinessPanel({
         </div>
         <span className={`state-tag ${readinessLevelClass(level)}`}>{level}</span>
       </div>
+      <small data-testid={`${testId}-policy`}>
+        Policy {policyMode}; enforcement {policyEnforced ? "on" : "off"}
+        {warningsPromoted ? "; warning promoted to blocker" : ""}
+      </small>
       {generatedAt && <small>Checked {generatedAt}</small>}
       {readiness && (
         <div className="readiness-checks">
@@ -1606,6 +1751,7 @@ function RepairRequestsPanel({
   developerResults,
   handoffs,
   onRefresh,
+  policySettings,
   qaResults,
   repairRequests,
   workOrders
@@ -1613,6 +1759,7 @@ function RepairRequestsPanel({
   developerResults: DeveloperResult[];
   handoffs: Handoff[];
   onRefresh: () => Promise<void>;
+  policySettings: PolicySettings;
   qaResults: QaResult[];
   repairRequests: RepairRequest[];
   workOrders: WorkOrder[];
@@ -1654,7 +1801,7 @@ function RepairRequestsPanel({
   useEffect(() => {
     setReadinessByRepairRequestId({});
     setReadinessErrorById({});
-  }, [developerResults, handoffs, qaResults, repairRequests, workOrders]);
+  }, [developerResults, handoffs, policySettings, qaResults, repairRequests, workOrders]);
 
   async function checkRepairReadiness(repairRequestId: string) {
     setCheckingReadinessId(repairRequestId);
@@ -1733,11 +1880,16 @@ function RepairRequestsPanel({
             qaResultByHandoffId
           );
           const loadedReadiness = readinessByRepairRequestId[repairRequest.id] ?? null;
+          const repairDeveloperResultRequired =
+            policySettings.qa_handoff_policy_mode === "enforced" &&
+            policySettings.require_developer_result_for_repair_qa;
           const derivedReadinessLevel: QaReadinessLevel = activeRepairQaHandoff
             ? "blocked"
             : latestRepairDeveloperResult
               ? "ready"
-              : "warning";
+              : repairDeveloperResultRequired
+                ? "blocked"
+                : "warning";
           const effectiveReadinessLevel: QaReadinessLevel = activeRepairQaHandoff
             ? "blocked"
             : loadedReadiness?.readiness_level ?? derivedReadinessLevel;
@@ -1746,7 +1898,9 @@ function RepairRequestsPanel({
             : latestRepairDeveloperResult
               ? `Ready: latest submitted repair Developer/Codex result ${latestRepairDeveloperResult.id} exists.`
               : repairWorkOrder
-                ? "Warning: no repair Developer/Codex result captured."
+                ? repairDeveloperResultRequired
+                  ? "Blocked: Developer/Codex result is required by current QA handoff policy."
+                  : "Warning: no repair Developer/Codex result captured."
                 : "Blocked: linked repair work order is missing from the dashboard data.";
 
           return (
@@ -1808,6 +1962,7 @@ function RepairRequestsPanel({
                 isChecking={checkingReadinessId === repairRequest.id}
                 label="Repair QA readiness"
                 onCheck={() => checkRepairReadiness(repairRequest.id)}
+                policySettings={policySettings}
                 readiness={loadedReadiness}
                 testId={`repair-qa-readiness-${repairRequest.id}`}
               />

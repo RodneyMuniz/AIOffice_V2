@@ -62,6 +62,11 @@ try {
   await page.goto(uiUrl, { waitUntil: "networkidle" });
   await page.getByTestId("status-panel").waitFor();
   await assertVisible(page.getByTestId("status-panel"), "status panel");
+  const policyPanel = page.getByTestId("policy-settings-panel");
+  await policyPanel.waitFor();
+  await assertVisible(policyPanel, "policy settings panel");
+  await policyPanel.locator(".state-tag", { hasText: "advisory" }).waitFor();
+  await policyPanel.getByTestId("policy-mode-select").selectOption("advisory");
 
   const stamp = Date.now();
   const cardTitle = `Smoke card ${stamp}`;
@@ -96,6 +101,24 @@ try {
   await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
   await originalReadinessPanel.locator(".state-tag", { hasText: "warning" }).first().waitFor();
   await originalReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
+  await originalReadinessPanel.getByText("Policy advisory; enforcement off").waitFor();
+  assert.equal(
+    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    false,
+    "advisory policy should not disable original QA handoff for a missing developer result"
+  );
+
+  await savePolicy(page, { mode: "enforced", requireOriginal: true, requireRepair: false });
+  await originalReadinessPanel.getByText("Blocked: Developer/Codex result is required by current QA handoff policy.").waitFor();
+  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
+  await originalReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
+  await originalReadinessPanel.getByText("Developer/Codex result is required by current QA handoff policy.").first().waitFor();
+  await originalReadinessPanel.getByText("Policy enforced; enforcement on; warning promoted to blocker").waitFor();
+  assert.equal(
+    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    true,
+    "enforced original QA policy should disable handoff until a developer result exists"
+  );
 
   const originalDeveloperSummary = "Browser smoke implementation result.";
   await workOrderRow.locator(`[data-testid="developer-result-type-${workOrderId}"]`).selectOption("implementation");
@@ -119,6 +142,11 @@ try {
   await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
   await originalReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
   await originalReadinessPanel.getByText(`Submitted Developer/Codex result ${originalDeveloperResultId} is available.`).waitFor();
+  assert.equal(
+    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    false,
+    "developer result should resolve enforced original QA handoff blocker"
+  );
 
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-select"]').selectOption("planned");
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-reason"]').fill("Browser smoke planned the card.");
@@ -188,6 +216,19 @@ try {
   await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
   await repairReadinessPanel.locator(".state-tag", { hasText: "warning" }).first().waitFor();
   await repairReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
+  await repairReadinessPanel.getByText("Policy enforced; enforcement on").waitFor();
+
+  await savePolicy(page, { mode: "enforced", requireOriginal: true, requireRepair: true });
+  await repairReadinessPanel.getByText("Blocked: Developer/Codex result is required by current QA handoff policy.").waitFor();
+  await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
+  await repairReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
+  await repairReadinessPanel.getByText("Developer/Codex result is required by current QA handoff policy.").first().waitFor();
+  await repairReadinessPanel.getByText("Policy enforced; enforcement on; warning promoted to blocker").waitFor();
+  assert.equal(
+    await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).isDisabled(),
+    true,
+    "enforced repair QA policy should disable handoff until a repair developer result exists"
+  );
 
   const repairDeveloperSummary = "Browser smoke repair implementation result.";
   await repairWorkOrderRow.locator(`[data-testid="developer-result-type-${repairWorkOrderId}"]`).selectOption("repair");
@@ -210,6 +251,11 @@ try {
   await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
   await repairReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
   await repairReadinessPanel.getByText(`Submitted Developer/Codex result ${repairDeveloperResultId} is available.`).waitFor();
+  assert.equal(
+    await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).isDisabled(),
+    false,
+    "repair developer result should resolve enforced repair QA handoff blocker"
+  );
 
   await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).click();
   const repairHandoffRow = page
@@ -251,11 +297,13 @@ try {
   await page.getByTestId("events-list").getByText("repair_request_created").waitFor();
   await page.getByTestId("events-list").getByText("repair_work_order_created").waitFor();
   await page.getByTestId("events-list").getByText("repair_handoff_created").waitFor();
+  await page.getByTestId("events-list").getByText("policy_settings_updated").first().waitFor();
   await page.getByTestId("events-list").getByText("repair_qa_result_recorded").waitFor();
   await page.getByTestId("events-list").getByText("repair_iteration_passed").waitFor();
   await page.getByTestId("events-list").getByText("developer_result_recorded").first().waitFor();
   await page.getByTestId("events-list").getByText("work_order_ready_from_developer_result").first().waitFor();
   await page.getByTestId("evidence-list").getByText("handoff_decision").first().waitFor();
+  await page.getByTestId("evidence-list").getByText("policy_settings", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("developer_result", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("qa_result", { exact: true }).first().waitFor();
   await page.getByTestId("evidence-list").getByText("repair_request", { exact: true }).first().waitFor();
@@ -372,6 +420,39 @@ async function launchChromium() {
 
 async function assertVisible(locator, label) {
   assert.equal(await locator.isVisible(), true, `${label} should be visible`);
+}
+
+async function savePolicy(page, { mode, requireOriginal, requireRepair }) {
+  const panel = page.getByTestId("policy-settings-panel");
+  await panel.getByTestId("policy-mode-select").selectOption(mode);
+
+  const originalCheckbox = panel.getByTestId("policy-require-original-result");
+  if ((await originalCheckbox.isChecked()) !== requireOriginal) {
+    if (requireOriginal) {
+      await originalCheckbox.check();
+    } else {
+      await originalCheckbox.uncheck();
+    }
+  }
+
+  const repairCheckbox = panel.getByTestId("policy-require-repair-result");
+  if ((await repairCheckbox.isChecked()) !== requireRepair) {
+    if (requireRepair) {
+      await repairCheckbox.check();
+    } else {
+      await repairCheckbox.uncheck();
+    }
+  }
+
+  const patchResponse = page.waitForResponse(
+    (response) =>
+      response.url() === `${apiBaseUrl}/policy-settings` &&
+      response.request().method() === "PATCH"
+  );
+  await panel.getByTestId("policy-save").click();
+  const response = await patchResponse;
+  assert.equal(response.status(), 200, "policy settings PATCH should succeed");
+  await panel.locator(".state-tag", { hasText: mode }).waitFor();
 }
 
 function sleep(ms) {

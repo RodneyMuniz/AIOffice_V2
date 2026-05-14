@@ -36,6 +36,15 @@ REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES = ("ready", "completed")
 ACTIVE_HANDOFF_STATUSES = ("proposed", "accepted")
 READINESS_CHECK_STATUSES = ("passed", "warning", "blocked")
 READINESS_LEVELS = ("ready", "warning", "blocked")
+QA_HANDOFF_POLICY_MODES = ("advisory", "enforced")
+DEFAULT_POLICY_SETTINGS = {
+    "qa_handoff_policy_mode": "advisory",
+    "require_developer_result_for_qa": False,
+    "require_developer_result_for_repair_qa": False,
+    "allow_operator_override": False,
+    "updated_at": "2026-05-13T00:00:00Z",
+    "updated_by": "system",
+}
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
@@ -158,6 +167,14 @@ class StatusUpdateRequest(BaseModel):
     requested_by: str = "operator"
 
 
+class PolicySettingsUpdate(BaseModel):
+    qa_handoff_policy_mode: Any | None = None
+    require_developer_result_for_qa: Any | None = None
+    require_developer_result_for_repair_qa: Any | None = None
+    allow_operator_override: Any | None = None
+    updated_by: str | None = None
+
+
 class JsonStateStore:
     def __init__(self, state_dir: Path | None = None) -> None:
         configured_state_dir = os.environ.get("AIO_STATE_DIR")
@@ -174,6 +191,7 @@ class JsonStateStore:
         self.qa_results = self._load_collection("qa_results", [])
         self.repair_requests = self._load_collection("repair_requests", [])
         self.developer_results = self._load_collection("developer_results", [])
+        self.policy_settings = self._load_policy_settings()
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
         if not path.exists():
@@ -189,6 +207,10 @@ class JsonStateStore:
 
         seed_path = self.state_dir / f"{name}.seed.json"
         return self._load_json(seed_path, fallback)
+
+    def _load_policy_settings(self) -> dict[str, Any]:
+        settings = self._load_collection("policy_settings", DEFAULT_POLICY_SETTINGS)
+        return self._normalize_policy_settings(settings)
 
     def _save_collection(self, name: str, records: Any) -> None:
         path = self.state_dir / f"{name}.json"
@@ -266,11 +288,18 @@ class JsonStateStore:
         readiness_blockers_count = sum(
             len(readiness.get("blockers", [])) for readiness in readiness_summaries
         )
+        policy_settings = self.get_policy_settings()
 
         return {
             **self.status_seed,
             "repo": self.status_seed.get("repo", "RodneyMuniz/AIOffice_V2"),
             "branch": self.status_seed.get("branch", APP_BRANCH),
+            "qa_handoff_policy_mode": policy_settings["qa_handoff_policy_mode"],
+            "qa_policy_enforced": policy_settings["qa_handoff_policy_mode"] == "enforced",
+            "require_developer_result_for_qa": policy_settings["require_developer_result_for_qa"],
+            "require_developer_result_for_repair_qa": policy_settings[
+                "require_developer_result_for_repair_qa"
+            ],
             "current_card_id": active_card.get("id"),
             "current_work_order_id": active_work_order.get("id"),
             "current_agent_id": active_agent.get("id"),
@@ -299,6 +328,68 @@ class JsonStateStore:
             "allowed_card_statuses": list(CARD_STATUSES),
             "allowed_work_order_statuses": list(WORK_ORDER_STATUSES),
         }
+
+    def get_policy_settings(self) -> dict[str, Any]:
+        return dict(self.policy_settings)
+
+    def update_policy_settings(self, payload: PolicySettingsUpdate) -> dict[str, Any]:
+        update_data = _model_to_dict(payload)
+        next_settings = dict(self.policy_settings)
+
+        if "qa_handoff_policy_mode" in update_data:
+            mode = str(update_data["qa_handoff_policy_mode"]).strip().lower()
+            if mode not in QA_HANDOFF_POLICY_MODES:
+                allowed = ", ".join(QA_HANDOFF_POLICY_MODES)
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid QA handoff policy mode: {mode}. Allowed modes: {allowed}.",
+                )
+            next_settings["qa_handoff_policy_mode"] = mode
+
+        for field_name in (
+            "require_developer_result_for_qa",
+            "require_developer_result_for_repair_qa",
+            "allow_operator_override",
+        ):
+            if field_name not in update_data:
+                continue
+            value = update_data[field_name]
+            if not isinstance(value, bool):
+                raise HTTPException(status_code=400, detail=f"{field_name} must be a boolean.")
+            next_settings[field_name] = value
+
+        updated_by = str(update_data.get("updated_by") or "operator").strip() or "operator"
+        next_settings["updated_by"] = updated_by
+        next_settings["updated_at"] = _utc_now()
+        self.policy_settings = self._normalize_policy_settings(next_settings)
+
+        summary = (
+            "QA handoff policy settings updated: "
+            f"mode={self.policy_settings['qa_handoff_policy_mode']}, "
+            f"require_developer_result_for_qa={self.policy_settings['require_developer_result_for_qa']}, "
+            "require_developer_result_for_repair_qa="
+            f"{self.policy_settings['require_developer_result_for_repair_qa']}, "
+            f"allow_operator_override={self.policy_settings['allow_operator_override']}."
+        )
+        related_card_id = self._policy_related_card_id()
+        self._append_event(
+            event_type="policy_settings_updated",
+            summary=summary,
+            actor_agent_id=updated_by,
+            related_card_id=related_card_id,
+        )
+        self._append_evidence(
+            title="QA handoff policy settings updated",
+            kind="policy_settings",
+            summary=summary,
+            path="runtime/state/policy_settings.json",
+            related_card_id=related_card_id,
+        )
+
+        self._save_collection("policy_settings", self.policy_settings)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return self.get_policy_settings()
 
     def work_order_qa_readiness(self, work_order_id: str) -> dict[str, Any]:
         work_order = self._find_work_order(work_order_id)
@@ -1473,6 +1564,15 @@ class JsonStateStore:
         repair_request_id: str | None = None,
     ) -> dict[str, Any]:
         checks: list[dict[str, str]] = []
+        policy_settings = self.get_policy_settings()
+        policy_mode = policy_settings["qa_handoff_policy_mode"]
+        policy_enforced = policy_mode == "enforced"
+        require_developer_result = (
+            policy_settings["require_developer_result_for_repair_qa"]
+            if handoff_context == "repair_qa"
+            else policy_settings["require_developer_result_for_qa"]
+        )
+        missing_developer_result_promoted = False
 
         def add_check(
             check_id: str,
@@ -1562,11 +1662,16 @@ class JsonStateStore:
                 f"Submitted Developer/Codex result {latest_developer_result['id']} is available.",
             )
         else:
+            missing_developer_result_promoted = policy_enforced and require_developer_result
             add_check(
                 "latest_developer_result_submitted",
                 "Latest Developer/Codex result submitted",
-                "warning",
-                "No submitted Developer/Codex result has been captured for this work order.",
+                "blocked" if missing_developer_result_promoted else "warning",
+                (
+                    "Developer/Codex result is required by current QA handoff policy."
+                    if missing_developer_result_promoted
+                    else "No submitted Developer/Codex result has been captured for this work order."
+                ),
             )
 
         work_order_status = str((work_order or {}).get("status") or "")
@@ -1710,6 +1815,9 @@ class JsonStateStore:
             "card_id": card_id,
             "ready_for_qa": readiness_level == "ready",
             "readiness_level": readiness_level,
+            "policy_mode": policy_mode,
+            "policy_enforced": policy_enforced,
+            "advisory_warnings_promoted_to_blockers": missing_developer_result_promoted,
             "checks": checks,
             "warnings": warnings,
             "blockers": blockers,
@@ -1776,10 +1884,19 @@ class JsonStateStore:
         blockers = readiness.get("blockers", [])
         if not blockers:
             return
+        blocked_by_policy = (
+            readiness.get("policy_enforced")
+            and readiness.get("advisory_warnings_promoted_to_blockers")
+        )
+        prefix = (
+            "QA readiness blocked by policy enforcement"
+            if blocked_by_policy
+            else "QA readiness blocked"
+        )
         raise HTTPException(
             status_code=400,
             detail=(
-                f"QA readiness blocked for work order {readiness.get('work_order_id')}: "
+                f"{prefix} for work order {readiness.get('work_order_id')}: "
                 + " ".join(str(blocker) for blocker in blockers)
             ),
         )
@@ -1787,11 +1904,25 @@ class JsonStateStore:
     def _readiness_validation_summary(self, readiness: dict[str, Any]) -> str:
         blockers = readiness.get("blockers", [])
         warnings = readiness.get("warnings", [])
+        policy_mode = str(readiness.get("policy_mode") or "advisory")
+        warnings_enforced = bool(readiness.get("advisory_warnings_promoted_to_blockers"))
+        policy_summary = (
+            f" Policy mode: {policy_mode}; warnings enforced: "
+            f"{'yes' if warnings_enforced else 'no'}."
+        )
         if blockers:
-            return " Readiness preflight blocked: " + " ".join(str(item) for item in blockers)
+            return (
+                " Readiness preflight blocked: "
+                + " ".join(str(item) for item in blockers)
+                + policy_summary
+            )
         if warnings:
-            return " Readiness preflight warning: " + " ".join(str(item) for item in warnings)
-        return " Readiness preflight ready: all advisory checks passed."
+            return (
+                " Readiness preflight warning: "
+                + " ".join(str(item) for item in warnings)
+                + policy_summary
+            )
+        return " Readiness preflight ready: all advisory checks passed." + policy_summary
 
     def _create_approval_record(
         self,
@@ -2139,8 +2270,34 @@ class JsonStateStore:
                 detail="Approval requests require related_card_id or related_work_order_id.",
             )
         if self._find_card(related_card_id) is None:
-            raise HTTPException(status_code=400, detail=f"Invalid related_card_id: {related_card_id}.")
+                raise HTTPException(status_code=400, detail=f"Invalid related_card_id: {related_card_id}.")
         return related_card_id
+
+    def _normalize_policy_settings(self, settings: Any) -> dict[str, Any]:
+        source = settings if isinstance(settings, dict) else {}
+        normalized = dict(DEFAULT_POLICY_SETTINGS)
+
+        mode = str(source.get("qa_handoff_policy_mode") or normalized["qa_handoff_policy_mode"]).strip().lower()
+        normalized["qa_handoff_policy_mode"] = mode if mode in QA_HANDOFF_POLICY_MODES else "advisory"
+
+        for field_name in (
+            "require_developer_result_for_qa",
+            "require_developer_result_for_repair_qa",
+            "allow_operator_override",
+        ):
+            value = source.get(field_name)
+            normalized[field_name] = value if isinstance(value, bool) else normalized[field_name]
+
+        updated_at = str(source.get("updated_at") or normalized["updated_at"]).strip()
+        updated_by = str(source.get("updated_by") or normalized["updated_by"]).strip()
+        normalized["updated_at"] = updated_at or DEFAULT_POLICY_SETTINGS["updated_at"]
+        normalized["updated_by"] = updated_by or DEFAULT_POLICY_SETTINGS["updated_by"]
+        return normalized
+
+    def _policy_related_card_id(self) -> str:
+        if self.cards:
+            return str(self.cards[-1].get("id") or "R19-CARD-001")
+        return "R19-CARD-001"
 
     def _append_event(
         self,
@@ -2500,6 +2657,16 @@ app.add_middleware(
 @app.get("/status")
 def get_status() -> dict[str, Any]:
     return store.status()
+
+
+@app.get("/policy-settings")
+def get_policy_settings() -> dict[str, Any]:
+    return store.get_policy_settings()
+
+
+@app.patch("/policy-settings")
+def patch_policy_settings(policy_settings: PolicySettingsUpdate) -> dict[str, Any]:
+    return store.update_policy_settings(policy_settings)
 
 
 @app.get("/cards")

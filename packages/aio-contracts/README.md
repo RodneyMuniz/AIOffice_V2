@@ -7,6 +7,8 @@ These schemas document the first local API shapes only. They are not a large con
 ## Included examples
 
 - `schemas/status-response.schema.json`
+- `schemas/policy-settings.schema.json`
+- `schemas/update-policy-settings-request.schema.json`
 - `schemas/card.schema.json`
 - `schemas/create-card-request.schema.json`
 - `schemas/update-card-status-request.schema.json`
@@ -48,15 +50,19 @@ Allowed Developer/Codex result types are `implementation`, `repair`, `documentat
 
 Allowed Developer/Codex result statuses are `draft`, `submitted`, and `superseded`.
 
+Allowed QA handoff policy modes are `advisory` and `enforced`.
+
 The Developer/Codex result contracts describe operator/API-mediated result capture for a work order before QA handoff. They record summary, changed paths, notes, agent id, and evidence refs in `runtime/state/developer_results.json`. They do not claim autonomous Codex execution, autonomous coding, live OpenAI/Codex API invocation, or no-manual-transfer success.
+
+The policy settings contracts describe the small persisted `runtime/state/policy_settings.json` model used by `GET /policy-settings` and `PATCH /policy-settings`. The model includes `qa_handoff_policy_mode`, original and repair Developer/Codex result requirement flags, `allow_operator_override`, `updated_at`, and `updated_by`. `allow_operator_override` is reserved for a future slice and is not behaviorally implemented here.
 
 The QA readiness contracts describe read-only preflight responses for `GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness`. Readiness levels are `ready`, `warning`, and `blocked`; check statuses are `passed`, `warning`, and `blocked`.
 
-Readiness is advisory in this slice and is not persisted. Missing Developer/Codex result capture is a warning, while missing core linkage or an active duplicate proposed/accepted QA handoff is a blocker. This is not a full policy engine or hard governance gate.
+Readiness is not persisted. In advisory mode, missing Developer/Codex result capture remains a warning and does not block handoff creation. In enforced mode, that missing-result warning is promoted to a blocker for original QA when `require_developer_result_for_qa` is true, and for repair QA when `require_developer_result_for_repair_qa` is true. Missing core linkage and active duplicate proposed/accepted QA handoffs remain blockers in all modes. This is a small product policy gate, not a full policy engine or governance document flow.
 
 The handoff contracts describe an API-mediated dry-run role handoff. They do not claim autonomous A2A execution, background workers, OpenAI/Codex API invocation, or full product runtime.
 
-QA handoffs may include `developer_result_id` and `developer_result_summary` when a submitted Developer/Codex result exists for the work order. Handoffs are still allowed without a result in this slice and should carry a visible warning summary instead of enforcing a hard policy gate.
+QA handoffs may include `developer_result_id` and `developer_result_summary` when a submitted Developer/Codex result exists for the work order. Handoffs are still allowed without a result in advisory mode and should carry a visible warning summary. In enforced mode, configured missing-result blockers return HTTP 400 before handoff creation.
 
 The QA result contracts describe structured operator/API-mediated result capture after an accepted handoff. They do not claim autonomous QA execution, live agent testing, autonomous A2A, or no-manual-transfer success.
 

@@ -87,6 +87,26 @@ def valid_repair_request_payload(label: str = "regression repair") -> dict:
     }
 
 
+def set_policy(
+    client: TestClient,
+    mode: str = "enforced",
+    require_original: bool = False,
+    require_repair: bool = False,
+) -> dict:
+    response = client.patch(
+        "/policy-settings",
+        json={
+            "qa_handoff_policy_mode": mode,
+            "require_developer_result_for_qa": require_original,
+            "require_developer_result_for_repair_qa": require_repair,
+            "allow_operator_override": False,
+            "updated_by": "pytest",
+        },
+    )
+    assert response.status_code == 200
+    return response.json()
+
+
 def create_accepted_qa_result(
     client: TestClient,
     label: str,
@@ -130,6 +150,10 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["branch"] == api_main.APP_BRANCH
     assert status["allowed_card_statuses"] == list(api_main.CARD_STATUSES)
     assert status["allowed_work_order_statuses"] == list(api_main.WORK_ORDER_STATUSES)
+    assert status["qa_handoff_policy_mode"] == "advisory"
+    assert status["qa_policy_enforced"] is False
+    assert status["require_developer_result_for_qa"] is False
+    assert status["require_developer_result_for_repair_qa"] is False
     assert status["handoffs_count"] == 0
     assert status["pending_handoffs_count"] == 0
     assert status["workflow_iterations_count"] == 1
@@ -178,6 +202,75 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["repair_requests_count"] == 0
     assert status["open_repair_requests_count"] == 0
     assert status["completed_repair_requests_count"] == 0
+
+
+def test_policy_settings_defaults_patch_persistence_events_and_evidence(
+    client: TestClient,
+) -> None:
+    response = client.get("/policy-settings")
+    assert response.status_code == 200
+    policy_settings = response.json()
+    assert policy_settings["qa_handoff_policy_mode"] == "advisory"
+    assert policy_settings["require_developer_result_for_qa"] is False
+    assert policy_settings["require_developer_result_for_repair_qa"] is False
+    assert policy_settings["allow_operator_override"] is False
+    assert policy_settings["updated_by"] == "system"
+
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+    update_response = client.patch(
+        "/policy-settings",
+        json={
+            "qa_handoff_policy_mode": "enforced",
+            "require_developer_result_for_qa": True,
+            "require_developer_result_for_repair_qa": True,
+            "allow_operator_override": False,
+            "updated_by": "operator",
+        },
+    )
+
+    assert update_response.status_code == 200
+    updated_settings = update_response.json()
+    assert updated_settings["qa_handoff_policy_mode"] == "enforced"
+    assert updated_settings["require_developer_result_for_qa"] is True
+    assert updated_settings["require_developer_result_for_repair_qa"] is True
+    assert updated_settings["allow_operator_override"] is False
+    assert updated_settings["updated_by"] == "operator"
+    assert updated_settings["updated_at"]
+
+    status = client.get("/status").json()
+    assert status["qa_handoff_policy_mode"] == "enforced"
+    assert status["qa_policy_enforced"] is True
+    assert status["require_developer_result_for_qa"] is True
+    assert status["require_developer_result_for_repair_qa"] is True
+
+    events = client.get("/events").json()
+    evidence = client.get("/evidence").json()
+    assert len(events) == before_events_count + 1
+    assert len(evidence) == before_evidence_count + 1
+    assert any(event["type"] == "policy_settings_updated" for event in events)
+    assert any(entry["kind"] == "policy_settings" for entry in evidence)
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    assert reloaded_store.policy_settings["qa_handoff_policy_mode"] == "enforced"
+    assert reloaded_store.policy_settings["require_developer_result_for_qa"] is True
+    assert reloaded_store.policy_settings["require_developer_result_for_repair_qa"] is True
+
+
+def test_policy_settings_invalid_mode_returns_400(client: TestClient) -> None:
+    response = client.patch(
+        "/policy-settings",
+        json={
+            "qa_handoff_policy_mode": "strict",
+            "require_developer_result_for_qa": True,
+            "require_developer_result_for_repair_qa": True,
+            "allow_operator_override": False,
+            "updated_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 400
+    assert "Invalid QA handoff policy mode" in response.json()["detail"]
 
 
 def test_card_work_order_status_workflow_and_persistence(client: TestClient) -> None:
@@ -421,6 +514,9 @@ def test_work_order_qa_readiness_warns_when_developer_result_is_missing(
     assert readiness["ready_for_qa"] is False
     assert readiness["readiness_level"] == "warning"
     assert readiness["handoff_context"] == "initial_qa"
+    assert readiness["policy_mode"] == "advisory"
+    assert readiness["policy_enforced"] is False
+    assert readiness["advisory_warnings_promoted_to_blockers"] is False
     assert readiness["latest_developer_result_id"] is None
     assert readiness["latest_developer_result_summary"] is None
     assert readiness["latest_developer_result_status"] is None
@@ -433,6 +529,52 @@ def test_work_order_qa_readiness_warns_when_developer_result_is_missing(
     )
     assert len(client.get("/events").json()) == before_events_count
     assert len(client.get("/evidence").json()) == before_evidence_count
+
+
+def test_enforced_policy_blocks_original_qa_until_developer_result_exists(
+    client: TestClient,
+) -> None:
+    _, work_order = create_card_and_work_order(client, "enforced original policy")
+    set_policy(client, mode="enforced", require_original=True)
+
+    readiness_response = client.get(f"/work-orders/{work_order['id']}/qa-readiness")
+
+    assert readiness_response.status_code == 200
+    readiness = readiness_response.json()
+    assert readiness["policy_mode"] == "enforced"
+    assert readiness["policy_enforced"] is True
+    assert readiness["advisory_warnings_promoted_to_blockers"] is True
+    assert readiness["readiness_level"] == "blocked"
+    assert readiness["ready_for_qa"] is False
+    assert "Developer/Codex result is required by current QA handoff policy." in readiness["blockers"]
+    assert any(
+        check["id"] == "latest_developer_result_submitted"
+        and check["status"] == "blocked"
+        for check in readiness["checks"]
+    )
+
+    blocked_handoff_response = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa")
+    assert blocked_handoff_response.status_code == 400
+    assert "policy enforcement" in blocked_handoff_response.json()["detail"]
+
+    developer_result = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(summary="Required original implementation result."),
+    ).json()
+
+    ready_response = client.get(f"/work-orders/{work_order['id']}/qa-readiness")
+    assert ready_response.status_code == 200
+    ready_readiness = ready_response.json()
+    assert ready_readiness["readiness_level"] == "ready"
+    assert ready_readiness["ready_for_qa"] is True
+    assert ready_readiness["latest_developer_result_id"] == developer_result["id"]
+    assert ready_readiness["advisory_warnings_promoted_to_blockers"] is False
+
+    handoff_response = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa")
+    assert handoff_response.status_code == 201
+    handoff = handoff_response.json()
+    assert handoff["developer_result_id"] == developer_result["id"]
+    assert "Policy mode: enforced; warnings enforced: no." in handoff["validation_summary"]
 
 
 def test_work_order_qa_readiness_is_ready_with_submitted_developer_result(
@@ -481,6 +623,29 @@ def test_work_order_qa_readiness_blocks_existing_active_handoff(
     assert accepted_handoff["status"] == "accepted"
     assert accepted_readiness["readiness_level"] == "blocked"
     assert any(handoff["id"] in blocker for blocker in accepted_readiness["blockers"])
+
+
+def test_duplicate_active_handoff_blocks_in_advisory_and_enforced_policy(
+    client: TestClient,
+) -> None:
+    card, work_order = create_card_and_work_order(client, "duplicate policy active handoff")
+    client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(summary="Duplicate policy developer result."),
+    )
+    handoff = create_handoff(client, card, work_order, status="proposed")
+
+    advisory_readiness = client.get(f"/work-orders/{work_order['id']}/qa-readiness").json()
+    assert advisory_readiness["policy_mode"] == "advisory"
+    assert advisory_readiness["readiness_level"] == "blocked"
+    assert any(handoff["id"] in blocker for blocker in advisory_readiness["blockers"])
+
+    set_policy(client, mode="enforced", require_original=True)
+    enforced_readiness = client.get(f"/work-orders/{work_order['id']}/qa-readiness").json()
+    assert enforced_readiness["policy_mode"] == "enforced"
+    assert enforced_readiness["readiness_level"] == "blocked"
+    assert enforced_readiness["advisory_warnings_promoted_to_blockers"] is False
+    assert any(handoff["id"] in blocker for blocker in enforced_readiness["blockers"])
 
 
 def test_terminal_handoff_with_qa_result_does_not_block_future_repair_readiness(
@@ -1009,8 +1174,68 @@ def test_repair_request_qa_readiness_warns_when_repair_developer_result_is_missi
     assert readiness["handoff_context"] == "repair_qa"
     assert readiness["readiness_level"] == "warning"
     assert readiness["ready_for_qa"] is False
+    assert readiness["policy_mode"] == "advisory"
+    assert readiness["policy_enforced"] is False
+    assert readiness["advisory_warnings_promoted_to_blockers"] is False
     assert readiness["blockers"] == []
     assert any("No submitted Developer/Codex result" in item for item in readiness["warnings"])
+
+
+def test_enforced_policy_blocks_repair_qa_until_repair_developer_result_exists(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "enforced repair policy",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("enforced repair policy"),
+    ).json()
+    set_policy(client, mode="enforced", require_repair=True)
+
+    readiness_response = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness")
+
+    assert readiness_response.status_code == 200
+    readiness = readiness_response.json()
+    assert readiness["policy_mode"] == "enforced"
+    assert readiness["policy_enforced"] is True
+    assert readiness["advisory_warnings_promoted_to_blockers"] is True
+    assert readiness["readiness_level"] == "blocked"
+    assert "Developer/Codex result is required by current QA handoff policy." in readiness["blockers"]
+    assert any(
+        check["id"] == "latest_developer_result_submitted"
+        and check["status"] == "blocked"
+        for check in readiness["checks"]
+    )
+
+    blocked_handoff_response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
+    assert blocked_handoff_response.status_code == 400
+    assert "policy enforcement" in blocked_handoff_response.json()["detail"]
+
+    repair_work_order_id = repair_request["repair_work_order_id"]
+    developer_result = client.post(
+        f"/work-orders/{repair_work_order_id}/developer-result",
+        json=valid_developer_result_payload(
+            result_type="repair",
+            summary="Required repair implementation result.",
+        ),
+    ).json()
+
+    ready_response = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness")
+    assert ready_response.status_code == 200
+    ready_readiness = ready_response.json()
+    assert ready_readiness["readiness_level"] == "ready"
+    assert ready_readiness["ready_for_qa"] is True
+    assert ready_readiness["latest_developer_result_id"] == developer_result["id"]
+    assert ready_readiness["advisory_warnings_promoted_to_blockers"] is False
+
+    handoff_response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
+    assert handoff_response.status_code == 201
+    handoff = handoff_response.json()
+    assert handoff["developer_result_id"] == developer_result["id"]
+    assert "Policy mode: enforced; warnings enforced: no." in handoff["validation_summary"]
 
 
 def test_repair_request_qa_readiness_is_ready_when_repair_developer_result_exists(
@@ -1102,6 +1327,45 @@ def test_repair_handoff_without_developer_result_includes_readiness_warning(
     assert "developer_result_id" not in handoff
     assert "Readiness preflight warning" in handoff["validation_summary"]
     assert "No developer result recorded before QA handoff." in handoff["validation_summary"]
+
+
+def test_duplicate_active_repair_handoff_blocks_in_advisory_and_enforced_policy(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "duplicate repair policy active handoff",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("duplicate repair policy active handoff"),
+    ).json()
+    repair_work_order_id = repair_request["repair_work_order_id"]
+    client.post(
+        f"/work-orders/{repair_work_order_id}/developer-result",
+        json=valid_developer_result_payload(
+            result_type="repair",
+            summary="Duplicate repair policy developer result.",
+        ),
+    )
+    handoff = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa").json()
+
+    advisory_readiness = client.get(
+        f"/repair-requests/{repair_request['id']}/qa-readiness"
+    ).json()
+    assert advisory_readiness["policy_mode"] == "advisory"
+    assert advisory_readiness["readiness_level"] == "blocked"
+    assert any(handoff["id"] in blocker for blocker in advisory_readiness["blockers"])
+
+    set_policy(client, mode="enforced", require_repair=True)
+    enforced_readiness = client.get(
+        f"/repair-requests/{repair_request['id']}/qa-readiness"
+    ).json()
+    assert enforced_readiness["policy_mode"] == "enforced"
+    assert enforced_readiness["readiness_level"] == "blocked"
+    assert enforced_readiness["advisory_warnings_promoted_to_blockers"] is False
+    assert any(handoff["id"] in blocker for blocker in enforced_readiness["blockers"])
 
 
 def test_repair_work_order_can_handoff_back_to_qa_and_record_iteration_result(

@@ -8,6 +8,9 @@
     "card_id",
     "ready_for_qa",
     "readiness_level",
+    "policy_mode",
+    "policy_enforced",
+    "advisory_warnings_promoted_to_blockers",
     "checks",
     "warnings",
     "blockers",
@@ -23,6 +26,9 @@
     "card_id": { "type": "string" },
     "ready_for_qa": { "type": "boolean" },
     "readiness_level": { "type": "string", "enum": ["ready", "warning", "blocked"] },
+    "policy_mode": { "type": "string", "enum": ["advisory", "enforced"] },
+    "policy_enforced": { "type": "boolean" },
+    "advisory_warnings_promoted_to_blockers": { "type": "boolean" },
     "checks": {
       "type": "array",
       "items": { "$ref": "qa-readiness-check.schema.json" }
@@ -60,6 +66,9 @@
       "card_id": "R19-CARD-002",
       "ready_for_qa": false,
       "readiness_level": "warning",
+      "policy_mode": "advisory",
+      "policy_enforced": false,
+      "advisory_warnings_promoted_to_blockers": false,
       "checks": [
         {
           "id": "latest_developer_result_submitted",

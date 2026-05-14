@@ -100,6 +100,10 @@
   grid-column: 1 / -1;
 }
 
+.policy-settings-panel {
+  align-self: start;
+}
+
 .connection-panel {
   margin: 0 auto;
   max-width: 760px;
@@ -324,6 +328,31 @@ button:disabled {
 .checkbox-field input {
   min-height: auto;
   width: auto;
+}
+
+.reserved-control {
+  color: #68746e !important;
+}
+
+.policy-meta {
+  background: #f7f8f5;
+  border: 1px solid #dfe5da;
+  border-radius: 6px;
+  display: grid;
+  gap: 7px 12px;
+  grid-template-columns: minmax(70px, auto) minmax(0, 1fr);
+  padding: 10px;
+}
+
+.policy-meta span {
+  color: #5c6862;
+  font-size: 13px;
+}
+
+.policy-meta strong {
+  color: #17201b;
+  font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .status-transition-form {

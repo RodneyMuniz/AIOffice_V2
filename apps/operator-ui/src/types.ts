@@ -17,6 +17,7 @@ export const DEVELOPER_RESULT_TYPES = ["implementation", "repair", "documentatio
 export const DEVELOPER_RESULT_STATUSES = ["draft", "submitted", "superseded"] as const;
 export const QA_READINESS_LEVELS = ["ready", "warning", "blocked"] as const;
 export const QA_READINESS_CHECK_STATUSES = ["passed", "warning", "blocked"] as const;
+export const QA_HANDOFF_POLICY_MODES = ["advisory", "enforced"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
@@ -27,6 +28,24 @@ export type DeveloperResultType = (typeof DEVELOPER_RESULT_TYPES)[number];
 export type DeveloperResultStatus = (typeof DEVELOPER_RESULT_STATUSES)[number];
 export type QaReadinessLevel = (typeof QA_READINESS_LEVELS)[number];
 export type QaReadinessCheckStatus = (typeof QA_READINESS_CHECK_STATUSES)[number];
+export type QaHandoffPolicyMode = (typeof QA_HANDOFF_POLICY_MODES)[number];
+
+export type PolicySettings = {
+  qa_handoff_policy_mode: QaHandoffPolicyMode;
+  require_developer_result_for_qa: boolean;
+  require_developer_result_for_repair_qa: boolean;
+  allow_operator_override: boolean;
+  updated_at: string;
+  updated_by: string;
+};
+
+export type UpdatePolicySettingsRequest = {
+  qa_handoff_policy_mode?: QaHandoffPolicyMode;
+  require_developer_result_for_qa?: boolean;
+  require_developer_result_for_repair_qa?: boolean;
+  allow_operator_override?: boolean;
+  updated_by?: string;
+};
 
 export type StatusResponse = {
   product_name: string;
@@ -35,6 +54,10 @@ export type StatusResponse = {
   branch: string;
   posture: string;
   r18_posture: string;
+  qa_handoff_policy_mode: QaHandoffPolicyMode;
+  qa_policy_enforced: boolean;
+  require_developer_result_for_qa: boolean;
+  require_developer_result_for_repair_qa: boolean;
   current_card_id: string | null;
   current_work_order_id: string | null;
   current_agent_id: string | null;
@@ -77,6 +100,9 @@ export type QaReadiness = {
   card_id: string;
   ready_for_qa: boolean;
   readiness_level: QaReadinessLevel;
+  policy_mode: QaHandoffPolicyMode;
+  policy_enforced: boolean;
+  advisory_warnings_promoted_to_blockers: boolean;
   checks: QaReadinessCheck[];
   warnings: string[];
   blockers: string[];
@@ -272,6 +298,7 @@ export type EvidenceEntry = {
 
 export type DashboardData = {
   status: StatusResponse;
+  policySettings: PolicySettings;
   cards: Card[];
   workOrders: WorkOrder[];
   agents: Agent[];

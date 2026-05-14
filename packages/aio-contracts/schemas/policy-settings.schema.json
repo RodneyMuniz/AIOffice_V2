@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/policy-settings.schema.json",
+  "title": "PolicySettings",
+  "type": "object",
+  "required": [
+    "qa_handoff_policy_mode",
+    "require_developer_result_for_qa",
+    "require_developer_result_for_repair_qa",
+    "allow_operator_override",
+    "updated_at",
+    "updated_by"
+  ],
+  "properties": {
+    "qa_handoff_policy_mode": { "type": "string", "enum": ["advisory", "enforced"] },
+    "require_developer_result_for_qa": { "type": "boolean" },
+    "require_developer_result_for_repair_qa": { "type": "boolean" },
+    "allow_operator_override": { "type": "boolean" },
+    "updated_at": { "type": "string" },
+    "updated_by": { "type": "string" }
+  },
+  "examples": [
+    {
+      "qa_handoff_policy_mode": "advisory",
+      "require_developer_result_for_qa": false,
+      "require_developer_result_for_repair_qa": false,
+      "allow_operator_override": false,
+      "updated_at": "2026-05-13T00:00:00Z",
+      "updated_by": "system"
+    }
+  ]
+}

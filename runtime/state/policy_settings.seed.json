@@ -1,0 +1,8 @@
+{
+  "qa_handoff_policy_mode": "advisory",
+  "require_developer_result_for_qa": false,
+  "require_developer_result_for_repair_qa": false,
+  "allow_operator_override": false,
+  "updated_at": "2026-05-13T00:00:00Z",
+  "updated_by": "system"
+}

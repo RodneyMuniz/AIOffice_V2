@@ -16,7 +16,7 @@ R19 repair-loop QA iterations remain operator-triggered UI/API flows until live-
 
 R19 Developer/Codex result capture remains operator/API-mediated until live Codex execution is explicitly implemented and evidenced.
 
-R19 handoff readiness guards remain advisory until an explicit policy-enforcement slice is implemented.
+R19 policy enforcement is limited to operator-controlled QA handoff readiness gates and is not a general policy engine.
 
 Hard non-claims carried forward:
 - no external audit acceptance;

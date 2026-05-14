@@ -42,6 +42,7 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Move a work order through `draft`, `ready`, `running`, `waiting_approval`, `approved`, `rejected`, `completed`, `blocked`, and `cancelled`.
 - Optionally request an approval gate while creating a work order.
 - Record a structured Developer/Codex result for an original or repair work order before QA handoff.
+- Use the Policy Settings panel to switch QA handoff readiness between advisory and enforced mode.
 - See Developer/Codex results in the Developer Results panel.
 - Check QA readiness/preflight before original or repair QA handoff.
 - Trigger a Developer/Codex to QA/Test handoff from a work order.
@@ -64,6 +65,13 @@ Status updates use:
 
 Each successful status update refreshes the status panel, cards, work orders, events, evidence, and approvals. Status changes appear in the Events timeline and Evidence panel.
 
+Policy settings use:
+
+- `GET /policy-settings`
+- `PATCH /policy-settings`
+
+The Policy Settings panel shows the current QA handoff policy mode, whether Developer/Codex results are required for original QA and repair QA, the reserved operator override flag, and the last updated timestamp/by fields. Saving policy settings refreshes status, policy settings, readiness fallback state, events, and evidence. `allow_operator_override` is shown as reserved and disabled because override behavior is not implemented in this slice.
+
 Developer/Codex result capture uses:
 
 - `GET /developer-results`
@@ -78,6 +86,8 @@ QA readiness checks use:
 - `GET /repair-requests/{id}/qa-readiness`
 
 Each work-order row shows a compact QA readiness section and a `Check QA readiness` button. Each repair request with a linked repair work order shows repair QA readiness and a `Check Repair QA readiness` button. Readiness can be `ready`, `warning`, or `blocked`. Missing Developer/Codex result capture is a warning and does not disable handoff. Active duplicate QA handoffs and broken required linkage are blockers and disable only the related handoff button.
+
+In advisory policy mode, missing Developer/Codex result capture remains warning-level and the relevant handoff button stays enabled unless another hard blocker exists. In enforced mode, the UI shows missing Developer/Codex result capture as blocked when the matching original or repair requirement flag is enabled, and disables the related handoff button until the operator records the Developer/Codex result.
 
 Handoff actions use:
 
@@ -123,7 +133,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, verifies QA readiness warning before Developer/Codex result capture, records an original Developer/Codex result, verifies readiness becomes ready, triggers a QA handoff that references the result, verifies duplicate active handoff readiness blocks another handoff, accepts it, records a failed QA result, creates a repair request, verifies repair QA readiness warning before repair Developer/Codex result capture, records a repair Developer/Codex result, verifies repair readiness becomes ready, hands the repair work order back to QA from the Repair Requests panel, verifies the repair QA handoff references the repair result, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies developer/repair QA events/evidence, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, creates a card/work order, verifies QA readiness warning before Developer/Codex result capture, confirms advisory mode does not disable handoff for that warning, switches original QA policy to enforced, confirms the readiness blocker and disabled handoff, records an original Developer/Codex result, verifies readiness becomes ready and handoff is enabled, triggers a QA handoff that references the result, verifies duplicate active handoff readiness blocks another handoff, accepts it, records a failed QA result, creates a repair request, verifies repair QA readiness warning before repair Developer/Codex result capture, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, records a repair Developer/Codex result, verifies repair readiness becomes ready and handoff is enabled, hands the repair work order back to QA from the Repair Requests panel, verifies the repair QA handoff references the repair result, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies policy/developer/repair QA events/evidence, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -132,25 +142,30 @@ Manual browser smoke:
 3. Create a card.
 4. Create a work order linked to that card.
 5. Use the card status dropdown and Update status button.
-6. Record a Developer/Codex result on the work order.
-7. Click Check QA readiness and confirm the warning changes to ready.
-8. Confirm the Developer Results panel shows the result.
-9. Click Handoff to QA on the work order.
-10. Confirm the Handoffs panel references the developer result id or summary.
-11. Accept or reject the proposed handoff in the Handoffs panel.
-12. For an accepted handoff, submit the QA result form.
-13. If the QA result is failed or blocked, create a repair request from the QA Results panel.
-14. Confirm the Repair Requests panel and linked repair work order appear.
-15. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
-16. Record a Developer/Codex repair result on the repair work order.
-17. Click Check Repair QA readiness and confirm the warning changes to ready.
-18. Click Handoff Repair to QA from the Repair Requests panel.
-19. Confirm the repair QA handoff references the repair developer result.
-20. Accept the repair QA handoff in the Handoffs panel.
-21. Record a repair QA result and confirm the repair work order status updates.
-22. Confirm the Workflow Iterations panel shows the original and repair iteration.
-23. Confirm Events and Evidence refresh with developer result and repair QA handoff/result entries.
-24. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+6. Confirm advisory policy mode leaves missing Developer/Codex result as a readiness warning and does not disable Handoff to QA.
+7. Switch policy mode to enforced and require Developer/Codex result for original QA.
+8. Click Check QA readiness and confirm the missing-result warning is now blocked and Handoff to QA is disabled.
+9. Record a Developer/Codex result on the work order.
+10. Click Check QA readiness and confirm the blocker changes to ready.
+11. Confirm the Developer Results panel shows the result.
+12. Click Handoff to QA on the work order.
+13. Confirm the Handoffs panel references the developer result id or summary.
+14. Accept or reject the proposed handoff in the Handoffs panel.
+15. For an accepted handoff, submit the QA result form.
+16. If the QA result is failed or blocked, create a repair request from the QA Results panel.
+17. Confirm the Repair Requests panel and linked repair work order appear.
+18. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
+19. Enable the repair QA Developer/Codex result requirement in the Policy Settings panel.
+20. Confirm repair QA readiness becomes blocked and Handoff Repair to QA is disabled.
+21. Record a Developer/Codex repair result on the repair work order.
+22. Click Check Repair QA readiness and confirm the blocker changes to ready.
+23. Click Handoff Repair to QA from the Repair Requests panel.
+24. Confirm the repair QA handoff references the repair developer result.
+25. Accept the repair QA handoff in the Handoffs panel.
+26. Record a repair QA result and confirm the repair work order status updates.
+27. Confirm the Workflow Iterations panel shows the original and repair iteration.
+28. Confirm Events and Evidence refresh with policy settings, developer result, and repair QA handoff/result entries.
+29. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -169,7 +184,8 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - QA result capture is operator/API-mediated and does not execute live QA agents.
 - Repair request creation is operator/API-mediated and does not execute autonomous repair or live Developer/Codex agents.
 - Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
-- QA readiness is advisory by default and is not a full policy engine.
+- QA readiness is advisory by default. Enforced mode is limited to operator-controlled Developer/Codex result requirements for QA handoff readiness and is not a full policy engine.
+- Operator override is only a reserved disabled UI field and has no behavior yet.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

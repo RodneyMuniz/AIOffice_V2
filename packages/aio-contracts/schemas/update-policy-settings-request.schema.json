@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/update-policy-settings-request.schema.json",
+  "title": "UpdatePolicySettingsRequest",
+  "type": "object",
+  "properties": {
+    "qa_handoff_policy_mode": { "type": "string", "enum": ["advisory", "enforced"] },
+    "require_developer_result_for_qa": { "type": "boolean" },
+    "require_developer_result_for_repair_qa": { "type": "boolean" },
+    "allow_operator_override": { "type": "boolean" },
+    "updated_by": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "qa_handoff_policy_mode": "enforced",
+      "require_developer_result_for_qa": true,
+      "require_developer_result_for_repair_qa": true,
+      "allow_operator_override": false,
+      "updated_by": "operator"
+    }
+  ]
+}
