@@ -24,6 +24,8 @@ R19 audit review is an operator-facing exception review surface, not external au
 
 R19 audit acknowledgement is lightweight operator triage and is not external audit acceptance.
 
+R19 audit acknowledgement history is append-only lightweight triage history, not a ticketing system or external audit acceptance.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

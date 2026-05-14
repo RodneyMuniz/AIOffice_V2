@@ -18,6 +18,8 @@
     "resolved_exceptions",
     "dismissed_exceptions",
     "unreviewed_exceptions",
+    "audit_acknowledgement_history_entries",
+    "audit_acknowledgements_with_history",
     "generated_at"
   ],
   "properties": {
@@ -35,6 +37,8 @@
     "resolved_exceptions": { "type": "integer", "minimum": 0 },
     "dismissed_exceptions": { "type": "integer", "minimum": 0 },
     "unreviewed_exceptions": { "type": "integer", "minimum": 0 },
+    "audit_acknowledgement_history_entries": { "type": "integer", "minimum": 0 },
+    "audit_acknowledgements_with_history": { "type": "integer", "minimum": 0 },
     "generated_at": { "type": "string" }
   },
   "examples": [
@@ -53,6 +57,8 @@
       "resolved_exceptions": 0,
       "dismissed_exceptions": 0,
       "unreviewed_exceptions": 3,
+      "audit_acknowledgement_history_entries": 1,
+      "audit_acknowledgements_with_history": 1,
       "generated_at": "2026-05-14T00:00:00Z"
     }
   ]

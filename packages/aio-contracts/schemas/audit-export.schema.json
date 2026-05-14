@@ -9,6 +9,10 @@
     "exceptions": {
       "type": "array",
       "items": { "$ref": "audit-exception.schema.json" }
+    },
+    "acknowledgement_history": {
+      "type": "array",
+      "items": { "$ref": "audit-acknowledgement-history-entry.schema.json" }
     }
   },
   "examples": [
@@ -28,6 +32,8 @@
         "resolved_exceptions": 0,
         "dismissed_exceptions": 0,
         "unreviewed_exceptions": 3,
+        "audit_acknowledgement_history_entries": 1,
+        "audit_acknowledgements_with_history": 1,
         "generated_at": "2026-05-14T00:00:00Z"
       },
       "exceptions": [
@@ -52,7 +58,28 @@
           "acknowledgement_reason": "Reviewed and accepted as intentional.",
           "acknowledged_by": "operator",
           "acknowledged_at": "2026-05-14T00:05:00Z",
-          "resolved_at": null
+          "resolved_at": null,
+          "acknowledgement_history_count": 1,
+          "latest_acknowledgement_change_at": "2026-05-14T00:05:00Z"
+        }
+      ],
+      "acknowledgement_history": [
+        {
+          "id": "R19-AUDIT-ACK-HISTORY-001",
+          "acknowledgement_id": "R19-AUDIT-ACK-001",
+          "exception_id": "audit-policy-override-R19-POLICY-OVERRIDE-001",
+          "exception_source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+          "exception_type": "policy_override",
+          "previous_status": null,
+          "new_status": "acknowledged",
+          "reason": "Reviewed and accepted as intentional.",
+          "changed_by": "operator",
+          "changed_at": "2026-05-14T00:05:00Z",
+          "evidence_refs": [
+            "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+            "runtime/state/audit_acknowledgements.json#R19-AUDIT-ACK-001",
+            "runtime/state/audit_acknowledgement_history.json#R19-AUDIT-ACK-HISTORY-001"
+          ]
         }
       ]
     }

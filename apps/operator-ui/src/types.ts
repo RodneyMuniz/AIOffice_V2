@@ -65,6 +65,8 @@ export type AuditSummary = {
   resolved_exceptions: number;
   dismissed_exceptions: number;
   unreviewed_exceptions: number;
+  audit_acknowledgement_history_entries: number;
+  audit_acknowledgements_with_history: number;
   generated_at: string;
 };
 
@@ -90,6 +92,8 @@ export type AuditException = {
   acknowledged_by: string | null;
   acknowledged_at: string | null;
   resolved_at: string | null;
+  acknowledgement_history_count: number;
+  latest_acknowledgement_change_at: string | null;
 };
 
 export type AuditExceptionFilters = {
@@ -104,6 +108,10 @@ export type AuditExceptionFilters = {
   offset?: number;
 };
 
+export type AuditExportFilters = AuditExceptionFilters & {
+  include_history?: boolean;
+};
+
 export type AuditAcknowledgement = {
   id: string;
   exception_id: string;
@@ -115,6 +123,20 @@ export type AuditAcknowledgement = {
   created_at: string;
   updated_at: string;
   resolved_at: string | null;
+  evidence_refs: string[];
+};
+
+export type AuditAcknowledgementHistoryEntry = {
+  id: string;
+  acknowledgement_id: string;
+  exception_id: string;
+  exception_source_ref: string;
+  exception_type: string;
+  previous_status: AuditAcknowledgementStatus | null;
+  new_status: AuditAcknowledgementStatus;
+  reason: string;
+  changed_by: string;
+  changed_at: string;
   evidence_refs: string[];
 };
 

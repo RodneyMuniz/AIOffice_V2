@@ -755,11 +755,16 @@ def test_audit_summary_seed_shape_and_read_only(client: TestClient) -> None:
     assert summary["completed_repair_requests"] == 0
     assert "total_hard_blocker_events" in summary
     assert "total_readiness_blockers" in summary
+    assert summary["audit_acknowledgement_history_entries"] == 0
+    assert summary["audit_acknowledgements_with_history"] == 0
     assert summary["generated_at"]
 
     exceptions_response = client.get("/audit/exceptions")
     assert exceptions_response.status_code == 200
     assert exceptions_response.json() == []
+    history_response = client.get("/audit/acknowledgement-history")
+    assert history_response.status_code == 200
+    assert history_response.json() == []
     json_export_response = client.get("/audit/export?format=json")
     assert json_export_response.status_code == 200
     assert set(json_export_response.json()) == {"summary", "exceptions"}
@@ -1008,6 +1013,54 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert acknowledgement["updated_at"]
     assert acknowledgement["resolved_at"] is None
     assert f"runtime/state/audit_acknowledgements.json#{acknowledgement['id']}" in acknowledgement["evidence_refs"]
+    assert any(
+        ref.startswith("runtime/state/audit_acknowledgement_history.json#")
+        for ref in acknowledgement["evidence_refs"]
+    )
+
+    history_response = client.get("/audit/acknowledgement-history")
+    assert history_response.status_code == 200
+    history = history_response.json()
+    assert len(history) == 1
+    assert history[0]["acknowledgement_id"] == acknowledgement["id"]
+    assert history[0]["exception_id"] == policy_exception["id"]
+    assert history[0]["exception_source_ref"] == policy_exception["source_ref"]
+    assert history[0]["exception_type"] == "policy_override"
+    assert history[0]["previous_status"] is None
+    assert history[0]["new_status"] == "acknowledged"
+    assert history[0]["reason"] == "Reviewed and accepted as intentional."
+    assert history[0]["changed_by"] == "pytest"
+    assert history[0]["changed_at"] == acknowledgement["updated_at"]
+    assert f"runtime/state/audit_acknowledgement_history.json#{history[0]['id']}" in history[0]["evidence_refs"]
+
+    marker_history_response = client.get(f"/audit/acknowledgements/{acknowledgement['id']}/history")
+    assert marker_history_response.status_code == 200
+    assert marker_history_response.json() == history
+
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"acknowledgement_id": acknowledgement["id"]},
+    ).json() == history
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"exception_source_ref": policy_exception["source_ref"]},
+    ).json() == history
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"exception_type": "policy_override"},
+    ).json() == history
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"changed_by": "pytest"},
+    ).json() == history
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"status": "acknowledged"},
+    ).json() == history
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"q": "accepted as intentional"},
+    ).json() == history
 
     acknowledged_events = [
         event
@@ -1040,6 +1093,8 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert enriched_exception["acknowledged_by"] == "pytest"
     assert enriched_exception["acknowledged_at"] == acknowledgement["created_at"]
     assert enriched_exception["resolved_at"] is None
+    assert enriched_exception["acknowledgement_history_count"] == 1
+    assert enriched_exception["latest_acknowledgement_change_at"] == history[0]["changed_at"]
 
     acknowledged_response = client.get(
         "/audit/exceptions",
@@ -1059,9 +1114,12 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert acknowledged_summary["resolved_exceptions"] == 0
     assert acknowledged_summary["dismissed_exceptions"] == 0
     assert acknowledged_summary["unreviewed_exceptions"] >= 1
+    assert acknowledged_summary["audit_acknowledgement_history_entries"] == 1
+    assert acknowledged_summary["audit_acknowledgements_with_history"] == 1
 
     reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
     assert reloaded_store.audit_acknowledgements[0]["id"] == acknowledgement["id"]
+    assert reloaded_store.audit_acknowledgement_history[0]["id"] == history[0]["id"]
 
     upsert_response = client.post(
         "/audit/acknowledgements",
@@ -1080,6 +1138,15 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert upserted_acknowledgement["status"] == "dismissed"
     assert upserted_acknowledgement["reason"] == "Reclassified as not requiring follow-up."
     assert len(client.get("/audit/acknowledgements").json()) == 1
+    upsert_history = client.get(f"/audit/acknowledgements/{acknowledgement['id']}/history").json()
+    assert len(upsert_history) == 2
+    assert [entry["new_status"] for entry in upsert_history] == ["acknowledged", "dismissed"]
+    assert upsert_history[1]["previous_status"] == "acknowledged"
+    assert upsert_history[1]["reason"] == "Reclassified as not requiring follow-up."
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"status": "dismissed"},
+    ).json() == [upsert_history[1]]
 
     patch_response = client.patch(
         f"/audit/acknowledgements/{acknowledgement['id']}",
@@ -1095,6 +1162,25 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert resolved_acknowledgement["status"] == "resolved"
     assert resolved_acknowledgement["reason"] == "Follow-up completed."
     assert resolved_acknowledgement["resolved_at"]
+    resolved_history_response = client.get(f"/audit/acknowledgements/{acknowledgement['id']}/history")
+    assert resolved_history_response.status_code == 200
+    resolved_history = resolved_history_response.json()
+    assert len(resolved_history) == 3
+    assert [entry["new_status"] for entry in resolved_history] == [
+        "acknowledged",
+        "dismissed",
+        "resolved",
+    ]
+    assert resolved_history[2]["previous_status"] == "dismissed"
+    assert resolved_history[2]["reason"] == "Follow-up completed."
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"status": "resolved"},
+    ).json() == [resolved_history[2]]
+    assert client.get(
+        "/audit/acknowledgement-history",
+        params={"q": "follow-up completed"},
+    ).json() == [resolved_history[2]]
 
     resolved_events = [
         event
@@ -1125,6 +1211,8 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
         },
     )
     assert unknown_patch_response.status_code == 404
+    unknown_history_response = client.get("/audit/acknowledgements/R19-AUDIT-ACK-999/history")
+    assert unknown_history_response.status_code == 404
 
     resolved_response = client.get(
         "/audit/exceptions",
@@ -1146,6 +1234,21 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert resolved_summary["acknowledged_exceptions"] == 0
     assert resolved_summary["resolved_exceptions"] == 1
     assert resolved_summary["dismissed_exceptions"] == 0
+    assert resolved_summary["audit_acknowledgement_history_entries"] == 3
+    assert resolved_summary["audit_acknowledgements_with_history"] == 1
+    resolved_enriched_exception = next(
+        entry
+        for entry in client.get(
+            "/audit/exceptions",
+            params={"exception_type": "policy_override"},
+        ).json()
+        if entry["policy_override_id"] == handoff["policy_override_id"]
+    )
+    assert resolved_enriched_exception["acknowledgement_history_count"] == 3
+    assert (
+        resolved_enriched_exception["latest_acknowledgement_change_at"]
+        == resolved_history[2]["changed_at"]
+    )
 
     json_export_response = client.get(
         "/audit/export",
@@ -1157,6 +1260,20 @@ def test_audit_acknowledgement_triage_persists_and_enriches_audit(
     assert json_export["exceptions"][0]["acknowledgement_id"] == acknowledgement["id"]
     assert json_export["exceptions"][0]["acknowledgement_status"] == "resolved"
     assert json_export["exceptions"][0]["acknowledgement_reason"] == "Follow-up completed."
+    assert "acknowledgement_history" not in json_export
+
+    history_export_response = client.get(
+        "/audit/export",
+        params={
+            "format": "json",
+            "acknowledgement_status": "resolved",
+            "include_history": "true",
+        },
+    )
+    assert history_export_response.status_code == 200
+    history_export = history_export_response.json()
+    assert set(history_export) == {"summary", "exceptions", "acknowledgement_history"}
+    assert history_export["acknowledgement_history"] == resolved_history
 
     csv_export_response = client.get(
         "/audit/export",

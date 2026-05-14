@@ -2,6 +2,8 @@ import type {
   Agent,
   Approval,
   AuditAcknowledgement,
+  AuditAcknowledgementHistoryEntry,
+  AuditExportFilters,
   AuditException,
   AuditExceptionFilters,
   AuditSummary,
@@ -148,6 +150,31 @@ export function loadAuditAcknowledgements(signal?: AbortSignal): Promise<AuditAc
   return requestJson<AuditAcknowledgement[]>("/audit/acknowledgements", { signal });
 }
 
+export function loadAuditAcknowledgementHistory(
+  filters: {
+    acknowledgement_id?: string;
+    exception_source_ref?: string;
+    exception_type?: string;
+    status?: string;
+    changed_by?: string;
+    q?: string;
+    limit?: number;
+    offset?: number;
+  } = {},
+  signal?: AbortSignal
+): Promise<AuditAcknowledgementHistoryEntry[]> {
+  return requestJson<AuditAcknowledgementHistoryEntry[]>(`/audit/acknowledgement-history${auditQuery(filters)}`, {
+    signal
+  });
+}
+
+export function loadAuditAcknowledgementHistoryForMarker(
+  id: string,
+  signal?: AbortSignal
+): Promise<AuditAcknowledgementHistoryEntry[]> {
+  return requestJson<AuditAcknowledgementHistoryEntry[]>(`/audit/acknowledgements/${id}/history`, { signal });
+}
+
 export function loadAuditExceptions(
   filters: AuditExceptionFilters = {},
   signal?: AbortSignal
@@ -155,7 +182,7 @@ export function loadAuditExceptions(
   return requestJson<AuditException[]>(`/audit/exceptions${auditQuery(filters)}`, { signal });
 }
 
-export function exportAudit(format: "json" | "csv", filters: AuditExceptionFilters = {}): Promise<string> {
+export function exportAudit(format: "json" | "csv", filters: AuditExportFilters = {}): Promise<string> {
   return requestText(`/audit/export${auditQuery({ ...filters, format })}`);
 }
 
@@ -264,7 +291,7 @@ export function cancelRepairRequest(id: string, decision: RepairRequestDecisionR
   return requestJson<RepairRequest>(`/repair-requests/${id}/cancel`, { method: "POST", body: decision });
 }
 
-function auditQuery(filters: AuditExceptionFilters & { format?: string }): string {
+function auditQuery(filters: object): string {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(filters)) {
     if (value === undefined || value === null || value === "") {

@@ -1,35 +1,38 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://aioffice.local/contracts/audit-acknowledgement.schema.json",
-  "title": "AuditAcknowledgement",
+  "$id": "https://aioffice.local/contracts/audit-acknowledgement-history-entry.schema.json",
+  "title": "AuditAcknowledgementHistoryEntry",
   "type": "object",
   "required": [
     "id",
+    "acknowledgement_id",
     "exception_id",
     "exception_source_ref",
     "exception_type",
-    "status",
+    "previous_status",
+    "new_status",
     "reason",
-    "acknowledged_by",
-    "created_at",
-    "updated_at",
-    "resolved_at",
+    "changed_by",
+    "changed_at",
     "evidence_refs"
   ],
   "properties": {
     "id": { "type": "string" },
+    "acknowledgement_id": { "type": "string" },
     "exception_id": { "type": "string" },
     "exception_source_ref": { "type": "string" },
     "exception_type": { "type": "string" },
-    "status": {
+    "previous_status": {
+      "type": ["string", "null"],
+      "enum": ["acknowledged", "resolved", "dismissed", null]
+    },
+    "new_status": {
       "type": "string",
       "enum": ["acknowledged", "resolved", "dismissed"]
     },
     "reason": { "type": "string", "minLength": 1 },
-    "acknowledged_by": { "type": "string" },
-    "created_at": { "type": "string" },
-    "updated_at": { "type": "string" },
-    "resolved_at": { "type": ["string", "null"] },
+    "changed_by": { "type": "string" },
+    "changed_at": { "type": "string" },
     "evidence_refs": {
       "type": "array",
       "items": { "type": "string" }
@@ -37,16 +40,16 @@
   },
   "examples": [
     {
-      "id": "R19-AUDIT-ACK-001",
+      "id": "R19-AUDIT-ACK-HISTORY-001",
+      "acknowledgement_id": "R19-AUDIT-ACK-001",
       "exception_id": "audit-policy-override-R19-POLICY-OVERRIDE-001",
       "exception_source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
       "exception_type": "policy_override",
-      "status": "acknowledged",
+      "previous_status": null,
+      "new_status": "acknowledged",
       "reason": "Reviewed and accepted as intentional.",
-      "acknowledged_by": "operator",
-      "created_at": "2026-05-14T00:00:00Z",
-      "updated_at": "2026-05-14T00:00:00Z",
-      "resolved_at": null,
+      "changed_by": "operator",
+      "changed_at": "2026-05-14T00:05:00Z",
       "evidence_refs": [
         "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
         "runtime/state/audit_acknowledgements.json#R19-AUDIT-ACK-001",

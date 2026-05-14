@@ -17,6 +17,7 @@ import {
   getWorkOrderQaReadiness,
   handoffRepairRequestToQa,
   handoffWorkOrderToQa,
+  loadAuditAcknowledgementHistoryForMarker,
   loadAuditExceptions,
   loadAuditSummary,
   loadDashboard,
@@ -41,6 +42,7 @@ import {
 import type {
   Agent,
   Approval,
+  AuditAcknowledgementHistoryEntry,
   AuditException,
   AuditExceptionFilters,
   AuditSummary,
@@ -1781,6 +1783,12 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
   const [reviewReasonById, setReviewReasonById] = useState<Record<string, string>>({});
   const [savingReviewId, setSavingReviewId] = useState<string | null>(null);
   const [reviewStatus, setReviewStatus] = useState<string | null>(null);
+  const [includeHistoryInJsonExport, setIncludeHistoryInJsonExport] = useState(false);
+  const [expandedHistoryById, setExpandedHistoryById] = useState<Record<string, boolean>>({});
+  const [historyByAcknowledgementId, setHistoryByAcknowledgementId] = useState<
+    Record<string, AuditAcknowledgementHistoryEntry[]>
+  >({});
+  const [loadingHistoryForId, setLoadingHistoryForId] = useState<string | null>(null);
 
   const activeAuditFilters = useMemo(() => toAuditFilters(activeFilters), [activeFilters]);
 
@@ -1840,11 +1848,38 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
     setExportStatus(null);
     setReviewStatus(null);
     try {
-      const exported = await exportAudit(format, activeAuditFilters);
+      const exported = await exportAudit(format, {
+        ...activeAuditFilters,
+        include_history: format === "json" && includeHistoryInJsonExport ? true : undefined
+      });
       setExportText(exported);
       setExportStatus(`Exported ${format.toUpperCase()} review data`);
     } catch (exportError: unknown) {
       setError(errorMessage(exportError));
+    }
+  }
+
+  async function toggleHistory(entry: AuditException) {
+    const acknowledgementId = entry.acknowledgement_id;
+    if (!acknowledgementId) {
+      return;
+    }
+
+    const willExpand = !expandedHistoryById[entry.id];
+    setExpandedHistoryById((current) => ({ ...current, [entry.id]: willExpand }));
+    if (!willExpand || historyByAcknowledgementId[acknowledgementId]) {
+      return;
+    }
+
+    setLoadingHistoryForId(entry.id);
+    setError(null);
+    try {
+      const history = await loadAuditAcknowledgementHistoryForMarker(acknowledgementId);
+      setHistoryByAcknowledgementId((current) => ({ ...current, [acknowledgementId]: history }));
+    } catch (historyError: unknown) {
+      setError(errorMessage(historyError));
+    } finally {
+      setLoadingHistoryForId(null);
     }
   }
 
@@ -1862,21 +1897,32 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
     setExportStatus(null);
     setReviewStatus(null);
     try {
+      const savedAcknowledgement = entry.acknowledgement_id
+        ? await updateAuditAcknowledgement(entry.acknowledgement_id, {
+            status: selectedStatus,
+            reason,
+            acknowledged_by: "operator"
+          })
+        : await saveAuditAcknowledgement({
+            exception_id: entry.id,
+            exception_source_ref: entry.source_ref,
+            exception_type: entry.exception_type,
+            status: selectedStatus,
+            reason,
+            acknowledged_by: "operator"
+          });
+
       if (entry.acknowledgement_id) {
-        await updateAuditAcknowledgement(entry.acknowledgement_id, {
-          status: selectedStatus,
-          reason,
-          acknowledged_by: "operator"
+        setHistoryByAcknowledgementId((current) => {
+          const next = { ...current };
+          delete next[entry.acknowledgement_id as string];
+          return next;
         });
-      } else {
-        await saveAuditAcknowledgement({
-          exception_id: entry.id,
-          exception_source_ref: entry.source_ref,
-          exception_type: entry.exception_type,
-          status: selectedStatus,
-          reason,
-          acknowledged_by: "operator"
-        });
+      }
+
+      if (expandedHistoryById[entry.id]) {
+        const history = await loadAuditAcknowledgementHistoryForMarker(savedAcknowledgement.id);
+        setHistoryByAcknowledgementId((current) => ({ ...current, [savedAcknowledgement.id]: history }));
       }
       setReviewReasonById((current) => ({ ...current, [entry.id]: reason }));
       setReviewStatusById((current) => ({ ...current, [entry.id]: selectedStatus }));
@@ -1911,6 +1957,8 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
         <AuditMetric label="Acknowledged" testId="audit-summary-acknowledged" value={summary?.acknowledged_exceptions ?? 0} />
         <AuditMetric label="Resolved" testId="audit-summary-resolved" value={summary?.resolved_exceptions ?? 0} />
         <AuditMetric label="Dismissed" testId="audit-summary-dismissed" value={summary?.dismissed_exceptions ?? 0} />
+        <AuditMetric label="History entries" testId="audit-summary-history-entries" value={summary?.audit_acknowledgement_history_entries ?? 0} />
+        <AuditMetric label="Markers with history" testId="audit-summary-markers-with-history" value={summary?.audit_acknowledgements_with_history ?? 0} />
       </div>
 
       <form className="audit-filter-grid" onSubmit={applyFilters}>
@@ -1993,6 +2041,15 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
       </form>
 
       <div className="audit-export-row">
+        <label className="audit-history-export-toggle">
+          <input
+            checked={includeHistoryInJsonExport}
+            data-testid="audit-export-include-history"
+            onChange={(event) => setIncludeHistoryInJsonExport(event.target.checked)}
+            type="checkbox"
+          />
+          Include history in JSON export
+        </label>
         <div className="button-row">
           <button data-testid="audit-export-json" onClick={() => runExport("json")} type="button">
             Export JSON
@@ -2018,6 +2075,11 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
           const selectedReviewStatus =
             reviewStatusById[entry.id] ?? entry.acknowledgement_status ?? "acknowledged";
           const reviewReason = reviewReasonById[entry.id] ?? entry.acknowledgement_reason ?? "";
+          const isHistoryExpanded = Boolean(expandedHistoryById[entry.id]);
+          const historyEntries = entry.acknowledgement_id
+            ? historyByAcknowledgementId[entry.acknowledgement_id] ?? []
+            : [];
+          const isHistoryLoading = loadingHistoryForId === entry.id;
 
           return (
             <article className="record-row" data-testid={`audit-exception-${entry.id}`} key={entry.id}>
@@ -2056,6 +2118,14 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
                 <strong>{entry.acknowledged_at ?? "none"}</strong>
                 <span>Resolved at</span>
                 <strong>{entry.resolved_at ?? "none"}</strong>
+                <span>History</span>
+                <strong data-testid={`audit-history-count-${entry.id}`}>
+                  {entry.acknowledgement_id ? entry.acknowledgement_history_count : 0}
+                </strong>
+                <span>Latest change</span>
+                <strong data-testid={`audit-history-latest-${entry.id}`}>
+                  {entry.latest_acknowledgement_change_at ?? "none"}
+                </strong>
                 <span>Event</span>
                 <strong>{entry.event_id ?? "none"}</strong>
                 <span>Evidence</span>
@@ -2109,6 +2179,35 @@ function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
                   {savingReviewId === entry.id ? "Saving..." : "Save Review"}
                 </button>
               </form>
+              {entry.acknowledgement_id && (
+                <div className="audit-history-block" data-testid={`audit-history-block-${entry.id}`}>
+                  <button
+                    className="secondary"
+                    data-testid={`audit-history-toggle-${entry.id}`}
+                    disabled={isHistoryLoading}
+                    onClick={() => toggleHistory(entry)}
+                    type="button"
+                  >
+                    {isHistoryLoading ? "Loading History..." : isHistoryExpanded ? "Hide History" : "Show History"}
+                  </button>
+                  {isHistoryExpanded && (
+                    <div className="audit-history-list" data-testid={`audit-history-list-${entry.id}`}>
+                      {historyEntries.length === 0 && !isHistoryLoading && <p>No history entries recorded.</p>}
+                      {historyEntries.map((historyEntry) => (
+                        <div className="audit-history-row" key={historyEntry.id}>
+                          <strong>
+                            {historyEntry.previous_status ?? "none"} -&gt; {historyEntry.new_status}
+                          </strong>
+                          <span>{historyEntry.reason}</span>
+                          <small>
+                            {historyEntry.changed_by} at {historyEntry.changed_at}
+                          </small>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="code-list">
                 <code>{entry.source_ref}</code>
               </div>

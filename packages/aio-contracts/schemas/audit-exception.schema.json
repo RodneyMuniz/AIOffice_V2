@@ -24,7 +24,9 @@
     "acknowledgement_reason",
     "acknowledged_by",
     "acknowledged_at",
-    "resolved_at"
+    "resolved_at",
+    "acknowledgement_history_count",
+    "latest_acknowledgement_change_at"
   ],
   "properties": {
     "id": { "type": "string" },
@@ -65,7 +67,9 @@
     "acknowledgement_reason": { "type": ["string", "null"] },
     "acknowledged_by": { "type": ["string", "null"] },
     "acknowledged_at": { "type": ["string", "null"] },
-    "resolved_at": { "type": ["string", "null"] }
+    "resolved_at": { "type": ["string", "null"] },
+    "acknowledgement_history_count": { "type": "integer", "minimum": 0 },
+    "latest_acknowledgement_change_at": { "type": ["string", "null"] }
   },
   "examples": [
     {
@@ -89,7 +93,9 @@
       "acknowledgement_reason": "Reviewed and accepted as intentional.",
       "acknowledged_by": "operator",
       "acknowledged_at": "2026-05-14T00:05:00Z",
-      "resolved_at": null
+      "resolved_at": null,
+      "acknowledgement_history_count": 1,
+      "latest_acknowledgement_change_at": "2026-05-14T00:05:00Z"
     }
   ]
 }

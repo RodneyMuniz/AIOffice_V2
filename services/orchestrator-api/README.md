@@ -34,6 +34,8 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `PATCH /policy-settings`
 - `GET /audit/summary`
 - `GET /audit/acknowledgements`
+- `GET /audit/acknowledgement-history`
+- `GET /audit/acknowledgements/{id}/history`
 - `POST /audit/acknowledgements`
 - `PATCH /audit/acknowledgements/{id}`
 - `GET /audit/exceptions`
@@ -118,7 +120,7 @@ In `advisory` mode, missing Developer/Codex result capture remains a warning and
 
 `GET /policy-overrides` returns logged override records from `runtime/state/policy_overrides.json`, falling back to `runtime/state/policy_overrides.seed.json`.
 
-`GET /audit/summary` returns a derived summary for operator exception review. Counts include policy overrides, override-backed handoffs, policy settings changes, failed and blocked QA results, repair requests, open and completed repairs, hard-blocker events when derivable from events, readiness blockers when derivable from current readiness, acknowledgement counts (`acknowledged_exceptions`, `resolved_exceptions`, `dismissed_exceptions`, `unreviewed_exceptions`), and `generated_at`.
+`GET /audit/summary` returns a derived summary for operator exception review. Counts include policy overrides, override-backed handoffs, policy settings changes, failed and blocked QA results, repair requests, open and completed repairs, hard-blocker events when derivable from events, readiness blockers when derivable from current readiness, acknowledgement counts (`acknowledged_exceptions`, `resolved_exceptions`, `dismissed_exceptions`, `unreviewed_exceptions`), acknowledgement history counts (`audit_acknowledgement_history_entries`, `audit_acknowledgements_with_history`), and `generated_at`.
 
 `GET /audit/acknowledgements` returns persisted lightweight triage markers from `runtime/state/audit_acknowledgements.json`, falling back to `runtime/state/audit_acknowledgements.seed.json`.
 
@@ -149,13 +151,17 @@ Patch body:
 }
 ```
 
-Acknowledgement create/update writes `audit_exception_acknowledged`, `audit_exception_resolved`, or `audit_exception_dismissed` events plus `audit_acknowledgement` evidence.
+Acknowledgement create/update writes `audit_exception_acknowledged`, `audit_exception_resolved`, or `audit_exception_dismissed` events plus `audit_acknowledgement` evidence. Every create, upsert, or patch also appends one entry to `runtime/state/audit_acknowledgement_history.json`; previous history entries are not deleted or rewritten. History entries record `previous_status`, `new_status`, reason, changed by, changed at, exception refs, and evidence refs.
 
-`GET /audit/exceptions` returns derived audit exception entries from existing JSON state enriched with acknowledgement fields when a marker matches by `source_ref` or exception id. Supported filters are `exception_type`, `severity`, `acknowledgement_status`, `card_id`, `work_order_id`, `handoff_id`, and free-text `q`; `acknowledgement_status=none` returns only exceptions without a marker. `q` searches titles, summaries, related ids, source refs, override reasons carried in summaries, and acknowledgement status/reason. `limit` defaults to `100`, `offset` defaults to `0`, `limit` must be between `1` and `500`, and `offset` must be `>= 0`; invalid pagination values return HTTP 400.
+`GET /audit/acknowledgement-history` returns the append-only acknowledgement history sorted oldest to newest. Filters are `acknowledgement_id`, `exception_source_ref`, `exception_type`, `status` matching `new_status`, `changed_by`, free-text `q` across reason/id/source/type/status fields, `limit` defaulting to `100`, and `offset` defaulting to `0`.
+
+`GET /audit/acknowledgements/{id}/history` returns the oldest-to-newest trail for one marker. Unknown acknowledgement ids return HTTP 404.
+
+`GET /audit/exceptions` returns derived audit exception entries from existing JSON state enriched with acknowledgement fields when a marker matches by `source_ref` or exception id. Reviewed exceptions also include `acknowledgement_history_count` and `latest_acknowledgement_change_at`. Supported filters are `exception_type`, `severity`, `acknowledgement_status`, `card_id`, `work_order_id`, `handoff_id`, and free-text `q`; `acknowledgement_status=none` returns only exceptions without a marker. `q` searches titles, summaries, related ids, source refs, override reasons carried in summaries, and acknowledgement status/reason. `limit` defaults to `100`, `offset` defaults to `0`, `limit` must be between `1` and `500`, and `offset` must be `>= 0`; invalid pagination values return HTTP 400.
 
 Audit exception types currently include `policy_override`, `policy_settings_change`, `qa_failed`, `qa_blocked`, `repair_request_created`, `handoff_without_developer_result`, `duplicate_handoff_blocked`, and `readiness_blocker`. Severities are `info`, `warning`, `blocker`, and `override`.
 
-`GET /audit/export` supports the same filters plus `format=json` or `format=csv`. JSON returns `{ "summary": ..., "exceptions": [...] }` including acknowledgement fields. CSV returns `text/csv` with core fields plus `acknowledgement_status` and `acknowledgement_reason`. Invalid export formats return HTTP 400. This is a lightweight operator review endpoint with triage markers, not external audit acceptance, not ticketing, and not a reporting engine.
+`GET /audit/export` supports the same filters plus `format=json` or `format=csv`. JSON returns `{ "summary": ..., "exceptions": [...] }` including acknowledgement fields. Add `include_history=true` to JSON export to include `acknowledgement_history` entries for the exported reviewed exceptions. CSV remains latest-marker only with core fields plus `acknowledgement_status` and `acknowledgement_reason`. Invalid export formats return HTTP 400. This is a lightweight operator review endpoint with triage markers and append-only triage history, not external audit acceptance, not ticketing, and not a reporting engine.
 
 `POST /work-orders/{id}/developer-result` records a submitted Developer/Codex result for a work order before QA handoff. Missing work orders return HTTP 404. Unknown `agent_id`, invalid `result_type`, and non-list `changed_paths` return HTTP 400. A submitted result writes `developer_result_recorded` event/evidence and can move a simple `draft`, `running`, or `approved` work order to `ready` with `work_order_ready_from_developer_result`. Duplicate submitted results for the same work order are rejected until the current result is superseded.
 
@@ -250,6 +256,7 @@ Mutating endpoints write back to:
 - `runtime/state/policy_settings.json`
 - `runtime/state/policy_overrides.json`
 - `runtime/state/audit_acknowledgements.json`
+- `runtime/state/audit_acknowledgement_history.json`
 
 Creating cards and work orders writes event and evidence entries. Work orders must link to an existing `card_id`; invalid card IDs return HTTP 400 with a clear message. Work orders can request an approval gate with `request_requires_approval: true`.
 
@@ -265,9 +272,9 @@ Repair request creation persists to JSON, creates a linked `ready` repair work o
 
 Repair QA handoff creation persists to `handoffs.json` and writes `repair_handoff_created`, `repair_handoff`, and `workflow_iteration` records. Repair QA result capture persists to `qa_results.json` and writes `repair_qa_result_recorded`, `repair_iteration_passed`/`repair_iteration_failed`/`repair_iteration_blocked`, `repair_qa_result`, and `workflow_iteration` records.
 
-Policy settings updates persist to `policy_settings.json` and write `policy_settings_updated` plus `policy_settings` evidence. Policy overrides persist to `policy_overrides.json` and write `policy_override_recorded` plus `policy_override` evidence. Audit acknowledgement triage markers persist to `audit_acknowledgements.json` and write `audit_exception_*` events plus `audit_acknowledgement` evidence. This is a product policy setting, narrow logged exception path, and lightweight audit triage layer, not a governance document flow, full policy engine, ticketing system, or external audit acceptance.
+Policy settings updates persist to `policy_settings.json` and write `policy_settings_updated` plus `policy_settings` evidence. Policy overrides persist to `policy_overrides.json` and write `policy_override_recorded` plus `policy_override` evidence. Audit acknowledgement triage markers persist to `audit_acknowledgements.json`, append history to `audit_acknowledgement_history.json`, and write `audit_exception_*` events plus `audit_acknowledgement` evidence. This is a product policy setting, narrow logged exception path, and lightweight audit triage layer, not a governance document flow, full policy engine, ticketing system, or external audit acceptance.
 
-Most audit review endpoints remain read-only. `GET /audit/summary`, `GET /audit/exceptions`, and `GET /audit/export` derive their payloads from the current JSON state and do not append events or write evidence. Only `/audit/acknowledgements` persists the lightweight triage marker and event/evidence record.
+Most audit review endpoints remain read-only. `GET /audit/summary`, `GET /audit/exceptions`, `GET /audit/acknowledgement-history`, `GET /audit/acknowledgements/{id}/history`, and `GET /audit/export` derive their payloads from the current JSON state and do not append events or write evidence. Only `/audit/acknowledgements` persists the lightweight triage marker, append-only history row, and event/evidence record.
 
 ## Test and Smoke Commands
 
@@ -277,7 +284,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, audit summary shape/counts, filterable audit exceptions, audit JSON/CSV export, invalid audit export formats, audit pagination validation, audit GET endpoint read-only behavior, audit acknowledgement create/update validation, acknowledgement event/evidence writes, acknowledgement persistence across `JsonStateStore` reload, acknowledgement filters/counts/export fields, source exception non-mutation, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, audit summary shape/counts including history counts, filterable audit exceptions, audit JSON/CSV export, JSON export with optional history, invalid audit export formats, audit pagination validation, audit GET endpoint read-only behavior, audit acknowledgement create/update validation, acknowledgement event/evidence writes, acknowledgement history append/filter/endpoints/404s, acknowledgement and history persistence across `JsonStateStore` reload, acknowledgement filters/counts/export fields, source exception non-mutation, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -329,11 +336,20 @@ curl "http://127.0.0.1:8000/audit/exceptions?q=Smoke"
 curl http://127.0.0.1:8000/audit/acknowledgements
 curl -X POST http://127.0.0.1:8000/audit/acknowledgements -H "Content-Type: application/json" -d "{\"exception_id\":\"audit-policy-override-R19-POLICY-OVERRIDE-001\",\"exception_source_ref\":\"runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001\",\"exception_type\":\"policy_override\",\"status\":\"acknowledged\",\"reason\":\"Reviewed and accepted as intentional.\",\"acknowledged_by\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/audit/acknowledgements/R19-AUDIT-ACK-001 -H "Content-Type: application/json" -d "{\"status\":\"resolved\",\"reason\":\"Follow-up completed.\",\"acknowledged_by\":\"operator\"}"
+curl http://127.0.0.1:8000/audit/acknowledgement-history
+curl "http://127.0.0.1:8000/audit/acknowledgement-history?acknowledgement_id=R19-AUDIT-ACK-001"
+curl "http://127.0.0.1:8000/audit/acknowledgement-history?exception_source_ref=runtime/state/policy_overrides.json%23R19-POLICY-OVERRIDE-001"
+curl "http://127.0.0.1:8000/audit/acknowledgement-history?exception_type=policy_override"
+curl "http://127.0.0.1:8000/audit/acknowledgement-history?status=resolved"
+curl "http://127.0.0.1:8000/audit/acknowledgement-history?q=Follow-up"
+curl http://127.0.0.1:8000/audit/acknowledgements/R19-AUDIT-ACK-001/history
+curl http://127.0.0.1:8000/audit/acknowledgements/R19-AUDIT-ACK-999/history
 curl -X POST http://127.0.0.1:8000/audit/acknowledgements -H "Content-Type: application/json" -d "{\"exception_id\":\"audit-policy-override-R19-POLICY-OVERRIDE-001\",\"exception_source_ref\":\"runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001\",\"exception_type\":\"policy_override\",\"status\":\"acknowledged\",\"reason\":\"\",\"acknowledged_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/audit/acknowledgements -H "Content-Type: application/json" -d "{\"exception_id\":\"audit-policy-override-R19-POLICY-OVERRIDE-001\",\"exception_source_ref\":\"runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001\",\"exception_type\":\"policy_override\",\"status\":\"reviewed\",\"reason\":\"Invalid status coverage.\",\"acknowledged_by\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/audit/acknowledgements/R19-AUDIT-ACK-999 -H "Content-Type: application/json" -d "{\"status\":\"resolved\",\"reason\":\"Unknown id coverage.\",\"acknowledged_by\":\"operator\"}"
 curl "http://127.0.0.1:8000/audit/exceptions?acknowledgement_status=resolved"
 curl "http://127.0.0.1:8000/audit/export?format=json"
+curl "http://127.0.0.1:8000/audit/export?format=json&include_history=true"
 curl "http://127.0.0.1:8000/audit/export?format=csv"
 curl "http://127.0.0.1:8000/audit/export?format=xml"
 curl http://127.0.0.1:8000/events
@@ -345,7 +361,7 @@ curl http://127.0.0.1:8000/evidence
 Delete the generated persistent files and restart the API:
 
 ```powershell
-Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json,runtime\state\policy_overrides.json,runtime\state\audit_acknowledgements.json -ErrorAction SilentlyContinue
+Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json,runtime\state\policy_overrides.json,runtime\state\audit_acknowledgements.json,runtime\state\audit_acknowledgement_history.json -ErrorAction SilentlyContinue
 ```
 
 The next API load will read the seed JSON files again.

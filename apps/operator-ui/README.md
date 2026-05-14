@@ -52,8 +52,9 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - See override id/reason metadata in the Handoffs and Policy Overrides panels.
 - Review policy overrides and workflow exceptions in the Audit Review panel.
 - Mark audit exceptions as acknowledged, resolved, or dismissed with a required reason.
+- Show the append-only acknowledgement history for reviewed audit exceptions.
 - Filter audit exceptions by type, severity, acknowledgement status, work order id, card id, and text search.
-- Export the current audit review as lightweight JSON or CSV text, including acknowledgement status and reason.
+- Export the current audit review as lightweight JSON or CSV text, including acknowledgement status and reason, with optional history for JSON export.
 - Accept or reject proposed handoffs from the Handoffs panel.
 - Record a structured QA/Test result for accepted handoffs.
 - See recorded QA results in the QA Results panel.
@@ -126,14 +127,16 @@ Audit review uses:
 
 - `GET /audit/summary`
 - `GET /audit/acknowledgements`
+- `GET /audit/acknowledgement-history`
+- `GET /audit/acknowledgements/{id}/history`
 - `POST /audit/acknowledgements`
 - `PATCH /audit/acknowledgements/{id}`
 - `GET /audit/exceptions`
 - `GET /audit/export`
 
-The Audit Review panel loads on demand from the backend. It shows summary cards for policy overrides, QA failures, QA blocked results, repair requests, open repairs, policy changes, unreviewed exceptions, acknowledged exceptions, resolved exceptions, and dismissed exceptions. Filters include exception type, severity, acknowledgement status, free-text search, work order id, and card id. `Unreviewed` maps to `acknowledgement_status=none`.
+The Audit Review panel loads on demand from the backend. It shows summary cards for policy overrides, QA failures, QA blocked results, repair requests, open repairs, policy changes, unreviewed exceptions, acknowledged exceptions, resolved exceptions, dismissed exceptions, history entries, and markers with history. Filters include exception type, severity, acknowledgement status, free-text search, work order id, and card id. `Unreviewed` maps to `acknowledgement_status=none`.
 
-Each exception row shows its current review status and a compact triage form. The operator can choose `acknowledged`, `resolved`, or `dismissed`, enter a required reason, and save. The UI calls POST for an unreviewed exception and PATCH for an exception with an existing marker. A successful save refreshes the audit summary/exceptions and the main dashboard events/evidence. Export buttons call the backend export endpoint and show JSON or CSV text in the panel. JSON includes acknowledgement fields; CSV includes `acknowledgement_status` and `acknowledgement_reason`. The panel is a lightweight operator triage surface for exceptions, not full audit acceptance, not ticketing, and not an external audit package.
+Each exception row shows its current review status, history count, latest acknowledgement change timestamp, and a compact triage form. The operator can choose `acknowledged`, `resolved`, or `dismissed`, enter a required reason, and save. The UI calls POST for an unreviewed exception and PATCH for an exception with an existing marker. A successful save refreshes the audit summary/exceptions and the main dashboard events/evidence. For reviewed exceptions, Show History fetches `GET /audit/acknowledgements/{id}/history` and displays chronological `previous_status -> new_status` rows with reason, changed by, and changed at. Export buttons call the backend export endpoint and show JSON or CSV text in the panel. JSON includes acknowledgement fields; checking Include history in JSON export calls `include_history=true` and includes history entries. CSV remains latest-marker only with `acknowledgement_status` and `acknowledgement_reason`. The panel is a lightweight operator triage surface for exceptions, not full audit acceptance, not ticketing, and not an external audit package.
 
 QA result capture is available only for accepted handoffs that do not already have a QA result. Allowed QA result values are `passed`, `failed`, and `blocked`. A passed result can move the linked work order to `completed`; failed and blocked results can move it to `blocked`. Each successful QA result refreshes status, work orders, handoffs, QA results, events, and evidence.
 
@@ -166,7 +169,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, refreshes the Audit Review panel, verifies policy override/QA failed/repair request exceptions, applies exception-type and text filters, acknowledges then resolves a policy override exception, verifies acknowledgement-status filters including `none`, verifies JSON and CSV export acknowledgement fields, verifies audit acknowledgement event/evidence entries, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, refreshes the Audit Review panel, verifies policy override/QA failed/repair request exceptions, applies exception-type and text filters, acknowledges then resolves a policy override exception, shows acknowledgement history, verifies acknowledged and resolved history rows with previous/new statuses, verifies acknowledgement-status filters including `none`, verifies compact JSON export, verifies JSON export with history, verifies CSV export acknowledgement fields, verifies audit acknowledgement event/evidence entries, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -202,10 +205,13 @@ Manual browser smoke:
 30. Mark the policy override exception acknowledged with a reason and confirm the row status updates.
 31. Filter by Acknowledged and confirm the exception remains.
 32. Mark the same exception resolved with a new reason and confirm the row status updates.
-33. Filter by Resolved and confirm the exception remains, then filter by Unreviewed and confirm it is excluded.
-34. Use Export JSON and Export CSV and confirm the textarea contains acknowledgement fields.
-35. Confirm Events and Evidence show audit acknowledgement entries.
-36. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+33. Click Show History and confirm the trail shows acknowledged and resolved rows with previous/new statuses.
+34. Filter by Resolved and confirm the exception remains, then filter by Unreviewed and confirm it is excluded.
+35. Use Export JSON and confirm the compact export omits history by default.
+36. Check Include history in JSON export, export JSON again, and confirm acknowledgement history entries appear.
+37. Use Export CSV and confirm the textarea contains latest acknowledgement fields.
+38. Confirm Events and Evidence show audit acknowledgement entries.
+39. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -226,7 +232,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
 - QA readiness is advisory by default. Enforced mode is limited to operator-controlled Developer/Codex result requirements for QA handoff readiness and is not a full policy engine.
 - Operator override is a narrow logged exception path for policy-promoted missing Developer/Codex result blockers only; it is not auth, not reusable permission, and not a bypass for hard system blockers.
-- Audit Review acknowledgement is lightweight operator triage, not external audit acceptance, not a ticketing system, not a large reporting engine, and not a proof-package generator.
+- Audit Review acknowledgement history is append-only lightweight operator triage, not external audit acceptance, not a ticketing system, not a large reporting engine, and not a proof-package generator.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

@@ -348,6 +348,23 @@ try {
     .fill("Browser smoke resolved the policy override exception.");
   await policyExceptionRow.getByTestId(`audit-review-save-${originalPolicyExceptionId}`).click();
   await policyExceptionRow.getByTestId(`audit-review-status-${originalPolicyExceptionId}`).getByText("resolved").waitFor();
+  await waitForLocatorText(
+    policyExceptionRow.getByTestId(`audit-history-count-${originalPolicyExceptionId}`),
+    (text) => Number(text) >= 2,
+    "audit acknowledgement history count"
+  );
+  await policyExceptionRow.getByTestId(`audit-history-toggle-${originalPolicyExceptionId}`).click();
+  const policyHistoryList = policyExceptionRow.getByTestId(`audit-history-list-${originalPolicyExceptionId}`);
+  await waitForLocatorText(
+    policyHistoryList,
+    (text) =>
+      text.includes("none -> acknowledged") &&
+      text.includes("acknowledged -> resolved") &&
+      text.includes("Browser smoke acknowledged the policy override exception.") &&
+      text.includes("Browser smoke resolved the policy override exception.") &&
+      text.includes("operator at"),
+    "audit acknowledgement history trail"
+  );
 
   await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("resolved");
   await auditPanel.getByTestId("audit-apply-filters").click();
@@ -382,8 +399,22 @@ try {
       value.includes(originalOverrideId) &&
       value.includes('"acknowledgement_status"') &&
       value.includes('"resolved"') &&
-      value.includes('"acknowledgement_reason"'),
-    "audit JSON export"
+      value.includes('"acknowledgement_reason"') &&
+      !value.includes('"acknowledgement_history"'),
+    "compact audit JSON export"
+  );
+  await auditPanel.getByTestId("audit-export-include-history").check();
+  await auditPanel.getByTestId("audit-export-json").click();
+  await waitForLocatorValue(
+    auditExportOutput,
+    (value) =>
+      value.includes('"acknowledgement_history"') &&
+      value.includes('"previous_status":null') &&
+      value.includes('"new_status":"acknowledged"') &&
+      value.includes('"previous_status":"acknowledged"') &&
+      value.includes('"new_status":"resolved"') &&
+      value.includes("Browser smoke resolved the policy override exception."),
+    "history audit JSON export"
   );
   await auditPanel.getByTestId("audit-export-csv").click();
   await waitForLocatorValue(
