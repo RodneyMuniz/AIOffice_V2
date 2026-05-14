@@ -2,9 +2,18 @@
 
 **Milestone name:** R18 Automated Recovery Runtime and API Orchestration
 **Branch:** `release/r17-agentic-operating-surface-a2a-runtime-kanban-release-cycle`
-**Status after this pass:** Active through `R18-028` final proof package and acceptance recommendation candidate only.
-**Source authority:** R18 is active only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`.
-**Current scope:** `R18-001` through `R18-028` are done. R18 runtime implementation is not yet delivered. R18 closeout remains blocked pending explicit committed operator approval.
+**Final status:** Closed as failed on 2026-05-14 by operator decision.
+**Status before final closure:** Active through `R18-028` final proof package and acceptance recommendation candidate only.
+**Source authority:** R18 opened only after R17 operator closeout approval in `state/operator_decisions/r17_agentic_operating_surface_a2a_runtime_kanban_release_cycle/r17_operator_closeout_decision.json`; final failure closure is the 2026-05-14 operator archive decision.
+**Final scope:** `R18-001` through `R18-028` are done as background/foundation work. R18 runtime implementation was not delivered.
+
+## Final Closure
+
+R18 is officially closed as a failed milestone.
+
+R18 produced background foundations, contracts, deterministic artifacts, tests, proof-review packages, and recovery/API orchestration scaffolding, but it did not deliver the project vision or a working product runtime. It did not prove no-manual-transfer success, autonomous recovery, live agent execution, live A2A runtime, solved Codex compaction, solved reliability, main merge, or external audit acceptance.
+
+This closure is an operator failure decision, not an acceptance decision.
 
 ## Mission
 

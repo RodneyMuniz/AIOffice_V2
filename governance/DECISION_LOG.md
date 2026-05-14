@@ -2273,3 +2273,13 @@ This log starts fresh with the clean reset repo. It does not import donor milest
 - Consequence: No external audit acceptance is claimed. No main merge is claimed. No milestone closeout is claimed. No closeout without operator approval is claimed. Codex compaction and model-capacity interruption remain known operational issues, not solved. Codex reliability is not solved.
 - Consequence: This decision does not claim live release automation runtime, recovery runtime, approval execution, live retries, continuation or prompt execution, Codex/OpenAI API invocation, new Codex threads, A2A messages, live agents, live skills, WIP cleanup/abandonment, branch mutation, stage/commit/push through a gate, R19 opening, solved Codex compaction, solved Codex reliability, no-manual-prompt-transfer success, product runtime, external audit acceptance, main merge, or milestone closeout.
 - Consequence: This decision is backed by `contracts/governance/r18_final_proof_package_acceptance_recommendation.contract.json`, `state/governance/r18_final_proof_package_acceptance_recommendation/`, `governance/reports/AIOffice_V2_R18_Final_Proof_Package_and_Acceptance_Recommendation_v1.md`, `state/ui/r18_operator_surface/r18_final_proof_package_acceptance_recommendation_snapshot.json`, `tools/R18FinalProofPackageAcceptanceRecommendation.psm1`, `tools/new_r18_final_proof_package_acceptance_recommendation.ps1`, `tools/validate_r18_final_proof_package_acceptance_recommendation.ps1`, `tests/test_r18_final_proof_package_acceptance_recommendation.ps1`, `tests/fixtures/r18_final_proof_package_acceptance_recommendation/`, and `state/proof_reviews/r18_automated_recovery_runtime_and_api_orchestration/r18_028_final_proof_package_acceptance_recommendation/`.
+
+## D-0214 Project Archive and R18/R19 Failure Closure
+- Date: 2026-05-14
+- Status: accepted
+- Decision: R18 and R19 are closed as failed milestones, and AIOffice V2 is archived.
+- Consequence: The project did not deliver the intended product vision or the simpler product outcome needed by the operator.
+- Consequence: The repository remains available only as reference material for future projects.
+- Consequence: No successor milestone is active.
+- Consequence: This decision does not claim product success, full product runtime, autonomous agent workflow, autonomous coding, autonomous QA, no-manual-transfer success, solved Codex compaction, solved Codex reliability, production backup/restore, migration tooling, external audit acceptance, main merge, or R18/R19 success.
+- Consequence: The concise archive marker is `PROJECT_ARCHIVE.md`.

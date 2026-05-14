@@ -1,6 +1,10 @@
 # AIOffice
 
-AIOffice is being rebuilt as an admin-only, self-build-first product for governed software production.
+AIOffice V2 is archived as of 2026-05-14.
+
+R18 and R19 are officially closed as failed milestones. The project did not deliver the intended product vision. The repo remains available as reference material for future projects, but it is no longer an active product or active milestone chain.
+
+See `PROJECT_ARCHIVE.md` for the final archive status and non-claims.
 
 ## R19 Local State Management
 

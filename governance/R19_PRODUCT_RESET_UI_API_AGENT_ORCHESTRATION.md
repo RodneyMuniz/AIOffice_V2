@@ -1,5 +1,15 @@
 # R19 Product Reset UI/API Agent Orchestration
 
+**Final status:** Closed as failed on 2026-05-14 by operator decision.
+
+## Final Closure
+
+R19 is officially closed as a failed milestone.
+
+R19 produced a local UI/API slice, regression harnesses, demo JSON persistence, handoff/result/repair-loop surfaces, audit-review surfaces, and local state import preview. Those pieces are reference material only. R19 did not deliver the intended project vision or the simpler product outcome the project needed.
+
+This closure is an operator failure decision, not product acceptance, R19 closeout success, external audit acceptance, main merge, or full runtime proof.
+
 R19 is a product reset. R18 remains product-value-light foundation work and is not treated as a successful product/runtime milestone.
 
 R19 success requires a runnable UI/API demo. R19 cannot close on reports, schemas, packets, static snapshots, or proof packages alone.

@@ -1,5 +1,13 @@
 # AIOffice Project
 
+## Archive Status
+
+AIOffice V2 is archived as of 2026-05-14.
+
+R18 and R19 are closed as failed milestones. The project did not deliver the intended product vision and should not be treated as an active product, active milestone chain, or successful product runtime.
+
+The repository remains available as reference material for future projects. The final archive marker is `PROJECT_ARCHIVE.md`.
+
 This file is the founding charter and project identity for the clean reset repo.
 
 ## Charter
