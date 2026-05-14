@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import shutil
 import sys
 from pathlib import Path
@@ -207,6 +208,200 @@ def test_state_export_returns_collections_and_non_claims(client: TestClient) -> 
         entry for entry in exported["collections"] if entry["name"] == "policy_settings"
     )
     assert policy_settings["payload"]["qa_handoff_policy_mode"] == "advisory"
+
+
+def test_state_compare_import_current_export_is_read_only_and_unchanged(
+    client: TestClient,
+) -> None:
+    state_dir = api_main.store.state_dir
+    exported = client.get("/state/export").json()
+    before_files = {
+        path.name: path.read_text(encoding="utf-8") for path in sorted(state_dir.glob("*.json"))
+    }
+    before_events = client.get("/events").json()
+    before_evidence = client.get("/evidence").json()
+
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": exported["collections"],
+            "compare_reason": "Previewing current export.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    comparison = response.json()
+    assert comparison["state_dir"] == str(state_dir)
+    assert comparison["persistence_mode"] == "json"
+    assert comparison["safe_to_import"] is True
+    assert comparison["blockers"] == []
+    assert comparison["totals"]["added_count"] == 0
+    assert comparison["totals"]["removed_count"] == 0
+    assert comparison["totals"]["changed_count"] == 0
+    assert comparison["totals"]["unchanged_count"] > 0
+    assert sorted(path.name for path in state_dir.glob("*.json")) == sorted(before_files)
+    assert {
+        path.name: path.read_text(encoding="utf-8") for path in sorted(state_dir.glob("*.json"))
+    } == before_files
+    assert client.get("/events").json() == before_events
+    assert client.get("/evidence").json() == before_evidence
+
+
+def test_state_compare_import_reports_added_card_and_sample_id(client: TestClient) -> None:
+    exported = client.get("/state/export").json()
+    collections = copy.deepcopy(exported["collections"])
+    cards_collection = next(entry for entry in collections if entry["name"] == "cards")
+    cards_collection["records"].append(
+        {
+            "id": "R19-CARD-998",
+            "title": "Preview added card",
+            "summary": "Added only in import preview.",
+            "status": "planned",
+            "owner_agent_id": "orchestrator",
+            "owner_role": "operator",
+            "priority": "medium",
+        }
+    )
+
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": collections,
+            "compare_reason": "Preview added card.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    cards = next(entry for entry in response.json()["collections"] if entry["name"] == "cards")
+    assert cards["added_count"] == 1
+    assert cards["removed_count"] == 0
+    assert cards["changed_count"] == 0
+    assert cards["sample_added_ids"] == ["R19-CARD-998"]
+
+
+def test_state_compare_import_reports_changed_card_and_sample_id(client: TestClient) -> None:
+    exported = client.get("/state/export").json()
+    collections = copy.deepcopy(exported["collections"])
+    cards_collection = next(entry for entry in collections if entry["name"] == "cards")
+    changed_id = cards_collection["records"][0]["id"]
+    cards_collection["records"][0]["title"] = "Preview changed card"
+
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": collections,
+            "compare_reason": "Preview changed card.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    cards = next(entry for entry in response.json()["collections"] if entry["name"] == "cards")
+    assert cards["added_count"] == 0
+    assert cards["removed_count"] == 0
+    assert cards["changed_count"] == 1
+    assert cards["sample_changed_ids"] == [changed_id]
+
+
+def test_state_compare_import_reports_removed_card_and_sample_id(client: TestClient) -> None:
+    exported = client.get("/state/export").json()
+    collections = copy.deepcopy(exported["collections"])
+    cards_collection = next(entry for entry in collections if entry["name"] == "cards")
+    removed_id = cards_collection["records"][0]["id"]
+    cards_collection["records"] = cards_collection["records"][1:]
+
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": collections,
+            "compare_reason": "Preview removed card.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    cards = next(entry for entry in response.json()["collections"] if entry["name"] == "cards")
+    assert cards["added_count"] == 0
+    assert cards["removed_count"] == 1
+    assert cards["changed_count"] == 0
+    assert cards["sample_removed_ids"] == [removed_id]
+
+
+def test_state_compare_import_invalid_payload_returns_400(client: TestClient) -> None:
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": {"cards": {"id": "not-an-array"}},
+            "compare_reason": "Invalid preview.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 400
+
+
+def test_state_compare_import_handles_policy_settings_object(client: TestClient) -> None:
+    exported = client.get("/state/export").json()
+    policy_settings = copy.deepcopy(
+        next(entry for entry in exported["collections"] if entry["name"] == "policy_settings")[
+            "payload"
+        ]
+    )
+    policy_settings["allow_operator_override"] = not policy_settings["allow_operator_override"]
+
+    response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": {"policy_settings": policy_settings},
+            "compare_reason": "Preview policy settings.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    policy_comparison = response.json()["collections"][0]
+    assert policy_comparison["name"] == "policy_settings"
+    assert policy_comparison["current_count"] == 1
+    assert policy_comparison["incoming_count"] == 1
+    assert policy_comparison["changed_count"] == 1
+    assert policy_comparison["sample_changed_ids"] == ["policy_settings"]
+
+
+def test_import_state_still_works_after_compare(client: TestClient) -> None:
+    imported_card = {
+        "id": "R19-CARD-997",
+        "title": "Compared then imported card",
+        "summary": "Import remains functional after preview.",
+        "status": "planned",
+        "owner_agent_id": "orchestrator",
+        "owner_role": "operator",
+        "priority": "medium",
+    }
+    compare_response = client.post(
+        "/state/compare-import",
+        json={
+            "collections": {"cards": [imported_card]},
+            "compare_reason": "Preview before import.",
+            "requested_by": "pytest",
+        },
+    )
+    assert compare_response.status_code == 200
+    assert compare_response.json()["safe_to_import"] is True
+
+    import_response = client.post(
+        "/state/import",
+        json={
+            "collections": {"cards": [imported_card]},
+            "import_reason": "Import after compare.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert import_response.status_code == 200
+    assert client.get("/cards").json() == [imported_card]
+    assert any(event["type"] == "state_imported" for event in client.get("/events").json())
 
 
 def test_reset_demo_wrong_confirm_does_nothing(client: TestClient) -> None:

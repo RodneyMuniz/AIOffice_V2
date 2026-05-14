@@ -104,6 +104,49 @@ export type StateImportRequest = {
   requested_by: string;
 };
 
+export type StateImportCompareRequest = {
+  collections: Record<string, unknown> | StateExportCollection[];
+  compare_reason: string;
+  requested_by: string;
+};
+
+export type StateCollectionComparison = {
+  name: string;
+  current_count: number;
+  incoming_count: number;
+  added_count: number;
+  removed_count: number;
+  changed_count: number;
+  unchanged_count: number;
+  current_source: "persistent" | "seed";
+  warning: string | null;
+  blocker: string | null;
+  sample_added_ids: string[];
+  sample_removed_ids: string[];
+  sample_changed_ids: string[];
+};
+
+export type StateImportComparison = {
+  compared_at: string;
+  state_dir: string;
+  persistence_mode: "json";
+  collections: StateCollectionComparison[];
+  totals: {
+    collections: number;
+    current_count: number;
+    incoming_count: number;
+    added_count: number;
+    removed_count: number;
+    changed_count: number;
+    unchanged_count: number;
+    warnings: number;
+    blockers: number;
+  };
+  warnings: string[];
+  blockers: string[];
+  safe_to_import: boolean;
+};
+
 export type StateImportSummary = {
   imported_collections: string[];
   skipped_collections: string[];

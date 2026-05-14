@@ -268,6 +268,12 @@ class StateImportRequest(BaseModel):
     requested_by: str = "operator"
 
 
+class StateImportCompareRequest(BaseModel):
+    collections: Any
+    compare_reason: str = "Previewing local demo state import"
+    requested_by: str = "operator"
+
+
 class StateResetRequest(BaseModel):
     reset_reason: str = "Resetting local demo state"
     requested_by: str = "operator"
@@ -642,12 +648,84 @@ class JsonStateStore:
             "non_claims": list(STATE_MANAGEMENT_NON_CLAIMS),
         }
 
+    def compare_import_state(self, payload: StateImportCompareRequest) -> dict[str, Any]:
+        collections, unknown_collections = self._prepare_import_collections(
+            payload.collections,
+            reject_unknown=False,
+        )
+        if not collections and not unknown_collections:
+            raise HTTPException(
+                status_code=400,
+                detail="collections must include at least one collection.",
+            )
+
+        collection_comparisons: list[dict[str, Any]] = []
+        warnings: list[str] = []
+        blockers: list[str] = []
+        if unknown_collections:
+            blockers.append(
+                "Unknown state collections would be rejected by import: "
+                f"{', '.join(unknown_collections)}."
+            )
+
+        for name in STATE_COLLECTIONS:
+            if name not in collections:
+                continue
+            self._validate_import_collection_payload(name, collections[name])
+            current_payload, current_source = self._state_export_payload(name)
+            comparison = self._compare_state_collection(
+                name=name,
+                current_payload=current_payload,
+                incoming_payload=collections[name],
+                current_source=current_source,
+            )
+            collection_comparisons.append(comparison)
+            if comparison.get("warning"):
+                warnings.append(f"{name}: {comparison['warning']}")
+            if comparison.get("blocker"):
+                blockers.append(f"{name}: {comparison['blocker']}")
+
+        return {
+            "compared_at": _utc_now(),
+            "state_dir": str(self.state_dir),
+            "persistence_mode": "json",
+            "collections": collection_comparisons,
+            "totals": {
+                "collections": len(collection_comparisons),
+                "current_count": sum(
+                    int(entry.get("current_count") or 0) for entry in collection_comparisons
+                ),
+                "incoming_count": sum(
+                    int(entry.get("incoming_count") or 0) for entry in collection_comparisons
+                ),
+                "added_count": sum(
+                    int(entry.get("added_count") or 0) for entry in collection_comparisons
+                ),
+                "removed_count": sum(
+                    int(entry.get("removed_count") or 0) for entry in collection_comparisons
+                ),
+                "changed_count": sum(
+                    int(entry.get("changed_count") or 0) for entry in collection_comparisons
+                ),
+                "unchanged_count": sum(
+                    int(entry.get("unchanged_count") or 0) for entry in collection_comparisons
+                ),
+                "warnings": len(warnings),
+                "blockers": len(blockers),
+            },
+            "warnings": warnings,
+            "blockers": blockers,
+            "safe_to_import": len(blockers) == 0,
+        }
+
     def import_state(self, payload: StateImportRequest) -> dict[str, Any]:
-        collections = self._normalize_import_collections(payload.collections)
+        collections, unknown_collections = self._prepare_import_collections(
+            payload.collections,
+            reject_unknown=True,
+        )
         if not collections:
             raise HTTPException(status_code=400, detail="collections must include at least one known collection.")
 
-        unknown_collections = sorted(set(collections).difference(STATE_COLLECTIONS))
         if unknown_collections:
             raise HTTPException(
                 status_code=400,
@@ -831,6 +909,30 @@ class JsonStateStore:
                 )
         return normalized
 
+    def _prepare_import_collections(
+        self,
+        collections: Any,
+        reject_unknown: bool,
+    ) -> tuple[dict[str, Any], list[str]]:
+        normalized = self._normalize_import_collections(collections)
+        if not normalized:
+            raise HTTPException(
+                status_code=400,
+                detail="collections must include at least one collection.",
+            )
+
+        unknown_collections = sorted(set(normalized).difference(STATE_COLLECTIONS))
+        if reject_unknown and unknown_collections:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Unknown state collections: {', '.join(unknown_collections)}.",
+            )
+
+        known_collections = {
+            name: normalized[name] for name in normalized if name in STATE_COLLECTIONS
+        }
+        return known_collections, unknown_collections
+
     def _validate_import_collection_payload(self, name: str, payload: Any) -> None:
         if name in OBJECT_STATE_COLLECTIONS:
             if not isinstance(payload, dict):
@@ -838,6 +940,112 @@ class JsonStateStore:
             return
         if not isinstance(payload, list):
             raise HTTPException(status_code=400, detail=f"{name} must be a JSON array.")
+
+    def _compare_state_collection(
+        self,
+        name: str,
+        current_payload: Any,
+        incoming_payload: Any,
+        current_source: str,
+    ) -> dict[str, Any]:
+        current_index, current_warnings = self._state_compare_index(name, current_payload)
+        incoming_index, incoming_warnings = self._state_compare_index(name, incoming_payload)
+        current_keys = set(current_index)
+        incoming_keys = set(incoming_index)
+        added_keys = incoming_keys.difference(current_keys)
+        removed_keys = current_keys.difference(incoming_keys)
+        shared_keys = current_keys.intersection(incoming_keys)
+        changed_keys = {
+            key
+            for key in shared_keys
+            if current_index[key]["normalized"] != incoming_index[key]["normalized"]
+        }
+        unchanged_keys = shared_keys.difference(changed_keys)
+        warnings = current_warnings + incoming_warnings
+        warning = " ".join(warnings) if warnings else None
+
+        return {
+            "name": name,
+            "current_count": self._state_record_count(current_payload),
+            "incoming_count": self._state_record_count(incoming_payload),
+            "added_count": len(added_keys),
+            "removed_count": len(removed_keys),
+            "changed_count": len(changed_keys),
+            "unchanged_count": len(unchanged_keys),
+            "current_source": current_source,
+            "warning": warning,
+            "blocker": None,
+            "sample_added_ids": self._sample_state_compare_ids(added_keys, incoming_index),
+            "sample_removed_ids": self._sample_state_compare_ids(removed_keys, current_index),
+            "sample_changed_ids": self._sample_state_compare_ids(changed_keys, incoming_index),
+        }
+
+    def _state_compare_index(
+        self,
+        name: str,
+        payload: Any,
+    ) -> tuple[dict[str, dict[str, str]], list[str]]:
+        if name in OBJECT_STATE_COLLECTIONS:
+            return {
+                name: {
+                    "display_id": name,
+                    "normalized": self._normalized_state_json(payload),
+                }
+            }, []
+
+        records: dict[str, dict[str, str]] = {}
+        warnings: list[str] = []
+        missing_id_count = 0
+        duplicate_ids: set[str] = set()
+        for index, record in enumerate(payload if isinstance(payload, list) else []):
+            record_id = self._state_compare_record_id(record)
+            if record_id:
+                key = f"id:{record_id}"
+                display_id = record_id
+                if key in records:
+                    duplicate_ids.add(record_id)
+            else:
+                key = f"index:{index}"
+                display_id = f"index:{index}"
+                missing_id_count += 1
+            records[key] = {
+                "display_id": display_id,
+                "normalized": self._normalized_state_json(record),
+            }
+
+        if missing_id_count:
+            warnings.append(
+                f"{missing_id_count} record(s) without id compared by list index; "
+                "reordered records can appear changed."
+            )
+        if duplicate_ids:
+            warnings.append(
+                "Duplicate id value(s) compared using the last occurrence: "
+                f"{', '.join(sorted(duplicate_ids))}."
+            )
+        return records, warnings
+
+    def _state_compare_record_id(self, record: Any) -> str | None:
+        if not isinstance(record, dict):
+            return None
+        raw_id = record.get("id")
+        if raw_id is None:
+            return None
+        record_id = str(raw_id).strip()
+        return record_id or None
+
+    def _normalized_state_json(self, payload: Any) -> str:
+        return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+    def _sample_state_compare_ids(
+        self,
+        keys: set[str],
+        index: dict[str, dict[str, str]],
+    ) -> list[str]:
+        return [
+            index[key]["display_id"]
+            for key in sorted(keys, key=lambda item: index[item]["display_id"])
+        ][:5]
 
     def _read_state_json(self, path: Path) -> tuple[bool, bool, Any, str | None]:
         if not path.exists():
@@ -4350,6 +4558,11 @@ def get_state_health() -> dict[str, Any]:
 @app.get("/state/export")
 def get_state_export() -> dict[str, Any]:
     return store.state_export()
+
+
+@app.post("/state/compare-import")
+def post_state_compare_import(state_import: StateImportCompareRequest) -> dict[str, Any]:
+    return store.compare_import_state(state_import)
 
 
 @app.post("/state/import")

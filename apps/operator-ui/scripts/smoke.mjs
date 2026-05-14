@@ -459,6 +459,55 @@ try {
   );
   assert.doesNotThrow(() => JSON.parse(exportedStateText), "state export should be parseable JSON");
 
+  await statePanel.getByTestId("state-import-reason").fill("Browser smoke previews exported local state.");
+  await statePanel.getByTestId("state-import-input").fill(exportedStateText);
+  await statePanel.getByTestId("state-import-preview").click();
+  await statePanel.getByTestId("state-import-preview-safe").getByText("safe_to_import true").waitFor();
+  await waitForLocatorText(
+    statePanel.getByTestId("state-import-preview-summary"),
+    (text) => /Added\s*0/.test(text) && /Removed\s*0/.test(text) && /Changed\s*0/.test(text) && text.includes("Unchanged"),
+    "current export import preview summary"
+  );
+  await waitForLocatorText(
+    statePanel.getByTestId("state-import-preview-collection-cards"),
+    (text) => text.includes("cards") && text.includes("Added: none") && text.includes("Changed: none"),
+    "current export cards preview row"
+  );
+
+  const previewImportBundle = JSON.parse(exportedStateText);
+  const previewImportCardTitle = `Smoke preview imported card ${stamp}`;
+  const previewImportCardId = `R19-CARD-SMOKE-${stamp}`;
+  const previewCardsCollection = previewImportBundle.collections.find((collection) => collection.name === "cards");
+  assert.ok(previewCardsCollection, "exported bundle should include cards collection");
+  previewCardsCollection.records.push({
+    id: previewImportCardId,
+    title: previewImportCardTitle,
+    summary: "Browser smoke added this card through import preview.",
+    status: "planned",
+    owner_agent_id: "orchestrator",
+    owner_role: "operator",
+    priority: "medium",
+    created_at: "2026-05-14T00:00:00Z"
+  });
+  const previewImportText = JSON.stringify(previewImportBundle, null, 2);
+  await statePanel.getByTestId("state-import-input").fill(previewImportText);
+  await statePanel.getByTestId("state-import-preview-stale").waitFor();
+  await statePanel.getByTestId("state-import-preview").click();
+  await statePanel.getByTestId("state-import-preview-safe").getByText("safe_to_import true").waitFor();
+  await waitForLocatorText(
+    statePanel.getByTestId("state-import-preview-summary"),
+    (text) => /Added\s*1/.test(text),
+    "added-card import preview summary"
+  );
+  await waitForLocatorText(
+    statePanel.getByTestId("state-import-preview-collection-cards"),
+    (text) => text.includes(previewImportCardId),
+    "added-card import preview row"
+  );
+  await statePanel.getByTestId("state-import-submit").click();
+  await page.getByTestId("cards-list").getByText(previewImportCardTitle).waitFor();
+  await statePanel.getByTestId("state-import-preview-recommended").waitFor();
+
   const resetButton = statePanel.getByTestId("state-reset-submit");
   await statePanel.getByTestId("state-reset-reason").fill("Browser smoke guarded reset.");
   await statePanel.getByTestId("state-reset-confirm").fill("RESET");

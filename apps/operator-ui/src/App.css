@@ -139,7 +139,8 @@
 }
 
 .panel h2,
-.panel h3 {
+.panel h3,
+.panel h4 {
   color: #17201b;
   margin: 0;
 }
@@ -153,6 +154,11 @@
   font-size: 16px;
   line-height: 1.35;
   margin-bottom: 8px;
+}
+
+.panel h4 {
+  font-size: 14px;
+  line-height: 1.35;
 }
 
 .section-label {
@@ -448,6 +454,35 @@ button:disabled {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 16px;
   padding-top: 16px;
+}
+
+.state-import-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.state-import-preview {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.state-import-preview-heading {
+  margin-bottom: 0;
+}
+
+.state-import-preview-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.state-import-preview-messages {
+  display: grid;
+  gap: 8px;
+}
+
+.sample-id-line {
+  display: block;
+  line-height: 1.45;
 }
 
 .audit-exceptions-list {

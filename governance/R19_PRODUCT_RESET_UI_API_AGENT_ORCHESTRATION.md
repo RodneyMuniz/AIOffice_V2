@@ -28,6 +28,8 @@ R19 audit acknowledgement history is append-only lightweight triage history, not
 
 R19 local state management is scoped to JSON-backed demo/developer state and is not production backup/restore.
 
+R19 state compare is local JSON demo-state import preview, not migration tooling.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

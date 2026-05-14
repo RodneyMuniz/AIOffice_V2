@@ -30,6 +30,8 @@ import type {
   RepairRequestDecisionRequest,
   StateExport,
   StateHealth,
+  StateImportCompareRequest,
+  StateImportComparison,
   StateImportRequest,
   StateImportSummary,
   StateResetRequest,
@@ -198,6 +200,10 @@ export function loadStateHealth(signal?: AbortSignal): Promise<StateHealth> {
 
 export function exportState(): Promise<StateExport> {
   return requestJson<StateExport>("/state/export");
+}
+
+export function compareImportState(payload: StateImportCompareRequest): Promise<StateImportComparison> {
+  return requestJson<StateImportComparison>("/state/compare-import", { method: "POST", body: payload });
 }
 
 export function importState(payload: StateImportRequest): Promise<StateImportSummary> {

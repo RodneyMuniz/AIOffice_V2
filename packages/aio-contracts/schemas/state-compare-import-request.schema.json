@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-compare-import-request.schema.json",
+  "title": "StateImportCompareRequest",
+  "type": "object",
+  "required": ["collections", "compare_reason"],
+  "properties": {
+    "collections": {
+      "description": "Object keyed by known collection name, or the collection array from GET /state/export.",
+      "oneOf": [
+        { "type": "object", "additionalProperties": true },
+        { "type": "array", "items": { "type": "object" } }
+      ]
+    },
+    "compare_reason": { "type": "string", "minLength": 1 },
+    "requested_by": { "type": "string" }
+  },
+  "examples": [
+    {
+      "collections": {
+        "cards": [{ "id": "R19-CARD-001", "title": "Preview card" }],
+        "work_orders": [{ "id": "R19-WO-001", "card_id": "R19-CARD-001" }]
+      },
+      "compare_reason": "Previewing local demo state import",
+      "requested_by": "operator"
+    }
+  ]
+}

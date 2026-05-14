@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-collection-comparison.schema.json",
+  "title": "StateCollectionComparison",
+  "type": "object",
+  "required": [
+    "name",
+    "current_count",
+    "incoming_count",
+    "added_count",
+    "removed_count",
+    "changed_count",
+    "unchanged_count",
+    "current_source",
+    "warning",
+    "blocker",
+    "sample_added_ids",
+    "sample_removed_ids",
+    "sample_changed_ids"
+  ],
+  "properties": {
+    "name": { "type": "string" },
+    "current_count": { "type": "integer", "minimum": 0 },
+    "incoming_count": { "type": "integer", "minimum": 0 },
+    "added_count": { "type": "integer", "minimum": 0 },
+    "removed_count": { "type": "integer", "minimum": 0 },
+    "changed_count": { "type": "integer", "minimum": 0 },
+    "unchanged_count": { "type": "integer", "minimum": 0 },
+    "current_source": { "type": "string", "enum": ["seed", "persistent"] },
+    "warning": { "type": ["string", "null"] },
+    "blocker": { "type": ["string", "null"] },
+    "sample_added_ids": { "type": "array", "maxItems": 5, "items": { "type": "string" } },
+    "sample_removed_ids": { "type": "array", "maxItems": 5, "items": { "type": "string" } },
+    "sample_changed_ids": { "type": "array", "maxItems": 5, "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "name": "cards",
+      "current_count": 1,
+      "incoming_count": 2,
+      "added_count": 1,
+      "removed_count": 0,
+      "changed_count": 0,
+      "unchanged_count": 1,
+      "current_source": "persistent",
+      "warning": null,
+      "blocker": null,
+      "sample_added_ids": ["R19-CARD-002"],
+      "sample_removed_ids": [],
+      "sample_changed_ids": []
+    }
+  ]
+}

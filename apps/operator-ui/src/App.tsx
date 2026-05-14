@@ -5,6 +5,7 @@ import {
   acceptHandoff,
   approveApproval,
   cancelRepairRequest,
+  compareImportState,
   completeRepairRequest,
   createApproval,
   createCard,
@@ -69,6 +70,7 @@ import type {
   RepairRequest,
   StateExportCollection,
   StateHealth,
+  StateImportComparison,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder,
@@ -321,10 +323,13 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
   const [health, setHealth] = useState<StateHealth | null>(null);
   const [isHealthLoading, setIsHealthLoading] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [isPreviewingImport, setIsPreviewingImport] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [exportText, setExportText] = useState("");
   const [importText, setImportText] = useState("");
+  const [importPreview, setImportPreview] = useState<StateImportComparison | null>(null);
+  const [importPreviewSource, setImportPreviewSource] = useState("");
   const [importReason, setImportReason] = useState("Restoring local demo state");
   const [resetReason, setResetReason] = useState("Resetting local demo state");
   const [resetConfirm, setResetConfirm] = useState("");
@@ -382,6 +387,32 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
     }
   }
 
+  async function handlePreviewImport() {
+    setError(null);
+    setSuccess(null);
+    setIsPreviewingImport(true);
+    try {
+      const collections = parseImportCollections(importText);
+      const comparison = await compareImportState({
+        collections,
+        compare_reason: importReason.trim() || "Previewing local demo state import",
+        requested_by: "operator"
+      });
+      setImportPreview(comparison);
+      setImportPreviewSource(importText);
+      setSuccess(
+        `Previewed ${comparison.collections.length} collection(s); ` +
+          `${comparison.totals.added_count} added, ${comparison.totals.changed_count} changed.`
+      );
+    } catch (previewError: unknown) {
+      setImportPreview(null);
+      setImportPreviewSource("");
+      setError(errorMessage(previewError));
+    } finally {
+      setIsPreviewingImport(false);
+    }
+  }
+
   async function handleImport(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -395,6 +426,8 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
         requested_by: "operator"
       });
       await Promise.all([onRefresh(), refreshStateHealth()]);
+      setImportPreview(null);
+      setImportPreviewSource("");
       setSuccess(`Imported ${summary.imported_collections.length} collection(s).`);
     } catch (importError: unknown) {
       setError(errorMessage(importError));
@@ -425,6 +458,10 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
   }
 
   const importDisabled = isImporting || !importText.trim() || !importReason.trim();
+  const previewDisabled = isPreviewingImport || !importText.trim();
+  const isImportPreviewStale = importPreview !== null && importText !== importPreviewSource;
+  const importBlockedByPreview = importPreview !== null && !importPreview.safe_to_import;
+  const finalImportDisabled = importDisabled || importBlockedByPreview;
   const resetDisabled =
     isResetting || !resetReason.trim() || resetConfirm.trim() !== "RESET_R19_DEMO_STATE";
 
@@ -544,9 +581,31 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
               value={importText}
             />
           </label>
-          <button data-testid="state-import-submit" disabled={importDisabled} type="submit">
-            {isImporting ? "Importing..." : "Import State"}
-          </button>
+          {importText.trim() && !importPreview && (
+            <p className="form-status warning" data-testid="state-import-preview-recommended">
+              Preview recommended before import.
+            </p>
+          )}
+          {isImportPreviewStale && (
+            <p className="form-status warning" data-testid="state-import-preview-stale">
+              Preview is stale; re-preview before trusting these counts.
+            </p>
+          )}
+          <div className="button-row state-import-actions">
+            <button
+              className="secondary"
+              data-testid="state-import-preview"
+              disabled={previewDisabled}
+              onClick={handlePreviewImport}
+              type="button"
+            >
+              {isPreviewingImport ? "Previewing..." : "Preview Import"}
+            </button>
+            <button data-testid="state-import-submit" disabled={finalImportDisabled} type="submit">
+              {isImporting ? "Importing..." : "Import State"}
+            </button>
+          </div>
+          {importPreview && <ImportPreview comparison={importPreview} />}
         </form>
 
         <form className="form-grid" onSubmit={handleReset}>
@@ -578,6 +637,109 @@ function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
 
       <FormStatus error={error} success={success} />
     </section>
+  );
+}
+
+function ImportPreview({ comparison }: { comparison: StateImportComparison }) {
+  return (
+    <div className="state-import-preview" data-testid="state-import-preview-result">
+      <div className="panel-heading state-import-preview-heading">
+        <h4>Import Preview</h4>
+        <span
+          className={`state-tag ${comparison.safe_to_import ? "" : "danger"}`}
+          data-testid="state-import-preview-safe"
+        >
+          safe_to_import {String(comparison.safe_to_import)}
+        </span>
+      </div>
+      <dl className="status-list state-import-preview-summary" data-testid="state-import-preview-summary">
+        <div>
+          <dt>Added</dt>
+          <dd>{comparison.totals.added_count}</dd>
+        </div>
+        <div>
+          <dt>Removed</dt>
+          <dd>{comparison.totals.removed_count}</dd>
+        </div>
+        <div>
+          <dt>Changed</dt>
+          <dd>{comparison.totals.changed_count}</dd>
+        </div>
+        <div>
+          <dt>Unchanged</dt>
+          <dd>{comparison.totals.unchanged_count}</dd>
+        </div>
+        <div>
+          <dt>Warnings</dt>
+          <dd>{comparison.totals.warnings}</dd>
+        </div>
+        <div>
+          <dt>Blockers</dt>
+          <dd>{comparison.totals.blockers}</dd>
+        </div>
+      </dl>
+      {(comparison.warnings.length > 0 || comparison.blockers.length > 0) && (
+        <div className="state-import-preview-messages">
+          {comparison.warnings.map((warning) => (
+            <p className="form-status warning" key={warning}>
+              {warning}
+            </p>
+          ))}
+          {comparison.blockers.map((blocker) => (
+            <p className="form-status error" key={blocker}>
+              {blocker}
+            </p>
+          ))}
+        </div>
+      )}
+      <div className="state-collection-table-wrap">
+        <table className="state-collection-table" data-testid="state-import-preview-collections">
+          <thead>
+            <tr>
+              <th>Collection</th>
+              <th>Current</th>
+              <th>Incoming</th>
+              <th>Added</th>
+              <th>Removed</th>
+              <th>Changed</th>
+              <th>Unchanged</th>
+              <th>Warning / blocker</th>
+              <th>Sample ids</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparison.collections.map((collection) => (
+              <tr key={collection.name} data-testid={`state-import-preview-collection-${collection.name}`}>
+                <td>
+                  <strong>{collection.name}</strong>
+                  <small>{collection.current_source}</small>
+                </td>
+                <td>{collection.current_count}</td>
+                <td>{collection.incoming_count}</td>
+                <td>{collection.added_count}</td>
+                <td>{collection.removed_count}</td>
+                <td>{collection.changed_count}</td>
+                <td>{collection.unchanged_count}</td>
+                <td>{collection.blocker ?? collection.warning ?? "ok"}</td>
+                <td>
+                  <SampleIdLine label="Added" ids={collection.sample_added_ids} />
+                  <SampleIdLine label="Removed" ids={collection.sample_removed_ids} />
+                  <SampleIdLine label="Changed" ids={collection.sample_changed_ids} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function SampleIdLine({ ids, label }: { ids: string[]; label: string }) {
+  return (
+    <span className="sample-id-line">
+      {label}: {ids.length > 0 ? ids.join(", ") : "none"}
+    </span>
   );
 }
 

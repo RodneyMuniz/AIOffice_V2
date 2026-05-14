@@ -19,6 +19,9 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/update-audit-acknowledgement-request.schema.json`
 - `schemas/state-health.schema.json`
 - `schemas/state-export.schema.json`
+- `schemas/state-compare-import-request.schema.json`
+- `schemas/state-import-comparison.schema.json`
+- `schemas/state-collection-comparison.schema.json`
 - `schemas/state-import-request.schema.json`
 - `schemas/state-import-summary.schema.json`
 - `schemas/state-reset-request.schema.json`
@@ -81,7 +84,7 @@ The audit acknowledgement contract describes the small persisted `runtime/state/
 
 The audit acknowledgement history contract describes the append-only `runtime/state/audit_acknowledgement_history.json` model used by `GET /audit/acknowledgement-history` and `GET /audit/acknowledgements/{id}/history`. Every create, upsert, and patch appends a history entry with `previous_status`, `new_status`, reason, changed by, changed at, exception refs, and evidence refs. The marker remains the current/latest review state; the history trail preserves prior triage changes. This is lightweight operator triage history, not a ticketing system, not an external audit ledger, not external audit acceptance, and not audit signoff.
 
-The local state management contracts describe `GET /state/health`, `GET /state/export`, `POST /state/import`, and `POST /state/reset-demo`. They cover known JSON collections under `runtime/state`, seed fallback health, direct JSON export, lightweight import into persistent `*.json` files, and guarded demo reset with the exact confirmation string `RESET_R19_DEMO_STATE`. Import and reset write `state_management` event/evidence entries. This is local demo/developer state management only; it is not production backup/restore, not a database migration framework, not autonomous agent execution, and not external audit acceptance.
+The local state management contracts describe `GET /state/health`, `GET /state/export`, `POST /state/compare-import`, `POST /state/import`, and `POST /state/reset-demo`. They cover known JSON collections under `runtime/state`, seed fallback health, direct JSON export, read-only import preview, lightweight import into persistent `*.json` files, and guarded demo reset with the exact confirmation string `RESET_R19_DEMO_STATE`. Compare-import returns collection-level added, removed, changed, and unchanged counts plus warnings, blockers, and up to five sample ids for each added/removed/changed category. Changed detection is intentionally shallow: the same record id with different normalized JSON is counted as changed, and no deep field diff is produced. Object collections such as `policy_settings` and `status` compare as one object using the collection name as the id. Records without `id` are compared by list index and carry a limitation warning. Compare-import is read-only and does not write events or evidence; import and reset write `state_management` event/evidence entries. This is local demo/developer state preview only; it is not production backup/restore, not migration tooling, not a database migration framework, not autonomous agent execution, and not external audit acceptance.
 
 The QA readiness contracts describe read-only preflight responses for `GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness`. Readiness levels are `ready`, `warning`, and `blocked`; check statuses are `passed`, `warning`, and `blocked`.
 

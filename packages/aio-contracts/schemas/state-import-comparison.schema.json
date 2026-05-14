@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-import-comparison.schema.json",
+  "title": "StateImportComparison",
+  "type": "object",
+  "required": [
+    "compared_at",
+    "state_dir",
+    "persistence_mode",
+    "collections",
+    "totals",
+    "warnings",
+    "blockers",
+    "safe_to_import"
+  ],
+  "properties": {
+    "compared_at": { "type": "string" },
+    "state_dir": { "type": "string" },
+    "persistence_mode": { "type": "string", "const": "json" },
+    "collections": {
+      "type": "array",
+      "items": { "$ref": "state-collection-comparison.schema.json" }
+    },
+    "totals": {
+      "type": "object",
+      "required": [
+        "collections",
+        "current_count",
+        "incoming_count",
+        "added_count",
+        "removed_count",
+        "changed_count",
+        "unchanged_count",
+        "warnings",
+        "blockers"
+      ],
+      "properties": {
+        "collections": { "type": "integer", "minimum": 0 },
+        "current_count": { "type": "integer", "minimum": 0 },
+        "incoming_count": { "type": "integer", "minimum": 0 },
+        "added_count": { "type": "integer", "minimum": 0 },
+        "removed_count": { "type": "integer", "minimum": 0 },
+        "changed_count": { "type": "integer", "minimum": 0 },
+        "unchanged_count": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "integer", "minimum": 0 },
+        "blockers": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blockers": { "type": "array", "items": { "type": "string" } },
+    "safe_to_import": { "type": "boolean" }
+  },
+  "examples": [
+    {
+      "compared_at": "2026-05-14T00:00:00Z",
+      "state_dir": "C:/repo/runtime/state",
+      "persistence_mode": "json",
+      "collections": [
+        {
+          "name": "cards",
+          "current_count": 1,
+          "incoming_count": 2,
+          "added_count": 1,
+          "removed_count": 0,
+          "changed_count": 0,
+          "unchanged_count": 1,
+          "current_source": "persistent",
+          "warning": null,
+          "blocker": null,
+          "sample_added_ids": ["R19-CARD-002"],
+          "sample_removed_ids": [],
+          "sample_changed_ids": []
+        }
+      ],
+      "totals": {
+        "collections": 1,
+        "current_count": 1,
+        "incoming_count": 2,
+        "added_count": 1,
+        "removed_count": 0,
+        "changed_count": 0,
+        "unchanged_count": 1,
+        "warnings": 0,
+        "blockers": 0
+      },
+      "warnings": [],
+      "blockers": [],
+      "safe_to_import": true
+    }
+  ]
+}
