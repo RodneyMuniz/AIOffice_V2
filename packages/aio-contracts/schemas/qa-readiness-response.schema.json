@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/qa-readiness-response.schema.json",
+  "title": "QaReadinessResponse",
+  "type": "object",
+  "required": [
+    "work_order_id",
+    "card_id",
+    "ready_for_qa",
+    "readiness_level",
+    "checks",
+    "warnings",
+    "blockers",
+    "latest_developer_result_id",
+    "latest_developer_result_summary",
+    "latest_developer_result_status",
+    "work_order_status",
+    "handoff_context",
+    "generated_at"
+  ],
+  "properties": {
+    "work_order_id": { "type": "string" },
+    "card_id": { "type": "string" },
+    "ready_for_qa": { "type": "boolean" },
+    "readiness_level": { "type": "string", "enum": ["ready", "warning", "blocked"] },
+    "checks": {
+      "type": "array",
+      "items": { "$ref": "qa-readiness-check.schema.json" }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blockers": { "type": "array", "items": { "type": "string" } },
+    "latest_developer_result_id": { "type": ["string", "null"] },
+    "latest_developer_result_summary": { "type": ["string", "null"] },
+    "latest_developer_result_status": {
+      "type": ["string", "null"],
+      "enum": ["draft", "submitted", "superseded", null]
+    },
+    "work_order_status": {
+      "type": ["string", "null"],
+      "enum": [
+        "draft",
+        "ready",
+        "running",
+        "waiting_approval",
+        "approved",
+        "rejected",
+        "completed",
+        "blocked",
+        "cancelled",
+        null
+      ]
+    },
+    "handoff_context": { "type": "string", "enum": ["initial_qa", "repair_qa"] },
+    "repair_request_id": { "type": "string" },
+    "generated_at": { "type": "string" }
+  },
+  "examples": [
+    {
+      "work_order_id": "R19-WO-002",
+      "card_id": "R19-CARD-002",
+      "ready_for_qa": false,
+      "readiness_level": "warning",
+      "checks": [
+        {
+          "id": "latest_developer_result_submitted",
+          "label": "Latest Developer/Codex result submitted",
+          "status": "warning",
+          "detail": "No submitted Developer/Codex result has been captured for this work order."
+        }
+      ],
+      "warnings": ["No submitted Developer/Codex result has been captured for this work order."],
+      "blockers": [],
+      "latest_developer_result_id": null,
+      "latest_developer_result_summary": null,
+      "latest_developer_result_status": null,
+      "work_order_status": "draft",
+      "handoff_context": "initial_qa",
+      "generated_at": "2026-05-14T00:00:00Z"
+    }
+  ]
+}

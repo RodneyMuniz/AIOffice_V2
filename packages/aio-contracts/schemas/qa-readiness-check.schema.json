@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/qa-readiness-check.schema.json",
+  "title": "QaReadinessCheck",
+  "type": "object",
+  "required": ["id", "label", "status", "detail"],
+  "properties": {
+    "id": { "type": "string" },
+    "label": { "type": "string" },
+    "status": { "type": "string", "enum": ["passed", "warning", "blocked"] },
+    "detail": { "type": "string" }
+  },
+  "examples": [
+    {
+      "id": "latest_developer_result_submitted",
+      "label": "Latest Developer/Codex result submitted",
+      "status": "warning",
+      "detail": "No submitted Developer/Codex result has been captured for this work order."
+    }
+  ]
+}

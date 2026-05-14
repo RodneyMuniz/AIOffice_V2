@@ -15,6 +15,8 @@ export const QA_RESULT_VALUES = ["passed", "failed", "blocked"] as const;
 export const REPAIR_REQUEST_STATUSES = ["proposed", "created", "in_progress", "completed", "cancelled"] as const;
 export const DEVELOPER_RESULT_TYPES = ["implementation", "repair", "documentation", "validation", "other"] as const;
 export const DEVELOPER_RESULT_STATUSES = ["draft", "submitted", "superseded"] as const;
+export const QA_READINESS_LEVELS = ["ready", "warning", "blocked"] as const;
+export const QA_READINESS_CHECK_STATUSES = ["passed", "warning", "blocked"] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
@@ -23,6 +25,8 @@ export type QaResultValue = (typeof QA_RESULT_VALUES)[number];
 export type RepairRequestStatus = (typeof REPAIR_REQUEST_STATUSES)[number];
 export type DeveloperResultType = (typeof DEVELOPER_RESULT_TYPES)[number];
 export type DeveloperResultStatus = (typeof DEVELOPER_RESULT_STATUSES)[number];
+export type QaReadinessLevel = (typeof QA_READINESS_LEVELS)[number];
+export type QaReadinessCheckStatus = (typeof QA_READINESS_CHECK_STATUSES)[number];
 
 export type StatusResponse = {
   product_name: string;
@@ -52,11 +56,37 @@ export type StatusResponse = {
   developer_results_count: number;
   submitted_developer_results_count: number;
   work_orders_with_developer_results_count: number;
+  readiness_warnings_count?: number;
+  readiness_blockers_count?: number;
   events_count: number;
   evidence_count: number;
   allowed_card_statuses: CardStatus[];
   allowed_work_order_statuses: WorkOrderStatus[];
   non_claims: string[];
+};
+
+export type QaReadinessCheck = {
+  id: string;
+  label: string;
+  status: QaReadinessCheckStatus;
+  detail: string;
+};
+
+export type QaReadiness = {
+  work_order_id: string;
+  card_id: string;
+  ready_for_qa: boolean;
+  readiness_level: QaReadinessLevel;
+  checks: QaReadinessCheck[];
+  warnings: string[];
+  blockers: string[];
+  latest_developer_result_id: string | null;
+  latest_developer_result_summary: string | null;
+  latest_developer_result_status: DeveloperResultStatus | null;
+  work_order_status: WorkOrderStatus | null;
+  handoff_context: "initial_qa" | "repair_qa";
+  repair_request_id?: string;
+  generated_at: string;
 };
 
 export type Card = {

@@ -12,6 +12,8 @@ import {
   createQaResult,
   createRepairRequest,
   createWorkOrder,
+  getRepairRequestQaReadiness,
+  getWorkOrderQaReadiness,
   handoffRepairRequestToQa,
   handoffWorkOrderToQa,
   loadDashboard,
@@ -31,6 +33,8 @@ import type {
   EventEntry,
   EvidenceEntry,
   Handoff,
+  QaReadiness,
+  QaReadinessLevel,
   QaResult,
   QaResultValue,
   RepairRequest,
@@ -149,6 +153,7 @@ function Dashboard({
           developerResults={data.developerResults}
           handoffs={data.handoffs}
           onRefresh={onRefresh}
+          qaResults={data.qaResults}
           workOrders={data.workOrders}
         />
         <DeveloperResultsPanel developerResults={data.developerResults} />
@@ -159,7 +164,14 @@ function Dashboard({
           qaResults={data.qaResults}
           repairRequests={data.repairRequests}
         />
-        <RepairRequestsPanel handoffs={data.handoffs} onRefresh={onRefresh} repairRequests={data.repairRequests} />
+        <RepairRequestsPanel
+          developerResults={data.developerResults}
+          handoffs={data.handoffs}
+          onRefresh={onRefresh}
+          qaResults={data.qaResults}
+          repairRequests={data.repairRequests}
+          workOrders={data.workOrders}
+        />
         <WorkflowIterationsPanel workflowIterations={data.workflowIterations} />
         <AgentsPanel agents={data.agents} />
         <ApprovalsPanel approvals={data.approvals} onRefresh={onRefresh} />
@@ -236,6 +248,12 @@ function StatusPanel({ status }: { status: StatusResponse }) {
         <Metric label="Developer results" value={status.developer_results_count} />
         <Metric label="Submitted dev results" value={status.submitted_developer_results_count} />
         <Metric label="WO with dev results" value={status.work_orders_with_developer_results_count} />
+        {typeof status.readiness_warnings_count === "number" && (
+          <Metric label="Readiness warnings" value={status.readiness_warnings_count} />
+        )}
+        {typeof status.readiness_blockers_count === "number" && (
+          <Metric label="Readiness blockers" value={status.readiness_blockers_count} />
+        )}
         <Metric label="Pending approvals" value={status.pending_approvals_count} />
         <Metric label="Events" value={status.events_count} />
         <Metric label="Evidence" value={status.evidence_count} />
@@ -634,6 +652,7 @@ function WorkOrdersList({
   developerResults,
   handoffs,
   onRefresh,
+  qaResults,
   workOrders
 }: {
   agents: Agent[];
@@ -642,6 +661,7 @@ function WorkOrdersList({
   developerResults: DeveloperResult[];
   handoffs: Handoff[];
   onRefresh: () => Promise<void>;
+  qaResults: QaResult[];
   workOrders: WorkOrder[];
 }) {
   const visibleWorkOrders = useMemo(() => [...workOrders].reverse(), [workOrders]);
@@ -654,8 +674,34 @@ function WorkOrdersList({
     }
     return grouped;
   }, [developerResults]);
+  const qaResultByHandoffId = useMemo(
+    () => new Map(qaResults.map((qaResult) => [qaResult.handoff_id, qaResult])),
+    [qaResults]
+  );
   const [handoffWorkOrderId, setHandoffWorkOrderId] = useState<string | null>(null);
   const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
+  const [readinessByWorkOrderId, setReadinessByWorkOrderId] = useState<Record<string, QaReadiness>>({});
+  const [readinessErrorById, setReadinessErrorById] = useState<Record<string, string>>({});
+  const [checkingReadinessId, setCheckingReadinessId] = useState<string | null>(null);
+
+  useEffect(() => {
+    setReadinessByWorkOrderId({});
+    setReadinessErrorById({});
+  }, [developerResults, handoffs, qaResults, workOrders]);
+
+  async function checkWorkOrderReadiness(workOrderId: string) {
+    setCheckingReadinessId(workOrderId);
+    setReadinessErrorById((current) => ({ ...current, [workOrderId]: "" }));
+
+    try {
+      const readiness = await getWorkOrderQaReadiness(workOrderId);
+      setReadinessByWorkOrderId((current) => ({ ...current, [workOrderId]: readiness }));
+    } catch (readinessError: unknown) {
+      setReadinessErrorById((current) => ({ ...current, [workOrderId]: errorMessage(readinessError) }));
+    } finally {
+      setCheckingReadinessId(null);
+    }
+  }
 
   return (
     <section className="panel">
@@ -667,6 +713,27 @@ function WorkOrdersList({
         {visibleWorkOrders.map((workOrder) => {
           const workOrderDeveloperResults = developerResultsByWorkOrderId.get(workOrder.id) ?? [];
           const latestSubmittedDeveloperResult = latestDeveloperResult(workOrderDeveloperResults);
+          const handoffContext = displayWorkOrderType(workOrder) === "repair" ? "repair_qa" : "initial_qa";
+          const activeQaHandoff = latestActiveQaHandoffForWorkOrder(
+            workOrder.id,
+            handoffContext,
+            handoffs,
+            qaResultByHandoffId
+          );
+          const loadedReadiness = readinessByWorkOrderId[workOrder.id] ?? null;
+          const derivedReadinessLevel: QaReadinessLevel = activeQaHandoff
+            ? "blocked"
+            : latestSubmittedDeveloperResult
+              ? "ready"
+              : "warning";
+          const effectiveReadinessLevel: QaReadinessLevel = activeQaHandoff
+            ? "blocked"
+            : loadedReadiness?.readiness_level ?? derivedReadinessLevel;
+          const readinessSummary = activeQaHandoff
+            ? `Blocked: active QA handoff ${activeQaHandoff.id} is ${activeQaHandoff.status}.`
+            : latestSubmittedDeveloperResult
+              ? `Ready: latest submitted Developer/Codex result ${latestSubmittedDeveloperResult.id} exists.`
+              : "Warning: no Developer/Codex result captured.";
 
           return (
             <article
@@ -719,11 +786,23 @@ function WorkOrdersList({
               )}
             </div>
             <DeveloperResultForm agents={agents} onRefresh={onRefresh} workOrder={workOrder} />
+            <QaReadinessPanel
+              buttonTestId={`check-qa-readiness-${workOrder.id}`}
+              error={readinessErrorById[workOrder.id] || null}
+              fallbackLevel={derivedReadinessLevel}
+              fallbackMessage={readinessSummary}
+              isChecking={checkingReadinessId === workOrder.id}
+              label="QA readiness"
+              onCheck={() => checkWorkOrderReadiness(workOrder.id)}
+              readiness={loadedReadiness}
+              testId={`qa-readiness-${workOrder.id}`}
+            />
             <HandoffToQaAction
               isWorking={handoffWorkOrderId === workOrder.id}
               onDone={(message) => setHandoffStatusById((current) => ({ ...current, [workOrder.id]: message }))}
               onRefresh={onRefresh}
               onWorkingChange={(isWorking) => setHandoffWorkOrderId(isWorking ? workOrder.id : null)}
+              readinessLevel={effectiveReadinessLevel}
               statusMessage={handoffStatusById[workOrder.id] ?? null}
               workOrder={workOrder}
             />
@@ -878,6 +957,7 @@ function HandoffToQaAction({
   onDone,
   onRefresh,
   onWorkingChange,
+  readinessLevel,
   statusMessage,
   workOrder
 }: {
@@ -885,10 +965,12 @@ function HandoffToQaAction({
   onDone: (message: string) => void;
   onRefresh: () => Promise<void>;
   onWorkingChange: (isWorking: boolean) => void;
+  readinessLevel: QaReadinessLevel;
   statusMessage: string | null;
   workOrder: WorkOrder;
 }) {
   const [error, setError] = useState<string | null>(null);
+  const isBlocked = readinessLevel === "blocked";
 
   async function handleHandoff() {
     setError(null);
@@ -909,15 +991,83 @@ function HandoffToQaAction({
     <div className="inline-action-block">
       <button
         data-testid={`handoff-to-qa-${workOrder.id}`}
-        disabled={isWorking}
+        disabled={isWorking || isBlocked}
         onClick={handleHandoff}
         type="button"
+        title={isBlocked ? "QA readiness is blocked for this work order." : undefined}
       >
         {isWorking ? "Handing off..." : "Handoff to QA"}
       </button>
       <FormStatus error={error} success={statusMessage} />
     </div>
   );
+}
+
+function QaReadinessPanel({
+  buttonTestId,
+  error,
+  fallbackLevel,
+  fallbackMessage,
+  isChecking,
+  label,
+  onCheck,
+  readiness,
+  testId
+}: {
+  buttonTestId: string;
+  error: string | null;
+  fallbackLevel: QaReadinessLevel;
+  fallbackMessage: string;
+  isChecking: boolean;
+  label: string;
+  onCheck: () => void;
+  readiness: QaReadiness | null;
+  testId: string;
+}) {
+  const level = readiness?.readiness_level ?? fallbackLevel;
+  const generatedAt = readiness?.generated_at;
+
+  return (
+    <div className={`qa-readiness-block ${readinessLevelClass(level)}`} data-testid={testId}>
+      <div className="readiness-heading">
+        <div>
+          <p className="eyebrow">{label}</p>
+          <strong>{readiness ? readinessHeadline(readiness) : fallbackMessage}</strong>
+        </div>
+        <span className={`state-tag ${readinessLevelClass(level)}`}>{level}</span>
+      </div>
+      {generatedAt && <small>Checked {generatedAt}</small>}
+      {readiness && (
+        <div className="readiness-checks">
+          {readiness.checks.map((check) => (
+            <div className="readiness-check-row" key={check.id}>
+              <span className={`state-tag ${readinessLevelClass(check.status)}`}>{check.status}</span>
+              <div>
+                <strong>{check.label}</strong>
+                <p>{check.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <button className="secondary" data-testid={buttonTestId} disabled={isChecking} onClick={onCheck} type="button">
+        {isChecking ? "Checking..." : label.includes("Repair") ? "Check Repair QA readiness" : "Check QA readiness"}
+      </button>
+      <FormStatus error={error} success={null} />
+    </div>
+  );
+}
+
+function readinessHeadline(readiness: QaReadiness): string {
+  if (readiness.readiness_level === "blocked") {
+    return readiness.blockers[0] ?? "Blocked: QA handoff has blocking readiness gaps.";
+  }
+  if (readiness.readiness_level === "warning") {
+    return readiness.warnings[0] ?? "Warning: QA handoff has advisory readiness gaps.";
+  }
+  return readiness.latest_developer_result_id
+    ? `Ready: latest submitted Developer/Codex result ${readiness.latest_developer_result_id} exists.`
+    : "Ready: advisory checks passed.";
 }
 
 function DeveloperResultsPanel({ developerResults }: { developerResults: DeveloperResult[] }) {
@@ -1453,15 +1603,38 @@ function RepairRequestForm({
 }
 
 function RepairRequestsPanel({
+  developerResults,
   handoffs,
   onRefresh,
-  repairRequests
+  qaResults,
+  repairRequests,
+  workOrders
 }: {
+  developerResults: DeveloperResult[];
   handoffs: Handoff[];
   onRefresh: () => Promise<void>;
+  qaResults: QaResult[];
   repairRequests: RepairRequest[];
+  workOrders: WorkOrder[];
 }) {
   const visibleRepairRequests = useMemo(() => [...repairRequests].reverse(), [repairRequests]);
+  const workOrderById = useMemo(
+    () => new Map(workOrders.map((workOrder) => [workOrder.id, workOrder])),
+    [workOrders]
+  );
+  const developerResultsByWorkOrderId = useMemo(() => {
+    const grouped = new Map<string, DeveloperResult[]>();
+    for (const result of developerResults) {
+      const results = grouped.get(result.work_order_id) ?? [];
+      results.push(result);
+      grouped.set(result.work_order_id, results);
+    }
+    return grouped;
+  }, [developerResults]);
+  const qaResultByHandoffId = useMemo(
+    () => new Map(qaResults.map((qaResult) => [qaResult.handoff_id, qaResult])),
+    [qaResults]
+  );
   const repairQaHandoffByRepairRequestId = useMemo(() => {
     const entries = handoffs
       .filter((handoff) => handoff.handoff_purpose === "repair_qa" && handoff.repair_request_id)
@@ -1472,8 +1645,33 @@ function RepairRequestsPanel({
   const [workingRepairRequestId, setWorkingRepairRequestId] = useState<string | null>(null);
   const [handoffRepairRequestId, setHandoffRepairRequestId] = useState<string | null>(null);
   const [handoffStatusById, setHandoffStatusById] = useState<Record<string, string>>({});
+  const [readinessByRepairRequestId, setReadinessByRepairRequestId] = useState<Record<string, QaReadiness>>({});
+  const [readinessErrorById, setReadinessErrorById] = useState<Record<string, string>>({});
+  const [checkingReadinessId, setCheckingReadinessId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    setReadinessByRepairRequestId({});
+    setReadinessErrorById({});
+  }, [developerResults, handoffs, qaResults, repairRequests, workOrders]);
+
+  async function checkRepairReadiness(repairRequestId: string) {
+    setCheckingReadinessId(repairRequestId);
+    setReadinessErrorById((current) => ({ ...current, [repairRequestId]: "" }));
+
+    try {
+      const readiness = await getRepairRequestQaReadiness(repairRequestId);
+      setReadinessByRepairRequestId((current) => ({ ...current, [repairRequestId]: readiness }));
+    } catch (readinessError: unknown) {
+      setReadinessErrorById((current) => ({
+        ...current,
+        [repairRequestId]: errorMessage(readinessError)
+      }));
+    } finally {
+      setCheckingReadinessId(null);
+    }
+  }
 
   async function handoffRepairToQa(repairRequest: RepairRequest) {
     setError(null);
@@ -1525,8 +1723,31 @@ function RepairRequestsPanel({
         {visibleRepairRequests.map((repairRequest) => {
           const canDecide = repairRequest.status === "created" || repairRequest.status === "in_progress";
           const repairQaHandoff = repairQaHandoffByRepairRequestId.get(repairRequest.id);
-          const hasActiveRepairQaHandoff =
-            repairQaHandoff?.status === "proposed" || repairQaHandoff?.status === "accepted";
+          const repairWorkOrder = workOrderById.get(repairRequest.repair_work_order_id);
+          const repairDeveloperResults = developerResultsByWorkOrderId.get(repairRequest.repair_work_order_id) ?? [];
+          const latestRepairDeveloperResult = latestDeveloperResult(repairDeveloperResults);
+          const activeRepairQaHandoff = latestActiveQaHandoffForWorkOrder(
+            repairRequest.repair_work_order_id,
+            "repair_qa",
+            handoffs,
+            qaResultByHandoffId
+          );
+          const loadedReadiness = readinessByRepairRequestId[repairRequest.id] ?? null;
+          const derivedReadinessLevel: QaReadinessLevel = activeRepairQaHandoff
+            ? "blocked"
+            : latestRepairDeveloperResult
+              ? "ready"
+              : "warning";
+          const effectiveReadinessLevel: QaReadinessLevel = activeRepairQaHandoff
+            ? "blocked"
+            : loadedReadiness?.readiness_level ?? derivedReadinessLevel;
+          const readinessSummary = activeRepairQaHandoff
+            ? `Blocked: active repair QA handoff ${activeRepairQaHandoff.id} is ${activeRepairQaHandoff.status}.`
+            : latestRepairDeveloperResult
+              ? `Ready: latest submitted repair Developer/Codex result ${latestRepairDeveloperResult.id} exists.`
+              : repairWorkOrder
+                ? "Warning: no repair Developer/Codex result captured."
+                : "Blocked: linked repair work order is missing from the dashboard data.";
 
           return (
             <article className="record-row" data-testid={`repair-request-${repairRequest.id}`} key={repairRequest.id}>
@@ -1579,13 +1800,29 @@ function RepairRequestsPanel({
                   </div>
                 </div>
               </div>
+              <QaReadinessPanel
+                buttonTestId={`check-repair-qa-readiness-${repairRequest.id}`}
+                error={readinessErrorById[repairRequest.id] || null}
+                fallbackLevel={repairWorkOrder ? derivedReadinessLevel : "blocked"}
+                fallbackMessage={readinessSummary}
+                isChecking={checkingReadinessId === repairRequest.id}
+                label="Repair QA readiness"
+                onCheck={() => checkRepairReadiness(repairRequest.id)}
+                readiness={loadedReadiness}
+                testId={`repair-qa-readiness-${repairRequest.id}`}
+              />
               {repairRequest.repair_work_order_id && (
                 <div className="inline-action-block">
                   <button
                     data-testid={`handoff-repair-to-qa-${repairRequest.id}`}
-                    disabled={handoffRepairRequestId === repairRequest.id || hasActiveRepairQaHandoff}
+                    disabled={handoffRepairRequestId === repairRequest.id || effectiveReadinessLevel === "blocked"}
                     onClick={() => handoffRepairToQa(repairRequest)}
                     type="button"
+                    title={
+                      effectiveReadinessLevel === "blocked"
+                        ? "Repair QA readiness is blocked for this repair request."
+                        : undefined
+                    }
                   >
                     {handoffRepairRequestId === repairRequest.id ? "Handing off..." : "Handoff Repair to QA"}
                   </button>
@@ -1673,6 +1910,16 @@ function repairRequestStatusClass(status: RepairRequest["status"]): string {
   return "";
 }
 
+function readinessLevelClass(status: string): string {
+  if (status === "warning") {
+    return "warn";
+  }
+  if (status === "blocked") {
+    return "danger";
+  }
+  return "";
+}
+
 function displayWorkOrderType(workOrder: WorkOrder): "original" | "repair" {
   return workOrder.work_order_type ?? (workOrder.repair_request_id || workOrder.source_work_order_id ? "repair" : "original");
 }
@@ -1683,6 +1930,29 @@ function latestDeveloperResult(results: DeveloperResult[]): DeveloperResult | nu
     return null;
   }
   return [...submittedResults].sort((left, right) => {
+    const leftTimestamp = left.updated_at || left.created_at || "";
+    const rightTimestamp = right.updated_at || right.created_at || "";
+    return rightTimestamp.localeCompare(leftTimestamp);
+  })[0];
+}
+
+function latestActiveQaHandoffForWorkOrder(
+  workOrderId: string,
+  handoffContext: "initial_qa" | "repair_qa",
+  handoffs: Handoff[],
+  qaResultByHandoffId: Map<string, QaResult>
+): Handoff | null {
+  const activeHandoffs = handoffs.filter(
+    (handoff) =>
+      handoff.work_order_id === workOrderId &&
+      (handoff.handoff_purpose ?? (handoff.repair_request_id ? "repair_qa" : "initial_qa")) === handoffContext &&
+      (handoff.status === "proposed" || handoff.status === "accepted") &&
+      !qaResultByHandoffId.has(handoff.id)
+  );
+  if (activeHandoffs.length === 0) {
+    return null;
+  }
+  return [...activeHandoffs].sort((left, right) => {
     const leftTimestamp = left.updated_at || left.created_at || "";
     const rightTimestamp = right.updated_at || right.created_at || "";
     return rightTimestamp.localeCompare(leftTimestamp);

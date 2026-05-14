@@ -65,6 +65,8 @@
     "developer_results_count": { "type": "integer", "minimum": 0 },
     "submitted_developer_results_count": { "type": "integer", "minimum": 0 },
     "work_orders_with_developer_results_count": { "type": "integer", "minimum": 0 },
+    "readiness_warnings_count": { "type": "integer", "minimum": 0 },
+    "readiness_blockers_count": { "type": "integer", "minimum": 0 },
     "events_count": { "type": "integer", "minimum": 0 },
     "evidence_count": { "type": "integer", "minimum": 0 },
     "allowed_card_statuses": {

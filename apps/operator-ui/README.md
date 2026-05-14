@@ -43,6 +43,7 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Optionally request an approval gate while creating a work order.
 - Record a structured Developer/Codex result for an original or repair work order before QA handoff.
 - See Developer/Codex results in the Developer Results panel.
+- Check QA readiness/preflight before original or repair QA handoff.
 - Trigger a Developer/Codex to QA/Test handoff from a work order.
 - See the linked `developer_result_id` and result summary on QA handoffs when a submitted result exists.
 - Accept or reject proposed handoffs from the Handoffs panel.
@@ -71,6 +72,13 @@ Developer/Codex result capture uses:
 
 The work-order list shows the developer-result count and latest submitted result id for each work order. The inline form defaults original work orders to `implementation` and repair work orders to `repair`; changed paths can be comma- or newline-separated. Submitting a result refreshes status, work orders, developer results, handoffs, events, and evidence. This remains operator/API-mediated result capture and does not invoke Codex/OpenAI.
 
+QA readiness checks use:
+
+- `GET /work-orders/{id}/qa-readiness`
+- `GET /repair-requests/{id}/qa-readiness`
+
+Each work-order row shows a compact QA readiness section and a `Check QA readiness` button. Each repair request with a linked repair work order shows repair QA readiness and a `Check Repair QA readiness` button. Readiness can be `ready`, `warning`, or `blocked`. Missing Developer/Codex result capture is a warning and does not disable handoff. Active duplicate QA handoffs and broken required linkage are blockers and disable only the related handoff button.
+
 Handoff actions use:
 
 - `GET /handoffs`
@@ -97,7 +105,7 @@ Repair-loop actions use:
 
 The repair request form appears only for failed or blocked QA results that do not already have a repair request. Creating one refreshes status, work orders, repair requests, QA results, events, and evidence. Linked repair work orders start as `ready`, are assigned to `developer_codex` by default, and do not invoke autonomous repair.
 
-The Repair Requests panel shows any existing repair QA handoff id/status and exposes `Handoff Repair to QA` when a repair work order is linked. The backend rejects duplicate active repair QA handoffs for the same repair request/work order, and the UI displays that API error if it occurs. Accepted repair QA handoffs show the same QA result form used for initial QA. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked` and the existing repair request form can create the next manual repair request.
+The Repair Requests panel shows any existing repair QA handoff id/status and exposes `Handoff Repair to QA` when a repair work order is linked. Repair QA readiness warns when the repair Developer/Codex result is missing and blocks duplicate active repair QA handoffs. The backend rejects duplicate active repair QA handoffs for the same repair request/work order, and the UI displays that API error if it occurs. Accepted repair QA handoffs show the same QA result form used for initial QA. A passed repair QA result can move the repair work order to `completed`; failed or blocked can move it to `blocked` and the existing repair request form can create the next manual repair request.
 
 The Workflow Iterations panel is read-only. It is loaded from `GET /workflow-iterations` and shows the compact chain from original work order to repair iterations, latest handoff, latest QA result, and latest result.
 
@@ -115,7 +123,7 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, records an original Developer/Codex result, verifies the Developer Results panel, triggers a QA handoff that references the result, accepts it, records a failed QA result, creates a repair request, verifies the linked repair work order, records a repair Developer/Codex result, hands the repair work order back to QA from the Repair Requests panel, verifies the repair QA handoff references the repair result, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies developer/repair QA events/evidence, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, creates a card/work order, verifies QA readiness warning before Developer/Codex result capture, records an original Developer/Codex result, verifies readiness becomes ready, triggers a QA handoff that references the result, verifies duplicate active handoff readiness blocks another handoff, accepts it, records a failed QA result, creates a repair request, verifies repair QA readiness warning before repair Developer/Codex result capture, records a repair Developer/Codex result, verifies repair readiness becomes ready, hands the repair work order back to QA from the Repair Requests panel, verifies the repair QA handoff references the repair result, accepts the repair QA handoff, records a passed repair QA result, verifies the Workflow Iterations panel, verifies developer/repair QA events/evidence, and checks for browser console errors.
 
 Manual browser smoke:
 
@@ -125,21 +133,24 @@ Manual browser smoke:
 4. Create a work order linked to that card.
 5. Use the card status dropdown and Update status button.
 6. Record a Developer/Codex result on the work order.
-7. Confirm the Developer Results panel shows the result.
-8. Click Handoff to QA on the work order.
-9. Confirm the Handoffs panel references the developer result id or summary.
-10. Accept or reject the proposed handoff in the Handoffs panel.
-11. For an accepted handoff, submit the QA result form.
-12. If the QA result is failed or blocked, create a repair request from the QA Results panel.
-13. Confirm the Repair Requests panel and linked repair work order appear.
-14. Record a Developer/Codex repair result on the repair work order.
-15. Click Handoff Repair to QA from the Repair Requests panel.
-16. Confirm the repair QA handoff references the repair developer result.
-17. Accept the repair QA handoff in the Handoffs panel.
-18. Record a repair QA result and confirm the repair work order status updates.
-19. Confirm the Workflow Iterations panel shows the original and repair iteration.
-20. Confirm Events and Evidence refresh with developer result and repair QA handoff/result entries.
-21. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+7. Click Check QA readiness and confirm the warning changes to ready.
+8. Confirm the Developer Results panel shows the result.
+9. Click Handoff to QA on the work order.
+10. Confirm the Handoffs panel references the developer result id or summary.
+11. Accept or reject the proposed handoff in the Handoffs panel.
+12. For an accepted handoff, submit the QA result form.
+13. If the QA result is failed or blocked, create a repair request from the QA Results panel.
+14. Confirm the Repair Requests panel and linked repair work order appear.
+15. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
+16. Record a Developer/Codex repair result on the repair work order.
+17. Click Check Repair QA readiness and confirm the warning changes to ready.
+18. Click Handoff Repair to QA from the Repair Requests panel.
+19. Confirm the repair QA handoff references the repair developer result.
+20. Accept the repair QA handoff in the Handoffs panel.
+21. Record a repair QA result and confirm the repair work order status updates.
+22. Confirm the Workflow Iterations panel shows the original and repair iteration.
+23. Confirm Events and Evidence refresh with developer result and repair QA handoff/result entries.
+24. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
@@ -158,6 +169,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - QA result capture is operator/API-mediated and does not execute live QA agents.
 - Repair request creation is operator/API-mediated and does not execute autonomous repair or live Developer/Codex agents.
 - Repair QA handoffs and repair QA result capture are operator-triggered UI/API flows, not autonomous QA reruns.
+- QA readiness is advisory by default and is not a full policy engine.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

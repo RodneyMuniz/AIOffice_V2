@@ -34,6 +34,8 @@ DEVELOPER_RESULT_STATUSES = ("draft", "submitted", "superseded")
 REPAIR_QA_HANDOFF_REPAIR_STATUSES = ("created", "in_progress", "completed")
 REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES = ("ready", "completed")
 ACTIVE_HANDOFF_STATUSES = ("proposed", "accepted")
+READINESS_CHECK_STATUSES = ("passed", "warning", "blocked")
+READINESS_LEVELS = ("ready", "warning", "blocked")
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
@@ -239,6 +241,31 @@ class JsonStateStore:
                 if result.get("work_order_id")
             }
         )
+        readiness_summaries = [
+            self._build_qa_readiness(
+                work_order_id=str(work_order.get("id") or ""),
+                work_order=work_order,
+                card_id=str(work_order.get("card_id") or ""),
+                handoff_context=(
+                    "repair_qa"
+                    if self._infer_work_order_type(work_order) == "repair"
+                    else "initial_qa"
+                ),
+                repair_request=(
+                    self._find_repair_request(str(work_order.get("repair_request_id")))
+                    if work_order.get("repair_request_id")
+                    else None
+                ),
+                repair_request_id=work_order.get("repair_request_id"),
+            )
+            for work_order in self.work_orders
+        ]
+        readiness_warnings_count = sum(
+            len(readiness.get("warnings", [])) for readiness in readiness_summaries
+        )
+        readiness_blockers_count = sum(
+            len(readiness.get("blockers", [])) for readiness in readiness_summaries
+        )
 
         return {
             **self.status_seed,
@@ -265,11 +292,57 @@ class JsonStateStore:
             "developer_results_count": len(self.developer_results),
             "submitted_developer_results_count": len(submitted_developer_results),
             "work_orders_with_developer_results_count": work_orders_with_developer_results_count,
+            "readiness_warnings_count": readiness_warnings_count,
+            "readiness_blockers_count": readiness_blockers_count,
             "events_count": len(self.events),
             "evidence_count": len(self.evidence),
             "allowed_card_statuses": list(CARD_STATUSES),
             "allowed_work_order_statuses": list(WORK_ORDER_STATUSES),
         }
+
+    def work_order_qa_readiness(self, work_order_id: str) -> dict[str, Any]:
+        work_order = self._find_work_order(work_order_id)
+        if work_order is None:
+            raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
+
+        repair_request_id = work_order.get("repair_request_id")
+        repair_request = (
+            self._find_repair_request(str(repair_request_id)) if repair_request_id else None
+        )
+        handoff_context = (
+            "repair_qa"
+            if self._infer_work_order_type(work_order) == "repair"
+            else "initial_qa"
+        )
+        return self._build_qa_readiness(
+            work_order_id=work_order_id,
+            work_order=work_order,
+            card_id=str(work_order.get("card_id") or ""),
+            handoff_context=handoff_context,
+            repair_request=repair_request,
+            repair_request_id=repair_request_id,
+        )
+
+    def repair_request_qa_readiness(self, repair_request_id: str) -> dict[str, Any]:
+        repair_request = self._find_repair_request(repair_request_id)
+        if repair_request is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown repair request id: {repair_request_id}",
+            )
+
+        repair_work_order_id = str(repair_request.get("repair_work_order_id") or "")
+        repair_work_order = (
+            self._find_work_order(repair_work_order_id) if repair_work_order_id else None
+        )
+        return self._build_qa_readiness(
+            work_order_id=repair_work_order_id,
+            work_order=repair_work_order,
+            card_id=str((repair_work_order or repair_request).get("card_id") or ""),
+            handoff_context="repair_qa",
+            repair_request=repair_request,
+            repair_request_id=repair_request_id,
+        )
 
     def create_card(self, payload: CardCreate) -> dict[str, Any]:
         card_data = _model_to_dict(payload)
@@ -826,6 +899,9 @@ class JsonStateStore:
         if work_order is None:
             raise HTTPException(status_code=404, detail=f"Unknown work-order id: {work_order_id}")
 
+        readiness = self.work_order_qa_readiness(work_order_id)
+        self._raise_for_readiness_blockers(readiness)
+
         if self._infer_work_order_type(work_order) == "repair":
             repair_request_id = work_order.get("repair_request_id")
             if not repair_request_id:
@@ -860,6 +936,7 @@ class JsonStateStore:
                 validation_summary=(
                     "API dry-run handoff only: source/target agents, card, and work-order linkage "
                     "were validated; no AI or autonomous agent was invoked."
+                    f"{self._readiness_validation_summary(readiness)}"
                 ),
                 evidence_refs=evidence_refs,
             )
@@ -872,6 +949,9 @@ class JsonStateStore:
                 status_code=404,
                 detail=f"Unknown repair request id: {repair_request_id}",
             )
+
+        readiness = self.repair_request_qa_readiness(repair_request_id)
+        self._raise_for_readiness_blockers(readiness)
 
         repair_status = repair_request.get("status")
         if repair_status not in REPAIR_QA_HANDOFF_REPAIR_STATUSES:
@@ -977,6 +1057,7 @@ class JsonStateStore:
                     f"Repair QA iteration {iteration_number}: repair request, source QA result, "
                     "card, and repair work-order linkage were validated; no AI or autonomous "
                     "agent was invoked."
+                    f"{self._readiness_validation_summary(readiness)}"
                 ),
                 repair_request_id=repair_request_id,
                 qa_result_id=str(source_qa_result_id),
@@ -1381,6 +1462,336 @@ class JsonStateStore:
                 str(item.get("created_at") or ""),
             ),
         )
+
+    def _build_qa_readiness(
+        self,
+        work_order_id: str,
+        work_order: dict[str, Any] | None,
+        card_id: str,
+        handoff_context: Literal["initial_qa", "repair_qa"],
+        repair_request: dict[str, Any] | None = None,
+        repair_request_id: str | None = None,
+    ) -> dict[str, Any]:
+        checks: list[dict[str, str]] = []
+
+        def add_check(
+            check_id: str,
+            label: str,
+            status: Literal["passed", "warning", "blocked"],
+            detail: str,
+        ) -> None:
+            checks.append(
+                {
+                    "id": check_id,
+                    "label": label,
+                    "status": status,
+                    "detail": detail,
+                }
+            )
+
+        if work_order:
+            add_check(
+                "work_order_exists",
+                "Work order exists",
+                "passed",
+                f"Work order {work_order_id} exists.",
+            )
+        else:
+            add_check(
+                "work_order_exists",
+                "Work order exists",
+                "blocked",
+                (
+                    f"Repair request {repair_request_id} references missing repair work order "
+                    f"{work_order_id or 'none'}."
+                    if repair_request_id
+                    else f"Work order {work_order_id or 'unknown'} is missing."
+                ),
+            )
+
+        card = self._find_card(card_id) if card_id else None
+        if card:
+            add_check(
+                "card_exists",
+                "Card exists",
+                "passed",
+                f"Card {card_id} exists.",
+            )
+        else:
+            add_check(
+                "card_exists",
+                "Card exists",
+                "blocked",
+                f"Card {card_id or 'unknown'} is missing for this QA handoff.",
+            )
+
+        assigned_agent_id = str(
+            (work_order or {}).get("assigned_agent_id")
+            or (repair_request or {}).get("assigned_agent_id")
+            or ""
+        ).strip()
+        if assigned_agent_id and self._find_agent(assigned_agent_id):
+            add_check(
+                "assigned_agent_exists",
+                "Assigned agent exists",
+                "passed",
+                f"Assigned agent {assigned_agent_id} exists.",
+            )
+        else:
+            add_check(
+                "assigned_agent_exists",
+                "Assigned agent exists",
+                "blocked",
+                (
+                    f"Assigned agent {assigned_agent_id} is missing."
+                    if assigned_agent_id
+                    else "No assigned agent is recorded for this work order."
+                ),
+            )
+
+        latest_developer_result = (
+            self._latest_submitted_developer_result_for_work_order(work_order_id)
+            if work_order
+            else None
+        )
+        if latest_developer_result:
+            add_check(
+                "latest_developer_result_submitted",
+                "Latest Developer/Codex result submitted",
+                "passed",
+                f"Submitted Developer/Codex result {latest_developer_result['id']} is available.",
+            )
+        else:
+            add_check(
+                "latest_developer_result_submitted",
+                "Latest Developer/Codex result submitted",
+                "warning",
+                "No submitted Developer/Codex result has been captured for this work order.",
+            )
+
+        work_order_status = str((work_order or {}).get("status") or "")
+        if work_order:
+            status_check_status, status_check_detail = self._qa_handoff_status_check(
+                work_order_status,
+                handoff_context,
+            )
+            add_check(
+                "work_order_status_suitable",
+                "Work-order status is suitable for QA handoff",
+                status_check_status,
+                status_check_detail,
+            )
+        else:
+            add_check(
+                "work_order_status_suitable",
+                "Work-order status is suitable for QA handoff",
+                "blocked",
+                "Cannot evaluate work-order status because the work order is missing.",
+            )
+
+        active_handoff = (
+            self._find_active_qa_handoff_for_work_order(work_order_id, handoff_context)
+            if work_order_id
+            else None
+        )
+        if active_handoff:
+            add_check(
+                "no_active_qa_handoff",
+                "No active QA handoff already exists",
+                "blocked",
+                (
+                    f"Active {handoff_context} handoff {active_handoff['id']} already "
+                    f"exists with status {active_handoff['status']}."
+                ),
+            )
+        else:
+            add_check(
+                "no_active_qa_handoff",
+                "No active QA handoff already exists",
+                "passed",
+                f"No active {handoff_context} handoff is open for this work order.",
+            )
+
+        if handoff_context == "repair_qa":
+            if repair_request:
+                add_check(
+                    "repair_request_exists",
+                    "Linked repair request exists",
+                    "passed",
+                    f"Repair request {repair_request['id']} exists.",
+                )
+            else:
+                add_check(
+                    "repair_request_exists",
+                    "Linked repair request exists",
+                    "blocked",
+                    (
+                        f"Repair request {repair_request_id} is missing."
+                        if repair_request_id
+                        else "Repair work orders require repair_request_id linkage."
+                    ),
+                )
+
+            if repair_request and work_order:
+                linked_work_order_id = str(repair_request.get("repair_work_order_id") or "")
+                if linked_work_order_id == work_order_id:
+                    add_check(
+                        "repair_request_work_order_matches",
+                        "Repair request points to this repair work order",
+                        "passed",
+                        f"Repair request {repair_request['id']} links repair work order {work_order_id}.",
+                    )
+                else:
+                    add_check(
+                        "repair_request_work_order_matches",
+                        "Repair request points to this repair work order",
+                        "blocked",
+                        (
+                            f"Repair request {repair_request['id']} points to repair work order "
+                            f"{linked_work_order_id or 'none'}, not {work_order_id}."
+                        ),
+                    )
+            elif repair_request:
+                add_check(
+                    "repair_request_work_order_matches",
+                    "Repair request points to this repair work order",
+                    "blocked",
+                    (
+                        f"Repair request {repair_request['id']} references missing repair work order "
+                        f"{repair_request.get('repair_work_order_id') or 'none'}."
+                    ),
+                )
+
+            if repair_request:
+                repair_status = str(repair_request.get("status") or "")
+                if repair_status in REPAIR_QA_HANDOFF_REPAIR_STATUSES:
+                    add_check(
+                        "repair_request_status_suitable",
+                        "Repair request status is suitable for repair QA",
+                        "passed",
+                        f"Repair request {repair_request['id']} is {repair_status}.",
+                    )
+                else:
+                    add_check(
+                        "repair_request_status_suitable",
+                        "Repair request status is suitable for repair QA",
+                        "blocked",
+                        (
+                            f"Repair request {repair_request['id']} is {repair_status or 'unknown'}; "
+                            "repair QA handoffs require created, in_progress, or completed."
+                        ),
+                    )
+
+                source_qa_result_id = str(repair_request.get("qa_result_id") or "")
+                if source_qa_result_id and self._find_qa_result(source_qa_result_id):
+                    add_check(
+                        "source_qa_result_exists",
+                        "Source QA result exists",
+                        "passed",
+                        f"Source QA result {source_qa_result_id} exists.",
+                    )
+                else:
+                    add_check(
+                        "source_qa_result_exists",
+                        "Source QA result exists",
+                        "blocked",
+                        (
+                            f"Source QA result {source_qa_result_id or 'none'} is missing "
+                            f"for repair request {repair_request['id']}."
+                        ),
+                    )
+
+        warnings = [check["detail"] for check in checks if check["status"] == "warning"]
+        blockers = [check["detail"] for check in checks if check["status"] == "blocked"]
+        readiness_level = "blocked" if blockers else "warning" if warnings else "ready"
+
+        readiness = {
+            "work_order_id": work_order_id,
+            "card_id": card_id,
+            "ready_for_qa": readiness_level == "ready",
+            "readiness_level": readiness_level,
+            "checks": checks,
+            "warnings": warnings,
+            "blockers": blockers,
+            "latest_developer_result_id": (
+                latest_developer_result.get("id") if latest_developer_result else None
+            ),
+            "latest_developer_result_summary": (
+                latest_developer_result.get("summary") if latest_developer_result else None
+            ),
+            "latest_developer_result_status": (
+                latest_developer_result.get("status") if latest_developer_result else None
+            ),
+            "work_order_status": work_order_status or None,
+            "handoff_context": handoff_context,
+            "generated_at": _utc_now(),
+        }
+        if repair_request_id:
+            readiness["repair_request_id"] = str(repair_request_id)
+        return readiness
+
+    def _qa_handoff_status_check(
+        self,
+        work_order_status: str,
+        handoff_context: Literal["initial_qa", "repair_qa"],
+    ) -> tuple[Literal["passed", "warning", "blocked"], str]:
+        if work_order_status not in WORK_ORDER_STATUSES:
+            return (
+                "blocked",
+                f"Work order status {work_order_status or 'unknown'} is not recognized.",
+            )
+        if work_order_status in {"cancelled", "rejected"}:
+            return (
+                "blocked",
+                f"Work order is {work_order_status}; QA handoff is not suitable.",
+            )
+        if handoff_context == "repair_qa":
+            if work_order_status in REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES:
+                return (
+                    "passed",
+                    f"Repair work order is {work_order_status}, which is suitable for repair QA.",
+                )
+            allowed = ", ".join(REPAIR_QA_HANDOFF_WORK_ORDER_STATUSES)
+            return (
+                "blocked",
+                (
+                    f"Repair work order is {work_order_status}; repair QA handoffs "
+                    f"require status {allowed}."
+                ),
+            )
+        if work_order_status in {"draft", "waiting_approval", "blocked"}:
+            return (
+                "warning",
+                (
+                    f"Work order is {work_order_status}; this remains an advisory "
+                    "preflight warning for initial QA in this slice."
+                ),
+            )
+        return (
+            "passed",
+            f"Work order is {work_order_status}, which is suitable for initial QA.",
+        )
+
+    def _raise_for_readiness_blockers(self, readiness: dict[str, Any]) -> None:
+        blockers = readiness.get("blockers", [])
+        if not blockers:
+            return
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"QA readiness blocked for work order {readiness.get('work_order_id')}: "
+                + " ".join(str(blocker) for blocker in blockers)
+            ),
+        )
+
+    def _readiness_validation_summary(self, readiness: dict[str, Any]) -> str:
+        blockers = readiness.get("blockers", [])
+        warnings = readiness.get("warnings", [])
+        if blockers:
+            return " Readiness preflight blocked: " + " ".join(str(item) for item in blockers)
+        if warnings:
+            return " Readiness preflight warning: " + " ".join(str(item) for item in warnings)
+        return " Readiness preflight ready: all advisory checks passed."
 
     def _create_approval_record(
         self,
@@ -1809,6 +2220,35 @@ class JsonStateStore:
             ]
         )
 
+    def _handoff_context(self, handoff: dict[str, Any]) -> str:
+        return str(
+            handoff.get("handoff_purpose")
+            or ("repair_qa" if handoff.get("repair_request_id") else "initial_qa")
+        )
+
+    def _is_active_handoff(self, handoff: dict[str, Any]) -> bool:
+        handoff_id = str(handoff.get("id") or "")
+        return (
+            handoff.get("status") in ACTIVE_HANDOFF_STATUSES
+            and handoff_id
+            and self._find_qa_result_for_handoff(handoff_id) is None
+        )
+
+    def _find_active_qa_handoff_for_work_order(
+        self,
+        work_order_id: str,
+        handoff_context: str,
+    ) -> dict[str, Any] | None:
+        return self._latest_record(
+            [
+                handoff
+                for handoff in self.handoffs
+                if handoff.get("work_order_id") == work_order_id
+                and self._handoff_context(handoff) == handoff_context
+                and self._is_active_handoff(handoff)
+            ]
+        )
+
     def _latest_submitted_developer_result_for_work_order(
         self, work_order_id: str
     ) -> dict[str, Any] | None:
@@ -1900,16 +2340,15 @@ class JsonStateStore:
         repair_request_id: str,
         repair_work_order_id: str,
     ) -> dict[str, Any] | None:
-        return next(
-            (
+        return self._latest_record(
+            [
                 handoff
                 for handoff in self.handoffs
                 if handoff.get("handoff_purpose") == "repair_qa"
                 and handoff.get("repair_request_id") == repair_request_id
                 and handoff.get("work_order_id") == repair_work_order_id
-                and handoff.get("status") in ACTIVE_HANDOFF_STATUSES
-            ),
-            None,
+                and self._is_active_handoff(handoff)
+            ]
         )
 
     def _find_agent(self, agent_id: str) -> dict[str, Any] | None:
@@ -2083,6 +2522,11 @@ def get_work_orders() -> list[dict[str, Any]]:
     return store.work_orders
 
 
+@app.get("/work-orders/{work_order_id}/qa-readiness")
+def get_work_order_qa_readiness(work_order_id: str) -> dict[str, Any]:
+    return store.work_order_qa_readiness(work_order_id)
+
+
 @app.get("/developer-results")
 def get_developer_results() -> list[dict[str, Any]]:
     return store.developer_results
@@ -2153,6 +2597,11 @@ def get_qa_results() -> list[dict[str, Any]]:
 @app.get("/repair-requests")
 def get_repair_requests() -> list[dict[str, Any]]:
     return store.repair_requests
+
+
+@app.get("/repair-requests/{repair_request_id}/qa-readiness")
+def get_repair_request_qa_readiness(repair_request_id: str) -> dict[str, Any]:
+    return store.repair_request_qa_readiness(repair_request_id)
 
 
 @app.post("/approvals", status_code=201)

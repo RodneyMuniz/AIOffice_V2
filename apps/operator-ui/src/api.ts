@@ -14,6 +14,7 @@ import type {
   EvidenceEntry,
   Handoff,
   HandoffDecisionRequest,
+  QaReadiness,
   QaResult,
   RepairRequest,
   RepairRequestDecisionRequest,
@@ -114,6 +115,14 @@ export function createWorkOrder(payload: CreateWorkOrderRequest): Promise<WorkOr
 
 export function createDeveloperResult(id: string, payload: CreateDeveloperResultRequest): Promise<DeveloperResult> {
   return requestJson<DeveloperResult>(`/work-orders/${id}/developer-result`, { method: "POST", body: payload });
+}
+
+export function getWorkOrderQaReadiness(id: string): Promise<QaReadiness> {
+  return requestJson<QaReadiness>(`/work-orders/${id}/qa-readiness`);
+}
+
+export function getRepairRequestQaReadiness(id: string): Promise<QaReadiness> {
+  return requestJson<QaReadiness>(`/repair-requests/${id}/qa-readiness`);
 }
 
 export function supersedeDeveloperResult(id: string): Promise<DeveloperResult> {

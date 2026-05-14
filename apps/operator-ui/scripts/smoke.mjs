@@ -91,6 +91,12 @@ try {
   const workOrderId = (await workOrderRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(workOrderId, "created work-order id should be visible");
 
+  const originalReadinessPanel = workOrderRow.locator(`[data-testid="qa-readiness-${workOrderId}"]`);
+  await originalReadinessPanel.getByText("Warning: no Developer/Codex result captured.").waitFor();
+  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
+  await originalReadinessPanel.locator(".state-tag", { hasText: "warning" }).first().waitFor();
+  await originalReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
+
   const originalDeveloperSummary = "Browser smoke implementation result.";
   await workOrderRow.locator(`[data-testid="developer-result-type-${workOrderId}"]`).selectOption("implementation");
   await workOrderRow.locator(`[data-testid="developer-result-summary-${workOrderId}"]`).fill(originalDeveloperSummary);
@@ -108,12 +114,16 @@ try {
   const originalDeveloperResultId = (await originalDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(originalDeveloperResultId, "original developer result id should be visible");
   await workOrderRow.getByText(`latest ${originalDeveloperResultId}`).waitFor();
-  await workOrderRow.locator(".state-tag", { hasText: "ready" }).waitFor();
+  await workOrderRow.locator(".record-title-line .state-tag", { hasText: "ready" }).waitFor();
+  await originalReadinessPanel.getByText(`Ready: latest submitted Developer/Codex result ${originalDeveloperResultId} exists.`).waitFor();
+  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
+  await originalReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
+  await originalReadinessPanel.getByText(`Submitted Developer/Codex result ${originalDeveloperResultId} is available.`).waitFor();
 
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-select"]').selectOption("planned");
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-reason"]').fill("Browser smoke planned the card.");
   await cardRow.locator('[data-testid^="card-status-"][data-testid$="-submit"]').click();
-  await cardRow.locator(".state-tag", { hasText: "planned" }).waitFor();
+  await cardRow.locator(".record-title-line .state-tag", { hasText: "planned" }).waitFor();
 
   await workOrderRow.getByRole("button", { name: "Handoff to QA" }).click();
   const handoffRow = page.getByTestId("handoffs-panel").locator("article").filter({ hasText: workOrderId }).first();
@@ -121,6 +131,15 @@ try {
   await handoffRow.locator(".state-tag", { hasText: "proposed" }).waitFor();
   await handoffRow.locator("strong").filter({ hasText: originalDeveloperResultId }).first().waitFor();
   await handoffRow.locator("p").filter({ hasText: originalDeveloperSummary }).first().waitFor();
+  await originalReadinessPanel.getByText("Blocked: active QA handoff").waitFor();
+  assert.equal(
+    await workOrderRow.getByRole("button", { name: "Handoff to QA" }).isDisabled(),
+    true,
+    "active original QA handoff should disable duplicate handoff"
+  );
+  await originalReadinessPanel.locator(`[data-testid="check-qa-readiness-${workOrderId}"]`).click();
+  await originalReadinessPanel.locator(".state-tag", { hasText: "blocked" }).first().waitFor();
+  await originalReadinessPanel.getByText("Active initial_qa handoff").first().waitFor();
 
   await handoffRow.locator('[data-testid^="handoff-reason-"]').fill("Browser smoke accepts the QA handoff.");
   await handoffRow.getByRole("button", { name: "Accept" }).click();
@@ -139,7 +158,7 @@ try {
   const qaResultRow = page.getByTestId("qa-results-list").locator("article").filter({ hasText: "Browser smoke QA failed." }).first();
   await qaResultRow.waitFor();
   await qaResultRow.locator(".state-tag", { hasText: "failed" }).waitFor();
-  await workOrderRow.locator(".state-tag", { hasText: "blocked" }).waitFor();
+  await workOrderRow.locator(".record-title-line .state-tag", { hasText: "blocked" }).waitFor();
 
   await qaResultRow.locator('[data-testid^="repair-summary-"]').fill("Browser smoke repair request.");
   await qaResultRow.locator('[data-testid^="repair-instructions-"]').fill("Repair the failed browser smoke condition.");
@@ -153,14 +172,22 @@ try {
     .filter({ hasText: "Browser smoke repair request." })
     .first();
   await repairRequestRow.waitFor();
-  await repairRequestRow.locator(".state-tag", { hasText: "created" }).waitFor();
+  await repairRequestRow.locator(".record-title-line .state-tag", { hasText: "created" }).waitFor();
+  const repairRequestId = (await repairRequestRow.locator(".eyebrow").first().textContent())?.trim();
+  assert.ok(repairRequestId, "repair request id should be visible");
 
   const repairWorkOrderRow = page.getByTestId("work-orders-list").locator("article").filter({ hasText: `Repair: ${workOrderTitle}` }).first();
   await repairWorkOrderRow.waitFor();
-  await repairWorkOrderRow.locator(".state-tag", { hasText: "ready" }).waitFor();
+  await repairWorkOrderRow.locator(".record-title-line .state-tag", { hasText: "ready" }).waitFor();
   await repairWorkOrderRow.getByText("developer_codex").waitFor();
   const repairWorkOrderId = (await repairWorkOrderRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(repairWorkOrderId, "repair work-order id should be visible");
+
+  const repairReadinessPanel = repairRequestRow.locator(`[data-testid="repair-qa-readiness-${repairRequestId}"]`);
+  await repairReadinessPanel.getByText("Warning: no repair Developer/Codex result captured.").waitFor();
+  await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
+  await repairReadinessPanel.locator(".state-tag", { hasText: "warning" }).first().waitFor();
+  await repairReadinessPanel.getByText("No submitted Developer/Codex result").first().waitFor();
 
   const repairDeveloperSummary = "Browser smoke repair implementation result.";
   await repairWorkOrderRow.locator(`[data-testid="developer-result-type-${repairWorkOrderId}"]`).selectOption("repair");
@@ -179,6 +206,10 @@ try {
   const repairDeveloperResultId = (await repairDeveloperResultRow.locator(".eyebrow").first().textContent())?.trim();
   assert.ok(repairDeveloperResultId, "repair developer result id should be visible");
   await repairWorkOrderRow.getByText(`latest ${repairDeveloperResultId}`).waitFor();
+  await repairReadinessPanel.getByText(`Ready: latest submitted repair Developer/Codex result ${repairDeveloperResultId} exists.`).waitFor();
+  await repairReadinessPanel.locator(`[data-testid="check-repair-qa-readiness-${repairRequestId}"]`).click();
+  await repairReadinessPanel.locator(".state-tag", { hasText: "ready" }).first().waitFor();
+  await repairReadinessPanel.getByText(`Submitted Developer/Codex result ${repairDeveloperResultId} is available.`).waitFor();
 
   await repairRequestRow.getByRole("button", { name: "Handoff Repair to QA" }).click();
   const repairHandoffRow = page
@@ -205,7 +236,7 @@ try {
     .fill("Complete the repair work order.");
   await repairHandoffRow.getByRole("button", { name: "Record QA Result" }).click();
   await repairHandoffRow.getByText("QA result recorded: passed").waitFor();
-  await repairWorkOrderRow.locator(".state-tag", { hasText: "completed" }).waitFor();
+  await repairWorkOrderRow.locator(".record-title-line .state-tag", { hasText: "completed" }).waitFor();
 
   const originalIterationRow = page.getByTestId(`workflow-iteration-${workOrderId}`);
   await originalIterationRow.waitFor();

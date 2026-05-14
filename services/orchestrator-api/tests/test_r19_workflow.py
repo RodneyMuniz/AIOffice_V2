@@ -35,20 +35,6 @@ def create_card_and_work_order(client: TestClient, label: str) -> tuple[dict, di
 def create_handoff(
     client: TestClient, card: dict, work_order: dict, status: str = "proposed"
 ) -> dict:
-    if status in {"proposed", "accepted", "rejected"}:
-        handoff = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa").json()
-        if status == "accepted":
-            return client.post(
-                f"/handoffs/{handoff['id']}/accept",
-                json={"decision_reason": "Accepted by regression harness.", "decided_by": "pytest"},
-            ).json()
-        if status == "rejected":
-            return client.post(
-                f"/handoffs/{handoff['id']}/reject",
-                json={"decision_reason": "Rejected by regression harness.", "decided_by": "pytest"},
-            ).json()
-        return handoff
-
     return client.post(
         "/handoffs",
         json={
@@ -61,6 +47,8 @@ def create_handoff(
             "title": f"{status.title()} QA handoff",
             "summary": f"Regression harness handoff in {status}.",
             "status": status,
+            "payload_summary": f"Regression harness payload for {work_order['id']}.",
+            "validation_summary": "Regression harness validated refs.",
         },
     ).json()
 
@@ -150,6 +138,8 @@ def test_status_and_seed_collections(client: TestClient) -> None:
     assert status["developer_results_count"] == 0
     assert status["submitted_developer_results_count"] == 0
     assert status["work_orders_with_developer_results_count"] == 0
+    assert status["readiness_warnings_count"] >= 1
+    assert status["readiness_blockers_count"] == 0
 
     cards_response = client.get("/cards")
     assert cards_response.status_code == 200
@@ -415,6 +405,111 @@ def test_developer_result_validation_events_evidence_status_handoff_and_persiste
     assert replacement_response.json()["result_type"] == "documentation"
 
 
+def test_work_order_qa_readiness_warns_when_developer_result_is_missing(
+    client: TestClient,
+) -> None:
+    _, work_order = create_card_and_work_order(client, "readiness missing developer result")
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+
+    response = client.get(f"/work-orders/{work_order['id']}/qa-readiness")
+
+    assert response.status_code == 200
+    readiness = response.json()
+    assert readiness["work_order_id"] == work_order["id"]
+    assert readiness["card_id"] == work_order["card_id"]
+    assert readiness["ready_for_qa"] is False
+    assert readiness["readiness_level"] == "warning"
+    assert readiness["handoff_context"] == "initial_qa"
+    assert readiness["latest_developer_result_id"] is None
+    assert readiness["latest_developer_result_summary"] is None
+    assert readiness["latest_developer_result_status"] is None
+    assert any("No submitted Developer/Codex result" in item for item in readiness["warnings"])
+    assert readiness["blockers"] == []
+    assert any(
+        check["id"] == "latest_developer_result_submitted"
+        and check["status"] == "warning"
+        for check in readiness["checks"]
+    )
+    assert len(client.get("/events").json()) == before_events_count
+    assert len(client.get("/evidence").json()) == before_evidence_count
+
+
+def test_work_order_qa_readiness_is_ready_with_submitted_developer_result(
+    client: TestClient,
+) -> None:
+    _, work_order = create_card_and_work_order(client, "readiness ready developer result")
+    developer_result = client.post(
+        f"/work-orders/{work_order['id']}/developer-result",
+        json=valid_developer_result_payload(summary="Readiness-ready implementation result."),
+    ).json()
+
+    response = client.get(f"/work-orders/{work_order['id']}/qa-readiness")
+
+    assert response.status_code == 200
+    readiness = response.json()
+    assert readiness["ready_for_qa"] is True
+    assert readiness["readiness_level"] == "ready"
+    assert readiness["warnings"] == []
+    assert readiness["blockers"] == []
+    assert readiness["latest_developer_result_id"] == developer_result["id"]
+    assert readiness["latest_developer_result_summary"] == developer_result["summary"]
+    assert readiness["latest_developer_result_status"] == "submitted"
+
+
+def test_work_order_qa_readiness_missing_work_order_returns_404(client: TestClient) -> None:
+    response = client.get("/work-orders/missing/qa-readiness")
+    assert response.status_code == 404
+    assert "Unknown work-order id" in response.json()["detail"]
+
+
+def test_work_order_qa_readiness_blocks_existing_active_handoff(
+    client: TestClient,
+) -> None:
+    card, work_order = create_card_and_work_order(client, "readiness active handoff")
+    handoff = create_handoff(client, card, work_order, status="proposed")
+
+    proposed_readiness = client.get(f"/work-orders/{work_order['id']}/qa-readiness").json()
+    assert proposed_readiness["readiness_level"] == "blocked"
+    assert any(handoff["id"] in blocker for blocker in proposed_readiness["blockers"])
+
+    accepted_handoff = client.post(
+        f"/handoffs/{handoff['id']}/accept",
+        json={"decision_reason": "Accepted by readiness test.", "decided_by": "pytest"},
+    ).json()
+    accepted_readiness = client.get(f"/work-orders/{work_order['id']}/qa-readiness").json()
+    assert accepted_handoff["status"] == "accepted"
+    assert accepted_readiness["readiness_level"] == "blocked"
+    assert any(handoff["id"] in blocker for blocker in accepted_readiness["blockers"])
+
+
+def test_terminal_handoff_with_qa_result_does_not_block_future_repair_readiness(
+    client: TestClient,
+) -> None:
+    _, _, _, failed_qa_result = create_accepted_qa_result(
+        client,
+        "terminal handoff repair readiness",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{failed_qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("terminal handoff repair readiness"),
+    ).json()
+
+    repair_readiness = client.get(
+        f"/repair-requests/{repair_request['id']}/qa-readiness"
+    ).json()
+
+    assert repair_readiness["handoff_context"] == "repair_qa"
+    assert repair_readiness["readiness_level"] == "warning"
+    assert repair_readiness["blockers"] == []
+    assert any(
+        "No active repair_qa handoff" in check["detail"]
+        for check in repair_readiness["checks"]
+        if check["id"] == "no_active_qa_handoff"
+    )
+
+
 def test_approval_approve_and_reject_flow(client: TestClient) -> None:
     card = client.post(
         "/cards",
@@ -569,6 +664,7 @@ def test_work_order_handoff_to_qa_accept_reject_and_error_paths(client: TestClie
     assert handoff["target_role"] == "QA/Test"
     assert handoff["status"] == "proposed"
     assert "no AI or autonomous agent was invoked" in handoff["validation_summary"]
+    assert "Readiness preflight warning" in handoff["validation_summary"]
     assert "No developer result recorded before QA handoff." in handoff["validation_summary"]
     assert "developer_result_id" not in handoff
 
@@ -589,7 +685,13 @@ def test_work_order_handoff_to_qa_accept_reject_and_error_paths(client: TestClie
     assert duplicate_response.status_code == 400
     assert "only proposed handoffs" in duplicate_response.json()["detail"]
 
-    reject_handoff = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa").json()
+    active_duplicate_response = client.post(f"/work-orders/{work_order['id']}/handoff-to-qa")
+    assert active_duplicate_response.status_code == 400
+    assert "QA readiness blocked" in active_duplicate_response.json()["detail"]
+    assert handoff["id"] in active_duplicate_response.json()["detail"]
+
+    _, reject_work_order = create_card_and_work_order(client, "rejected QA handoff")
+    reject_handoff = client.post(f"/work-orders/{reject_work_order['id']}/handoff-to-qa").json()
     reject_response = client.post(
         f"/handoffs/{reject_handoff['id']}/reject",
         json={"decision_reason": "QA rejected the handoff.", "decided_by": "pytest"},
@@ -885,6 +987,123 @@ def test_repair_request_creates_linked_repair_work_order_events_evidence_and_per
     assert persisted_repair_work_order["repair_request_id"] == repair_request["id"]
 
 
+def test_repair_request_qa_readiness_warns_when_repair_developer_result_is_missing(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair readiness missing developer result",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair readiness missing developer result"),
+    ).json()
+
+    response = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness")
+
+    assert response.status_code == 200
+    readiness = response.json()
+    assert readiness["work_order_id"] == repair_request["repair_work_order_id"]
+    assert readiness["repair_request_id"] == repair_request["id"]
+    assert readiness["handoff_context"] == "repair_qa"
+    assert readiness["readiness_level"] == "warning"
+    assert readiness["ready_for_qa"] is False
+    assert readiness["blockers"] == []
+    assert any("No submitted Developer/Codex result" in item for item in readiness["warnings"])
+
+
+def test_repair_request_qa_readiness_is_ready_when_repair_developer_result_exists(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair readiness ready developer result",
+        "blocked",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair readiness ready developer result"),
+    ).json()
+    repair_work_order_id = repair_request["repair_work_order_id"]
+    developer_result = client.post(
+        f"/work-orders/{repair_work_order_id}/developer-result",
+        json=valid_developer_result_payload(
+            result_type="repair",
+            summary="Readiness-ready repair developer result.",
+        ),
+    ).json()
+
+    response = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness")
+
+    assert response.status_code == 200
+    readiness = response.json()
+    assert readiness["readiness_level"] == "ready"
+    assert readiness["ready_for_qa"] is True
+    assert readiness["warnings"] == []
+    assert readiness["blockers"] == []
+    assert readiness["latest_developer_result_id"] == developer_result["id"]
+
+
+def test_repair_request_qa_readiness_missing_repair_request_returns_404(
+    client: TestClient,
+) -> None:
+    response = client.get("/repair-requests/missing/qa-readiness")
+    assert response.status_code == 404
+    assert "Unknown repair request id" in response.json()["detail"]
+
+
+def test_repair_request_qa_readiness_invalid_repair_linkage_returns_blocker(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair readiness invalid linkage",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair readiness invalid linkage"),
+    ).json()
+    api_main.store.repair_requests[-1]["repair_work_order_id"] = "missing-work-order"
+
+    response = client.get(f"/repair-requests/{repair_request['id']}/qa-readiness")
+
+    assert response.status_code == 200
+    readiness = response.json()
+    assert readiness["readiness_level"] == "blocked"
+    assert any("missing repair work order" in blocker for blocker in readiness["blockers"])
+    assert any(
+        check["id"] == "repair_request_work_order_matches"
+        and check["status"] == "blocked"
+        for check in readiness["checks"]
+    )
+
+
+def test_repair_handoff_without_developer_result_includes_readiness_warning(
+    client: TestClient,
+) -> None:
+    _, _, _, qa_result = create_accepted_qa_result(
+        client,
+        "repair handoff warning without developer result",
+        "failed",
+    )
+    repair_request = client.post(
+        f"/qa-results/{qa_result['id']}/repair-request",
+        json=valid_repair_request_payload("repair handoff warning without developer result"),
+    ).json()
+
+    response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
+
+    assert response.status_code == 201
+    handoff = response.json()
+    assert handoff["handoff_purpose"] == "repair_qa"
+    assert handoff["repair_request_id"] == repair_request["id"]
+    assert "developer_result_id" not in handoff
+    assert "Readiness preflight warning" in handoff["validation_summary"]
+    assert "No developer result recorded before QA handoff." in handoff["validation_summary"]
+
+
 def test_repair_work_order_can_handoff_back_to_qa_and_record_iteration_result(
     client: TestClient,
 ) -> None:
@@ -1043,7 +1262,7 @@ def test_repair_handoff_missing_and_invalid_repair_work_order_errors(client: Tes
 
     invalid_response = client.post(f"/repair-requests/{repair_request['id']}/handoff-to-qa")
     assert invalid_response.status_code == 400
-    assert "missing repair work-order" in invalid_response.json()["detail"]
+    assert "missing repair work order" in invalid_response.json()["detail"]
 
 
 @pytest.mark.parametrize(

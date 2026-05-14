@@ -366,6 +366,69 @@ button:disabled {
   padding-top: 12px;
 }
 
+.qa-readiness-block {
+  background: #f7f8f5;
+  border: 1px solid #dfe5da;
+  border-radius: 6px;
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px;
+}
+
+.qa-readiness-block.warn {
+  background: #fffaf0;
+  border-color: #e4c476;
+}
+
+.qa-readiness-block.danger {
+  background: #fff6f6;
+  border-color: #edb6b6;
+}
+
+.readiness-heading,
+.readiness-check-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.readiness-heading strong,
+.readiness-check-row strong {
+  color: #17201b;
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.qa-readiness-block small {
+  color: #68746e;
+}
+
+.readiness-checks {
+  display: grid;
+  gap: 8px;
+}
+
+.readiness-check-row {
+  background: #ffffff;
+  border: 1px solid #e2e6df;
+  border-radius: 6px;
+  justify-content: flex-start;
+  padding: 9px;
+}
+
+.readiness-check-row p {
+  color: #4b5751;
+  font-size: 13px;
+  margin: 3px 0 0;
+}
+
+.qa-readiness-block button {
+  justify-self: start;
+}
+
 .developer-result-form .form-status,
 .qa-result-form .form-status,
 .repair-request-form .form-status,

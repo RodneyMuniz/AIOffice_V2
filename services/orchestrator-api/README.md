@@ -34,6 +34,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `PATCH /cards/{id}/status`
 - `GET /work-orders`
 - `POST /work-orders`
+- `GET /work-orders/{id}/qa-readiness`
 - `GET /developer-results`
 - `POST /work-orders/{id}/developer-result`
 - `POST /developer-results/{id}/supersede`
@@ -54,6 +55,7 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 - `GET /qa-results`
 - `POST /handoffs/{id}/qa-result`
 - `GET /repair-requests`
+- `GET /repair-requests/{id}/qa-readiness`
 - `POST /qa-results/{id}/repair-request`
 - `POST /repair-requests/{id}/handoff-to-qa`
 - `POST /repair-requests/{id}/complete`
@@ -104,6 +106,10 @@ Developer result request body:
 `POST /handoffs` validates source and target agents, the card, the work order, and that the work order belongs to the card. `POST /work-orders/{id}/handoff-to-qa` is the first product-facing convenience flow: it creates a `developer_codex` to `qa_test` handoff with `source_role` `Developer/Codex` and `target_role` `QA/Test`. Original work-order handoffs use `handoff_purpose: initial_qa`. Repair work-order handoffs are detected from `work_order_type: repair` or `repair_request_id` and use the repair QA behavior. Accepting or rejecting a handoff records the operator decision but does not invoke AI, call Codex/OpenAI APIs, or run autonomous agents.
 
 QA handoff creation attaches the latest submitted Developer/Codex result for the work order as `developer_result_id` and `developer_result_summary` when one exists. Handoffs are still allowed without a developer result in this slice, but `validation_summary` records `No developer result recorded before QA handoff.` as a visible soft warning.
+
+`GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness` return a derived, read-only readiness/preflight response. Unknown work orders or repair requests return HTTP 404. Readiness levels are `ready`, `warning`, and `blocked`; individual checks are `passed`, `warning`, or `blocked`. Missing Developer/Codex result capture is a warning. Missing card/work-order/repair linkage, invalid repair work-order linkage, missing assigned agent, cancelled/rejected work-order state, or an active duplicate proposed/accepted QA handoff is a blocker. GET readiness calls do not create events or evidence.
+
+The convenience handoff endpoints reuse readiness before creating QA handoffs. Warning-level readiness remains advisory and does not block handoff creation. Blocker-level readiness returns HTTP 400. Active accepted/proposed handoffs are considered duplicate blockers only until a QA result exists for that handoff.
 
 `POST /handoffs/{id}/qa-result` records a structured QA/Test result only after a handoff is accepted. Missing handoff IDs return HTTP 404. Proposed, rejected, blocked, or completed handoffs return HTTP 400. Duplicate QA results for the same handoff return HTTP 400. Invalid QA result values return HTTP 400.
 
@@ -182,7 +188,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, duplicate active repair handoff rejection, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness warning/ready/blocker paths, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, duplicate active repair handoff rejection, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -203,11 +209,16 @@ curl http://127.0.0.1:8000/repair-requests
 curl -X POST http://127.0.0.1:8000/cards -H "Content-Type: application/json" -d "{\"title\":\"Smoke card\",\"description\":\"Smoke\",\"priority\":\"medium\",\"owner_role\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/cards/R19-CARD-002/status -H "Content-Type: application/json" -d "{\"status\":\"planned\",\"requested_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/work-orders -H "Content-Type: application/json" -d "{\"card_id\":\"R19-CARD-002\",\"title\":\"Smoke work order\",\"description\":\"Smoke work order\",\"assigned_agent_id\":\"developer_codex\",\"request_requires_approval\":false}"
+curl http://127.0.0.1:8000/work-orders/R19-WO-002/qa-readiness
 curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-002/developer-result -H "Content-Type: application/json" -d "{\"result_type\":\"implementation\",\"summary\":\"Smoke implementation result.\",\"changed_paths\":[\"apps/operator-ui/src/App.tsx\"],\"notes\":\"Manual smoke result.\",\"agent_id\":\"developer_codex\"}"
+curl http://127.0.0.1:8000/work-orders/R19-WO-002/qa-readiness
 curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-002/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted for QA smoke.\",\"decided_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-001/qa-result -H "Content-Type: application/json" -d "{\"result\":\"failed\",\"summary\":\"QA failed.\",\"findings\":\"Repair needed.\",\"recommended_next_action\":\"Create repair work order.\",\"qa_agent_id\":\"qa_test\"}"
 curl -X POST http://127.0.0.1:8000/qa-results/R19-QA-RESULT-001/repair-request -H "Content-Type: application/json" -d "{\"summary\":\"Repair failed QA\",\"repair_instructions\":\"Fix the failed QA path.\",\"requested_by\":\"operator\",\"assigned_agent_id\":\"developer_codex\"}"
+curl http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/qa-readiness
+curl -X POST http://127.0.0.1:8000/work-orders/R19-WO-003/developer-result -H "Content-Type: application/json" -d "{\"result_type\":\"repair\",\"summary\":\"Smoke repair result.\",\"changed_paths\":[\"apps/operator-ui/src/App.tsx\"],\"notes\":\"Manual smoke repair result.\",\"agent_id\":\"developer_codex\"}"
+curl http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/qa-readiness
 curl -X POST http://127.0.0.1:8000/repair-requests/R19-REPAIR-001/handoff-to-qa
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/accept -H "Content-Type: application/json" -d "{\"decision_reason\":\"Accepted repair QA smoke.\",\"decided_by\":\"operator\"}"
 curl -X POST http://127.0.0.1:8000/handoffs/R19-HANDOFF-002/qa-result -H "Content-Type: application/json" -d "{\"result\":\"passed\",\"summary\":\"Repair QA passed.\",\"findings\":\"Repair verified.\",\"recommended_next_action\":\"Complete repair work order.\",\"qa_agent_id\":\"qa_test\"}"
@@ -233,7 +244,7 @@ The next API load will read the seed JSON files again.
 - QA results are operator/API-mediated records after accepted handoffs, not autonomous QA agent execution.
 - Repair requests and linked repair work orders are operator/API-mediated records, not autonomous repair execution.
 - Repair QA iteration handoffs and results are operator/API-mediated records, not autonomous QA reruns.
-- Duplicate active repair QA handoffs are rejected, but this is not a full workflow policy engine.
+- QA readiness is advisory except for narrow blockers such as duplicate active handoffs and broken required linkage; it is not a full workflow policy engine.
 - Status transitions validate allowed target values, but do not enforce a complex workflow policy yet.
 - No OpenAI or Codex API invocation is implemented.
 

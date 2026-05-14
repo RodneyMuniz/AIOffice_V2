@@ -15,6 +15,8 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/update-work-order-status-request.schema.json`
 - `schemas/developer-result.schema.json`
 - `schemas/create-developer-result-request.schema.json`
+- `schemas/qa-readiness-check.schema.json`
+- `schemas/qa-readiness-response.schema.json`
 - `schemas/handoff.schema.json`
 - `schemas/create-handoff-request.schema.json`
 - `schemas/handoff-decision-request.schema.json`
@@ -47,6 +49,10 @@ Allowed Developer/Codex result types are `implementation`, `repair`, `documentat
 Allowed Developer/Codex result statuses are `draft`, `submitted`, and `superseded`.
 
 The Developer/Codex result contracts describe operator/API-mediated result capture for a work order before QA handoff. They record summary, changed paths, notes, agent id, and evidence refs in `runtime/state/developer_results.json`. They do not claim autonomous Codex execution, autonomous coding, live OpenAI/Codex API invocation, or no-manual-transfer success.
+
+The QA readiness contracts describe read-only preflight responses for `GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness`. Readiness levels are `ready`, `warning`, and `blocked`; check statuses are `passed`, `warning`, and `blocked`.
+
+Readiness is advisory in this slice and is not persisted. Missing Developer/Codex result capture is a warning, while missing core linkage or an active duplicate proposed/accepted QA handoff is a blocker. This is not a full policy engine or hard governance gate.
 
 The handoff contracts describe an API-mediated dry-run role handoff. They do not claim autonomous A2A execution, background workers, OpenAI/Codex API invocation, or full product runtime.
 
