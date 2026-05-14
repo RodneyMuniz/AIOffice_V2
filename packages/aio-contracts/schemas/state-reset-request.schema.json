@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-reset-request.schema.json",
+  "title": "StateResetRequest",
+  "type": "object",
+  "required": ["reset_reason", "confirm"],
+  "properties": {
+    "reset_reason": { "type": "string", "minLength": 1 },
+    "requested_by": { "type": "string" },
+    "confirm": { "type": "string", "const": "RESET_R19_DEMO_STATE" }
+  },
+  "examples": [
+    {
+      "reset_reason": "Resetting local demo state",
+      "requested_by": "operator",
+      "confirm": "RESET_R19_DEMO_STATE"
+    }
+  ]
+}

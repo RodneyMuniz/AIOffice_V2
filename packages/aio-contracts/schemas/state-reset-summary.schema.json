@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-reset-summary.schema.json",
+  "title": "StateResetSummary",
+  "type": "object",
+  "required": ["reset_collections", "preserved_seed_files", "warnings", "reset_at"],
+  "properties": {
+    "reset_collections": { "type": "array", "items": { "type": "string" } },
+    "preserved_seed_files": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "reset_at": { "type": "string" }
+  },
+  "examples": [
+    {
+      "reset_collections": ["cards", "work_orders", "events", "evidence"],
+      "preserved_seed_files": ["cards.seed.json", "work_orders.seed.json"],
+      "warnings": [],
+      "reset_at": "2026-05-14T00:00:00Z"
+    }
+  ]
+}

@@ -66,6 +66,15 @@ try {
   await policyPanel.waitFor();
   await assertVisible(policyPanel, "policy settings panel");
   await policyPanel.locator(".state-tag", { hasText: "advisory" }).waitFor();
+  const statePanel = page.getByTestId("local-state-panel");
+  await statePanel.waitFor();
+  await assertVisible(statePanel, "local state panel");
+  await statePanel.getByTestId("state-refresh").click();
+  await waitForLocatorText(
+    statePanel.getByTestId("state-health-collections"),
+    (text) => text.includes("cards") && text.includes("work_orders") && text.includes("audit_acknowledgement_history"),
+    "state health known collections"
+  );
   await policyPanel.getByTestId("policy-mode-select").selectOption("advisory");
   await savePolicy(page, {
     mode: "enforced",
@@ -430,6 +439,48 @@ try {
   await page.getByTestId("events-list").getByText("audit_exception_acknowledged").waitFor();
   await page.getByTestId("events-list").getByText("audit_exception_resolved").waitFor();
   await page.getByTestId("evidence-list").getByText("audit_acknowledgement", { exact: true }).first().waitFor();
+
+  await statePanel.getByTestId("state-refresh").click();
+  await waitForLocatorText(
+    statePanel.getByTestId("state-health-summary"),
+    (text) => text.includes("json") && text.includes("State directory"),
+    "state health summary"
+  );
+  await statePanel.getByTestId("state-export").click();
+  const stateExportOutput = statePanel.getByTestId("state-export-output");
+  const exportedStateText = await waitForLocatorValue(
+    stateExportOutput,
+    (value) =>
+      value.includes('"name": "cards"') &&
+      value.includes('"name": "work_orders"') &&
+      value.includes(cardTitle) &&
+      value.includes(workOrderTitle),
+    "state export JSON"
+  );
+  assert.doesNotThrow(() => JSON.parse(exportedStateText), "state export should be parseable JSON");
+
+  const resetButton = statePanel.getByTestId("state-reset-submit");
+  await statePanel.getByTestId("state-reset-reason").fill("Browser smoke guarded reset.");
+  await statePanel.getByTestId("state-reset-confirm").fill("RESET");
+  assert.equal(await resetButton.isDisabled(), true, "reset should be disabled until exact confirmation");
+  await statePanel.getByTestId("state-reset-confirm").fill("RESET_R19_DEMO_STATE");
+  await resetButton.click();
+  await waitForLocatorText(
+    page.getByTestId("cards-list"),
+    (text) => !text.includes(cardTitle),
+    "created card removed after demo reset"
+  );
+  await page.getByTestId("events-list").getByText("state_reset").waitFor();
+  await page.getByTestId("evidence-list").getByText("state_management", { exact: true }).waitFor();
+
+  await statePanel.getByTestId("state-import-reason").fill("Browser smoke restores exported local state.");
+  await statePanel.getByTestId("state-import-input").fill(exportedStateText);
+  await statePanel.getByTestId("state-import-submit").click();
+  await page.getByTestId("cards-list").getByText(cardTitle).waitFor();
+  await page.getByTestId("work-orders-list").getByRole("heading", { name: workOrderTitle, exact: true }).waitFor();
+  await page.getByTestId("events-list").getByText("state_imported").waitFor();
+  await page.getByTestId("events-list").getByText("state_reset").waitFor();
+  await page.getByTestId("evidence-list").getByText("state_management", { exact: true }).first().waitFor();
 
   assert.deepEqual(consoleErrors, [], `Browser console errors were captured: ${consoleErrors.join("\n")}`);
   console.log(`Smoke passed against ${uiUrl} with temp state ${stateDir}`);

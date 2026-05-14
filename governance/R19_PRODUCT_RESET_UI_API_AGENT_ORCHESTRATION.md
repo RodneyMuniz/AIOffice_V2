@@ -26,6 +26,8 @@ R19 audit acknowledgement is lightweight operator triage and is not external aud
 
 R19 audit acknowledgement history is append-only lightweight triage history, not a ticketing system or external audit acceptance.
 
+R19 local state management is scoped to JSON-backed demo/developer state and is not production backup/restore.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

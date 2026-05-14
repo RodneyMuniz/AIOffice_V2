@@ -29,6 +29,10 @@ python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ## Endpoints
 
 - `GET /status`
+- `GET /state/health`
+- `GET /state/export`
+- `POST /state/import`
+- `POST /state/reset-demo`
 - `GET /policy-settings`
 - `GET /policy-overrides`
 - `PATCH /policy-settings`
@@ -242,8 +246,18 @@ The API loads persistent JSON files from `runtime/state/*.json` when present. If
 
 Set `AIO_STATE_DIR` before importing or starting the app to use an alternate state directory for smoke tests.
 
+Local state management endpoints:
+
+- `GET /state/health` returns a read-only derived health model for known JSON collections. It reports the state directory, `persistence_mode: json`, seed/persistent file presence, record counts, JSON validity, warnings, blockers, totals, and `safe_to_reset`. Missing persistent files are seed-fallback warnings, not blockers. Missing required seed files and invalid JSON are blockers. The endpoint does not write events or evidence.
+- `GET /state/export` returns a direct JSON payload with `export_id`, `exported_at`, `persistence_mode`, `state_dir`, collection payloads, collection source (`persistent` or `seed`), record counts, and non-claims. It does not include logs, virtualenvs, `node_modules`, backups, or unrelated files.
+- `POST /state/import` accepts either a `collections` object keyed by known collection name or the exported collection array from `GET /state/export`. It lightly validates known collection names and array/object shape, writes persistent `runtime/state/*.json` files for supplied collections, preserves seed files, and writes `state_imported` event plus `state_management` evidence.
+- `POST /state/reset-demo` requires the exact confirmation string `RESET_R19_DEMO_STATE`. Wrong or missing confirmation returns HTTP 400 and does nothing. Correct confirmation removes only known persistent `runtime/state/<collection>.json` files, preserves `*.seed.json`, reloads seed state, and writes a fresh `state_reset` event plus `state_management` evidence.
+
+These endpoints are local developer/demo-state management only. They are not production backup/restore, a database migration framework, autonomous agent execution, external audit acceptance, or a proof-package system.
+
 Mutating endpoints write back to:
 
+- `runtime/state/status.json`
 - `runtime/state/cards.json`
 - `runtime/state/work_orders.json`
 - `runtime/state/events.json`
@@ -284,7 +298,7 @@ Backend regression harness:
 python -m pytest services/orchestrator-api/tests
 ```
 
-The pytest harness covers seed reads, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, audit summary shape/counts including history counts, filterable audit exceptions, audit JSON/CSV export, JSON export with optional history, invalid audit export formats, audit pagination validation, audit GET endpoint read-only behavior, audit acknowledgement create/update validation, acknowledgement event/evidence writes, acknowledgement history append/filter/endpoints/404s, acknowledgement and history persistence across `JsonStateStore` reload, acknowledgement filters/counts/export fields, source exception non-mutation, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
+The pytest harness covers seed reads, state health read-only behavior, state export non-claims, guarded reset wrong-confirm no-op behavior, reset-to-seed behavior, import writes and validation errors, imported card/work-order reads, state import/reset event/evidence writes, invalid JSON health blockers, policy settings defaults/update/persistence/invalid modes/event/evidence writes, policy override listing/persistence/event/evidence writes, override-available readiness classification, empty override reason rejection, successful original and repair override handoffs, duplicate active handoff non-overridable blockers, repair linkage non-overridable blockers, audit summary shape/counts including history counts, filterable audit exceptions, audit JSON/CSV export, JSON export with optional history, invalid audit export formats, audit pagination validation, audit GET endpoint read-only behavior, audit acknowledgement create/update validation, acknowledgement event/evidence writes, acknowledgement history append/filter/endpoints/404s, acknowledgement and history persistence across `JsonStateStore` reload, acknowledgement filters/counts/export fields, source exception non-mutation, card/work-order/status updates, approvals, Developer/Codex result validation/capture/supersede/persistence, QA readiness advisory warning/ready/blocker paths, enforced policy promotion for original and repair QA, handoff endpoint enforcement, duplicate active handoff blockers in advisory and enforced modes, repair QA readiness warning/ready/blocker paths, readiness 404s, QA handoff developer-result references and soft warnings, QA result creation/error paths, repair request creation/error paths, linked repair work-order creation, repair QA handoff/result iteration flow, workflow iteration derivation, event/evidence writes, JSON persistence, repair completion/cancellation, and the small QA-result-to-work-order status mapping.
 
 Backend import smoke from the service directory:
 
@@ -297,6 +311,12 @@ Live API smoke after starting the backend:
 
 ```bash
 curl http://127.0.0.1:8000/status
+curl http://127.0.0.1:8000/state/health
+curl http://127.0.0.1:8000/state/export
+curl -X POST http://127.0.0.1:8000/state/reset-demo -H "Content-Type: application/json" -d "{\"reset_reason\":\"Wrong confirmation smoke.\",\"requested_by\":\"operator\",\"confirm\":\"RESET\"}"
+curl -X POST http://127.0.0.1:8000/state/import -H "Content-Type: application/json" -d "{\"collections\":{\"cards\":[{\"id\":\"R19-CARD-900\",\"title\":\"Imported smoke card\",\"summary\":\"Imported smoke card.\",\"status\":\"planned\",\"owner_agent_id\":\"orchestrator\",\"owner_role\":\"operator\",\"priority\":\"medium\"}],\"work_orders\":[{\"id\":\"R19-WO-900\",\"card_id\":\"R19-CARD-900\",\"title\":\"Imported smoke work order\",\"summary\":\"Imported smoke work order.\",\"status\":\"ready\",\"requested_by_agent_id\":\"orchestrator\",\"assigned_agent_id\":\"developer_codex\",\"approval_required\":false,\"request_requires_approval\":false,\"evidence_refs\":[],\"iteration_number\":1,\"work_order_type\":\"original\"}]},\"import_reason\":\"Live smoke import.\",\"requested_by\":\"operator\"}"
+curl http://127.0.0.1:8000/cards
+curl -X POST http://127.0.0.1:8000/state/reset-demo -H "Content-Type: application/json" -d "{\"reset_reason\":\"Live smoke reset.\",\"requested_by\":\"operator\",\"confirm\":\"RESET_R19_DEMO_STATE\"}"
 curl http://127.0.0.1:8000/policy-settings
 curl -X PATCH http://127.0.0.1:8000/policy-settings -H "Content-Type: application/json" -d "{\"qa_handoff_policy_mode\":\"advisory\",\"require_developer_result_for_qa\":false,\"require_developer_result_for_repair_qa\":false,\"allow_operator_override\":false,\"updated_by\":\"operator\"}"
 curl -X PATCH http://127.0.0.1:8000/policy-settings -H "Content-Type: application/json" -d "{\"qa_handoff_policy_mode\":\"invalid\",\"require_developer_result_for_qa\":true,\"require_developer_result_for_repair_qa\":true,\"allow_operator_override\":false,\"updated_by\":\"operator\"}"
@@ -356,12 +376,20 @@ curl http://127.0.0.1:8000/events
 curl http://127.0.0.1:8000/evidence
 ```
 
-## Reset Local Runtime State
+## Reset Local Demo State
 
-Delete the generated persistent files and restart the API:
+Preferred reset path while the API is running:
+
+```bash
+curl -X POST http://127.0.0.1:8000/state/reset-demo -H "Content-Type: application/json" -d "{\"reset_reason\":\"Resetting local demo state\",\"requested_by\":\"operator\",\"confirm\":\"RESET_R19_DEMO_STATE\"}"
+```
+
+The endpoint deletes only known persistent `runtime/state/<collection>.json` files, preserves `*.seed.json`, and writes fresh `state_reset` event/evidence. The hard guard is the exact `RESET_R19_DEMO_STATE` confirmation string.
+
+Manual cleanup is still possible if the API is stopped:
 
 ```powershell
-Remove-Item runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json,runtime\state\policy_overrides.json,runtime\state\audit_acknowledgements.json,runtime\state\audit_acknowledgement_history.json -ErrorAction SilentlyContinue
+Remove-Item runtime\state\status.json,runtime\state\cards.json,runtime\state\work_orders.json,runtime\state\events.json,runtime\state\evidence.json,runtime\state\approvals.json,runtime\state\handoffs.json,runtime\state\developer_results.json,runtime\state\qa_results.json,runtime\state\repair_requests.json,runtime\state\policy_settings.json,runtime\state\policy_overrides.json,runtime\state\audit_acknowledgements.json,runtime\state\audit_acknowledgement_history.json -ErrorAction SilentlyContinue
 ```
 
 The next API load will read the seed JSON files again.
@@ -369,6 +397,7 @@ The next API load will read the seed JSON files again.
 ## Current Limitations
 
 - JSON files are the only persistence layer in this slice.
+- State health/export/import/reset is local demo/developer state management only; it is not production backup/restore or a migration framework.
 - No authentication, routing, SQLite, background workers, or autonomous agents are implemented.
 - Approval gates are minimal operator state, not a full policy engine.
 - Policy enforcement is limited to operator-controlled QA handoff readiness gates; it is not a general policy engine.

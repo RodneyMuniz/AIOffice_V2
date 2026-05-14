@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-import-summary.schema.json",
+  "title": "StateImportSummary",
+  "type": "object",
+  "required": ["imported_collections", "skipped_collections", "warnings", "imported_at"],
+  "properties": {
+    "imported_collections": { "type": "array", "items": { "type": "string" } },
+    "skipped_collections": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "imported_at": { "type": "string" }
+  },
+  "examples": [
+    {
+      "imported_collections": ["cards", "work_orders"],
+      "skipped_collections": ["status", "agents"],
+      "warnings": [],
+      "imported_at": "2026-05-14T00:00:00Z"
+    }
+  ]
+}

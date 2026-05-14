@@ -50,6 +50,80 @@ export type AuditSeverity = (typeof AUDIT_SEVERITIES)[number];
 export type AuditAcknowledgementStatus = (typeof AUDIT_ACKNOWLEDGEMENT_STATUSES)[number];
 export type AuditAcknowledgementFilterStatus = (typeof AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES)[number];
 
+export type StateCollectionHealth = {
+  name: string;
+  seed_file: string;
+  persistent_file: string;
+  seed_exists: boolean;
+  persistent_exists: boolean;
+  record_count: number;
+  json_valid: boolean;
+  last_modified: string | null;
+  warning: string | null;
+  blocker: string | null;
+};
+
+export type StateHealth = {
+  state_dir: string;
+  generated_at: string;
+  persistence_mode: "json";
+  collections: StateCollectionHealth[];
+  totals: {
+    collections: number;
+    records: number;
+    seed_files: number;
+    persistent_files: number;
+    warnings: number;
+    blockers: number;
+  };
+  warnings: string[];
+  blockers: string[];
+  safe_to_reset: boolean;
+};
+
+export type StateExportCollection = {
+  name: string;
+  source: "persistent" | "seed";
+  record_count: number;
+  records?: unknown[];
+  payload?: Record<string, unknown>;
+};
+
+export type StateExport = {
+  export_id: string;
+  exported_at: string;
+  persistence_mode: "json";
+  state_dir: string;
+  collections: StateExportCollection[];
+  non_claims: string[];
+};
+
+export type StateImportRequest = {
+  collections: Record<string, unknown> | StateExportCollection[];
+  import_reason: string;
+  requested_by: string;
+};
+
+export type StateImportSummary = {
+  imported_collections: string[];
+  skipped_collections: string[];
+  warnings: string[];
+  imported_at: string;
+};
+
+export type StateResetRequest = {
+  reset_reason: string;
+  requested_by: string;
+  confirm: string;
+};
+
+export type StateResetSummary = {
+  reset_collections: string[];
+  preserved_seed_files: string[];
+  warnings: string[];
+  reset_at: string;
+};
+
 export type AuditSummary = {
   total_policy_overrides: number;
   total_policy_override_handoffs: number;

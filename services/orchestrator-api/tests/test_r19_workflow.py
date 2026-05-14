@@ -162,6 +162,223 @@ def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
         yield test_client
 
 
+def test_state_health_expected_collections_and_read_only(client: TestClient) -> None:
+    state_dir = api_main.store.state_dir
+    before_persistent_files = sorted(path.name for path in state_dir.glob("*.json"))
+    before_events = client.get("/events").json()
+    before_evidence = client.get("/evidence").json()
+
+    response = client.get("/state/health")
+
+    assert response.status_code == 200
+    health = response.json()
+    assert health["state_dir"] == str(state_dir)
+    assert health["persistence_mode"] == "json"
+    assert health["totals"]["collections"] == len(api_main.STATE_COLLECTIONS)
+    assert [entry["name"] for entry in health["collections"]] == list(api_main.STATE_COLLECTIONS)
+    assert health["blockers"] == []
+    assert health["safe_to_reset"] is True
+    cards_health = next(entry for entry in health["collections"] if entry["name"] == "cards")
+    assert cards_health["seed_exists"] is True
+    assert cards_health["persistent_exists"] is False
+    assert cards_health["record_count"] >= 1
+    assert cards_health["json_valid"] is True
+
+    assert sorted(path.name for path in state_dir.glob("*.json")) == before_persistent_files
+    assert client.get("/events").json() == before_events
+    assert client.get("/evidence").json() == before_evidence
+
+
+def test_state_export_returns_collections_and_non_claims(client: TestClient) -> None:
+    response = client.get("/state/export")
+
+    assert response.status_code == 200
+    exported = response.json()
+    assert exported["persistence_mode"] == "json"
+    assert exported["state_dir"] == str(api_main.store.state_dir)
+    assert "Not production backup or restore." in exported["non_claims"]
+    collection_names = [entry["name"] for entry in exported["collections"]]
+    assert collection_names == list(api_main.STATE_COLLECTIONS)
+    cards = next(entry for entry in exported["collections"] if entry["name"] == "cards")
+    assert cards["source"] == "seed"
+    assert cards["record_count"] >= 1
+    assert cards["records"][0]["id"] == "R19-CARD-001"
+    policy_settings = next(
+        entry for entry in exported["collections"] if entry["name"] == "policy_settings"
+    )
+    assert policy_settings["payload"]["qa_handoff_policy_mode"] == "advisory"
+
+
+def test_reset_demo_wrong_confirm_does_nothing(client: TestClient) -> None:
+    card = client.post(
+        "/cards",
+        json={"title": "Wrong reset guard", "description": "Should survive failed reset."},
+    ).json()
+    cards_path = api_main.store.state_dir / "cards.json"
+    assert cards_path.exists()
+    before_events = client.get("/events").json()
+
+    response = client.post(
+        "/state/reset-demo",
+        json={
+            "reset_reason": "Wrong confirmation coverage.",
+            "requested_by": "pytest",
+            "confirm": "RESET",
+        },
+    )
+
+    assert response.status_code == 400
+    assert cards_path.exists()
+    assert any(item["id"] == card["id"] for item in client.get("/cards").json())
+    assert client.get("/events").json() == before_events
+
+
+def test_reset_demo_correct_confirm_resets_to_seed_and_records_state_event(
+    client: TestClient,
+) -> None:
+    card = client.post(
+        "/cards",
+        json={"title": "Reset demo card", "description": "Should be removed by reset."},
+    ).json()
+    assert (api_main.store.state_dir / "cards.json").exists()
+
+    response = client.post(
+        "/state/reset-demo",
+        json={
+            "reset_reason": "Resetting local demo state from pytest.",
+            "requested_by": "pytest",
+            "confirm": api_main.STATE_RESET_CONFIRMATION,
+        },
+    )
+
+    assert response.status_code == 200
+    summary = response.json()
+    assert "cards" in summary["reset_collections"]
+    assert "cards.seed.json" in summary["preserved_seed_files"]
+    assert not (api_main.store.state_dir / "cards.json").exists()
+    cards = client.get("/cards").json()
+    assert cards[0]["id"] == "R19-CARD-001"
+    assert all(item["id"] != card["id"] for item in cards)
+    assert any(event["type"] == "state_reset" for event in client.get("/events").json())
+    assert any(
+        evidence["kind"] == "state_management"
+        and evidence["title"] == "Local demo state reset"
+        for evidence in client.get("/evidence").json()
+    )
+
+
+def test_import_state_writes_collections_and_records_state_event(client: TestClient) -> None:
+    imported_card = {
+        "id": "R19-CARD-999",
+        "title": "Imported card",
+        "summary": "Imported from local state bundle.",
+        "status": "planned",
+        "owner_agent_id": "orchestrator",
+        "owner_role": "operator",
+        "priority": "high",
+        "created_at": "2026-05-14T00:00:00Z",
+    }
+    imported_work_order = {
+        "id": "R19-WO-999",
+        "card_id": imported_card["id"],
+        "title": "Imported work order",
+        "summary": "Imported with the card.",
+        "status": "ready",
+        "requested_by_agent_id": "orchestrator",
+        "assigned_agent_id": "developer_codex",
+        "approval_required": False,
+        "request_requires_approval": False,
+        "evidence_refs": [],
+        "iteration_number": 1,
+        "work_order_type": "original",
+        "created_at": "2026-05-14T00:00:00Z",
+        "updated_at": "2026-05-14T00:00:00Z",
+    }
+
+    response = client.post(
+        "/state/import",
+        json={
+            "collections": {
+                "cards": [imported_card],
+                "work_orders": [imported_work_order],
+            },
+            "import_reason": "Restoring local demo state from pytest.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert response.status_code == 200
+    summary = response.json()
+    assert summary["imported_collections"] == ["cards", "work_orders"]
+    assert "agents" in summary["skipped_collections"]
+    assert client.get("/cards").json() == [imported_card]
+    assert client.get("/work-orders").json() == [imported_work_order]
+    assert any(event["type"] == "state_imported" for event in client.get("/events").json())
+    assert any(
+        evidence["kind"] == "state_management"
+        and evidence["title"] == "Local state imported"
+        for evidence in client.get("/evidence").json()
+    )
+
+
+def test_import_state_accepts_export_bundle_shape(client: TestClient) -> None:
+    client.post(
+        "/cards",
+        json={"title": "Export/import card", "description": "Round-trip through export."},
+    )
+    exported = client.get("/state/export").json()
+    reset_response = client.post(
+        "/state/reset-demo",
+        json={
+            "reset_reason": "Prepare for import bundle shape.",
+            "requested_by": "pytest",
+            "confirm": api_main.STATE_RESET_CONFIRMATION,
+        },
+    )
+    assert reset_response.status_code == 200
+
+    import_response = client.post(
+        "/state/import",
+        json={
+            "collections": exported["collections"],
+            "import_reason": "Importing an exported collection array.",
+            "requested_by": "pytest",
+        },
+    )
+
+    assert import_response.status_code == 200
+    assert any(card["title"] == "Export/import card" for card in client.get("/cards").json())
+
+
+def test_import_state_invalid_payload_returns_400(client: TestClient) -> None:
+    unknown_response = client.post(
+        "/state/import",
+        json={"collections": {"not_a_collection": []}, "import_reason": "Invalid."},
+    )
+    shape_response = client.post(
+        "/state/import",
+        json={"collections": {"cards": {"id": "not-an-array"}}, "import_reason": "Invalid."},
+    )
+
+    assert unknown_response.status_code == 400
+    assert shape_response.status_code == 400
+
+
+def test_state_health_reports_invalid_json_blocker(client: TestClient) -> None:
+    cards_path = api_main.store.state_dir / "cards.json"
+    cards_path.write_text("{not valid json", encoding="utf-8")
+
+    response = client.get("/state/health")
+
+    assert response.status_code == 200
+    health = response.json()
+    cards_health = next(entry for entry in health["collections"] if entry["name"] == "cards")
+    assert cards_health["json_valid"] is False
+    assert "Persistent JSON is invalid" in cards_health["blocker"]
+    assert any("cards: Persistent JSON is invalid" in blocker for blocker in health["blockers"])
+    assert health["safe_to_reset"] is False
+
+
 def test_status_and_seed_collections(client: TestClient) -> None:
     status_response = client.get("/status")
     assert status_response.status_code == 200

@@ -17,6 +17,12 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/audit-acknowledgement-history-entry.schema.json`
 - `schemas/create-audit-acknowledgement-request.schema.json`
 - `schemas/update-audit-acknowledgement-request.schema.json`
+- `schemas/state-health.schema.json`
+- `schemas/state-export.schema.json`
+- `schemas/state-import-request.schema.json`
+- `schemas/state-import-summary.schema.json`
+- `schemas/state-reset-request.schema.json`
+- `schemas/state-reset-summary.schema.json`
 - `schemas/handoff-override-request.schema.json`
 - `schemas/card.schema.json`
 - `schemas/create-card-request.schema.json`
@@ -74,6 +80,8 @@ The audit review contracts describe derived responses for `GET /audit/summary`, 
 The audit acknowledgement contract describes the small persisted `runtime/state/audit_acknowledgements.json` model used by `GET /audit/acknowledgements`, `POST /audit/acknowledgements`, and `PATCH /audit/acknowledgements/{id}`. A marker links to an exception through `exception_source_ref` where possible, also stores `exception_id`, and requires a non-empty reason. POST uses upsert semantics for the same `exception_source_ref`, so one active marker per durable source ref is enough for this slice. Acknowledgement writes `audit_exception_acknowledged`, `audit_exception_resolved`, or `audit_exception_dismissed` events plus `audit_acknowledgement` evidence.
 
 The audit acknowledgement history contract describes the append-only `runtime/state/audit_acknowledgement_history.json` model used by `GET /audit/acknowledgement-history` and `GET /audit/acknowledgements/{id}/history`. Every create, upsert, and patch appends a history entry with `previous_status`, `new_status`, reason, changed by, changed at, exception refs, and evidence refs. The marker remains the current/latest review state; the history trail preserves prior triage changes. This is lightweight operator triage history, not a ticketing system, not an external audit ledger, not external audit acceptance, and not audit signoff.
+
+The local state management contracts describe `GET /state/health`, `GET /state/export`, `POST /state/import`, and `POST /state/reset-demo`. They cover known JSON collections under `runtime/state`, seed fallback health, direct JSON export, lightweight import into persistent `*.json` files, and guarded demo reset with the exact confirmation string `RESET_R19_DEMO_STATE`. Import and reset write `state_management` event/evidence entries. This is local demo/developer state management only; it is not production backup/restore, not a database migration framework, not autonomous agent execution, and not external audit acceptance.
 
 The QA readiness contracts describe read-only preflight responses for `GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness`. Readiness levels are `ready`, `warning`, and `blocked`; check statuses are `passed`, `warning`, and `blocked`.
 

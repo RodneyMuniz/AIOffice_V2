@@ -44,6 +44,7 @@ VITE_AIO_API_BASE_URL=http://127.0.0.1:8000 npm run dev
 - Record a structured Developer/Codex result for an original or repair work order before QA handoff.
 - Use the Policy Settings panel to switch QA handoff readiness between advisory and enforced mode.
 - Enable the narrow operator override option for policy-promoted missing Developer/Codex result blockers.
+- Use the Local State panel to inspect JSON state health, export current local state, import a state bundle, and reset demo state with `RESET_R19_DEMO_STATE`.
 - See Developer/Codex results in the Developer Results panel.
 - Check QA readiness/preflight before original or repair QA handoff.
 - Trigger a Developer/Codex to QA/Test handoff from a work order.
@@ -80,6 +81,17 @@ Policy settings use:
 - `GET /policy-overrides`
 
 The Policy Settings panel shows the current QA handoff policy mode, whether Developer/Codex results are required for original QA and repair QA, the operator override flag, and the last updated timestamp/by fields. Saving policy settings refreshes status, policy settings, readiness fallback state, events, and evidence. `allow_operator_override` only enables overrides for policy-promoted missing Developer/Codex result blockers in enforced mode. It does not bypass duplicate active handoffs, missing records, broken repair linkage, invalid repair work orders, or other hard system blockers.
+
+Local state management uses:
+
+- `GET /state/health`
+- `GET /state/export`
+- `POST /state/import`
+- `POST /state/reset-demo`
+
+The Local State panel shows `json` persistence mode, state directory, collection totals, warning/blocker counts, `safe_to_reset`, and one row per known collection with seed/persistent presence, record count, JSON validity, and any warning/blocker. Refresh State Health is read-only and does not write events or evidence. Export State JSON calls the backend export endpoint and shows the JSON in a textarea with a Copy Export button. Import State JSON accepts a pasted export bundle or collection object plus a required reason; successful import refreshes the dashboard and state health and records `state_imported` event/evidence. Reset Demo State shows a clear local-demo warning, requires a reason and exact `RESET_R19_DEMO_STATE` confirmation, disables the reset button until confirmation matches, refreshes dashboard/health on success, and records `state_reset` event/evidence.
+
+This is local JSON demo/developer-state management only. It is not production backup/restore, a database migration framework, autonomous agent execution, external audit acceptance, or proof-package generation.
 
 Developer/Codex result capture uses:
 
@@ -169,55 +181,68 @@ Committed browser smoke:
 npm run smoke
 ```
 
-The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, refreshes the Audit Review panel, verifies policy override/QA failed/repair request exceptions, applies exception-type and text filters, acknowledges then resolves a policy override exception, shows acknowledgement history, verifies acknowledged and resolved history rows with previous/new statuses, verifies acknowledgement-status filters including `none`, verifies compact JSON export, verifies JSON export with history, verifies CSV export acknowledgement fields, verifies audit acknowledgement event/evidence entries, and checks for browser console errors.
+The smoke script starts the backend with a temporary copied seed-state directory, starts Vite on a temporary local port, verifies the Local State panel health table includes known collections, verifies the Policy Settings panel starts in advisory mode, switches original QA policy to enforced, enables operator override, creates a card/work order, verifies missing Developer/Codex result blocks normal handoff, verifies the override option appears and requires a reason, creates the original QA handoff with override, verifies Handoffs and Policy Overrides show the override id/reason and no `developer_result_id`, verifies duplicate active handoff remains blocked, accepts it, records a failed QA result, creates a repair request, enables the repair QA Developer/Codex result requirement, confirms repair QA handoff is blocked, creates the repair QA handoff with override and reason, accepts it, records a passed repair QA result, verifies the Workflow Iterations panel, verifies override/repair QA events/evidence, refreshes the Audit Review panel, verifies policy override/QA failed/repair request exceptions, applies exception-type and text filters, acknowledges then resolves a policy override exception, shows acknowledgement history, verifies acknowledged and resolved history rows with previous/new statuses, verifies acknowledgement-status filters including `none`, verifies compact JSON export, verifies JSON export with history, verifies CSV export acknowledgement fields, verifies audit acknowledgement event/evidence entries, exports local state JSON, verifies reset is disabled for a wrong confirmation, resets demo state with `RESET_R19_DEMO_STATE`, verifies the smoke-created card is gone, imports the exported state, verifies the card/work order return, verifies state import/reset events/evidence, and checks for browser console errors.
 
 Manual browser smoke:
 
 1. Start `services/orchestrator-api`.
 2. Start the UI with `npm run dev`.
-3. Create a card.
-4. Create a work order linked to that card.
-5. Use the card status dropdown and Update status button.
-6. Confirm advisory policy mode leaves missing Developer/Codex result as a readiness warning and does not disable Handoff to QA.
-7. Switch policy mode to enforced, require Developer/Codex result for original QA, and enable operator override.
-8. Click Check QA readiness and confirm the missing-result warning is now blocked, Handoff to QA is disabled, and Handoff to QA with Override appears.
-9. Confirm the override button is disabled until a reason is entered.
-10. Enter an override reason and click Handoff to QA with Override.
-11. Confirm the Handoffs panel shows the override id/reason and no developer result id.
-12. Confirm the Policy Overrides panel lists the override.
-13. Confirm duplicate active handoff remains blocked.
-14. Accept or reject the proposed handoff in the Handoffs panel.
-15. For an accepted handoff, submit the QA result form.
-16. If the QA result is failed or blocked, create a repair request from the QA Results panel.
-17. Confirm the Repair Requests panel and linked repair work order appear.
-18. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
-19. Enable the repair QA Developer/Codex result requirement and keep operator override enabled in the Policy Settings panel.
-20. Confirm repair QA readiness becomes blocked, Handoff Repair to QA is disabled, and Handoff Repair to QA with Override appears.
-21. Enter an override reason and click Handoff Repair to QA with Override.
-22. Confirm the repair QA handoff shows the override id/reason and no developer result id.
-23. Accept the repair QA handoff in the Handoffs panel.
-24. Record a repair QA result and confirm the repair work order status updates.
-25. Confirm the Workflow Iterations panel shows the original and repair iteration.
-26. Confirm Events and Evidence refresh with policy settings, policy override, and repair QA handoff/result entries.
-27. Refresh the Audit Review panel and confirm the summary shows at least one policy override.
-28. Confirm the Audit Review exception list includes `policy_override`, `qa_failed`, and `repair_request_created`.
-29. Filter Audit Review by `policy_override` and then search for the override reason.
-30. Mark the policy override exception acknowledged with a reason and confirm the row status updates.
-31. Filter by Acknowledged and confirm the exception remains.
-32. Mark the same exception resolved with a new reason and confirm the row status updates.
-33. Click Show History and confirm the trail shows acknowledged and resolved rows with previous/new statuses.
-34. Filter by Resolved and confirm the exception remains, then filter by Unreviewed and confirm it is excluded.
-35. Use Export JSON and confirm the compact export omits history by default.
-36. Check Include history in JSON export, export JSON again, and confirm acknowledgement history entries appear.
-37. Use Export CSV and confirm the textarea contains latest acknowledgement fields.
-38. Confirm Events and Evidence show audit acknowledgement entries.
-39. Approve or reject a pending approval and confirm the Approvals panel refreshes.
+3. Refresh the Local State panel and confirm collection rows include `cards` and `work_orders`.
+4. Create a card.
+5. Create a work order linked to that card.
+6. Use the card status dropdown and Update status button.
+7. Confirm advisory policy mode leaves missing Developer/Codex result as a readiness warning and does not disable Handoff to QA.
+8. Switch policy mode to enforced, require Developer/Codex result for original QA, and enable operator override.
+9. Click Check QA readiness and confirm the missing-result warning is now blocked, Handoff to QA is disabled, and Handoff to QA with Override appears.
+10. Confirm the override button is disabled until a reason is entered.
+11. Enter an override reason and click Handoff to QA with Override.
+12. Confirm the Handoffs panel shows the override id/reason and no developer result id.
+13. Confirm the Policy Overrides panel lists the override.
+14. Confirm duplicate active handoff remains blocked.
+15. Accept or reject the proposed handoff in the Handoffs panel.
+16. For an accepted handoff, submit the QA result form.
+17. If the QA result is failed or blocked, create a repair request from the QA Results panel.
+18. Confirm the Repair Requests panel and linked repair work order appear.
+19. Confirm the Repair Requests panel shows repair QA readiness warning before repair result capture.
+20. Enable the repair QA Developer/Codex result requirement and keep operator override enabled in the Policy Settings panel.
+21. Confirm repair QA readiness becomes blocked, Handoff Repair to QA is disabled, and Handoff Repair to QA with Override appears.
+22. Enter an override reason and click Handoff Repair to QA with Override.
+23. Confirm the repair QA handoff shows the override id/reason and no developer result id.
+24. Accept the repair QA handoff in the Handoffs panel.
+25. Record a repair QA result and confirm the repair work order status updates.
+26. Confirm the Workflow Iterations panel shows the original and repair iteration.
+27. Confirm Events and Evidence refresh with policy settings, policy override, and repair QA handoff/result entries.
+28. Refresh the Audit Review panel and confirm the summary shows at least one policy override.
+29. Confirm the Audit Review exception list includes `policy_override`, `qa_failed`, and `repair_request_created`.
+30. Filter Audit Review by `policy_override` and then search for the override reason.
+31. Mark the policy override exception acknowledged with a reason and confirm the row status updates.
+32. Filter by Acknowledged and confirm the exception remains.
+33. Mark the same exception resolved with a new reason and confirm the row status updates.
+34. Click Show History and confirm the trail shows acknowledged and resolved rows with previous/new statuses.
+35. Filter by Resolved and confirm the exception remains, then filter by Unreviewed and confirm it is excluded.
+36. Use Export JSON and confirm the compact export omits history by default.
+37. Check Include history in JSON export, export JSON again, and confirm acknowledgement history entries appear.
+38. Use Export CSV and confirm the textarea contains latest acknowledgement fields.
+39. Confirm Events and Evidence show audit acknowledgement entries.
+40. Use Local State export and confirm the JSON includes `cards` and `work_orders`.
+41. Enter a wrong reset confirmation and confirm Reset Demo State stays disabled.
+42. Enter `RESET_R19_DEMO_STATE`, reset demo state, and confirm the card/work order you created are gone.
+43. Paste the exported state JSON into Import State JSON with a reason, import it, and confirm the card/work order return.
+44. Confirm Events and Evidence show `state_reset`, `state_imported`, and `state_management`.
+45. Approve or reject a pending approval and confirm the Approvals panel refreshes.
 
 Stable `data-testid` attributes are present for create forms, lists, handoffs, approvals, and per-record status controls.
 
 ## Local State
 
-Records are served by `services/orchestrator-api` and persisted as JSON under `runtime/state/`. To reset the local demo state, stop the backend, delete generated `runtime/state/*.json` persistence files, then restart the backend.
+Records are served by `services/orchestrator-api` and persisted as JSON under `runtime/state/`. The Local State panel is the operator-facing surface for this slice:
+
+- Health reads known collection files and reports seed fallback, persistent file presence, record counts, JSON validity, warnings, blockers, and reset safety.
+- Export returns direct JSON text from known seed/persistent collection payloads.
+- Import writes supplied known collections as persistent JSON and records `state_imported` event/evidence.
+- Reset requires exact `RESET_R19_DEMO_STATE`, removes known persistent JSON files only, preserves seed files, and records `state_reset` event/evidence.
+
+This remains local JSON-only demo-state management, not production backup/restore.
 
 ## Current Limitations
 
@@ -233,6 +258,7 @@ Records are served by `services/orchestrator-api` and persisted as JSON under `r
 - QA readiness is advisory by default. Enforced mode is limited to operator-controlled Developer/Codex result requirements for QA handoff readiness and is not a full policy engine.
 - Operator override is a narrow logged exception path for policy-promoted missing Developer/Codex result blockers only; it is not auth, not reusable permission, and not a bypass for hard system blockers.
 - Audit Review acknowledgement history is append-only lightweight operator triage, not external audit acceptance, not a ticketing system, not a large reporting engine, and not a proof-package generator.
+- Local State export/import/reset is not production backup/restore and not a migration framework.
 - Completing or cancelling a repair request does not automatically create another handoff.
 - Status controls validate through the backend, but no complex workflow policy is implemented yet.
 - This proves a local operator UI/API workflow slice, not full product runtime.

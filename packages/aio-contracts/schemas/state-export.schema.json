@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-export.schema.json",
+  "title": "StateExport",
+  "type": "object",
+  "required": [
+    "export_id",
+    "exported_at",
+    "persistence_mode",
+    "state_dir",
+    "collections",
+    "non_claims"
+  ],
+  "properties": {
+    "export_id": { "type": "string" },
+    "exported_at": { "type": "string" },
+    "persistence_mode": { "type": "string", "const": "json" },
+    "state_dir": { "type": "string" },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source", "record_count"],
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "type": "string", "enum": ["persistent", "seed"] },
+          "record_count": { "type": "integer", "minimum": 0 },
+          "records": { "type": "array" },
+          "payload": { "type": "object" }
+        },
+        "anyOf": [{ "required": ["records"] }, { "required": ["payload"] }]
+      }
+    },
+    "non_claims": { "type": "array", "items": { "type": "string" } }
+  },
+  "examples": [
+    {
+      "export_id": "R19-STATE-EXPORT-20260514T000000Z",
+      "exported_at": "2026-05-14T00:00:00Z",
+      "persistence_mode": "json",
+      "state_dir": "C:/repo/runtime/state",
+      "collections": [
+        {
+          "name": "cards",
+          "source": "persistent",
+          "record_count": 1,
+          "records": [{ "id": "R19-CARD-001", "title": "Seed card" }]
+        },
+        {
+          "name": "policy_settings",
+          "source": "seed",
+          "record_count": 1,
+          "payload": { "qa_handoff_policy_mode": "advisory" }
+        }
+      ],
+      "non_claims": [
+        "Local JSON demo-state management only.",
+        "Not production backup or restore."
+      ]
+    }
+  ]
+}

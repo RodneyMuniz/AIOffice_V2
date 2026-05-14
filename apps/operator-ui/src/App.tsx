@@ -13,16 +13,20 @@ import {
   createRepairRequest,
   createWorkOrder,
   exportAudit,
+  exportState,
   getRepairRequestQaReadiness,
   getWorkOrderQaReadiness,
   handoffRepairRequestToQa,
   handoffWorkOrderToQa,
+  importState,
   loadAuditAcknowledgementHistoryForMarker,
   loadAuditExceptions,
   loadAuditSummary,
   loadDashboard,
+  loadStateHealth,
   rejectApproval,
   rejectHandoff,
+  resetDemoState,
   saveAuditAcknowledgement,
   updateAuditAcknowledgement,
   updateCardStatus,
@@ -63,6 +67,8 @@ import type {
   QaResult,
   QaResultValue,
   RepairRequest,
+  StateExportCollection,
+  StateHealth,
   StatusResponse,
   UpdateStatusRequest,
   WorkOrder,
@@ -164,6 +170,7 @@ function Dashboard({
       <div className="dashboard-grid">
         <StatusPanel status={data.status} />
         <PolicySettingsPanel onRefresh={onRefresh} policySettings={data.policySettings} />
+        <LocalStatePanel onRefresh={onRefresh} />
         <CreateCardForm onRefresh={onRefresh} />
         <CreateWorkOrderForm agents={data.agents} cards={data.cards} onRefresh={onRefresh} />
         <CardsList
@@ -306,6 +313,270 @@ function StatusPanel({ status }: { status: StatusResponse }) {
           <li key={claim}>{claim}</li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+function LocalStatePanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
+  const [health, setHealth] = useState<StateHealth | null>(null);
+  const [isHealthLoading, setIsHealthLoading] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [exportText, setExportText] = useState("");
+  const [importText, setImportText] = useState("");
+  const [importReason, setImportReason] = useState("Restoring local demo state");
+  const [resetReason, setResetReason] = useState("Resetting local demo state");
+  const [resetConfirm, setResetConfirm] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const refreshStateHealth = useCallback(async (signal?: AbortSignal) => {
+    setIsHealthLoading(true);
+    try {
+      const nextHealth = await loadStateHealth(signal);
+      setHealth(nextHealth);
+      setError(null);
+      setSuccess("State health refreshed.");
+    } catch (healthError: unknown) {
+      if (!signal?.aborted) {
+        setError(errorMessage(healthError));
+      }
+    } finally {
+      if (!signal?.aborted) {
+        setIsHealthLoading(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    refreshStateHealth(controller.signal).catch(() => undefined);
+    return () => controller.abort();
+  }, [refreshStateHealth]);
+
+  async function handleExport() {
+    setError(null);
+    setSuccess(null);
+    setIsExporting(true);
+    try {
+      const exported = await exportState();
+      setExportText(JSON.stringify(exported, null, 2));
+      setSuccess(`Exported ${exported.collections.length} local state collections.`);
+    } catch (exportError: unknown) {
+      setError(errorMessage(exportError));
+    } finally {
+      setIsExporting(false);
+    }
+  }
+
+  async function copyExportText() {
+    if (!exportText) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(exportText);
+      setSuccess("Export JSON copied.");
+    } catch {
+      setSuccess("Export JSON is ready to select and copy.");
+    }
+  }
+
+  async function handleImport(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsImporting(true);
+    try {
+      const collections = parseImportCollections(importText);
+      const summary = await importState({
+        collections,
+        import_reason: importReason.trim(),
+        requested_by: "operator"
+      });
+      await Promise.all([onRefresh(), refreshStateHealth()]);
+      setSuccess(`Imported ${summary.imported_collections.length} collection(s).`);
+    } catch (importError: unknown) {
+      setError(errorMessage(importError));
+    } finally {
+      setIsImporting(false);
+    }
+  }
+
+  async function handleReset(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsResetting(true);
+    try {
+      const summary = await resetDemoState({
+        reset_reason: resetReason.trim(),
+        requested_by: "operator",
+        confirm: resetConfirm.trim()
+      });
+      setResetConfirm("");
+      await Promise.all([onRefresh(), refreshStateHealth()]);
+      setSuccess(`Reset ${summary.reset_collections.length} persistent collection(s).`);
+    } catch (resetError: unknown) {
+      setError(errorMessage(resetError));
+    } finally {
+      setIsResetting(false);
+    }
+  }
+
+  const importDisabled = isImporting || !importText.trim() || !importReason.trim();
+  const resetDisabled =
+    isResetting || !resetReason.trim() || resetConfirm.trim() !== "RESET_R19_DEMO_STATE";
+
+  return (
+    <section className="panel local-state-panel" data-testid="local-state-panel">
+      <div className="panel-heading">
+        <h2>Local State</h2>
+        <span
+          className={`state-tag ${
+            health?.blockers.length ? "danger" : health?.warnings.length ? "warn" : ""
+          }`}
+          data-testid="state-health-safe"
+        >
+          {health ? (health.safe_to_reset ? "safe to reset" : "blocked") : "loading"}
+        </span>
+      </div>
+
+      {health && (
+        <>
+          <dl className="status-list state-health-summary" data-testid="state-health-summary">
+            <div>
+              <dt>Persistence</dt>
+              <dd>{health.persistence_mode}</dd>
+            </div>
+            <div>
+              <dt>State directory</dt>
+              <dd>{health.state_dir}</dd>
+            </div>
+            <div>
+              <dt>Total collections</dt>
+              <dd>{health.totals.collections}</dd>
+            </div>
+            <div>
+              <dt>Warnings</dt>
+              <dd>{health.totals.warnings}</dd>
+            </div>
+            <div>
+              <dt>Blockers</dt>
+              <dd>{health.totals.blockers}</dd>
+            </div>
+            <div>
+              <dt>Safe to reset</dt>
+              <dd>{formatBoolean(health.safe_to_reset)}</dd>
+            </div>
+          </dl>
+
+          <div className="state-collection-table-wrap">
+            <table className="state-collection-table" data-testid="state-health-collections">
+              <thead>
+                <tr>
+                  <th>Collection</th>
+                  <th>Seed</th>
+                  <th>Persistent</th>
+                  <th>Records</th>
+                  <th>JSON</th>
+                  <th>Warning / blocker</th>
+                </tr>
+              </thead>
+              <tbody>
+                {health.collections.map((collection) => (
+                  <tr key={collection.name} data-testid={`state-collection-${collection.name}`}>
+                    <td>{collection.name}</td>
+                    <td>{formatBoolean(collection.seed_exists)}</td>
+                    <td>{formatBoolean(collection.persistent_exists)}</td>
+                    <td>{collection.record_count}</td>
+                    <td>{collection.json_valid ? "valid" : "invalid"}</td>
+                    <td>{collection.blocker ?? collection.warning ?? "ok"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      <div className="state-action-row">
+        <button data-testid="state-refresh" disabled={isHealthLoading} onClick={() => refreshStateHealth()} type="button">
+          {isHealthLoading ? "Refreshing..." : "Refresh State Health"}
+        </button>
+        <button data-testid="state-export" disabled={isExporting} onClick={handleExport} type="button">
+          {isExporting ? "Exporting..." : "Export State JSON"}
+        </button>
+        <button className="secondary" data-testid="state-copy-export" disabled={!exportText} onClick={copyExportText} type="button">
+          Copy Export
+        </button>
+      </div>
+
+      <label className="state-textarea-label">
+        Export JSON
+        <textarea
+          aria-label="State export JSON"
+          data-testid="state-export-output"
+          onChange={(event) => setExportText(event.target.value)}
+          placeholder="Exported local state JSON appears here."
+          value={exportText}
+        />
+      </label>
+
+      <div className="state-forms-grid">
+        <form className="form-grid" onSubmit={handleImport}>
+          <h3>Import State JSON</h3>
+          <label>
+            Import reason
+            <input
+              data-testid="state-import-reason"
+              onChange={(event) => setImportReason(event.target.value)}
+              required
+              value={importReason}
+            />
+          </label>
+          <label>
+            JSON input
+            <textarea
+              data-testid="state-import-input"
+              onChange={(event) => setImportText(event.target.value)}
+              placeholder="Paste a state export or a collections object."
+              value={importText}
+            />
+          </label>
+          <button data-testid="state-import-submit" disabled={importDisabled} type="submit">
+            {isImporting ? "Importing..." : "Import State"}
+          </button>
+        </form>
+
+        <form className="form-grid" onSubmit={handleReset}>
+          <h3>Reset Demo State</h3>
+          <p className="form-status warning">This resets local demo JSON state only.</p>
+          <label>
+            Reset reason
+            <input
+              data-testid="state-reset-reason"
+              onChange={(event) => setResetReason(event.target.value)}
+              required
+              value={resetReason}
+            />
+          </label>
+          <label>
+            Confirmation
+            <input
+              data-testid="state-reset-confirm"
+              onChange={(event) => setResetConfirm(event.target.value)}
+              placeholder="RESET_R19_DEMO_STATE"
+              value={resetConfirm}
+            />
+          </label>
+          <button className="danger" data-testid="state-reset-submit" disabled={resetDisabled} type="submit">
+            {isResetting ? "Resetting..." : "Reset Demo State"}
+          </button>
+        </form>
+      </div>
+
+      <FormStatus error={error} success={success} />
     </section>
   );
 }
@@ -3227,4 +3498,42 @@ function FormStatus({ error, success }: { error: string | null; success: string 
 
 function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "Unknown API error";
+}
+
+function formatBoolean(value: boolean): string {
+  return value ? "yes" : "no";
+}
+
+function parseImportCollections(text: string): Record<string, unknown> | StateExportCollection[] {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    throw new Error("Import JSON is not valid JSON.");
+  }
+
+  if (Array.isArray(parsed)) {
+    return parsed as StateExportCollection[];
+  }
+
+  if (!isRecord(parsed)) {
+    throw new Error("Import JSON must be an object or exported collection array.");
+  }
+
+  if ("collections" in parsed) {
+    const collections = parsed.collections;
+    if (Array.isArray(collections)) {
+      return collections as StateExportCollection[];
+    }
+    if (isRecord(collections)) {
+      return collections;
+    }
+    throw new Error("Import JSON collections must be an object or array.");
+  }
+
+  return parsed;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }

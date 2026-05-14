@@ -28,6 +28,12 @@ import type {
   QaResult,
   RepairRequest,
   RepairRequestDecisionRequest,
+  StateExport,
+  StateHealth,
+  StateImportRequest,
+  StateImportSummary,
+  StateResetRequest,
+  StateResetSummary,
   StatusResponse,
   UpdateAuditAcknowledgementRequest,
   UpdatePolicySettingsRequest,
@@ -184,6 +190,22 @@ export function loadAuditExceptions(
 
 export function exportAudit(format: "json" | "csv", filters: AuditExportFilters = {}): Promise<string> {
   return requestText(`/audit/export${auditQuery({ ...filters, format })}`);
+}
+
+export function loadStateHealth(signal?: AbortSignal): Promise<StateHealth> {
+  return requestJson<StateHealth>("/state/health", { signal });
+}
+
+export function exportState(): Promise<StateExport> {
+  return requestJson<StateExport>("/state/export");
+}
+
+export function importState(payload: StateImportRequest): Promise<StateImportSummary> {
+  return requestJson<StateImportSummary>("/state/import", { method: "POST", body: payload });
+}
+
+export function resetDemoState(payload: StateResetRequest): Promise<StateResetSummary> {
+  return requestJson<StateResetSummary>("/state/reset-demo", { method: "POST", body: payload });
 }
 
 export function saveAuditAcknowledgement(

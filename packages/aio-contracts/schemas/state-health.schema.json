@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/state-health.schema.json",
+  "title": "StateHealth",
+  "type": "object",
+  "required": [
+    "state_dir",
+    "generated_at",
+    "persistence_mode",
+    "collections",
+    "totals",
+    "warnings",
+    "blockers",
+    "safe_to_reset"
+  ],
+  "properties": {
+    "state_dir": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "persistence_mode": { "type": "string", "const": "json" },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "seed_file",
+          "persistent_file",
+          "seed_exists",
+          "persistent_exists",
+          "record_count",
+          "json_valid",
+          "last_modified",
+          "warning",
+          "blocker"
+        ],
+        "properties": {
+          "name": { "type": "string" },
+          "seed_file": { "type": "string" },
+          "persistent_file": { "type": "string" },
+          "seed_exists": { "type": "boolean" },
+          "persistent_exists": { "type": "boolean" },
+          "record_count": { "type": "integer", "minimum": 0 },
+          "json_valid": { "type": "boolean" },
+          "last_modified": { "type": ["string", "null"] },
+          "warning": { "type": ["string", "null"] },
+          "blocker": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "required": ["collections", "records", "seed_files", "persistent_files", "warnings", "blockers"],
+      "properties": {
+        "collections": { "type": "integer", "minimum": 0 },
+        "records": { "type": "integer", "minimum": 0 },
+        "seed_files": { "type": "integer", "minimum": 0 },
+        "persistent_files": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "integer", "minimum": 0 },
+        "blockers": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blockers": { "type": "array", "items": { "type": "string" } },
+    "safe_to_reset": { "type": "boolean" }
+  },
+  "examples": [
+    {
+      "state_dir": "C:/repo/runtime/state",
+      "generated_at": "2026-05-14T00:00:00Z",
+      "persistence_mode": "json",
+      "collections": [
+        {
+          "name": "cards",
+          "seed_file": "C:/repo/runtime/state/cards.seed.json",
+          "persistent_file": "C:/repo/runtime/state/cards.json",
+          "seed_exists": true,
+          "persistent_exists": true,
+          "record_count": 2,
+          "json_valid": true,
+          "last_modified": "2026-05-14T00:00:00Z",
+          "warning": null,
+          "blocker": null
+        }
+      ],
+      "totals": {
+        "collections": 15,
+        "records": 24,
+        "seed_files": 15,
+        "persistent_files": 4,
+        "warnings": 11,
+        "blockers": 0
+      },
+      "warnings": ["agents: No persistent file; seed fallback is active."],
+      "blockers": [],
+      "safe_to_reset": true
+    }
+  ]
+}

@@ -51,6 +51,32 @@ DEFAULT_POLICY_SETTINGS = {
     "updated_at": "2026-05-13T00:00:00Z",
     "updated_by": "system",
 }
+STATE_COLLECTIONS = (
+    "status",
+    "cards",
+    "work_orders",
+    "agents",
+    "events",
+    "evidence",
+    "approvals",
+    "handoffs",
+    "qa_results",
+    "repair_requests",
+    "developer_results",
+    "policy_settings",
+    "policy_overrides",
+    "audit_acknowledgements",
+    "audit_acknowledgement_history",
+)
+OBJECT_STATE_COLLECTIONS = ("status", "policy_settings")
+STATE_RESET_CONFIRMATION = "RESET_R19_DEMO_STATE"
+STATE_MANAGEMENT_NON_CLAIMS = [
+    "Local JSON demo-state management only.",
+    "Not production backup or restore.",
+    "No OpenAI or Codex API invocation.",
+    "No autonomous coding, QA, or A2A execution.",
+    "No external audit acceptance.",
+]
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
 HandoffStatus = Literal["proposed", "accepted", "rejected", "completed", "blocked"]
@@ -236,12 +262,28 @@ class AuditAcknowledgementUpdate(BaseModel):
     acknowledged_by: str = "operator"
 
 
+class StateImportRequest(BaseModel):
+    collections: Any
+    import_reason: str = "Restoring local demo state"
+    requested_by: str = "operator"
+
+
+class StateResetRequest(BaseModel):
+    reset_reason: str = "Resetting local demo state"
+    requested_by: str = "operator"
+    confirm: str | None = None
+
+
 class JsonStateStore:
     def __init__(self, state_dir: Path | None = None) -> None:
         configured_state_dir = os.environ.get("AIO_STATE_DIR")
         self.state_dir = state_dir or (Path(configured_state_dir) if configured_state_dir else STATE_DIR)
         self.state_dir.mkdir(parents=True, exist_ok=True)
+        self._reload_from_disk()
+
+    def _reload_from_disk(self) -> None:
         self.status_seed = self._load_json(self.state_dir / "status.seed.json", {})
+        self.status_payload = self._load_collection("status", self.status_seed)
         self.cards = self._load_collection("cards", [])
         self.work_orders = self._load_collection("work_orders", [])
         self.agents = self._load_collection("agents", [])
@@ -263,8 +305,11 @@ class JsonStateStore:
         if not path.exists():
             return fallback
 
-        with path.open("r", encoding="utf-8") as handle:
-            return json.load(handle)
+        try:
+            with path.open("r", encoding="utf-8") as handle:
+                return json.load(handle)
+        except json.JSONDecodeError:
+            return fallback
 
     def _load_collection(self, name: str, fallback: Any) -> Any:
         persistent_path = self.state_dir / f"{name}.json"
@@ -287,6 +332,7 @@ class JsonStateStore:
         temporary_path.replace(path)
 
     def status(self) -> dict[str, Any]:
+        status_payload = self.status_payload if isinstance(self.status_payload, dict) else {}
         active_card = self.cards[-1] if self.cards else {}
         active_work_order = self.work_orders[-1] if self.work_orders else {}
         active_agent = self.agents[0] if self.agents else {}
@@ -360,9 +406,9 @@ class JsonStateStore:
         policy_settings = self.get_policy_settings()
 
         return {
-            **self.status_seed,
-            "repo": self.status_seed.get("repo", "RodneyMuniz/AIOffice_V2"),
-            "branch": self.status_seed.get("branch", APP_BRANCH),
+            **status_payload,
+            "repo": status_payload.get("repo", "RodneyMuniz/AIOffice_V2"),
+            "branch": status_payload.get("branch", APP_BRANCH),
             "qa_handoff_policy_mode": policy_settings["qa_handoff_policy_mode"],
             "qa_policy_enforced": policy_settings["qa_handoff_policy_mode"] == "enforced",
             "require_developer_result_for_qa": policy_settings["require_developer_result_for_qa"],
@@ -537,6 +583,334 @@ class JsonStateStore:
         for entry in self.audit_exceptions(filters or {}):
             writer.writerow({field: entry.get(field) or "" for field in AUDIT_CSV_FIELDS})
         return output.getvalue()
+
+    def state_health(self) -> dict[str, Any]:
+        collection_health = [self._state_collection_health(name) for name in STATE_COLLECTIONS]
+        warnings = [
+            f"{entry['name']}: {entry['warning']}"
+            for entry in collection_health
+            if entry.get("warning")
+        ]
+        blockers = [
+            f"{entry['name']}: {entry['blocker']}"
+            for entry in collection_health
+            if entry.get("blocker")
+        ]
+        return {
+            "state_dir": str(self.state_dir),
+            "generated_at": _utc_now(),
+            "persistence_mode": "json",
+            "collections": collection_health,
+            "totals": {
+                "collections": len(collection_health),
+                "records": sum(int(entry.get("record_count") or 0) for entry in collection_health),
+                "seed_files": sum(1 for entry in collection_health if entry.get("seed_exists")),
+                "persistent_files": sum(
+                    1 for entry in collection_health if entry.get("persistent_exists")
+                ),
+                "warnings": len(warnings),
+                "blockers": len(blockers),
+            },
+            "warnings": warnings,
+            "blockers": blockers,
+            "safe_to_reset": len(blockers) == 0,
+        }
+
+    def state_export(self) -> dict[str, Any]:
+        exported_collections = []
+        for name in STATE_COLLECTIONS:
+            payload, source = self._state_export_payload(name)
+            exported_collection = {
+                "name": name,
+                "source": source,
+                "record_count": self._state_record_count(payload),
+            }
+            if isinstance(payload, list):
+                exported_collection["records"] = payload
+            else:
+                exported_collection["payload"] = payload
+            exported_collections.append(exported_collection)
+
+        timestamp = _utc_now()
+        export_id = f"R19-STATE-EXPORT-{timestamp.replace('-', '').replace(':', '').replace('Z', 'Z')}"
+        return {
+            "export_id": export_id,
+            "exported_at": timestamp,
+            "persistence_mode": "json",
+            "state_dir": str(self.state_dir),
+            "collections": exported_collections,
+            "non_claims": list(STATE_MANAGEMENT_NON_CLAIMS),
+        }
+
+    def import_state(self, payload: StateImportRequest) -> dict[str, Any]:
+        collections = self._normalize_import_collections(payload.collections)
+        if not collections:
+            raise HTTPException(status_code=400, detail="collections must include at least one known collection.")
+
+        unknown_collections = sorted(set(collections).difference(STATE_COLLECTIONS))
+        if unknown_collections:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Unknown state collections: {', '.join(unknown_collections)}.",
+            )
+
+        imported_collections: list[str] = []
+        existing_state_events = [
+            event
+            for event in self.events
+            if event.get("type") in {"state_imported", "state_reset"}
+        ]
+        existing_state_evidence = [
+            evidence for evidence in self.evidence if evidence.get("kind") == "state_management"
+        ]
+        for name in STATE_COLLECTIONS:
+            if name not in collections:
+                continue
+            self._validate_import_collection_payload(name, collections[name])
+            self._save_collection(name, collections[name])
+            imported_collections.append(name)
+
+        imported_at = _utc_now()
+        skipped_collections = [name for name in STATE_COLLECTIONS if name not in imported_collections]
+        import_reason = str(payload.import_reason or "").strip() or "Restoring local demo state"
+        requested_by = str(payload.requested_by or "").strip() or "operator"
+        self._reload_from_disk()
+        self._preserve_state_management_records(existing_state_events, existing_state_evidence)
+        summary = (
+            f"Local demo JSON state imported for {len(imported_collections)} collection(s). "
+            f"Reason: {import_reason}"
+        )
+        self._append_state_management_record(
+            event_type="state_imported",
+            title="Local state imported",
+            summary=summary,
+            actor_agent_id=requested_by,
+        )
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return {
+            "imported_collections": imported_collections,
+            "skipped_collections": skipped_collections,
+            "warnings": [],
+            "imported_at": imported_at,
+        }
+
+    def reset_demo_state(self, payload: StateResetRequest) -> dict[str, Any]:
+        if payload.confirm != STATE_RESET_CONFIRMATION:
+            raise HTTPException(
+                status_code=400,
+                detail=f"confirm must be exactly {STATE_RESET_CONFIRMATION}.",
+            )
+
+        reset_collections: list[str] = []
+        warnings: list[str] = []
+        for name in STATE_COLLECTIONS:
+            persistent_path = self.state_dir / f"{name}.json"
+            if not persistent_path.exists():
+                continue
+            try:
+                persistent_path.unlink()
+                reset_collections.append(name)
+            except OSError as exc:
+                warnings.append(f"{name}: could not remove persistent file: {exc}")
+
+        preserved_seed_files: list[str] = []
+        for name in STATE_COLLECTIONS:
+            seed_path = self.state_dir / f"{name}.seed.json"
+            if seed_path.exists():
+                preserved_seed_files.append(seed_path.name)
+            else:
+                warnings.append(f"{name}: missing seed file after reset.")
+
+        reset_at = _utc_now()
+        reset_reason = str(payload.reset_reason or "").strip() or "Resetting local demo state"
+        requested_by = str(payload.requested_by or "").strip() or "operator"
+        self._reload_from_disk()
+        summary = (
+            f"Local demo JSON state reset to seed files for {len(reset_collections)} collection(s). "
+            f"Reason: {reset_reason}"
+        )
+        self._append_state_management_record(
+            event_type="state_reset",
+            title="Local demo state reset",
+            summary=summary,
+            actor_agent_id=requested_by,
+        )
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return {
+            "reset_collections": reset_collections,
+            "preserved_seed_files": preserved_seed_files,
+            "warnings": warnings,
+            "reset_at": reset_at,
+        }
+
+    def _state_collection_health(self, name: str) -> dict[str, Any]:
+        seed_path = self.state_dir / f"{name}.seed.json"
+        persistent_path = self.state_dir / f"{name}.json"
+        seed_exists, seed_valid, seed_payload, seed_error = self._read_state_json(seed_path)
+        persistent_exists, persistent_valid, persistent_payload, persistent_error = self._read_state_json(
+            persistent_path
+        )
+
+        active_payload = (
+            persistent_payload
+            if persistent_exists and persistent_valid
+            else seed_payload if seed_exists and seed_valid else None
+        )
+        active_path = persistent_path if persistent_exists and persistent_valid else seed_path
+        warning = None
+        blocker = None
+        if not seed_exists:
+            blocker = "Required seed file is missing."
+        elif not seed_valid:
+            blocker = f"Seed JSON is invalid: {seed_error}"
+        elif persistent_exists and not persistent_valid:
+            blocker = f"Persistent JSON is invalid: {persistent_error}"
+        elif not persistent_exists:
+            warning = "No persistent file; seed fallback is active."
+
+        return {
+            "name": name,
+            "seed_file": str(seed_path),
+            "persistent_file": str(persistent_path),
+            "seed_exists": seed_exists,
+            "persistent_exists": persistent_exists,
+            "record_count": self._state_record_count(active_payload),
+            "json_valid": blocker is None,
+            "last_modified": self._state_last_modified(active_path if active_path.exists() else None),
+            "warning": warning,
+            "blocker": blocker,
+        }
+
+    def _state_export_payload(self, name: str) -> tuple[Any, str]:
+        persistent_path = self.state_dir / f"{name}.json"
+        seed_path = self.state_dir / f"{name}.seed.json"
+        persistent_exists, persistent_valid, persistent_payload, persistent_error = self._read_state_json(
+            persistent_path
+        )
+        if persistent_exists:
+            if not persistent_valid:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"{name} persistent JSON is invalid: {persistent_error}",
+                )
+            return persistent_payload, "persistent"
+
+        seed_exists, seed_valid, seed_payload, seed_error = self._read_state_json(seed_path)
+        if not seed_exists:
+            raise HTTPException(status_code=400, detail=f"{name} seed JSON is missing.")
+        if not seed_valid:
+            raise HTTPException(status_code=400, detail=f"{name} seed JSON is invalid: {seed_error}")
+        return seed_payload, "seed"
+
+    def _normalize_import_collections(self, collections: Any) -> dict[str, Any]:
+        if isinstance(collections, dict):
+            return dict(collections)
+        if not isinstance(collections, list):
+            raise HTTPException(
+                status_code=400,
+                detail="collections must be an object keyed by collection name or an exported collection array.",
+            )
+
+        normalized: dict[str, Any] = {}
+        for item in collections:
+            if not isinstance(item, dict):
+                raise HTTPException(status_code=400, detail="exported collections must be objects.")
+            name = str(item.get("name") or "").strip()
+            if not name:
+                raise HTTPException(status_code=400, detail="exported collection is missing name.")
+            if "records" in item:
+                normalized[name] = item["records"]
+            elif "payload" in item:
+                normalized[name] = item["payload"]
+            else:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"exported collection {name} is missing records or payload.",
+                )
+        return normalized
+
+    def _validate_import_collection_payload(self, name: str, payload: Any) -> None:
+        if name in OBJECT_STATE_COLLECTIONS:
+            if not isinstance(payload, dict):
+                raise HTTPException(status_code=400, detail=f"{name} must be a JSON object.")
+            return
+        if not isinstance(payload, list):
+            raise HTTPException(status_code=400, detail=f"{name} must be a JSON array.")
+
+    def _read_state_json(self, path: Path) -> tuple[bool, bool, Any, str | None]:
+        if not path.exists():
+            return False, True, None, None
+        try:
+            with path.open("r", encoding="utf-8") as handle:
+                return True, True, json.load(handle), None
+        except json.JSONDecodeError as exc:
+            return True, False, None, str(exc)
+
+    def _state_record_count(self, payload: Any) -> int:
+        if isinstance(payload, list):
+            return len(payload)
+        if isinstance(payload, dict):
+            return 1
+        return 0
+
+    def _state_last_modified(self, path: Path | None) -> str | None:
+        if path is None or not path.exists():
+            return None
+        return (
+            datetime.fromtimestamp(path.stat().st_mtime, timezone.utc)
+            .replace(microsecond=0)
+            .isoformat()
+            .replace("+00:00", "Z")
+        )
+
+    def _append_state_management_record(
+        self,
+        event_type: str,
+        title: str,
+        summary: str,
+        actor_agent_id: str,
+    ) -> None:
+        related_card_id = self._policy_related_card_id()
+        self._append_event(
+            event_type=event_type,
+            summary=summary,
+            actor_agent_id=actor_agent_id,
+            related_card_id=related_card_id,
+        )
+        self._append_evidence(
+            title=title,
+            kind="state_management",
+            summary=summary,
+            path="runtime/state/*.json",
+            related_card_id=related_card_id,
+        )
+
+    def _preserve_state_management_records(
+        self,
+        events: list[dict[str, Any]],
+        evidence_entries: list[dict[str, Any]],
+    ) -> None:
+        existing_event_ids = {str(event.get("id") or "") for event in self.events}
+        for event in events:
+            preserved_event = dict(event)
+            event_id = str(event.get("id") or "")
+            if not event_id or event_id in existing_event_ids:
+                preserved_event["id"] = self._next_id(self.events, "R19-EVENT")
+                event_id = preserved_event["id"]
+            self.events.append(preserved_event)
+            existing_event_ids.add(event_id)
+
+        existing_evidence_ids = {str(evidence.get("id") or "") for evidence in self.evidence}
+        for evidence in evidence_entries:
+            preserved_evidence = dict(evidence)
+            evidence_id = str(evidence.get("id") or "")
+            if not evidence_id or evidence_id in existing_evidence_ids:
+                preserved_evidence["id"] = self._next_id(self.evidence, "R19-EVIDENCE")
+                evidence_id = preserved_evidence["id"]
+            self.evidence.append(preserved_evidence)
+            existing_evidence_ids.add(evidence_id)
 
     def create_audit_acknowledgement(
         self, payload: AuditAcknowledgementCreate
@@ -3966,6 +4340,26 @@ app.add_middleware(
 @app.get("/status")
 def get_status() -> dict[str, Any]:
     return store.status()
+
+
+@app.get("/state/health")
+def get_state_health() -> dict[str, Any]:
+    return store.state_health()
+
+
+@app.get("/state/export")
+def get_state_export() -> dict[str, Any]:
+    return store.state_export()
+
+
+@app.post("/state/import")
+def post_state_import(state_import: StateImportRequest) -> dict[str, Any]:
+    return store.import_state(state_import)
+
+
+@app.post("/state/reset-demo")
+def post_state_reset_demo(state_reset: StateResetRequest) -> dict[str, Any]:
+    return store.reset_demo_state(state_reset)
 
 
 @app.get("/policy-settings")

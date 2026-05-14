@@ -95,6 +95,7 @@
 .handoffs-panel,
 .developer-results-panel,
 .policy-overrides-panel,
+.local-state-panel,
 .audit-review-panel,
 .qa-results-panel,
 .repair-requests-panel,
@@ -379,6 +380,74 @@ button:disabled {
 .audit-export-row textarea {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
   min-height: 132px;
+}
+
+.state-health-summary {
+  margin-bottom: 16px;
+}
+
+.state-collection-table-wrap {
+  border: 1px solid #dfe5da;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.state-collection-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 820px;
+  width: 100%;
+}
+
+.state-collection-table th,
+.state-collection-table td {
+  border-bottom: 1px solid #e2e6df;
+  padding: 9px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.state-collection-table th {
+  background: #f4f6f2;
+  color: #394740;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.state-collection-table td {
+  color: #26332d;
+  overflow-wrap: anywhere;
+}
+
+.state-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.state-textarea-label {
+  color: #394740;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.state-textarea-label textarea,
+.state-forms-grid textarea {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  min-height: 150px;
+}
+
+.state-forms-grid {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+  padding-top: 16px;
 }
 
 .audit-exceptions-list {
@@ -790,7 +859,8 @@ code {
 
   .topbar,
   .dashboard-grid,
-  .approval-stack {
+  .approval-stack,
+  .state-forms-grid {
     grid-template-columns: 1fr;
   }
 
@@ -822,6 +892,7 @@ code {
   .button-row,
   .audit-filter-grid,
   .audit-triage-form,
+  .state-forms-grid,
   .status-transition-form {
     grid-template-columns: 1fr;
   }
