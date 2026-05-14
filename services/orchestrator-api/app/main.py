@@ -73,6 +73,8 @@ AUDIT_EXCEPTION_TYPES = (
     "readiness_blocker",
 )
 AUDIT_SEVERITIES = ("info", "warning", "blocker", "override")
+AUDIT_ACKNOWLEDGEMENT_STATUSES = ("acknowledged", "resolved", "dismissed")
+AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES = ("none", *AUDIT_ACKNOWLEDGEMENT_STATUSES)
 AUDIT_DEFAULT_LIMIT = 100
 AUDIT_MAX_LIMIT = 500
 AUDIT_CSV_FIELDS = (
@@ -86,6 +88,8 @@ AUDIT_CSV_FIELDS = (
     "qa_result_id",
     "repair_request_id",
     "policy_override_id",
+    "acknowledgement_status",
+    "acknowledgement_reason",
     "created_at",
     "summary",
 )
@@ -217,6 +221,21 @@ class PolicySettingsUpdate(BaseModel):
     updated_by: str | None = None
 
 
+class AuditAcknowledgementCreate(BaseModel):
+    exception_id: str | None = None
+    exception_source_ref: str | None = None
+    exception_type: str | None = None
+    status: str
+    reason: str
+    acknowledged_by: str = "operator"
+
+
+class AuditAcknowledgementUpdate(BaseModel):
+    status: str
+    reason: str
+    acknowledged_by: str = "operator"
+
+
 class JsonStateStore:
     def __init__(self, state_dir: Path | None = None) -> None:
         configured_state_dir = os.environ.get("AIO_STATE_DIR")
@@ -234,6 +253,7 @@ class JsonStateStore:
         self.repair_requests = self._load_collection("repair_requests", [])
         self.developer_results = self._load_collection("developer_results", [])
         self.policy_overrides = self._load_collection("policy_overrides", [])
+        self.audit_acknowledgements = self._load_collection("audit_acknowledgements", [])
         self.policy_settings = self._load_policy_settings()
 
     def _load_json(self, path: Path, fallback: Any) -> Any:
@@ -383,8 +403,12 @@ class JsonStateStore:
     def get_policy_overrides(self) -> list[dict[str, Any]]:
         return self.policy_overrides
 
+    def get_audit_acknowledgements(self) -> list[dict[str, Any]]:
+        return self.audit_acknowledgements
+
     def audit_summary(self) -> dict[str, Any]:
         readiness_entries = self._audit_readiness_exception_entries()
+        exception_entries = self._audit_exception_entries()
         policy_settings_changes = [
             event for event in self.events if event.get("type") == "policy_settings_updated"
         ]
@@ -419,6 +443,24 @@ class JsonStateStore:
                 1 for event in self.events if self._is_hard_blocker_event(event)
             ),
             "total_readiness_blockers": len(readiness_entries),
+            "acknowledged_exceptions": sum(
+                1
+                for entry in exception_entries
+                if entry.get("acknowledgement_status") == "acknowledged"
+            ),
+            "resolved_exceptions": sum(
+                1
+                for entry in exception_entries
+                if entry.get("acknowledgement_status") == "resolved"
+            ),
+            "dismissed_exceptions": sum(
+                1
+                for entry in exception_entries
+                if entry.get("acknowledgement_status") == "dismissed"
+            ),
+            "unreviewed_exceptions": sum(
+                1 for entry in exception_entries if not entry.get("acknowledgement_status")
+            ),
             "generated_at": _utc_now(),
         }
 
@@ -443,6 +485,185 @@ class JsonStateStore:
             writer.writerow({field: entry.get(field) or "" for field in AUDIT_CSV_FIELDS})
         return output.getvalue()
 
+    def create_audit_acknowledgement(
+        self, payload: AuditAcknowledgementCreate
+    ) -> dict[str, Any]:
+        acknowledgement_data = self._normalize_audit_acknowledgement_payload(payload)
+        existing_acknowledgement = self._find_audit_acknowledgement_for_payload(
+            acknowledgement_data["exception_source_ref"],
+            acknowledgement_data["exception_id"],
+        )
+        if existing_acknowledgement:
+            return self._apply_audit_acknowledgement_update(
+                existing_acknowledgement,
+                acknowledgement_data,
+                preserve_created_at=True,
+            )
+
+        now = _utc_now()
+        acknowledgement_id = self._next_id(self.audit_acknowledgements, "R19-AUDIT-ACK")
+        source_ref = acknowledgement_data["exception_source_ref"]
+        evidence_refs = [
+            ref
+            for ref in (
+                source_ref,
+                acknowledgement_data["exception_id"],
+                f"runtime/state/audit_acknowledgements.json#{acknowledgement_id}",
+            )
+            if ref
+        ]
+        acknowledgement = {
+            "id": acknowledgement_id,
+            "exception_id": acknowledgement_data["exception_id"],
+            "exception_source_ref": source_ref,
+            "exception_type": acknowledgement_data["exception_type"],
+            "status": acknowledgement_data["status"],
+            "reason": acknowledgement_data["reason"],
+            "acknowledged_by": acknowledgement_data["acknowledged_by"],
+            "created_at": now,
+            "updated_at": now,
+            "resolved_at": now if acknowledgement_data["status"] == "resolved" else None,
+            "evidence_refs": evidence_refs,
+        }
+        self.audit_acknowledgements.append(acknowledgement)
+        self._record_audit_acknowledgement_action(acknowledgement)
+        self._save_collection("audit_acknowledgements", self.audit_acknowledgements)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return acknowledgement
+
+    def update_audit_acknowledgement(
+        self, acknowledgement_id: str, payload: AuditAcknowledgementUpdate
+    ) -> dict[str, Any]:
+        acknowledgement = self._find_audit_acknowledgement(acknowledgement_id)
+        if acknowledgement is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown audit acknowledgement id: {acknowledgement_id}",
+            )
+
+        acknowledgement_data = self._normalize_audit_acknowledgement_payload(
+            payload,
+            existing=acknowledgement,
+        )
+        return self._apply_audit_acknowledgement_update(
+            acknowledgement,
+            acknowledgement_data,
+            preserve_created_at=True,
+        )
+
+    def _apply_audit_acknowledgement_update(
+        self,
+        acknowledgement: dict[str, Any],
+        acknowledgement_data: dict[str, Any],
+        preserve_created_at: bool,
+    ) -> dict[str, Any]:
+        now = _utc_now()
+        if not preserve_created_at:
+            acknowledgement["created_at"] = now
+        acknowledgement["exception_id"] = acknowledgement_data["exception_id"]
+        acknowledgement["exception_source_ref"] = acknowledgement_data["exception_source_ref"]
+        acknowledgement["exception_type"] = acknowledgement_data["exception_type"]
+        acknowledgement["status"] = acknowledgement_data["status"]
+        acknowledgement["reason"] = acknowledgement_data["reason"]
+        acknowledgement["acknowledged_by"] = acknowledgement_data["acknowledged_by"]
+        acknowledgement["updated_at"] = now
+        acknowledgement["resolved_at"] = now if acknowledgement_data["status"] == "resolved" else None
+        acknowledgement["evidence_refs"] = [
+            ref
+            for ref in (
+                acknowledgement_data["exception_source_ref"],
+                acknowledgement_data["exception_id"],
+                f"runtime/state/audit_acknowledgements.json#{acknowledgement['id']}",
+            )
+            if ref
+        ]
+        self._record_audit_acknowledgement_action(acknowledgement)
+        self._save_collection("audit_acknowledgements", self.audit_acknowledgements)
+        self._save_collection("events", self.events)
+        self._save_collection("evidence", self.evidence)
+        return acknowledgement
+
+    def _normalize_audit_acknowledgement_payload(
+        self,
+        payload: AuditAcknowledgementCreate | AuditAcknowledgementUpdate,
+        existing: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        payload_data = _model_to_dict(payload)
+        exception_id = str(
+            payload_data.get("exception_id")
+            or (existing or {}).get("exception_id")
+            or ""
+        ).strip()
+        exception_source_ref = str(
+            payload_data.get("exception_source_ref")
+            or (existing or {}).get("exception_source_ref")
+            or ""
+        ).strip()
+        exception_type = str(
+            payload_data.get("exception_type")
+            or (existing or {}).get("exception_type")
+            or ""
+        ).strip()
+        status = str(payload_data.get("status") or "").strip().lower()
+        reason = str(payload_data.get("reason") or "").strip()
+        acknowledged_by = (
+            str(payload_data.get("acknowledged_by") or "operator").strip() or "operator"
+        )
+
+        _validate_status(status, AUDIT_ACKNOWLEDGEMENT_STATUSES, "audit acknowledgement")
+        if not reason:
+            raise HTTPException(status_code=400, detail="Audit acknowledgement reason is required.")
+        if not exception_source_ref and not exception_id:
+            raise HTTPException(
+                status_code=400,
+                detail="exception_source_ref or exception_id is required.",
+            )
+
+        return {
+            "exception_id": exception_id,
+            "exception_source_ref": exception_source_ref,
+            "exception_type": exception_type,
+            "status": status,
+            "reason": reason,
+            "acknowledged_by": acknowledged_by,
+        }
+
+    def _record_audit_acknowledgement_action(self, acknowledgement: dict[str, Any]) -> None:
+        status = str(acknowledgement.get("status") or "")
+        event_type = f"audit_exception_{status}"
+        exception_entry = self._find_audit_exception_by_acknowledgement(acknowledgement)
+        related_card_id = (
+            str((exception_entry or {}).get("card_id") or "")
+            or self._policy_related_card_id()
+        )
+        related_work_order_id = (exception_entry or {}).get("work_order_id")
+        related_handoff_id = (exception_entry or {}).get("handoff_id")
+        related_repair_request_id = (exception_entry or {}).get("repair_request_id")
+        summary = (
+            f"Audit exception {acknowledgement.get('exception_id') or acknowledgement.get('exception_source_ref')} "
+            f"marked {status}. Reason: {acknowledgement.get('reason')}"
+        )
+        self._append_event(
+            event_type=event_type,
+            summary=summary,
+            actor_agent_id=str(acknowledgement.get("acknowledged_by") or "operator"),
+            related_card_id=related_card_id,
+            related_work_order_id=related_work_order_id,
+            related_handoff_id=related_handoff_id,
+            related_repair_request_id=related_repair_request_id,
+        )
+        self._append_evidence(
+            title=f"Audit exception {status}",
+            kind="audit_acknowledgement",
+            summary=summary,
+            path=f"runtime/state/audit_acknowledgements.json#{acknowledgement['id']}",
+            related_card_id=related_card_id,
+            related_work_order_id=related_work_order_id,
+            related_handoff_id=related_handoff_id,
+            related_repair_request_id=related_repair_request_id,
+        )
+
     def _audit_exception_entries(self) -> list[dict[str, Any]]:
         entries: list[dict[str, Any]] = []
         entries.extend(self._audit_policy_override_entries())
@@ -451,11 +672,12 @@ class JsonStateStore:
         entries.extend(self._audit_repair_request_entries())
         entries.extend(self._audit_handoff_without_developer_result_entries())
         entries.extend(self._audit_readiness_exception_entries())
-        return sorted(
+        sorted_entries = sorted(
             entries,
             key=lambda entry: (str(entry.get("created_at") or ""), str(entry.get("id") or "")),
             reverse=True,
         )
+        return [self._with_audit_acknowledgement(entry) for entry in sorted_entries]
 
     def _audit_entry(self, **values: Any) -> dict[str, Any]:
         entry = {
@@ -474,9 +696,33 @@ class JsonStateStore:
             "evidence_id": None,
             "created_at": "",
             "source_ref": "",
+            "acknowledgement_id": None,
+            "acknowledgement_status": None,
+            "acknowledgement_reason": None,
+            "acknowledged_by": None,
+            "acknowledged_at": None,
+            "resolved_at": None,
         }
         entry.update(values)
         return entry
+
+    def _with_audit_acknowledgement(self, entry: dict[str, Any]) -> dict[str, Any]:
+        acknowledgement = self._find_audit_acknowledgement_for_exception(entry)
+        if acknowledgement is None:
+            return entry
+
+        enriched_entry = dict(entry)
+        enriched_entry.update(
+            {
+                "acknowledgement_id": acknowledgement.get("id"),
+                "acknowledgement_status": acknowledgement.get("status"),
+                "acknowledgement_reason": acknowledgement.get("reason"),
+                "acknowledged_by": acknowledgement.get("acknowledged_by"),
+                "acknowledged_at": acknowledgement.get("created_at"),
+                "resolved_at": acknowledgement.get("resolved_at"),
+            }
+        )
+        return enriched_entry
 
     def _audit_policy_override_entries(self) -> list[dict[str, Any]]:
         entries: list[dict[str, Any]] = []
@@ -747,6 +993,18 @@ class JsonStateStore:
                     entry for entry in filtered if str(entry.get(field_name) or "") == expected
                 ]
 
+        acknowledgement_status = str(filters.get("acknowledgement_status") or "").strip()
+        if acknowledgement_status == "none":
+            filtered = [
+                entry for entry in filtered if not entry.get("acknowledgement_status")
+            ]
+        elif acknowledgement_status:
+            filtered = [
+                entry
+                for entry in filtered
+                if str(entry.get("acknowledgement_status") or "") == acknowledgement_status
+            ]
+
         search_query = str(filters.get("q") or "").strip().lower()
         if search_query:
             filtered = [
@@ -772,6 +1030,9 @@ class JsonStateStore:
             entry.get("event_id"),
             entry.get("evidence_id"),
             entry.get("source_ref"),
+            entry.get("acknowledgement_status"),
+            entry.get("acknowledgement_reason"),
+            entry.get("acknowledged_by"),
         ]
         return " ".join(str(value).lower() for value in searchable_values if value)
 
@@ -3215,6 +3476,61 @@ class JsonStateStore:
             None,
         )
 
+    def _find_audit_acknowledgement(
+        self, acknowledgement_id: str
+    ) -> dict[str, Any] | None:
+        return next(
+            (
+                acknowledgement
+                for acknowledgement in self.audit_acknowledgements
+                if acknowledgement.get("id") == acknowledgement_id
+            ),
+            None,
+        )
+
+    def _find_audit_acknowledgement_for_payload(
+        self, exception_source_ref: str, exception_id: str
+    ) -> dict[str, Any] | None:
+        if exception_source_ref:
+            return next(
+                (
+                    acknowledgement
+                    for acknowledgement in self.audit_acknowledgements
+                    if acknowledgement.get("exception_source_ref") == exception_source_ref
+                ),
+                None,
+            )
+        if exception_id:
+            return next(
+                (
+                    acknowledgement
+                    for acknowledgement in self.audit_acknowledgements
+                    if acknowledgement.get("exception_id") == exception_id
+                ),
+                None,
+            )
+        return None
+
+    def _find_audit_acknowledgement_for_exception(
+        self, entry: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        return self._find_audit_acknowledgement_for_payload(
+            str(entry.get("source_ref") or ""),
+            str(entry.get("id") or ""),
+        )
+
+    def _find_audit_exception_by_acknowledgement(
+        self, acknowledgement: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        exception_source_ref = str(acknowledgement.get("exception_source_ref") or "")
+        exception_id = str(acknowledgement.get("exception_id") or "")
+        for entry in self._audit_exception_entries():
+            if exception_source_ref and entry.get("source_ref") == exception_source_ref:
+                return entry
+            if exception_id and entry.get("id") == exception_id:
+                return entry
+        return None
+
     def _find_developer_result(self, developer_result_id: str) -> dict[str, Any] | None:
         return next(
             (
@@ -3326,6 +3642,7 @@ def _utc_now() -> str:
 def _audit_filters_from_query(
     exception_type: str | None = None,
     severity: str | None = None,
+    acknowledgement_status: str | None = None,
     card_id: str | None = None,
     work_order_id: str | None = None,
     handoff_id: str | None = None,
@@ -3347,9 +3664,20 @@ def _audit_filters_from_query(
         minimum=0,
         maximum=None,
     )
+    parsed_acknowledgement_status = str(acknowledgement_status or "").strip().lower()
+    if (
+        parsed_acknowledgement_status
+        and parsed_acknowledgement_status not in AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES
+    ):
+        allowed = ", ".join(AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES)
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid acknowledgement_status: {parsed_acknowledgement_status}. Allowed statuses: {allowed}.",
+        )
     return {
         "exception_type": str(exception_type or "").strip(),
         "severity": str(severity or "").strip(),
+        "acknowledgement_status": parsed_acknowledgement_status,
         "card_id": str(card_id or "").strip(),
         "work_order_id": str(work_order_id or "").strip(),
         "handoff_id": str(handoff_id or "").strip(),
@@ -3419,10 +3747,31 @@ def get_audit_summary() -> dict[str, Any]:
     return store.audit_summary()
 
 
+@app.get("/audit/acknowledgements")
+def get_audit_acknowledgements() -> list[dict[str, Any]]:
+    return store.get_audit_acknowledgements()
+
+
+@app.post("/audit/acknowledgements", status_code=201)
+def post_audit_acknowledgements(
+    acknowledgement: AuditAcknowledgementCreate,
+) -> dict[str, Any]:
+    return store.create_audit_acknowledgement(acknowledgement)
+
+
+@app.patch("/audit/acknowledgements/{acknowledgement_id}")
+def patch_audit_acknowledgement(
+    acknowledgement_id: str,
+    acknowledgement: AuditAcknowledgementUpdate,
+) -> dict[str, Any]:
+    return store.update_audit_acknowledgement(acknowledgement_id, acknowledgement)
+
+
 @app.get("/audit/exceptions")
 def get_audit_exceptions(
     exception_type: str | None = None,
     severity: str | None = None,
+    acknowledgement_status: str | None = None,
     card_id: str | None = None,
     work_order_id: str | None = None,
     handoff_id: str | None = None,
@@ -3433,6 +3782,7 @@ def get_audit_exceptions(
     filters = _audit_filters_from_query(
         exception_type=exception_type,
         severity=severity,
+        acknowledgement_status=acknowledgement_status,
         card_id=card_id,
         work_order_id=work_order_id,
         handoff_id=handoff_id,
@@ -3448,6 +3798,7 @@ def get_audit_export(
     format: str = "json",
     exception_type: str | None = None,
     severity: str | None = None,
+    acknowledgement_status: str | None = None,
     card_id: str | None = None,
     work_order_id: str | None = None,
     handoff_id: str | None = None,
@@ -3462,6 +3813,7 @@ def get_audit_export(
     filters = _audit_filters_from_query(
         exception_type=exception_type,
         severity=severity,
+        acknowledgement_status=acknowledgement_status,
         card_id=card_id,
         work_order_id=work_order_id,
         handoff_id=handoff_id,

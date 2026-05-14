@@ -18,7 +18,13 @@
     "event_id",
     "evidence_id",
     "created_at",
-    "source_ref"
+    "source_ref",
+    "acknowledgement_id",
+    "acknowledgement_status",
+    "acknowledgement_reason",
+    "acknowledged_by",
+    "acknowledged_at",
+    "resolved_at"
   ],
   "properties": {
     "id": { "type": "string" },
@@ -50,7 +56,16 @@
     "event_id": { "type": ["string", "null"] },
     "evidence_id": { "type": ["string", "null"] },
     "created_at": { "type": "string" },
-    "source_ref": { "type": "string" }
+    "source_ref": { "type": "string" },
+    "acknowledgement_id": { "type": ["string", "null"] },
+    "acknowledgement_status": {
+      "type": ["string", "null"],
+      "enum": ["acknowledged", "resolved", "dismissed", null]
+    },
+    "acknowledgement_reason": { "type": ["string", "null"] },
+    "acknowledged_by": { "type": ["string", "null"] },
+    "acknowledged_at": { "type": ["string", "null"] },
+    "resolved_at": { "type": ["string", "null"] }
   },
   "examples": [
     {
@@ -68,7 +83,13 @@
       "event_id": "R19-EVENT-010",
       "evidence_id": "R19-EVIDENCE-010",
       "created_at": "2026-05-14T00:00:00Z",
-      "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001"
+      "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+      "acknowledgement_id": "R19-AUDIT-ACK-001",
+      "acknowledgement_status": "acknowledged",
+      "acknowledgement_reason": "Reviewed and accepted as intentional.",
+      "acknowledged_by": "operator",
+      "acknowledged_at": "2026-05-14T00:05:00Z",
+      "resolved_at": null
     }
   ]
 }

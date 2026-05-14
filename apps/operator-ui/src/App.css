@@ -372,6 +372,29 @@ button:disabled {
   margin-top: 16px;
 }
 
+.audit-review-title-line {
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.audit-triage-form {
+  border-top: 1px solid #e2e6df;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(140px, 0.6fr) minmax(220px, 1fr) auto;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.audit-triage-form label {
+  color: #394740;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+}
+
 .checkbox-field {
   align-items: center;
   display: flex !important;
@@ -743,6 +766,7 @@ code {
   .two-column-fields,
   .button-row,
   .audit-filter-grid,
+  .audit-triage-form,
   .status-transition-form {
     grid-template-columns: 1fr;
   }

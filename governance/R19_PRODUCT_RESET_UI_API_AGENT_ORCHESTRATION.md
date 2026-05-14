@@ -22,6 +22,8 @@ R19 operator overrides are limited to logged exceptions for policy-promoted read
 
 R19 audit review is an operator-facing exception review surface, not external audit acceptance.
 
+R19 audit acknowledgement is lightweight operator triage and is not external audit acceptance.
+
 Hard non-claims carried forward:
 - no external audit acceptance;
 - no main merge;

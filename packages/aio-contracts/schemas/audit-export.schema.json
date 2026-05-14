@@ -24,6 +24,10 @@
         "completed_repair_requests": 0,
         "total_hard_blocker_events": 1,
         "total_readiness_blockers": 1,
+        "acknowledged_exceptions": 1,
+        "resolved_exceptions": 0,
+        "dismissed_exceptions": 0,
+        "unreviewed_exceptions": 3,
         "generated_at": "2026-05-14T00:00:00Z"
       },
       "exceptions": [
@@ -42,7 +46,13 @@
           "event_id": "R19-EVENT-010",
           "evidence_id": "R19-EVIDENCE-010",
           "created_at": "2026-05-14T00:00:00Z",
-          "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001"
+          "source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+          "acknowledgement_id": "R19-AUDIT-ACK-001",
+          "acknowledgement_status": "acknowledged",
+          "acknowledgement_reason": "Reviewed and accepted as intentional.",
+          "acknowledged_by": "operator",
+          "acknowledged_at": "2026-05-14T00:05:00Z",
+          "resolved_at": null
         }
       ]
     }

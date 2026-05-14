@@ -22,11 +22,14 @@ import {
   loadDashboard,
   rejectApproval,
   rejectHandoff,
+  saveAuditAcknowledgement,
+  updateAuditAcknowledgement,
   updateCardStatus,
   updatePolicySettings,
   updateWorkOrderStatus
 } from "./api";
 import {
+  AUDIT_ACKNOWLEDGEMENT_STATUSES,
   AUDIT_EXCEPTION_TYPES,
   AUDIT_SEVERITIES,
   CARD_STATUSES,
@@ -41,6 +44,7 @@ import type {
   AuditException,
   AuditExceptionFilters,
   AuditSummary,
+  AuditAcknowledgementStatus,
   Card,
   DashboardData,
   DeveloperResult,
@@ -180,7 +184,7 @@ function Dashboard({
         <DeveloperResultsPanel developerResults={data.developerResults} />
         <HandoffsPanel handoffs={data.handoffs} onRefresh={onRefresh} qaResults={data.qaResults} />
         <PolicyOverridesPanel policyOverrides={data.policyOverrides} />
-        <AuditReviewPanel />
+        <AuditReviewPanel onRefresh={onRefresh} />
         <QaResultsPanel
           agents={data.agents}
           onRefresh={onRefresh}
@@ -1749,6 +1753,7 @@ function PolicyOverridesPanel({ policyOverrides }: { policyOverrides: PolicyOver
 type AuditFilterDraft = {
   exception_type: string;
   severity: string;
+  acknowledgement_status: string;
   q: string;
   work_order_id: string;
   card_id: string;
@@ -1757,12 +1762,13 @@ type AuditFilterDraft = {
 const DEFAULT_AUDIT_FILTERS: AuditFilterDraft = {
   exception_type: "",
   severity: "",
+  acknowledgement_status: "",
   q: "",
   work_order_id: "",
   card_id: ""
 };
 
-function AuditReviewPanel() {
+function AuditReviewPanel({ onRefresh }: { onRefresh: () => Promise<void> }) {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
   const [exceptions, setExceptions] = useState<AuditException[]>([]);
   const [draftFilters, setDraftFilters] = useState<AuditFilterDraft>(DEFAULT_AUDIT_FILTERS);
@@ -1771,6 +1777,10 @@ function AuditReviewPanel() {
   const [error, setError] = useState<string | null>(null);
   const [exportText, setExportText] = useState("");
   const [exportStatus, setExportStatus] = useState<string | null>(null);
+  const [reviewStatusById, setReviewStatusById] = useState<Record<string, AuditAcknowledgementStatus>>({});
+  const [reviewReasonById, setReviewReasonById] = useState<Record<string, string>>({});
+  const [savingReviewId, setSavingReviewId] = useState<string | null>(null);
+  const [reviewStatus, setReviewStatus] = useState<string | null>(null);
 
   const activeAuditFilters = useMemo(() => toAuditFilters(activeFilters), [activeFilters]);
 
@@ -1813,6 +1823,7 @@ function AuditReviewPanel() {
     event.preventDefault();
     setExportText("");
     setExportStatus(null);
+    setReviewStatus(null);
     setActiveFilters({ ...draftFilters });
   }
 
@@ -1821,17 +1832,60 @@ function AuditReviewPanel() {
     setActiveFilters({ ...DEFAULT_AUDIT_FILTERS });
     setExportText("");
     setExportStatus(null);
+    setReviewStatus(null);
   }
 
   async function runExport(format: "json" | "csv") {
     setError(null);
     setExportStatus(null);
+    setReviewStatus(null);
     try {
       const exported = await exportAudit(format, activeAuditFilters);
       setExportText(exported);
       setExportStatus(`Exported ${format.toUpperCase()} review data`);
     } catch (exportError: unknown) {
       setError(errorMessage(exportError));
+    }
+  }
+
+  async function saveReview(entry: AuditException, event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const selectedStatus = reviewStatusById[entry.id] ?? entry.acknowledgement_status ?? "acknowledged";
+    const reason = (reviewReasonById[entry.id] ?? entry.acknowledgement_reason ?? "").trim();
+    if (!reason) {
+      setError("Audit review reason is required.");
+      return;
+    }
+
+    setSavingReviewId(entry.id);
+    setError(null);
+    setExportStatus(null);
+    setReviewStatus(null);
+    try {
+      if (entry.acknowledgement_id) {
+        await updateAuditAcknowledgement(entry.acknowledgement_id, {
+          status: selectedStatus,
+          reason,
+          acknowledged_by: "operator"
+        });
+      } else {
+        await saveAuditAcknowledgement({
+          exception_id: entry.id,
+          exception_source_ref: entry.source_ref,
+          exception_type: entry.exception_type,
+          status: selectedStatus,
+          reason,
+          acknowledged_by: "operator"
+        });
+      }
+      setReviewReasonById((current) => ({ ...current, [entry.id]: reason }));
+      setReviewStatusById((current) => ({ ...current, [entry.id]: selectedStatus }));
+      setReviewStatus(`${entry.id} marked ${selectedStatus}`);
+      await Promise.all([refreshAudit(), onRefresh()]);
+    } catch (reviewError: unknown) {
+      setError(errorMessage(reviewError));
+    } finally {
+      setSavingReviewId(null);
     }
   }
 
@@ -1853,6 +1907,10 @@ function AuditReviewPanel() {
         <AuditMetric label="Repair requests" testId="audit-summary-repair-requests" value={summary?.total_repair_requests ?? 0} />
         <AuditMetric label="Open repairs" testId="audit-summary-open-repairs" value={summary?.open_repair_requests ?? 0} />
         <AuditMetric label="Policy changes" testId="audit-summary-policy-changes" value={summary?.total_policy_settings_changes ?? 0} />
+        <AuditMetric label="Unreviewed" testId="audit-summary-unreviewed" value={summary?.unreviewed_exceptions ?? 0} />
+        <AuditMetric label="Acknowledged" testId="audit-summary-acknowledged" value={summary?.acknowledged_exceptions ?? 0} />
+        <AuditMetric label="Resolved" testId="audit-summary-resolved" value={summary?.resolved_exceptions ?? 0} />
+        <AuditMetric label="Dismissed" testId="audit-summary-dismissed" value={summary?.dismissed_exceptions ?? 0} />
       </div>
 
       <form className="audit-filter-grid" onSubmit={applyFilters}>
@@ -1884,6 +1942,20 @@ function AuditReviewPanel() {
                 {severity}
               </option>
             ))}
+          </select>
+        </label>
+        <label>
+          Review status
+          <select
+            data-testid="audit-filter-acknowledgement-status"
+            onChange={(event) => updateDraftFilter("acknowledgement_status", event.target.value)}
+            value={draftFilters.acknowledgement_status}
+          >
+            <option value="">All</option>
+            <option value="none">Unreviewed</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="resolved">Resolved</option>
+            <option value="dismissed">Dismissed</option>
           </select>
         </label>
         <label>
@@ -1937,43 +2009,112 @@ function AuditReviewPanel() {
           value={exportText}
         />
       </div>
-      <FormStatus error={error} success={exportStatus} />
+      <FormStatus error={error} success={reviewStatus ?? exportStatus} />
 
       <div className="record-list audit-exceptions-list" data-testid="audit-exceptions-list">
         {exceptions.length === 0 && <p>No audit exceptions match the current filters.</p>}
-        {exceptions.map((entry) => (
-          <article className="record-row" data-testid={`audit-exception-${entry.id}`} key={entry.id}>
-            <div className="record-title-line">
-              <p className="eyebrow">{entry.exception_type}</p>
-              <span className={`state-tag ${auditSeverityClass(entry.severity)}`}>{entry.severity}</span>
-            </div>
-            <h3>{entry.title}</h3>
-            <p>{entry.summary}</p>
-            <div className="detail-grid handoff-detail-grid">
-              <span>Card</span>
-              <strong>{entry.card_id ?? "none"}</strong>
-              <span>Work order</span>
-              <strong>{entry.work_order_id ?? "none"}</strong>
-              <span>Handoff</span>
-              <strong>{entry.handoff_id ?? "none"}</strong>
-              <span>QA result</span>
-              <strong>{entry.qa_result_id ?? "none"}</strong>
-              <span>Repair request</span>
-              <strong>{entry.repair_request_id ?? "none"}</strong>
-              <span>Policy override</span>
-              <strong>{entry.policy_override_id ?? "none"}</strong>
-              <span>Event</span>
-              <strong>{entry.event_id ?? "none"}</strong>
-              <span>Evidence</span>
-              <strong>{entry.evidence_id ?? "none"}</strong>
-              <span>Created</span>
-              <strong>{entry.created_at || "unknown"}</strong>
-            </div>
-            <div className="code-list">
-              <code>{entry.source_ref}</code>
-            </div>
-          </article>
-        ))}
+        {exceptions.map((entry) => {
+          const currentReviewStatus = entry.acknowledgement_status ?? "unreviewed";
+          const selectedReviewStatus =
+            reviewStatusById[entry.id] ?? entry.acknowledgement_status ?? "acknowledged";
+          const reviewReason = reviewReasonById[entry.id] ?? entry.acknowledgement_reason ?? "";
+
+          return (
+            <article className="record-row" data-testid={`audit-exception-${entry.id}`} key={entry.id}>
+              <div className="record-title-line">
+                <p className="eyebrow">{entry.exception_type}</p>
+                <span className={`state-tag ${auditSeverityClass(entry.severity)}`}>{entry.severity}</span>
+              </div>
+              <div className="record-title-line audit-review-title-line">
+                <h3>{entry.title}</h3>
+                <span
+                  className={`state-tag ${auditAcknowledgementClass(currentReviewStatus)}`}
+                  data-testid={`audit-review-status-${entry.id}`}
+                >
+                  {currentReviewStatus}
+                </span>
+              </div>
+              <p>{entry.summary}</p>
+              <div className="detail-grid handoff-detail-grid">
+                <span>Card</span>
+                <strong>{entry.card_id ?? "none"}</strong>
+                <span>Work order</span>
+                <strong>{entry.work_order_id ?? "none"}</strong>
+                <span>Handoff</span>
+                <strong>{entry.handoff_id ?? "none"}</strong>
+                <span>QA result</span>
+                <strong>{entry.qa_result_id ?? "none"}</strong>
+                <span>Repair request</span>
+                <strong>{entry.repair_request_id ?? "none"}</strong>
+                <span>Policy override</span>
+                <strong>{entry.policy_override_id ?? "none"}</strong>
+                <span>Review reason</span>
+                <strong>{entry.acknowledgement_reason ?? "none"}</strong>
+                <span>Reviewed by</span>
+                <strong>{entry.acknowledged_by ?? "none"}</strong>
+                <span>Reviewed at</span>
+                <strong>{entry.acknowledged_at ?? "none"}</strong>
+                <span>Resolved at</span>
+                <strong>{entry.resolved_at ?? "none"}</strong>
+                <span>Event</span>
+                <strong>{entry.event_id ?? "none"}</strong>
+                <span>Evidence</span>
+                <strong>{entry.evidence_id ?? "none"}</strong>
+                <span>Created</span>
+                <strong>{entry.created_at || "unknown"}</strong>
+              </div>
+              <form
+                className="audit-triage-form"
+                data-testid={`audit-review-form-${entry.id}`}
+                onSubmit={(event) => saveReview(entry, event)}
+              >
+                <label>
+                  Review status
+                  <select
+                    data-testid={`audit-review-status-select-${entry.id}`}
+                    onChange={(event) =>
+                      setReviewStatusById((current) => ({
+                        ...current,
+                        [entry.id]: event.target.value as AuditAcknowledgementStatus
+                      }))
+                    }
+                    value={selectedReviewStatus}
+                  >
+                    {AUDIT_ACKNOWLEDGEMENT_STATUSES.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Reason
+                  <input
+                    data-testid={`audit-review-reason-${entry.id}`}
+                    onChange={(event) =>
+                      setReviewReasonById((current) => ({
+                        ...current,
+                        [entry.id]: event.target.value
+                      }))
+                    }
+                    required
+                    value={reviewReason}
+                  />
+                </label>
+                <button
+                  data-testid={`audit-review-save-${entry.id}`}
+                  disabled={savingReviewId === entry.id || !reviewReason.trim()}
+                  type="submit"
+                >
+                  {savingReviewId === entry.id ? "Saving..." : "Save Review"}
+                </button>
+              </form>
+              <div className="code-list">
+                <code>{entry.source_ref}</code>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -1992,6 +2133,7 @@ function toAuditFilters(filters: AuditFilterDraft): AuditExceptionFilters {
   return {
     exception_type: filters.exception_type.trim(),
     severity: filters.severity.trim(),
+    acknowledgement_status: filters.acknowledgement_status.trim() as AuditExceptionFilters["acknowledgement_status"],
     q: filters.q.trim(),
     work_order_id: filters.work_order_id.trim(),
     card_id: filters.card_id.trim(),
@@ -2588,6 +2730,16 @@ function auditSeverityClass(severity: string): string {
   }
   if (severity === "warning" || severity === "override") {
     return "warn";
+  }
+  return "";
+}
+
+function auditAcknowledgementClass(status: string): string {
+  if (status === "unreviewed" || status === "acknowledged") {
+    return "warn";
+  }
+  if (status === "dismissed") {
+    return "danger";
   }
   return "";
 }

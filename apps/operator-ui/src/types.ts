@@ -29,6 +29,11 @@ export const AUDIT_EXCEPTION_TYPES = [
   "readiness_blocker"
 ] as const;
 export const AUDIT_SEVERITIES = ["info", "warning", "blocker", "override"] as const;
+export const AUDIT_ACKNOWLEDGEMENT_STATUSES = ["acknowledged", "resolved", "dismissed"] as const;
+export const AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES = [
+  "none",
+  ...AUDIT_ACKNOWLEDGEMENT_STATUSES
+] as const;
 
 export type CardStatus = (typeof CARD_STATUSES)[number];
 export type WorkOrderStatus = (typeof WORK_ORDER_STATUSES)[number];
@@ -42,6 +47,8 @@ export type QaReadinessCheckStatus = (typeof QA_READINESS_CHECK_STATUSES)[number
 export type QaHandoffPolicyMode = (typeof QA_HANDOFF_POLICY_MODES)[number];
 export type AuditExceptionType = (typeof AUDIT_EXCEPTION_TYPES)[number];
 export type AuditSeverity = (typeof AUDIT_SEVERITIES)[number];
+export type AuditAcknowledgementStatus = (typeof AUDIT_ACKNOWLEDGEMENT_STATUSES)[number];
+export type AuditAcknowledgementFilterStatus = (typeof AUDIT_ACKNOWLEDGEMENT_FILTER_STATUSES)[number];
 
 export type AuditSummary = {
   total_policy_overrides: number;
@@ -54,6 +61,10 @@ export type AuditSummary = {
   completed_repair_requests: number;
   total_hard_blocker_events: number;
   total_readiness_blockers: number;
+  acknowledged_exceptions: number;
+  resolved_exceptions: number;
+  dismissed_exceptions: number;
+  unreviewed_exceptions: number;
   generated_at: string;
 };
 
@@ -73,17 +84,53 @@ export type AuditException = {
   evidence_id: string | null;
   created_at: string;
   source_ref: string;
+  acknowledgement_id: string | null;
+  acknowledgement_status: AuditAcknowledgementStatus | null;
+  acknowledgement_reason: string | null;
+  acknowledged_by: string | null;
+  acknowledged_at: string | null;
+  resolved_at: string | null;
 };
 
 export type AuditExceptionFilters = {
   exception_type?: string;
   severity?: string;
+  acknowledgement_status?: AuditAcknowledgementFilterStatus | "";
   card_id?: string;
   work_order_id?: string;
   handoff_id?: string;
   q?: string;
   limit?: number;
   offset?: number;
+};
+
+export type AuditAcknowledgement = {
+  id: string;
+  exception_id: string;
+  exception_source_ref: string;
+  exception_type: string;
+  status: AuditAcknowledgementStatus;
+  reason: string;
+  acknowledged_by: string;
+  created_at: string;
+  updated_at: string;
+  resolved_at: string | null;
+  evidence_refs: string[];
+};
+
+export type CreateAuditAcknowledgementRequest = {
+  exception_id?: string;
+  exception_source_ref?: string;
+  exception_type?: string;
+  status: AuditAcknowledgementStatus;
+  reason: string;
+  acknowledged_by?: string;
+};
+
+export type UpdateAuditAcknowledgementRequest = {
+  status: AuditAcknowledgementStatus;
+  reason: string;
+  acknowledged_by?: string;
 };
 
 export type PolicySettings = {

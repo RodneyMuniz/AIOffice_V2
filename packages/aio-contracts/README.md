@@ -13,6 +13,9 @@ These schemas document the first local API shapes only. They are not a large con
 - `schemas/audit-summary.schema.json`
 - `schemas/audit-exception.schema.json`
 - `schemas/audit-export.schema.json`
+- `schemas/audit-acknowledgement.schema.json`
+- `schemas/create-audit-acknowledgement-request.schema.json`
+- `schemas/update-audit-acknowledgement-request.schema.json`
 - `schemas/handoff-override-request.schema.json`
 - `schemas/card.schema.json`
 - `schemas/create-card-request.schema.json`
@@ -57,13 +60,17 @@ Allowed Developer/Codex result statuses are `draft`, `submitted`, and `supersede
 
 Allowed QA handoff policy modes are `advisory` and `enforced`.
 
+Allowed audit acknowledgement statuses are `acknowledged`, `resolved`, and `dismissed`.
+
 The Developer/Codex result contracts describe operator/API-mediated result capture for a work order before QA handoff. They record summary, changed paths, notes, agent id, and evidence refs in `runtime/state/developer_results.json`. They do not claim autonomous Codex execution, autonomous coding, live OpenAI/Codex API invocation, or no-manual-transfer success.
 
 The policy settings contracts describe the small persisted `runtime/state/policy_settings.json` model used by `GET /policy-settings` and `PATCH /policy-settings`. The model includes `qa_handoff_policy_mode`, original and repair Developer/Codex result requirement flags, `allow_operator_override`, `updated_at`, and `updated_by`. When `allow_operator_override` is true, enforced readiness can expose a narrow override option only for policy-promoted missing Developer/Codex result blockers.
 
 The policy override contract describes records persisted to `runtime/state/policy_overrides.json` and returned by `GET /policy-overrides`. Overrides are single-request, logged exceptions for `work_order_qa_handoff` or `repair_qa_handoff` targets. They require a non-empty reason, record `requested_by`, list overridden blockers, preserve any non-overridable blockers seen at request time, and link evidence refs. They do not mutate policy settings and do not become reusable permissions.
 
-The audit review contracts describe derived read-only responses for `GET /audit/summary`, `GET /audit/exceptions`, and `GET /audit/export`. The review model is built from existing JSON state: policy overrides, policy settings events, handoffs, QA results, repair requests, readiness blockers, events, evidence, cards, and work orders. Supported filters are `exception_type`, `severity`, `card_id`, `work_order_id`, `handoff_id`, free-text `q`, plus bounded `limit` and `offset`. Export supports `format=json` and `format=csv`; CSV intentionally carries core fields only. This is a lightweight operator review surface for overrides and workflow exceptions, not full audit acceptance, not external audit signoff, and not a governance proof package.
+The audit review contracts describe derived responses for `GET /audit/summary`, `GET /audit/exceptions`, and `GET /audit/export`. The review model is built from existing JSON state: policy overrides, policy settings events, handoffs, QA results, repair requests, readiness blockers, events, evidence, cards, and work orders. Supported filters are `exception_type`, `severity`, `acknowledgement_status`, `card_id`, `work_order_id`, `handoff_id`, free-text `q`, plus bounded `limit` and `offset`. `acknowledgement_status=none` returns exceptions without a marker. Export supports `format=json` and `format=csv`; CSV includes acknowledgement status and reason fields.
+
+The audit acknowledgement contract describes the small persisted `runtime/state/audit_acknowledgements.json` model used by `GET /audit/acknowledgements`, `POST /audit/acknowledgements`, and `PATCH /audit/acknowledgements/{id}`. A marker links to an exception through `exception_source_ref` where possible, also stores `exception_id`, and requires a non-empty reason. POST uses upsert semantics for the same `exception_source_ref`, so one active marker per durable source ref is enough for this slice. Acknowledgement writes `audit_exception_acknowledged`, `audit_exception_resolved`, or `audit_exception_dismissed` events plus `audit_acknowledgement` evidence. This is lightweight operator triage, not ticketing, not external audit acceptance, and not audit signoff.
 
 The QA readiness contracts describe read-only preflight responses for `GET /work-orders/{id}/qa-readiness` and `GET /repair-requests/{id}/qa-readiness`. Readiness levels are `ready`, `warning`, and `blocked`; check statuses are `passed`, `warning`, and `blocked`.
 

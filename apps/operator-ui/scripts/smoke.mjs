@@ -320,11 +320,69 @@ try {
     "audit text search filter"
   );
 
+  const originalPolicyExceptionId = `audit-policy-override-${originalOverrideId}`;
+  const policyExceptionRow = auditPanel.getByTestId(`audit-exception-${originalPolicyExceptionId}`);
+  await policyExceptionRow.waitFor();
+  await policyExceptionRow.getByTestId(`audit-review-status-${originalPolicyExceptionId}`).getByText("unreviewed").waitFor();
+  await policyExceptionRow.getByTestId(`audit-review-status-select-${originalPolicyExceptionId}`).selectOption("acknowledged");
+  await policyExceptionRow
+    .getByTestId(`audit-review-reason-${originalPolicyExceptionId}`)
+    .fill("Browser smoke acknowledged the policy override exception.");
+  await policyExceptionRow.getByTestId(`audit-review-save-${originalPolicyExceptionId}`).click();
+  await policyExceptionRow.getByTestId(`audit-review-status-${originalPolicyExceptionId}`).getByText("acknowledged").waitFor();
+
+  await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("acknowledged");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => text.includes(originalOverrideId) && text.includes("acknowledged"),
+    "acknowledged audit filter"
+  );
+
+  await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await policyExceptionRow.waitFor();
+  await policyExceptionRow.getByTestId(`audit-review-status-select-${originalPolicyExceptionId}`).selectOption("resolved");
+  await policyExceptionRow
+    .getByTestId(`audit-review-reason-${originalPolicyExceptionId}`)
+    .fill("Browser smoke resolved the policy override exception.");
+  await policyExceptionRow.getByTestId(`audit-review-save-${originalPolicyExceptionId}`).click();
+  await policyExceptionRow.getByTestId(`audit-review-status-${originalPolicyExceptionId}`).getByText("resolved").waitFor();
+
+  await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("resolved");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => text.includes(originalOverrideId) && text.includes("resolved"),
+    "resolved audit filter"
+  );
+
+  await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("none");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => !text.includes(originalOverrideId),
+    "unreviewed audit filter excludes resolved exception"
+  );
+
+  await auditPanel.getByTestId("audit-filter-acknowledgement-status").selectOption("resolved");
+  await auditPanel.getByTestId("audit-apply-filters").click();
+  await waitForLocatorText(
+    auditExceptionsList,
+    (text) => text.includes(originalOverrideId) && text.includes("resolved"),
+    "resolved audit filter restored for export"
+  );
+
   const auditExportOutput = auditPanel.getByTestId("audit-export-output");
   await auditPanel.getByTestId("audit-export-json").click();
   await waitForLocatorValue(
     auditExportOutput,
-    (value) => value.includes('"policy_override"') && value.includes(originalOverrideId),
+    (value) =>
+      value.includes('"policy_override"') &&
+      value.includes(originalOverrideId) &&
+      value.includes('"acknowledgement_status"') &&
+      value.includes('"resolved"') &&
+      value.includes('"acknowledgement_reason"'),
     "audit JSON export"
   );
   await auditPanel.getByTestId("audit-export-csv").click();
@@ -332,9 +390,15 @@ try {
     auditExportOutput,
     (value) =>
       value.includes("id,exception_type,severity,title,card_id,work_order_id,handoff_id") &&
-      value.includes(originalOverrideId),
+      value.includes("acknowledgement_status,acknowledgement_reason") &&
+      value.includes(originalOverrideId) &&
+      value.includes("resolved") &&
+      value.includes("Browser smoke resolved the policy override exception."),
     "audit CSV export"
   );
+  await page.getByTestId("events-list").getByText("audit_exception_acknowledged").waitFor();
+  await page.getByTestId("events-list").getByText("audit_exception_resolved").waitFor();
+  await page.getByTestId("evidence-list").getByText("audit_acknowledgement", { exact: true }).first().waitFor();
 
   assert.deepEqual(consoleErrors, [], `Browser console errors were captured: ${consoleErrors.join("\n")}`);
   console.log(`Smoke passed against ${uiUrl} with temp state ${stateDir}`);

@@ -1,10 +1,12 @@
 import type {
   Agent,
   Approval,
+  AuditAcknowledgement,
   AuditException,
   AuditExceptionFilters,
   AuditSummary,
   Card,
+  CreateAuditAcknowledgementRequest,
   CreateApprovalRequest,
   CreateCardRequest,
   CreateDeveloperResultRequest,
@@ -25,6 +27,7 @@ import type {
   RepairRequest,
   RepairRequestDecisionRequest,
   StatusResponse,
+  UpdateAuditAcknowledgementRequest,
   UpdatePolicySettingsRequest,
   UpdateStatusRequest,
   WorkOrder,
@@ -141,6 +144,10 @@ export function loadAuditSummary(signal?: AbortSignal): Promise<AuditSummary> {
   return requestJson<AuditSummary>("/audit/summary", { signal });
 }
 
+export function loadAuditAcknowledgements(signal?: AbortSignal): Promise<AuditAcknowledgement[]> {
+  return requestJson<AuditAcknowledgement[]>("/audit/acknowledgements", { signal });
+}
+
 export function loadAuditExceptions(
   filters: AuditExceptionFilters = {},
   signal?: AbortSignal
@@ -150,6 +157,22 @@ export function loadAuditExceptions(
 
 export function exportAudit(format: "json" | "csv", filters: AuditExceptionFilters = {}): Promise<string> {
   return requestText(`/audit/export${auditQuery({ ...filters, format })}`);
+}
+
+export function saveAuditAcknowledgement(
+  payload: CreateAuditAcknowledgementRequest
+): Promise<AuditAcknowledgement> {
+  return requestJson<AuditAcknowledgement>("/audit/acknowledgements", { method: "POST", body: payload });
+}
+
+export function updateAuditAcknowledgement(
+  id: string,
+  payload: UpdateAuditAcknowledgementRequest
+): Promise<AuditAcknowledgement> {
+  return requestJson<AuditAcknowledgement>(`/audit/acknowledgements/${id}`, {
+    method: "PATCH",
+    body: payload
+  });
 }
 
 export function updatePolicySettings(payload: UpdatePolicySettingsRequest): Promise<PolicySettings> {

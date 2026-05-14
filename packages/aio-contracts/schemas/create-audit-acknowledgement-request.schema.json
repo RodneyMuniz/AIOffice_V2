@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/create-audit-acknowledgement-request.schema.json",
+  "title": "CreateAuditAcknowledgementRequest",
+  "type": "object",
+  "required": ["status", "reason"],
+  "anyOf": [
+    { "required": ["exception_source_ref"] },
+    { "required": ["exception_id"] }
+  ],
+  "properties": {
+    "exception_id": { "type": "string" },
+    "exception_source_ref": { "type": "string" },
+    "exception_type": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["acknowledged", "resolved", "dismissed"]
+    },
+    "reason": { "type": "string", "minLength": 1 },
+    "acknowledged_by": { "type": "string", "default": "operator" }
+  },
+  "examples": [
+    {
+      "exception_id": "audit-policy-override-R19-POLICY-OVERRIDE-001",
+      "exception_source_ref": "runtime/state/policy_overrides.json#R19-POLICY-OVERRIDE-001",
+      "exception_type": "policy_override",
+      "status": "acknowledged",
+      "reason": "Reviewed and accepted as intentional.",
+      "acknowledged_by": "operator"
+    }
+  ]
+}

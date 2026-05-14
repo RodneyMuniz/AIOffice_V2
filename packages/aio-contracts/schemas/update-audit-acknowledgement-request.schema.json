@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aioffice.local/contracts/update-audit-acknowledgement-request.schema.json",
+  "title": "UpdateAuditAcknowledgementRequest",
+  "type": "object",
+  "required": ["status", "reason"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["acknowledged", "resolved", "dismissed"]
+    },
+    "reason": { "type": "string", "minLength": 1 },
+    "acknowledged_by": { "type": "string", "default": "operator" }
+  },
+  "examples": [
+    {
+      "status": "resolved",
+      "reason": "Follow-up completed.",
+      "acknowledged_by": "operator"
+    }
+  ]
+}

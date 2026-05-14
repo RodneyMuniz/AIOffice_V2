@@ -925,6 +925,251 @@ def test_audit_exceptions_filters_exports_and_read_only(client: TestClient) -> N
     assert blocked_work_order["id"]
 
 
+def test_audit_acknowledgement_triage_persists_and_enriches_audit(
+    client: TestClient,
+) -> None:
+    assert client.get("/audit/acknowledgements").status_code == 200
+    assert client.get("/audit/acknowledgements").json() == []
+
+    override_reason = "Audit acknowledgement source override reason."
+    _, handoff = create_override_handoff(client, "audit acknowledgement", override_reason)
+    policy_exception = next(
+        entry
+        for entry in client.get(
+            "/audit/exceptions",
+            params={"exception_type": "policy_override"},
+        ).json()
+        if entry["policy_override_id"] == handoff["policy_override_id"]
+    )
+    source_policy_overrides = client.get("/policy-overrides").json()
+
+    missing_ref_response = client.post(
+        "/audit/acknowledgements",
+        json={
+            "status": "acknowledged",
+            "reason": "Reviewed but missing durable refs.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert missing_ref_response.status_code == 400
+    assert "exception_source_ref or exception_id" in missing_ref_response.json()["detail"]
+
+    empty_reason_response = client.post(
+        "/audit/acknowledgements",
+        json={
+            "exception_id": policy_exception["id"],
+            "exception_source_ref": policy_exception["source_ref"],
+            "exception_type": policy_exception["exception_type"],
+            "status": "acknowledged",
+            "reason": "   ",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert empty_reason_response.status_code == 400
+    assert "reason is required" in empty_reason_response.json()["detail"]
+
+    invalid_status_response = client.post(
+        "/audit/acknowledgements",
+        json={
+            "exception_id": policy_exception["id"],
+            "exception_source_ref": policy_exception["source_ref"],
+            "exception_type": policy_exception["exception_type"],
+            "status": "reviewed",
+            "reason": "Invalid status coverage.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert invalid_status_response.status_code == 400
+    assert "Invalid audit acknowledgement status" in invalid_status_response.json()["detail"]
+
+    before_events_count = len(client.get("/events").json())
+    before_evidence_count = len(client.get("/evidence").json())
+    create_response = client.post(
+        "/audit/acknowledgements",
+        json={
+            "exception_id": policy_exception["id"],
+            "exception_source_ref": policy_exception["source_ref"],
+            "exception_type": policy_exception["exception_type"],
+            "status": "acknowledged",
+            "reason": "Reviewed and accepted as intentional.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert create_response.status_code == 201
+    acknowledgement = create_response.json()
+    assert acknowledgement["id"].startswith("R19-AUDIT-ACK-")
+    assert acknowledgement["exception_id"] == policy_exception["id"]
+    assert acknowledgement["exception_source_ref"] == policy_exception["source_ref"]
+    assert acknowledgement["exception_type"] == "policy_override"
+    assert acknowledgement["status"] == "acknowledged"
+    assert acknowledgement["reason"] == "Reviewed and accepted as intentional."
+    assert acknowledgement["acknowledged_by"] == "pytest"
+    assert acknowledgement["created_at"]
+    assert acknowledgement["updated_at"]
+    assert acknowledgement["resolved_at"] is None
+    assert f"runtime/state/audit_acknowledgements.json#{acknowledgement['id']}" in acknowledgement["evidence_refs"]
+
+    acknowledged_events = [
+        event
+        for event in client.get("/events").json()
+        if event["type"] == "audit_exception_acknowledged"
+    ]
+    assert len(acknowledged_events) == 1
+    assert "Reviewed and accepted as intentional." in acknowledged_events[0]["summary"]
+    acknowledgement_evidence = [
+        evidence
+        for evidence in client.get("/evidence").json()
+        if evidence["kind"] == "audit_acknowledgement"
+    ]
+    assert len(acknowledgement_evidence) == 1
+    assert acknowledgement_evidence[0]["path"].endswith(f"#{acknowledgement['id']}")
+    assert len(client.get("/events").json()) == before_events_count + 1
+    assert len(client.get("/evidence").json()) == before_evidence_count + 1
+
+    enriched_exception = next(
+        entry
+        for entry in client.get(
+            "/audit/exceptions",
+            params={"exception_type": "policy_override"},
+        ).json()
+        if entry["policy_override_id"] == handoff["policy_override_id"]
+    )
+    assert enriched_exception["acknowledgement_id"] == acknowledgement["id"]
+    assert enriched_exception["acknowledgement_status"] == "acknowledged"
+    assert enriched_exception["acknowledgement_reason"] == "Reviewed and accepted as intentional."
+    assert enriched_exception["acknowledged_by"] == "pytest"
+    assert enriched_exception["acknowledged_at"] == acknowledgement["created_at"]
+    assert enriched_exception["resolved_at"] is None
+
+    acknowledged_response = client.get(
+        "/audit/exceptions",
+        params={"acknowledgement_status": "acknowledged"},
+    )
+    assert acknowledged_response.status_code == 200
+    assert any(
+        entry["id"] == policy_exception["id"] for entry in acknowledged_response.json()
+    )
+    assert all(
+        entry["acknowledgement_status"] == "acknowledged"
+        for entry in acknowledged_response.json()
+    )
+
+    acknowledged_summary = client.get("/audit/summary").json()
+    assert acknowledged_summary["acknowledged_exceptions"] == 1
+    assert acknowledged_summary["resolved_exceptions"] == 0
+    assert acknowledged_summary["dismissed_exceptions"] == 0
+    assert acknowledged_summary["unreviewed_exceptions"] >= 1
+
+    reloaded_store = api_main.JsonStateStore(state_dir=api_main.store.state_dir)
+    assert reloaded_store.audit_acknowledgements[0]["id"] == acknowledgement["id"]
+
+    upsert_response = client.post(
+        "/audit/acknowledgements",
+        json={
+            "exception_id": policy_exception["id"],
+            "exception_source_ref": policy_exception["source_ref"],
+            "exception_type": policy_exception["exception_type"],
+            "status": "dismissed",
+            "reason": "Reclassified as not requiring follow-up.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert upsert_response.status_code == 201
+    upserted_acknowledgement = upsert_response.json()
+    assert upserted_acknowledgement["id"] == acknowledgement["id"]
+    assert upserted_acknowledgement["status"] == "dismissed"
+    assert upserted_acknowledgement["reason"] == "Reclassified as not requiring follow-up."
+    assert len(client.get("/audit/acknowledgements").json()) == 1
+
+    patch_response = client.patch(
+        f"/audit/acknowledgements/{acknowledgement['id']}",
+        json={
+            "status": "resolved",
+            "reason": "Follow-up completed.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert patch_response.status_code == 200
+    resolved_acknowledgement = patch_response.json()
+    assert resolved_acknowledgement["id"] == acknowledgement["id"]
+    assert resolved_acknowledgement["status"] == "resolved"
+    assert resolved_acknowledgement["reason"] == "Follow-up completed."
+    assert resolved_acknowledgement["resolved_at"]
+
+    resolved_events = [
+        event
+        for event in client.get("/events").json()
+        if event["type"] == "audit_exception_resolved"
+    ]
+    dismissed_events = [
+        event
+        for event in client.get("/events").json()
+        if event["type"] == "audit_exception_dismissed"
+    ]
+    assert len(resolved_events) == 1
+    assert len(dismissed_events) == 1
+    assert len(
+        [
+            evidence
+            for evidence in client.get("/evidence").json()
+            if evidence["kind"] == "audit_acknowledgement"
+        ]
+    ) == 3
+
+    unknown_patch_response = client.patch(
+        "/audit/acknowledgements/R19-AUDIT-ACK-999",
+        json={
+            "status": "resolved",
+            "reason": "Unknown id coverage.",
+            "acknowledged_by": "pytest",
+        },
+    )
+    assert unknown_patch_response.status_code == 404
+
+    resolved_response = client.get(
+        "/audit/exceptions",
+        params={"acknowledgement_status": "resolved"},
+    )
+    assert resolved_response.status_code == 200
+    assert any(entry["id"] == policy_exception["id"] for entry in resolved_response.json())
+    assert all(entry["acknowledgement_status"] == "resolved" for entry in resolved_response.json())
+
+    none_response = client.get(
+        "/audit/exceptions",
+        params={"acknowledgement_status": "none"},
+    )
+    assert none_response.status_code == 200
+    assert all(not entry.get("acknowledgement_status") for entry in none_response.json())
+    assert all(entry["id"] != policy_exception["id"] for entry in none_response.json())
+
+    resolved_summary = client.get("/audit/summary").json()
+    assert resolved_summary["acknowledged_exceptions"] == 0
+    assert resolved_summary["resolved_exceptions"] == 1
+    assert resolved_summary["dismissed_exceptions"] == 0
+
+    json_export_response = client.get(
+        "/audit/export",
+        params={"format": "json", "acknowledgement_status": "resolved"},
+    )
+    assert json_export_response.status_code == 200
+    json_export = json_export_response.json()
+    assert json_export["exceptions"]
+    assert json_export["exceptions"][0]["acknowledgement_id"] == acknowledgement["id"]
+    assert json_export["exceptions"][0]["acknowledgement_status"] == "resolved"
+    assert json_export["exceptions"][0]["acknowledgement_reason"] == "Follow-up completed."
+
+    csv_export_response = client.get(
+        "/audit/export",
+        params={"format": "csv", "acknowledgement_status": "resolved"},
+    )
+    assert csv_export_response.status_code == 200
+    csv_text = csv_export_response.text
+    assert "acknowledgement_status,acknowledgement_reason" in csv_text
+    assert "resolved,Follow-up completed." in csv_text
+
+    assert client.get("/policy-overrides").json() == source_policy_overrides
+
+
 def test_work_order_qa_readiness_is_ready_with_submitted_developer_result(
     client: TestClient,
 ) -> None:
